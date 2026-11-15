@@ -1,0 +1,6 @@
+skrf.vi.vna.keysight.FieldFox.is\_continuous
+============================================
+
+.. currentmodule:: skrf.vi.vna.keysight
+
+.. autoproperty:: FieldFox.is_continuous

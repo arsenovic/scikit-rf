@@ -1,0 +1,6 @@
+skrf.vi.validators.EnumValidator.\_\_init\_\_
+=============================================
+
+.. currentmodule:: skrf.vi.validators
+
+.. automethod:: EnumValidator.__init__

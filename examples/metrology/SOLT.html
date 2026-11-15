@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en" data-accent-color="blue" data-content_root="../../">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>SOLT - scikit-rf</title><link rel="author" title="About these documents" href="../../about.html" /><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="SOLT Calibration Standards Creation" href="SOLT%20Calibration%20Standards%20Creation.html" /><link rel="prev" title="One Port Tiered Calibration" href="One%20Port%20Tiered%20Calibration.html" /><script>
+    function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
+    setColorMode(localStorage._theme||"auto");
+  </script><link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=ad592e98" />
+    <link rel="stylesheet" type="text/css" href="../../_static/shibuya.css?v=2ceb65ce" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-codeautolink.css?v=b2176991" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link media="print" rel="stylesheet" type="text/css" href="../../_static/print.css?v=20ff2c19" />
+    <link rel="stylesheet" type="text/css" href="../../_static/nbsphinx-code-cells.css?v=2aa19091" />
+    <link rel="stylesheet" type="text/css" href="../../_static/skrf.css?v=7e772ba2" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --sy-f-text: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+  --sy-f-heading: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+}
+</style>
+    
+  <meta property="og:type" content="website"/><meta property="og:title" content="SOLT"/>
+    <meta name="twitter:card" content="summary"/>
+  </head>
+<body><div class="sy-head">
+  <div class="sy-head-blur"></div>
+  <div class="sy-head-inner sy-container mx-auto">
+    <a class="sy-head-brand" href="../../index.html">
+      <img class="light-logo" src="../../_static/logo.svg" alt="scikit-rf" height="28" loading="lazy" />
+      <img class="dark-logo" src="../../_static/logo.svg" alt="scikit-rf" height="28" loading="lazy" />
+      <strong>scikit-rf</strong>
+    </a>
+    <div class="sy-head-nav" id="head-nav">
+      <nav class="sy-head-links"><ul><li class="link"><a href="../../index.html">Home</a></li><li class="link"><a href="../../tutorials/index.html">Tutorials</a></li><li class="link"><a href="../index.html">Examples</a></li><li class="link"><a href="../../api/index.html">API</a></li><li class="link">
+          <a href="https://github.com/scikit-rf/scikit-rf">
+            <span>GitHub</span><i class="i-lucide external-link"></i></a>
+        </li></ul></nav>
+      <div class="sy-head-extra flex items-center print:hidden"><form class="searchbox flex items-center" action="../../search.html" method="get">
+  <input type="text" name="q" placeholder="Search" />
+  <kbd>/</kbd>
+</form><div class="sy-head-socials">
+  <a href="https://github.com/scikit-rf/scikit-rf" aria-label="GitHub">
+    <iconify-icon icon="simple-icons:github"></iconify-icon>
+  </a>
+  <a href="https://www.linkedin.com/groups/12462155/" aria-label="LinkedIn">
+    <iconify-icon icon="simple-icons:linkedin"></iconify-icon>
+  </a>
+  <a href="https://app.element.io/#/room/#scikit-rf:matrix.org" aria-label="Matrix">
+    <iconify-icon icon="simple-icons:matrix"></iconify-icon>
+  </a></div></div>
+    </div>
+    <div class="sy-head-actions flex items-center shrink-0 print:hidden"><button class="js-theme theme-switch flex items-center"
+data-aria-auto="Switch to light color mode"
+data-aria-light="Switch to dark color mode"
+data-aria-dark="Switch to auto color mode">
+<i class="i-lucide theme-icon"></i>
+</button><button class="md:hidden flex items-center js-menu" aria-label="Menu" type="button" aria-controls="head-nav" aria-expanded="false">
+        <div class="hamburger">
+          <span class="hamburger_1"></span>
+          <span class="hamburger_2"></span>
+          <span class="hamburger_3"></span>
+        </div>
+      </button>
+    </div>
+  </div>
+</div>
+<div class="sy-page sy-container flex mx-auto">
+  <aside id="lside" class="sy-lside md:w-72 md:shrink-0 print:hidden">
+    <div class="sy-lside-inner md:sticky">
+      <div class="sy-scrollbar p-6">
+        <div class="globaltoc" data-expand-depth="0"><p class="caption" role="heading" aria-level="3"><span class="caption-text">Getting started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../index.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/Installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/Introduction.html">Introduction</a></li>
+</ul>
+<p class="caption" role="heading" aria-level="3"><span class="caption-text">User guide</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Examples</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../networktheory/index.html">Network Theory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../matching/index.html">Matching</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Metrology and Calibration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../networksets/index.html">NetworkSets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../plotting/index.html">Plotting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../circuit/index.html">Circuit</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mixedmodeanalysis/index.html">Mixed Mode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../vectorfitting/index.html">Vector Fitting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../vectorfitting_parametric/index.html">Parametric Vector Fitting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../qfactor/index.html">Q-factor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../taper/index.html">Taper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../instrumentcontrol/index.html">Instrument Control</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../interactive/index.html">Interactive</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading" aria-level="3"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../api/index.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../glossary.html">Glossary</a></li>
+</ul>
+<p class="caption" role="heading" aria-level="3"><span class="caption-text">Project</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing/index.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../citations_ack/acknowledging.html">Citing scikit-rf</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../citations_ack/citations.html">scikit-rf Citations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../about.html">About</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../users.html">Users</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../license.html">License</a></li>
+</ul>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="lside-overlay js-menu" role="button" aria-label="Close left sidebar" aria-controls="lside" aria-expanded="false"></div>
+  <aside id="rside" class="sy-rside pb-3 w-64 shrink-0 order-last">
+    <button class="rside-close js-menu xl:hidden" aria-label="Close Table of Contents" type="button" aria-controls="rside" aria-expanded="false">
+      <i class="i-lucide close"></i>
+    </button>
+    <div class="sy-scrollbar sy-rside-inner px-6 xl:top-16 xl:sticky xl:pl-0 pt-6 pb-4"><div class="localtoc"><h3>On this page</h3><ul>
+<li><a class="reference internal" href="#Basic-Use">Basic Use</a><ul>
+<li><a class="reference internal" href="#Imports">Imports</a></li>
+<li><a class="reference internal" href="#Typical-SOLT-Procedure">Typical SOLT Procedure</a><ul>
+<li><a class="reference internal" href="#Measure-Two-Standards-Separately">Measure Two Standards Separately</a></li>
+<li><a class="reference internal" href="#Measure-Two-Standards-Simultaneously">Measure Two Standards Simultaneously</a></li>
+<li><a class="reference internal" href="#Isolation-Calibration">Isolation Calibration</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#Code">Code</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#Example">Example</a></li>
+</ul>
+</div><div id="ethical-ad-placement" data-ea-publisher="readthedocs"></div></div>
+  </aside>
+  <div class="rside-overlay js-menu" role="button" aria-label="Close Table of Contents" aria-controls="rside" aria-expanded="false"></div>
+  <main class="sy-main w-full max-sm:max-w-full print:pt-6">
+<div class="sy-breadcrumbs" role="navigation">
+  <div class="sy-breadcrumbs-inner flex items-center">
+    <div class="md:hidden mr-3">
+      <button class="js-menu" aria-label="Menu" type="button" aria-controls="lside" aria-expanded="false">
+        <i class="i-lucide menu"></i>
+      </button>
+    </div>
+    <ol class="flex-1" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="../../index.html"><span itemprop="name">scikit-rf</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="1" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="../index.html"><span itemprop="name">Examples</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="2" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="index.html"><span itemprop="name">Metrology and Calibration</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="3" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <strong itemprop="name">SOLT</strong>
+        <meta itemprop="position" content="4" />
+      </li></ol>
+    <a class="sk-download" href="SOLT.ipynb" download>Download</a>
+    <div class="xl:hidden ml-1">
+      <button class="js-menu" aria-label="Show table of contents" type="button" aria-controls="rside"
+        aria-expanded="false">
+        <i class="i-lucide outdent"></i>
+      </button>
+    </div>
+  </div>
+</div><div class="flex flex-col break-words justify-between">
+      <div class="relative min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
+  <article class="yue" role="main">
+          <section id="SOLT">
+<h1>SOLT<a class="headerlink" href="#SOLT" title="Link to this heading">#</a></h1>
+<p>This little example demonstrates how to use scikit-rf for a basic SOLT calibration.</p>
+<section id="Basic-Use">
+<h2>Basic Use<a class="headerlink" href="#Basic-Use" title="Link to this heading">#</a></h2>
+<section id="Imports">
+<h3>Imports<a class="headerlink" href="#Imports" title="Link to this heading">#</a></h3>
+<p>First we import <code class="docutils literal notranslate"><span class="pre">skrf</span></code>, the <code class="docutils literal notranslate"><span class="pre">SOLT</span></code> class, and setup matplotlib plotting.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[1]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="kn">import</span><span class="w"> </span><span class="nn">skrf</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">rf</span>
+</span><span data-line="2"><span class="kn">from</span><span class="w"> </span><a class="sphinx-codeautolink-a" href="../../api/network.html#module-0"><span class="nn">skrf.network</span></a><span class="w"> </span><span class="kn">import</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.two_port_reflect.html#skrf.network.two_port_reflect" title="skrf.network.two_port_reflect"><span class="n">two_port_reflect</span></a>
+</span><span data-line="3">
+</span><span data-line="4"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.plotting.stylely.html#skrf.plotting.stylely" title="skrf.plotting.stylely"><span class="n">rf</span><span class="o">.</span><span class="n">stylely</span></a><span class="p">()</span>
+</span></pre></div>
+</div>
+</div>
+</section>
+<section id="Typical-SOLT-Procedure">
+<h3>Typical SOLT Procedure<a class="headerlink" href="#Typical-SOLT-Procedure" title="Link to this heading">#</a></h3>
+<p>A two-port calibration is accomplished in an identical way to one-port. However, scikit-rf only accepts measurement results as two-port networks, even for reflective and load standards.</p>
+<section id="Measure-Two-Standards-Separately">
+<h4>Measure Two Standards Separately<a class="headerlink" href="#Measure-Two-Standards-Separately" title="Link to this heading">#</a></h4>
+<p>If you don’t have two sets of calibration standards, no worries! It’s possible to measure reflective standards on each port separately. For example, connect a short to port-1, save a one-port measurement as <code class="docutils literal notranslate"><span class="pre">short.s1p</span></code>, then move the same short to port-2, save another one-port measurement as <code class="docutils literal notranslate"><span class="pre">short2.s1p</span></code> or similar.</p>
+<p>Next, you can forge a two-port Network from two one-port Network using the function <code class="docutils literal notranslate"><span class="pre">skrf.network.two_port_reflect</span></code>:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">short = rf.Network('ideals/short.s1p')  # a 1-port Network
+</span><span data-line="2">shorts = two_port_reflect(short, short)  # a 2-port Network
+</span></pre></div>
+</div>
+<p>The function <code class="docutils literal notranslate"><span class="pre">skrf.network.two_port_reflect</span></code> does this:</p>
+<p><img alt="66254d33287c4b2d8901d36cf2105475" class="no-scaled-link" src="../../_images/2_1port_to_1_2port.svg" style="width: 50%;"/></p>
+</section>
+<section id="Measure-Two-Standards-Simultaneously">
+<h4>Measure Two Standards Simultaneously<a class="headerlink" href="#Measure-Two-Standards-Simultaneously" title="Link to this heading">#</a></h4>
+<p>Often, it’s possible to measure two reflective standards simultaneously, then to directly store your data as a two-port network. For example, connect the first short standard to port-1 and a second short to port-2, and save everything as a two-port measurement, such as <code class="docutils literal notranslate"><span class="pre">short,short.s2p</span></code> or similar.</p>
+<p><img alt="abb581acad7147a383f2e099a2c5be78" class="no-scaled-link" src="../../_images/VNA_2_1port.svg" style="width: 30%;"/></p>
+</section>
+<section id="Isolation-Calibration">
+<h4>Isolation Calibration<a class="headerlink" href="#Isolation-Calibration" title="Link to this heading">#</a></h4>
+<p>For Open, Short, and Load calibrations, even though the inputs are supplied to scikit-rf as 2-port networks with four S-parameters in each, <span class="math notranslate nohighlight">\(S_{21}\)</span>, and <span class="math notranslate nohighlight">\(S_{12}\)</span> are ignored - by definition, both are equal to 0. Only <span class="math notranslate nohighlight">\(S_{11}\)</span> and <span class="math notranslate nohighlight">\(S_{22}\)</span> are used, this is true even for a Load-Load measurement. Thus, no isolation calibration takes place by default.</p>
+<p>If isolation calibration is needed, one must explicitly tell scikit-rf to do so. Specifically, <code class="docutils literal notranslate"><span class="pre">SOLT()</span></code> class accepts an optional parameter <code class="docutils literal notranslate"><span class="pre">isolation</span></code> for this purpose. To calibrate isolation, set this parameter to a two-port network, representing the measurement result with loads on both ports.</p>
+</section>
+</section>
+<section id="Code">
+<h3>Code<a class="headerlink" href="#Code" title="Link to this heading">#</a></h3>
+<p>The typical workflow for a SOLT calibration is:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1"># a list of Network types, holding 'ideal' responses
+</span><span data-line="2">my_ideals = [
+</span><span data-line="3">    rf.Network('ideal/short, short.s2p'),
+</span><span data-line="4">    rf.Network('ideal/open, open.s2p'),
+</span><span data-line="5">    rf.Network('ideal/load, load.s2p'),
+</span><span data-line="6">    rf.Network('ideal/thru.s2p'),
+</span><span data-line="7">    ]
+</span><span data-line="8">
+</span><span data-line="9"># a list of Network types, holding 'measured' responses
+</span><span data-line="10">my_measured = [
+</span><span data-line="11">    rf.Network('measured/short, short.s2p'),
+</span><span data-line="12">    rf.Network('measured/open, open.s2p'),
+</span><span data-line="13">    rf.Network('measured/load, load.s2p'),
+</span><span data-line="14">    rf.Network('measured/thru.s2p'),
+</span><span data-line="15">    ]
+</span><span data-line="16">
+</span><span data-line="17">## create a SOLT instance
+</span><span data-line="18">cal = SOLT(
+</span><span data-line="19">    ideals = my_ideals,
+</span><span data-line="20">    measured = my_measured,
+</span><span data-line="21">    isolation = rf.Network('measured/load, load.s2p'),
+</span><span data-line="22">    # isolation calibration is optional, it can be removed.
+</span><span data-line="23">    )
+</span><span data-line="24">
+</span><span data-line="25">## run, and apply calibration to a DUT
+</span><span data-line="26"># run calibration algorithm
+</span><span data-line="27">cal.run()
+</span><span data-line="28">
+</span><span data-line="29"># apply it to a dut
+</span><span data-line="30">dut = rf.Network('my_dut.s2p')
+</span><span data-line="31">dut_caled = cal.apply_cal(dut)
+</span><span data-line="32">
+</span><span data-line="33"># plot results
+</span><span data-line="34">dut_caled.plot_s_db()
+</span><span data-line="35"># save results
+</span><span data-line="36">dut_caled.write_touchstone()
+</span></pre></div>
+</div>
+</section>
+</section>
+<section id="Example">
+<h2>Example<a class="headerlink" href="#Example" title="Link to this heading">#</a></h2>
+<p>The following example illustrates a common situation: a DUT is connected to a VNA using two cables of different lengths. The purpose of the calibration is to move the reference plane do the DUT, that is to remove the effect of the cables from the measurement.</p>
+<p><img alt="6ed46829d5b44aa8a24a9eab9948eb57" class="no-scaled-link" src="../../_images/line1_dut_line2.svg" style="width: 60%;"/></p>
+<p>In the example below, the DUT is already known, just to be able to confirm that the calibration method is working at the end. Of course, in reality, the DUT is generally not known…</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[2]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><a class="sphinx-codeautolink-a" href="../../api/data/generated/skrf.data.ring_slot.html#skrf.data.ring_slot" title="skrf.data.ring_slot"><span class="n">dut</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/data/generated/skrf.data.ring_slot.html#skrf.data.ring_slot" title="skrf.data.ring_slot"><span class="n">rf</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">ring_slot</span></a>
+</span><span data-line="2"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.plot_s_db.html#skrf.network.Network.plot_s_db" title="skrf.network.Network.plot_s_db"><span class="n">dut</span><span class="o">.</span><span class="n">plot_s_db</span></a><span class="p">(</span><span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>  <span class="c1"># this is what we should find after the calibration</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/examples_metrology_SOLT_11_0.png" src="../../_images/examples_metrology_SOLT_11_0.png"/>
+</div>
+</div>
+<p>The ideal component Networks are obtained from your calibration kit manufacturers or from modelling.</p>
+<p>In this example, we simulate ideal components from transmission line theory. We create a lossy and noisy transmission line (for the sake of the example).</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[3]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><a class="sphinx-codeautolink-a" href="../../api/media/generated/skrf.media.media.DefinedGammaZ0.html#skrf.media.media.DefinedGammaZ0" title="skrf.media.media.DefinedGammaZ0"><span class="n">media</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/media/generated/skrf.media.media.DefinedGammaZ0.html#skrf.media.media.DefinedGammaZ0" title="skrf.media.media.DefinedGammaZ0"><span class="n">rf</span><span class="o">.</span><span class="n">media</span><span class="o">.</span><span class="n">DefinedGammaZ0</span></a><span class="p">(</span><span class="n">frequency</span><span class="o">=</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.frequency.html#skrf.network.Network.frequency" title="skrf.network.Network.frequency"><span class="n">dut</span><span class="o">.</span><span class="n">frequency</span></a><span class="p">,</span> <span class="n">gamma</span><span class="o">=</span><span class="mf">0.5</span> <span class="o">+</span> <span class="mi">1</span><span class="n">j</span><span class="p">)</span>
+</span></pre></div>
+</div>
+</div>
+<p>Then we create the ideal components: Short, Open and Load, and Through. By default, the methods <code class="docutils literal notranslate"><span class="pre">media.short()</span></code>, <code class="docutils literal notranslate"><span class="pre">media.open()</span></code>, and <code class="docutils literal notranslate"><span class="pre">media.match()</span></code> return a one-port network, the SOLT class expects a list of two-port Network, so <code class="docutils literal notranslate"><span class="pre">two_port_reflect()</span></code> is needed to forge a two-port network from two one-port networks (<code class="docutils literal notranslate"><span class="pre">media.thru()</span></code> returns a two-port network and no adjustment is needed).</p>
+<p>Alternatively, the argument <code class="docutils literal notranslate"><span class="pre">nports=2</span></code> can be used as a shorthand for this task.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[4]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="c1"># ideal 1-port Networks</span>
+</span><span data-line="2"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">short_ideal</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/media/generated/skrf.media.media.DefinedGammaZ0.short.html#skrf.media.media.DefinedGammaZ0.short" title="skrf.media.media.DefinedGammaZ0.short"><span class="n">media</span><span class="o">.</span><span class="n">short</span></a><span class="p">()</span>
+</span><span data-line="3"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">open_ideal</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/media/generated/skrf.media.media.DefinedGammaZ0.open.html#skrf.media.media.DefinedGammaZ0.open" title="skrf.media.media.DefinedGammaZ0.open"><span class="n">media</span><span class="o">.</span><span class="n">open</span></a><span class="p">()</span>
+</span><span data-line="4"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">load_ideal</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/media/generated/skrf.media.media.DefinedGammaZ0.match.html#skrf.media.media.DefinedGammaZ0.match" title="skrf.media.media.DefinedGammaZ0.match"><span class="n">media</span><span class="o">.</span><span class="n">match</span></a><span class="p">()</span>  <span class="c1"># could also be: media.load(Gamma0=0)</span>
+</span><span data-line="5"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">thru_ideal</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/media/generated/skrf.media.media.DefinedGammaZ0.thru.html#skrf.media.media.DefinedGammaZ0.thru" title="skrf.media.media.DefinedGammaZ0.thru"><span class="n">media</span><span class="o">.</span><span class="n">thru</span></a><span class="p">()</span>
+</span><span data-line="6">
+</span><span data-line="7"><span class="c1"># forge a two-port network from two one-port networks</span>
+</span><span data-line="8"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">short_ideal_2p</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.two_port_reflect.html#skrf.network.two_port_reflect" title="skrf.network.two_port_reflect"><span class="n">two_port_reflect</span></a><span class="p">(</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">short_ideal</span></a><span class="p">,</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">short_ideal</span></a><span class="p">)</span>
+</span><span data-line="9"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">open_ideal_2p</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.two_port_reflect.html#skrf.network.two_port_reflect" title="skrf.network.two_port_reflect"><span class="n">two_port_reflect</span></a><span class="p">(</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">open_ideal</span></a><span class="p">,</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">open_ideal</span></a><span class="p">)</span>
+</span><span data-line="10"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">load_ideal_2p</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.two_port_reflect.html#skrf.network.two_port_reflect" title="skrf.network.two_port_reflect"><span class="n">two_port_reflect</span></a><span class="p">(</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">load_ideal</span></a><span class="p">,</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">load_ideal</span></a><span class="p">)</span>
+</span><span data-line="11">
+</span><span data-line="12"><span class="c1"># alternatively, the "nport=2" argument can be used as a shorthand</span>
+</span><span data-line="13"><span class="c1"># short_ideal_2p = media.short(nports=2)</span>
+</span><span data-line="14"><span class="c1"># open_ideal_2p = media.open(nports=2)</span>
+</span><span data-line="15"><span class="c1"># load_ideal_2p = media.match(nports=2)</span>
+</span></pre></div>
+</div>
+</div>
+<p>Now that we have our ideal elements, let’s fake the measurements.</p>
+<p>Note that the transmission lines are not symmetric in the example below, to make it as generic as possible. In such case, it is necessary to call the <a class="reference internal" href="../../api/generated/skrf.network.Network.flipped.html"><span class="doc">flipped()</span></a> method to connect the ideal elements on the correct side of the <code class="docutils literal notranslate"><span class="pre">line2</span></code> object.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[5]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="c1"># left and right piece of transmission lines</span>
+</span><span data-line="2"><span class="n">line1</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/media/generated/skrf.media.media.DefinedGammaZ0.line.html#skrf.media.media.DefinedGammaZ0.line" title="skrf.media.media.DefinedGammaZ0.line"><span class="n">media</span><span class="o">.</span><span class="n">line</span></a><span class="p">(</span><span class="n">d</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s1">'cm'</span><span class="p">)</span><span class="o">**</span><a class="sphinx-codeautolink-a" href="../../api/media/generated/skrf.media.media.DefinedGammaZ0.impedance_mismatch.html#skrf.media.media.DefinedGammaZ0.impedance_mismatch" title="skrf.media.media.DefinedGammaZ0.impedance_mismatch"><span class="n">media</span><span class="o">.</span><span class="n">impedance_mismatch</span></a><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+</span><span data-line="3"><span class="n">line2</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/media/generated/skrf.media.media.DefinedGammaZ0.line.html#skrf.media.media.DefinedGammaZ0.line" title="skrf.media.media.DefinedGammaZ0.line"><span class="n">media</span><span class="o">.</span><span class="n">line</span></a><span class="p">(</span><span class="n">d</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s1">'cm'</span><span class="p">)</span><span class="o">**</span><a class="sphinx-codeautolink-a" href="../../api/media/generated/skrf.media.media.DefinedGammaZ0.impedance_mismatch.html#skrf.media.media.DefinedGammaZ0.impedance_mismatch" title="skrf.media.media.DefinedGammaZ0.impedance_mismatch"><span class="n">media</span><span class="o">.</span><span class="n">impedance_mismatch</span></a><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>
+</span><span data-line="4">
+</span><span data-line="5"><span class="c1"># add some noise to make it more realistic</span>
+</span><span data-line="6"><span class="n">line1</span><span class="o">.</span><span class="n">add_noise_polar</span><span class="p">(</span><span class="mf">.01</span><span class="p">,</span> <span class="mf">.1</span><span class="p">)</span>
+</span><span data-line="7"><span class="n">line2</span><span class="o">.</span><span class="n">add_noise_polar</span><span class="p">(</span><span class="mf">.01</span><span class="p">,</span> <span class="mf">.1</span><span class="p">)</span>
+</span><span data-line="8">
+</span><span data-line="9"><span class="c1"># fake the measured setup</span>
+</span><span data-line="10"><span class="n">measured</span> <span class="o">=</span> <span class="n">line1</span> <span class="o">**</span> <a class="sphinx-codeautolink-a" href="../../api/data/generated/skrf.data.ring_slot.html#skrf.data.ring_slot" title="skrf.data.ring_slot"><span class="n">dut</span></a>  <span class="o">**</span> <span class="n">line2</span>
+</span><span data-line="11">
+</span><span data-line="12"><span class="c1"># fake the calibration measurements</span>
+</span><span data-line="13"><span class="c1"># Note the use of flipped() on line2</span>
+</span><span data-line="14"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">open_measured</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.two_port_reflect.html#skrf.network.two_port_reflect" title="skrf.network.two_port_reflect"><span class="n">two_port_reflect</span></a><span class="p">(</span><span class="n">line1</span> <span class="o">**</span> <a class="sphinx-codeautolink-a" href="../../api/media/generated/skrf.media.media.DefinedGammaZ0.open.html#skrf.media.media.DefinedGammaZ0.open" title="skrf.media.media.DefinedGammaZ0.open"><span class="n">media</span><span class="o">.</span><span class="n">open</span></a><span class="p">(),</span> <span class="n">line2</span><span class="o">.</span><span class="n">flipped</span><span class="p">()</span> <span class="o">**</span> <a class="sphinx-codeautolink-a" href="../../api/media/generated/skrf.media.media.DefinedGammaZ0.open.html#skrf.media.media.DefinedGammaZ0.open" title="skrf.media.media.DefinedGammaZ0.open"><span class="n">media</span><span class="o">.</span><span class="n">open</span></a><span class="p">())</span>
+</span><span data-line="15"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">short_measured</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.two_port_reflect.html#skrf.network.two_port_reflect" title="skrf.network.two_port_reflect"><span class="n">two_port_reflect</span></a><span class="p">(</span><span class="n">line1</span> <span class="o">**</span> <a class="sphinx-codeautolink-a" href="../../api/media/generated/skrf.media.media.DefinedGammaZ0.short.html#skrf.media.media.DefinedGammaZ0.short" title="skrf.media.media.DefinedGammaZ0.short"><span class="n">media</span><span class="o">.</span><span class="n">short</span></a><span class="p">(),</span> <span class="n">line2</span><span class="o">.</span><span class="n">flipped</span><span class="p">()</span> <span class="o">**</span> <a class="sphinx-codeautolink-a" href="../../api/media/generated/skrf.media.media.DefinedGammaZ0.short.html#skrf.media.media.DefinedGammaZ0.short" title="skrf.media.media.DefinedGammaZ0.short"><span class="n">media</span><span class="o">.</span><span class="n">short</span></a><span class="p">())</span>
+</span><span data-line="16"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">load_measured</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.two_port_reflect.html#skrf.network.two_port_reflect" title="skrf.network.two_port_reflect"><span class="n">two_port_reflect</span></a><span class="p">(</span><span class="n">line1</span> <span class="o">**</span> <a class="sphinx-codeautolink-a" href="../../api/media/generated/skrf.media.media.DefinedGammaZ0.load.html#skrf.media.media.DefinedGammaZ0.load" title="skrf.media.media.DefinedGammaZ0.load"><span class="n">media</span><span class="o">.</span><span class="n">load</span></a><span class="p">(</span><span class="n">Gamma0</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span> <span class="n">line2</span><span class="o">.</span><span class="n">flipped</span><span class="p">()</span> <span class="o">**</span> <a class="sphinx-codeautolink-a" href="../../api/media/generated/skrf.media.media.DefinedGammaZ0.load.html#skrf.media.media.DefinedGammaZ0.load" title="skrf.media.media.DefinedGammaZ0.load"><span class="n">media</span><span class="o">.</span><span class="n">load</span></a><span class="p">(</span><span class="n">Gamma0</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span>
+</span><span data-line="17"><span class="n">thru_measured</span> <span class="o">=</span> <span class="n">line1</span> <span class="o">**</span> <span class="n">line2</span>
+</span></pre></div>
+</div>
+</div>
+<p>We can now create the lists of Network that the <code class="docutils literal notranslate"><span class="pre">SOLT</span></code> class expects:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[6]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="c1"># a list of Network types, holding 'ideal' responses</span>
+</span><span data-line="2"><span class="n">my_ideals</span> <span class="o">=</span> <span class="p">[</span>
+</span><span data-line="3">    <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">short_ideal_2p</span></a><span class="p">,</span>
+</span><span data-line="4">    <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">open_ideal_2p</span></a><span class="p">,</span>
+</span><span data-line="5">    <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">load_ideal_2p</span></a><span class="p">,</span>
+</span><span data-line="6">    <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">thru_ideal</span></a><span class="p">,</span>   <span class="c1"># Thru should be the last</span>
+</span><span data-line="7">    <span class="p">]</span>
+</span><span data-line="8">
+</span><span data-line="9"><span class="c1"># a list of Network types, holding 'measured' responses</span>
+</span><span data-line="10"><span class="n">my_measured</span> <span class="o">=</span> <span class="p">[</span>
+</span><span data-line="11">    <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">short_measured</span></a><span class="p">,</span>
+</span><span data-line="12">    <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">open_measured</span></a><span class="p">,</span>
+</span><span data-line="13">    <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">load_measured</span></a><span class="p">,</span>
+</span><span data-line="14">    <span class="n">thru_measured</span><span class="p">,</span>   <span class="c1"># Thru should be the last</span>
+</span><span data-line="15"><span class="p">]</span>
+</span><span data-line="16">
+</span><span data-line="17"><span class="c1">## create a SOLT instance</span>
+</span><span data-line="18"><a class="sphinx-codeautolink-a" href="../../api/calibration/generated/skrf.calibration.calibration.SOLT.html#skrf.calibration.calibration.SOLT" title="skrf.calibration.calibration.SOLT"><span class="n">cal</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/calibration/generated/skrf.calibration.calibration.SOLT.html#skrf.calibration.calibration.SOLT" title="skrf.calibration.calibration.SOLT"><span class="n">rf</span><span class="o">.</span><span class="n">calibration</span><span class="o">.</span><span class="n">SOLT</span></a><span class="p">(</span>
+</span><span data-line="19">    <span class="n">ideals</span> <span class="o">=</span> <span class="n">my_ideals</span><span class="p">,</span>
+</span><span data-line="20">    <span class="n">measured</span> <span class="o">=</span> <span class="n">my_measured</span><span class="p">,</span>
+</span><span data-line="21">    <span class="p">)</span>
+</span></pre></div>
+</div>
+</div>
+<p>And finally apply the calibration:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[7]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="c1"># run calibration algorithm</span>
+</span><span data-line="2"><a class="sphinx-codeautolink-a" href="../../api/calibration/generated/skrf.calibration.calibration.SOLT.run.html#skrf.calibration.calibration.SOLT.run" title="skrf.calibration.calibration.SOLT.run"><span class="n">cal</span><span class="o">.</span><span class="n">run</span></a><span class="p">()</span>
+</span><span data-line="3">
+</span><span data-line="4"><span class="c1"># apply it to a dut</span>
+</span><span data-line="5"><span class="n">measured_caled</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/calibration/generated/skrf.calibration.calibration.SOLT.apply_cal.html#skrf.calibration.calibration.SOLT.apply_cal" title="skrf.calibration.calibration.SOLT.apply_cal"><span class="n">cal</span><span class="o">.</span><span class="n">apply_cal</span></a><span class="p">(</span><span class="n">measured</span><span class="p">)</span>
+</span></pre></div>
+</div>
+</div>
+<p>Let’s see the results for S11 and S21:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[8]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">measured</span><span class="o">.</span><span class="n">plot_s_db</span><span class="p">(</span><span class="n">m</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">'measured'</span><span class="p">)</span>
+</span><span data-line="2"><span class="n">measured_caled</span><span class="o">.</span><span class="n">plot_s_db</span><span class="p">(</span><span class="n">m</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">'caled'</span><span class="p">)</span>
+</span><span data-line="3"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.plot_s_db.html#skrf.network.Network.plot_s_db" title="skrf.network.Network.plot_s_db"><span class="n">dut</span><span class="o">.</span><span class="n">plot_s_db</span></a><span class="p">(</span><span class="n">m</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">'--'</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">'expected'</span><span class="p">)</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/examples_metrology_SOLT_23_0.png" src="../../_images/examples_metrology_SOLT_23_0.png"/>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[9]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">measured</span><span class="o">.</span><span class="n">plot_s_db</span><span class="p">(</span><span class="n">m</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">'measured'</span><span class="p">)</span>
+</span><span data-line="2"><span class="n">measured_caled</span><span class="o">.</span><span class="n">plot_s_db</span><span class="p">(</span><span class="n">m</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">'caled'</span><span class="p">)</span>
+</span><span data-line="3"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.plot_s_db.html#skrf.network.Network.plot_s_db" title="skrf.network.Network.plot_s_db"><span class="n">dut</span><span class="o">.</span><span class="n">plot_s_db</span></a><span class="p">(</span><span class="n">m</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">'--'</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">'expected'</span><span class="p">)</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/examples_metrology_SOLT_24_0.png" src="../../_images/examples_metrology_SOLT_24_0.png"/>
+</div>
+</div>
+<p>The caled Network is (mostly) equal the DUT as expected:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[10]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><a class="sphinx-codeautolink-a" href="../../api/data/generated/skrf.data.ring_slot.html#skrf.data.ring_slot" title="skrf.data.ring_slot"><span class="n">dut</span></a> <span class="o">==</span> <span class="n">measured</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[10]:
+</span></pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+False
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[11]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><a class="sphinx-codeautolink-a" href="../../api/data/generated/skrf.data.ring_slot.html#skrf.data.ring_slot" title="skrf.data.ring_slot"><span class="n">dut</span></a> <span class="o">==</span> <span class="n">measured_caled</span>  <span class="c1"># within 1e-4 absolute tolerance</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[11]:
+</span></pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+True
+</pre></div></div>
+</div>
+</section>
+</section>
+
+        </article><button class="back-to-top" type="button">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+  </svg>
+  <span>Back to top</span>
+</button><div class="navigation flex print:hidden"><div class="navigation-prev">
+    <a href="One%20Port%20Tiered%20Calibration.html">
+      <i class="i-lucide chevron-left"></i>
+      <div class="page-info">
+        <span>Previous</span><div class="title">One Port Tiered Calibration</div></div>
+    </a>
+  </div><div class="navigation-next">
+    <a href="SOLT%20Calibration%20Standards%20Creation.html">
+      <div class="page-info">
+        <span>Next</span>
+        <div class="title">SOLT Calibration Standards Creation</div>
+      </div>
+      <i class="i-lucide chevron-right"></i>
+    </a>
+  </div></div></div>
+    </div>
+  </main>
+</div>
+<footer class="sy-foot">
+  <div class="sy-foot-inner sy-container mx-auto">
+    <div class="sy-foot-reserved md:flex justify-between items-center">
+      <div class="sy-foot-copyright"><p>2025, scikit-rf team</p>
+  
+  <p>
+    Made with
+    
+    <a href="https://www.sphinx-doc.org/">Sphinx</a> and
+    
+    <a href="https://shibuya.lepture.com">Shibuya theme</a>.
+  </p>
+</div>
+      <div class="sy-foot-socials">
+  <a href="https://github.com/scikit-rf/scikit-rf" aria-label="GitHub">
+    <iconify-icon icon="simple-icons:github"></iconify-icon>
+  </a></div>
+    </div>
+  </div>
+</footer>
+      <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../_static/copybutton.js?v=34bd459d"></script>
+      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+      <script src="../../_static/shibuya.js?v=50760d75"></script>
+      <script src="https://cdn.jsdelivr.net/npm/@jupyter-widgets/html-manager@^1.0.1/dist/embed-amd.js"></script>
+      <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
+      <script src="../../_static/skrf.js?v=bdeb9fb0"></script></body>
+</html>

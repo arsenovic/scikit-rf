@@ -1,0 +1,6 @@
+skrf.media.distributedCircuit.DistributedCircuit.inductor\_q
+============================================================
+
+.. currentmodule:: skrf.media.distributedCircuit
+
+.. automethod:: DistributedCircuit.inductor_q

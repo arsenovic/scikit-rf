@@ -1,0 +1,6 @@
+skrf.calibration.calibration.TUGMultilineTRL.nstandards
+=======================================================
+
+.. currentmodule:: skrf.calibration.calibration
+
+.. autoproperty:: TUGMultilineTRL.nstandards

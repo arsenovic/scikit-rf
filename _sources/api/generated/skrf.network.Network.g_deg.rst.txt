@@ -1,0 +1,6 @@
+skrf.network.Network.g\_deg
+===========================
+
+.. currentmodule:: skrf.network
+
+.. autoproperty:: Network.g_deg

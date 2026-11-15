@@ -1,0 +1,6 @@
+﻿skrf.mathFunctions.db\_2\_magnitude
+===================================
+
+.. currentmodule:: skrf.mathFunctions
+
+.. autofunction:: db_2_magnitude

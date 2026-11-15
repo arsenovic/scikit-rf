@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en" data-accent-color="blue" data-content_root="../">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Contributing to scikit-rf - scikit-rf</title><link rel="author" title="About these documents" href="../about.html" /><link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Acknowledging or Citing scikit-rf" href="../citations_ack/acknowledging.html" /><link rel="prev" title="Glossary" href="../glossary.html" /><script>
+    function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
+    setColorMode(localStorage._theme||"auto");
+  </script><link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=ad592e98" />
+    <link rel="stylesheet" type="text/css" href="../_static/shibuya.css?v=2ceb65ce" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-codeautolink.css?v=b2176991" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link media="print" rel="stylesheet" type="text/css" href="../_static/print.css?v=20ff2c19" />
+    <link rel="stylesheet" type="text/css" href="../_static/skrf.css?v=7e772ba2" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --sy-f-text: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+  --sy-f-heading: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+}
+</style>
+    
+  <meta property="og:type" content="website"/><meta property="og:title" content="Contributing to scikit-rf"/>
+    <meta name="twitter:card" content="summary"/>
+  </head>
+<body><div class="sy-head">
+  <div class="sy-head-blur"></div>
+  <div class="sy-head-inner sy-container mx-auto">
+    <a class="sy-head-brand" href="../index.html">
+      <img class="light-logo" src="../_static/logo.svg" alt="scikit-rf" height="28" loading="lazy" />
+      <img class="dark-logo" src="../_static/logo.svg" alt="scikit-rf" height="28" loading="lazy" />
+      <strong>scikit-rf</strong>
+    </a>
+    <div class="sy-head-nav" id="head-nav">
+      <nav class="sy-head-links"><ul><li class="link"><a href="../index.html">Home</a></li><li class="link"><a href="../tutorials/index.html">Tutorials</a></li><li class="link"><a href="../examples/index.html">Examples</a></li><li class="link"><a href="../api/index.html">API</a></li><li class="link">
+          <a href="https://github.com/scikit-rf/scikit-rf">
+            <span>GitHub</span><i class="i-lucide external-link"></i></a>
+        </li></ul></nav>
+      <div class="sy-head-extra flex items-center print:hidden"><form class="searchbox flex items-center" action="../search.html" method="get">
+  <input type="text" name="q" placeholder="Search" />
+  <kbd>/</kbd>
+</form><div class="sy-head-socials">
+  <a href="https://github.com/scikit-rf/scikit-rf" aria-label="GitHub">
+    <iconify-icon icon="simple-icons:github"></iconify-icon>
+  </a>
+  <a href="https://www.linkedin.com/groups/12462155/" aria-label="LinkedIn">
+    <iconify-icon icon="simple-icons:linkedin"></iconify-icon>
+  </a>
+  <a href="https://app.element.io/#/room/#scikit-rf:matrix.org" aria-label="Matrix">
+    <iconify-icon icon="simple-icons:matrix"></iconify-icon>
+  </a></div></div>
+    </div>
+    <div class="sy-head-actions flex items-center shrink-0 print:hidden"><button class="js-theme theme-switch flex items-center"
+data-aria-auto="Switch to light color mode"
+data-aria-light="Switch to dark color mode"
+data-aria-dark="Switch to auto color mode">
+<i class="i-lucide theme-icon"></i>
+</button><button class="md:hidden flex items-center js-menu" aria-label="Menu" type="button" aria-controls="head-nav" aria-expanded="false">
+        <div class="hamburger">
+          <span class="hamburger_1"></span>
+          <span class="hamburger_2"></span>
+          <span class="hamburger_3"></span>
+        </div>
+      </button>
+    </div>
+  </div>
+</div>
+<div class="sy-page sy-container flex mx-auto">
+  <aside id="lside" class="sy-lside md:w-72 md:shrink-0 print:hidden">
+    <div class="sy-lside-inner md:sticky">
+      <div class="sy-scrollbar p-6">
+        <div class="globaltoc" data-expand-depth="0"><p class="caption" role="heading" aria-level="3"><span class="caption-text">Getting started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/Installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/Introduction.html">Introduction</a></li>
+</ul>
+<p class="caption" role="heading" aria-level="3"><span class="caption-text">User guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/index.html">Examples</a></li>
+</ul>
+<p class="caption" role="heading" aria-level="3"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../api/index.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../glossary.html">Glossary</a></li>
+</ul>
+<p class="caption" role="heading" aria-level="3"><span class="caption-text">Project</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Contributing</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#sponsoring-the-project">Sponsoring the Project</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#contributing-to-the-code">Contributing to the Code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#contributing-to-the-documentation">Contributing to the Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#join-the-scikit-rf-team">Join the <strong>scikit-rf</strong> team!</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../citations_ack/acknowledging.html">Citing scikit-rf</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../citations_ack/citations.html">scikit-rf Citations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../about.html">About</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../users.html">Users</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../license.html">License</a></li>
+</ul>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="lside-overlay js-menu" role="button" aria-label="Close left sidebar" aria-controls="lside" aria-expanded="false"></div>
+  <aside id="rside" class="sy-rside pb-3 w-64 shrink-0 order-last">
+    <button class="rside-close js-menu xl:hidden" aria-label="Close Table of Contents" type="button" aria-controls="rside" aria-expanded="false">
+      <i class="i-lucide close"></i>
+    </button>
+    <div class="sy-scrollbar sy-rside-inner px-6 xl:top-16 xl:sticky xl:pl-0 pt-6 pb-4"><div class="localtoc"><h3>On this page</h3><ul>
+<li><a class="reference internal" href="#sponsoring-the-project">Sponsoring the Project</a></li>
+<li><a class="reference internal" href="#contributing-to-the-code">Contributing to the Code</a><ul>
+<li><a class="reference internal" href="#prek">Prek</a></li>
+<li><a class="reference internal" href="#basic-git-command-line-workflow">Basic git command-line workflow</a></li>
+<li><a class="reference internal" href="#staying-synchronized">Staying Synchronized</a></li>
+<li><a class="reference internal" href="#tests">Tests</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#contributing-to-the-documentation">Contributing to the Documentation</a><ul>
+<li><a class="reference internal" href="#examples-and-tutorials">Examples and Tutorials</a></li>
+<li><a class="reference internal" href="#reference-api-or-static-documentation">Reference (API) or static documentation</a></li>
+<li><a class="reference internal" href="#building-the-documentation-locally">Building the documentation locally</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#join-the-scikit-rf-team">Join the <strong>scikit-rf</strong> team!</a></li>
+</ul>
+</div><div id="ethical-ad-placement" data-ea-publisher="readthedocs"></div></div>
+  </aside>
+  <div class="rside-overlay js-menu" role="button" aria-label="Close Table of Contents" aria-controls="rside" aria-expanded="false"></div>
+  <main class="sy-main w-full max-sm:max-w-full print:pt-6">
+<div class="sy-breadcrumbs" role="navigation">
+  <div class="sy-breadcrumbs-inner flex items-center">
+    <div class="md:hidden mr-3">
+      <button class="js-menu" aria-label="Menu" type="button" aria-controls="lside" aria-expanded="false">
+        <i class="i-lucide menu"></i>
+      </button>
+    </div>
+    <ol class="flex-1" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="../index.html"><span itemprop="name">scikit-rf</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="1" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <strong itemprop="name">Contributing to scikit-rf</strong>
+        <meta itemprop="position" content="2" />
+      </li></ol>
+    <div class="xl:hidden ml-1">
+      <button class="js-menu" aria-label="Show table of contents" type="button" aria-controls="rside"
+        aria-expanded="false">
+        <i class="i-lucide outdent"></i>
+      </button>
+    </div>
+  </div>
+</div><div class="flex flex-col break-words justify-between">
+      <div class="relative min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
+  <article class="yue" role="main">
+          <section id="contributing-to-scikit-rf">
+<h1>Contributing to scikit-rf<a class="headerlink" href="#contributing-to-scikit-rf" title="Link to this heading">#</a></h1>
+<section id="sponsoring-the-project">
+<h2>Sponsoring the Project<a class="headerlink" href="#sponsoring-the-project" title="Link to this heading">#</a></h2>
+<p>It is possible to sponsor the maintainers and developers of the scikit-rf package, using the GitHub Sponsor option (“Sponsor this project”) visible on the <a class="reference external" href="https://github.com/scikit-rf/scikit-rf">scikit-rf GitHub page</a>.</p>
+<p>Sponsoring is one more way to contribute to open source: financially supporting the people who build and maintain it. Funding individuals helps them keep doing important work, expands opportunities to participate, and gives developers the recognition they deserve.</p>
+</section>
+<section id="contributing-to-the-code">
+<h2>Contributing to the Code<a class="headerlink" href="#contributing-to-the-code" title="Link to this heading">#</a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>if you feel that the instructions on this page are too complicated, but you still would like to contribute, do not hesitate to email us on the <a class="reference external" href="https://groups.google.com/forum/#!forum/scikit-rf">scikit-rf mailing list</a> or join us in the <a class="reference external" href="https://app.element.io/#/room/#scikit-rf:matrix.org">scikit-rf Matrix/Element channel</a> to get some help.</p>
+</div>
+<p><strong>skrf</strong> uses the “Fork + Pull” collaborative development model. If this is new to you, see GitHub’s articles on  <a class="reference external" href="https://help.github.com/articles/fork-a-repo">forking</a> and <a class="reference external" href="https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/about-pull-requests">pull requests</a>.</p>
+<p>Basically, you will:</p>
+<ol class="arabic simple">
+<li><p><a class="reference external" href="https://help.github.com/articles/fork-a-repo">Fork</a> the <a class="reference external" href="https://github.com/scikit-rf/scikit-rf">GitHub scikit-rf repository</a>,</p></li>
+<li><p>Make your modifications.</p></li>
+<li><p>Then send a <a class="reference external" href="https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/about-pull-requests">pull request (PR)</a> for your additions to be merged into the main scikit-rf repository. Your proposal will be reviewed or discussed and you may receive some comments which only aim to make your contribution as great as possible!</p></li>
+</ol>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>When making your modification locally, you may need to work into a dedicated development environment in order to not interfere with the scikit-rf package that you have <a class="reference external" href="../tutorials/Installation.html">already installed</a>. You can use for example <a class="reference external" href="https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html">anaconda environment</a>. In order for the anaconda environment to find your local scikit-rf repo, use the convenient <a class="reference external" href="https://docs.conda.io/projects/conda-build/en/latest/resources/commands/conda-develop.html">conda-develop</a> command.</p>
+</div>
+<section id="prek">
+<h3>Prek<a class="headerlink" href="#prek" title="Link to this heading">#</a></h3>
+<p>You can use <a class="reference internal" href="#prek">prek</a> to automate your code quality checks and perform automated fixes in <strong>scikit-rf</strong>.</p>
+<p>To enable prek on your computer (make sure it is installed first), open a terminal and Navigate to
+the <code class="file docutils literal notranslate"><span class="pre">scikit-rf/</span></code> directory that contains your clone of scikit-rf’s repository, then run:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span data-line="1">prek<span class="w"> </span>install
+</span></pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Once prek has been installed for a repository, prek will
+run every time you try to commit a change. If any prek checks
+fail, or if prek changes any files, it will be necessary to
+redo <cite>git add</cite> on the changed files and <cite>git commit</cite> once
+again.</p>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>To commit a change without running prek, use the <cite>-n</cite> or
+<cite>–no-verify</cite> flag with git.</p>
+</div>
+</section>
+<section id="basic-git-command-line-workflow">
+<h3>Basic git command-line workflow<a class="headerlink" href="#basic-git-command-line-workflow" title="Link to this heading">#</a></h3>
+<p>The following is a basic example of the git commands that can be used to contribute to the code.</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="c1"># create your own fork of scikit-rf in the GitHub interface, say ME/scikit-rf</span>
+</span><span data-line="2">
+</span><span data-line="3"><span class="c1"># clone your new fork locally, using either:</span>
+</span><span data-line="4">git<span class="w"> </span>clone<span class="w"> </span>ME@github.com:ME/scikit-rf.git
+</span><span data-line="5">
+</span><span data-line="6"><span class="c1"># if you have ssh keys setup, or if not:</span>
+</span><span data-line="7">git<span class="w"> </span>clone<span class="w"> </span>https://github.com/scikit-rf/scikit-rf.git
+</span><span data-line="8">
+</span><span data-line="9"><span class="c1"># ... make your changes...</span>
+</span><span data-line="10">
+</span><span data-line="11"><span class="c1"># commit changes locally</span>
+</span><span data-line="12">git<span class="w"> </span>commit<span class="w"> </span>-a
+</span><span data-line="13">
+</span><span data-line="14"><span class="c1"># push changes to your repo</span>
+</span><span data-line="15">git<span class="w"> </span>push<span class="w"> </span>origin
+</span><span data-line="16">
+</span><span data-line="17"><span class="c1"># create a pull request on github.com</span>
+</span></pre></div>
+</div>
+</section>
+<section id="staying-synchronized">
+<h3>Staying Synchronized<a class="headerlink" href="#staying-synchronized" title="Link to this heading">#</a></h3>
+<p>To keep your local version synchronized (up-to-date) with the scikit-rf repository, <a class="reference external" href="https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/configuring-a-remote-for-a-fork">add a “remote” (call it “upstream”)</a>. From this remote, you can <a class="reference external" href="https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/syncing-a-fork">“fetch” and “merge” the official scikit-rf repo’s changes into your local repo</a>.</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span data-line="1">git<span class="w"> </span>remote<span class="w"> </span>add<span class="w"> </span>upstream<span class="w"> </span>https://github.com/scikit-rf/scikit-rf.git
+</span><span data-line="2">
+</span><span data-line="3"><span class="c1"># Fetch any new changes from the original repo</span>
+</span><span data-line="4">git<span class="w"> </span>fetch<span class="w"> </span>upstream
+</span><span data-line="5">
+</span><span data-line="6"><span class="c1"># Merges any changes fetched into your working files</span>
+</span><span data-line="7">git<span class="w"> </span>merge<span class="w"> </span>upstream/master
+</span></pre></div>
+</div>
+</section>
+<section id="tests">
+<h3>Tests<a class="headerlink" href="#tests" title="Link to this heading">#</a></h3>
+<p>Tests are vital for software reliability and maintainability. Writing tests often require additional effort but saves time in the long run. Tests enable us to quickly discover when we introduce new errors. It is also a way to provide examples of how functions and classes were originally intended to be used.</p>
+<p>Before making a Pull Request, we advise contributors to run the tests locally to check if nothing has been broken following their modifications. In addition, we highly recommend providing new tests when adding new features.</p>
+<p>The structure of the testing generally follows the conventions of <a class="reference external" href="https://github.com/numpy/numpy/blob/master/doc/TESTS.rst">numpy/scipy</a>. Test cases live in the module, or submodule, which they are testing, and are located in a directory called <cite>tests</cite>. So, the tests of the media module are located at <cite>skrf/media/tests/</cite>.
+Tests can be run most easily with <a class="reference external" href="https://docs.pytest.org/en/latest/index.html">pytest</a>.</p>
+<p>You probably <strong>don’t</strong> want to run the tests for the virtual instruments <code class="docutils literal notranslate"><span class="pre">skrf.vi</span></code> with the rest of the tests, so these tests are excluded by default.</p>
+<p>To run all the tests (except the virtual instruments)</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="nb">cd</span><span class="w"> </span>scikit-rf
+</span><span data-line="2"><span class="c1"># Create environment and install dependencies, needed only once.</span>
+</span><span data-line="3">python<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>.venv
+</span><span data-line="4">pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.<span class="o">[</span>test,visa,netw,xlsx,plot,docs,testspice<span class="o">]</span><span class="w"> </span>--compile
+</span><span data-line="5">
+</span><span data-line="6"><span class="c1"># Activate Environment, needed for all following steps.</span>
+</span><span data-line="7"><span class="c1"># on Linux Systems</span>
+</span><span data-line="8">.<span class="w"> </span>.venv/bin/activate
+</span><span data-line="9">
+</span><span data-line="10"><span class="c1"># on Windows</span>
+</span><span data-line="11">.<span class="se">\.</span>venv<span class="se">\S</span>cripts<span class="se">\a</span>ctivate
+</span><span data-line="12">
+</span><span data-line="13">pytest
+</span></pre></div>
+</div>
+<p>To run all tests <em>and</em> all tutorials and example notebooks in your current environment (recommended before making a pull request):</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span data-line="1">pytest<span class="w"> </span>--nbval-lax
+</span></pre></div>
+</div>
+<p>If you want to test a single file or directory, you need to override the default pytest configuration and indicate the test path. For example, to run only the tests associated with the Network object (-v to increase the verbosity):</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span data-line="1">pytest<span class="w"> </span>-v<span class="w"> </span>-c<span class="w"> </span><span class="s2">""</span><span class="w"> </span>skrf/tests/test_network.py
+</span></pre></div>
+</div>
+<p>It is also possible to select some particular tests using the regex option (-k):</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span data-line="1">pytest<span class="w"> </span>-v<span class="w"> </span>-c<span class="w"> </span><span class="s2">""</span><span class="w"> </span>skrf/calibration/tests/test_calibration.py<span class="w"> </span>-k<span class="w"> </span><span class="s2">"test_error_ntwk"</span>
+</span></pre></div>
+</div>
+</section>
+</section>
+<section id="contributing-to-the-documentation">
+<h2>Contributing to the Documentation<a class="headerlink" href="#contributing-to-the-documentation" title="Link to this heading">#</a></h2>
+<section id="examples-and-tutorials">
+<h3>Examples and Tutorials<a class="headerlink" href="#examples-and-tutorials" title="Link to this heading">#</a></h3>
+<p>Usage examples of scikit-rf are welcomed, especially when adding new features. We are using <a class="reference external" href="https://jupyter.org/">Jupyter Notebooks</a> to write the examples and the tutorials, which are located in the <code class="docutils literal notranslate"><span class="pre">scikit-rf/docs/source/examples/</span></code> and <code class="docutils literal notranslate"><span class="pre">doc/source/examples</span></code> directories. These notebooks are then converted into webpages with the sphinx extension called <a class="reference external" href="http://nbsphinx.readthedocs.io/">nbsphinx</a>.</p>
+<p>The docs are automatically built and <a class="reference external" href="https://scikit-rf.readthedocs.io/en/latest/">served by readthedocs</a> when a Pull Request is accepted. The Python package requirements to build the docs are kept in <code class="docutils literal notranslate"><span class="pre">scikit-rf/pyproject.toml</span></code>.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Before pushing to your repo and making a pull request, at a minimum you will need to clear the notebook outputs using the “Clear All Output” command in the notebook (or install <a class="reference external" href="https://pypi.python.org/pypi/nbstripout">nbstripout</a> so that the output is not tracked in git (or the repo size would grow infinitely).</p>
+</div>
+</section>
+<section id="reference-api-or-static-documentation">
+<h3>Reference (API) or static documentation<a class="headerlink" href="#reference-api-or-static-documentation" title="Link to this heading">#</a></h3>
+<p>The documentation source files can be found in <code class="docutils literal notranslate"><span class="pre">doc/source/</span></code>.</p>
+<p>The reference documentation for the functions, classes, and submodules are documented in docstrings following the conventions put forth by <a class="reference external" href="https://numpydoc.readthedocs.io/en/latest/format.html">Numpy/Scipy docstring format</a>. The documentation as a whole is generated using sphinx, and  written using reStructed (.rst) Text.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>If you want to write some .rst file yourself, please use an RST format editor and checker (ex: <a class="reference external" href="https://livesphinx.herokuapp.com/">https://livesphinx.herokuapp.com/</a>), as Sphinx is (very) picky with the syntax…</p>
+</div>
+</section>
+<section id="building-the-documentation-locally">
+<h3>Building the documentation locally<a class="headerlink" href="#building-the-documentation-locally" title="Link to this heading">#</a></h3>
+<p>Before making a pull request concerning the documentation, it is a good idea to test locally if your changes lead to the desired HTML output (sometimes some problems can arise during the conversion to HTML). The documentation is built by the following commands:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="c1"># be sure to be in the scikit-rf/doc directory</span>
+</span><span data-line="2">make<span class="w"> </span>html
+</span></pre></div>
+</div>
+<p>The built docs then reside in <code class="docutils literal notranslate"><span class="pre">doc/build/html</span></code>.</p>
+</section>
+</section>
+<section id="join-the-scikit-rf-team">
+<h2>Join the <strong>scikit-rf</strong> team!<a class="headerlink" href="#join-the-scikit-rf-team" title="Link to this heading">#</a></h2>
+<p>Do you like using scikit-rf? <a class="reference external" href="https://scikit-rf.org/merch.html">Merchandise is available for you to express your love</a>.</p>
+<a class="reference internal image-reference" href="https://raw.githubusercontent.com/scikit-rf/scikit-rf/master/logo/skrfshirtwhite.png"><img alt="https://raw.githubusercontent.com/scikit-rf/scikit-rf/master/logo/skrfshirtwhite.png" class="align-center" height="400" src="https://raw.githubusercontent.com/scikit-rf/scikit-rf/master/logo/skrfshirtwhite.png" />
+</a>
+</section>
+</section>
+
+        </article><button class="back-to-top" type="button">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+  </svg>
+  <span>Back to top</span>
+</button><div class="navigation flex print:hidden"><div class="navigation-prev">
+    <a href="../glossary.html">
+      <i class="i-lucide chevron-left"></i>
+      <div class="page-info">
+        <span>Previous</span><div class="title">Glossary</div></div>
+    </a>
+  </div><div class="navigation-next">
+    <a href="../citations_ack/acknowledging.html">
+      <div class="page-info">
+        <span>Next</span>
+        <div class="title">Acknowledging or Citing scikit-rf</div>
+      </div>
+      <i class="i-lucide chevron-right"></i>
+    </a>
+  </div></div></div>
+    </div>
+  </main>
+</div>
+<footer class="sy-foot">
+  <div class="sy-foot-inner sy-container mx-auto">
+    <div class="sy-foot-reserved md:flex justify-between items-center">
+      <div class="sy-foot-copyright"><p>2025, scikit-rf team</p>
+  
+  <p>
+    Made with
+    
+    <a href="https://www.sphinx-doc.org/">Sphinx</a> and
+    
+    <a href="https://shibuya.lepture.com">Shibuya theme</a>.
+  </p>
+</div>
+      <div class="sy-foot-socials">
+  <a href="https://github.com/scikit-rf/scikit-rf" aria-label="GitHub">
+    <iconify-icon icon="simple-icons:github"></iconify-icon>
+  </a></div>
+    </div>
+  </div>
+</footer>
+      <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../_static/copybutton.js?v=34bd459d"></script>
+      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+      <script src="../_static/shibuya.js?v=50760d75"></script>
+      <script src="https://cdn.jsdelivr.net/npm/@jupyter-widgets/html-manager@^1.0.1/dist/embed-amd.js"></script>
+      <script src="../_static/skrf.js?v=bdeb9fb0"></script></body>
+</html>

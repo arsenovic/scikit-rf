@@ -1,0 +1,122 @@
+{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "# Properties of RG-58"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "This example demonstrates how to use skrf's to explore some properties of Coax (RG-58). This is done through the `media` package which provides basic transmission line models. Specifically, the coax is created using  by `DistributedCircuit`."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "scrolled": false
+   },
+   "outputs": [],
+   "source": [
+    "import matplotlib.pyplot as plt\n",
+    "import numpy as np\n",
+    "\n",
+    "import skrf as rf\n",
+    "from skrf.media import DistributedCircuit\n",
+    "from skrf.plotting import func_on_all_figs as foaf\n",
+    "\n",
+    "%matplotlib inline\n",
+    "\n",
+    "rf.stylely()\n",
+    "\n",
+    "\n",
+    "\n",
+    "# define a frequency object from a vector\n",
+    "freq = rf.Frequency.from_f(np.logspace(0,6,1001), unit='hz')\n",
+    "\n",
+    "# create a Media object for RG-58, based on distributed ckt values\n",
+    "rg58 = DistributedCircuit(\n",
+    "    frequency = freq,\n",
+    "    C =93.5e-12,#F/m\n",
+    "    L =273e-9,  #H/m\n",
+    "    R =0,#53e-3,   #Ohm/m\n",
+    "    G =0,       #S/m\n",
+    "    )\n",
+    "\n",
+    "\n",
+    "# loop thru values of resistivity plot various quantities\n",
+    "for k in (0,.1,1,10,100):\n",
+    "    rg58.R = k*1e-3\n",
+    "\n",
+    "    plt.figure(0)\n",
+    "    plt.ylabel('Phase Velocity (m/us)')\n",
+    "    plt.title('Phase Velocity')\n",
+    "    plt.loglog(freq.f_scaled, rg58.v_p*1e-6, label=rf'{k:.1e} $m \\Omega/m $')\n",
+    "\n",
+    "    plt.figure(1)\n",
+    "    plt.ylabel('Real($Z_0$)')\n",
+    "    plt.title('Characteristic Impedance (Real)')\n",
+    "    plt.loglog(freq.f_scaled, rg58.z0.real, label=rf'{k:.1e} $m \\Omega/m $')\n",
+    "\n",
+    "    plt.figure(2)\n",
+    "    plt.ylabel('-Imag($Z_0$)')\n",
+    "    plt.title('Characteristic Impedance (Imag)')\n",
+    "    plt.plot(freq.f_scaled, -1*rg58.z0.imag, label=rf'{k:.1e} $m \\Omega/m $')\n",
+    "\n",
+    "    plt.figure(3)\n",
+    "    plt.ylabel(r'Real($\\gamma$)')\n",
+    "    plt.title('Propagation Constant (Real)')\n",
+    "    plt.plot(freq.f_scaled, rg58.alpha, label=rf'{k:.1e} $m \\Omega/m $')\n",
+    "\n",
+    "    plt.figure(4)\n",
+    "    plt.ylabel(r'Imag($\\gamma$)')\n",
+    "    plt.title('Propagation Constant (Imag)')\n",
+    "    plt.plot(freq.f_scaled, rg58.beta, label=rf'{k:.1e} $m \\Omega/m $')\n",
+    "\n",
+    "\n",
+    "\n",
+    "\n",
+    "\n",
+    "foaf(freq.labelXAxis)\n",
+    "foaf(plt.tight_layout)\n",
+    "foaf(plt.legend)\n",
+    "foaf(plt.loglog)\n",
+    "\n",
+    "plt.tight_layout()\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  }
+ ],
+ "metadata": {
+  "anaconda-cloud": {},
+  "kernelspec": {
+   "display_name": "Python 3",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.8.10"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 1
+}

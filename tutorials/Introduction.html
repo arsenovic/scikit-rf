@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="en" data-accent-color="blue" data-content_root="../">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Introduction - scikit-rf</title><link rel="author" title="About these documents" href="../about.html" /><link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Tutorials" href="index.html" /><link rel="prev" title="Installation" href="Installation.html" /><script>
+    function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
+    setColorMode(localStorage._theme||"auto");
+  </script><link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=ad592e98" />
+    <link rel="stylesheet" type="text/css" href="../_static/shibuya.css?v=2ceb65ce" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-codeautolink.css?v=b2176991" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link media="print" rel="stylesheet" type="text/css" href="../_static/print.css?v=20ff2c19" />
+    <link rel="stylesheet" type="text/css" href="../_static/nbsphinx-code-cells.css?v=2aa19091" />
+    <link rel="stylesheet" type="text/css" href="../_static/skrf.css?v=7e772ba2" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --sy-f-text: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+  --sy-f-heading: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+}
+</style>
+    
+  <meta property="og:type" content="website"/><meta property="og:title" content="Introduction"/>
+    <meta name="twitter:card" content="summary"/>
+  </head>
+<body><div class="sy-head">
+  <div class="sy-head-blur"></div>
+  <div class="sy-head-inner sy-container mx-auto">
+    <a class="sy-head-brand" href="../index.html">
+      <img class="light-logo" src="../_static/logo.svg" alt="scikit-rf" height="28" loading="lazy" />
+      <img class="dark-logo" src="../_static/logo.svg" alt="scikit-rf" height="28" loading="lazy" />
+      <strong>scikit-rf</strong>
+    </a>
+    <div class="sy-head-nav" id="head-nav">
+      <nav class="sy-head-links"><ul><li class="link"><a href="../index.html">Home</a></li><li class="link"><a href="index.html">Tutorials</a></li><li class="link"><a href="../examples/index.html">Examples</a></li><li class="link"><a href="../api/index.html">API</a></li><li class="link">
+          <a href="https://github.com/scikit-rf/scikit-rf">
+            <span>GitHub</span><i class="i-lucide external-link"></i></a>
+        </li></ul></nav>
+      <div class="sy-head-extra flex items-center print:hidden"><form class="searchbox flex items-center" action="../search.html" method="get">
+  <input type="text" name="q" placeholder="Search" />
+  <kbd>/</kbd>
+</form><div class="sy-head-socials">
+  <a href="https://github.com/scikit-rf/scikit-rf" aria-label="GitHub">
+    <iconify-icon icon="simple-icons:github"></iconify-icon>
+  </a>
+  <a href="https://www.linkedin.com/groups/12462155/" aria-label="LinkedIn">
+    <iconify-icon icon="simple-icons:linkedin"></iconify-icon>
+  </a>
+  <a href="https://app.element.io/#/room/#scikit-rf:matrix.org" aria-label="Matrix">
+    <iconify-icon icon="simple-icons:matrix"></iconify-icon>
+  </a></div></div>
+    </div>
+    <div class="sy-head-actions flex items-center shrink-0 print:hidden"><button class="js-theme theme-switch flex items-center"
+data-aria-auto="Switch to light color mode"
+data-aria-light="Switch to dark color mode"
+data-aria-dark="Switch to auto color mode">
+<i class="i-lucide theme-icon"></i>
+</button><button class="md:hidden flex items-center js-menu" aria-label="Menu" type="button" aria-controls="head-nav" aria-expanded="false">
+        <div class="hamburger">
+          <span class="hamburger_1"></span>
+          <span class="hamburger_2"></span>
+          <span class="hamburger_3"></span>
+        </div>
+      </button>
+    </div>
+  </div>
+</div>
+<div class="sy-page sy-container flex mx-auto">
+  <aside id="lside" class="sy-lside md:w-72 md:shrink-0 print:hidden">
+    <div class="sy-lside-inner md:sticky">
+      <div class="sy-scrollbar p-6">
+        <div class="globaltoc" data-expand-depth="0"><p class="caption" role="heading" aria-level="3"><span class="caption-text">Getting started</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Installation.html">Installation</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Introduction</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#Networks">Networks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Plotting">Plotting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#NetworkSet">NetworkSet</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Virtual-Instruments">Virtual Instruments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Calibration">Calibration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Transmission-Line-Media">Transmission Line Media</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading" aria-level="3"><span class="caption-text">User guide</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Tutorials</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="Installation.html">Installation</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Frequency_units.html">Configuring frequency units</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Networks.html">Networks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Connecting_Networks.html">Connecting Networks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Plotting.html">Plotting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="NetworkSet.html">NetworkSet</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Circuit.html">Circuits</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Calibration.html">Calibration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Deembedding.html">De-embedding</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Q-Factor.html">Quality Factors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Media.html">Media</a></li>
+<li class="toctree-l2"><a class="reference internal" href="VectorFitting.html">Vector Fitting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="VectorFittingParametric.html">Parametric Vector Fitting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="VirtualInstruments.html">Virtual Instruments</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/index.html">Examples</a></li>
+</ul>
+<p class="caption" role="heading" aria-level="3"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../api/index.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../glossary.html">Glossary</a></li>
+</ul>
+<p class="caption" role="heading" aria-level="3"><span class="caption-text">Project</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../contributing/index.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../citations_ack/acknowledging.html">Citing scikit-rf</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../citations_ack/citations.html">scikit-rf Citations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../about.html">About</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../users.html">Users</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../license.html">License</a></li>
+</ul>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="lside-overlay js-menu" role="button" aria-label="Close left sidebar" aria-controls="lside" aria-expanded="false"></div>
+  <aside id="rside" class="sy-rside pb-3 w-64 shrink-0 order-last">
+    <button class="rside-close js-menu xl:hidden" aria-label="Close Table of Contents" type="button" aria-controls="rside" aria-expanded="false">
+      <i class="i-lucide close"></i>
+    </button>
+    <div class="sy-scrollbar sy-rside-inner px-6 xl:top-16 xl:sticky xl:pl-0 pt-6 pb-4"><div class="localtoc"><h3>On this page</h3><ul>
+<li><a class="reference internal" href="#Networks">Networks</a><ul>
+<li><a class="reference internal" href="#Linear-Operations">Linear Operations</a></li>
+<li><a class="reference internal" href="#Cascading-and-De-embedding">Cascading and De-embedding</a></li>
+<li><a class="reference internal" href="#Finding-minimum-(or-maximum)-of-a-Network-quantity">Finding minimum (or maximum) of a Network quantity</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#Plotting">Plotting</a></li>
+<li><a class="reference internal" href="#NetworkSet">NetworkSet</a><ul>
+<li><a class="reference internal" href="#Statistical-Properties">Statistical Properties</a></li>
+<li><a class="reference internal" href="#Plotting-Uncertainty-Bounds">Plotting Uncertainty Bounds</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#Virtual-Instruments">Virtual Instruments</a></li>
+<li><a class="reference internal" href="#Calibration">Calibration</a><ul>
+<li><a class="reference internal" href="#One-Port-Calibration">One Port Calibration</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#Transmission-Line-Media">Transmission Line Media</a><ul>
+<li><a class="reference internal" href="#CPW">CPW</a></li>
+<li><a class="reference internal" href="#Coax">Coax</a></li>
+</ul>
+</li>
+</ul>
+</div><div id="ethical-ad-placement" data-ea-publisher="readthedocs"></div></div>
+  </aside>
+  <div class="rside-overlay js-menu" role="button" aria-label="Close Table of Contents" aria-controls="rside" aria-expanded="false"></div>
+  <main class="sy-main w-full max-sm:max-w-full print:pt-6">
+<div class="sy-breadcrumbs" role="navigation">
+  <div class="sy-breadcrumbs-inner flex items-center">
+    <div class="md:hidden mr-3">
+      <button class="js-menu" aria-label="Menu" type="button" aria-controls="lside" aria-expanded="false">
+        <i class="i-lucide menu"></i>
+      </button>
+    </div>
+    <ol class="flex-1" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="../index.html"><span itemprop="name">scikit-rf</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="1" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <strong itemprop="name">Introduction</strong>
+        <meta itemprop="position" content="2" />
+      </li></ol>
+    <a class="sk-download" href="Introduction.ipynb" download>Download</a>
+    <div class="xl:hidden ml-1">
+      <button class="js-menu" aria-label="Show table of contents" type="button" aria-controls="rside"
+        aria-expanded="false">
+        <i class="i-lucide outdent"></i>
+      </button>
+    </div>
+  </div>
+</div><div class="flex flex-col break-words justify-between">
+      <div class="relative min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
+  <article class="yue" role="main">
+          <span class="target" id="introduction"></span><section id="Introduction">
+<h1>Introduction<a class="headerlink" href="#Introduction" title="Link to this heading">#</a></h1>
+<p>This is a brief introduction to <strong>scikit-rf</strong> (aka <code class="docutils literal notranslate"><span class="pre">skrf</span></code>). The intended audience are those who have a working python stack, and are somewhat familiar with python. If you are completely new to python, see scipy’s <a class="reference external" href="http://www.scipy.org/Getting_Started">Getting Started</a>. First, import the scikit-rf module <code class="docutils literal notranslate"><span class="pre">skrf</span></code>, as <code class="docutils literal notranslate"><span class="pre">rf</span></code></p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[1]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="kn">import</span><span class="w"> </span><span class="nn">skrf</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">rf</span>
+</span></pre></div>
+</div>
+</div>
+<p>If this produces an error, please see the <a class="reference internal" href="Installation.html"><span class="doc">installation</span></a> tutorial.</p>
+<section id="Networks">
+<h2>Networks<a class="headerlink" href="#Networks" title="Link to this heading">#</a></h2>
+<p>The central object in <code class="docutils literal notranslate"><span class="pre">skrf</span></code> is a N-port microwave <a class="reference internal" href="../api/network.html"><span class="doc">Network</span></a> object. A <a class="reference internal" href="../api/network.html"><span class="doc">Network</span></a> can be created in a number of ways, one way is from data stored in a touchstone file.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[2]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">ring_slot</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">rf</span><span class="o">.</span><span class="n">Network</span></a><span class="p">(</span><span class="s1">'data/ring slot.s2p'</span><span class="p">)</span>
+</span></pre></div>
+</div>
+</div>
+<p>If you can’t find <code class="docutils literal notranslate"><span class="pre">ring</span> <span class="pre">slot.s2p</span></code>, then just import it from the <code class="docutils literal notranslate"><span class="pre">skrf.data</span></code> module.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[3]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="kn">from</span><span class="w"> </span><a class="sphinx-codeautolink-a" href="../api/data/index.html#module-skrf.data"><span class="nn">skrf.data</span></a><span class="w"> </span><span class="kn">import</span> <a class="sphinx-codeautolink-a" href="../api/data/generated/skrf.data.ring_slot.html#skrf.data.ring_slot" title="skrf.data.ring_slot"><span class="n">ring_slot</span></a>  <span class="c1"># noqa: F811</span>
+</span></pre></div>
+</div>
+</div>
+<p>A short description of the network will be printed out if entered onto the command line</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[4]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><a class="sphinx-codeautolink-a" href="../api/data/generated/skrf.data.ring_slot.html#skrf.data.ring_slot" title="skrf.data.ring_slot"><span class="n">ring_slot</span></a>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[4]:
+</span></pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+2-Port Network: 'ring slot',  75.0-110.0 GHz, 201 pts, z0=[50.+0.j 50.+0.j]
+</pre></div></div>
+</div>
+<p>The basic attributes of a microwave <a class="reference internal" href="../api/network.html"><span class="doc">Network</span></a> are provided by the following properties,</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Network.s</span></code> : Scattering Parameter matrix.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Network.z0</span></code> : Port Impedance matrix.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Network.frequency</span></code> : Frequency Object.</p></li>
+</ul>
+<p>The <a class="reference internal" href="../api/network.html"><span class="doc">Network</span></a> object has numerous other properties and methods which can found in it’s docstring. If you are using IPython/Jupyter, then these properties and methods can be ‘tabbed’ out on the command line.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">In [1]: ring_slot.s&lt;TAB&gt;
+</span><span data-line="2">ring_slot.s              ring_slot.s_arcl         ring_slot.s_im
+</span><span data-line="3">ring_slot.s11            ring_slot.s_arcl_unwrap  ring_slot.s_mag
+</span><span data-line="4">...
+</span></pre></div>
+</div>
+<p>Other way to build Network are detailed in the <a class="reference internal" href="Networks.html"><span class="doc">tutorial on Networks</span></a>.</p>
+<section id="Linear-Operations">
+<h3>Linear Operations<a class="headerlink" href="#Linear-Operations" title="Link to this heading">#</a></h3>
+<p>Element-wise mathematical operations on the s-parameters are accessible through overloaded operators. To illustrate, we load a couple <code class="docutils literal notranslate"><span class="pre">Networks</span></code> stored in the <code class="docutils literal notranslate"><span class="pre">skrf.data</span></code> module.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[5]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">short</span> <span class="o">=</span> <span class="n">rf</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">wr2p2_short</span>
+</span><span data-line="2"><span class="n">delayshort</span> <span class="o">=</span> <span class="n">rf</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">wr2p2_delayshort</span>
+</span></pre></div>
+</div>
+</div>
+<p>The complex difference between their s-parameters is computed with</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[6]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">short</span> <span class="o">-</span> <span class="n">delayshort</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[6]:
+</span></pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+1-Port Network: 'wr2p2,short',  330.0-500.0 GHz, 201 pts, z0=[50.+0.j]
+</pre></div></div>
+</div>
+<p>This returns a new <a class="reference internal" href="../api/network.html"><span class="doc">Network</span></a>. Other arithmetic operators are overloaded as well,</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[7]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">short</span><span class="o">/</span><span class="n">delayshort</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[7]:
+</span></pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+1-Port Network: 'wr2p2,short',  330.0-500.0 GHz, 201 pts, z0=[50.+0.j]
+</pre></div></div>
+</div>
+</section>
+<section id="Cascading-and-De-embedding">
+<h3>Cascading and De-embedding<a class="headerlink" href="#Cascading-and-De-embedding" title="Link to this heading">#</a></h3>
+<p>Cascading and de-embeding 2-port Networks can also be done though operators. Cascading is done through the power operator, <code class="docutils literal notranslate"><span class="pre">**</span></code>.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[8]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">short</span> <span class="o">=</span> <span class="n">rf</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">wr2p2_short</span>
+</span><span data-line="2"><span class="n">line</span> <span class="o">=</span> <span class="n">rf</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">wr2p2_line</span>
+</span><span data-line="3">
+</span><span data-line="4"><span class="n">delayshort</span> <span class="o">=</span> <span class="n">line</span> <span class="o">**</span> <span class="n">short</span>
+</span></pre></div>
+</div>
+</div>
+<p>De-embedding can be accomplished by cascading the <em>inverse</em> of a network. The inverse of a network is accessed through the property <code class="docutils literal notranslate"><span class="pre">Network.inv</span></code>.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[9]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">short</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.Network.inv.html#skrf.network.Network.inv" title="skrf.network.Network.inv"><span class="n">line</span><span class="o">.</span><span class="n">inv</span></a> <span class="o">**</span> <span class="n">delayshort</span>
+</span></pre></div>
+</div>
+</div>
+<p>For more information on the functionality provided by the <a class="reference internal" href="../api/network.html"><span class="doc">Network</span></a> object, such as interpolation, stitching, n-port connections, and IO support see the <a class="reference internal" href="Networks.html"><span class="doc">Networks</span></a> tutorial.</p>
+</section>
+<section id="Finding-minimum-(or-maximum)-of-a-Network-quantity">
+<h3>Finding minimum (or maximum) of a Network quantity<a class="headerlink" href="#Finding-minimum-(or-maximum)-of-a-Network-quantity" title="Link to this heading">#</a></h3>
+<p>Often, it is desirable to get the minimum (or maximum) value of a Network quantity (s-parameters, z-parameters, etc.) and the frequency at which this occurs. In <code class="docutils literal notranslate"><span class="pre">scikit-rf</span></code>, Network quantities are stored as <a class="reference external" href="https://numpy.org/">Numpy</a> arrays of shape (<span class="math notranslate nohighlight">\(N_F\)</span>, <span class="math notranslate nohighlight">\(N_p\)</span>, <span class="math notranslate nohighlight">\(N_p\)</span>) where <span class="math notranslate nohighlight">\(N_F\)</span> is the number of frequency points and <span class="math notranslate nohighlight">\(N_p\)</span> is the number of ports of a Network:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[10]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/builtins/functions.html#print"><span class="nb">print</span></a><span class="p">(</span><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/builtins/functions.html#type"><span class="nb">type</span></a><span class="p">(</span><a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.Network.s.html#skrf.network.Network.s" title="skrf.network.Network.s"><span class="n">line</span><span class="o">.</span><span class="n">s</span></a><span class="p">))</span>  <span class="c1"># s-parameters are stored as a Numpy array</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;class 'numpy.ndarray'&gt;
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[11]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/builtins/functions.html#print"><span class="nb">print</span></a><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">s</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>  <span class="c1"># line is a 2-port Network defined on 201 frequency points</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+(201, 2, 2)
+</pre></div></div>
+</div>
+<p>The frequency points are defined in the <code class="docutils literal notranslate"><span class="pre">frequency</span></code> parameter of a Network:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[12]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/builtins/functions.html#print"><span class="nb">print</span></a><span class="p">(</span><a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.Network.frequency.html#skrf.network.Network.frequency" title="skrf.network.Network.frequency"><span class="n">line</span><span class="o">.</span><span class="n">frequency</span></a><span class="p">)</span>  <span class="c1"># returns a Frequency object</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+330.0-500.0 GHz, 201 pts
+</pre></div></div>
+</div>
+<p>The frequency values are given by the <code class="docutils literal notranslate"><span class="pre">frequency.f</span></code> parameter, or simply <code class="docutils literal notranslate"><span class="pre">.f</span></code>:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[13]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.Network.f.html#skrf.network.Network.f" title="skrf.network.Network.f"><span class="n">line</span><span class="o">.</span><span class="n">f</span></a><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">10</span><span class="p">]</span>  <span class="c1"># the 10 first frequency points. Same than line.frequency.f[0:10]</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[13]:
+</span></pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+array([3.3000e+11, 3.3085e+11, 3.3170e+11, 3.3255e+11, 3.3340e+11,
+       3.3425e+11, 3.3510e+11, 3.3595e+11, 3.3680e+11, 3.3765e+11])
+</pre></div></div>
+</div>
+<p>Being a Numpy array, finding the minimum (or maximum) value of a the magnitude of the <span class="math notranslate nohighlight">\(S_{21}\)</span> parameter can be performed using the <code class="docutils literal notranslate"><span class="pre">min()</span></code> (or <code class="docutils literal notranslate"><span class="pre">max()</span></code>) method:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[14]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="kn">import</span><span class="w"> </span><a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/index.html#module-numpy"><span class="nn">numpy</span></a><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+</span><span data-line="2">
+</span><span data-line="3"><a class="sphinx-codeautolink-a" href="../api/data/generated/skrf.data.ring_slot.html#skrf.data.ring_slot" title="skrf.data.ring_slot"><span class="n">rs</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../api/data/generated/skrf.data.ring_slot.html#skrf.data.ring_slot" title="skrf.data.ring_slot"><span class="n">rf</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">ring_slot</span></a>  <span class="c1"># another 2-port example</span>
+</span><span data-line="4">
+</span><span data-line="5"><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/builtins/functions.html#print"><span class="nb">print</span></a><span class="p">(</span><a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.Network.s_mag.html#skrf.network.Network.s_mag" title="skrf.network.Network.s_mag"><span class="n">rs</span><span class="o">.</span><span class="n">s_mag</span></a><span class="p">[:,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">())</span>  <span class="c1"># or .max() for maximum. Watch out that Python indexing starts at 0!</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+0.5101255034355594
+</pre></div></div>
+</div>
+<p>Finding the frequency at which the magnitude of the <span class="math notranslate nohighlight">\(S_{11}\)</span> parameter is minimum can be performed using the Numpy function <code class="docutils literal notranslate"><span class="pre">`argmin</span></code> &lt;<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.argmin.html?highlight=argmin#numpy.argmin">https://numpy.org/doc/stable/reference/generated/numpy.argmin.html?highlight=argmin#numpy.argmin</a>&gt;`__:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[15]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">f_match</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.Network.f.html#skrf.network.Network.f" title="skrf.network.Network.f"><span class="n">rs</span><span class="o">.</span><span class="n">f</span></a><span class="p">[</span><a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/generated/numpy.argmin.html#numpy.argmin" title="numpy.argmin"><span class="n">np</span><span class="o">.</span><span class="n">argmin</span></a><span class="p">(</span><a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.Network.s_mag.html#skrf.network.Network.s_mag" title="skrf.network.Network.s_mag"><span class="n">rs</span><span class="o">.</span><span class="n">s_mag</span></a><span class="p">[:,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">])]</span>  <span class="c1"># frequency for min(|S11|)</span>
+</span><span data-line="2"><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/builtins/functions.html#print"><span class="nb">print</span></a><span class="p">(</span><span class="n">f_match</span><span class="p">)</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+85850000000.0
+</pre></div></div>
+</div>
+</section>
+</section>
+<section id="Plotting">
+<h2>Plotting<a class="headerlink" href="#Plotting" title="Link to this heading">#</a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The plotting infrastructure in skrf is under refactoring at the moment to allow for multiple backends, and headless setups. The following assumes you are using <cite>matplotlib</cite> with an interactive session.</p>
+</div>
+<p><strong>skrf</strong> has a function which updates your <a class="reference external" href="http://matplotlib.org/users/customizing.html">matplotlib rcParams</a> so that plots appear like the ones shown in these tutorials.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[16]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="c1"># display plots in notebook</span>
+</span><span data-line="2"><span class="o">%</span><span class="k">matplotlib</span> inline
+</span><span data-line="3"><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+</span><span data-line="4">
+</span><span data-line="5"><a class="sphinx-codeautolink-a" href="../api/generated/skrf.plotting.stylely.html#skrf.plotting.stylely" title="skrf.plotting.stylely"><span class="n">rf</span><span class="o">.</span><span class="n">stylely</span></a><span class="p">()</span>
+</span></pre></div>
+</div>
+</div>
+<p>The methods of the <a class="reference internal" href="../api/network.html"><span class="doc">Network</span></a> class provide convenient ways to plot components of the network parameters,</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Network.plot_s_db()</span></code> : plot magnitude of s-parameters in log scale</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Network.plot_s_deg()</span></code> : plot phase of s-parameters in degrees</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Network.plot_s_smith()</span></code> : plot complex s-parameters on Smith Chart</p></li>
+</ul>
+<p>To plot all four s-parameters of the <code class="docutils literal notranslate"><span class="pre">ring_slot</span></code> in Mag, Phase, and on the Smith Chart.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[17]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.Network.plot_s_db.html#skrf.network.Network.plot_s_db" title="skrf.network.Network.plot_s_db"><span class="n">ring_slot</span><span class="o">.</span><span class="n">plot_s_db</span></a><span class="p">()</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorials_Introduction_45_0.png" src="../_images/tutorials_Introduction_45_0.png"/>
+</div>
+</div>
+<p>Or plot the phase of <span class="math notranslate nohighlight">\(S_{12}\)</span></p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[18]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.Network.plot_s_deg.html#skrf.network.Network.plot_s_deg" title="skrf.network.Network.plot_s_deg"><span class="n">ring_slot</span><span class="o">.</span><span class="n">plot_s_deg</span></a><span class="p">(</span><span class="n">m</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">n</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorials_Introduction_47_0.png" src="../_images/tutorials_Introduction_47_0.png"/>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[19]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.Network.plot_s_smith.html#skrf.network.Network.plot_s_smith" title="skrf.network.Network.plot_s_smith"><span class="n">ring_slot</span><span class="o">.</span><span class="n">plot_s_smith</span></a><span class="p">(</span><span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+</span><span data-line="2"><span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">'Big ole Smith Chart'</span><span class="p">)</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[19]:
+</span></pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Text(0.5, 1.0, 'Big ole Smith Chart')
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorials_Introduction_48_1.png" src="../_images/tutorials_Introduction_48_1.png"/>
+</div>
+</div>
+<p>For more detailed information about plotting see the <a class="reference internal" href="Plotting.html"><span class="doc">Plotting</span></a> tutorial</p>
+</section>
+<section id="NetworkSet">
+<h2>NetworkSet<a class="headerlink" href="#NetworkSet" title="Link to this heading">#</a></h2>
+<p>The <a class="reference internal" href="../api/networkSet.html"><span class="doc">NetworkSet</span></a> object represents an unordered set of networks and provides methods for calculating statistical quantities and displaying uncertainty bounds.</p>
+<p>A <a class="reference internal" href="../api/networkSet.html"><span class="doc">NetworkSet</span></a> is created from a list or dict of <a class="reference internal" href="../api/network.html"><span class="doc">Networks</span></a>’s. This can be done quickly with <code class="docutils literal notranslate"><span class="pre">rf.io.read_all()</span></code> , which loads all skrf-readable objects in a directory. The argument <code class="docutils literal notranslate"><span class="pre">contains</span></code> is used to load only files which match a given substring.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[20]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><a class="sphinx-codeautolink-a" href="../api/io/generated/skrf.io.general.read_all.html#skrf.io.general.read_all" title="skrf.io.general.read_all"><span class="n">rf</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_all</span></a><span class="p">(</span><span class="s1">'data/'</span><span class="p">,</span> <span class="n">contains</span><span class="o">=</span><span class="s1">'ro'</span><span class="p">)</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[20]:
+</span></pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+{'ro,1': 1-Port Network: 'ro,1',  500.0-750.0 GHz, 201 pts, z0=[50.+0.j],
+ 'ro,2': 1-Port Network: 'ro,2',  500.0-750.0 GHz, 201 pts, z0=[50.+0.j],
+ 'ro,3': 1-Port Network: 'ro,3',  500.0-750.0 GHz, 201 pts, z0=[50.+0.j]}
+</pre></div></div>
+</div>
+<p>This dictionary can be passed directly to the <a class="reference internal" href="../api/networkSet.html"><span class="doc">NetworkSet</span></a> constructor,</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[21]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="kn">from</span><span class="w"> </span><a class="sphinx-codeautolink-a" href="../api/networkSet.html#module-0"><span class="nn">skrf.networkSet</span></a><span class="w"> </span><span class="kn">import</span> <a class="sphinx-codeautolink-a" href="../api/generated/skrf.networkSet.NetworkSet.html#skrf.networkSet.NetworkSet" title="skrf.networkSet.NetworkSet"><span class="n">NetworkSet</span></a>
+</span><span data-line="2">
+</span><span data-line="3"><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="dict"><span class="n">ro_dict</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../api/io/generated/skrf.io.general.read_all.html#skrf.io.general.read_all" title="skrf.io.general.read_all"><span class="n">rf</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_all</span></a><span class="p">(</span><span class="s1">'data/'</span><span class="p">,</span> <span class="n">contains</span><span class="o">=</span><span class="s1">'ro'</span><span class="p">)</span>
+</span><span data-line="4"><a class="sphinx-codeautolink-a" href="../api/generated/skrf.networkSet.NetworkSet.html#skrf.networkSet.NetworkSet" title="skrf.networkSet.NetworkSet"><span class="n">ro_ns</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../api/generated/skrf.networkSet.NetworkSet.html#skrf.networkSet.NetworkSet" title="skrf.networkSet.NetworkSet"><span class="n">NetworkSet</span></a><span class="p">(</span><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="dict"><span class="n">ro_dict</span></a><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'ro set'</span><span class="p">)</span> <span class="c1"># name is optional</span>
+</span><span data-line="5"><a class="sphinx-codeautolink-a" href="../api/generated/skrf.networkSet.NetworkSet.html#skrf.networkSet.NetworkSet" title="skrf.networkSet.NetworkSet"><span class="n">ro_ns</span></a>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[21]:
+</span></pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+3-Networks NetworkSet: [1-Port Network: 'ro,1',  500.0-750.0 GHz, 201 pts, z0=[50.+0.j], 1-Port Network: 'ro,2',  500.0-750.0 GHz, 201 pts, z0=[50.+0.j], 1-Port Network: 'ro,3',  500.0-750.0 GHz, 201 pts, z0=[50.+0.j]]
+</pre></div></div>
+</div>
+<p><a class="reference internal" href="../api/networkSet.html"><span class="doc">NetworkSet</span></a>’s are list-like.</p>
+<section id="Statistical-Properties">
+<h3>Statistical Properties<a class="headerlink" href="#Statistical-Properties" title="Link to this heading">#</a></h3>
+<p>Statistical quantities can be calculated by accessing properties of the <a class="reference internal" href="../api/networkSet.html"><span class="doc">NetworkSet</span></a>. For example, to calculate the complex average of the set, access the <code class="docutils literal notranslate"><span class="pre">mean_s</span></code> property</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[22]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">ro_ns</span><span class="o">.</span><span class="n">mean_s</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[22]:
+</span></pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+1-Port Network: 'ro set',  500.0-750.0 GHz, 201 pts, z0=[50.+0.j]
+</pre></div></div>
+</div>
+<p>The returned results are stored in a <a class="reference internal" href="../api/network.html"><span class="doc">Network</span></a>s s-parameters, regardless of the type of the output. Similarly, to calculate the complex standard deviation of the set,</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[23]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">ro_ns</span><span class="o">.</span><span class="n">std_s</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[23]:
+</span></pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+1-Port Network: 'ro set',  500.0-750.0 GHz, 201 pts, z0=[50.+0.j]
+</pre></div></div>
+</div>
+<p>Because these methods return a <a class="reference internal" href="../api/network.html"><span class="doc">Network</span></a> object the results can be saved or plotted in the same way as you would with a <a class="reference internal" href="../api/network.html"><span class="doc">Network</span></a>. To plot the magnitude of the standard deviation of the set,</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[24]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">ro_ns</span><span class="o">.</span><span class="n">std_s</span><span class="o">.</span><span class="n">plot_s_mag</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s1">'S11'</span><span class="p">)</span>
+</span><span data-line="2"><span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">'Standard Deviation'</span><span class="p">)</span>
+</span><span data-line="3"><span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">'Standard Deviation of RO'</span><span class="p">)</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[24]:
+</span></pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Text(0.5, 1.0, 'Standard Deviation of RO')
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorials_Introduction_63_1.png" src="../_images/tutorials_Introduction_63_1.png"/>
+</div>
+</div>
+</section>
+<section id="Plotting-Uncertainty-Bounds">
+<h3>Plotting Uncertainty Bounds<a class="headerlink" href="#Plotting-Uncertainty-Bounds" title="Link to this heading">#</a></h3>
+<p>Uncertainty bounds on any network parameter can be plotted through the methods</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[25]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><a class="sphinx-codeautolink-a" href="../api/generated/skrf.networkSet.NetworkSet.plot_uncertainty_bounds_s_db.html#skrf.networkSet.NetworkSet.plot_uncertainty_bounds_s_db" title="skrf.networkSet.NetworkSet.plot_uncertainty_bounds_s_db"><span class="n">ro_ns</span><span class="o">.</span><span class="n">plot_uncertainty_bounds_s_db</span></a><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s1">'S11'</span><span class="p">);</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorials_Introduction_66_0.png" src="../_images/tutorials_Introduction_66_0.png"/>
+</div>
+</div>
+<p>See the <a class="reference internal" href="NetworkSet.html"><span class="doc">networkset</span></a> tutorial for more information.</p>
+</section>
+</section>
+<section id="Virtual-Instruments">
+<h2>Virtual Instruments<a class="headerlink" href="#Virtual-Instruments" title="Link to this heading">#</a></h2>
+<p>The <a class="reference internal" href="../api/vi/index.html"><span class="doc">skrf.vi</span></a> module provides classes to communicate with some instruments. At the moment, this is only VNAs, but more support may be added in the future. See the <a class="reference internal" href="VirtualInstruments.html"><span class="doc">Virtual Instrument</span></a> tutorial for more information.</p>
+<p>An example of using the <code class="docutils literal notranslate"><span class="pre">PNA</span></code> class to retrieve some s-parameter data and plot it</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">from skrf.vi.vna.keysight import PNA
+</span><span data-line="2">instr = PNA(address="TCPIP0::10.0.0.1::INSTR")
+</span><span data-line="3">
+</span><span data-line="4">freq = Frequency(start=2.3e9, stop=2.6e9, npoints=401, unit='hz')
+</span><span data-line="5">instr.frequency = freq
+</span><span data-line="6">
+</span><span data-line="7">ntwk = instr.get_snp_network(ports=(1,2))
+</span><span data-line="8">ntwk.s21.plot_s_db()
+</span></pre></div>
+</div>
+</section>
+<section id="Calibration">
+<h2>Calibration<a class="headerlink" href="#Calibration" title="Link to this heading">#</a></h2>
+<p>Calibrations are performed through a <a class="reference internal" href="../api/calibration/index.html"><span class="doc">Calibration</span></a> class. In most cases, creating a <a class="reference internal" href="../api/calibration/index.html"><span class="doc">Calibration</span></a> object requires at least two pieces of information:</p>
+<ul class="simple">
+<li><p>a list of measured <a class="reference internal" href="../api/network.html"><span class="doc">Network</span></a>’s</p></li>
+<li><p>a list of ideal <a class="reference internal" href="../api/network.html"><span class="doc">Network</span></a>’s</p></li>
+</ul>
+<p>The <a class="reference internal" href="../api/network.html"><span class="doc">Network</span></a> elements in each list must all be similar (same #ports, frequency info, etc) and must be aligned to each other, meaning the first element of ideals list must correspond to the first element of measured list.</p>
+<p>Below is an example script illustrating how to create a <a class="reference internal" href="../api/calibration/index.html"><span class="doc">Calibration</span></a> .</p>
+<section id="One-Port-Calibration">
+<h3>One Port Calibration<a class="headerlink" href="#One-Port-Calibration" title="Link to this heading">#</a></h3>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">import skrf as rf
+</span><span data-line="2">from skrf.calibration import OnePort
+</span><span data-line="3">
+</span><span data-line="4">my_ideals = rf.io.read_all('ideals/')
+</span><span data-line="5">my_measured = rf.io.read_all('measured/')
+</span><span data-line="6">duts = rf.io.read_all('measured/')
+</span><span data-line="7">
+</span><span data-line="8">## create a Calibration instance
+</span><span data-line="9">cal = OnePort(
+</span><span data-line="10">    ideals = [my_ideals[k] for k in ['short','open','load']],
+</span><span data-line="11">    measured = [my_measured[k] for k in ['short','open','load']],
+</span><span data-line="12">    )
+</span><span data-line="13">
+</span><span data-line="14">caled_duts = [cal.apply_cal(dut) for dut in duts.values()]
+</span></pre></div>
+</div>
+<p>See the <a class="reference internal" href="Calibration.html"><span class="doc">Calibration</span></a> tutorial for more details and examples.</p>
+</section>
+</section>
+<section id="Transmission-Line-Media">
+<h2>Transmission Line Media<a class="headerlink" href="#Transmission-Line-Media" title="Link to this heading">#</a></h2>
+<p>Simple transmission-line based networks can be created through methods of the <a class="reference internal" href="../api/media/index.html"><span class="doc">Media</span></a> class, which represents a transmission line object for a given medium. Once constructed, a <a class="reference internal" href="../api/media/index.html"><span class="doc">Media</span></a> object contains the necessary properties such as <code class="docutils literal notranslate"><span class="pre">propagation</span> <span class="pre">constant</span></code> and <code class="docutils literal notranslate"><span class="pre">characteristic</span> <span class="pre">impedance</span></code>, that are needed to generate microwave circuits.</p>
+<p>The basic usage looks something like this,</p>
+<section id="CPW">
+<h3>CPW<a class="headerlink" href="#CPW" title="Link to this heading">#</a></h3>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[26]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="kn">from</span><span class="w"> </span><span class="nn">skrf</span><span class="w"> </span><span class="kn">import</span> <a class="sphinx-codeautolink-a" href="../api/generated/skrf.frequency.Frequency.html#skrf.frequency.Frequency" title="skrf.frequency.Frequency"><span class="n">Frequency</span></a>
+</span><span data-line="2"><span class="kn">from</span><span class="w"> </span><a class="sphinx-codeautolink-a" href="../api/media/index.html#module-0"><span class="nn">skrf.media</span></a><span class="w"> </span><span class="kn">import</span> <a class="sphinx-codeautolink-a" href="../api/media/generated/skrf.media.cpw.CPW.html#skrf.media.cpw.CPW" title="skrf.media.cpw.CPW"><span class="n">CPW</span></a><span class="p">,</span> <a class="sphinx-codeautolink-a" href="../api/media/generated/skrf.media.coaxial.Coaxial.html#skrf.media.coaxial.Coaxial" title="skrf.media.coaxial.Coaxial"><span class="n">Coaxial</span></a>
+</span><span data-line="3">
+</span><span data-line="4"><a class="sphinx-codeautolink-a" href="../api/generated/skrf.frequency.Frequency.html#skrf.frequency.Frequency" title="skrf.frequency.Frequency"><span class="n">freq</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../api/generated/skrf.frequency.Frequency.html#skrf.frequency.Frequency" title="skrf.frequency.Frequency"><span class="n">Frequency</span></a><span class="p">(</span><span class="mi">75</span><span class="p">,</span> <span class="mi">110</span><span class="p">,</span> <span class="mi">101</span><span class="p">,</span> <span class="s1">'GHz'</span><span class="p">)</span>
+</span><span data-line="5"><a class="sphinx-codeautolink-a" href="../api/media/generated/skrf.media.cpw.CPW.html#skrf.media.cpw.CPW" title="skrf.media.cpw.CPW"><span class="n">cpw</span></a> <span class="o">=</span>  <a class="sphinx-codeautolink-a" href="../api/media/generated/skrf.media.cpw.CPW.html#skrf.media.cpw.CPW" title="skrf.media.cpw.CPW"><span class="n">CPW</span></a><span class="p">(</span><a class="sphinx-codeautolink-a" href="../api/generated/skrf.frequency.Frequency.html#skrf.frequency.Frequency" title="skrf.frequency.Frequency"><span class="n">freq</span></a><span class="p">,</span> <span class="n">w</span> <span class="o">=</span> <span class="mf">10e-6</span><span class="p">,</span> <span class="n">s</span> <span class="o">=</span> <span class="mf">5e-6</span><span class="p">,</span> <span class="n">ep_r</span> <span class="o">=</span> <span class="mf">10.6</span><span class="p">)</span>
+</span><span data-line="6"><a class="sphinx-codeautolink-a" href="../api/media/generated/skrf.media.cpw.CPW.html#skrf.media.cpw.CPW" title="skrf.media.cpw.CPW"><span class="n">cpw</span></a>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[26]:
+</span></pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Coplanar Waveguide Media.  75.0-110.0 GHz. 101 points
+ W= 1.00e-05m, S= 5.00e-06m
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[27]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><a class="sphinx-codeautolink-a" href="../api/media/generated/skrf.media.cpw.CPW.line.html#skrf.media.cpw.CPW.line" title="skrf.media.cpw.CPW.line"><span class="n">cpw</span><span class="o">.</span><span class="n">line</span></a><span class="p">(</span><span class="n">d</span><span class="o">=</span><span class="mi">90</span><span class="p">,</span><span class="n">unit</span><span class="o">=</span><span class="s1">'deg'</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'line'</span><span class="p">)</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[27]:
+</span></pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+2-Port Network: 'line',  75.0-110.0 GHz, 101 pts, z0=[50.02832417+0.j 50.02832417+0.j]
+</pre></div></div>
+</div>
+</section>
+<section id="Coax">
+<h3>Coax<a class="headerlink" href="#Coax" title="Link to this heading">#</a></h3>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[28]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><a class="sphinx-codeautolink-a" href="../api/generated/skrf.frequency.Frequency.html#skrf.frequency.Frequency" title="skrf.frequency.Frequency"><span class="n">freq</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../api/generated/skrf.frequency.Frequency.html#skrf.frequency.Frequency" title="skrf.frequency.Frequency"><span class="n">Frequency</span></a><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">101</span><span class="p">,</span> <span class="s1">'GHz'</span><span class="p">)</span>
+</span><span data-line="2"><a class="sphinx-codeautolink-a" href="../api/media/generated/skrf.media.coaxial.Coaxial.html#skrf.media.coaxial.Coaxial" title="skrf.media.coaxial.Coaxial"><span class="n">coax</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../api/media/generated/skrf.media.coaxial.Coaxial.html#skrf.media.coaxial.Coaxial" title="skrf.media.coaxial.Coaxial"><span class="n">Coaxial</span></a><span class="p">(</span><span class="n">frequency</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../api/generated/skrf.frequency.Frequency.html#skrf.frequency.Frequency" title="skrf.frequency.Frequency"><span class="n">freq</span></a><span class="p">,</span> <span class="n">Dint</span> <span class="o">=</span> <span class="mf">1e-3</span><span class="p">,</span> <span class="n">Dout</span> <span class="o">=</span> <span class="mf">2e-3</span><span class="p">)</span>
+</span><span data-line="3"><a class="sphinx-codeautolink-a" href="../api/media/generated/skrf.media.coaxial.Coaxial.html#skrf.media.coaxial.Coaxial" title="skrf.media.coaxial.Coaxial"><span class="n">coax</span></a>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[28]:
+</span></pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Coaxial Media.  Coaxial Media.  1.0-10.0GHz, 101 points.
+Dint = 1.00 mm, Dout = 2.00 mm
+z0 = (41.7, -0.1j)-(41.6, -0.0j) Ohm
+z0_port is not defined.
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[ ]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1">
+</span></pre></div>
+</div>
+</div>
+</section>
+</section>
+</section>
+
+        </article><button class="back-to-top" type="button">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+  </svg>
+  <span>Back to top</span>
+</button><div class="navigation flex print:hidden"><div class="navigation-prev">
+    <a href="Installation.html">
+      <i class="i-lucide chevron-left"></i>
+      <div class="page-info">
+        <span>Previous</span><div class="title">Installation</div></div>
+    </a>
+  </div><div class="navigation-next">
+    <a href="index.html">
+      <div class="page-info">
+        <span>Next</span>
+        <div class="title">Tutorials</div>
+      </div>
+      <i class="i-lucide chevron-right"></i>
+    </a>
+  </div></div></div>
+    </div>
+  </main>
+</div>
+<footer class="sy-foot">
+  <div class="sy-foot-inner sy-container mx-auto">
+    <div class="sy-foot-reserved md:flex justify-between items-center">
+      <div class="sy-foot-copyright"><p>2025, scikit-rf team</p>
+  
+  <p>
+    Made with
+    
+    <a href="https://www.sphinx-doc.org/">Sphinx</a> and
+    
+    <a href="https://shibuya.lepture.com">Shibuya theme</a>.
+  </p>
+</div>
+      <div class="sy-foot-socials">
+  <a href="https://github.com/scikit-rf/scikit-rf" aria-label="GitHub">
+    <iconify-icon icon="simple-icons:github"></iconify-icon>
+  </a></div>
+    </div>
+  </div>
+</footer>
+      <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../_static/copybutton.js?v=34bd459d"></script>
+      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+      <script src="../_static/shibuya.js?v=50760d75"></script>
+      <script src="https://cdn.jsdelivr.net/npm/@jupyter-widgets/html-manager@^1.0.1/dist/embed-amd.js"></script>
+      <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
+      <script src="../_static/skrf.js?v=bdeb9fb0"></script></body>
+</html>

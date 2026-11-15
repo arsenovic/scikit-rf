@@ -1,0 +1,6 @@
+skrf.network.Network.unilateral\_gain
+=====================================
+
+.. currentmodule:: skrf.network
+
+.. autoproperty:: Network.unilateral_gain

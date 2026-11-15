@@ -1,0 +1,1107 @@
+<!DOCTYPE html>
+<html lang="en" data-accent-color="blue" data-content_root="../../../">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>skrf.io.general - scikit-rf</title><link rel="author" title="About these documents" href="../../../about.html" /><link rel="index" title="Index" href="../../../genindex.html" /><link rel="search" title="Search" href="../../../search.html" /><script>
+    function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
+    setColorMode(localStorage._theme||"auto");
+  </script><link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=ad592e98" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/shibuya.css?v=2ceb65ce" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-codeautolink.css?v=b2176991" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+    <link media="print" rel="stylesheet" type="text/css" href="../../../_static/print.css?v=20ff2c19" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/skrf.css?v=7e772ba2" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --sy-f-text: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+  --sy-f-heading: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+}
+</style>
+    
+  <meta property="og:type" content="website"/><meta property="og:title" content="skrf.io.general"/>
+    <meta name="twitter:card" content="summary"/>
+  </head>
+<body><div class="sy-head">
+  <div class="sy-head-blur"></div>
+  <div class="sy-head-inner sy-container mx-auto">
+    <a class="sy-head-brand" href="../../../index.html">
+      <img class="light-logo" src="../../../_static/logo.svg" alt="scikit-rf" height="28" loading="lazy" />
+      <img class="dark-logo" src="../../../_static/logo.svg" alt="scikit-rf" height="28" loading="lazy" />
+      <strong>scikit-rf</strong>
+    </a>
+    <div class="sy-head-nav" id="head-nav">
+      <nav class="sy-head-links"><ul><li class="link"><a href="../../../index.html">Home</a></li><li class="link"><a href="../../../tutorials/index.html">Tutorials</a></li><li class="link"><a href="../../../examples/index.html">Examples</a></li><li class="link"><a href="../../../api/index.html">API</a></li><li class="link">
+          <a href="https://github.com/scikit-rf/scikit-rf">
+            <span>GitHub</span><i class="i-lucide external-link"></i></a>
+        </li></ul></nav>
+      <div class="sy-head-extra flex items-center print:hidden"><form class="searchbox flex items-center" action="../../../search.html" method="get">
+  <input type="text" name="q" placeholder="Search" />
+  <kbd>/</kbd>
+</form><div class="sy-head-socials">
+  <a href="https://github.com/scikit-rf/scikit-rf" aria-label="GitHub">
+    <iconify-icon icon="simple-icons:github"></iconify-icon>
+  </a>
+  <a href="https://www.linkedin.com/groups/12462155/" aria-label="LinkedIn">
+    <iconify-icon icon="simple-icons:linkedin"></iconify-icon>
+  </a>
+  <a href="https://app.element.io/#/room/#scikit-rf:matrix.org" aria-label="Matrix">
+    <iconify-icon icon="simple-icons:matrix"></iconify-icon>
+  </a></div></div>
+    </div>
+    <div class="sy-head-actions flex items-center shrink-0 print:hidden"><button class="js-theme theme-switch flex items-center"
+data-aria-auto="Switch to light color mode"
+data-aria-light="Switch to dark color mode"
+data-aria-dark="Switch to auto color mode">
+<i class="i-lucide theme-icon"></i>
+</button><button class="md:hidden flex items-center js-menu" aria-label="Menu" type="button" aria-controls="head-nav" aria-expanded="false">
+        <div class="hamburger">
+          <span class="hamburger_1"></span>
+          <span class="hamburger_2"></span>
+          <span class="hamburger_3"></span>
+        </div>
+      </button>
+    </div>
+  </div>
+</div>
+<div class="sy-page sy-container flex mx-auto">
+  <aside id="lside" class="sy-lside md:w-72 md:shrink-0 print:hidden">
+    <div class="sy-lside-inner md:sticky">
+      <div class="sy-scrollbar p-6">
+        <div class="globaltoc" data-expand-depth="0"><p class="caption" role="heading" aria-level="3"><span class="caption-text">Getting started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../index.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorials/Installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorials/Introduction.html">Introduction</a></li>
+</ul>
+<p class="caption" role="heading" aria-level="3"><span class="caption-text">User guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/index.html">Examples</a></li>
+</ul>
+<p class="caption" role="heading" aria-level="3"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/index.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../glossary.html">Glossary</a></li>
+</ul>
+<p class="caption" role="heading" aria-level="3"><span class="caption-text">Project</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing/index.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../citations_ack/acknowledging.html">Citing scikit-rf</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../citations_ack/citations.html">scikit-rf Citations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../about.html">About</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../users.html">Users</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../license.html">License</a></li>
+</ul>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="lside-overlay js-menu" role="button" aria-label="Close left sidebar" aria-controls="lside" aria-expanded="false"></div>
+  <aside id="rside" class="sy-rside pb-3 w-64 shrink-0 order-last">
+    <button class="rside-close js-menu xl:hidden" aria-label="Close Table of Contents" type="button" aria-controls="rside" aria-expanded="false">
+      <i class="i-lucide close"></i>
+    </button>
+    <div class="sy-scrollbar sy-rside-inner px-6 xl:top-16 xl:sticky xl:pl-0 pt-6 pb-4"><div id="ethical-ad-placement" data-ea-publisher="readthedocs"></div></div>
+  </aside>
+  <div class="rside-overlay js-menu" role="button" aria-label="Close Table of Contents" aria-controls="rside" aria-expanded="false"></div>
+  <main class="sy-main w-full max-sm:max-w-full print:pt-6">
+<div class="sy-breadcrumbs" role="navigation">
+  <div class="sy-breadcrumbs-inner flex items-center">
+    <div class="md:hidden mr-3">
+      <button class="js-menu" aria-label="Menu" type="button" aria-controls="lside" aria-expanded="false">
+        <i class="i-lucide menu"></i>
+      </button>
+    </div>
+    <ol class="flex-1" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="../../../index.html"><span itemprop="name">scikit-rf</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="1" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="../../index.html"><span itemprop="name">Module code</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="2" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <strong itemprop="name">skrf.io.general</strong>
+        <meta itemprop="position" content="3" />
+      </li></ol>
+    <div class="xl:hidden ml-1">
+      <button class="js-menu" aria-label="Show table of contents" type="button" aria-controls="rside"
+        aria-expanded="false">
+        <i class="i-lucide outdent"></i>
+      </button>
+    </div>
+  </div>
+</div><div class="flex flex-col break-words justify-between">
+      <div class="relative min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
+  <article class="yue" role="main">
+          <h1>Source code for skrf.io.general</h1><div class="highlight"><pre>
+<span></span><span data-line="1"><span class="sd">"""</span>
+</span><span data-line="2"><span class="sd">.. module:: skrf.io.general</span>
+</span><span data-line="3">
+</span><span data-line="4"><span class="sd">========================================</span>
+</span><span data-line="5"><span class="sd">general (:mod:`skrf.io.general`)</span>
+</span><span data-line="6"><span class="sd">========================================</span>
+</span><span data-line="7">
+</span><span data-line="8"><span class="sd">General input/output functions for reading and writing skrf objects</span>
+</span><span data-line="9">
+</span><span data-line="10">
+</span><span data-line="11"><span class="sd">Pickle functions</span>
+</span><span data-line="12"><span class="sd">------------------</span>
+</span><span data-line="13">
+</span><span data-line="14"><span class="sd">The read/write methods use the pickle module. These should only be used</span>
+</span><span data-line="15"><span class="sd">for temporary storage.</span>
+</span><span data-line="16">
+</span><span data-line="17"><span class="sd">.. autosummary::</span>
+</span><span data-line="18"><span class="sd">   :toctree: generated/</span>
+</span><span data-line="19">
+</span><span data-line="20"><span class="sd">   read</span>
+</span><span data-line="21"><span class="sd">   read_all</span>
+</span><span data-line="22"><span class="sd">   read_all_networks</span>
+</span><span data-line="23"><span class="sd">   write</span>
+</span><span data-line="24"><span class="sd">   write_all</span>
+</span><span data-line="25"><span class="sd">   save_sesh</span>
+</span><span data-line="26">
+</span><span data-line="27">
+</span><span data-line="28"><span class="sd">Spreadsheets</span>
+</span><span data-line="29"><span class="sd">-----------------------------</span>
+</span><span data-line="30">
+</span><span data-line="31"><span class="sd">.. autosummary::</span>
+</span><span data-line="32"><span class="sd">   :toctree: generated/</span>
+</span><span data-line="33">
+</span><span data-line="34"><span class="sd">   network_2_spreadsheet</span>
+</span><span data-line="35"><span class="sd">   networkset_2_spreadsheet</span>
+</span><span data-line="36">
+</span><span data-line="37"><span class="sd">Pandas dataframe</span>
+</span><span data-line="38"><span class="sd">----------------------------------</span>
+</span><span data-line="39">
+</span><span data-line="40"><span class="sd">.. autosummary::</span>
+</span><span data-line="41"><span class="sd">   :toctree: generated/</span>
+</span><span data-line="42">
+</span><span data-line="43"><span class="sd">   network_2_dataframe</span>
+</span><span data-line="44">
+</span><span data-line="45"><span class="sd">Statistics</span>
+</span><span data-line="46"><span class="sd">----------</span>
+</span><span data-line="47">
+</span><span data-line="48"><span class="sd">.. autosummary::</span>
+</span><span data-line="49"><span class="sd">   :toctree: generated/</span>
+</span><span data-line="50">
+</span><span data-line="51"><span class="sd">    statistical_2_touchstone</span>
+</span><span data-line="52">
+</span><span data-line="53"><span class="sd">JSON</span>
+</span><span data-line="54"><span class="sd">-------</span>
+</span><span data-line="55">
+</span><span data-line="56"><span class="sd">.. autosummary::</span>
+</span><span data-line="57"><span class="sd">   :toctree: generated/</span>
+</span><span data-line="58">
+</span><span data-line="59"><span class="sd">   TouchstoneEncoder</span>
+</span><span data-line="60"><span class="sd">   to_json_string</span>
+</span><span data-line="61"><span class="sd">   from_json_string</span>
+</span><span data-line="62">
+</span><span data-line="63">
+</span><span data-line="64"><span class="sd">"""</span>
+</span><span data-line="65"><span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
+</span><span data-line="66">
+</span><span data-line="67"><span class="kn">import</span><span class="w"> </span><span class="nn">glob</span>
+</span><span data-line="68"><span class="kn">import</span><span class="w"> </span><span class="nn">inspect</span>
+</span><span data-line="69"><span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
+</span><span data-line="70"><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+</span><span data-line="71"><span class="kn">import</span><span class="w"> </span><span class="nn">pickle</span>
+</span><span data-line="72"><span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
+</span><span data-line="73"><span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
+</span><span data-line="74"><span class="kn">from</span><span class="w"> </span><span class="nn">io</span><span class="w"> </span><span class="kn">import</span> <span class="n">StringIO</span>
+</span><span data-line="75"><span class="kn">from</span><span class="w"> </span><span class="nn">logging</span><span class="w"> </span><span class="kn">import</span> <span class="n">getLogger</span>
+</span><span data-line="76"><span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+</span><span data-line="77"><span class="kn">from</span><span class="w"> </span><span class="nn">pickle</span><span class="w"> </span><span class="kn">import</span> <span class="n">UnpicklingError</span>
+</span><span data-line="78"><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span>
+</span><span data-line="79">
+</span><span data-line="80"><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+</span><span data-line="81">
+</span><span data-line="82"><span class="kn">from</span><span class="w"> </span><span class="nn">..frequency</span><span class="w"> </span><span class="kn">import</span> <span class="n">Frequency</span>
+</span><span data-line="83"><span class="kn">from</span><span class="w"> </span><span class="nn">..network</span><span class="w"> </span><span class="kn">import</span> <span class="n">Network</span>
+</span><span data-line="84"><span class="kn">from</span><span class="w"> </span><span class="nn">..networkSet</span><span class="w"> </span><span class="kn">import</span> <span class="n">NetworkSet</span>
+</span><span data-line="85"><span class="kn">from</span><span class="w"> </span><span class="nn">..util</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_extn</span><span class="p">,</span> <span class="n">get_fid</span>
+</span><span data-line="86">
+</span><span data-line="87"><span class="n">logger</span> <span class="o">=</span> <span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+</span><span data-line="88">
+</span><span data-line="89">
+</span><span data-line="90"><span class="k">def</span><span class="w"> </span><span class="nf">_get_extension</span><span class="p">(</span><span class="n">inst</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+</span><span data-line="91"><span class="w">    </span><span class="sd">"""File extension conventions for skrf objects.</span>
+</span><span data-line="92"><span class="sd">    """</span>
+</span><span data-line="93">    <span class="kn">from</span><span class="w"> </span><span class="nn">..calibration.calibration</span><span class="w"> </span><span class="kn">import</span> <span class="n">Calibration</span>
+</span><span data-line="94">    <span class="kn">from</span><span class="w"> </span><span class="nn">..media</span><span class="w"> </span><span class="kn">import</span> <span class="n">Media</span>
+</span><span data-line="95">
+</span><span data-line="96">    <span class="n">extensions</span> <span class="o">=</span> <span class="p">[</span>
+</span><span data-line="97">        <span class="p">(</span><span class="n">Frequency</span><span class="p">,</span> <span class="s2">"freq"</span><span class="p">),</span>
+</span><span data-line="98">        <span class="p">(</span><span class="n">Network</span><span class="p">,</span> <span class="s2">"ntwk"</span><span class="p">),</span>
+</span><span data-line="99">        <span class="p">(</span><span class="n">NetworkSet</span><span class="p">,</span> <span class="s2">"ns"</span><span class="p">),</span>
+</span><span data-line="100">        <span class="p">(</span><span class="n">Calibration</span><span class="p">,</span> <span class="s2">"cal"</span><span class="p">),</span>
+</span><span data-line="101">        <span class="p">(</span><span class="n">Media</span><span class="p">,</span> <span class="s2">"med"</span><span class="p">),</span>
+</span><span data-line="102">    <span class="p">]</span>
+</span><span data-line="103">
+</span><span data-line="104">    <span class="k">for</span> <span class="bp">cls</span><span class="p">,</span> <span class="n">ext</span> <span class="ow">in</span> <span class="n">extensions</span><span class="p">:</span>
+</span><span data-line="105">        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">inst</span><span class="p">,</span> <span class="bp">cls</span><span class="p">):</span>
+</span><span data-line="106">            <span class="k">return</span> <span class="n">ext</span>
+</span><span data-line="107">    <span class="k">return</span> <span class="s2">"p"</span>
+</span><span data-line="108">
+<div class="viewcode-block" id="read">
+<a class="viewcode-back" href="../../../api/io/generated/skrf.io.general.read.html#skrf.io.general.read">[docs]</a>
+</span><span data-line="109"><span class="k">def</span><span class="w"> </span><span class="nf">read</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+</span><span data-line="110"><span class="w">    </span><span class="sa">r</span><span class="sd">"""</span>
+</span><span data-line="111"><span class="sd">    Read  skrf object[s] from a pickle file.</span>
+</span><span data-line="112">
+</span><span data-line="113"><span class="sd">    Reads a skrf object that is written with :func:`write`, which uses</span>
+</span><span data-line="114"><span class="sd">    the :mod:`pickle` module.</span>
+</span><span data-line="115">
+</span><span data-line="116"><span class="sd">    Parameters</span>
+</span><span data-line="117"><span class="sd">    ----------</span>
+</span><span data-line="118"><span class="sd">    file : str, Path, or file-object</span>
+</span><span data-line="119"><span class="sd">        name of file, or  a file-object</span>
+</span><span data-line="120"><span class="sd">    \*args, \*\*kwargs : arguments and keyword arguments</span>
+</span><span data-line="121"><span class="sd">        passed through to pickle.load</span>
+</span><span data-line="122">
+</span><span data-line="123">
+</span><span data-line="124"><span class="sd">    .. note::</span>
+</span><span data-line="125"><span class="sd">        If `file` is a:</span>
+</span><span data-line="126">
+</span><span data-line="127"><span class="sd">        * a file-object, it is left open</span>
+</span><span data-line="128">
+</span><span data-line="129"><span class="sd">        * a filename, then a file-object is opened and closed.</span>
+</span><span data-line="130">
+</span><span data-line="131"><span class="sd">        * a file-object and reading fails, then the position is reset back to 0 using seek if possible.</span>
+</span><span data-line="132">
+</span><span data-line="133">
+</span><span data-line="134"><span class="sd">    Examples</span>
+</span><span data-line="135"><span class="sd">    --------</span>
+</span><span data-line="136"><span class="sd">    &gt;&gt;&gt; n = rf.Network(f=[1,2,3],s=[1,1,1],z0=50)</span>
+</span><span data-line="137"><span class="sd">    &gt;&gt;&gt; n.write('my_ntwk.ntwk')</span>
+</span><span data-line="138"><span class="sd">    &gt;&gt;&gt; n_2 = rf.read('my_ntwk.ntwk')</span>
+</span><span data-line="139">
+</span><span data-line="140"><span class="sd">    See Also</span>
+</span><span data-line="141"><span class="sd">    --------</span>
+</span><span data-line="142"><span class="sd">    read : read a skrf object</span>
+</span><span data-line="143"><span class="sd">    write : write skrf object[s]</span>
+</span><span data-line="144"><span class="sd">    read_all : read all skrf objects in a directory</span>
+</span><span data-line="145"><span class="sd">    write_all : write dictionary of skrf objects to a directory</span>
+</span><span data-line="146"><span class="sd">    """</span>
+</span><span data-line="147">    <span class="n">fid</span> <span class="o">=</span> <span class="n">get_fid</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">'rb'</span><span class="p">)</span>
+</span><span data-line="148">    <span class="k">try</span><span class="p">:</span>
+</span><span data-line="149">        <span class="n">obj</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">fid</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+</span><span data-line="150">    <span class="k">except</span> <span class="p">(</span><span class="n">UnpicklingError</span><span class="p">,</span> <span class="ne">UnicodeDecodeError</span><span class="p">):</span>
+</span><span data-line="151">        <span class="c1"># if fid is seekable then reset to beginning of file</span>
+</span><span data-line="152">        <span class="n">fid</span><span class="o">.</span><span class="n">seek</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+</span><span data-line="153">
+</span><span data-line="154">        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+</span><span data-line="155">            <span class="c1"># we created the fid so close it</span>
+</span><span data-line="156">            <span class="n">fid</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</span><span data-line="157">        <span class="k">raise</span>
+</span><span data-line="158">
+</span><span data-line="159">    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+</span><span data-line="160">        <span class="c1"># we created the fid so close it</span>
+</span><span data-line="161">        <span class="n">fid</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</span><span data-line="162">
+</span><span data-line="163">    <span class="k">return</span> <span class="n">obj</span></div>
+
+</span><span data-line="164">
+<div class="viewcode-block" id="write">
+<a class="viewcode-back" href="../../../api/io/generated/skrf.io.general.write.html#skrf.io.general.write">[docs]</a>
+</span><span data-line="165"><span class="k">def</span><span class="w"> </span><span class="nf">write</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">obj</span><span class="p">,</span> <span class="n">overwrite</span> <span class="o">=</span> <span class="kc">True</span><span class="p">):</span>
+</span><span data-line="166"><span class="w">    </span><span class="sd">"""</span>
+</span><span data-line="167"><span class="sd">    Write skrf object[s] to a file.</span>
+</span><span data-line="168">
+</span><span data-line="169"><span class="sd">    This uses the :mod:`pickle` module to write skrf objects to a file.</span>
+</span><span data-line="170"><span class="sd">    Note that you can write any pickl-able python object. For example,</span>
+</span><span data-line="171"><span class="sd">    you can write a list or dictionary of :class:`~skrf.network.Network`</span>
+</span><span data-line="172"><span class="sd">    objects</span>
+</span><span data-line="173"><span class="sd">    or :class:`~skrf.calibration.calibration.Calibration` objects. This</span>
+</span><span data-line="174"><span class="sd">    will write out a single file. If you would like to write out a</span>
+</span><span data-line="175"><span class="sd">    separate file for each object, use :func:`write_all`.</span>
+</span><span data-line="176">
+</span><span data-line="177"><span class="sd">    Parameters</span>
+</span><span data-line="178"><span class="sd">    ----------</span>
+</span><span data-line="179"><span class="sd">    file : file, Path, or string</span>
+</span><span data-line="180"><span class="sd">        File or filename to which the data is saved.  If file is a</span>
+</span><span data-line="181"><span class="sd">        file-object, then the filename is unchanged.  If file is a</span>
+</span><span data-line="182"><span class="sd">        string, an appropriate extension will be appended to the file</span>
+</span><span data-line="183"><span class="sd">        name if it does not already have an extension.</span>
+</span><span data-line="184">
+</span><span data-line="185"><span class="sd">    obj : an object, or list/dict of objects</span>
+</span><span data-line="186"><span class="sd">        object or list/dict of objects to write to disk</span>
+</span><span data-line="187">
+</span><span data-line="188"><span class="sd">    overwrite : Boolean</span>
+</span><span data-line="189"><span class="sd">        if file exists, should it be overwritten?</span>
+</span><span data-line="190">
+</span><span data-line="191">
+</span><span data-line="192"><span class="sd">    .. note::</span>
+</span><span data-line="193"><span class="sd">        If `file` is a string, but doesn't contain a suffix, one is chosen</span>
+</span><span data-line="194"><span class="sd">        automatically. Here are the extensions:</span>
+</span><span data-line="195">
+</span><span data-line="196">
+</span><span data-line="197"><span class="sd">        ====================================================  ===============</span>
+</span><span data-line="198"><span class="sd">        skrf object                                           extension</span>
+</span><span data-line="199"><span class="sd">        ====================================================  ===============</span>
+</span><span data-line="200"><span class="sd">        :class:`~skrf.frequency.Frequency`                    '.freq'</span>
+</span><span data-line="201"><span class="sd">        :class:`~skrf.network.Network`                        '.ntwk'</span>
+</span><span data-line="202"><span class="sd">        :class:`~skrf.networkSet.NetworkSet`                  '.ns'</span>
+</span><span data-line="203"><span class="sd">        :class:`~skrf.calibration.calibration.Calibration`    '.cal'</span>
+</span><span data-line="204"><span class="sd">        :class:`~skrf.media.media.Media`                      '.med'</span>
+</span><span data-line="205"><span class="sd">        other                                                 '.p'</span>
+</span><span data-line="206"><span class="sd">        ====================================================  ===============</span>
+</span><span data-line="207">
+</span><span data-line="208"><span class="sd">    .. note::</span>
+</span><span data-line="209"><span class="sd">        To make the file written by this method cross-platform, the pickling</span>
+</span><span data-line="210"><span class="sd">        protocol 2 is used. See :mod:`pickle` for more info.</span>
+</span><span data-line="211">
+</span><span data-line="212"><span class="sd">    Examples</span>
+</span><span data-line="213"><span class="sd">    --------</span>
+</span><span data-line="214"><span class="sd">    Convert a touchstone file to a pickled Network,</span>
+</span><span data-line="215">
+</span><span data-line="216"><span class="sd">    &gt;&gt;&gt; n = rf.Network('my_ntwk.s2p')</span>
+</span><span data-line="217"><span class="sd">    &gt;&gt;&gt; rf.write('my_ntwk',n)</span>
+</span><span data-line="218"><span class="sd">    &gt;&gt;&gt; n_red = rf.read('my_ntwk.ntwk')</span>
+</span><span data-line="219">
+</span><span data-line="220"><span class="sd">    Writing a list of different objects</span>
+</span><span data-line="221">
+</span><span data-line="222"><span class="sd">    &gt;&gt;&gt; n = rf.Network('my_ntwk.s2p')</span>
+</span><span data-line="223"><span class="sd">    &gt;&gt;&gt; ns = rf.NetworkSet([n,n,n])</span>
+</span><span data-line="224"><span class="sd">    &gt;&gt;&gt; rf.write('out',[n,ns])</span>
+</span><span data-line="225"><span class="sd">    &gt;&gt;&gt; n_red = rf.read('out.p')</span>
+</span><span data-line="226">
+</span><span data-line="227"><span class="sd">    See Also</span>
+</span><span data-line="228"><span class="sd">    --------</span>
+</span><span data-line="229"><span class="sd">    read : read a skrf object</span>
+</span><span data-line="230"><span class="sd">    write : write skrf object[s]</span>
+</span><span data-line="231"><span class="sd">    read_all : read all skrf objects in a directory</span>
+</span><span data-line="232"><span class="sd">    write_all : write dictionary of skrf objects to a directory</span>
+</span><span data-line="233"><span class="sd">    skrf.network.Network.write : write method of Network</span>
+</span><span data-line="234"><span class="sd">    skrf.calibration.calibration.Calibration.write : write method of Calibration</span>
+</span><span data-line="235">
+</span><span data-line="236">
+</span><span data-line="237"><span class="sd">    """</span>
+</span><span data-line="238">    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+</span><span data-line="239">        <span class="n">extn</span> <span class="o">=</span> <span class="n">get_extn</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+</span><span data-line="240">        <span class="k">if</span> <span class="n">extn</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+</span><span data-line="241">            <span class="c1"># if there is not extension add one</span>
+</span><span data-line="242">            <span class="n">file</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">".</span><span class="si">{</span><span class="n">_get_extension</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span>
+</span><span data-line="243">
+</span><span data-line="244">        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">file</span><span class="p">):</span>
+</span><span data-line="245">            <span class="k">if</span> <span class="ow">not</span> <span class="n">overwrite</span><span class="p">:</span>
+</span><span data-line="246">                <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s1">'file exists, and overwrite option is False. Not writing.'</span><span class="p">,</span> <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+</span><span data-line="247">                <span class="k">return</span>
+</span><span data-line="248">
+</span><span data-line="249">        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="s1">'wb'</span><span class="p">)</span> <span class="k">as</span> <span class="n">fid</span><span class="p">:</span>
+</span><span data-line="250">            <span class="n">pickle</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">fid</span><span class="p">,</span> <span class="n">protocol</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+</span><span data-line="251">
+</span><span data-line="252">    <span class="k">else</span><span class="p">:</span>
+</span><span data-line="253">        <span class="n">fid</span> <span class="o">=</span> <span class="n">file</span>
+</span><span data-line="254">        <span class="n">pickle</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">fid</span><span class="p">,</span> <span class="n">protocol</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+</span><span data-line="255">        <span class="n">fid</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
+
+</span><span data-line="256">
+<div class="viewcode-block" id="read_all">
+<a class="viewcode-back" href="../../../api/io/generated/skrf.io.general.read_all.html#skrf.io.general.read_all">[docs]</a>
+</span><span data-line="257"><span class="k">def</span><span class="w"> </span><span class="nf">read_all</span><span class="p">(</span><span class="nb">dir</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Path</span> <span class="o">=</span> <span class="s1">'.'</span><span class="p">,</span> <span class="n">sort</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">contains</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">f_unit</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+</span><span data-line="258">        <span class="n">obj_type</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">files</span><span class="p">:</span> <span class="nb">list</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">recursive</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+</span><span data-line="259"><span class="w">    </span><span class="sd">"""</span>
+</span><span data-line="260"><span class="sd">    Read all skrf objects in a directory.</span>
+</span><span data-line="261">
+</span><span data-line="262"><span class="sd">    Attempts to load all files in `dir`, using :func:`read`. Any file</span>
+</span><span data-line="263"><span class="sd">    that is not readable by skrf is skipped. Optionally, simple filtering</span>
+</span><span data-line="264"><span class="sd">    can be achieved through the use of `contains` argument.</span>
+</span><span data-line="265">
+</span><span data-line="266"><span class="sd">    Parameters</span>
+</span><span data-line="267"><span class="sd">    ----------</span>
+</span><span data-line="268"><span class="sd">    dir : str or Path, optional</span>
+</span><span data-line="269"><span class="sd">        the directory to load from, default  \'.\'</span>
+</span><span data-line="270"><span class="sd">    sort: boolean, default is True</span>
+</span><span data-line="271"><span class="sd">        filenames sorted by https://docs.python.org/3/library/stdtypes.html#list.sort without arguments</span>
+</span><span data-line="272"><span class="sd">    contains : str, optional</span>
+</span><span data-line="273"><span class="sd">        if not None, only files containing this substring will be loaded</span>
+</span><span data-line="274"><span class="sd">    f_unit : ['hz','khz','mhz','ghz','thz']</span>
+</span><span data-line="275"><span class="sd">        for all :class:`~skrf.network.Network` objects, set their</span>
+</span><span data-line="276"><span class="sd">        frequencies's :attr:`~skrf.frequency.Frequency.f_unit`</span>
+</span><span data-line="277"><span class="sd">    obj_type : str</span>
+</span><span data-line="278"><span class="sd">        Name of skrf object types to read (ie 'Network')</span>
+</span><span data-line="279"><span class="sd">    files : list, optional</span>
+</span><span data-line="280"><span class="sd">        list of files to load, bypasses dir parameter.</span>
+</span><span data-line="281"><span class="sd">    recursive : bool, optional</span>
+</span><span data-line="282"><span class="sd">        If True, search in the specified directory and all other nested directories</span>
+</span><span data-line="283">
+</span><span data-line="284"><span class="sd">    Returns</span>
+</span><span data-line="285"><span class="sd">    -------</span>
+</span><span data-line="286"><span class="sd">    out : dictionary</span>
+</span><span data-line="287"><span class="sd">        dictionary containing all loaded skrf objects. keys are the</span>
+</span><span data-line="288"><span class="sd">        filenames without extensions, and the values are the objects</span>
+</span><span data-line="289">
+</span><span data-line="290">
+</span><span data-line="291"><span class="sd">    Examples</span>
+</span><span data-line="292"><span class="sd">    --------</span>
+</span><span data-line="293"><span class="sd">    &gt;&gt;&gt; rf.read_all('skrf/data/')</span>
+</span><span data-line="294"><span class="sd">    {'delay_short': 1-Port Network: 'delay_short',  75-110 GHz, 201 pts, z0=[ 50.+0.j],</span>
+</span><span data-line="295"><span class="sd">    'line': 2-Port Network: 'line',  75-110 GHz, 201 pts, z0=[ 50.+0.j  50.+0.j],</span>
+</span><span data-line="296"><span class="sd">    'ntwk1': 2-Port Network: 'ntwk1',  1-10 GHz, 91 pts, z0=[ 50.+0.j  50.+0.j],</span>
+</span><span data-line="297"><span class="sd">    'one_port': one port Calibration: 'one_port', 500-750 GHz, 201 pts, 4-ideals/4-measured,</span>
+</span><span data-line="298"><span class="sd">    ...</span>
+</span><span data-line="299">
+</span><span data-line="300"><span class="sd">    &gt;&gt;&gt; rf.read_all('skrf/data/', obj_type = 'Network')</span>
+</span><span data-line="301"><span class="sd">    {'delay_short': 1-Port Network: 'delay_short',  75-110 GHz, 201 pts, z0=[ 50.+0.j],</span>
+</span><span data-line="302"><span class="sd">    'line': 2-Port Network: 'line',  75-110 GHz, 201 pts, z0=[ 50.+0.j  50.+0.j],</span>
+</span><span data-line="303"><span class="sd">    'ntwk1': 2-Port Network: 'ntwk1',  1-10 GHz, 91 pts, z0=[ 50.+0.j  50.+0.j],</span>
+</span><span data-line="304">
+</span><span data-line="305"><span class="sd">    &gt;&gt;&gt; rf.read_all(files = ['skrf/data/delay_short.s1p', 'skrf/data/line.s2p'], obj_type = 'Network')</span>
+</span><span data-line="306"><span class="sd">    {'delay_short': 1-Port Network: 'delay_short',  75-110 GHz, 201 pts, z0=[ 50.+0.j],</span>
+</span><span data-line="307"><span class="sd">    'line': 2-Port Network: 'line',  75-110 GHz, 201 pts, z0=[ 50.+0.j  50.+0.j]}</span>
+</span><span data-line="308">
+</span><span data-line="309"><span class="sd">    See Also</span>
+</span><span data-line="310"><span class="sd">    ----------</span>
+</span><span data-line="311"><span class="sd">    read : read a skrf object</span>
+</span><span data-line="312"><span class="sd">    write : write skrf object[s]</span>
+</span><span data-line="313"><span class="sd">    read_all : read all skrf objects in a directory</span>
+</span><span data-line="314"><span class="sd">    write_all : write dictionary of skrf objects to a directory</span>
+</span><span data-line="315"><span class="sd">    """</span>
+</span><span data-line="316">
+</span><span data-line="317">    <span class="c1"># Convert a Path object to a string</span>
+</span><span data-line="318">    <span class="nb">dir</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="nb">dir</span><span class="o">.</span><span class="n">resolve</span><span class="p">())</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="nb">dir</span><span class="p">,</span> <span class="n">Path</span><span class="p">)</span> <span class="k">else</span> <span class="nb">dir</span>
+</span><span data-line="319">
+</span><span data-line="320">    <span class="n">out</span><span class="o">=</span><span class="p">{}</span>
+</span><span data-line="321">
+</span><span data-line="322">    <span class="n">filelist</span> <span class="o">=</span> <span class="p">[]</span>
+</span><span data-line="323">    <span class="k">if</span> <span class="n">files</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+</span><span data-line="324">        <span class="k">if</span> <span class="n">recursive</span><span class="p">:</span>
+</span><span data-line="325">            <span class="k">if</span> <span class="ow">not</span> <span class="nb">dir</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">sep</span><span class="p">):</span>
+</span><span data-line="326">                <span class="nb">dir</span> <span class="o">+=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">sep</span>
+</span><span data-line="327">            <span class="nb">dir</span> <span class="o">+=</span> <span class="s1">'**'</span>
+</span><span data-line="328">        <span class="k">for</span> <span class="n">filename</span> <span class="ow">in</span> <span class="n">glob</span><span class="o">.</span><span class="n">iglob</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">dir</span><span class="p">,</span> <span class="s1">'*.s*p'</span><span class="p">),</span> <span class="n">recursive</span><span class="o">=</span><span class="n">recursive</span><span class="p">):</span>
+</span><span data-line="329">            <span class="n">filelist</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+</span><span data-line="330">    <span class="k">else</span><span class="p">:</span>
+</span><span data-line="331">        <span class="n">filelist</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">files</span><span class="p">)</span>
+</span><span data-line="332">
+</span><span data-line="333">    <span class="k">if</span> <span class="n">sort</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+</span><span data-line="334">        <span class="n">filelist</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+</span><span data-line="335">
+</span><span data-line="336">    <span class="k">for</span> <span class="n">filename</span> <span class="ow">in</span> <span class="n">filelist</span><span class="p">:</span>
+</span><span data-line="337">        <span class="k">if</span> <span class="n">contains</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">contains</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">filename</span><span class="p">:</span>
+</span><span data-line="338">            <span class="k">continue</span>
+</span><span data-line="339">        <span class="n">fullname</span> <span class="o">=</span> <span class="n">filename</span>
+</span><span data-line="340">        <span class="n">keyname</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">filename</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">sep</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span>
+</span><span data-line="341">        <span class="k">try</span><span class="p">:</span>
+</span><span data-line="342">            <span class="n">out</span><span class="p">[</span><span class="n">keyname</span><span class="p">]</span> <span class="o">=</span> <span class="n">read</span><span class="p">(</span><span class="n">fullname</span><span class="p">)</span>
+</span><span data-line="343">            <span class="k">continue</span>
+</span><span data-line="344">        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+</span><span data-line="345">            <span class="k">pass</span>
+</span><span data-line="346">
+</span><span data-line="347">        <span class="k">try</span><span class="p">:</span>
+</span><span data-line="348">            <span class="n">out</span><span class="p">[</span><span class="n">keyname</span><span class="p">]</span> <span class="o">=</span> <span class="n">Network</span><span class="p">(</span><span class="n">fullname</span><span class="p">)</span>
+</span><span data-line="349">            <span class="k">continue</span>
+</span><span data-line="350">        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+</span><span data-line="351">            <span class="k">pass</span>
+</span><span data-line="352">
+</span><span data-line="353">    <span class="k">if</span> <span class="n">f_unit</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+</span><span data-line="354">        <span class="k">for</span> <span class="n">keyname</span> <span class="ow">in</span> <span class="n">out</span><span class="p">:</span>
+</span><span data-line="355">            <span class="k">try</span><span class="p">:</span>
+</span><span data-line="356">                <span class="n">out</span><span class="p">[</span><span class="n">keyname</span><span class="p">]</span><span class="o">.</span><span class="n">frequency</span><span class="o">.</span><span class="n">unit</span> <span class="o">=</span> <span class="n">f_unit</span>
+</span><span data-line="357">            <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+</span><span data-line="358">                <span class="k">pass</span>
+</span><span data-line="359">
+</span><span data-line="360">    <span class="k">if</span> <span class="n">obj_type</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+</span><span data-line="361">        <span class="n">out</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">out</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">out</span> <span class="k">if</span>
+</span><span data-line="362">            <span class="nb">isinstance</span><span class="p">(</span><span class="n">out</span><span class="p">[</span><span class="n">k</span><span class="p">],</span><span class="n">sys</span><span class="o">.</span><span class="n">modules</span><span class="p">[</span><span class="vm">__name__</span><span class="p">]</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">[</span><span class="n">obj_type</span><span class="p">])}</span>
+</span><span data-line="363">
+</span><span data-line="364">    <span class="k">return</span> <span class="n">out</span></div>
+
+</span><span data-line="365">
+</span><span data-line="366">
+<div class="viewcode-block" id="read_all_networks">
+<a class="viewcode-back" href="../../../api/io/generated/skrf.io.general.read_all_networks.html#skrf.io.general.read_all_networks">[docs]</a>
+</span><span data-line="367"><span class="k">def</span><span class="w"> </span><span class="nf">read_all_networks</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+</span><span data-line="368"><span class="w">    </span><span class="sd">"""</span>
+</span><span data-line="369"><span class="sd">    Read all networks in a directory.</span>
+</span><span data-line="370">
+</span><span data-line="371"><span class="sd">    This is a convenience function. It just calls::</span>
+</span><span data-line="372">
+</span><span data-line="373"><span class="sd">        read_all(*args,obj_type='Network', **kwargs)</span>
+</span><span data-line="374">
+</span><span data-line="375"><span class="sd">    See Also</span>
+</span><span data-line="376"><span class="sd">    --------</span>
+</span><span data-line="377"><span class="sd">    read_all</span>
+</span><span data-line="378"><span class="sd">    """</span>
+</span><span data-line="379">    <span class="k">return</span> <span class="n">read_all</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span><span class="n">obj_type</span><span class="o">=</span><span class="s1">'Network'</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+</span><span data-line="380">
+</span><span data-line="381"><span class="n">ran</span> <span class="o">=</span> <span class="n">read_all_networks</span>
+</span><span data-line="382">
+<div class="viewcode-block" id="write_all">
+<a class="viewcode-back" href="../../../api/io/generated/skrf.io.general.write_all.html#skrf.io.general.write_all">[docs]</a>
+</span><span data-line="383"><span class="k">def</span><span class="w"> </span><span class="nf">write_all</span><span class="p">(</span><span class="n">dict_objs</span><span class="p">,</span> <span class="nb">dir</span><span class="o">=</span><span class="s1">'.'</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+</span><span data-line="384"><span class="w">    </span><span class="sa">r</span><span class="sd">"""</span>
+</span><span data-line="385"><span class="sd">    Write a dictionary of skrf objects individual files in `dir`.</span>
+</span><span data-line="386">
+</span><span data-line="387"><span class="sd">    Each object is written to its own file. The filename used for each</span>
+</span><span data-line="388"><span class="sd">    object is taken from its key in the dictionary. If no extension</span>
+</span><span data-line="389"><span class="sd">    exists in the key, then one is added. See :func:`write` for a list</span>
+</span><span data-line="390"><span class="sd">    of extensions. If you would like to write the dictionary to a single</span>
+</span><span data-line="391"><span class="sd">    output file use :func:`write`.</span>
+</span><span data-line="392">
+</span><span data-line="393">
+</span><span data-line="394"><span class="sd">    .. note::</span>
+</span><span data-line="395"><span class="sd">        Any object in  dict_objs that is pickl-able will be written.</span>
+</span><span data-line="396">
+</span><span data-line="397">
+</span><span data-line="398"><span class="sd">    Parameters</span>
+</span><span data-line="399"><span class="sd">    ----------</span>
+</span><span data-line="400"><span class="sd">    dict_objs : dict</span>
+</span><span data-line="401"><span class="sd">        dictionary of skrf objects</span>
+</span><span data-line="402"><span class="sd">    dir : str</span>
+</span><span data-line="403"><span class="sd">        directory to save skrf objects into</span>
+</span><span data-line="404"><span class="sd">    \*args, \*\*kwargs :</span>
+</span><span data-line="405"><span class="sd">            passed through to :func:`~skrf.io.general.write`. `overwrite`</span>
+</span><span data-line="406"><span class="sd">            option may be of use.</span>
+</span><span data-line="407">
+</span><span data-line="408"><span class="sd">    See Also</span>
+</span><span data-line="409"><span class="sd">    --------</span>
+</span><span data-line="410"><span class="sd">    read : read a skrf object</span>
+</span><span data-line="411"><span class="sd">    write : write skrf object[s]</span>
+</span><span data-line="412"><span class="sd">    read_all : read all skrf objects in a directory</span>
+</span><span data-line="413"><span class="sd">    write_all : write dictionary of skrf objects to a directory</span>
+</span><span data-line="414">
+</span><span data-line="415"><span class="sd">    Examples</span>
+</span><span data-line="416"><span class="sd">    --------</span>
+</span><span data-line="417"><span class="sd">    Writing a diction of different skrf objects</span>
+</span><span data-line="418">
+</span><span data-line="419"><span class="sd">    &gt;&gt;&gt; from skrf.data import line, short</span>
+</span><span data-line="420"><span class="sd">    &gt;&gt;&gt; d = {'ring_slot':ring_slot, 'one_port_cal':one_port_cal}</span>
+</span><span data-line="421"><span class="sd">    &gt;&gt;&gt; rf.write_all(d)</span>
+</span><span data-line="422">
+</span><span data-line="423"><span class="sd">    """</span>
+</span><span data-line="424">    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="s1">'.'</span><span class="p">):</span>
+</span><span data-line="425">        <span class="k">raise</span> <span class="ne">OSError</span><span class="p">(</span><span class="sa">f</span><span class="s1">'No such directory: </span><span class="si">{</span><span class="nb">dir</span><span class="si">}</span><span class="s1">'</span><span class="p">)</span>
+</span><span data-line="426">
+</span><span data-line="427">
+</span><span data-line="428">
+</span><span data-line="429">    <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">dict_objs</span><span class="p">:</span>
+</span><span data-line="430">        <span class="n">filename</span> <span class="o">=</span> <span class="n">k</span>
+</span><span data-line="431">        <span class="n">obj</span> <span class="o">=</span> <span class="n">dict_objs</span><span class="p">[</span><span class="n">k</span><span class="p">]</span>
+</span><span data-line="432">
+</span><span data-line="433">        <span class="n">extn</span> <span class="o">=</span> <span class="n">get_extn</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+</span><span data-line="434">        <span class="k">if</span> <span class="n">extn</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+</span><span data-line="435">            <span class="c1"># if there is not extension add one</span>
+</span><span data-line="436">            <span class="n">filename</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">".</span><span class="si">{</span><span class="n">_get_extension</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span>
+</span><span data-line="437">        <span class="k">try</span><span class="p">:</span>
+</span><span data-line="438">            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">dir</span><span class="o">+</span><span class="s1">'/'</span><span class="p">,</span> <span class="n">filename</span><span class="p">),</span> <span class="s1">'wb'</span><span class="p">)</span> <span class="k">as</span> <span class="n">fid</span><span class="p">:</span>
+</span><span data-line="439">                <span class="n">write</span><span class="p">(</span><span class="n">fid</span><span class="p">,</span> <span class="n">obj</span><span class="p">,</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+</span><span data-line="440">        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">inst</span><span class="p">:</span>
+</span><span data-line="441">            <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">f</span><span class="s1">'couldnt write </span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s1">: </span><span class="si">{</span><span class="n">inst</span><span class="si">}</span><span class="s1">'</span><span class="p">)</span>
+</span><span data-line="442">            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="sa">f</span><span class="s1">'couldnt write </span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s1">: </span><span class="si">{</span><span class="n">inst</span><span class="si">}</span><span class="s1">'</span><span class="p">,</span> <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+</span><span data-line="443">
+</span><span data-line="444">            <span class="k">pass</span></div>
+
+</span><span data-line="445">
+<div class="viewcode-block" id="save_sesh">
+<a class="viewcode-back" href="../../../api/io/generated/skrf.io.general.save_sesh.html#skrf.io.general.save_sesh">[docs]</a>
+</span><span data-line="446"><span class="k">def</span><span class="w"> </span><span class="nf">save_sesh</span><span class="p">(</span><span class="n">dict_objs</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="s1">'skrfSesh.p'</span><span class="p">,</span> <span class="n">module</span><span class="o">=</span><span class="s1">'skrf'</span><span class="p">,</span> <span class="n">exclude_prefix</span><span class="o">=</span><span class="s1">'_'</span><span class="p">):</span>
+</span><span data-line="447"><span class="w">    </span><span class="sd">"""</span>
+</span><span data-line="448"><span class="sd">    Save all `skrf` objects in the local namespace.</span>
+</span><span data-line="449">
+</span><span data-line="450"><span class="sd">    This is used to save current workspace in a hurry, by passing it the</span>
+</span><span data-line="451"><span class="sd">    output of :func:`locals` (see Examples). Note this can be</span>
+</span><span data-line="452"><span class="sd">    used for other modules as well by passing a different `module` name.</span>
+</span><span data-line="453">
+</span><span data-line="454"><span class="sd">    Parameters</span>
+</span><span data-line="455"><span class="sd">    ----------</span>
+</span><span data-line="456"><span class="sd">    dict_objs : dict</span>
+</span><span data-line="457"><span class="sd">        dictionary containing `skrf` objects. See the Example.</span>
+</span><span data-line="458"><span class="sd">    file : str or file-object, optional</span>
+</span><span data-line="459"><span class="sd">        the file to save all objects to</span>
+</span><span data-line="460"><span class="sd">    module : str, optional</span>
+</span><span data-line="461"><span class="sd">        the module name to grep for.</span>
+</span><span data-line="462"><span class="sd">    exclude_prefix: str, optional</span>
+</span><span data-line="463"><span class="sd">        dont save objects which have this as a prefix.</span>
+</span><span data-line="464">
+</span><span data-line="465"><span class="sd">    See Also</span>
+</span><span data-line="466"><span class="sd">    --------</span>
+</span><span data-line="467"><span class="sd">    read : read a skrf object</span>
+</span><span data-line="468"><span class="sd">    write : write skrf object[s]</span>
+</span><span data-line="469"><span class="sd">    read_all : read all skrf objects in a directory</span>
+</span><span data-line="470"><span class="sd">    write_all : write dictionary of skrf objects to a directory</span>
+</span><span data-line="471">
+</span><span data-line="472">
+</span><span data-line="473"><span class="sd">    Examples</span>
+</span><span data-line="474"><span class="sd">    --------</span>
+</span><span data-line="475"><span class="sd">    Write out all skrf objects in current namespace.</span>
+</span><span data-line="476">
+</span><span data-line="477"><span class="sd">    &gt;&gt;&gt; rf.write_all(locals(), 'mysesh.p')</span>
+</span><span data-line="478">
+</span><span data-line="479">
+</span><span data-line="480"><span class="sd">    """</span>
+</span><span data-line="481">    <span class="n">objects</span> <span class="o">=</span> <span class="p">{}</span>
+</span><span data-line="482">    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">'pickling: '</span><span class="p">)</span>
+</span><span data-line="483">    <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">dict_objs</span><span class="p">:</span>
+</span><span data-line="484">        <span class="k">try</span><span class="p">:</span>
+</span><span data-line="485">            <span class="k">if</span> <span class="n">module</span>  <span class="ow">in</span> <span class="n">inspect</span><span class="o">.</span><span class="n">getmodule</span><span class="p">(</span><span class="n">dict_objs</span><span class="p">[</span><span class="n">k</span><span class="p">])</span><span class="o">.</span><span class="vm">__name__</span><span class="p">:</span>
+</span><span data-line="486">                <span class="k">try</span><span class="p">:</span>
+</span><span data-line="487">                    <span class="n">pickle</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">dict_objs</span><span class="p">[</span><span class="n">k</span><span class="p">])</span>
+</span><span data-line="488">                    <span class="k">if</span> <span class="n">k</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">'_'</span><span class="p">:</span>
+</span><span data-line="489">                        <span class="n">objects</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">dict_objs</span><span class="p">[</span><span class="n">k</span><span class="p">]</span>
+</span><span data-line="490">                        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">k</span><span class="o">+</span><span class="s1">', '</span><span class="p">)</span>
+</span><span data-line="491">                <span class="k">finally</span><span class="p">:</span>
+</span><span data-line="492">                    <span class="k">pass</span>
+</span><span data-line="493">
+</span><span data-line="494">        <span class="k">except</span><span class="p">(</span><span class="ne">AttributeError</span><span class="p">,</span> <span class="ne">TypeError</span><span class="p">):</span>
+</span><span data-line="495">            <span class="k">pass</span>
+</span><span data-line="496">    <span class="k">if</span> <span class="nb">len</span> <span class="p">(</span><span class="n">objects</span> <span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+</span><span data-line="497">        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">'nothing'</span><span class="p">)</span>
+</span><span data-line="498">
+</span><span data-line="499">    <span class="n">write</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">objects</span><span class="p">)</span></div>
+
+</span><span data-line="500">
+</span><span data-line="501"><span class="k">def</span><span class="w"> </span><span class="nf">load_all_touchstones</span><span class="p">(</span><span class="nb">dir</span> <span class="o">=</span> <span class="s1">'.'</span><span class="p">,</span> <span class="n">contains</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">f_unit</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+</span><span data-line="502"><span class="w">    </span><span class="sd">"""</span>
+</span><span data-line="503"><span class="sd">    Loads all touchtone files in a given dir into a dictionary.</span>
+</span><span data-line="504">
+</span><span data-line="505"><span class="sd">    Notes</span>
+</span><span data-line="506"><span class="sd">    -------</span>
+</span><span data-line="507">
+</span><span data-line="508">
+</span><span data-line="509"><span class="sd">    Parameters</span>
+</span><span data-line="510"><span class="sd">    -----------</span>
+</span><span data-line="511"><span class="sd">    dir :   string</span>
+</span><span data-line="512"><span class="sd">            the path</span>
+</span><span data-line="513"><span class="sd">    contains :      string</span>
+</span><span data-line="514"><span class="sd">            a string the filenames must contain to be loaded.</span>
+</span><span data-line="515"><span class="sd">    f_unit  : ['hz','mhz','ghz']</span>
+</span><span data-line="516"><span class="sd">            the frequency unit to assign all loaded networks. see</span>
+</span><span data-line="517"><span class="sd">            :attr:`frequency.Frequency.unit`.</span>
+</span><span data-line="518">
+</span><span data-line="519"><span class="sd">    Returns</span>
+</span><span data-line="520"><span class="sd">    ---------</span>
+</span><span data-line="521"><span class="sd">    ntwkDict : a dictionary with keys equal to the file name (without</span>
+</span><span data-line="522"><span class="sd">            a suffix), and values equal to the corresponding ntwk types</span>
+</span><span data-line="523">
+</span><span data-line="524"><span class="sd">    Examples</span>
+</span><span data-line="525"><span class="sd">    ----------</span>
+</span><span data-line="526"><span class="sd">    &gt;&gt;&gt; ntwk_dict = rf.load_all_touchstones('.', contains ='20v')</span>
+</span><span data-line="527">
+</span><span data-line="528"><span class="sd">    See Also</span>
+</span><span data-line="529"><span class="sd">    -----------</span>
+</span><span data-line="530"><span class="sd">    read_all</span>
+</span><span data-line="531"><span class="sd">    """</span>
+</span><span data-line="532">    <span class="n">ntwkDict</span> <span class="o">=</span> <span class="p">{}</span>
+</span><span data-line="533">
+</span><span data-line="534">    <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span> <span class="p">(</span><span class="nb">dir</span><span class="p">):</span>
+</span><span data-line="535">        <span class="k">if</span> <span class="n">contains</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">contains</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">f</span><span class="p">:</span>
+</span><span data-line="536">            <span class="k">continue</span>
+</span><span data-line="537">        <span class="n">keyname</span><span class="p">,</span><span class="n">extn</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+</span><span data-line="538">        <span class="n">extn</span> <span class="o">=</span> <span class="n">extn</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+</span><span data-line="539">        <span class="k">try</span><span class="p">:</span>
+</span><span data-line="540">            <span class="k">if</span> <span class="n">extn</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">==</span> <span class="s1">'s'</span> <span class="ow">and</span> <span class="n">extn</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">==</span><span class="s1">'p'</span><span class="p">:</span>
+</span><span data-line="541">                <span class="n">ntwkDict</span><span class="p">[</span><span class="n">keyname</span><span class="p">]</span><span class="o">=</span><span class="p">(</span><span class="n">Network</span><span class="p">(</span><span class="nb">dir</span> <span class="o">+</span><span class="s1">'/'</span><span class="o">+</span><span class="n">f</span><span class="p">))</span>
+</span><span data-line="542">                <span class="k">if</span> <span class="n">f_unit</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+</span><span data-line="543">                    <span class="n">ntwkDict</span><span class="p">[</span><span class="n">keyname</span><span class="p">]</span><span class="o">.</span><span class="n">frequency</span><span class="o">.</span><span class="n">unit</span><span class="o">=</span><span class="n">f_unit</span>
+</span><span data-line="544">        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+</span><span data-line="545">            <span class="k">pass</span>
+</span><span data-line="546">    <span class="k">return</span> <span class="n">ntwkDict</span>
+</span><span data-line="547">
+</span><span data-line="548"><span class="k">def</span><span class="w"> </span><span class="nf">write_dict_of_networks</span><span class="p">(</span><span class="n">ntwkDict</span><span class="p">,</span> <span class="nb">dir</span><span class="o">=</span><span class="s1">'.'</span><span class="p">):</span>
+</span><span data-line="549"><span class="w">    </span><span class="sd">"""</span>
+</span><span data-line="550"><span class="sd">    Saves a dictionary of networks touchstone files in a given directory</span>
+</span><span data-line="551">
+</span><span data-line="552"><span class="sd">    The filenames assigned to the touchstone files are taken from</span>
+</span><span data-line="553"><span class="sd">    the keys of the dictionary.</span>
+</span><span data-line="554">
+</span><span data-line="555"><span class="sd">    Parameters</span>
+</span><span data-line="556"><span class="sd">    -----------</span>
+</span><span data-line="557"><span class="sd">    ntwkDict : dictionary</span>
+</span><span data-line="558"><span class="sd">            dictionary of :class:`Network` objects</span>
+</span><span data-line="559"><span class="sd">    dir : string</span>
+</span><span data-line="560"><span class="sd">            directory to write touchstone file to</span>
+</span><span data-line="561">
+</span><span data-line="562">
+</span><span data-line="563"><span class="sd">    """</span>
+</span><span data-line="564">    <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s1">'Deprecated. use write_all.'</span><span class="p">,</span> <span class="ne">DeprecationWarning</span><span class="p">,</span> <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+</span><span data-line="565">    <span class="k">for</span> <span class="n">ntwkKey</span> <span class="ow">in</span> <span class="n">ntwkDict</span><span class="p">:</span>
+</span><span data-line="566">        <span class="n">ntwkDict</span><span class="p">[</span><span class="n">ntwkKey</span><span class="p">]</span><span class="o">.</span><span class="n">write_touchstone</span><span class="p">(</span><span class="n">filename</span> <span class="o">=</span> <span class="nb">dir</span><span class="o">+</span><span class="s1">'/'</span><span class="o">+</span><span class="n">ntwkKey</span><span class="p">)</span>
+</span><span data-line="567">
+</span><span data-line="568"><span class="k">def</span><span class="w"> </span><span class="nf">read_csv</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
+</span><span data-line="569"><span class="w">    </span><span class="sd">"""</span>
+</span><span data-line="570"><span class="sd">    Read a 2-port s-parameter data from a csv file.</span>
+</span><span data-line="571">
+</span><span data-line="572"><span class="sd">    Specifically, this reads a two-port csv file saved from a Rohde Schwarz</span>
+</span><span data-line="573"><span class="sd">    ZVA-40, and possibly other network analyzers. It returns into a</span>
+</span><span data-line="574"><span class="sd">    :class:`Network` object.</span>
+</span><span data-line="575">
+</span><span data-line="576"><span class="sd">    Parameters</span>
+</span><span data-line="577"><span class="sd">    ------------</span>
+</span><span data-line="578"><span class="sd">    filename : str</span>
+</span><span data-line="579"><span class="sd">            name of file</span>
+</span><span data-line="580">
+</span><span data-line="581"><span class="sd">    Returns</span>
+</span><span data-line="582"><span class="sd">    --------</span>
+</span><span data-line="583"><span class="sd">    ntwk : :class:`Network` object</span>
+</span><span data-line="584"><span class="sd">            the network representing data in the csv file</span>
+</span><span data-line="585"><span class="sd">    """</span>
+</span><span data-line="586">
+</span><span data-line="587">    <span class="n">ntwk</span> <span class="o">=</span> <span class="n">Network</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">filename</span><span class="p">[:</span><span class="o">-</span><span class="mi">4</span><span class="p">])</span>
+</span><span data-line="588">    <span class="k">try</span><span class="p">:</span>
+</span><span data-line="589">        <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">skiprows</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span><span class="n">delimiter</span><span class="o">=</span><span class="s1">','</span><span class="p">,</span>\
+</span><span data-line="590">                <span class="n">usecols</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="mi">9</span><span class="p">))</span>
+</span><span data-line="591">        <span class="n">s11</span> <span class="o">=</span> <span class="n">data</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span><span class="mi">1</span><span class="n">j</span><span class="o">*</span><span class="n">data</span><span class="p">[:,</span><span class="mi">2</span><span class="p">]</span>
+</span><span data-line="592">        <span class="n">s21</span> <span class="o">=</span> <span class="n">data</span><span class="p">[:,</span><span class="mi">3</span><span class="p">]</span> <span class="o">+</span><span class="mi">1</span><span class="n">j</span><span class="o">*</span><span class="n">data</span><span class="p">[:,</span><span class="mi">4</span><span class="p">]</span>
+</span><span data-line="593">        <span class="n">s12</span> <span class="o">=</span> <span class="n">data</span><span class="p">[:,</span><span class="mi">5</span><span class="p">]</span> <span class="o">+</span><span class="mi">1</span><span class="n">j</span><span class="o">*</span><span class="n">data</span><span class="p">[:,</span><span class="mi">6</span><span class="p">]</span>
+</span><span data-line="594">        <span class="n">s22</span> <span class="o">=</span> <span class="n">data</span><span class="p">[:,</span><span class="mi">7</span><span class="p">]</span> <span class="o">+</span><span class="mi">1</span><span class="n">j</span><span class="o">*</span><span class="n">data</span><span class="p">[:,</span><span class="mi">8</span><span class="p">]</span>
+</span><span data-line="595">        <span class="n">ntwk</span><span class="o">.</span><span class="n">s</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="n">s11</span><span class="p">,</span> <span class="n">s21</span><span class="p">],[</span><span class="n">s12</span><span class="p">,</span><span class="n">s22</span><span class="p">]])</span><span class="o">.</span><span class="n">transpose</span><span class="p">()</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+</span><span data-line="596">    <span class="k">except</span><span class="p">(</span><span class="ne">IndexError</span><span class="p">):</span>
+</span><span data-line="597">        <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">skiprows</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span><span class="n">delimiter</span><span class="o">=</span><span class="s1">','</span><span class="p">,</span>\
+</span><span data-line="598">                <span class="n">usecols</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
+</span><span data-line="599">        <span class="n">ntwk</span><span class="o">.</span><span class="n">s</span> <span class="o">=</span> <span class="n">data</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span><span class="mi">1</span><span class="n">j</span><span class="o">*</span><span class="n">data</span><span class="p">[:,</span><span class="mi">2</span><span class="p">]</span>
+</span><span data-line="600">
+</span><span data-line="601">    <span class="n">ntwk</span><span class="o">.</span><span class="n">frequency</span><span class="o">.</span><span class="n">f</span> <span class="o">=</span> <span class="n">data</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span>
+</span><span data-line="602">
+</span><span data-line="603">    <span class="k">return</span> <span class="n">ntwk</span>
+</span><span data-line="604">
+</span><span data-line="605">
+</span><span data-line="606"><span class="c1">## file conversion</span>
+<div class="viewcode-block" id="statistical_2_touchstone">
+<a class="viewcode-back" href="../../../api/io/generated/skrf.io.general.statistical_2_touchstone.html#skrf.io.general.statistical_2_touchstone">[docs]</a>
+</span><span data-line="607"><span class="k">def</span><span class="w"> </span><span class="nf">statistical_2_touchstone</span><span class="p">(</span><span class="n">file_name</span><span class="p">,</span> <span class="n">new_file_name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>\
+</span><span data-line="608">        <span class="n">header_string</span><span class="o">=</span><span class="s1">'# GHz S RI R 50.0'</span><span class="p">):</span>
+</span><span data-line="609"><span class="w">    </span><span class="sd">"""</span>
+</span><span data-line="610"><span class="sd">    Converts Statistical file to a touchstone file.</span>
+</span><span data-line="611">
+</span><span data-line="612"><span class="sd">    Converts the file format used by Statistical and other Dylan Williams</span>
+</span><span data-line="613"><span class="sd">    software to standard touchstone format.</span>
+</span><span data-line="614">
+</span><span data-line="615"><span class="sd">    Parameters</span>
+</span><span data-line="616"><span class="sd">    ----------</span>
+</span><span data-line="617"><span class="sd">    file_name : string</span>
+</span><span data-line="618"><span class="sd">            name of file to convert</span>
+</span><span data-line="619"><span class="sd">    new_file_name : string</span>
+</span><span data-line="620"><span class="sd">            name of new file to write out (including extension)</span>
+</span><span data-line="621"><span class="sd">    header_string : string</span>
+</span><span data-line="622"><span class="sd">            touchstone header written to first beginning of file</span>
+</span><span data-line="623">
+</span><span data-line="624"><span class="sd">    """</span>
+</span><span data-line="625">    <span class="n">remove_tmp_file</span> <span class="o">=</span> <span class="n">new_file_name</span> <span class="ow">is</span> <span class="kc">None</span>
+</span><span data-line="626">    <span class="k">if</span> <span class="n">remove_tmp_file</span><span class="p">:</span>
+</span><span data-line="627">        <span class="n">new_file_name</span> <span class="o">=</span> <span class="s1">'tmp-'</span><span class="o">+</span><span class="n">file_name</span>
+</span><span data-line="628">
+</span><span data-line="629">    <span class="c1"># This breaks compatibility with python 2.6 and older</span>
+</span><span data-line="630">    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file_name</span><span class="p">)</span> <span class="k">as</span> <span class="n">old_file</span><span class="p">,</span> <span class="nb">open</span><span class="p">(</span><span class="n">new_file_name</span><span class="p">,</span> <span class="s1">'w'</span><span class="p">)</span> <span class="k">as</span> <span class="n">new_file</span><span class="p">:</span>
+</span><span data-line="631">        <span class="n">new_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="n">header_string</span><span class="si">}</span><span class="se">\n</span><span class="s1">'</span><span class="p">)</span>
+</span><span data-line="632">        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">old_file</span><span class="p">:</span>
+</span><span data-line="633">            <span class="n">new_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+</span><span data-line="634">
+</span><span data-line="635">    <span class="k">if</span> <span class="n">remove_tmp_file</span><span class="p">:</span>
+</span><span data-line="636">        <span class="n">os</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">new_file_name</span><span class="p">,</span><span class="n">file_name</span><span class="p">)</span></div>
+
+</span><span data-line="637">
+<div class="viewcode-block" id="network_2_spreadsheet">
+<a class="viewcode-back" href="../../../api/io/generated/skrf.io.general.network_2_spreadsheet.html#skrf.io.general.network_2_spreadsheet">[docs]</a>
+</span><span data-line="638"><span class="k">def</span><span class="w"> </span><span class="nf">network_2_spreadsheet</span><span class="p">(</span><span class="n">ntwk</span><span class="p">:</span> <span class="n">Network</span><span class="p">,</span> <span class="n">file_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Path</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+</span><span data-line="639">        <span class="n">file_type</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">'excel'</span><span class="p">,</span> <span class="n">form</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span><span class="s1">'db'</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+</span><span data-line="640"><span class="w">    </span><span class="sa">r</span><span class="sd">"""</span>
+</span><span data-line="641"><span class="sd">    Write a Network object to a spreadsheet, for your boss.</span>
+</span><span data-line="642">
+</span><span data-line="643"><span class="sd">    Write the s-parameters  of a network to a spreadsheet, in a variety</span>
+</span><span data-line="644"><span class="sd">    of forms. This functions makes use of the pandas module, which in</span>
+</span><span data-line="645"><span class="sd">    turn makes use of the xlrd module. These are imported during this</span>
+</span><span data-line="646"><span class="sd">    function call. For more details about the file-writing functions</span>
+</span><span data-line="647"><span class="sd">    see the `pandas.DataFrom.to_???` functions.</span>
+</span><span data-line="648">
+</span><span data-line="649">
+</span><span data-line="650"><span class="sd">    .. note::</span>
+</span><span data-line="651"><span class="sd">        The frequency unit used in the spreadsheet is take from</span>
+</span><span data-line="652"><span class="sd">        `ntwk.frequency.unit`</span>
+</span><span data-line="653">
+</span><span data-line="654">
+</span><span data-line="655"><span class="sd">    Parameters</span>
+</span><span data-line="656"><span class="sd">    ----------</span>
+</span><span data-line="657"><span class="sd">    ntwk :  :class:`~skrf.network.Network` object</span>
+</span><span data-line="658"><span class="sd">        the network to write</span>
+</span><span data-line="659"><span class="sd">    file_name : str, Path or None</span>
+</span><span data-line="660"><span class="sd">        the file_name to write. if None,  ntwk.name is used.</span>
+</span><span data-line="661"><span class="sd">    file_type : ['csv','excel','html']</span>
+</span><span data-line="662"><span class="sd">        the type of file to write. See `pandas.DataFrame.to_???` functions.</span>
+</span><span data-line="663"><span class="sd">    form : 'db','ma','ri'</span>
+</span><span data-line="664"><span class="sd">        format to write data,</span>
+</span><span data-line="665"><span class="sd">        * db = db, deg</span>
+</span><span data-line="666"><span class="sd">        * ma = mag, deg</span>
+</span><span data-line="667"><span class="sd">        * ri = real, imag</span>
+</span><span data-line="668"><span class="sd">    \*args, \*\*kwargs :</span>
+</span><span data-line="669"><span class="sd">        passed to `pandas.DataFrame.to_???`  functions.</span>
+</span><span data-line="670">
+</span><span data-line="671">
+</span><span data-line="672"><span class="sd">    See Also</span>
+</span><span data-line="673"><span class="sd">    --------</span>
+</span><span data-line="674"><span class="sd">    networkset_2_spreadsheet : writes a spreadsheet for many networks</span>
+</span><span data-line="675"><span class="sd">    """</span>
+</span><span data-line="676">    <span class="kn">from</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="kn">import</span> <span class="n">DataFrame</span><span class="p">,</span> <span class="n">Series</span>
+</span><span data-line="677">
+</span><span data-line="678">    <span class="n">file_extns</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'csv'</span><span class="p">:</span><span class="s1">'csv'</span><span class="p">,</span><span class="s1">'excel'</span><span class="p">:</span><span class="s1">'xls'</span><span class="p">,</span><span class="s1">'html'</span><span class="p">:</span><span class="s1">'html'</span><span class="p">}</span>
+</span><span data-line="679">
+</span><span data-line="680">    <span class="n">form</span> <span class="o">=</span> <span class="n">form</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+</span><span data-line="681">    <span class="k">if</span> <span class="n">form</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">'db'</span><span class="p">,</span><span class="s1">'ri'</span><span class="p">,</span><span class="s1">'ma'</span><span class="p">]:</span>
+</span><span data-line="682">        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">'`form` must be either `db`,`ma`,`ri`'</span><span class="p">)</span>
+</span><span data-line="683">
+</span><span data-line="684">
+</span><span data-line="685">    <span class="n">file_type</span> <span class="o">=</span> <span class="n">file_type</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+</span><span data-line="686">    <span class="k">if</span> <span class="n">file_type</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">file_extns</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+</span><span data-line="687">        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">'file_type must be `csv`,`html`,`excel` '</span><span class="p">)</span>
+</span><span data-line="688">    <span class="k">if</span> <span class="n">ntwk</span><span class="o">.</span><span class="n">name</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">file_name</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+</span><span data-line="689">        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">'Either ntwk must have name or give a file_name'</span><span class="p">)</span>
+</span><span data-line="690">
+</span><span data-line="691">
+</span><span data-line="692">    <span class="k">if</span> <span class="n">file_name</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="s1">'excel_writer'</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+</span><span data-line="693">        <span class="n">file_name</span> <span class="o">=</span> <span class="n">ntwk</span><span class="o">.</span><span class="n">name</span> <span class="o">+</span> <span class="s1">'.'</span><span class="o">+</span><span class="n">file_extns</span><span class="p">[</span><span class="n">file_type</span><span class="p">]</span>
+</span><span data-line="694">
+</span><span data-line="695">    <span class="n">d</span> <span class="o">=</span> <span class="p">{}</span>
+</span><span data-line="696">    <span class="n">index</span> <span class="o">=</span> <span class="n">ntwk</span><span class="o">.</span><span class="n">frequency</span><span class="o">.</span><span class="n">f_scaled</span>
+</span><span data-line="697">
+</span><span data-line="698">    <span class="k">if</span> <span class="n">form</span> <span class="o">==</span><span class="s1">'db'</span><span class="p">:</span>
+</span><span data-line="699">        <span class="k">for</span> <span class="n">m</span><span class="p">,</span><span class="n">n</span> <span class="ow">in</span> <span class="n">ntwk</span><span class="o">.</span><span class="n">port_tuples</span><span class="p">:</span>
+</span><span data-line="700">            <span class="n">d</span><span class="p">[</span><span class="sa">f</span><span class="s1">'S</span><span class="si">{</span><span class="n">ntwk</span><span class="o">.</span><span class="n">_fmt_trace_name</span><span class="p">(</span><span class="n">m</span><span class="p">,</span><span class="n">n</span><span class="p">)</span><span class="si">}</span><span class="s1"> Log Mag(dB)'</span><span class="p">]</span> <span class="o">=</span> \
+</span><span data-line="701">                <span class="n">Series</span><span class="p">(</span><span class="n">ntwk</span><span class="o">.</span><span class="n">s_db</span><span class="p">[:,</span><span class="n">m</span><span class="p">,</span><span class="n">n</span><span class="p">],</span> <span class="n">index</span> <span class="o">=</span> <span class="n">index</span><span class="p">)</span>
+</span><span data-line="702">            <span class="n">d</span><span class="p">[</span><span class="sa">f</span><span class="s1">'S</span><span class="si">{</span><span class="n">ntwk</span><span class="o">.</span><span class="n">_fmt_trace_name</span><span class="p">(</span><span class="n">m</span><span class="p">,</span><span class="n">n</span><span class="p">)</span><span class="si">}</span><span class="s1"> Phase(deg)'</span><span class="p">]</span> <span class="o">=</span> \
+</span><span data-line="703">                <span class="n">Series</span><span class="p">(</span><span class="n">ntwk</span><span class="o">.</span><span class="n">s_deg</span><span class="p">[:,</span><span class="n">m</span><span class="p">,</span><span class="n">n</span><span class="p">],</span> <span class="n">index</span> <span class="o">=</span> <span class="n">index</span><span class="p">)</span>
+</span><span data-line="704">    <span class="k">elif</span> <span class="n">form</span> <span class="o">==</span><span class="s1">'ma'</span><span class="p">:</span>
+</span><span data-line="705">        <span class="k">for</span> <span class="n">m</span><span class="p">,</span><span class="n">n</span> <span class="ow">in</span> <span class="n">ntwk</span><span class="o">.</span><span class="n">port_tuples</span><span class="p">:</span>
+</span><span data-line="706">            <span class="n">d</span><span class="p">[</span><span class="sa">f</span><span class="s1">'S</span><span class="si">{</span><span class="n">ntwk</span><span class="o">.</span><span class="n">_fmt_trace_name</span><span class="p">(</span><span class="n">m</span><span class="p">,</span><span class="n">n</span><span class="p">)</span><span class="si">}</span><span class="s1"> Mag(lin)'</span><span class="p">]</span> <span class="o">=</span> \
+</span><span data-line="707">                <span class="n">Series</span><span class="p">(</span><span class="n">ntwk</span><span class="o">.</span><span class="n">s_mag</span><span class="p">[:,</span><span class="n">m</span><span class="p">,</span><span class="n">n</span><span class="p">],</span> <span class="n">index</span> <span class="o">=</span> <span class="n">index</span><span class="p">)</span>
+</span><span data-line="708">            <span class="n">d</span><span class="p">[</span><span class="sa">f</span><span class="s1">'S</span><span class="si">{</span><span class="n">ntwk</span><span class="o">.</span><span class="n">_fmt_trace_name</span><span class="p">(</span><span class="n">m</span><span class="p">,</span><span class="n">n</span><span class="p">)</span><span class="si">}</span><span class="s1"> Phase(deg)'</span><span class="p">]</span> <span class="o">=</span> \
+</span><span data-line="709">                <span class="n">Series</span><span class="p">(</span><span class="n">ntwk</span><span class="o">.</span><span class="n">s_deg</span><span class="p">[:,</span><span class="n">m</span><span class="p">,</span><span class="n">n</span><span class="p">],</span> <span class="n">index</span> <span class="o">=</span> <span class="n">index</span><span class="p">)</span>
+</span><span data-line="710">    <span class="k">elif</span> <span class="n">form</span> <span class="o">==</span><span class="s1">'ri'</span><span class="p">:</span>
+</span><span data-line="711">        <span class="k">for</span> <span class="n">m</span><span class="p">,</span><span class="n">n</span> <span class="ow">in</span> <span class="n">ntwk</span><span class="o">.</span><span class="n">port_tuples</span><span class="p">:</span>
+</span><span data-line="712">            <span class="n">d</span><span class="p">[</span><span class="sa">f</span><span class="s1">'S</span><span class="si">{</span><span class="n">ntwk</span><span class="o">.</span><span class="n">_fmt_trace_name</span><span class="p">(</span><span class="n">m</span><span class="p">,</span><span class="n">n</span><span class="p">)</span><span class="si">}</span><span class="s1"> Real'</span><span class="p">]</span> <span class="o">=</span> \
+</span><span data-line="713">                <span class="n">Series</span><span class="p">(</span><span class="n">ntwk</span><span class="o">.</span><span class="n">s_re</span><span class="p">[:,</span><span class="n">m</span><span class="p">,</span><span class="n">n</span><span class="p">],</span> <span class="n">index</span> <span class="o">=</span> <span class="n">index</span><span class="p">)</span>
+</span><span data-line="714">            <span class="n">d</span><span class="p">[</span><span class="sa">f</span><span class="s1">'S</span><span class="si">{</span><span class="n">ntwk</span><span class="o">.</span><span class="n">_fmt_trace_name</span><span class="p">(</span><span class="n">m</span><span class="p">,</span><span class="n">n</span><span class="p">)</span><span class="si">}</span><span class="s1"> Imag'</span><span class="p">]</span> <span class="o">=</span> \
+</span><span data-line="715">                <span class="n">Series</span><span class="p">(</span><span class="n">ntwk</span><span class="o">.</span><span class="n">s_im</span><span class="p">[:,</span><span class="n">m</span><span class="p">,</span><span class="n">n</span><span class="p">],</span> <span class="n">index</span> <span class="o">=</span> <span class="n">index</span><span class="p">)</span>
+</span><span data-line="716">
+</span><span data-line="717">    <span class="n">df</span> <span class="o">=</span> <span class="n">DataFrame</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+</span><span data-line="718">    <span class="n">df</span><span class="o">.</span><span class="fm">__getattribute__</span><span class="p">(</span><span class="sa">f</span><span class="s1">'to_</span><span class="si">{</span><span class="n">file_type</span><span class="si">}</span><span class="s1">'</span><span class="p">)(</span><span class="n">file_name</span><span class="p">,</span>
+</span><span data-line="719">        <span class="n">index_label</span><span class="o">=</span><span class="sa">f</span><span class="s1">'Freq(</span><span class="si">{</span><span class="n">ntwk</span><span class="o">.</span><span class="n">frequency</span><span class="o">.</span><span class="n">unit</span><span class="si">}</span><span class="s1">)'</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+</span><span data-line="720">
+<div class="viewcode-block" id="network_2_dataframe">
+<a class="viewcode-back" href="../../../api/io/generated/skrf.io.general.network_2_dataframe.html#skrf.io.general.network_2_dataframe">[docs]</a>
+</span><span data-line="721"><span class="k">def</span><span class="w"> </span><span class="nf">network_2_dataframe</span><span class="p">(</span><span class="n">ntwk</span><span class="p">:</span> <span class="n">Network</span><span class="p">,</span> <span class="n">attrs</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+</span><span data-line="722">        <span class="n">ports</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">port_sep</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+</span><span data-line="723"><span class="w">    </span><span class="sd">"""</span>
+</span><span data-line="724"><span class="sd">    Convert one or more attributes of a network to a pandas DataFrame.</span>
+</span><span data-line="725">
+</span><span data-line="726"><span class="sd">    Parameters</span>
+</span><span data-line="727"><span class="sd">    ----------</span>
+</span><span data-line="728"><span class="sd">    ntwk :  :class:`~skrf.network.Network` object</span>
+</span><span data-line="729"><span class="sd">        the network to write</span>
+</span><span data-line="730"><span class="sd">    attrs : list Network attributes</span>
+</span><span data-line="731"><span class="sd">        like ['s_db','s_deg']</span>
+</span><span data-line="732"><span class="sd">    ports : list of tuples</span>
+</span><span data-line="733"><span class="sd">        list of port pairs to write. defaults to ntwk.port_tuples</span>
+</span><span data-line="734"><span class="sd">        (like [(0,0)])</span>
+</span><span data-line="735"><span class="sd">    port_sep : string</span>
+</span><span data-line="736"><span class="sd">        defaults to None, which means a empty string "" is used for</span>
+</span><span data-line="737"><span class="sd">        networks with lower than 10 ports. (s_db 11, s_db 21)</span>
+</span><span data-line="738"><span class="sd">        For more than ten ports a "_" is used to avoid ambiguity.</span>
+</span><span data-line="739"><span class="sd">        (s_db 1_1, s_db 2_1)</span>
+</span><span data-line="740">
+</span><span data-line="741"><span class="sd">    Returns</span>
+</span><span data-line="742"><span class="sd">    -------</span>
+</span><span data-line="743"><span class="sd">    df : pandas DataFrame Object</span>
+</span><span data-line="744"><span class="sd">    """</span>
+</span><span data-line="745">    <span class="kn">from</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="kn">import</span> <span class="n">DataFrame</span>
+</span><span data-line="746">
+</span><span data-line="747">    <span class="k">if</span> <span class="n">attrs</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+</span><span data-line="748">        <span class="n">attrs</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"s_db"</span><span class="p">]</span>
+</span><span data-line="749">    <span class="k">if</span> <span class="n">ports</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+</span><span data-line="750">        <span class="n">ports</span> <span class="o">=</span> <span class="n">ntwk</span><span class="o">.</span><span class="n">port_tuples</span>
+</span><span data-line="751">
+</span><span data-line="752">    <span class="k">if</span> <span class="n">port_sep</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+</span><span data-line="753">        <span class="n">port_sep</span> <span class="o">=</span> <span class="s2">"_"</span> <span class="k">if</span> <span class="n">ntwk</span><span class="o">.</span><span class="n">nports</span> <span class="o">&gt;</span> <span class="mi">10</span> <span class="k">else</span> <span class="s2">""</span>
+</span><span data-line="754">
+</span><span data-line="755">    <span class="n">d</span> <span class="o">=</span> <span class="p">{}</span>
+</span><span data-line="756">    <span class="k">for</span> <span class="n">attr</span> <span class="ow">in</span> <span class="n">attrs</span><span class="p">:</span>
+</span><span data-line="757">        <span class="n">attr_array</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">ntwk</span><span class="p">,</span> <span class="n">attr</span><span class="p">)</span>
+</span><span data-line="758">        <span class="k">for</span> <span class="n">m</span><span class="p">,</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">ports</span><span class="p">:</span>
+</span><span data-line="759">            <span class="n">d</span><span class="p">[</span><span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="n">attr</span><span class="si">}</span><span class="s1"> </span><span class="si">{</span><span class="n">m</span><span class="o">+</span><span class="mi">1</span><span class="si">}{</span><span class="n">port_sep</span><span class="si">}{</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s1">'</span><span class="p">]</span> <span class="o">=</span> <span class="n">attr_array</span><span class="p">[:,</span> <span class="n">m</span><span class="p">,</span> <span class="n">n</span><span class="p">]</span>
+</span><span data-line="760">    <span class="k">return</span> <span class="n">DataFrame</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">ntwk</span><span class="o">.</span><span class="n">frequency</span><span class="o">.</span><span class="n">f</span><span class="p">)</span></div>
+
+</span><span data-line="761">
+<div class="viewcode-block" id="networkset_2_spreadsheet">
+<a class="viewcode-back" href="../../../api/io/generated/skrf.io.general.networkset_2_spreadsheet.html#skrf.io.general.networkset_2_spreadsheet">[docs]</a>
+</span><span data-line="762"><span class="k">def</span><span class="w"> </span><span class="nf">networkset_2_spreadsheet</span><span class="p">(</span><span class="n">ntwkset</span><span class="p">:</span> <span class="n">NetworkSet</span><span class="p">,</span> <span class="n">file_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">file_type</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">'excel'</span><span class="p">,</span>
+</span><span data-line="763">    <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+</span><span data-line="764"><span class="w">    </span><span class="sa">r</span><span class="sd">"""</span>
+</span><span data-line="765"><span class="sd">    Write a NetworkSet object to a spreadsheet, for your boss.</span>
+</span><span data-line="766">
+</span><span data-line="767"><span class="sd">    Write  the s-parameters  of a each network in the networkset to a</span>
+</span><span data-line="768"><span class="sd">    spreadsheet. If the `excel` file_type is used, then each network,</span>
+</span><span data-line="769"><span class="sd">    is written to its own sheet, with the sheetname taken from the</span>
+</span><span data-line="770"><span class="sd">    network `name` attribute.</span>
+</span><span data-line="771"><span class="sd">    This functions makes use of the pandas module, which in turn makes</span>
+</span><span data-line="772"><span class="sd">    use of the xlrd module. These are imported during this function.</span>
+</span><span data-line="773">
+</span><span data-line="774">
+</span><span data-line="775"><span class="sd">    .. note::</span>
+</span><span data-line="776"><span class="sd">        The frequency unit used in the spreadsheet is take from</span>
+</span><span data-line="777"><span class="sd">        `ntwk.frequency.unit`</span>
+</span><span data-line="778">
+</span><span data-line="779">
+</span><span data-line="780"><span class="sd">    Parameters</span>
+</span><span data-line="781"><span class="sd">    ----------</span>
+</span><span data-line="782"><span class="sd">    ntwkset :  :class:`~skrf.networkSet.NetworkSet` object</span>
+</span><span data-line="783"><span class="sd">        the network to write</span>
+</span><span data-line="784"><span class="sd">    file_name : str, None</span>
+</span><span data-line="785"><span class="sd">        the file_name to write. if None,  ntwk.name is used.</span>
+</span><span data-line="786"><span class="sd">    file_type : ['csv','excel','html']</span>
+</span><span data-line="787"><span class="sd">        the type of file to write. See `pandas.DataFrame.to_???` functions.</span>
+</span><span data-line="788"><span class="sd">    form : 'db','ma','ri'</span>
+</span><span data-line="789"><span class="sd">        format to write data,</span>
+</span><span data-line="790"><span class="sd">        * db = db, deg</span>
+</span><span data-line="791"><span class="sd">        * ma = mag, deg</span>
+</span><span data-line="792"><span class="sd">        * ri = real, imag</span>
+</span><span data-line="793"><span class="sd">    \*args, \*\*kwargs :</span>
+</span><span data-line="794"><span class="sd">        passed to `pandas.DataFrame.to_???` functions.</span>
+</span><span data-line="795">
+</span><span data-line="796">
+</span><span data-line="797"><span class="sd">    See Also</span>
+</span><span data-line="798"><span class="sd">    --------</span>
+</span><span data-line="799"><span class="sd">    networkset_2_spreadsheet : writes a spreadsheet for many networks</span>
+</span><span data-line="800"><span class="sd">    """</span>
+</span><span data-line="801">    <span class="kn">from</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="kn">import</span> <span class="n">ExcelWriter</span>
+</span><span data-line="802">
+</span><span data-line="803">    <span class="k">if</span> <span class="n">ntwkset</span><span class="o">.</span><span class="n">name</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">file_name</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+</span><span data-line="804">        <span class="k">raise</span><span class="p">(</span><span class="ne">ValueError</span><span class="p">(</span><span class="s1">'Either ntwkset must have name or give a file_name'</span><span class="p">))</span>
+</span><span data-line="805">    <span class="k">if</span> <span class="n">file_name</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+</span><span data-line="806">        <span class="n">file_name</span> <span class="o">=</span> <span class="n">ntwkset</span><span class="o">.</span><span class="n">name</span>
+</span><span data-line="807">
+</span><span data-line="808">    <span class="k">if</span> <span class="n">file_type</span> <span class="o">==</span> <span class="s1">'excel'</span><span class="p">:</span>
+</span><span data-line="809">        <span class="c1"># add file extension if missing</span>
+</span><span data-line="810">        <span class="k">if</span> <span class="ow">not</span> <span class="n">file_name</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">'.xlsx'</span><span class="p">):</span>
+</span><span data-line="811">            <span class="n">file_name</span> <span class="o">+=</span> <span class="s1">'.xlsx'</span>
+</span><span data-line="812">        <span class="k">with</span> <span class="n">ExcelWriter</span><span class="p">(</span><span class="n">file_name</span><span class="p">)</span> <span class="k">as</span> <span class="n">writer</span><span class="p">:</span>
+</span><span data-line="813">            <span class="p">[</span><span class="n">network_2_spreadsheet</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">writer</span><span class="p">,</span> <span class="n">sheet_name</span><span class="o">=</span><span class="n">k</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">ntwkset</span><span class="p">]</span>
+</span><span data-line="814">    <span class="k">else</span><span class="p">:</span>
+</span><span data-line="815">        <span class="p">[</span><span class="n">network_2_spreadsheet</span><span class="p">(</span><span class="n">k</span><span class="p">,</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">ntwkset</span><span class="p">]</span></div>
+
+</span><span data-line="816">
+</span><span data-line="817">
+</span><span data-line="818"><span class="n">StringBuffer</span> <span class="o">=</span> <span class="n">StringIO</span>
+</span><span data-line="819">
+</span><span data-line="820">
+<div class="viewcode-block" id="TouchstoneEncoder">
+<a class="viewcode-back" href="../../../api/io/generated/skrf.io.general.TouchstoneEncoder.html#skrf.io.general.TouchstoneEncoder">[docs]</a>
+</span><span data-line="821"><span class="k">class</span><span class="w"> </span><span class="nc">TouchstoneEncoder</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">JSONEncoder</span><span class="p">):</span>
+</span><span data-line="822"><span class="w">    </span><span class="sd">"""</span>
+</span><span data-line="823"><span class="sd">    Serializes Network object by converting arrays to lists,</span>
+</span><span data-line="824"><span class="sd">    splitting complex numbers into real and imaginary,</span>
+</span><span data-line="825"><span class="sd">    and breaking down frequency objects into dicts.</span>
+</span><span data-line="826"><span class="sd">    """</span>
+<div class="viewcode-block" id="TouchstoneEncoder.default">
+<a class="viewcode-back" href="../../../api/io/generated/skrf.io.general.TouchstoneEncoder.default.html#skrf.io.general.TouchstoneEncoder.default">[docs]</a>
+</span><span data-line="827">    <span class="k">def</span><span class="w"> </span><span class="nf">default</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
+</span><span data-line="828">        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
+</span><span data-line="829">            <span class="k">return</span> <span class="n">obj</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+</span><span data-line="830">        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="nb">complex</span><span class="p">):</span>
+</span><span data-line="831">            <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">obj</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">imag</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>  <span class="c1"># split into [real, im]</span>
+</span><span data-line="832">        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">Frequency</span><span class="p">):</span>
+</span><span data-line="833">            <span class="k">return</span> <span class="p">{</span><span class="s1">'flist'</span><span class="p">:</span> <span class="n">obj</span><span class="o">.</span><span class="n">f_scaled</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span> <span class="s1">'funit'</span><span class="p">:</span> <span class="n">obj</span><span class="o">.</span><span class="n">unit</span><span class="p">}</span>
+</span><span data-line="834">        <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">JSONEncoder</span><span class="o">.</span><span class="n">default</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">)</span></div>
+</div>
+
+</span><span data-line="835">
+</span><span data-line="836">
+<div class="viewcode-block" id="to_json_string">
+<a class="viewcode-back" href="../../../api/io/generated/skrf.io.general.to_json_string.html#skrf.io.general.to_json_string">[docs]</a>
+</span><span data-line="837"><span class="k">def</span><span class="w"> </span><span class="nf">to_json_string</span><span class="p">(</span><span class="n">network</span><span class="p">):</span>
+</span><span data-line="838"><span class="w">    </span><span class="sd">"""</span>
+</span><span data-line="839"><span class="sd">    Dumps Network to JSON string.</span>
+</span><span data-line="840">
+</span><span data-line="841"><span class="sd">    Faster than converting and saving as touchstone.</span>
+</span><span data-line="842"><span class="sd">    Safer than pickling (no arbitrary code execution on load).</span>
+</span><span data-line="843">
+</span><span data-line="844"><span class="sd">    Parameters</span>
+</span><span data-line="845"><span class="sd">    ----------</span>
+</span><span data-line="846"><span class="sd">    network: :class:`~skrf.network.Network` object</span>
+</span><span data-line="847"><span class="sd">        A Network object to be serialized and returned as a JSON string.</span>
+</span><span data-line="848">
+</span><span data-line="849"><span class="sd">    Returns</span>
+</span><span data-line="850"><span class="sd">    -------</span>
+</span><span data-line="851"><span class="sd">    json : str</span>
+</span><span data-line="852"><span class="sd">        JSON string representation of a network object.</span>
+</span><span data-line="853"><span class="sd">    """</span>
+</span><span data-line="854">    <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">network</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">,</span> <span class="bp">cls</span><span class="o">=</span><span class="n">TouchstoneEncoder</span><span class="p">)</span></div>
+
+</span><span data-line="855">
+</span><span data-line="856">
+<div class="viewcode-block" id="from_json_string">
+<a class="viewcode-back" href="../../../api/io/generated/skrf.io.general.from_json_string.html#skrf.io.general.from_json_string">[docs]</a>
+</span><span data-line="857"><span class="k">def</span><span class="w"> </span><span class="nf">from_json_string</span><span class="p">(</span><span class="n">obj_string</span><span class="p">):</span>
+</span><span data-line="858"><span class="w">    </span><span class="sd">"""</span>
+</span><span data-line="859"><span class="sd">    Loads network object from JSON string representation.</span>
+</span><span data-line="860">
+</span><span data-line="861"><span class="sd">    Parameters</span>
+</span><span data-line="862"><span class="sd">    ----------</span>
+</span><span data-line="863"><span class="sd">    obj_string : str</span>
+</span><span data-line="864"><span class="sd">        JSON string representation of a network object.</span>
+</span><span data-line="865">
+</span><span data-line="866"><span class="sd">    Returns</span>
+</span><span data-line="867"><span class="sd">    -------</span>
+</span><span data-line="868"><span class="sd">    ntwk : :class:`~skrf.network.Network` object</span>
+</span><span data-line="869"><span class="sd">        A Network object, rebuilt from JSON.</span>
+</span><span data-line="870"><span class="sd">    """</span>
+</span><span data-line="871">    <span class="n">obj</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">obj_string</span><span class="p">)</span>
+</span><span data-line="872">    <span class="n">ntwk</span> <span class="o">=</span> <span class="n">Network</span><span class="p">()</span>
+</span><span data-line="873">    <span class="n">ntwk</span><span class="o">.</span><span class="n">variables</span> <span class="o">=</span> <span class="n">obj</span><span class="p">[</span><span class="s1">'variables'</span><span class="p">]</span>
+</span><span data-line="874">    <span class="n">ntwk</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">obj</span><span class="p">[</span><span class="s1">'name'</span><span class="p">]</span>
+</span><span data-line="875">    <span class="n">ntwk</span><span class="o">.</span><span class="n">comments</span> <span class="o">=</span> <span class="n">obj</span><span class="p">[</span><span class="s1">'comments'</span><span class="p">]</span>
+</span><span data-line="876">    <span class="n">ntwk</span><span class="o">.</span><span class="n">z0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">obj</span><span class="p">[</span><span class="s1">'_z0'</span><span class="p">])[</span><span class="o">...</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">obj</span><span class="p">[</span><span class="s1">'_z0'</span><span class="p">])[</span><span class="o">...</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="mi">1</span><span class="n">j</span>  <span class="c1"># recreate complex numbers</span>
+</span><span data-line="877">    <span class="n">ntwk</span><span class="o">.</span><span class="n">s</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">obj</span><span class="p">[</span><span class="s1">'_s'</span><span class="p">])[</span><span class="o">...</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">obj</span><span class="p">[</span><span class="s1">'_s'</span><span class="p">])[</span><span class="o">...</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="mi">1</span><span class="n">j</span>
+</span><span data-line="878">    <span class="c1"># after the s-parameters, the number of ports has to be known to be able to</span>
+</span><span data-line="879">    <span class="c1"># check that there is a name for every port. 'port_names' is the key used</span>
+</span><span data-line="880">    <span class="c1"># before port_names became a property, accept it as well.</span>
+</span><span data-line="881">    <span class="n">ntwk</span><span class="o">.</span><span class="n">port_names</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'_port_names'</span><span class="p">,</span> <span class="n">obj</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'port_names'</span><span class="p">))</span>
+</span><span data-line="882">    <span class="n">ntwk</span><span class="o">.</span><span class="n">frequency</span> <span class="o">=</span> <span class="n">Frequency</span><span class="o">.</span><span class="n">from_f</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">obj</span><span class="p">[</span><span class="s1">'_frequency'</span><span class="p">][</span><span class="s1">'flist'</span><span class="p">]),</span>
+</span><span data-line="883">                                         <span class="n">unit</span><span class="o">=</span><span class="n">obj</span><span class="p">[</span><span class="s1">'_frequency'</span><span class="p">][</span><span class="s1">'funit'</span><span class="p">])</span>
+</span><span data-line="884">    <span class="k">return</span> <span class="n">ntwk</span></div>
+
+</span></pre></div>
+        </article><button class="back-to-top" type="button">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+  </svg>
+  <span>Back to top</span>
+</button><div class="navigation flex print:hidden"></div></div>
+    </div>
+  </main>
+</div>
+<footer class="sy-foot">
+  <div class="sy-foot-inner sy-container mx-auto">
+    <div class="sy-foot-reserved md:flex justify-between items-center">
+      <div class="sy-foot-copyright"><p>2025, scikit-rf team</p>
+  
+  <p>
+    Made with
+    
+    <a href="https://www.sphinx-doc.org/">Sphinx</a> and
+    
+    <a href="https://shibuya.lepture.com">Shibuya theme</a>.
+  </p>
+</div>
+      <div class="sy-foot-socials">
+  <a href="https://github.com/scikit-rf/scikit-rf" aria-label="GitHub">
+    <iconify-icon icon="simple-icons:github"></iconify-icon>
+  </a></div>
+    </div>
+  </div>
+</footer>
+      <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../../_static/copybutton.js?v=34bd459d"></script>
+      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+      <script src="../../../_static/shibuya.js?v=50760d75"></script>
+      <script src="https://cdn.jsdelivr.net/npm/@jupyter-widgets/html-manager@^1.0.1/dist/embed-amd.js"></script>
+      <script src="../../../_static/skrf.js?v=bdeb9fb0"></script></body>
+</html>

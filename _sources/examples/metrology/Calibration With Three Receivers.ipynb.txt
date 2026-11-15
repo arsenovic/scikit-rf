@@ -1,0 +1,367 @@
+{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "# Calibration With Three Receivers"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Intro"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "It has long been known that full error correction is possible given a VNA with only three receivers and no internal coaxial switch. However, since no modern VNA employs such an architecture, the software required to make fully corrected measurements is not available on today's modern VNA's. \n",
+    "\n",
+    "Recently, the application of Frequency Extender units containing only three receivers has become more common. Furthermore, low-cost VNAs are becoming useful tools for learning RF electronics. The representative example is NanoVNA, which uses a three-receiver design. Thus, there is a need for full error correction capability on systems with three receivers and no  internal coaxial switch. This document describes how to use [scikit-rf](http://www.scikit-rf.org) to fully correct two-port measurements made on such a system."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Theory"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "A circuit model for a switch-less three receiver system is shown below."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "from IPython.display import SVG, Image\n",
+    "\n",
+    "SVG('three_receiver_cal/pics/vnaBlockDiagramForwardRotated.svg')"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "To fully correct an arbitrary two-port,  the device must be measured in two orientations, call these forward and reverse. Because there is no switch present, this requires the operator to physically flip the device, and save the pair of measurements. In on-wafer scenarios, one could fabricate two identical devices, one in each orientation. In either case, a pair of  measurements are required for each DUT before correction can occur. \n",
+    "\n",
+    "While in reality the device is being flipped, one can imaging that the device is static, and the entire VNA circuitry is flipped. This interpretation lends itself to implementation, as the existing 12-term correction can be reused by simply copying the forward error coefficients into the corresponding reverse error coefficients. This is what `scikit-rf` does internally.\n",
+    "\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Worked Example"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "This example demonstrates how to create a [TwoPortOnePath](../../api/calibration/generated/skrf.calibration.calibration.TwoPortOnePath.rst) and [EnhancedResponse](../../api/calibration/generated/skrf.calibration.calibration.EnhancedResponse.rst) calibration from  measurements taken on a Agilent PNAX with a set of VDI WR-12 TXRX-RX Frequency Extender heads.  Comparisons between the two algorithms are made by correcting an asymmetric  DUT."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Measure the Calibration Standands and DUT\n",
+    "\n",
+    "First, one measures the S-parameters of the Open, Short, and Load standards on the VNA according to the standard SOLT calibration procedures. We assume the reader is familiar with this task in scikit-rf. If not, it's fully described in the [SOLT example](./SOLT.ipynb).\n",
+    "\n",
+    "When calibrating a three-receiver VNA, the process is almost identical. But note that there are a few minor differences. First, the Open, Short, and Load standards are only measured at port 1, not port 2. The VNA cannot measure in the reverse orientation, so there's no reason to perform OSL calibration at port 2 (unless one needs the optional isolation calibration). \n",
+    "\n",
+    "Nevetheless, scikit-rf still expects two-port networks as input, we therefore still save all results as two-port networks. In this case, only $S_{11}$ and $S_{21}$ are the actual measurements, $S_{12}$ and $S_{22}$ are unused, not meaningful, and can contain arbitrary data. One can use all-zero values as placeholders. Internally, scikit-rf will set $S_{22} = S_{11}$ and $S_{12} = S_{21}$ for the purpose of calculations.\n",
+    "\n",
+    "Then, the DUT is measured as a two-port network in the forward direction, physically flipped, and then measured again in the reverse orientation."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Read in the Data"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "The measurements of the calibration standards and DUT's  were downloaded from the VNA by saving touchstone files of the raw s-parameter data to disk. "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "! ls three_receiver_cal/data/"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "These files can be read by scikit-rf into `Network`s with the following. "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "import matplotlib.pyplot as plt\n",
+    "\n",
+    "import skrf as rf\n",
+    "\n",
+    "%matplotlib inline\n",
+    "\n",
+    "rf.stylely()\n",
+    "\n",
+    "\n",
+    "raw = rf.io.general.read_all_networks('three_receiver_cal/data/')\n",
+    "# list the raw measurements\n",
+    "raw.keys()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Each `Network` can be accessed through the dictionary `raw`."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "thru = raw['thru']\n",
+    "thru"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "If we look at the *raw* measurement of the flush thru, it can be seen that only $S_{11}$ and $S_{21}$ contain meaningful data.  The other s-parameters are noise. "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "thru.plot_s_db()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Create Calibration "
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "In the code that follows a TwoPortOnePath calibration is created from corresponding  measured and ideal responses of the calibration standards. The measured networks are read from disk, while their corresponding ideal responses are generated using scikit-rf. More information about using scikit-rf to do offline calibrations can be found [here](../../tutorials/Calibration.ipynb)."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "\n",
+    "from skrf.calibration import TwoPortOnePath\n",
+    "from skrf.constants import mil\n",
+    "from skrf.media import RectangularWaveguide\n",
+    "from skrf.network import two_port_reflect as tpr\n",
+    "\n",
+    "# pull frequency information from measurements\n",
+    "frequency = raw['short'].frequency\n",
+    "\n",
+    "# the media object\n",
+    "wg = RectangularWaveguide(frequency=frequency, a=120*mil, z0_override=50)\n",
+    "\n",
+    "# list of 'ideal' responses of the calibration standards\n",
+    "ideals = [wg.short(nports=2),\n",
+    "          tpr(wg.delay_short( 90,'deg'), wg.match()),\n",
+    "          wg.match(nports=2),\n",
+    "          wg.thru()]\n",
+    "\n",
+    "# corresponding measurements to the 'ideals'\n",
+    "measured = [raw['short'],\n",
+    "            raw['quarter wave delay short'],\n",
+    "            raw['load'],\n",
+    "            raw['thru']]\n",
+    "\n",
+    "# the Calibration object\n",
+    "cal = TwoPortOnePath(measured = measured, ideals = ideals)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "By default, `TwoPortOnePath` assumes port 1 is the active source in all calibrations and measurements (thus only $S_{11}$ and $S_{21}$ are valid data). If, for some reason, the valid measurements are presented as $S_{12}$ and $S_{22}$, one can set the optional parameter `source_port=2` when creating the `TwoPortOnePath` object.\n",
+    "\n",
+    "\n",
+    "### Apply Correction"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "There are two types of correction possible with a 3-receiver system. \n",
+    "\n",
+    "1. Full (TwoPortOnePath)\n",
+    "2. Partial  (EnhancedResponse)\n",
+    "\n",
+    "`scikit-rf` uses the same `Calibration` object for both, but employs different correction  algorithms depending on  the `type` of the DUT. The DUT used in  this example is a WR-15 shim  cascaded with a WR-12 1\" straight waveguide, as shown in the picture below.  Measurements of this DUT are corrected with both *full* and *partial* correction and the results are compared below. "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "Image('three_receiver_cal/pics/asymmetic DUT.jpg', width='75%')"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "#### Full Correction ( TwoPortOnePath)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Full correction is achieved by measuring each device in both orientations, **forward** and **reverse**. To be clear, this means that  the DUT must be  physically removed, flipped, and re-inserted. The resulting pair of  measurements are then passed to the `apply_cal()` function as a tuple. This returns a single corrected response.  \n",
+    "\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "#### Partial Correction (Enhanced Response)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "If you pass a single measurement to the `apply_cal()` function, then the calibration will employ partial correction. This type of correction is known as `EnhancedResponse`. Depending on the measurement application, this type of correction may be  *good enough*, and perhaps the only choice."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Comparison"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Below are direct comparisons of the DUT shown above corrected with *full* and *partial* algorithms. It shows that the partial calibration produces a large ripple on the reflect measurements, and slightly larger ripple on the transmissive measurements. "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "simulation = raw['simulation']\n",
+    "\n",
+    "dutf = raw['wr15 shim and swg (forward)']\n",
+    "dutr = raw['wr15 shim and swg (reverse)']\n",
+    "\n",
+    "corrected_full =     cal.apply_cal((dutf, dutr))\n",
+    "corrected_partial =  cal.apply_cal(dutf)\n",
+    "\n",
+    "\n",
+    "\n",
+    "# plot results\n",
+    "\n",
+    "f, ax = plt.subplots(1,2, figsize=(8,4))\n",
+    "\n",
+    "ax[0].set_title ('$S_{11}$')\n",
+    "ax[1].set_title ('$S_{21}$')\n",
+    "\n",
+    "corrected_partial.plot_s_db(0,0, label='Partial Correction',ax=ax[0])\n",
+    "corrected_partial.plot_s_db(1,0, label='Partial Correction',ax=ax[1])\n",
+    "\n",
+    "corrected_full.plot_s_db(0,0, label='Full Correction', ax = ax[0])\n",
+    "corrected_full.plot_s_db(1,0, label='Full Correction', ax = ax[1])\n",
+    "\n",
+    "simulation.plot_s_db(0,0,label='Simulation', ax=ax[0], color='k')\n",
+    "simulation.plot_s_db(1,0,label='Simulation', ax=ax[1], color='k')\n",
+    "\n",
+    "plt.tight_layout()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### What if my DUT is Symmetric??"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "If the DUT is known to be **reciprocal** ( $S_{21}=S_{12}$ ) and **symmetric** ( $S_{11}=S_{22}$ ), then its response should be the identical for both forward and reverse orientations. In this case, measuring the device twice is unnecessary, and can be circumvented. This is explored in the example: [TwoPortOnePath, EnhancedResponse, and FakeFlip](TwoPortOnePath, EnhancedResponse, and FakeFlip.ipynb)"
+   ]
+  }
+ ],
+ "metadata": {
+  "anaconda-cloud": {},
+  "kernelspec": {
+   "display_name": "Python 3 (ipykernel)",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.8.10"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 1
+}

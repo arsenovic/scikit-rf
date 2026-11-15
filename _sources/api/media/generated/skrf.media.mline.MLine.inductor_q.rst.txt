@@ -1,0 +1,6 @@
+skrf.media.mline.MLine.inductor\_q
+==================================
+
+.. currentmodule:: skrf.media.mline
+
+.. automethod:: MLine.inductor_q

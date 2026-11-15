@@ -1,0 +1,6 @@
+skrf.vi.vna.keysight.PNA.create\_channel
+========================================
+
+.. currentmodule:: skrf.vi.vna.keysight
+
+.. automethod:: PNA.create_channel

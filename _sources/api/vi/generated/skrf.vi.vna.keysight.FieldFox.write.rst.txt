@@ -1,0 +1,6 @@
+skrf.vi.vna.keysight.FieldFox.write
+===================================
+
+.. currentmodule:: skrf.vi.vna.keysight
+
+.. automethod:: FieldFox.write

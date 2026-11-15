@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en" data-accent-color="blue" data-content_root="../">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Installation - scikit-rf</title><link rel="author" title="About these documents" href="../about.html" /><link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Introduction" href="Introduction.html" /><link rel="prev" title="scikit-rf — Object Oriented RF Engineering" href="../index.html" /><script>
+    function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
+    setColorMode(localStorage._theme||"auto");
+  </script><link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=ad592e98" />
+    <link rel="stylesheet" type="text/css" href="../_static/shibuya.css?v=2ceb65ce" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-codeautolink.css?v=b2176991" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link media="print" rel="stylesheet" type="text/css" href="../_static/print.css?v=20ff2c19" />
+    <link rel="stylesheet" type="text/css" href="../_static/nbsphinx-code-cells.css?v=2aa19091" />
+    <link rel="stylesheet" type="text/css" href="../_static/skrf.css?v=7e772ba2" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --sy-f-text: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+  --sy-f-heading: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+}
+</style>
+    
+  <meta property="og:type" content="website"/><meta property="og:title" content="Installation"/>
+    <meta name="twitter:card" content="summary"/>
+  </head>
+<body><div class="sy-head">
+  <div class="sy-head-blur"></div>
+  <div class="sy-head-inner sy-container mx-auto">
+    <a class="sy-head-brand" href="../index.html">
+      <img class="light-logo" src="../_static/logo.svg" alt="scikit-rf" height="28" loading="lazy" />
+      <img class="dark-logo" src="../_static/logo.svg" alt="scikit-rf" height="28" loading="lazy" />
+      <strong>scikit-rf</strong>
+    </a>
+    <div class="sy-head-nav" id="head-nav">
+      <nav class="sy-head-links"><ul><li class="link"><a href="../index.html">Home</a></li><li class="link"><a href="index.html">Tutorials</a></li><li class="link"><a href="../examples/index.html">Examples</a></li><li class="link"><a href="../api/index.html">API</a></li><li class="link">
+          <a href="https://github.com/scikit-rf/scikit-rf">
+            <span>GitHub</span><i class="i-lucide external-link"></i></a>
+        </li></ul></nav>
+      <div class="sy-head-extra flex items-center print:hidden"><form class="searchbox flex items-center" action="../search.html" method="get">
+  <input type="text" name="q" placeholder="Search" />
+  <kbd>/</kbd>
+</form><div class="sy-head-socials">
+  <a href="https://github.com/scikit-rf/scikit-rf" aria-label="GitHub">
+    <iconify-icon icon="simple-icons:github"></iconify-icon>
+  </a>
+  <a href="https://www.linkedin.com/groups/12462155/" aria-label="LinkedIn">
+    <iconify-icon icon="simple-icons:linkedin"></iconify-icon>
+  </a>
+  <a href="https://app.element.io/#/room/#scikit-rf:matrix.org" aria-label="Matrix">
+    <iconify-icon icon="simple-icons:matrix"></iconify-icon>
+  </a></div></div>
+    </div>
+    <div class="sy-head-actions flex items-center shrink-0 print:hidden"><button class="js-theme theme-switch flex items-center"
+data-aria-auto="Switch to light color mode"
+data-aria-light="Switch to dark color mode"
+data-aria-dark="Switch to auto color mode">
+<i class="i-lucide theme-icon"></i>
+</button><button class="md:hidden flex items-center js-menu" aria-label="Menu" type="button" aria-controls="head-nav" aria-expanded="false">
+        <div class="hamburger">
+          <span class="hamburger_1"></span>
+          <span class="hamburger_2"></span>
+          <span class="hamburger_3"></span>
+        </div>
+      </button>
+    </div>
+  </div>
+</div>
+<div class="sy-page sy-container flex mx-auto">
+  <aside id="lside" class="sy-lside md:w-72 md:shrink-0 print:hidden">
+    <div class="sy-lside-inner md:sticky">
+      <div class="sy-scrollbar p-6">
+        <div class="globaltoc" data-expand-depth="0"><p class="caption" role="heading" aria-level="3"><span class="caption-text">Getting started</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Overview</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#anaconda-(recommended)">anaconda (recommended)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pip">pip</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#git">git</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Optional-Modules">Optional Modules</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Introduction.html">Introduction</a></li>
+</ul>
+<p class="caption" role="heading" aria-level="3"><span class="caption-text">User guide</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Tutorials</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Introduction.html">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Frequency_units.html">Configuring frequency units</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Networks.html">Networks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Connecting_Networks.html">Connecting Networks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Plotting.html">Plotting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="NetworkSet.html">NetworkSet</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Circuit.html">Circuits</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Calibration.html">Calibration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Deembedding.html">De-embedding</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Q-Factor.html">Quality Factors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Media.html">Media</a></li>
+<li class="toctree-l2"><a class="reference internal" href="VectorFitting.html">Vector Fitting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="VectorFittingParametric.html">Parametric Vector Fitting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="VirtualInstruments.html">Virtual Instruments</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/index.html">Examples</a></li>
+</ul>
+<p class="caption" role="heading" aria-level="3"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../api/index.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../glossary.html">Glossary</a></li>
+</ul>
+<p class="caption" role="heading" aria-level="3"><span class="caption-text">Project</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../contributing/index.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../citations_ack/acknowledging.html">Citing scikit-rf</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../citations_ack/citations.html">scikit-rf Citations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../about.html">About</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../users.html">Users</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../license.html">License</a></li>
+</ul>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="lside-overlay js-menu" role="button" aria-label="Close left sidebar" aria-controls="lside" aria-expanded="false"></div>
+  <aside id="rside" class="sy-rside pb-3 w-64 shrink-0 order-last">
+    <button class="rside-close js-menu xl:hidden" aria-label="Close Table of Contents" type="button" aria-controls="rside" aria-expanded="false">
+      <i class="i-lucide close"></i>
+    </button>
+    <div class="sy-scrollbar sy-rside-inner px-6 xl:top-16 xl:sticky xl:pl-0 pt-6 pb-4"><div class="localtoc"><h3>On this page</h3><ul>
+<li><a class="reference internal" href="#anaconda-(recommended)">anaconda (recommended)</a></li>
+<li><a class="reference internal" href="#pip">pip</a></li>
+<li><a class="reference internal" href="#git">git</a></li>
+<li><a class="reference internal" href="#Optional-Modules">Optional Modules</a><ul>
+<li><a class="reference internal" href="#Instrument-Control">Instrument Control</a></li>
+<li><a class="reference internal" href="#Excel-file-export">Excel file export</a></li>
+</ul>
+</li>
+</ul>
+</div><div id="ethical-ad-placement" data-ea-publisher="readthedocs"></div></div>
+  </aside>
+  <div class="rside-overlay js-menu" role="button" aria-label="Close Table of Contents" aria-controls="rside" aria-expanded="false"></div>
+  <main class="sy-main w-full max-sm:max-w-full print:pt-6">
+<div class="sy-breadcrumbs" role="navigation">
+  <div class="sy-breadcrumbs-inner flex items-center">
+    <div class="md:hidden mr-3">
+      <button class="js-menu" aria-label="Menu" type="button" aria-controls="lside" aria-expanded="false">
+        <i class="i-lucide menu"></i>
+      </button>
+    </div>
+    <ol class="flex-1" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="../index.html"><span itemprop="name">scikit-rf</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="1" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <strong itemprop="name">Installation</strong>
+        <meta itemprop="position" content="2" />
+      </li></ol>
+    <a class="sk-download" href="Installation.ipynb" download>Download</a>
+    <div class="xl:hidden ml-1">
+      <button class="js-menu" aria-label="Show table of contents" type="button" aria-controls="rside"
+        aria-expanded="false">
+        <i class="i-lucide outdent"></i>
+      </button>
+    </div>
+  </div>
+</div><div class="flex flex-col break-words justify-between">
+      <div class="relative min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
+  <article class="yue" role="main">
+          <section id="Installation">
+<h1>Installation<a class="headerlink" href="#Installation" title="Link to this heading">#</a></h1>
+<section id="anaconda-(recommended)">
+<h2>anaconda (recommended)<a class="headerlink" href="#anaconda-(recommended)" title="Link to this heading">#</a></h2>
+<p>The easiest way to install <strong>scikit-rf</strong> is to first install <a class="reference external" href="http://continuum.io/downloads">anaconda</a>, a binary package manager for python modules. Once anaconda is setup you can install scikit-rf by entering the following into a terminal (do not forget the <code class="docutils literal notranslate"><span class="pre">-c</span> <span class="pre">conda-forge</span></code> option):</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">conda install -c conda-forge  scikit-rf
+</span></pre></div>
+</div>
+</section>
+<section id="pip">
+<h2>pip<a class="headerlink" href="#pip" title="Link to this heading">#</a></h2>
+<p>Using the <a class="reference external" href="https://pypi.org/">Python Package Index (PyPi)</a>, you can install <strong>scikit-rf</strong> using:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">pip install scikit-rf
+</span></pre></div>
+</div>
+</section>
+<section id="git">
+<h2>git<a class="headerlink" href="#git" title="Link to this heading">#</a></h2>
+<p>The bleeding-edge development version of <strong>scikit-rf</strong> may be installed from our <a class="reference external" href="https://github.com/scikit-rf/scikit-rf">github page</a>. You can use git directly, or download a zipfile.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">git clone git@github.com:scikit-rf/scikit-rf.git
+</span><span data-line="2">cd scikit-rf
+</span><span data-line="3">python setup.py install
+</span></pre></div>
+</div>
+</section>
+<section id="Optional-Modules">
+<h2>Optional Modules<a class="headerlink" href="#Optional-Modules" title="Link to this heading">#</a></h2>
+<p>Some features of scikit-rf won’t be available until you install additional modules. You can install these using conda or pip.</p>
+<section id="Instrument-Control">
+<h3>Instrument Control<a class="headerlink" href="#Instrument-Control" title="Link to this heading">#</a></h3>
+<p>To use the vi module, you must install all of its dependencies. This can be done with</p>
+<p>$ pip install scikit-rf[visa]</p>
+<p>which will install the following:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://pyvisa.readthedocs.io/en/latest/">pyvisa</a></p></li>
+<li><p><a class="reference external" href="https://pyvisa.readthedocs.io/projects/pyvisa-py/en/latest/">pyvisa-py</a></p></li>
+</ul>
+<div class="admonition warning">
+<p class="admonition-title">Warning about instrument communications</p>
+<p>The above should be enough to communicate with many instruments. However, some of us have had difficult to resolve issues with certain instrument configurations that require particular setups. For example, to communicate with Keysight’s N5227B PNA over GPIB, we had to install the Keysight IO Libraries Suite</p>
+<p>When using the virtual instrument module, you have the option of specifying the backend that PyVISA uses to communicate with instruments. By default, this is PyVISA-py, the fully Python VISA implementation, but in the case above with the Keysight Analyzer, we had to specify the exact .dll of the VISA driver. More information can be found <a class="reference external" href="https://pyvisa.readthedocs.io/en/latest/advanced/backends.html">here</a> on VISA backends, but if you have issues, please submit a detailed bug report!</p>
+</div>
+</section>
+<section id="Excel-file-export">
+<h3>Excel file export<a class="headerlink" href="#Excel-file-export" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>xlrd</p></li>
+<li><p>xlwt <a class="reference external" href="http://www.python-excel.org/">http://www.python-excel.org/</a> - for xls reading/writing</p></li>
+</ul>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[ ]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1">
+</span></pre></div>
+</div>
+</div>
+</section>
+</section>
+</section>
+
+        </article><button class="back-to-top" type="button">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+  </svg>
+  <span>Back to top</span>
+</button><div class="navigation flex print:hidden"><div class="navigation-prev">
+    <a href="../index.html">
+      <i class="i-lucide chevron-left"></i>
+      <div class="page-info">
+        <span>Previous</span><div class="title">Home</div></div>
+    </a>
+  </div><div class="navigation-next">
+    <a href="Introduction.html">
+      <div class="page-info">
+        <span>Next</span>
+        <div class="title">Introduction</div>
+      </div>
+      <i class="i-lucide chevron-right"></i>
+    </a>
+  </div></div></div>
+    </div>
+  </main>
+</div>
+<footer class="sy-foot">
+  <div class="sy-foot-inner sy-container mx-auto">
+    <div class="sy-foot-reserved md:flex justify-between items-center">
+      <div class="sy-foot-copyright"><p>2025, scikit-rf team</p>
+  
+  <p>
+    Made with
+    
+    <a href="https://www.sphinx-doc.org/">Sphinx</a> and
+    
+    <a href="https://shibuya.lepture.com">Shibuya theme</a>.
+  </p>
+</div>
+      <div class="sy-foot-socials">
+  <a href="https://github.com/scikit-rf/scikit-rf" aria-label="GitHub">
+    <iconify-icon icon="simple-icons:github"></iconify-icon>
+  </a></div>
+    </div>
+  </div>
+</footer>
+      <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../_static/copybutton.js?v=34bd459d"></script>
+      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+      <script src="../_static/shibuya.js?v=50760d75"></script>
+      <script src="https://cdn.jsdelivr.net/npm/@jupyter-widgets/html-manager@^1.0.1/dist/embed-amd.js"></script>
+      <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
+      <script src="../_static/skrf.js?v=bdeb9fb0"></script></body>
+</html>

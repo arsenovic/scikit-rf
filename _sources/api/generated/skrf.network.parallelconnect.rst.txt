@@ -1,0 +1,6 @@
+﻿skrf.network.parallelconnect
+============================
+
+.. currentmodule:: skrf.network
+
+.. autofunction:: parallelconnect

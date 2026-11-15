@@ -1,0 +1,6 @@
+skrf.circuit.Circuit.check\_duplicate\_names
+============================================
+
+.. currentmodule:: skrf.circuit
+
+.. automethod:: Circuit.check_duplicate_names

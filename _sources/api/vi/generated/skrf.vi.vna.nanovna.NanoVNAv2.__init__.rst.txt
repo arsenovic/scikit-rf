@@ -1,0 +1,6 @@
+skrf.vi.vna.nanovna.NanoVNAv2.\_\_init\_\_
+==========================================
+
+.. currentmodule:: skrf.vi.vna.nanovna
+
+.. automethod:: NanoVNAv2.__init__

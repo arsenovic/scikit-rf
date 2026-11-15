@@ -1,0 +1,6 @@
+﻿skrf.network.innerconnect\_s\_lstsq
+===================================
+
+.. currentmodule:: skrf.network
+
+.. autofunction:: innerconnect_s_lstsq

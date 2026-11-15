@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en" data-accent-color="blue" data-content_root="../../">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Export Network as Touchstone File - scikit-rf</title><link rel="author" title="About these documents" href="../../about.html" /><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><script>
+    function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
+    setColorMode(localStorage._theme||"auto");
+  </script><link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=ad592e98" />
+    <link rel="stylesheet" type="text/css" href="../../_static/shibuya.css?v=2ceb65ce" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-codeautolink.css?v=b2176991" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link media="print" rel="stylesheet" type="text/css" href="../../_static/print.css?v=20ff2c19" />
+    <link rel="stylesheet" type="text/css" href="../../_static/nbsphinx-code-cells.css?v=2aa19091" />
+    <link rel="stylesheet" type="text/css" href="../../_static/skrf.css?v=7e772ba2" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --sy-f-text: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+  --sy-f-heading: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+}
+</style>
+    
+  <meta property="og:type" content="website"/><meta property="og:title" content="Export Network as Touchstone File"/>
+    <meta name="twitter:card" content="summary"/>
+  </head>
+<body><div class="sy-head">
+  <div class="sy-head-blur"></div>
+  <div class="sy-head-inner sy-container mx-auto">
+    <a class="sy-head-brand" href="../../index.html">
+      <img class="light-logo" src="../../_static/logo.svg" alt="scikit-rf" height="28" loading="lazy" />
+      <img class="dark-logo" src="../../_static/logo.svg" alt="scikit-rf" height="28" loading="lazy" />
+      <strong>scikit-rf</strong>
+    </a>
+    <div class="sy-head-nav" id="head-nav">
+      <nav class="sy-head-links"><ul><li class="link"><a href="../../index.html">Home</a></li><li class="link"><a href="../../tutorials/index.html">Tutorials</a></li><li class="link"><a href="../index.html">Examples</a></li><li class="link"><a href="../../api/index.html">API</a></li><li class="link">
+          <a href="https://github.com/scikit-rf/scikit-rf">
+            <span>GitHub</span><i class="i-lucide external-link"></i></a>
+        </li></ul></nav>
+      <div class="sy-head-extra flex items-center print:hidden"><form class="searchbox flex items-center" action="../../search.html" method="get">
+  <input type="text" name="q" placeholder="Search" />
+  <kbd>/</kbd>
+</form><div class="sy-head-socials">
+  <a href="https://github.com/scikit-rf/scikit-rf" aria-label="GitHub">
+    <iconify-icon icon="simple-icons:github"></iconify-icon>
+  </a>
+  <a href="https://www.linkedin.com/groups/12462155/" aria-label="LinkedIn">
+    <iconify-icon icon="simple-icons:linkedin"></iconify-icon>
+  </a>
+  <a href="https://app.element.io/#/room/#scikit-rf:matrix.org" aria-label="Matrix">
+    <iconify-icon icon="simple-icons:matrix"></iconify-icon>
+  </a></div></div>
+    </div>
+    <div class="sy-head-actions flex items-center shrink-0 print:hidden"><button class="js-theme theme-switch flex items-center"
+data-aria-auto="Switch to light color mode"
+data-aria-light="Switch to dark color mode"
+data-aria-dark="Switch to auto color mode">
+<i class="i-lucide theme-icon"></i>
+</button><button class="md:hidden flex items-center js-menu" aria-label="Menu" type="button" aria-controls="head-nav" aria-expanded="false">
+        <div class="hamburger">
+          <span class="hamburger_1"></span>
+          <span class="hamburger_2"></span>
+          <span class="hamburger_3"></span>
+        </div>
+      </button>
+    </div>
+  </div>
+</div>
+<div class="sy-page sy-container flex mx-auto">
+  <aside id="lside" class="sy-lside md:w-72 md:shrink-0 print:hidden">
+    <div class="sy-lside-inner md:sticky">
+      <div class="sy-scrollbar p-6">
+        <div class="globaltoc" data-expand-depth="0"><p class="caption" role="heading" aria-level="3"><span class="caption-text">Getting started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../index.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/Installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/Introduction.html">Introduction</a></li>
+</ul>
+<p class="caption" role="heading" aria-level="3"><span class="caption-text">User guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Examples</a></li>
+</ul>
+<p class="caption" role="heading" aria-level="3"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../api/index.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../glossary.html">Glossary</a></li>
+</ul>
+<p class="caption" role="heading" aria-level="3"><span class="caption-text">Project</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing/index.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../citations_ack/acknowledging.html">Citing scikit-rf</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../citations_ack/citations.html">scikit-rf Citations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../about.html">About</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../users.html">Users</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../license.html">License</a></li>
+</ul>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="lside-overlay js-menu" role="button" aria-label="Close left sidebar" aria-controls="lside" aria-expanded="false"></div>
+  <aside id="rside" class="sy-rside pb-3 w-64 shrink-0 order-last">
+    <button class="rside-close js-menu xl:hidden" aria-label="Close Table of Contents" type="button" aria-controls="rside" aria-expanded="false">
+      <i class="i-lucide close"></i>
+    </button>
+    <div class="sy-scrollbar sy-rside-inner px-6 xl:top-16 xl:sticky xl:pl-0 pt-6 pb-4"><div id="ethical-ad-placement" data-ea-publisher="readthedocs"></div></div>
+  </aside>
+  <div class="rside-overlay js-menu" role="button" aria-label="Close Table of Contents" aria-controls="rside" aria-expanded="false"></div>
+  <main class="sy-main w-full max-sm:max-w-full print:pt-6">
+<div class="sy-breadcrumbs" role="navigation">
+  <div class="sy-breadcrumbs-inner flex items-center">
+    <div class="md:hidden mr-3">
+      <button class="js-menu" aria-label="Menu" type="button" aria-controls="lside" aria-expanded="false">
+        <i class="i-lucide menu"></i>
+      </button>
+    </div>
+    <ol class="flex-1" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="../../index.html"><span itemprop="name">scikit-rf</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="1" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <strong itemprop="name">Export Network as Touchstone File</strong>
+        <meta itemprop="position" content="2" />
+      </li></ol>
+    <a class="sk-download" href="Export%20Network%20as%20Touchstone%20File.ipynb" download>Download</a>
+    <div class="xl:hidden ml-1">
+      <button class="js-menu" aria-label="Show table of contents" type="button" aria-controls="rside"
+        aria-expanded="false">
+        <i class="i-lucide outdent"></i>
+      </button>
+    </div>
+  </div>
+</div><div class="flex flex-col break-words justify-between">
+      <div class="relative min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
+  <article class="yue" role="main">
+          <section id="Export-Network-as-Touchstone-File">
+<h1>Export Network as Touchstone File<a class="headerlink" href="#Export-Network-as-Touchstone-File" title="Link to this heading">#</a></h1>
+<p>Frequently a <code class="docutils literal notranslate"><span class="pre">Network</span></code> is required to be saved as a <a class="reference external" href="https://en.wikipedia.org/wiki/Touchstone_file">Touchstone file</a> so that it can be imported into another program such as <a class="reference external" href="https://www.keysight.com/zz/en/products/software/pathwave-design-software/pathwave-advanced-design-system.html">Keysight ADS</a> or <a class="reference external" href="https://www.cadence.com/en_US/home/tools/system-analysis/rf-microwave-design/awr-design-environment-platform.html">Microwave Office</a>. The <code class="docutils literal notranslate"><span class="pre">Network.write_touchstone()</span></code> method allows
+<code class="docutils literal notranslate"><span class="pre">Network</span></code> objects to be exported in the appropriate format.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[1]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="kn">from</span><span class="w"> </span><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/library/pathlib.html#module-pathlib"><span class="nn">pathlib</span></a><span class="w"> </span><span class="kn">import</span> <a class="sphinx-codeautolink-a" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="pathlib.Path"><span class="n">Path</span></a>
+</span><span data-line="2">
+</span><span data-line="3"><span class="kn">import</span><span class="w"> </span><a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/index.html#module-numpy"><span class="nn">numpy</span></a><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+</span><span data-line="4">
+</span><span data-line="5"><span class="kn">import</span><span class="w"> </span><span class="nn">skrf</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">rf</span>
+</span></pre></div>
+</div>
+</div>
+<p>In this example, we are going to first generate a random 2-port <code class="docutils literal notranslate"><span class="pre">Network</span></code> and export the data as a Touchstone file using all the default arguments</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[2]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="c1"># Handle for random generator</span>
+</span><span data-line="2"><span class="n">rand_gen</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/random/generator.html#numpy.random.default_rng" title="numpy.random.default_rng"><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span></a><span class="p">()</span>
+</span><span data-line="3">
+</span><span data-line="4"><span class="c1"># Set the number of points</span>
+</span><span data-line="5"><span class="n">ports</span> <span class="o">=</span> <span class="mi">2</span>
+</span><span data-line="6">
+</span><span data-line="7"><span class="c1"># Generate the frequency object</span>
+</span><span data-line="8"><span class="n">points</span> <span class="o">=</span> <span class="mi">11</span>
+</span><span data-line="9"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.frequency.Frequency.html#skrf.frequency.Frequency" title="skrf.frequency.Frequency"><span class="n">freq</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.frequency.Frequency.html#skrf.frequency.Frequency" title="skrf.frequency.Frequency"><span class="n">rf</span><span class="o">.</span><span class="n">Frequency</span></a><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="n">points</span><span class="p">,</span> <span class="s2">"GHz"</span><span class="p">)</span>
+</span><span data-line="10">
+</span><span data-line="11"><span class="c1"># Create random data to fill the Network</span>
+</span><span data-line="12"><span class="n">s_random</span> <span class="o">=</span> <span class="n">rand_gen</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="p">(</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.frequency.Frequency.npoints.html#skrf.frequency.Frequency.npoints" title="skrf.frequency.Frequency.npoints"><span class="n">freq</span><span class="o">.</span><span class="n">npoints</span></a><span class="p">,</span> <span class="n">ports</span><span class="p">,</span> <span class="n">ports</span><span class="p">))</span> <span class="o">+</span> <span class="mi">1</span><span class="n">j</span> <span class="o">*</span> <span class="n">rand_gen</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span>
+</span><span data-line="13">    <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="p">(</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.frequency.Frequency.npoints.html#skrf.frequency.Frequency.npoints" title="skrf.frequency.Frequency.npoints"><span class="n">freq</span><span class="o">.</span><span class="n">npoints</span></a><span class="p">,</span> <span class="n">ports</span><span class="p">,</span> <span class="n">ports</span><span class="p">)</span>
+</span><span data-line="14"><span class="p">)</span>
+</span><span data-line="15">
+</span><span data-line="16"><span class="c1"># Generate the Network object</span>
+</span><span data-line="17"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">ntwk</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">rf</span><span class="o">.</span><span class="n">Network</span></a><span class="p">(</span><span class="n">s</span><span class="o">=</span><span class="n">s_random</span><span class="p">,</span> <span class="n">frequency</span><span class="o">=</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.frequency.Frequency.html#skrf.frequency.Frequency" title="skrf.frequency.Frequency"><span class="n">freq</span></a><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"test_ntwk"</span><span class="p">)</span>
+</span><span data-line="18"><span class="n">ntwk</span><span class="o">.</span><span class="n">comments</span> <span class="o">=</span> <span class="s2">"Default output"</span>
+</span><span data-line="19">
+</span><span data-line="20"><span class="c1"># Define the save location</span>
+</span><span data-line="21"><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="pathlib.Path"><span class="n">filepath</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="pathlib.Path"><span class="n">Path</span></a><span class="p">(</span><span class="sa">f</span><span class="s2">"test_network.s</span><span class="si">{</span><span class="n">ports</span><span class="si">}</span><span class="s2">p"</span><span class="p">)</span>
+</span><span data-line="22">
+</span><span data-line="23"><span class="c1"># Save the Network as a touchstone file using the default arguments</span>
+</span><span data-line="24"><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/builtins/functions.html#print"><span class="nb">print</span></a><span class="p">(</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.write_touchstone.html#skrf.network.Network.write_touchstone" title="skrf.network.Network.write_touchstone"><span class="n">ntwk</span><span class="o">.</span><span class="n">write_touchstone</span></a><span class="p">(</span><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="pathlib.Path"><span class="n">filepath</span></a><span class="p">,</span> <span class="n">return_string</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+!Default output
+! Created with skrf 2.2.0 (http://scikit-rf.org).
+# GHz S RI R 50.0
+!freq ReS11 ImS11 ReS21 ImS21 ReS12 ImS12 ReS22 ImS22
+1.0 0.9510827982807804 0.433461930535483 0.24705208741926588 -0.5831644267975584 0.022599338777870237 -0.3203291548009106 0.4675417257721579 -0.48657171271747823
+5.9 -0.013176338702732826 -0.44055930615392325 0.06011608746909358 0.1609462829737327 -0.7174863390244903 -0.3716487212094355 0.509433924957297 -0.6095676868639011
+10.8 -0.48819309311899306 -0.7989027599986307 0.9225912312417057 0.41672014919694744 -0.1292840064435674 -0.4337659853351916 0.2988287028207288 0.9719666103737614
+15.7 0.2605048914613852 0.5575447656283614 -0.5264228330934944 0.43453022677923014 -0.2729693612855535 0.5009839770546003 0.7336965812440237 0.8802532068342483
+20.6 0.1324406675996792 -0.3976347902325408 0.5105002216525507 0.39558947876426975 -0.21982672757912636 -0.9089674402116656 -0.2811468035230944 0.8624590660331488
+25.5 0.5113278050625578 -0.8893617490257819 0.5099376503687845 0.2506055702916059 -0.6121432987455275 -0.49142076254416955 -0.21471045455192939 -0.7225851988028009
+30.4 -0.29755463656916215 0.9572212152549044 -0.7919582183522478 0.11775611161301947 -0.06900490903320144 0.5556106200188158 0.6842255930214431 -0.688664441776476
+35.3 0.16988839434005 0.5058247290844164 -0.03608961870910421 -0.6599532288367387 0.2693088621199935 -0.6352178165830811 0.7663238785067636 0.23643939120518143
+40.2 0.4047327428453873 -0.9315612852381836 0.5231170719855993 0.18297481409352523 0.9127271208621608 -0.18554293556348678 0.6137706713507967 -0.8487486198678265
+45.1 -0.40979001138688775 -0.02323163000789319 0.6692280094713052 -0.5143510826370452 0.4166607602277528 -0.9389617282995875 -0.44968038355044904 0.3609622564083208
+50.0 -0.03710495868322217 0.2766243987054957 0.5743200449129662 0.5352181658655724 0.23563943849879232 -0.39741647091360255 0.3341964733539391 0.07504016789778456
+
+</pre></div></div>
+</div>
+<p>In this example, we are going to export the same 2-port <code class="docutils literal notranslate"><span class="pre">Network</span></code> as a Touchstone file, but use the formatting strings to format the columns of the resulting file.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[3]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="c1"># Get a copy of the network</span>
+</span><span data-line="2"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">ntwk_formatted</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.copy.html#skrf.network.Network.copy" title="skrf.network.Network.copy"><span class="n">ntwk</span><span class="o">.</span><span class="n">copy</span></a><span class="p">()</span>
+</span><span data-line="3"><span class="n">ntwk_formatted</span><span class="o">.</span><span class="n">comments</span> <span class="o">=</span> <span class="s2">"Formatted output"</span>
+</span><span data-line="4">
+</span><span data-line="5"><span class="c1"># Define the save location</span>
+</span><span data-line="6"><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="pathlib.Path"><span class="n">formatted_filepath</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="pathlib.Path"><span class="n">Path</span></a><span class="p">(</span><span class="sa">f</span><span class="s2">"test_network_formatted.s</span><span class="si">{</span><span class="n">ports</span><span class="si">}</span><span class="s2">p"</span><span class="p">)</span>
+</span><span data-line="7">
+</span><span data-line="8"><span class="c1"># Save the Network as a touchstone file using the string formatting options</span>
+</span><span data-line="9"><span class="n">freq_fmt</span> <span class="o">=</span> <span class="s2">"</span><span class="si">{:&lt;8.3f}</span><span class="s2">"</span>
+</span><span data-line="10"><span class="n">data_fmt</span> <span class="o">=</span> <span class="s2">"</span><span class="se">\t</span><span class="si">{:&gt;8.3f}</span><span class="s2">"</span>
+</span><span data-line="11"><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/builtins/functions.html#print"><span class="nb">print</span></a><span class="p">(</span>
+</span><span data-line="12">    <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.write_touchstone.html#skrf.network.Network.write_touchstone" title="skrf.network.Network.write_touchstone"><span class="n">ntwk_formatted</span><span class="o">.</span><span class="n">write_touchstone</span></a><span class="p">(</span>
+</span><span data-line="13">        <a class="sphinx-codeautolink-a" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="pathlib.Path"><span class="n">formatted_filepath</span></a><span class="p">,</span>
+</span><span data-line="14">        <span class="n">form</span><span class="o">=</span><span class="s2">"db"</span><span class="p">,</span>
+</span><span data-line="15">        <span class="n">return_string</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+</span><span data-line="16">        <span class="n">format_spec_freq</span><span class="o">=</span><span class="n">freq_fmt</span><span class="p">,</span>
+</span><span data-line="17">        <span class="n">format_spec_A</span><span class="o">=</span><span class="n">data_fmt</span><span class="p">,</span>
+</span><span data-line="18">        <span class="n">format_spec_B</span><span class="o">=</span><span class="n">data_fmt</span><span class="p">,</span>
+</span><span data-line="19">    <span class="p">)</span>
+</span><span data-line="20"><span class="p">)</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+!Formatted output
+! Created with skrf 2.2.0 (http://scikit-rf.org).
+# GHz S DB R 50.0
+!freq dBS11 angS11 dBS21 angS21 dBS12 angS12 dBS22 angS22
+1.000              0.384          24.501          -3.967         -67.041          -9.867         -85.964          -3.417         -46.143
+5.900             -7.116         -91.713         -15.299          69.519          -1.851        -152.616          -1.999         -50.113
+10.800            -0.572        -121.428           0.107          24.308          -6.885        -106.597           0.145          72.910
+15.700            -4.217          64.956          -3.317         140.462          -4.875         118.584           1.183          50.189
+20.600            -7.553         -71.579          -3.798          37.772          -0.582        -103.595          -0.847         108.055
+25.500             0.222         -60.104          -4.910          26.172          -2.103        -141.243          -2.455        -106.549
+30.400             0.021         107.268          -1.931         171.543          -5.038          97.080          -0.258         -45.185
+35.300            -5.456          71.435          -3.597         -93.130          -3.224         -67.025          -1.917          17.147
+40.200             0.135         -66.517          -5.127          19.279          -0.617         -11.491           0.402         -54.128
+45.100            -7.735        -176.755          -1.473         -37.545           0.234         -66.071          -4.782         141.246
+50.000           -11.085          97.640          -2.102          42.982          -6.707         -59.335          -9.306          12.655
+
+</pre></div></div>
+</div>
+<p>In this example, we are going to export a new 2-port <code class="docutils literal notranslate"><span class="pre">Network</span></code> as a Touchstone file, but we’re going to include random noise data and format those output columns as well.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[4]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="c1"># Create random data to fill the Network</span>
+</span><span data-line="2"><span class="n">s_random</span> <span class="o">=</span> <span class="n">rand_gen</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="p">(</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.frequency.Frequency.npoints.html#skrf.frequency.Frequency.npoints" title="skrf.frequency.Frequency.npoints"><span class="n">freq</span><span class="o">.</span><span class="n">npoints</span></a><span class="p">,</span> <span class="n">ports</span><span class="p">,</span> <span class="n">ports</span><span class="p">))</span> <span class="o">+</span> <span class="mi">1</span><span class="n">j</span> <span class="o">*</span> <span class="n">rand_gen</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span>
+</span><span data-line="3">    <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="p">(</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.frequency.Frequency.npoints.html#skrf.frequency.Frequency.npoints" title="skrf.frequency.Frequency.npoints"><span class="n">freq</span><span class="o">.</span><span class="n">npoints</span></a><span class="p">,</span> <span class="n">ports</span><span class="p">,</span> <span class="n">ports</span><span class="p">)</span>
+</span><span data-line="4"><span class="p">)</span>
+</span><span data-line="5">
+</span><span data-line="6"><span class="c1"># Create random noise data to fill the Network</span>
+</span><span data-line="7"><span class="n">nfmin_db_random</span> <span class="o">=</span> <span class="n">rand_gen</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.frequency.Frequency.npoints.html#skrf.frequency.Frequency.npoints" title="skrf.frequency.Frequency.npoints"><span class="n">freq</span><span class="o">.</span><span class="n">npoints</span></a><span class="p">)</span>
+</span><span data-line="8"><span class="n">g_opt_random</span> <span class="o">=</span> <span class="n">rand_gen</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.frequency.Frequency.npoints.html#skrf.frequency.Frequency.npoints" title="skrf.frequency.Frequency.npoints"><span class="n">freq</span><span class="o">.</span><span class="n">npoints</span></a><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="n">j</span> <span class="o">*</span> <span class="n">rand_gen</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.frequency.Frequency.npoints.html#skrf.frequency.Frequency.npoints" title="skrf.frequency.Frequency.npoints"><span class="n">freq</span><span class="o">.</span><span class="n">npoints</span></a><span class="p">)</span>
+</span><span data-line="9"><span class="n">rn_random</span> <span class="o">=</span> <span class="n">rand_gen</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.frequency.Frequency.npoints.html#skrf.frequency.Frequency.npoints" title="skrf.frequency.Frequency.npoints"><span class="n">freq</span><span class="o">.</span><span class="n">npoints</span></a><span class="p">)</span>
+</span><span data-line="10">
+</span><span data-line="11"><span class="c1"># Generate the Network object</span>
+</span><span data-line="12"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">noisy_ntwk</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">rf</span><span class="o">.</span><span class="n">Network</span></a><span class="p">(</span><span class="n">s</span><span class="o">=</span><span class="n">s_random</span><span class="p">,</span> <span class="n">frequency</span><span class="o">=</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.frequency.Frequency.html#skrf.frequency.Frequency" title="skrf.frequency.Frequency"><span class="n">freq</span></a><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"test_noisy_ntwk"</span><span class="p">)</span>
+</span><span data-line="13"><span class="n">noisy_ntwk</span><span class="o">.</span><span class="n">comments</span> <span class="o">=</span> <span class="s2">"Formatted output with noise data"</span>
+</span><span data-line="14">
+</span><span data-line="15"><span class="c1"># Add the noise data</span>
+</span><span data-line="16"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.set_noise_a.html#skrf.network.Network.set_noise_a" title="skrf.network.Network.set_noise_a"><span class="n">noisy_ntwk</span><span class="o">.</span><span class="n">set_noise_a</span></a><span class="p">(</span><span class="n">noise_freq</span><span class="o">=</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.frequency.Frequency.html#skrf.frequency.Frequency" title="skrf.frequency.Frequency"><span class="n">freq</span></a><span class="p">,</span> <span class="n">nfmin_db</span><span class="o">=</span><span class="n">nfmin_db_random</span><span class="p">,</span> <span class="n">gamma_opt</span><span class="o">=</span><span class="n">g_opt_random</span><span class="p">,</span> <span class="n">rn</span><span class="o">=</span><span class="n">rn_random</span><span class="p">)</span>
+</span><span data-line="17">
+</span><span data-line="18"><span class="c1"># Define the save location</span>
+</span><span data-line="19"><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="pathlib.Path"><span class="n">formatted_filepath</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="pathlib.Path"><span class="n">Path</span></a><span class="p">(</span><span class="sa">f</span><span class="s2">"test_noisy_network_formatted.s</span><span class="si">{</span><span class="n">ports</span><span class="si">}</span><span class="s2">p"</span><span class="p">)</span>
+</span><span data-line="20">
+</span><span data-line="21"><span class="c1"># Save the Network as a touchstone file using the string formatting options</span>
+</span><span data-line="22"><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/builtins/functions.html#print"><span class="nb">print</span></a><span class="p">(</span>
+</span><span data-line="23">    <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.write_touchstone.html#skrf.network.Network.write_touchstone" title="skrf.network.Network.write_touchstone"><span class="n">noisy_ntwk</span><span class="o">.</span><span class="n">write_touchstone</span></a><span class="p">(</span>
+</span><span data-line="24">        <a class="sphinx-codeautolink-a" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="pathlib.Path"><span class="n">formatted_filepath</span></a><span class="p">,</span>
+</span><span data-line="25">        <span class="n">form</span><span class="o">=</span><span class="s2">"db"</span><span class="p">,</span>
+</span><span data-line="26">        <span class="n">return_string</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+</span><span data-line="27">        <span class="n">format_spec_freq</span><span class="o">=</span><span class="n">freq_fmt</span><span class="p">,</span>
+</span><span data-line="28">        <span class="n">format_spec_A</span><span class="o">=</span><span class="n">data_fmt</span><span class="p">,</span>
+</span><span data-line="29">        <span class="n">format_spec_B</span><span class="o">=</span><span class="n">data_fmt</span><span class="p">,</span>
+</span><span data-line="30">        <span class="n">format_spec_nf_freq</span><span class="o">=</span><span class="n">freq_fmt</span><span class="p">,</span>
+</span><span data-line="31">        <span class="n">format_spec_nf_min</span><span class="o">=</span><span class="n">data_fmt</span><span class="p">,</span>
+</span><span data-line="32">        <span class="n">format_spec_g_opt_mag</span><span class="o">=</span><span class="n">data_fmt</span><span class="p">,</span>
+</span><span data-line="33">        <span class="n">format_spec_g_opt_phase</span><span class="o">=</span><span class="n">data_fmt</span><span class="p">,</span>
+</span><span data-line="34">        <span class="n">format_spec_rn</span><span class="o">=</span><span class="n">data_fmt</span><span class="p">,</span>
+</span><span data-line="35">    <span class="p">)</span>
+</span><span data-line="36"><span class="p">)</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+!Formatted output with noise data
+! Created with skrf 2.2.0 (http://scikit-rf.org).
+# GHz S DB R 50.0
+!freq dBS11 angS11 dBS21 angS21 dBS12 angS12 dBS22 angS22
+1.000              2.035          51.789          -5.307           8.962          -5.629          27.610         -19.936        -147.544
+5.900              1.228          47.023          -2.982         -78.642          -2.133        -117.513          -4.080         -58.168
+10.800             0.160          14.731          -8.083          84.873           1.142        -130.239          -3.981        -149.235
+15.700           -15.424        -120.929          -6.275          13.193          -4.546         -97.900          -0.971           2.360
+20.600            -2.083         -90.624          -1.277         156.764          -8.146          33.535         -11.334          10.688
+25.500             2.084        -131.128          -4.475          65.777          -1.064         -68.091          -0.031        -135.515
+30.400            -1.750         167.073         -14.768        -161.968          -3.220         108.053           1.931         -39.895
+35.300            -2.101          33.419          -9.001        -169.559          -6.698        -161.061          -1.965         -21.958
+40.200            -3.140          78.247          -0.167          16.007           1.569         -53.463          -1.248        -136.729
+45.100           -15.006          98.344         -15.354         -26.466          -3.955        -109.486          -9.690        -156.025
+50.000             1.043         -40.595          -2.319         127.073         -13.111          59.057          -0.064          74.021
+! Noise Data
+! freq  nf_min_db       magGOpt degGOpt Rn_eff
+1.000              1.054           0.978         -15.126           0.017
+5.900              5.112           0.726        -166.073           0.010
+10.800             5.865           0.508        -145.147           0.008
+15.700             9.826           0.878        -116.554           0.009
+20.600             4.771           0.953         143.987           0.019
+25.500             8.386           0.500         -44.213           0.004
+30.400             9.206           0.976          50.088           0.001
+35.300             6.916           0.735          15.477           0.004
+40.200             0.245           0.773        -107.898           0.012
+45.100             2.926           0.890        -174.957           0.002
+50.000             7.311           0.513         141.282           0.013
+
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[ ]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1">
+</span></pre></div>
+</div>
+</div>
+</section>
+
+        </article><button class="back-to-top" type="button">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+  </svg>
+  <span>Back to top</span>
+</button><div class="navigation flex print:hidden"></div></div>
+    </div>
+  </main>
+</div>
+<footer class="sy-foot">
+  <div class="sy-foot-inner sy-container mx-auto">
+    <div class="sy-foot-reserved md:flex justify-between items-center">
+      <div class="sy-foot-copyright"><p>2025, scikit-rf team</p>
+  
+  <p>
+    Made with
+    
+    <a href="https://www.sphinx-doc.org/">Sphinx</a> and
+    
+    <a href="https://shibuya.lepture.com">Shibuya theme</a>.
+  </p>
+</div>
+      <div class="sy-foot-socials">
+  <a href="https://github.com/scikit-rf/scikit-rf" aria-label="GitHub">
+    <iconify-icon icon="simple-icons:github"></iconify-icon>
+  </a></div>
+    </div>
+  </div>
+</footer>
+      <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../_static/copybutton.js?v=34bd459d"></script>
+      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+      <script src="../../_static/shibuya.js?v=50760d75"></script>
+      <script src="https://cdn.jsdelivr.net/npm/@jupyter-widgets/html-manager@^1.0.1/dist/embed-amd.js"></script>
+      <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
+      <script src="../../_static/skrf.js?v=bdeb9fb0"></script></body>
+</html>

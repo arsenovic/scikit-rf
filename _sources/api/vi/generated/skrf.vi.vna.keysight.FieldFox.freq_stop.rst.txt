@@ -1,0 +1,6 @@
+skrf.vi.vna.keysight.FieldFox.freq\_stop
+========================================
+
+.. currentmodule:: skrf.vi.vna.keysight
+
+.. autoproperty:: FieldFox.freq_stop

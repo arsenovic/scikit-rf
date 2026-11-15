@@ -1,0 +1,6 @@
+skrf.network.Network.g\_mag
+===========================
+
+.. currentmodule:: skrf.network
+
+.. autoproperty:: Network.g_mag

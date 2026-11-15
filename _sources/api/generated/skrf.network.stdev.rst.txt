@@ -1,0 +1,6 @@
+﻿skrf.network.stdev
+==================
+
+.. currentmodule:: skrf.network
+
+.. autofunction:: stdev

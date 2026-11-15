@@ -1,0 +1,6 @@
+skrf.calibration.deembedding.IEEEP370.dc\_interp
+================================================
+
+.. currentmodule:: skrf.calibration.deembedding
+
+.. automethod:: IEEEP370.dc_interp

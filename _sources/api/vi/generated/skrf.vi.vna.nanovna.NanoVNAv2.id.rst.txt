@@ -1,0 +1,6 @@
+skrf.vi.vna.nanovna.NanoVNAv2.id
+================================
+
+.. currentmodule:: skrf.vi.vna.nanovna
+
+.. autoproperty:: NanoVNAv2.id

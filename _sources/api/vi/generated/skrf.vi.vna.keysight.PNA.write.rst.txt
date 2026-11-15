@@ -1,0 +1,6 @@
+skrf.vi.vna.keysight.PNA.write
+==============================
+
+.. currentmodule:: skrf.vi.vna.keysight
+
+.. automethod:: PNA.write

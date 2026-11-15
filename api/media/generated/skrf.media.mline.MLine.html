@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="en" data-accent-color="blue" data-content_root="../../../">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>skrf.media.mline.MLine - scikit-rf</title><link rel="author" title="About these documents" href="../../../about.html" /><link rel="index" title="Index" href="../../../genindex.html" /><link rel="search" title="Search" href="../../../search.html" /><link rel="next" title="skrf.media.mline.MLine.Z0" href="skrf.media.mline.MLine.Z0.html" /><link rel="prev" title="skrf.media.coaxial.Coaxial.write_csv" href="skrf.media.coaxial.Coaxial.write_csv.html" /><script>
+    function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
+    setColorMode(localStorage._theme||"auto");
+  </script><link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=ad592e98" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/shibuya.css?v=2ceb65ce" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-codeautolink.css?v=b2176991" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+    <link media="print" rel="stylesheet" type="text/css" href="../../../_static/print.css?v=20ff2c19" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/skrf.css?v=7e772ba2" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --sy-f-text: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+  --sy-f-heading: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+}
+</style>
+    
+  <meta property="og:type" content="website"/><meta property="og:title" content="skrf.media.mline.MLine"/>
+    <meta name="twitter:card" content="summary"/>
+  </head>
+<body><div class="sy-head">
+  <div class="sy-head-blur"></div>
+  <div class="sy-head-inner sy-container mx-auto">
+    <a class="sy-head-brand" href="../../../index.html">
+      <img class="light-logo" src="../../../_static/logo.svg" alt="scikit-rf" height="28" loading="lazy" />
+      <img class="dark-logo" src="../../../_static/logo.svg" alt="scikit-rf" height="28" loading="lazy" />
+      <strong>scikit-rf</strong>
+    </a>
+    <div class="sy-head-nav" id="head-nav">
+      <nav class="sy-head-links"><ul><li class="link"><a href="../../../index.html">Home</a></li><li class="link"><a href="../../../tutorials/index.html">Tutorials</a></li><li class="link"><a href="../../../examples/index.html">Examples</a></li><li class="link"><a href="../../index.html">API</a></li><li class="link">
+          <a href="https://github.com/scikit-rf/scikit-rf">
+            <span>GitHub</span><i class="i-lucide external-link"></i></a>
+        </li></ul></nav>
+      <div class="sy-head-extra flex items-center print:hidden"><form class="searchbox flex items-center" action="../../../search.html" method="get">
+  <input type="text" name="q" placeholder="Search" />
+  <kbd>/</kbd>
+</form><div class="sy-head-socials">
+  <a href="https://github.com/scikit-rf/scikit-rf" aria-label="GitHub">
+    <iconify-icon icon="simple-icons:github"></iconify-icon>
+  </a>
+  <a href="https://www.linkedin.com/groups/12462155/" aria-label="LinkedIn">
+    <iconify-icon icon="simple-icons:linkedin"></iconify-icon>
+  </a>
+  <a href="https://app.element.io/#/room/#scikit-rf:matrix.org" aria-label="Matrix">
+    <iconify-icon icon="simple-icons:matrix"></iconify-icon>
+  </a></div></div>
+    </div>
+    <div class="sy-head-actions flex items-center shrink-0 print:hidden"><button class="js-theme theme-switch flex items-center"
+data-aria-auto="Switch to light color mode"
+data-aria-light="Switch to dark color mode"
+data-aria-dark="Switch to auto color mode">
+<i class="i-lucide theme-icon"></i>
+</button><button class="md:hidden flex items-center js-menu" aria-label="Menu" type="button" aria-controls="head-nav" aria-expanded="false">
+        <div class="hamburger">
+          <span class="hamburger_1"></span>
+          <span class="hamburger_2"></span>
+          <span class="hamburger_3"></span>
+        </div>
+      </button>
+    </div>
+  </div>
+</div>
+<div class="sy-page sy-container flex mx-auto">
+  <aside id="lside" class="sy-lside md:w-72 md:shrink-0 print:hidden">
+    <div class="sy-lside-inner md:sticky">
+      <div class="sy-scrollbar p-6">
+        <div class="globaltoc" data-expand-depth="0"><p class="caption" role="heading" aria-level="3"><span class="caption-text">Getting started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../index.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorials/Installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorials/Introduction.html">Introduction</a></li>
+</ul>
+<p class="caption" role="heading" aria-level="3"><span class="caption-text">User guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/index.html">Examples</a></li>
+</ul>
+<p class="caption" role="heading" aria-level="3"><span class="caption-text">Reference</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../index.html">API</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../network.html">network (<code class="xref py py-mod docutils literal notranslate"><span class="pre">skrf.network</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../frequency.html">frequency (<code class="xref py py-mod docutils literal notranslate"><span class="pre">skrf.frequency</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../networkSet.html">networkSet (<code class="xref py py-mod docutils literal notranslate"><span class="pre">skrf.networkSet</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../plotting.html">plotting (<code class="xref py py-mod docutils literal notranslate"><span class="pre">skrf.plotting</span></code>)</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../index.html">Media</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../taper.html">taper (<code class="xref py py-mod docutils literal notranslate"><span class="pre">skrf.taper</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../calibration/index.html">calibration (<code class="xref py py-mod docutils literal notranslate"><span class="pre">skrf.calibration.calibration</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../calibration/deembedding.html">deembedding (<code class="xref py py-mod docutils literal notranslate"><span class="pre">skrf.calibration.deembedding</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../vi/index.html">virtual instruments (<code class="xref py py-mod docutils literal notranslate"><span class="pre">skrf.vi</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../vi/vna.html">vna (<code class="xref py py-mod docutils literal notranslate"><span class="pre">skrf.vi.vna</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../vectorFitting.html">vectorFitting (<code class="xref py py-mod docutils literal notranslate"><span class="pre">skrf.vectorFitting</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../qfactor.html">Qfactor (<code class="xref py py-mod docutils literal notranslate"><span class="pre">skrf.qfactor</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../time.html">time (<code class="xref py py-mod docutils literal notranslate"><span class="pre">skrf.time</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../circuit.html">circuit (<code class="xref py py-mod docutils literal notranslate"><span class="pre">skrf.circuit</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../device.html">device (<code class="xref py py-mod docutils literal notranslate"><span class="pre">skrf.media.device</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../mathFunctions.html">mathFunctions (<code class="xref py py-mod docutils literal notranslate"><span class="pre">skrf.mathFunctions</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../tlineFunctions.html">tlineFunctions (<code class="xref py py-mod docutils literal notranslate"><span class="pre">skrf.tlineFunctions</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../instances.html">instances (<code class="xref py py-mod docutils literal notranslate"><span class="pre">skrf.instances</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../constants.html">constants (<code class="xref py py-mod docutils literal notranslate"><span class="pre">skrf.constants</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../data/index.html">data (<code class="xref py py-mod docutils literal notranslate"><span class="pre">skrf.data</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../util.html">util (<code class="xref py py-mod docutils literal notranslate"><span class="pre">skrf.util</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../io/index.html">IO</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../glossary.html">Glossary</a></li>
+</ul>
+<p class="caption" role="heading" aria-level="3"><span class="caption-text">Project</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing/index.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../citations_ack/acknowledging.html">Citing scikit-rf</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../citations_ack/citations.html">scikit-rf Citations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../about.html">About</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../users.html">Users</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../license.html">License</a></li>
+</ul>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="lside-overlay js-menu" role="button" aria-label="Close left sidebar" aria-controls="lside" aria-expanded="false"></div>
+  <aside id="rside" class="sy-rside pb-3 w-64 shrink-0 order-last">
+    <button class="rside-close js-menu xl:hidden" aria-label="Close Table of Contents" type="button" aria-controls="rside" aria-expanded="false">
+      <i class="i-lucide close"></i>
+    </button>
+    <div class="sy-scrollbar sy-rside-inner px-6 xl:top-16 xl:sticky xl:pl-0 pt-6 pb-4"><div class="localtoc"><h3>On this page</h3><ul>
+<li><a class="reference internal" href="#skrf.media.mline.MLine"><code class="docutils literal notranslate"><span class="pre">MLine</span></code></a></li>
+</ul>
+</div><div id="ethical-ad-placement" data-ea-publisher="readthedocs"></div></div>
+  </aside>
+  <div class="rside-overlay js-menu" role="button" aria-label="Close Table of Contents" aria-controls="rside" aria-expanded="false"></div>
+  <main class="sy-main w-full max-sm:max-w-full print:pt-6">
+<div class="sy-breadcrumbs" role="navigation">
+  <div class="sy-breadcrumbs-inner flex items-center">
+    <div class="md:hidden mr-3">
+      <button class="js-menu" aria-label="Menu" type="button" aria-controls="lside" aria-expanded="false">
+        <i class="i-lucide menu"></i>
+      </button>
+    </div>
+    <ol class="flex-1" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="../../../index.html"><span itemprop="name">scikit-rf</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="1" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="../../index.html"><span itemprop="name">API</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="2" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="../index.html"><span itemprop="name">Media</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="3" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <strong itemprop="name">skrf.media.mline.MLine</strong>
+        <meta itemprop="position" content="4" />
+      </li></ol>
+    <div class="xl:hidden ml-1">
+      <button class="js-menu" aria-label="Show table of contents" type="button" aria-controls="rside"
+        aria-expanded="false">
+        <i class="i-lucide outdent"></i>
+      </button>
+    </div>
+  </div>
+</div><div class="flex flex-col break-words justify-between">
+      <div class="relative min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
+  <article class="yue" role="main">
+          <section id="skrf-media-mline-mline">
+<h1>skrf.media.mline.MLine<a class="headerlink" href="#skrf-media-mline-mline" title="Link to this heading">#</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="skrf.media.mline.MLine">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">skrf.media.mline.</span></span><span class="sig-name descname"><span class="pre">MLine</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">frequency</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z0_port</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z0_override</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z0</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">w</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">h</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.6</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ep_r</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">4.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mu_r</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'hammerstadjensen'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">disp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'kirschningjansen'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">diel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'djordjevicsvensson'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rho</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.68e-08</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tand</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rough</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.5e-07</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">f_low</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1000.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">f_high</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1000000000000.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">f_epr_tand</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1000000000.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">compatibility_mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/skrf/media/mline.html#MLine"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skrf.media.mline.MLine" title="Link to this definition">#</a></dt>
+<dd><p>A microstripline transmission line defined in terms of width, thickness
+and height on a given relative permittivity substrate. The line has a
+conductor resistivity and a tangential loss factor.</p>
+<p>This class is highly inspired from the technical documentation <a class="reference internal" href="#qucs-tech" id="id1"><span>[QUCS_tech]</span></a>
+and sources provided by the qucs project <a class="reference internal" href="#qucs-repo" id="id2"><span>[QUCS_repo]</span></a> .</p>
+<p>In addition, Djordjevic <a class="reference internal" href="#djordjevic" id="id3"><span>[Djordjevic]</span></a> /Svensson <a class="reference internal" href="#svensson" id="id4"><span>[Svensson]</span></a>  wideband debye dielectric
+model is considered to provide more realistic modelling of broadband
+microstrip with as causal time domain response.</p>
+<p>A compatibility mode is provided to mimic the behaviour of QUCS or of
+Keysight ADS. There is known differences in the output of these
+simulators.</p>
+<p>The quasi-static models of characteristic impedance and effective
+permittivity give the value at zero frequency. The dispersion models
+compute a frequency-dependant values of these variables.</p>
+<ul>
+<li><p>Quasi-static characteristic impedance and effective permittivity models:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Hammerstad and Jensen (default) <a class="reference internal" href="#hammerstad" id="id5"><span>[Hammerstad]</span></a></p></li>
+<li><p>Schneider <a class="reference internal" href="#schneider1969" id="id6"><span>[Schneider1969]</span></a></p></li>
+<li><p>Wheeler <a class="reference internal" href="#wheeler1942" id="id7"><span>[Wheeler1942]</span></a>, <a class="reference internal" href="#wheeler1977" id="id8"><span>[Wheeler1977]</span></a></p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>Frequency dispersion of impedance and effective permittivity models:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Hammerstad and Jensen <a class="reference internal" href="#hammerstad" id="id9"><span>[Hammerstad]</span></a></p></li>
+<li><p>Kirschning and Jansen (default) <a class="reference internal" href="#kirschning" id="id10"><span>[Kirschning]</span></a></p></li>
+<li><p>Kobayashi <a class="reference internal" href="#kobayashi" id="id11"><span>[Kobayashi]</span></a></p></li>
+<li><p>Schneider <a class="reference internal" href="#schneider1972" id="id12"><span>[Schneider1972]</span></a></p></li>
+<li><p>Yamashita <a class="reference internal" href="#yamashita" id="id13"><span>[Yamashita]</span></a></p></li>
+<li><p>(No dispersion)</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>Strip thickness correction model:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>all quasi-static models add a certain amount to W to account for
+non-zero thickness of the strip. Computation with zero  thickness is
+possible.</p></li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>frequency</strong> (<a class="reference internal" href="../../generated/skrf.frequency.Frequency.html#skrf.frequency.Frequency" title="skrf.frequency.Frequency"><code class="xref py py-class docutils literal notranslate"><span class="pre">Frequency</span></code></a> object) – frequency band of the media</p></li>
+<li><p><strong>z0_port</strong> (<em>number</em><em>, </em><em>array-like</em><em>, or </em><em>None</em>) – <cite>z0_port</cite> is the port impedance for networks generated by the media.
+If <cite>z0_port</cite> is not None, the networks generated by the media are
+renormalized (or in other words embedded) from the characteristic
+impedance z0 of the media to <cite>z0_port</cite>.
+Else if <cite>z0_port</cite> is None, the networks port impedances will be the raw
+characteristic impedance z0 of the media.
+(Default is None)</p></li>
+<li><p><strong>z0_override</strong> (<em>number</em><em>, </em><em>array-like</em><em>, or </em><em>None</em>) – <cite>z0_override</cite> override the characteristic impedance for the media.
+If <cite>z0_override</cite> is not None, the networks generated by the media have
+their characteristic impedance <cite>z0</cite> overridden by <cite>z0_override</cite>.
+(Default is None)</p></li>
+<li><p><strong>z0</strong> (<em>number</em><em>, </em><em>array-like</em><em>, or </em><em>None</em>) – deprecated parameter, alias to <cite>z0_override</cite> if <cite>z0_override</cite> is None.
+Emit a deprecation warning.</p></li>
+<li><p><strong>w</strong> (<em>number</em><em>, or </em><em>array-like</em>) – width of conductor, in m</p></li>
+<li><p><strong>h</strong> (<em>number</em><em>, or </em><em>array-like</em>) – height of substrate between ground plane and conductor, in m</p></li>
+<li><p><strong>t</strong> (<em>number</em><em>, or </em><em>array-like</em><em> or </em><em>None</em><em>, </em><em>optional</em>) – conductor thickness, in m. Default is None (no width correction
+to account strip thickness).</p></li>
+<li><p><strong>ep_r</strong> (<em>number</em><em>, or </em><em>array-like</em>) – relative permittivity of dielectric at frequency f_epr_tand, no unit</p></li>
+<li><p><strong>mu_r</strong> (<em>number</em><em>, </em><em>array-like</em>) – relative permeability mof dielectric, no unit</p></li>
+<li><p><strong>model</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a>) – <p>microstripline quasi-static impedance and dielectric model in:</p>
+<ul>
+<li><p>’hammerstadjensen’ (default)</p></li>
+<li><p>’schneider’</p></li>
+<li><p>’wheeler’</p></li>
+</ul>
+</p></li>
+<li><p><strong>disp</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a>) – <p>microstripline impedance and dielectric frequency dispersion model in:</p>
+<ul>
+<li><p>’hammerstadjensen’</p></li>
+<li><p>’kirschningjansen’ (default)</p></li>
+<li><p>’kobayashi’</p></li>
+<li><p>’schneider’</p></li>
+<li><p>’yamashita’</p></li>
+<li><p>’none’</p></li>
+</ul>
+</p></li>
+<li><p><strong>diel</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a>) – <p>dielectric frequency dispersion model in:</p>
+<ul>
+<li><p>’djordjevicsvensson’ (default)</p></li>
+<li><p>’frequencyinvariant’</p></li>
+</ul>
+</p></li>
+<li><p><strong>rho</strong> (<em>number</em><em>, or </em><em>array-like</em><em>, </em><em>optional</em>) – resistivity of conductor, ohm / m</p></li>
+<li><p><strong>tand</strong> (<em>number</em><em>, or </em><em>array-like</em>) – dielectric loss factor at frequency f_epr_tand</p></li>
+<li><p><strong>rough</strong> (<em>number</em><em>, or </em><em>array-like</em>) – RMS roughness of conductor in m</p></li>
+<li><p><strong>f_low</strong> (<em>number</em><em>, or </em><em>array-like</em>) – lower frequency for wideband Debye Djordjevic/Svensson dielectric
+model, in Hz</p></li>
+<li><p><strong>f_high</strong> (<em>number</em><em>, or </em><em>array-like</em>) – higher frequency for wideband Debye Djordjevic/Svensson dielectric
+model, in Hz</p></li>
+<li><p><strong>f_epr_tand</strong> (<em>number</em><em>, or </em><em>array-like</em>) – measurement frequency for ep_r and tand of dielectric, in Hz</p></li>
+<li><p><strong>compatibility_mode</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a><em> or </em><em>None</em><em> (</em><em>default</em><em>)</em>) – <p>If set to ‘qucs’, following behaviour happens :</p>
+<ul>
+<li><p>Characteristic impedance will be real (no imaginary part due to tand)</p></li>
+<li><p>Quasi-static relative permittivity and impedance will by used for
+loss computation instead of frequency-dispersed values</p></li>
+<li><p>Kobayashi and Yamashita models will disperse permittivity but keep
+quasi-static impedance values</p></li>
+</ul>
+</p></li>
+<li><p><strong>*args</strong> (<em>arguments</em><em>, </em><em>keyword arguments</em>) – passed to <a class="reference internal" href="skrf.media.media.Media.html#skrf.media.media.Media" title="skrf.media.media.Media"><code class="xref py py-class docutils literal notranslate"><span class="pre">Media</span></code></a>’s constructor
+(<a class="reference internal" href="skrf.media.media.Media.__init__.html#skrf.media.media.Media.__init__" title="skrf.media.media.Media.__init__"><code class="xref py py-func docutils literal notranslate"><span class="pre">__init__()</span></code></a></p></li>
+<li><p><strong>**kwargs</strong> (<em>arguments</em><em>, </em><em>keyword arguments</em>) – passed to <a class="reference internal" href="skrf.media.media.Media.html#skrf.media.media.Media" title="skrf.media.media.Media"><code class="xref py py-class docutils literal notranslate"><span class="pre">Media</span></code></a>’s constructor
+(<a class="reference internal" href="skrf.media.media.Media.__init__.html#skrf.media.media.Media.__init__" title="skrf.media.media.Media.__init__"><code class="xref py py-func docutils literal notranslate"><span class="pre">__init__()</span></code></a></p></li>
+</ul>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>In the case dispersion model only include effective permittivity, no
+dispersion is used for impedance in QUCS mode and Kirschning Jansen is
+used in ADS mode. QUCS mode is the default.</p>
+<p>When the thickness of the strip is smaller than 3 skin depth, the losses
+model gives over-optimistic results and the media will issue a warning.
+At DC, the losses of the line could be smaller than its conductor
+resistance, which is not physical.</p>
+</div>
+<p class="rubric">References</p>
+<div role="list" class="citation-list">
+<div class="citation" id="qucs-tech" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">QUCS_tech</a><span class="fn-bracket">]</span></span>
+<p><a class="reference external" href="http://qucs.sourceforge.net/docs/technical.pdf">http://qucs.sourceforge.net/docs/technical.pdf</a></p>
+</div>
+<div class="citation" id="qucs-repo" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">QUCS_repo</a><span class="fn-bracket">]</span></span>
+<p><a class="reference external" href="https://github.com/Qucs/qucsator/blob/develop/src/components/microstrip/msline.cpp">https://github.com/Qucs/qucsator/blob/develop/src/components/microstrip/msline.cpp</a></p>
+</div>
+<div class="citation" id="hammerstad" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>Hammerstad<span class="fn-bracket">]</span></span>
+<span class="backrefs">(<a role="doc-backlink" href="#id5">1</a>,<a role="doc-backlink" href="#id9">2</a>)</span>
+<p>E. Hammerstad and Ø. Jensen,
+“Accurate Models for Microstrip Computer-Aided Design”,
+Symposium on Microwave Theory and Techniques, pp. 407-409, June 1980.</p>
+</div>
+<div class="citation" id="kirschning" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id10">Kirschning</a><span class="fn-bracket">]</span></span>
+<p>M. Kirschning and R. H. Jansen,
+“Accurate Model for Effective Dielectric Constant of Microstrip with
+Validity up to Millimeter-Wave Frequencies”, Electronics Letters,
+vol. 8, no. 6, pp. 272-273, Mar. 1982.</p>
+</div>
+<div class="citation" id="jansen" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>Jansen<span class="fn-bracket">]</span></span>
+<p>R. H. Jansen and M. Kirschning,
+“Arguments and an accurate Model for the Power-Current Formulation of
+Microstrip Characteristic Impedance”,
+Archiv für Elektronik und Übertragungstechnik (AEÜ), vol. 37,
+pp. 108-112, 1983.</p>
+</div>
+<div class="citation" id="kobayashi" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id11">Kobayashi</a><span class="fn-bracket">]</span></span>
+<p>M. Kobayashi,
+“A Dispersion Formula Satisfying Recent Requirements in Microstrip
+CAD”, IEEE Trans. on Microwave Theory and Techniques, vol. 36, no. 8,
+pp. 1246-1250, Aug. 1988.</p>
+</div>
+<div class="citation" id="schneider1969" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id6">Schneider1969</a><span class="fn-bracket">]</span></span>
+<p>M. V. Schneider,
+“Microstrip Lines for Microwave Integrated Circuits”,
+The Bell System Technical Journal, vol. 48, pp. 1421-1444, May 1969.</p>
+</div>
+<div class="citation" id="schneider1972" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id12">Schneider1972</a><span class="fn-bracket">]</span></span>
+<p>M. V. Schneider, “Microstrip Dispersion”, Proceedings of the IEEE,
+Letters, vol. 60, Jan. 1972, pp. 144-146.</p>
+</div>
+<div class="citation" id="wheeler1977" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id8">Wheeler1977</a><span class="fn-bracket">]</span></span>
+<p>H. A. Wheeler,
+“Transmission-Line Properties of a Strip on a Dielectric Sheet on a
+Plane, IEEE Trans. on Microwave Theory and Techniques, vol. 25, no. 8,
+pp. 631-647, Aug. 1977.</p>
+</div>
+<div class="citation" id="wheeler1942" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id7">Wheeler1942</a><span class="fn-bracket">]</span></span>
+<p>H. A. Wheeler, “Formulas for the Skin Effect,”
+Proceedings of the IRE, vol. 30, no. 9, pp. 412-424, Sept. 1942.</p>
+</div>
+<div class="citation" id="yamashita" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id13">Yamashita</a><span class="fn-bracket">]</span></span>
+<p>E. Yamashita, K. Atsuki, and T. Ueda,
+“An Approximate Dispersion Formula of Microstrip Lines for Computer
+Aided Design of Microwave Integrated Circuits”, IEEE Trans. on
+Microwave Theory and Techniques, vol. 27, pp. 1036-1038, Dec. 1979.</p>
+</div>
+<div class="citation" id="svensson" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id4">Svensson</a><span class="fn-bracket">]</span></span>
+<p>C. Svensson, G.E. Dermer,
+Time domain modeling of lossy interconnects,
+IEEE Trans. on Advanced Packaging, May 2001, N2, Vol. 24, pp.191-196.</p>
+</div>
+<div class="citation" id="djordjevic" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id3">Djordjevic</a><span class="fn-bracket">]</span></span>
+<p>Djordjevic, R.M. Biljic, V.D. Likar-Smiljanic, T.K. Sarkar,
+Wideband frequency-domain characterization of FR-4 and time-domain
+causality,
+IEEE Trans. on EMC, vol. 43, N4, 2001, p. 662-667.</p>
+</div>
+</div>
+</dd></dl>
+
+<p class="rubric">Attributes</p>
+<div class="table-wrapper autosummary longtable docutils container">
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="skrf.media.mline.MLine.Z0.html#skrf.media.mline.MLine.Z0" title="skrf.media.mline.MLine.Z0"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Z0</span></code></a></p></td>
+<td><p>Characteristic Impedance</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="skrf.media.mline.MLine.Z0_f.html#skrf.media.mline.MLine.Z0_f" title="skrf.media.mline.MLine.Z0_f"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Z0_f</span></code></a></p></td>
+<td><p>Alias fos Characteristic Impedance for backward compatibility.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="skrf.media.mline.MLine.alpha.html#skrf.media.mline.MLine.alpha" title="skrf.media.mline.MLine.alpha"><code class="xref py py-obj docutils literal notranslate"><span class="pre">alpha</span></code></a></p></td>
+<td><p>Real (attenuation) component of gamma.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="skrf.media.mline.MLine.beta.html#skrf.media.mline.MLine.beta" title="skrf.media.mline.MLine.beta"><code class="xref py py-obj docutils literal notranslate"><span class="pre">beta</span></code></a></p></td>
+<td><p>Imaginary (propagating) component of gamma.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="skrf.media.mline.MLine.gamma.html#skrf.media.mline.MLine.gamma" title="skrf.media.mline.MLine.gamma"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gamma</span></code></a></p></td>
+<td><p>Propagation constant.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="skrf.media.mline.MLine.npoints.html#skrf.media.mline.MLine.npoints" title="skrf.media.mline.MLine.npoints"><code class="xref py py-obj docutils literal notranslate"><span class="pre">npoints</span></code></a></p></td>
+<td><p>Number of points of the frequency axis.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="skrf.media.mline.MLine.v_g.html#skrf.media.mline.MLine.v_g" title="skrf.media.mline.MLine.v_g"><code class="xref py py-obj docutils literal notranslate"><span class="pre">v_g</span></code></a></p></td>
+<td><p>Complex group velocity (in m/s).</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="skrf.media.mline.MLine.v_p.html#skrf.media.mline.MLine.v_p" title="skrf.media.mline.MLine.v_p"><code class="xref py py-obj docutils literal notranslate"><span class="pre">v_p</span></code></a></p></td>
+<td><p>Complex phase velocity (in m/s).</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="skrf.media.mline.MLine.z0.html#skrf.media.mline.MLine.z0" title="skrf.media.mline.MLine.z0"><code class="xref py py-obj docutils literal notranslate"><span class="pre">z0</span></code></a></p></td>
+<td><p>Return Characteristic Impedance <cite>z0_characteristic</cite>.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="skrf.media.mline.MLine.z0_characteristic.html#skrf.media.mline.MLine.z0_characteristic" title="skrf.media.mline.MLine.z0_characteristic"><code class="xref py py-obj docutils literal notranslate"><span class="pre">z0_characteristic</span></code></a></p></td>
+<td><p>Characteristic Impedance, <span class="math notranslate nohighlight">\(z_0\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="skrf.media.mline.MLine.z0_override.html#skrf.media.mline.MLine.z0_override" title="skrf.media.mline.MLine.z0_override"><code class="xref py py-obj docutils literal notranslate"><span class="pre">z0_override</span></code></a></p></td>
+<td><p>Port Impedance.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="skrf.media.mline.MLine.z0_port.html#skrf.media.mline.MLine.z0_port" title="skrf.media.mline.MLine.z0_port"><code class="xref py py-obj docutils literal notranslate"><span class="pre">z0_port</span></code></a></p></td>
+<td><p>Port Impedance.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p class="rubric">Methods</p>
+<div class="table-wrapper autosummary longtable docutils container">
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="skrf.media.mline.MLine.__init__.html#skrf.media.mline.MLine.__init__" title="skrf.media.mline.MLine.__init__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__init__</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="skrf.media.mline.MLine.analyse_dielectric.html#skrf.media.mline.MLine.analyse_dielectric" title="skrf.media.mline.MLine.analyse_dielectric"><code class="xref py py-obj docutils literal notranslate"><span class="pre">analyse_dielectric</span></code></a></p></td>
+<td><p>This function calculate the frequency dependent relative permittivity of dielectric and and tangential loss factor.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="skrf.media.mline.MLine.analyse_dispersion.html#skrf.media.mline.MLine.analyse_dispersion" title="skrf.media.mline.MLine.analyse_dispersion"><code class="xref py py-obj docutils literal notranslate"><span class="pre">analyse_dispersion</span></code></a></p></td>
+<td><p>This function compute the frequency dependent characteristic impedance and effective permittivity accounting for microstripline frequency dispersion.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="skrf.media.mline.MLine.analyse_loss.html#skrf.media.mline.MLine.analyse_loss" title="skrf.media.mline.MLine.analyse_loss"><code class="xref py py-obj docutils literal notranslate"><span class="pre">analyse_loss</span></code></a></p></td>
+<td><p>The function calculates the conductor and dielectric losses of a single microstrip line using wheeler's incremental inductance rule.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="skrf.media.mline.MLine.analyse_quasi_static.html#skrf.media.mline.MLine.analyse_quasi_static" title="skrf.media.mline.MLine.analyse_quasi_static"><code class="xref py py-obj docutils literal notranslate"><span class="pre">analyse_quasi_static</span></code></a></p></td>
+<td><p>This function calculates the quasi-static impedance of a microstrip line, the value of the effective permittivity as per filling factor and the effective width due to the finite conductor thickness for the given microstrip line and substrate properties.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="skrf.media.mline.MLine.attenuator.html#skrf.media.mline.MLine.attenuator" title="skrf.media.mline.MLine.attenuator"><code class="xref py py-obj docutils literal notranslate"><span class="pre">attenuator</span></code></a></p></td>
+<td><p>Ideal matched attenuator of a given length.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="skrf.media.mline.MLine.capacitor.html#skrf.media.mline.MLine.capacitor" title="skrf.media.mline.MLine.capacitor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">capacitor</span></code></a></p></td>
+<td><p>Capacitor.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="skrf.media.mline.MLine.capacitor_q.html#skrf.media.mline.MLine.capacitor_q" title="skrf.media.mline.MLine.capacitor_q"><code class="xref py py-obj docutils literal notranslate"><span class="pre">capacitor_q</span></code></a></p></td>
+<td><p>Capacitor with Q factor.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="skrf.media.mline.MLine.copy.html#skrf.media.mline.MLine.copy" title="skrf.media.mline.MLine.copy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">copy</span></code></a></p></td>
+<td><p>Copy of this Media object.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="skrf.media.mline.MLine.delay_load.html#skrf.media.mline.MLine.delay_load" title="skrf.media.mline.MLine.delay_load"><code class="xref py py-obj docutils literal notranslate"><span class="pre">delay_load</span></code></a></p></td>
+<td><p>Delayed load.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="skrf.media.mline.MLine.delay_open.html#skrf.media.mline.MLine.delay_open" title="skrf.media.mline.MLine.delay_open"><code class="xref py py-obj docutils literal notranslate"><span class="pre">delay_open</span></code></a></p></td>
+<td><p>Delayed open transmission line.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="skrf.media.mline.MLine.delay_short.html#skrf.media.mline.MLine.delay_short" title="skrf.media.mline.MLine.delay_short"><code class="xref py py-obj docutils literal notranslate"><span class="pre">delay_short</span></code></a></p></td>
+<td><p>Delayed Short.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="skrf.media.mline.MLine.electrical_length.html#skrf.media.mline.MLine.electrical_length" title="skrf.media.mline.MLine.electrical_length"><code class="xref py py-obj docutils literal notranslate"><span class="pre">electrical_length</span></code></a></p></td>
+<td><p>Calculate the complex electrical length for a given distance.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="skrf.media.mline.MLine.extract_distance.html#skrf.media.mline.MLine.extract_distance" title="skrf.media.mline.MLine.extract_distance"><code class="xref py py-obj docutils literal notranslate"><span class="pre">extract_distance</span></code></a></p></td>
+<td><p>Determines physical distance from a transmission or reflection Network.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="skrf.media.mline.MLine.get_array_of.html#skrf.media.mline.MLine.get_array_of" title="skrf.media.mline.MLine.get_array_of"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_array_of</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="skrf.media.mline.MLine.impedance_mismatch.html#skrf.media.mline.MLine.impedance_mismatch" title="skrf.media.mline.MLine.impedance_mismatch"><code class="xref py py-obj docutils literal notranslate"><span class="pre">impedance_mismatch</span></code></a></p></td>
+<td><p>Two-port network for an impedance mismatch.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="skrf.media.mline.MLine.inductor.html#skrf.media.mline.MLine.inductor" title="skrf.media.mline.MLine.inductor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">inductor</span></code></a></p></td>
+<td><p>Inductor.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="skrf.media.mline.MLine.inductor_q.html#skrf.media.mline.MLine.inductor_q" title="skrf.media.mline.MLine.inductor_q"><code class="xref py py-obj docutils literal notranslate"><span class="pre">inductor_q</span></code></a></p></td>
+<td><p>Inductor with Q factor.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="skrf.media.mline.MLine.isolator.html#skrf.media.mline.MLine.isolator" title="skrf.media.mline.MLine.isolator"><code class="xref py py-obj docutils literal notranslate"><span class="pre">isolator</span></code></a></p></td>
+<td><p>Two-port isolator.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="skrf.media.mline.MLine.line.html#skrf.media.mline.MLine.line" title="skrf.media.mline.MLine.line"><code class="xref py py-obj docutils literal notranslate"><span class="pre">line</span></code></a></p></td>
+<td><p>Transmission line of a given length and impedance.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="skrf.media.mline.MLine.line_floating.html#skrf.media.mline.MLine.line_floating" title="skrf.media.mline.MLine.line_floating"><code class="xref py py-obj docutils literal notranslate"><span class="pre">line_floating</span></code></a></p></td>
+<td><p>Floating transmission line of a given length and impedance.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="skrf.media.mline.MLine.load.html#skrf.media.mline.MLine.load" title="skrf.media.mline.MLine.load"><code class="xref py py-obj docutils literal notranslate"><span class="pre">load</span></code></a></p></td>
+<td><p>Load of given reflection coefficient.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="skrf.media.mline.MLine.lossless_mismatch.html#skrf.media.mline.MLine.lossless_mismatch" title="skrf.media.mline.MLine.lossless_mismatch"><code class="xref py py-obj docutils literal notranslate"><span class="pre">lossless_mismatch</span></code></a></p></td>
+<td><p>Lossless, symmetric mismatch defined by its return loss.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="skrf.media.mline.MLine.match.html#skrf.media.mline.MLine.match" title="skrf.media.mline.MLine.match"><code class="xref py py-obj docutils literal notranslate"><span class="pre">match</span></code></a></p></td>
+<td><p>Perfect matched load (<span class="math notranslate nohighlight">\(\Gamma_0 = 0\)</span>).</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="skrf.media.mline.MLine.mode.html#skrf.media.mline.MLine.mode" title="skrf.media.mline.MLine.mode"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mode</span></code></a></p></td>
+<td><p>Create another mode in this medium.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="skrf.media.mline.MLine.open.html#skrf.media.mline.MLine.open" title="skrf.media.mline.MLine.open"><code class="xref py py-obj docutils literal notranslate"><span class="pre">open</span></code></a></p></td>
+<td><p>Open (<span class="math notranslate nohighlight">\(\Gamma_0 = 1\)</span>).</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="skrf.media.mline.MLine.plot.html#skrf.media.mline.MLine.plot" title="skrf.media.mline.MLine.plot"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="skrf.media.mline.MLine.random.html#skrf.media.mline.MLine.random" title="skrf.media.mline.MLine.random"><code class="xref py py-obj docutils literal notranslate"><span class="pre">random</span></code></a></p></td>
+<td><p>Complex random network.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="skrf.media.mline.MLine.resistor.html#skrf.media.mline.MLine.resistor" title="skrf.media.mline.MLine.resistor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">resistor</span></code></a></p></td>
+<td><p>Resistor.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="skrf.media.mline.MLine.short.html#skrf.media.mline.MLine.short" title="skrf.media.mline.MLine.short"><code class="xref py py-obj docutils literal notranslate"><span class="pre">short</span></code></a></p></td>
+<td><p>Short (<span class="math notranslate nohighlight">\(\Gamma_0 = -1\)</span>)</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="skrf.media.mline.MLine.shunt.html#skrf.media.mline.MLine.shunt" title="skrf.media.mline.MLine.shunt"><code class="xref py py-obj docutils literal notranslate"><span class="pre">shunt</span></code></a></p></td>
+<td><p>Shunts a <a class="reference internal" href="../../generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><code class="xref py py-class docutils literal notranslate"><span class="pre">Network</span></code></a>.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="skrf.media.mline.MLine.shunt_capacitor.html#skrf.media.mline.MLine.shunt_capacitor" title="skrf.media.mline.MLine.shunt_capacitor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">shunt_capacitor</span></code></a></p></td>
+<td><p>Shunted capacitor.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="skrf.media.mline.MLine.shunt_delay_load.html#skrf.media.mline.MLine.shunt_delay_load" title="skrf.media.mline.MLine.shunt_delay_load"><code class="xref py py-obj docutils literal notranslate"><span class="pre">shunt_delay_load</span></code></a></p></td>
+<td><p>Shunted delayed load.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="skrf.media.mline.MLine.shunt_delay_open.html#skrf.media.mline.MLine.shunt_delay_open" title="skrf.media.mline.MLine.shunt_delay_open"><code class="xref py py-obj docutils literal notranslate"><span class="pre">shunt_delay_open</span></code></a></p></td>
+<td><p>Shunted delayed open.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="skrf.media.mline.MLine.shunt_delay_short.html#skrf.media.mline.MLine.shunt_delay_short" title="skrf.media.mline.MLine.shunt_delay_short"><code class="xref py py-obj docutils literal notranslate"><span class="pre">shunt_delay_short</span></code></a></p></td>
+<td><p>Shunted delayed short.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="skrf.media.mline.MLine.shunt_inductor.html#skrf.media.mline.MLine.shunt_inductor" title="skrf.media.mline.MLine.shunt_inductor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">shunt_inductor</span></code></a></p></td>
+<td><p>Shunted inductor.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="skrf.media.mline.MLine.shunt_resistor.html#skrf.media.mline.MLine.shunt_resistor" title="skrf.media.mline.MLine.shunt_resistor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">shunt_resistor</span></code></a></p></td>
+<td><p>Shunted resistor.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="skrf.media.mline.MLine.splitter.html#skrf.media.mline.MLine.splitter" title="skrf.media.mline.MLine.splitter"><code class="xref py py-obj docutils literal notranslate"><span class="pre">splitter</span></code></a></p></td>
+<td><p>Ideal, lossless n-way splitter.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="skrf.media.mline.MLine.tee.html#skrf.media.mline.MLine.tee" title="skrf.media.mline.MLine.tee"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tee</span></code></a></p></td>
+<td><p>Ideal, lossless tee.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="skrf.media.mline.MLine.theta_2_d.html#skrf.media.mline.MLine.theta_2_d" title="skrf.media.mline.MLine.theta_2_d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">theta_2_d</span></code></a></p></td>
+<td><p>Convert electrical length to physical distance.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="skrf.media.mline.MLine.thru.html#skrf.media.mline.MLine.thru" title="skrf.media.mline.MLine.thru"><code class="xref py py-obj docutils literal notranslate"><span class="pre">thru</span></code></a></p></td>
+<td><p>Matched transmission line of length 0.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="skrf.media.mline.MLine.to_meters.html#skrf.media.mline.MLine.to_meters" title="skrf.media.mline.MLine.to_meters"><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_meters</span></code></a></p></td>
+<td><p>Translate various units of distance into meters.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="skrf.media.mline.MLine.white_gaussian_polar.html#skrf.media.mline.MLine.white_gaussian_polar" title="skrf.media.mline.MLine.white_gaussian_polar"><code class="xref py py-obj docutils literal notranslate"><span class="pre">white_gaussian_polar</span></code></a></p></td>
+<td><p>Complex zero-mean gaussian white-noise network.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="skrf.media.mline.MLine.write_csv.html#skrf.media.mline.MLine.write_csv" title="skrf.media.mline.MLine.write_csv"><code class="xref py py-obj docutils literal notranslate"><span class="pre">write_csv</span></code></a></p></td>
+<td><p>write this media's frequency, gamma, Z0, and z0 to a csv file.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+
+        </article><button class="back-to-top" type="button">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+  </svg>
+  <span>Back to top</span>
+</button><div class="navigation flex print:hidden"><div class="navigation-prev">
+    <a href="skrf.media.coaxial.Coaxial.write_csv.html">
+      <i class="i-lucide chevron-left"></i>
+      <div class="page-info">
+        <span>Previous</span><div class="title">skrf.media.coaxial.Coaxial.write_csv</div></div>
+    </a>
+  </div><div class="navigation-next">
+    <a href="skrf.media.mline.MLine.Z0.html">
+      <div class="page-info">
+        <span>Next</span>
+        <div class="title">skrf.media.mline.MLine.Z0</div>
+      </div>
+      <i class="i-lucide chevron-right"></i>
+    </a>
+  </div></div></div>
+    </div>
+  </main>
+</div>
+<footer class="sy-foot">
+  <div class="sy-foot-inner sy-container mx-auto">
+    <div class="sy-foot-reserved md:flex justify-between items-center">
+      <div class="sy-foot-copyright"><p>2025, scikit-rf team</p>
+  
+  <p>
+    Made with
+    
+    <a href="https://www.sphinx-doc.org/">Sphinx</a> and
+    
+    <a href="https://shibuya.lepture.com">Shibuya theme</a>.
+  </p>
+</div>
+      <div class="sy-foot-socials">
+  <a href="https://github.com/scikit-rf/scikit-rf" aria-label="GitHub">
+    <iconify-icon icon="simple-icons:github"></iconify-icon>
+  </a></div>
+    </div>
+  </div>
+</footer>
+      <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../../_static/copybutton.js?v=34bd459d"></script>
+      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+      <script src="../../../_static/shibuya.js?v=50760d75"></script>
+      <script src="https://cdn.jsdelivr.net/npm/@jupyter-widgets/html-manager@^1.0.1/dist/embed-amd.js"></script>
+      <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
+      <script src="../../../_static/skrf.js?v=bdeb9fb0"></script></body>
+</html>

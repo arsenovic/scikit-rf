@@ -1,0 +1,6 @@
+skrf.calibration.calibration.MultiportSOLT.coefs\_to\_ntwks
+===========================================================
+
+.. currentmodule:: skrf.calibration.calibration
+
+.. automethod:: MultiportSOLT.coefs_to_ntwks

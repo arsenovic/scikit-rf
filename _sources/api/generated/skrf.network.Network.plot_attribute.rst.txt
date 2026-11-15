@@ -1,0 +1,6 @@
+skrf.network.Network.plot\_attribute
+====================================
+
+.. currentmodule:: skrf.network
+
+.. automethod:: Network.plot_attribute

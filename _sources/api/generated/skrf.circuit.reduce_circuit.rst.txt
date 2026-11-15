@@ -1,0 +1,6 @@
+﻿skrf.circuit.reduce\_circuit
+============================
+
+.. currentmodule:: skrf.circuit
+
+.. autofunction:: reduce_circuit

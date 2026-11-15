@@ -1,0 +1,6 @@
+skrf.media.mline.MLine.line\_floating
+=====================================
+
+.. currentmodule:: skrf.media.mline
+
+.. automethod:: MLine.line_floating

@@ -1,0 +1,6 @@
+skrf.vi.validators.FreqValidator.validate\_input
+================================================
+
+.. currentmodule:: skrf.vi.validators
+
+.. automethod:: FreqValidator.validate_input

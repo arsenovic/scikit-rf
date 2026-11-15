@@ -1,0 +1,6 @@
+skrf.network.Network.plot\_g\_deg\_unwrap
+=========================================
+
+.. currentmodule:: skrf.network
+
+.. automethod:: Network.plot_g_deg_unwrap

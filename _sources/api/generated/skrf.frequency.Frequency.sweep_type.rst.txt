@@ -1,0 +1,6 @@
+skrf.frequency.Frequency.sweep\_type
+====================================
+
+.. currentmodule:: skrf.frequency
+
+.. autoproperty:: Frequency.sweep_type

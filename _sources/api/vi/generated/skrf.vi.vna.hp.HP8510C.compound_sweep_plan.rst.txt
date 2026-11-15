@@ -1,0 +1,6 @@
+skrf.vi.vna.hp.HP8510C.compound\_sweep\_plan
+============================================
+
+.. currentmodule:: skrf.vi.vna.hp
+
+.. autoattribute:: HP8510C.compound_sweep_plan

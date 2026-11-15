@@ -1,0 +1,6 @@
+skrf.vi.validators.BooleanValidator.falsey
+==========================================
+
+.. currentmodule:: skrf.vi.validators
+
+.. autoattribute:: BooleanValidator.falsey

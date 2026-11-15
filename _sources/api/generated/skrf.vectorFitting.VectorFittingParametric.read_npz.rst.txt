@@ -1,0 +1,6 @@
+skrf.vectorFitting.VectorFittingParametric.read\_npz
+====================================================
+
+.. currentmodule:: skrf.vectorFitting
+
+.. automethod:: VectorFittingParametric.read_npz

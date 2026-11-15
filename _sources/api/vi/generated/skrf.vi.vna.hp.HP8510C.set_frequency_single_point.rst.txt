@@ -1,0 +1,6 @@
+skrf.vi.vna.hp.HP8510C.set\_frequency\_single\_point
+====================================================
+
+.. currentmodule:: skrf.vi.vna.hp
+
+.. automethod:: HP8510C.set_frequency_single_point

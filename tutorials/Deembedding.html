@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en" data-accent-color="blue" data-content_root="../">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>De-embedding - scikit-rf</title><link rel="author" title="About these documents" href="../about.html" /><link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Quality Factors" href="Q-Factor.html" /><link rel="prev" title="Calibration" href="Calibration.html" /><script>
+    function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
+    setColorMode(localStorage._theme||"auto");
+  </script><link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=ad592e98" />
+    <link rel="stylesheet" type="text/css" href="../_static/shibuya.css?v=2ceb65ce" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-codeautolink.css?v=b2176991" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link media="print" rel="stylesheet" type="text/css" href="../_static/print.css?v=20ff2c19" />
+    <link rel="stylesheet" type="text/css" href="../_static/nbsphinx-code-cells.css?v=2aa19091" />
+    <link rel="stylesheet" type="text/css" href="../_static/skrf.css?v=7e772ba2" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --sy-f-text: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+  --sy-f-heading: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+}
+</style>
+    
+  <meta property="og:type" content="website"/><meta property="og:title" content="De-embedding"/>
+    <meta name="twitter:card" content="summary"/>
+  </head>
+<body><div class="sy-head">
+  <div class="sy-head-blur"></div>
+  <div class="sy-head-inner sy-container mx-auto">
+    <a class="sy-head-brand" href="../index.html">
+      <img class="light-logo" src="../_static/logo.svg" alt="scikit-rf" height="28" loading="lazy" />
+      <img class="dark-logo" src="../_static/logo.svg" alt="scikit-rf" height="28" loading="lazy" />
+      <strong>scikit-rf</strong>
+    </a>
+    <div class="sy-head-nav" id="head-nav">
+      <nav class="sy-head-links"><ul><li class="link"><a href="../index.html">Home</a></li><li class="link"><a href="index.html">Tutorials</a></li><li class="link"><a href="../examples/index.html">Examples</a></li><li class="link"><a href="../api/index.html">API</a></li><li class="link">
+          <a href="https://github.com/scikit-rf/scikit-rf">
+            <span>GitHub</span><i class="i-lucide external-link"></i></a>
+        </li></ul></nav>
+      <div class="sy-head-extra flex items-center print:hidden"><form class="searchbox flex items-center" action="../search.html" method="get">
+  <input type="text" name="q" placeholder="Search" />
+  <kbd>/</kbd>
+</form><div class="sy-head-socials">
+  <a href="https://github.com/scikit-rf/scikit-rf" aria-label="GitHub">
+    <iconify-icon icon="simple-icons:github"></iconify-icon>
+  </a>
+  <a href="https://www.linkedin.com/groups/12462155/" aria-label="LinkedIn">
+    <iconify-icon icon="simple-icons:linkedin"></iconify-icon>
+  </a>
+  <a href="https://app.element.io/#/room/#scikit-rf:matrix.org" aria-label="Matrix">
+    <iconify-icon icon="simple-icons:matrix"></iconify-icon>
+  </a></div></div>
+    </div>
+    <div class="sy-head-actions flex items-center shrink-0 print:hidden"><button class="js-theme theme-switch flex items-center"
+data-aria-auto="Switch to light color mode"
+data-aria-light="Switch to dark color mode"
+data-aria-dark="Switch to auto color mode">
+<i class="i-lucide theme-icon"></i>
+</button><button class="md:hidden flex items-center js-menu" aria-label="Menu" type="button" aria-controls="head-nav" aria-expanded="false">
+        <div class="hamburger">
+          <span class="hamburger_1"></span>
+          <span class="hamburger_2"></span>
+          <span class="hamburger_3"></span>
+        </div>
+      </button>
+    </div>
+  </div>
+</div>
+<div class="sy-page sy-container flex mx-auto">
+  <aside id="lside" class="sy-lside md:w-72 md:shrink-0 print:hidden">
+    <div class="sy-lside-inner md:sticky">
+      <div class="sy-scrollbar p-6">
+        <div class="globaltoc" data-expand-depth="0"><p class="caption" role="heading" aria-level="3"><span class="caption-text">Getting started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Introduction.html">Introduction</a></li>
+</ul>
+<p class="caption" role="heading" aria-level="3"><span class="caption-text">User guide</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Tutorials</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="Installation.html">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Introduction.html">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Frequency_units.html">Configuring frequency units</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Networks.html">Networks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Connecting_Networks.html">Connecting Networks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Plotting.html">Plotting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="NetworkSet.html">NetworkSet</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Circuit.html">Circuits</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Calibration.html">Calibration</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">De-embedding</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Q-Factor.html">Quality Factors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Media.html">Media</a></li>
+<li class="toctree-l2"><a class="reference internal" href="VectorFitting.html">Vector Fitting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="VectorFittingParametric.html">Parametric Vector Fitting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="VirtualInstruments.html">Virtual Instruments</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/index.html">Examples</a></li>
+</ul>
+<p class="caption" role="heading" aria-level="3"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../api/index.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../glossary.html">Glossary</a></li>
+</ul>
+<p class="caption" role="heading" aria-level="3"><span class="caption-text">Project</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../contributing/index.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../citations_ack/acknowledging.html">Citing scikit-rf</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../citations_ack/citations.html">scikit-rf Citations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../about.html">About</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../users.html">Users</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../license.html">License</a></li>
+</ul>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="lside-overlay js-menu" role="button" aria-label="Close left sidebar" aria-controls="lside" aria-expanded="false"></div>
+  <aside id="rside" class="sy-rside pb-3 w-64 shrink-0 order-last">
+    <button class="rside-close js-menu xl:hidden" aria-label="Close Table of Contents" type="button" aria-controls="rside" aria-expanded="false">
+      <i class="i-lucide close"></i>
+    </button>
+    <div class="sy-scrollbar sy-rside-inner px-6 xl:top-16 xl:sticky xl:pl-0 pt-6 pb-4"><div class="localtoc"><h3>On this page</h3><ul>
+<li><a class="reference internal" href="#What-is-de-embedding-and-how-does-it-differ-from-calibration?">What is de-embedding and how does it differ from calibration?</a></li>
+<li><a class="reference internal" href="#Open-Short-De-embedding">Open-Short De-embedding</a></li>
+<li><a class="reference internal" href="#De-embedding-with-Scikit-RF">De-embedding with Scikit-RF</a></li>
+<li><a class="reference internal" href="#Through-only-de-embedding">Through-only de-embedding</a><ul>
+<li><a class="reference internal" href="#Split-methods">Split methods</a></li>
+<li><a class="reference internal" href="#Immittance-cancel-methods">Immittance cancel methods</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#Other-De-embedding-Methods">Other De-embedding Methods</a></li>
+<li><a class="reference internal" href="#References">References</a></li>
+</ul>
+</div><div id="ethical-ad-placement" data-ea-publisher="readthedocs"></div></div>
+  </aside>
+  <div class="rside-overlay js-menu" role="button" aria-label="Close Table of Contents" aria-controls="rside" aria-expanded="false"></div>
+  <main class="sy-main w-full max-sm:max-w-full print:pt-6">
+<div class="sy-breadcrumbs" role="navigation">
+  <div class="sy-breadcrumbs-inner flex items-center">
+    <div class="md:hidden mr-3">
+      <button class="js-menu" aria-label="Menu" type="button" aria-controls="lside" aria-expanded="false">
+        <i class="i-lucide menu"></i>
+      </button>
+    </div>
+    <ol class="flex-1" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="../index.html"><span itemprop="name">scikit-rf</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="1" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="index.html"><span itemprop="name">Tutorials</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="2" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <strong itemprop="name">De-embedding</strong>
+        <meta itemprop="position" content="3" />
+      </li></ol>
+    <a class="sk-download" href="Deembedding.ipynb" download>Download</a>
+    <div class="xl:hidden ml-1">
+      <button class="js-menu" aria-label="Show table of contents" type="button" aria-controls="rside"
+        aria-expanded="false">
+        <i class="i-lucide outdent"></i>
+      </button>
+    </div>
+  </div>
+</div><div class="flex flex-col break-words justify-between">
+      <div class="relative min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
+  <article class="yue" role="main">
+          <section id="De-embedding">
+<h1>De-embedding<a class="headerlink" href="#De-embedding" title="Link to this heading">#</a></h1>
+<p>This is a short tutorial on how de-embedding can be performed using scikit-rf. We will start by introducing the concept of de-embedding and why it is required, with a simple use-case scenario. Next, we will go through what kinds of de-embedding exist, and how to choose the right one for your application. Lastly, we will see how code can be written to quickly perform de-embedding on your s-parameter datasets.</p>
+<section id="What-is-de-embedding-and-how-does-it-differ-from-calibration?">
+<h2>What is de-embedding and how does it differ from calibration?<a class="headerlink" href="#What-is-de-embedding-and-how-does-it-differ-from-calibration?" title="Link to this heading">#</a></h2>
+<p>Let’s start with an example. Consider the measurement of integrated RF transistors built on a silicon wafer which are vital to the development of compact models for integrated circuit design. The typical measurement setup for such a scenario involves the use of RF probes that have a co-axial connector at one end, and a ground-signal-ground (GSG) probe tip at the other. This probe tip lands on GSG pads constructed on-wafer that provides access to the transistor under test. To measure an RF
+transistor, the actual device-under-test (DUT) is connected to GSG pads at two of the three terminals of the transistor via metal interconnects, while connecting the third terminal to RF ground. In common-source measurement configuration of a FET, this means that the Gate and Drain terminals are connected to the RF probes, and the Source terminal is grounded. Now, s-parameters are measured as a function of terminal voltages on the transistor.</p>
+<p>But what is the calibration reference plane for this transistor s-parameter measurement? The effects of the cabling and probe transitions can be removed by performing a standard calibration using methods such as Thru-Reflect-Line (TRL) or Short-Open-Load-Thru (SOLT) to move the calibration reference to the probe tips, or in other words, to the GSG pads implemented on-wafer. The use of an Impedance Standard Substrates (ISS) provides a set of well-defined calibration standards that can be used to
+establish such a reference plane for measurement. However, there is still a substantial “test-fixture” involving metal interconnects that need to be removed before accessing the real terminals of the RF transistor whose measurement we actually want. <strong>De-embedding refers to the removal of extraneous effects that a test fixture can have on the measurement of a device under test (DUT).</strong> The figure below (obtained from
+<a class="reference external" href="https://mos-ak.org/shanghai_2016/presentations/Bertrand_Ardouin_MOS-AK_Shanghai_2016.pdf">here</a>) shows an example of the “test-fixture” that often has to be removed in on-wafer measurement applications.</p>
+<p><img alt="onwafer-pads" class="no-scaled-link" src="../_images/onwafer_pads.png" width="500"/></p>
+<p>The de-embedding process differs from calibration in that no well known standards are used either because they cannot exist in certain environments, or are not practical to implement given space and cost constraints. De-embedding uses several dummy structures that help remove unwanted test fixture effects, but does not provide enough information to deduce a complete error box network like those obtained using standard calibration techniques. Since the test fixture itself may contain various
+transitions and interconnects before reaching the DUT, de-embedding is useful when simple scalar port extension of the reference plane is not applicable.</p>
+<p>For a basic introduction to this topic, refer <a class="reference external" href="http://na.support.keysight.com/faq/deembed.pdf">this article</a>.</p>
+</section>
+<section id="Open-Short-De-embedding">
+<h2>Open-Short De-embedding<a class="headerlink" href="#Open-Short-De-embedding" title="Link to this heading">#</a></h2>
+<p>In the last few decades of on-wafer RF measurements, the Open-Short de-embedding method has been the work horse of the RFIC industry where the frequencies of transistor operation have predominantly been in the range of a few gigahertz. As transistor measurements are extended to higher frequencies, more sophisticated de-embedding methods are required when the simplifying assumptions of Open-Short de-embedding break down. It is not easy to define a frequency limit up to which Open-Short
+de-embedding is valid because it depends on the layout techniques adopted in the design of on-wafer pad cages. If proper design techniques are adopted, Open-Short de-embedding should be applicable at least to 10 GHz if not more.</p>
+<p>The accuracy of Open-Short de-embedding depends on the validity of assumption that the test-fixture parasitics are a combination of parallel conductances (in red) and series impedances (in orange) as shown in the figure below. The lumped element model is usually representative of an on-wafer test-fixture, because first there is the shunt pad capacitance in the GSG pads, followed by the series impedance of the interconnect lines. To move the reference plane of the measurements from the plane of
+calibration (the outer terminals of the network below) to the DUT, two dummy structures - Open and Short - are needed in addition to the DUT. To create an Open dummy, the DUT is simply removed from the test fixture, while the three terminals are shorted together to implement the Short dummy. With the help of these dummies, the real measurements of the DUT can be extracted.</p>
+<p><img alt="openshort" class="no-scaled-link" src="../_images/openshort.png" width="500"/></p>
+<p>The detailed procedure of OpenShort de-embedding is shown in the figure below. The measurement result for the open dummy are clearly similar to those for parallel parasitics. The parallel parasitics are extracted simply by measuring the open dummies (step i). On the other hand, the short dummy includes both parallel and series parasitics. The series parasitics are extracted by subtracting the parallel parasitics from the short dummy in the Y-parameter domain (step ii). By subtracting the
+parallel and series parasitics from the DUT measurement results in the Y- and Z-parameter domains, respectively, a DUT without parasitic components can be extracted (step iii).</p>
+<p><img alt="OpenShortProcedure" class="no-scaled-link" src="../_images/OpenShortProcedure.svg" width="700"/></p>
+<p>The reader is referred to <a class="reference external" href="https://mos-ak.org/shanghai_2016/presentations/Bertrand_Ardouin_MOS-AK_Shanghai_2016.pdf">this detailed presentation</a> for intricate details regarding the design of on-wafer test structures and best practices. From here on, we will focus on explaining how the de-embedding class in scikit-rf works.</p>
+</section>
+<section id="De-embedding-with-Scikit-RF">
+<h2>De-embedding with Scikit-RF<a class="headerlink" href="#De-embedding-with-Scikit-RF" title="Link to this heading">#</a></h2>
+<p>In this section, let us build up a concrete example to demonstrate how de-embedding in scikit-rf works. Assume that the device under test is a 1nH inductor whose measurements we are interested in. Since this inductor must be placed in an on-wafer test-fixture, let us assume that the pad capacitance at each port is 25fF, the pad-pad capacitance is 10fF, and the resistance of interconnect lines from each pad are 2-ohms each. The resulting network whose measurements are available at the external
+reference plane P1-P2, is shown below.</p>
+<p><img alt="openshort-ckt" class="no-scaled-link" src="../_images/ind_parasitics.png" width="500"/></p>
+<p>The goal is to accurately extract the actual 1nH inductor by removing all other extraneous parasitic circuit elements.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[1]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+</span><span data-line="2"><span class="kn">import</span><span class="w"> </span><a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/index.html#module-numpy"><span class="nn">numpy</span></a><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+</span><span data-line="3">
+</span><span data-line="4"><span class="kn">import</span><span class="w"> </span><span class="nn">skrf</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">rf</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[2]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="c1"># Look at the raw inductor measurement with parasitics included</span>
+</span><span data-line="2"><span class="c1"># From S11/S22, it is clear that it is not a pure inductance.</span>
+</span><span data-line="3"><a class="sphinx-codeautolink-a" href="../api/data/generated/skrf.data.ind.html#skrf.data.ind" title="skrf.data.ind"><span class="n">raw_ind</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../api/data/generated/skrf.data.ind.html#skrf.data.ind" title="skrf.data.ind"><span class="n">rf</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">ind</span></a>
+</span><span data-line="4"><a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.Network.plot_s_smith.html#skrf.network.Network.plot_s_smith" title="skrf.network.Network.plot_s_smith"><span class="n">raw_ind</span><span class="o">.</span><span class="n">plot_s_smith</span></a><span class="p">()</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorials_Deembedding_4_0.png" src="../_images/tutorials_Deembedding_4_0.png"/>
+</div>
+</div>
+<p>If we were to extract inductance directly from this measurement, we will have an inductance value that changes with frequency, and the quality factor will also be influenced by the presence of parasitic resistors.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[3]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="c1"># plot the inductance and q-factor of the raw inductor measurement</span>
+</span><span data-line="2"><span class="n">Lraw_nH</span> <span class="o">=</span> <span class="mf">1e9</span> <span class="o">*</span> <a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/generated/numpy.imag.html#numpy.imag" title="numpy.imag"><span class="n">np</span><span class="o">.</span><span class="n">imag</span></a><span class="p">(</span><span class="mi">1</span><span class="o">/</span><a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.Network.y.html#skrf.network.Network.y" title="skrf.network.Network.y"><span class="n">raw_ind</span><span class="o">.</span><span class="n">y</span></a><span class="p">[:,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">])</span><span class="o">/</span><span class="mi">2</span><span class="o">/</span><a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/constants.html#numpy.pi" title="numpy.pi"><span class="n">np</span><span class="o">.</span><span class="n">pi</span></a><span class="o">/</span><a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.Network.f.html#skrf.network.Network.f" title="skrf.network.Network.f"><span class="n">raw_ind</span><span class="o">.</span><span class="n">f</span></a>
+</span><span data-line="3"><span class="n">Qraw</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/generated/numpy.imag.html#numpy.imag" title="numpy.imag"><span class="n">np</span><span class="o">.</span><span class="n">imag</span></a><span class="p">(</span><span class="mi">1</span><span class="o">/</span><a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.Network.y.html#skrf.network.Network.y" title="skrf.network.Network.y"><span class="n">raw_ind</span><span class="o">.</span><span class="n">y</span></a><span class="p">[:,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">])</span><span class="o">/</span><a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/generated/numpy.real.html#numpy.real" title="numpy.real"><span class="n">np</span><span class="o">.</span><span class="n">real</span></a><span class="p">(</span><span class="mi">1</span><span class="o">/</span><a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.Network.y.html#skrf.network.Network.y" title="skrf.network.Network.y"><span class="n">raw_ind</span><span class="o">.</span><span class="n">y</span></a><span class="p">[:,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]))</span>
+</span><span data-line="4">
+</span><span data-line="5"><span class="n">fig</span><span class="p">,</span> <span class="p">(</span><span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">)</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+</span><span data-line="6"><span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.Network.f.html#skrf.network.Network.f" title="skrf.network.Network.f"><span class="n">raw_ind</span><span class="o">.</span><span class="n">f</span></a><span class="o">*</span><span class="mf">1e-9</span><span class="p">,</span> <span class="n">Lraw_nH</span><span class="p">)</span>
+</span><span data-line="7"><span class="n">ax1</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
+</span><span data-line="8"><span class="n">ax1</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"Inductance (nH)"</span><span class="p">)</span>
+</span><span data-line="9"><span class="n">ax1</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">"Freq. (GHz)"</span><span class="p">)</span>
+</span><span data-line="10"><span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.Network.f.html#skrf.network.Network.f" title="skrf.network.Network.f"><span class="n">raw_ind</span><span class="o">.</span><span class="n">f</span></a><span class="o">*</span><span class="mf">1e-9</span><span class="p">,</span> <span class="n">Qraw</span><span class="p">)</span>
+</span><span data-line="11"><span class="n">ax2</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
+</span><span data-line="12"><span class="n">ax2</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"Q-factor"</span><span class="p">)</span>
+</span><span data-line="13"><span class="n">ax2</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">"Freq. (GHz)"</span><span class="p">)</span>
+</span><span data-line="14"><span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorials_Deembedding_6_0.png" src="../_images/tutorials_Deembedding_6_0.png"/>
+</div>
+</div>
+<p>To create an open dummy structure, the DUT, which is the 1nH inductor here is simply removed from the DUT test structure resulting in the circuit shown below.</p>
+<p><img alt="openckt" class="no-scaled-link" src="../_images/ind_open.png" width="500"/></p>
+<p>To create a short dummy structure, the internal terminals of the test-fixture that would otherwise connect to the DUT are shorted to ground as shown below.</p>
+<p><img alt="shortckt" class="no-scaled-link" src="../_images/ind_short.png" width="500"/></p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[4]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="c1"># load in 2-ports short/open dummy networks</span>
+</span><span data-line="2"><a class="sphinx-codeautolink-a" href="../api/data/generated/skrf.data.open_2p.html#skrf.data.open_2p" title="skrf.data.open_2p"><span class="n">open_nw</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../api/data/generated/skrf.data.open_2p.html#skrf.data.open_2p" title="skrf.data.open_2p"><span class="n">rf</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">open_2p</span></a>
+</span><span data-line="3"><a class="sphinx-codeautolink-a" href="../api/data/generated/skrf.data.short_2p.html#skrf.data.short_2p" title="skrf.data.short_2p"><span class="n">short_nw</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../api/data/generated/skrf.data.short_2p.html#skrf.data.short_2p" title="skrf.data.short_2p"><span class="n">rf</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">short_2p</span></a>
+</span></pre></div>
+</div>
+</div>
+<p>To perform Open-Short de-embedding with the available dummy measurements, we create a de-embedding object as an instance of the <code class="docutils literal notranslate"><span class="pre">OpenShort</span></code> class, while providing the open and short network objects as arguments to the de-embedding object creation.</p>
+<p>To get the de-embedded network, we apply the <code class="docutils literal notranslate"><span class="pre">deembed</span></code> method on the network object on which we want to perform the de-embedding operation. This is shown below.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[5]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="kn">from</span><span class="w"> </span><a class="sphinx-codeautolink-a" href="../api/calibration/deembedding.html#module-0"><span class="nn">skrf.calibration.deembedding</span></a><span class="w"> </span><span class="kn">import</span> <a class="sphinx-codeautolink-a" href="../api/calibration/generated/skrf.calibration.deembedding.OpenShort.html#skrf.calibration.deembedding.OpenShort" title="skrf.calibration.deembedding.OpenShort"><span class="n">OpenShort</span></a>
+</span><span data-line="2">
+</span><span data-line="3"><a class="sphinx-codeautolink-a" href="../api/calibration/generated/skrf.calibration.deembedding.OpenShort.html#skrf.calibration.deembedding.OpenShort" title="skrf.calibration.deembedding.OpenShort"><span class="n">dm</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../api/calibration/generated/skrf.calibration.deembedding.OpenShort.html#skrf.calibration.deembedding.OpenShort" title="skrf.calibration.deembedding.OpenShort"><span class="n">OpenShort</span></a><span class="p">(</span><span class="n">dummy_open</span><span class="o">=</span><a class="sphinx-codeautolink-a" href="../api/data/generated/skrf.data.open_2p.html#skrf.data.open_2p" title="skrf.data.open_2p"><span class="n">open_nw</span></a><span class="p">,</span> <span class="n">dummy_short</span><span class="o">=</span><a class="sphinx-codeautolink-a" href="../api/data/generated/skrf.data.short_2p.html#skrf.data.short_2p" title="skrf.data.short_2p"><span class="n">short_nw</span></a><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'tutorial'</span><span class="p">)</span>
+</span><span data-line="4">
+</span><span data-line="5"><span class="n">actual_ind</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../api/calibration/generated/skrf.calibration.deembedding.OpenShort.deembed.html#skrf.calibration.deembedding.OpenShort.deembed" title="skrf.calibration.deembedding.OpenShort.deembed"><span class="n">dm</span><span class="o">.</span><span class="n">deembed</span></a><span class="p">(</span><a class="sphinx-codeautolink-a" href="../api/data/generated/skrf.data.ind.html#skrf.data.ind" title="skrf.data.ind"><span class="n">raw_ind</span></a><span class="p">)</span>
+</span><span data-line="6"><span class="n">actual_ind</span><span class="o">.</span><span class="n">plot_s_smith</span><span class="p">()</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorials_Deembedding_10_0.png" src="../_images/tutorials_Deembedding_10_0.png"/>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[6]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="c1"># plot the inductance of the de-embedded measurement</span>
+</span><span data-line="2"><span class="c1"># we ignore plotting Q-factor here, because an ideal lossless inductor has infinite Q</span>
+</span><span data-line="3">
+</span><span data-line="4"><span class="n">Lactual_nH</span> <span class="o">=</span> <span class="mf">1e9</span> <span class="o">*</span> <a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/generated/numpy.imag.html#numpy.imag" title="numpy.imag"><span class="n">np</span><span class="o">.</span><span class="n">imag</span></a><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">actual_ind</span><span class="o">.</span><span class="n">y</span><span class="p">[:,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">])</span><span class="o">/</span><span class="mi">2</span><span class="o">/</span><a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/constants.html#numpy.pi" title="numpy.pi"><span class="n">np</span><span class="o">.</span><span class="n">pi</span></a><span class="o">/</span><span class="n">actual_ind</span><span class="o">.</span><span class="n">f</span>
+</span><span data-line="5">
+</span><span data-line="6"><span class="n">fig</span><span class="p">,</span> <span class="n">ax1</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+</span><span data-line="7"><span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">actual_ind</span><span class="o">.</span><span class="n">f</span><span class="o">*</span><span class="mf">1e-9</span><span class="p">,</span> <span class="n">Lactual_nH</span><span class="p">)</span>
+</span><span data-line="8"><span class="n">ax1</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
+</span><span data-line="9"><span class="n">ax1</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mf">0.95</span><span class="p">,</span> <span class="mf">1.1</span><span class="p">)</span>
+</span><span data-line="10"><span class="n">ax1</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"Inductance (nH)"</span><span class="p">)</span>
+</span><span data-line="11"><span class="n">ax1</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">"Freq. (GHz)"</span><span class="p">)</span>
+</span><span data-line="12"><span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorials_Deembedding_11_0.png" src="../_images/tutorials_Deembedding_11_0.png"/>
+</div>
+</div>
+<p>From the plot above, it is seen that the actual inductor value is accurately extracted even in the presence of unwanted parasitic elements due to proper de-embedding of the test-fixture.</p>
+</section>
+<section id="Through-only-de-embedding">
+<h2>Through-only de-embedding<a class="headerlink" href="#Through-only-de-embedding" title="Link to this heading">#</a></h2>
+<p>At higher frequencies above 10 GHz, the fringe capacitance of the open dummy and the parasitic inductance of the short dummy cause errors. For high frequencies, several methods using a through (thru) dummy have been proposed, such as <code class="docutils literal notranslate"><span class="pre">SplitPi</span></code>[1], <code class="docutils literal notranslate"><span class="pre">SplitTee</span></code>[2], <code class="docutils literal notranslate"><span class="pre">AdmittanceCancel</span></code>[3], and <code class="docutils literal notranslate"><span class="pre">ImpedanceCancel</span></code>[4]. The thru dummy is a direct connection of the left and right test pads. The example of the test device and thru dummy is
+shown in the figure below, where G and S indicate ground pads and signal pads.</p>
+<p><img alt="thru_micrograph" class="no-scaled-link" src="../_images/thru_micrograph.png" width="500"/></p>
+<section id="Split-methods">
+<h3>Split methods<a class="headerlink" href="#Split-methods" title="Link to this heading">#</a></h3>
+<p>Split methods are based on lumped elements assumption as well as the open or short methods. The <code class="docutils literal notranslate"><span class="pre">SplitPi</span></code> and <code class="docutils literal notranslate"><span class="pre">SplitTee</span></code> methods assume that the embedding-networks are Π-network and T-network, respectively, as shown in the figure below. The values of the left and right parasitics (i.e. Z and Y) are extracted from the thru dummy. The parasitics are removed by multiplying by the inverse of the left and right ABCD matrix. <strong>These methods can apply to only 2-port DUTs</strong>.</p>
+<p><img alt="split_methods" class="no-scaled-link" src="../_images/split_methods.svg" width="500"/></p>
+</section>
+<section id="Immittance-cancel-methods">
+<h3>Immittance cancel methods<a class="headerlink" href="#Immittance-cancel-methods" title="Link to this heading">#</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">AdmittanceCancel</span></code> (a.k.a Mangan’s method) and <code class="docutils literal notranslate"><span class="pre">ImpedanceCancel</span></code> methods are also based on lumped elements assumption as shown in the figure below. However, unlike the split methods, they do NOT directly calculate the immittance of the left and right parasitics. These methods de-embed the DUTs by left-right mirroring operation which is called ‘swapping’. The <code class="docutils literal notranslate"><span class="pre">AdmittanceCancel</span></code> method consists of two steps. First, an matrix defined as ‘H’ is calculated by multiplying the ABCD matrix of
+the test device by inverse matrix of thru dummy as shown in figure(c). Then, the de-embedded Y matrix is obtained by taking the average of the left-right mirrored and un-mirrored Y-parameters of H. Similarly, in the case of the <code class="docutils literal notranslate"><span class="pre">ImpedanceCancel</span></code> method, it takes the average of the Z-parameters. <strong>These methods can apply to only symmetric 2-port DUTs (i.e. S11=S22 and S12=S21)</strong>, but more accurate than the split methods in the characterization of transmission lines at mmW frequencies. A
+comparison between the split methods and immittance cancel methods is described in <a class="reference external" href="https://ieeexplore.ieee.org/document/7377897">[4]</a>.</p>
+<p><img alt="immittance_cancel" class="no-scaled-link" src="../_images/immittance_cancel.svg" width="500"/></p>
+</section>
+</section>
+<section id="Other-De-embedding-Methods">
+<h2>Other De-embedding Methods<a class="headerlink" href="#Other-De-embedding-Methods" title="Link to this heading">#</a></h2>
+<p>Other simple forms of de-embedding included in scikit-rf are <code class="docutils literal notranslate"><span class="pre">Open</span></code>, <code class="docutils literal notranslate"><span class="pre">Short</span></code> and <code class="docutils literal notranslate"><span class="pre">ShortOpen</span></code> methods, which may be applicable depending on the equivalent circuit of the parasitic network of the test-fixture. As an example, it may be desirable to only remove the pad contact resistance from the measurement for which <code class="docutils literal notranslate"><span class="pre">Short</span></code> de-embedding can be used. In certain measurements, only the pad capacitance might need to be removed, for which the <code class="docutils literal notranslate"><span class="pre">Open</span></code> de-embedding method would be more
+appropriate. To remove pad contact resistance and pad capacitance in one operation, the <code class="docutils literal notranslate"><span class="pre">ShortOpen</span></code> method would be the most suitable.</p>
+<p>Many other sophisticated methods of de-embedding have been reported in literature to extend the accuracy of DUT measurements up to high frequencies. While they can be done using the network operations of scikit-rf, their inclusion as a built-in de-embedding class within the package is welcomed as an open-source contribution to the project.</p>
+</section>
+<section id="References">
+<h2>References<a class="headerlink" href="#References" title="Link to this heading">#</a></h2>
+<div id="ref1"></div><p>[1]: <a class="reference external" href="https://ieeexplore.ieee.org/document/4266437">L. Nan et al., “Experimental Characterization of the Effect of Metal Dummy Fills on Spiral Inductors,” in 2007 IEEE Radio Frequency Integrated Circuits (RFIC) Symposium, Jun. 2007, pp. 307–310.</a></p>
+<div id="ref2"></div><p>[2]: <a class="reference external" href="https://ieeexplore.ieee.org/document/1391067">M. J. Kobrinsky et al., “Experimental validation of crosstalk simulations for on-chip interconnects using S-parameters,” IEEE Transactions on Advanced Packaging, vol. 28, no. 1, pp. 57–62, Feb. 2005.</a></p>
+<div id="ref3"></div><p>[3]: <a class="reference external" href="https://ieeexplore.ieee.org/document/1580859">A. M. Mangan et al., “De-embedding transmission line measurements for accurate modeling of IC designs,” IEEE Trans. Electron Devices, vol. 53, no. 2, pp. 235–241, Feb. 2006.</a></p>
+<div id="ref4"></div><p>[4]: <a class="reference external" href="https://ieeexplore.ieee.org/document/7377897">S. Amakawa et al., “Comparative analysis of on-chip transmission line de-embedding techniques,” in 2015 IEEE International Symposium on Radio-Frequency Integration Technology, Aug. 2015, pp. 91–93.</a></p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[ ]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1">
+</span></pre></div>
+</div>
+</div>
+</section>
+</section>
+
+        </article><button class="back-to-top" type="button">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+  </svg>
+  <span>Back to top</span>
+</button><div class="navigation flex print:hidden"><div class="navigation-prev">
+    <a href="Calibration.html">
+      <i class="i-lucide chevron-left"></i>
+      <div class="page-info">
+        <span>Previous</span><div class="title">Calibration</div></div>
+    </a>
+  </div><div class="navigation-next">
+    <a href="Q-Factor.html">
+      <div class="page-info">
+        <span>Next</span>
+        <div class="title">Quality Factors</div>
+      </div>
+      <i class="i-lucide chevron-right"></i>
+    </a>
+  </div></div></div>
+    </div>
+  </main>
+</div>
+<footer class="sy-foot">
+  <div class="sy-foot-inner sy-container mx-auto">
+    <div class="sy-foot-reserved md:flex justify-between items-center">
+      <div class="sy-foot-copyright"><p>2025, scikit-rf team</p>
+  
+  <p>
+    Made with
+    
+    <a href="https://www.sphinx-doc.org/">Sphinx</a> and
+    
+    <a href="https://shibuya.lepture.com">Shibuya theme</a>.
+  </p>
+</div>
+      <div class="sy-foot-socials">
+  <a href="https://github.com/scikit-rf/scikit-rf" aria-label="GitHub">
+    <iconify-icon icon="simple-icons:github"></iconify-icon>
+  </a></div>
+    </div>
+  </div>
+</footer>
+      <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../_static/copybutton.js?v=34bd459d"></script>
+      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+      <script src="../_static/shibuya.js?v=50760d75"></script>
+      <script src="https://cdn.jsdelivr.net/npm/@jupyter-widgets/html-manager@^1.0.1/dist/embed-amd.js"></script>
+      <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
+      <script src="../_static/skrf.js?v=bdeb9fb0"></script></body>
+</html>

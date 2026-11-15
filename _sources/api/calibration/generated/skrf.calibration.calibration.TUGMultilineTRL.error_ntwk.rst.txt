@@ -1,0 +1,6 @@
+skrf.calibration.calibration.TUGMultilineTRL.error\_ntwk
+========================================================
+
+.. currentmodule:: skrf.calibration.calibration
+
+.. autoproperty:: TUGMultilineTRL.error_ntwk

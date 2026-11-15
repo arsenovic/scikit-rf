@@ -1,0 +1,6 @@
+skrf.calibration.calibration.TUGMultilineTRL.effective\_phase\_deg
+==================================================================
+
+.. currentmodule:: skrf.calibration.calibration
+
+.. autoproperty:: TUGMultilineTRL.effective_phase_deg

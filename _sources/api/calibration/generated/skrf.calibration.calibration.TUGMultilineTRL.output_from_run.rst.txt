@@ -1,0 +1,6 @@
+skrf.calibration.calibration.TUGMultilineTRL.output\_from\_run
+==============================================================
+
+.. currentmodule:: skrf.calibration.calibration
+
+.. autoproperty:: TUGMultilineTRL.output_from_run

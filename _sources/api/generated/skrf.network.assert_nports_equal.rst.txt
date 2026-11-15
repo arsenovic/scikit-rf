@@ -1,0 +1,6 @@
+﻿skrf.network.assert\_nports\_equal
+==================================
+
+.. currentmodule:: skrf.network
+
+.. autofunction:: assert_nports_equal

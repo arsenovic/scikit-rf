@@ -1,0 +1,6 @@
+skrf.media.rectangularWaveguide.RectangularWaveguide.line\_floating
+===================================================================
+
+.. currentmodule:: skrf.media.rectangularWaveguide
+
+.. automethod:: RectangularWaveguide.line_floating

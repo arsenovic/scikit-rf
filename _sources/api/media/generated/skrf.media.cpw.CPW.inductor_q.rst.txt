@@ -1,0 +1,6 @@
+skrf.media.cpw.CPW.inductor\_q
+==============================
+
+.. currentmodule:: skrf.media.cpw
+
+.. automethod:: CPW.inductor_q

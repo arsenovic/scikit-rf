@@ -1,0 +1,6 @@
+skrf.vi.vna.rohde\_schwarz.ZVA.query\_format
+============================================
+
+.. currentmodule:: skrf.vi.vna.rohde_schwarz
+
+.. autoproperty:: ZVA.query_format

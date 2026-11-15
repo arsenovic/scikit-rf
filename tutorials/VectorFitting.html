@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en" data-accent-color="blue" data-content_root="../">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Vector Fitting - scikit-rf</title><link rel="author" title="About these documents" href="../about.html" /><link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Parametric Vector Fitting" href="VectorFittingParametric.html" /><link rel="prev" title="Media" href="Media.html" /><script>
+    function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
+    setColorMode(localStorage._theme||"auto");
+  </script><link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=ad592e98" />
+    <link rel="stylesheet" type="text/css" href="../_static/shibuya.css?v=2ceb65ce" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-codeautolink.css?v=b2176991" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link media="print" rel="stylesheet" type="text/css" href="../_static/print.css?v=20ff2c19" />
+    <link rel="stylesheet" type="text/css" href="../_static/skrf.css?v=7e772ba2" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --sy-f-text: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+  --sy-f-heading: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+}
+</style>
+    
+  <meta property="og:type" content="website"/><meta property="og:title" content="Vector Fitting"/>
+    <meta name="twitter:card" content="summary"/>
+  </head>
+<body><div class="sy-head">
+  <div class="sy-head-blur"></div>
+  <div class="sy-head-inner sy-container mx-auto">
+    <a class="sy-head-brand" href="../index.html">
+      <img class="light-logo" src="../_static/logo.svg" alt="scikit-rf" height="28" loading="lazy" />
+      <img class="dark-logo" src="../_static/logo.svg" alt="scikit-rf" height="28" loading="lazy" />
+      <strong>scikit-rf</strong>
+    </a>
+    <div class="sy-head-nav" id="head-nav">
+      <nav class="sy-head-links"><ul><li class="link"><a href="../index.html">Home</a></li><li class="link"><a href="index.html">Tutorials</a></li><li class="link"><a href="../examples/index.html">Examples</a></li><li class="link"><a href="../api/index.html">API</a></li><li class="link">
+          <a href="https://github.com/scikit-rf/scikit-rf">
+            <span>GitHub</span><i class="i-lucide external-link"></i></a>
+        </li></ul></nav>
+      <div class="sy-head-extra flex items-center print:hidden"><form class="searchbox flex items-center" action="../search.html" method="get">
+  <input type="text" name="q" placeholder="Search" />
+  <kbd>/</kbd>
+</form><div class="sy-head-socials">
+  <a href="https://github.com/scikit-rf/scikit-rf" aria-label="GitHub">
+    <iconify-icon icon="simple-icons:github"></iconify-icon>
+  </a>
+  <a href="https://www.linkedin.com/groups/12462155/" aria-label="LinkedIn">
+    <iconify-icon icon="simple-icons:linkedin"></iconify-icon>
+  </a>
+  <a href="https://app.element.io/#/room/#scikit-rf:matrix.org" aria-label="Matrix">
+    <iconify-icon icon="simple-icons:matrix"></iconify-icon>
+  </a></div></div>
+    </div>
+    <div class="sy-head-actions flex items-center shrink-0 print:hidden"><button class="js-theme theme-switch flex items-center"
+data-aria-auto="Switch to light color mode"
+data-aria-light="Switch to dark color mode"
+data-aria-dark="Switch to auto color mode">
+<i class="i-lucide theme-icon"></i>
+</button><button class="md:hidden flex items-center js-menu" aria-label="Menu" type="button" aria-controls="head-nav" aria-expanded="false">
+        <div class="hamburger">
+          <span class="hamburger_1"></span>
+          <span class="hamburger_2"></span>
+          <span class="hamburger_3"></span>
+        </div>
+      </button>
+    </div>
+  </div>
+</div>
+<div class="sy-page sy-container flex mx-auto">
+  <aside id="lside" class="sy-lside md:w-72 md:shrink-0 print:hidden">
+    <div class="sy-lside-inner md:sticky">
+      <div class="sy-scrollbar p-6">
+        <div class="globaltoc" data-expand-depth="0"><p class="caption" role="heading" aria-level="3"><span class="caption-text">Getting started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Introduction.html">Introduction</a></li>
+</ul>
+<p class="caption" role="heading" aria-level="3"><span class="caption-text">User guide</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Tutorials</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="Installation.html">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Introduction.html">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Frequency_units.html">Configuring frequency units</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Networks.html">Networks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Connecting_Networks.html">Connecting Networks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Plotting.html">Plotting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="NetworkSet.html">NetworkSet</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Circuit.html">Circuits</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Calibration.html">Calibration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Deembedding.html">De-embedding</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Q-Factor.html">Quality Factors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Media.html">Media</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Vector Fitting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="VectorFittingParametric.html">Parametric Vector Fitting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="VirtualInstruments.html">Virtual Instruments</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/index.html">Examples</a></li>
+</ul>
+<p class="caption" role="heading" aria-level="3"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../api/index.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../glossary.html">Glossary</a></li>
+</ul>
+<p class="caption" role="heading" aria-level="3"><span class="caption-text">Project</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../contributing/index.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../citations_ack/acknowledging.html">Citing scikit-rf</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../citations_ack/citations.html">scikit-rf Citations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../about.html">About</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../users.html">Users</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../license.html">License</a></li>
+</ul>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="lside-overlay js-menu" role="button" aria-label="Close left sidebar" aria-controls="lside" aria-expanded="false"></div>
+  <aside id="rside" class="sy-rside pb-3 w-64 shrink-0 order-last">
+    <button class="rside-close js-menu xl:hidden" aria-label="Close Table of Contents" type="button" aria-controls="rside" aria-expanded="false">
+      <i class="i-lucide close"></i>
+    </button>
+    <div class="sy-scrollbar sy-rside-inner px-6 xl:top-16 xl:sticky xl:pl-0 pt-6 pb-4"><div class="localtoc"><h3>On this page</h3><ul>
+<li><a class="reference internal" href="#Mathematical-Description">Mathematical Description</a></li>
+<li><a class="reference internal" href="#Equivalent-Electrical-Circuits">Equivalent Electrical Circuits</a><ul>
+<li><a class="reference internal" href="#Constant-and-Proportional-Term">Constant and Proportional Term</a><ul>
+<li><a class="reference internal" href="#Impedance-of-a-series-RL-circuit:">Impedance of a series RL circuit:</a></li>
+<li><a class="reference internal" href="#Admittance-of-a-parallel-RC-circuit:">Admittance of a parallel RC circuit:</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#Real-Poles-and-Residues">Real Poles and Residues</a><ul>
+<li><a class="reference internal" href="#Impedance-of-a-parallel-RC-circuit:">Impedance of a parallel RC circuit:</a></li>
+<li><a class="reference internal" href="#Admittance-of-a-series-RL-circuit:">Admittance of a series RL circuit:</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#Complex-Conjugate-Poles-and-Residues">Complex Conjugate Poles and Residues</a><ul>
+<li><a class="reference internal" href="#Impedance-of-a-parallel-RLC-circuit">Impedance of a parallel RLC circuit</a></li>
+<li><a class="reference internal" href="#Admittance-of-a-series-RLC-circuit">Admittance of a series RLC circuit</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#Equivalent-Circuit-of-a-Vector-Fitted-N-Port">Equivalent Circuit of a Vector Fitted <span class="math notranslate nohighlight">\(N\)</span>-Port</a><ul>
+<li><a class="reference internal" href="#Case-1:-Vector-Fitted-S-Parameters">Case 1: Vector Fitted S Parameters</a><ul>
+<li><a class="reference internal" href="#Expressing-Scattering-Responses-Using-Admittances">Expressing Scattering Responses Using Admittances</a></li>
+<li><a class="reference internal" href="#Expressing-Scattering-Responses-Using-Impedances">Expressing Scattering Responses Using Impedances</a></li>
+<li><a class="reference internal" href="#Direct-implementation-of-the-State-Space-Equations">Direct implementation of the State-Space Equations</a></li>
+<li><a class="reference internal" href="#Implementation-in-scikit-rf">Implementation in scikit-rf</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#Case-2:-Vector-Fitted-Y-Parameters">Case 2: Vector Fitted Y Parameters</a></li>
+<li><a class="reference internal" href="#Case-3:-Vector-Fitted-Z-Parameters">Case 3: Vector Fitted Z Parameters</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#References">References</a></li>
+</ul>
+</div><div id="ethical-ad-placement" data-ea-publisher="readthedocs"></div></div>
+  </aside>
+  <div class="rside-overlay js-menu" role="button" aria-label="Close Table of Contents" aria-controls="rside" aria-expanded="false"></div>
+  <main class="sy-main w-full max-sm:max-w-full print:pt-6">
+<div class="sy-breadcrumbs" role="navigation">
+  <div class="sy-breadcrumbs-inner flex items-center">
+    <div class="md:hidden mr-3">
+      <button class="js-menu" aria-label="Menu" type="button" aria-controls="lside" aria-expanded="false">
+        <i class="i-lucide menu"></i>
+      </button>
+    </div>
+    <ol class="flex-1" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="../index.html"><span itemprop="name">scikit-rf</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="1" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="index.html"><span itemprop="name">Tutorials</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="2" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <strong itemprop="name">Vector Fitting</strong>
+        <meta itemprop="position" content="3" />
+      </li></ol>
+    <a class="sk-download" href="VectorFitting.ipynb" download>Download</a>
+    <div class="xl:hidden ml-1">
+      <button class="js-menu" aria-label="Show table of contents" type="button" aria-controls="rside"
+        aria-expanded="false">
+        <i class="i-lucide outdent"></i>
+      </button>
+    </div>
+  </div>
+</div><div class="flex flex-col break-words justify-between">
+      <div class="relative min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
+  <article class="yue" role="main">
+          <section id="Vector-Fitting">
+<h1>Vector Fitting<a class="headerlink" href="#Vector-Fitting" title="Link to this heading">#</a></h1>
+<p>This is a brief introduction to Vector Fitting. The concept and its algorithm was proposed in 1999 by Bjørn Gustavsen and Adam Semlyen [1]. See the Vector Fitting website for more information [2]. The main application of Vector Fitting is to model the original sampled frequency responses of an active or passive device in a circuit simulator. Also see the <a class="reference external" href="../api/vectorFitting.html">API documentation</a> and the <a class="reference internal" href="../examples/vectorfitting/index.html"><span class="doc">application
+examples</span></a> for more information about the implementation in scikit-rf.</p>
+<section id="Mathematical-Description">
+<h2>Mathematical Description<a class="headerlink" href="#Mathematical-Description" title="Link to this heading">#</a></h2>
+<p>The idea of Vector Fitting is to fit a set of rational model functions to a set of sampled frequency responses <span class="math notranslate nohighlight">\(\mathbf{\underline{H}}_\mathrm{sampled}\)</span>, for example from a <a class="reference external" href="https://en.wikipedia.org/wiki/Scattering_parameters">S</a>, <a class="reference external" href="https://en.wikipedia.org/wiki/Admittance_parameters">Y</a> or <a class="reference external" href="https://en.wikipedia.org/wiki/Impedance_parameters">Z</a> matrix. The model function <span class="math notranslate nohighlight">\(\mathbf{\underline{H}}(\mathrm{\underline{s}})\)</span> is defined in the Laplace domain with
+<span class="math notranslate nohighlight">\(\mathrm{\underline{s}} = \sigma + \mathrm{j} \omega\)</span>: <span class="math">\begin{equation}
+\mathbf{\underline{H}}(\mathrm{\underline{s}}) = \mathbf{d} + \mathrm{\underline{s}} \mathbf{e} + \sum_{k=1}^K \frac{\underline{\mathbf{c}}_{k}}{\mathrm{\underline{s}}-\underline{p}_k}
+\end{equation}</span></p>
+<p>For the desired fit, that model function shall match the given frequency responses at each of its frequency samples <span class="math notranslate nohighlight">\(\omega_n\)</span>: <span class="math">\begin{equation}
+\mathbf{\underline{H}}(\mathrm{\underline{s}} = \mathrm{j} \omega_n) \overset{!}{=} \mathbf{\underline{H}}_\mathrm{sampled}(\omega_n)
+\end{equation}</span></p>
+<p>Generally, <span class="math notranslate nohighlight">\(\mathbf{\underline{H}}(\mathrm{\underline{s}})\)</span> is a vector holding the individual complex frequency responses <span class="math notranslate nohighlight">\(\underline{H}_1(\mathrm{\underline{s}})\)</span>, <span class="math notranslate nohighlight">\(\underline{H}_2(\mathrm{\underline{s}})\)</span>, …, <span class="math notranslate nohighlight">\(\underline{H}_M(\mathrm{\underline{s}})\)</span> of the model. All elements in <span class="math notranslate nohighlight">\(\mathbf{\underline{H}}(\mathrm{\underline{s}})\)</span> share a common set of complex poles <span class="math notranslate nohighlight">\(\underline{p}_k\)</span>, but have individual sets of complex residues
+<span class="math notranslate nohighlight">\(\mathbf{\underline{c}}_k\)</span>, real constants <span class="math notranslate nohighlight">\(\mathbf{d}\)</span> and real proportional coefficients <span class="math notranslate nohighlight">\(\mathbf{e}\)</span>, which are therefore vectors as well: <span class="math">\begin{equation}
+\mathbf{\underline{p}} = \begin{pmatrix} \underline{p}_1 & \underline{p}_2 & \underline{p}_3 & \cdots & \underline{p}_K \end{pmatrix}
+\end{equation}</span></p>
+<p><span class="math">\begin{equation}
+\mathbf{\underline{c}} = \begin{pmatrix}
+\underline{c}_{1,1} & \underline{c}_{2,1} & \underline{c}_{3,1} & \cdots & \underline{c}_{K,1} \\
+\underline{c}_{1,2} & \underline{c}_{2,2} & \underline{c}_{3,2} & \cdots & \underline{c}_{K,2} \\
+\vdots\\
+\underline{c}_{1,M} & \underline{c}_{2,M} & \underline{c}_{3,M} & \cdots & \underline{c}_{K,M} \\
+\end{pmatrix}
+\end{equation}</span></p>
+<p><span class="math">\begin{equation}
+\mathbf{d} = \begin{pmatrix} d_1 \\ d_2 \\ \vdots \\ d_M \end{pmatrix}
+\end{equation}</span></p>
+<p><span class="math">\begin{equation}
+\mathbf{e} = \begin{pmatrix} e_1 \\ e_2 \\ \vdots \\ e_M \end{pmatrix}
+\end{equation}</span></p>
+<p>The number of poles, <span class="math notranslate nohighlight">\(K\)</span>, required for a good fit of <span class="math notranslate nohighlight">\(\mathbf{\underline{H}}(\mathrm{\underline{s}})\)</span> to <span class="math notranslate nohighlight">\(\mathbf{\underline{H}}_\mathrm{sampled}\)</span> depends on the shape of the responses.</p>
+<p>As an example, the goal could be to fit the rational model function to the S matrix of a 2-port (<span class="math notranslate nohighlight">\(M = 4\)</span>) sampled at <span class="math notranslate nohighlight">\(N\)</span> frequencies <span class="math notranslate nohighlight">\(\omega_n\)</span>:</p>
+<p><span class="math">\begin{equation}
+\begin{pmatrix}
+\underline{S}_{11}(\omega_1) \\
+\underline{S}_{12}(\omega_1) \\
+\underline{S}_{21}(\omega_1) \\
+\underline{S}_{22}(\omega_1) \\
+\vdots \\
+\underline{S}_{11}(\omega_\mathrm{N}) \\
+\underline{S}_{12}(\omega_\mathrm{N}) \\
+\underline{S}_{21}(\omega_\mathrm{N}) \\
+\underline{S}_{22}(\omega_\mathrm{N})
+\end{pmatrix}
+\overset{!}{=}
+\begin{pmatrix}
+d_{11} + \mathrm{j} \omega_1 e_{11} + \sum_{k=1}^K \frac{\underline{c}_{k,11}}{\mathrm{j} \omega_1 - \underline{p}_k}
+\\
+d_{12} + \mathrm{j} \omega_1 e_{12} + \sum_{k=1}^K \frac{\underline{c}_{k,12}}{\mathrm{j} \omega_1 - \underline{p}_k}
+\\
+d_{21} + \mathrm{j} \omega_1 e_{21} + \sum_{k=1}^K \frac{\underline{c}_{k,21}}{\mathrm{j} \omega_1 - \underline{p}_k}
+\\
+d_{22} + \mathrm{j} \omega_1 e_{22} + \sum_{k=1}^K \frac{\underline{c}_{k,22}}{\mathrm{j} \omega_1 - \underline{p}_k}
+\\
+\vdots
+\\
+d_{11} + \mathrm{j} \omega_\mathrm{N} e_{11} + \sum_{k=1}^K \frac{\underline{c}_{k,11}}{\mathrm{j} \omega_\mathrm{N} - \underline{p}_k}
+\\
+d_{12} + \mathrm{j} \omega_\mathrm{N} e_{12} + \sum_{k=1}^K \frac{\underline{c}_{k,12}}{\mathrm{j} \omega_\mathrm{N} - \underline{p}_k}
+\\
+d_{21} + \mathrm{j} \omega_\mathrm{N} e_{21} + \sum_{k=1}^K \frac{\underline{c}_{k,21}}{\mathrm{j} \omega_\mathrm{N} - \underline{p}_k}
+\\
+d_{22} + \mathrm{j} \omega_\mathrm{N} e_{22} + \sum_{k=1}^K \frac{\underline{c}_{k,22}}{\mathrm{j} \omega_\mathrm{N} - \underline{p}_k}
+\end{pmatrix}
+\end{equation}</span></p>
+<p>During the Vector Fitting process, the model parameters <span class="math notranslate nohighlight">\(\mathbf{\underline{p}}\)</span>, <span class="math notranslate nohighlight">\(\mathbf{\underline{c}}\)</span>, <span class="math notranslate nohighlight">\(\mathbf{d}\)</span> and <span class="math notranslate nohighlight">\(\mathbf{e}\)</span> will be optimized in an iterative manner until a good fit is achieved.</p>
+</section>
+<section id="Equivalent-Electrical-Circuits">
+<h2>Equivalent Electrical Circuits<a class="headerlink" href="#Equivalent-Electrical-Circuits" title="Link to this heading">#</a></h2>
+<p>The benefit of Vector Fitting the sampled frequency responses is the easy representation of the rational basis function with equivalent electrical circuits. A detailed derivation can be found in [3] and [4].</p>
+<section id="Constant-and-Proportional-Term">
+<h3>Constant and Proportional Term<a class="headerlink" href="#Constant-and-Proportional-Term" title="Link to this heading">#</a></h3>
+<p>The constant and proportional terms <span class="math notranslate nohighlight">\(\mathbf{d} + \mathrm{\underline{s}} \mathbf{e}\)</span> can be represented in an electrical circuit by equivalent impedances <span class="math notranslate nohighlight">\(\underline{Z}_\mathrm{RL}(\mathrm{\underline{s}})\)</span> or equivalent admittances <span class="math notranslate nohighlight">\(\underline{Y}_\mathrm{RC}(\mathrm{\underline{s}})\)</span> build out of a series RL or parallel RC circuits.</p>
+<center><p><img alt="c030d262c3304cdeaaa67d87105d57ff" class="no-scaled-link" src="../_images/circuit_series_RL.svg" style="width: 170px;" /></p>
+</center><center><p><img alt="8dfcfd6dbcb2418fab6c98882b693ca0" class="no-scaled-link" src="../_images/circuit_parallel_RC.svg" style="width: 150px;" /></p>
+</center><p>Target response of the constant and proportional term: <span class="math">\begin{equation}
+\underline{H}_\mathrm{target}(\mathrm{\underline{s}}) = d_i + \mathrm{\underline{s}} e_i
+\end{equation}</span></p>
+<section id="Impedance-of-a-series-RL-circuit:">
+<h4>Impedance of a series RL circuit:<a class="headerlink" href="#Impedance-of-a-series-RL-circuit:" title="Link to this heading">#</a></h4>
+<p><span class="math">\begin{equation}
+\underline{Z}_\mathrm{RL}(\mathrm{\underline{s}}) = R + \mathrm{\underline{s}} L
+\end{equation}</span> This impedance matches the target response if <span class="math notranslate nohighlight">\(R = d_i\)</span> and <span class="math notranslate nohighlight">\(L = e_i\)</span>.</p>
+</section>
+<section id="Admittance-of-a-parallel-RC-circuit:">
+<h4>Admittance of a parallel RC circuit:<a class="headerlink" href="#Admittance-of-a-parallel-RC-circuit:" title="Link to this heading">#</a></h4>
+<p><span class="math">\begin{equation}
+\underline{Y}_\mathrm{RC}(\mathrm{\underline{s}}) = \frac{1}{R} + \mathrm{\underline{s}} C
+\end{equation}</span> This admittance matches the target response if <span class="math notranslate nohighlight">\(R = \frac{1}{d_i}\)</span> and <span class="math notranslate nohighlight">\(C = e_i\)</span>.</p>
+</section>
+</section>
+<section id="Real-Poles-and-Residues">
+<h3>Real Poles and Residues<a class="headerlink" href="#Real-Poles-and-Residues" title="Link to this heading">#</a></h3>
+<p>The individual terms <span class="math notranslate nohighlight">\(\frac{c_{k,i}}{\mathrm{\underline{s}} - p_{k,i}}\)</span> of the fit with a real pole <span class="math notranslate nohighlight">\(p_{k,i}\)</span> and a real residue <span class="math notranslate nohighlight">\(c_{k,i}\)</span> can be represented in an electrical circuit by equivalent impedances <span class="math notranslate nohighlight">\(\underline{Z}_\mathrm{RC}(\mathrm{\underline{s}})\)</span> or equivalent admittances <span class="math notranslate nohighlight">\(\underline{Y}_\mathrm{RL}(\mathrm{\underline{s}})\)</span> build out of a parallel RC or series RL circuits.</p>
+<p>Target response of the real pole-residue term: <span class="math">\begin{equation}
+\underline{H}_\mathrm{target}(\mathrm{\underline{s}}) = \frac{c_{k,i}}{\mathrm{\underline{s}} - p_{k,i}}
+\end{equation}</span></p>
+<section id="Impedance-of-a-parallel-RC-circuit:">
+<h4>Impedance of a parallel RC circuit:<a class="headerlink" href="#Impedance-of-a-parallel-RC-circuit:" title="Link to this heading">#</a></h4>
+<p>The parallel RC circuit is the same as above for the constant and proportional term, but this time its impedance <span class="math notranslate nohighlight">\(\underline{Z}_\mathrm{RC}(\mathrm{\underline{s}})\)</span> is used instead of its admittance: <span class="math">\begin{equation}
+\underline{Z}_\mathrm{RC}(\mathrm{\underline{s}}) = \frac{\frac{1}{C}}{\mathrm{\underline{s}} + \frac{1}{RC}}
+\end{equation}</span> This impedance matches the target response if <span class="math notranslate nohighlight">\(C = \frac{1}{c_{k,i}}\)</span> and <span class="math notranslate nohighlight">\(R = \frac{c_{k,i}}{-p_{k,i}}\)</span>.</p>
+</section>
+<section id="Admittance-of-a-series-RL-circuit:">
+<h4>Admittance of a series RL circuit:<a class="headerlink" href="#Admittance-of-a-series-RL-circuit:" title="Link to this heading">#</a></h4>
+<p>The series RL circuit is the same as above for the constant and proportional term, but this time its admittance <span class="math notranslate nohighlight">\(\underline{Y}_\mathrm{RL}(\mathrm{\underline{s}})\)</span> is used instead of its impedance: <span class="math">\begin{equation}
+\underline{Y}_\mathrm{RL}(\mathrm{\underline{s}}) = \frac{\frac{1}{L}}{\mathrm{\underline{s}} + \frac{R}{L}}
+\end{equation}</span> This admittance matches the target response if <span class="math notranslate nohighlight">\(L = \frac{1}{c_{k,i}}\)</span> and <span class="math notranslate nohighlight">\(R = \frac{-p_{k,i}}{c_{k,i}}\)</span>.</p>
+</section>
+</section>
+<section id="Complex-Conjugate-Poles-and-Residues">
+<h3>Complex Conjugate Poles and Residues<a class="headerlink" href="#Complex-Conjugate-Poles-and-Residues" title="Link to this heading">#</a></h3>
+<p>In Vector Fitting, complex poles <span class="math notranslate nohighlight">\(\underline{p}_k = p'_k + \mathrm{j} p''_k\)</span> and residues <span class="math notranslate nohighlight">\(\underline{c}_k = c'_k + \mathrm{j} c''_k\)</span> always come in complex conjugate pairs <span class="math notranslate nohighlight">\((\underline{p}_k, \underline{p}_k^*)\)</span> and <span class="math notranslate nohighlight">\((\underline{c}_k, \underline{c}_k^*)\)</span>. The target response for an equivalent electrical circuit of such a complex conjugate pair is therefore:</p>
+<p><span class="math">\begin{equation}
+\underline{H}_\mathrm{target}(\mathrm{\underline{s}}) = \frac{\underline{c}_k}{\mathrm{\underline{s}} - \underline{p}_k} + \frac{\underline{c}^*_k}{\mathrm{\underline{s}} - \underline{p}^*_k} = \frac{2 c'_k \mathrm{\underline{s}} - 2 (c'_k p'_k + c''_k p''_k)}{\mathrm{\underline{s}}^2 - 2 p'_k \mathrm{\underline{s}} + |\underline{p}_k|^2}
+\end{equation}</span></p>
+<p>There are different ways to build an equivalent circuit out of passive or active components, which can be dimensioned to match this target frequency response. Four such circuits are presented and analyzed in [3], two of them are presented here.</p>
+<section id="Impedance-of-a-parallel-RLC-circuit">
+<h4>Impedance of a parallel RLC circuit<a class="headerlink" href="#Impedance-of-a-parallel-RLC-circuit" title="Link to this heading">#</a></h4>
+<p>A parallel RLC circuit with a second resistor in series with the inductor provides an impedance <span class="math notranslate nohighlight">\(\underline{Z}_\mathrm{RCL}(\mathrm{\underline{s}})\)</span> that can be matched to the target response.</p>
+<center><p><img alt="23e568761c4146f5a9b69ae4d9ed0301" class="no-scaled-link" src="../_images/circuit_cc-pole_rlc-passive.svg" style="width: 200px;" /></p>
+</center><p><span class="math">\begin{equation}
+\underline{Z}_\mathrm{RCL}(\mathrm{\underline{s}}) = \frac{\frac{1}{C} \mathrm{\underline{s}} + \frac{R_1}{LC}}{\mathrm{\underline{s}}^2 + (\frac{1}{R_2 C}) \mathrm{\underline{s}} + \frac{1}{LC} (1 + \frac{R_1}{R_2})}
+\end{equation}</span></p>
+<p>This impedance matches the target response if <span class="math notranslate nohighlight">\(C = \frac{1}{2 c'_k}\)</span>, <span class="math notranslate nohighlight">\(L = \frac{2 c'_k}{(p''_k)^2 + (\frac{c''_k p''_k}{c'_k})^2}\)</span>, <span class="math notranslate nohighlight">\(R_1 = \frac{-2(c'_k p'_k + c''_k p''_k)}{(p''_k)^2 + (\frac{c''_k p''_k}{c'_k})^2}\)</span>, and <span class="math notranslate nohighlight">\(R_2 = \frac{(2 c'_k)^2}{-2(c'_kp'_k-c''_kp''_k)}\)</span>.</p>
+<p>In some cases, the calculated resistances can be negative, meaning that the passive circuit is required to provide gain, which is not normally possible. This is not uncommon if the modelled network is an active network, but it can also happen for purely passive networks. Some circuit simulators allow negative resistances by implementing them with the help of some kind of controlled source. To have full control over the behavior, the synthesized equivalent circuits already include
+voltage-controlled current sources in parallel with the resistors to realize negative effective resistances.</p>
+<center><p><img alt="3adbbdf4060b495192ce9c081f378d69" class="no-scaled-link" src="../_images/circuit_cc-pole_rlc-active.svg" style="width: 200px;" /></p>
+</center><p>The effective resistance <span class="math notranslate nohighlight">\(R_{i,eff}\)</span> of a resistor <span class="math notranslate nohighlight">\(R_i\)</span> in parallel with a current source controlled by the voltage <span class="math notranslate nohighlight">\(V_i\)</span> over the resistor equals <span class="math notranslate nohighlight">\(-R_i\)</span> if the transconductance of the controlled current source is <span class="math notranslate nohighlight">\(g_{T,i} = \frac{-2}{R_i}\)</span>.</p>
+<p>This way, both resistances <span class="math notranslate nohighlight">\(R_1\)</span> and <span class="math notranslate nohighlight">\(R_2\)</span> can be realized with both positive and negative values. In case of positive resistances, we simply put <span class="math notranslate nohighlight">\(g_{T,i} = 0\)</span>.</p>
+</section>
+<section id="Admittance-of-a-series-RLC-circuit">
+<h4>Admittance of a series RLC circuit<a class="headerlink" href="#Admittance-of-a-series-RLC-circuit" title="Link to this heading">#</a></h4>
+<p>A series RLC circuit combined with a parallel current source controlled by the voltage over the capacitor provides an admittance <span class="math notranslate nohighlight">\(\underline{Y}_\mathrm{RCL,I}(\mathrm{\underline{s}})\)</span> that can be matched to the target response.</p>
+<center><p><img alt="907da4cb18ce4bbda3aa7c6badc2bc9f" class="no-scaled-link" src="../_images/circuit_series_RCL_parallel_current.svg" style="width: 200px;" /></p>
+</center><p><span class="math">\begin{equation}
+\underline{Y}_\mathrm{RCL,I}(\mathrm{\underline{s}}) = \frac{1/L \mathrm{\underline{s}} + b}{\mathrm{\underline{s}}^2 + R/L \mathrm{\underline{s}} + 1 / (LC)}
+\end{equation}</span></p>
+<p>This admittance matches the target response if <span class="math notranslate nohighlight">\(L = \frac{1}{2 c'_k}\)</span>, <span class="math notranslate nohighlight">\(R = \frac{-p'_k}{ c'_k}\)</span>, <span class="math notranslate nohighlight">\(C = \frac{2 c'_k}{|\underline{p}_k|^2}\)</span> and <span class="math notranslate nohighlight">\(b = -2 (c'_k p'_k + c''_k p''_k)\)</span> with <span class="math notranslate nohighlight">\(g_\mathrm{m} = bLC = \frac{b}{|\underline{p}_k|^2}\)</span>.</p>
+</section>
+</section>
+</section>
+<section id="Equivalent-Circuit-of-a-Vector-Fitted-N-Port">
+<h2>Equivalent Circuit of a Vector Fitted <span class="math notranslate nohighlight">\(N\)</span>-Port<a class="headerlink" href="#Equivalent-Circuit-of-a-Vector-Fitted-N-Port" title="Link to this heading">#</a></h2>
+<section id="Case-1:-Vector-Fitted-S-Parameters">
+<h3>Case 1: Vector Fitted S Parameters<a class="headerlink" href="#Case-1:-Vector-Fitted-S-Parameters" title="Link to this heading">#</a></h3>
+<p>The equivalent circuit of a <span class="math notranslate nohighlight">\(N\)</span>-port with a Vector Fitted scattering matrix consists of an interface network and a transfer network for each port.</p>
+<p>For the realization of the interface network, sometimes also called port network, one can either use a current source (<span class="math notranslate nohighlight">\(I_\mathrm{src,i})\)</span> with a parallel resistor <span class="math notranslate nohighlight">\(R_i\)</span> (Norton equivalent), or a voltage source (<span class="math notranslate nohighlight">\(V_\mathrm{src,i}\)</span>) with a series resistor <span class="math notranslate nohighlight">\(R_i\)</span> (Thévenin equivalent). Solving Kirchhoff’s current law for the Norton equivalent interface network, one gets <span class="math notranslate nohighlight">\(V_i = R_i (I_i + I_{src,i})\)</span>. Solving Kirchhoff’s voltage law for the Thévenin equivalent interface
+network, one gets <span class="math notranslate nohighlight">\(V_i = R_i I_i + V_{src,i}\)</span>.</p>
+<p>Comparing both equations with the definitions of the incident (<span class="math notranslate nohighlight">\(a_i\)</span>) and reflected (<span class="math notranslate nohighlight">\(b_i\)</span>) power waves at port <span class="math notranslate nohighlight">\(i\)</span>, one can see that the source terms <span class="math notranslate nohighlight">\(I_\mathrm{src,i}\)</span> and <span class="math notranslate nohighlight">\(V_\mathrm{src,i}\)</span> are proportional to the reflected power wave <span class="math notranslate nohighlight">\(b_i\)</span>, where <span class="math notranslate nohighlight">\(R_i\)</span> is the reference impedance (resistance) of port <span class="math notranslate nohighlight">\(i\)</span>:</p>
+<p><span class="math">\begin{equation}
+b_i = \frac{1}{2 \sqrt{R_i}} (V_i - R_i I_i) = \frac{\sqrt{R_i}}{2} I_{src,i} = \frac{1}{2 \sqrt{R_i}} V_{src,i}
+\end{equation}</span></p>
+<p>The incident power wave <span class="math notranslate nohighlight">\(a_i\)</span> is calculated from the port voltage <span class="math notranslate nohighlight">\(V_i\)</span> and the port current <span class="math notranslate nohighlight">\(I_i\)</span>, regardless of the type of interface network:</p>
+<p><span class="math">\begin{equation}
+a_i = \frac{1}{2\sqrt{R_i}} (V_i + R_i I_i)
+\end{equation}</span></p>
+<section id="Expressing-Scattering-Responses-Using-Admittances">
+<h4>Expressing Scattering Responses Using Admittances<a class="headerlink" href="#Expressing-Scattering-Responses-Using-Admittances" title="Link to this heading">#</a></h4>
+<p>The figure below shows the structure of the interface and transfer networks of one such port <span class="math notranslate nohighlight">\(i\)</span> with the external port voltage <span class="math notranslate nohighlight">\(V_i\)</span> and port current <span class="math notranslate nohighlight">\(I_i\)</span>. The individual frequency responses <span class="math notranslate nohighlight">\(\underline{S}_{i,j}\)</span> of the Vector Fit are reproduced with the equivalent admittances <span class="math notranslate nohighlight">\(\underline{Y}_{\mathrm{S},i,j}\)</span> based on the fitting parameters <span class="math notranslate nohighlight">\(\mathbf{\underline{p}}\)</span>, <span class="math notranslate nohighlight">\(\mathbf{\underline{c}}\)</span>, <span class="math notranslate nohighlight">\(\mathbf{d}\)</span> and <span class="math notranslate nohighlight">\(\mathbf{e}\)</span> as described above.</p>
+<center><p><img alt="7446bddc6e774628b7184014edf459a5" class="no-scaled-link" src="../_images/circuit_equivalent_s_admittance.svg" style="width: 500px;" /></p>
+</center><p>This equivalent circuit topology has some room for optimizations. For example, the controlled sources for the incident power waves, which are driving the stacks of parallel admittances, can be realized differentially and the resulting currents can be summed in a single node for the transfer back to the respective ports for the reflected power waves. This is shown in the following schematic:</p>
+<center><p><img alt="27b9547f1c3445fbb88bace0505c3497" class="no-scaled-link" src="../_images/circuit_equivalent_s_admittance_differential.png" style="width: 500px;" /></p>
+</center></section>
+<section id="Expressing-Scattering-Responses-Using-Impedances">
+<h4>Expressing Scattering Responses Using Impedances<a class="headerlink" href="#Expressing-Scattering-Responses-Using-Impedances" title="Link to this heading">#</a></h4>
+<p>The figure below shows the structure of the interface and transfer networks of one such port <span class="math notranslate nohighlight">\(i\)</span> with the external port voltage <span class="math notranslate nohighlight">\(V_i\)</span> and port current <span class="math notranslate nohighlight">\(I_i\)</span>. The individual frequency responses <span class="math notranslate nohighlight">\(\underline{S}_{i,j}\)</span> of the Vector Fit are reproduced with the equivalent impedances <span class="math notranslate nohighlight">\(\underline{Z}_{\mathrm{S},i,j}\)</span> based on the fitting parameters <span class="math notranslate nohighlight">\(\mathbf{\underline{p}}\)</span>, <span class="math notranslate nohighlight">\(\mathbf{\underline{c}}\)</span>, <span class="math notranslate nohighlight">\(\mathbf{d}\)</span> and <span class="math notranslate nohighlight">\(\mathbf{e}\)</span> as described above.
+The impedances are driven by controlled current sources, which produce a current proportional to the incident power wave <span class="math notranslate nohighlight">\(a_i\)</span> with <span class="math notranslate nohighlight">\(g_{a,i} = \frac{1}{2 \sqrt{R_i}}\)</span> and <span class="math notranslate nohighlight">\(r_{a,i} = \frac{\sqrt{R_i}}{2}\)</span>. The voltages <span class="math notranslate nohighlight">\(V_{j,i,k}\)</span> across the individual impedances <span class="math notranslate nohighlight">\(Z_{j,i,k}\)</span>, which represent a fraction of the total scattering response modelled by a single pole-residue pair, are transferred to the corresponding voltage-controlled current source at the port interfaces
+with a gain of <span class="math notranslate nohighlight">\(g_{b,j} = \frac{\sqrt{R_i}}{2}\)</span>, as derived above.</p>
+<center><p><img alt="2b7d595d306040e3853715a7f4b3d56b" class="no-scaled-link" src="../_images/circuit_equivalent_s_impedance.svg" style="width: 600px;" /></p>
+</center></section>
+<section id="Direct-implementation-of-the-State-Space-Equations">
+<h4>Direct implementation of the State-Space Equations<a class="headerlink" href="#Direct-implementation-of-the-State-Space-Equations" title="Link to this heading">#</a></h4>
+<p>The direct synthesis of an equivalent circuit from the state-space model is fairly straightforward, as the circuit topology is derived from the <a class="reference external" href="https://en.wikipedia.org/wiki/State-space_representation">state-space equations</a>:</p>
+<p><span class="math">\begin{equation}
+\mathbf{\dot{x}}(t) = \mathbf{A} \mathbf{x}(t) + \mathbf{B} \mathbf{u}(t)
+\end{equation}</span> <span class="math">\begin{equation}
+\mathbf{y}(t) = \mathbf{C} \mathbf{x}(t) + \mathbf{D} \mathbf{u}(t) + \mathbf{E} \mathbf{\dot{u}}(t)
+\end{equation}</span></p>
+<p>In the case of scattering parameters, the input vector <span class="math notranslate nohighlight">\(\mathbf{u}\)</span> represents the incident waves <span class="math notranslate nohighlight">\(\mathbf{a}\)</span> and the output vector <span class="math notranslate nohighlight">\(\mathbf{y}\)</span> represents the reflected waves <span class="math notranslate nohighlight">\(\mathbf{b}\)</span>. Regardless of the parameter representation, the state vector <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> is an internal variable defining the dynamics of the network.</p>
+<p>In the equivalent circuit, the values of the circuit elements are given by the coefficients in the state-space matrices A, B, C, D (and E). Thanks to the sparsity of these matrices in case of a vector-fitted pole/residue model, the number of non-zero circuit elements is much lower than in the fully populated case, resulting in a compact netlist.</p>
+<p>As shown in the schematic below, there is one interface network for each port, transferring the individual inputs and states with their respective gains to the output. The state networks depend on the pole type: a real pole is represented by one state, a complex conjugate pole pair is represented by two states. In case of the optional proportional term E, another differentiation network is required for each port.</p>
+<center><p><img alt="ce7dbac27b624722b856f29512f3e65b" class="no-scaled-link" src="../_images/circuit_equivalent_s_statespace.svg" style="width: 600px;" /></p>
+</center><p>The individual gains of the controlled sources are listed below, resulting mostly from the definition of the scattering parameters as a function of the port voltages and currents:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(g_{D,i,j} = \frac{2}{\sqrt{R_{0,i}}} d_{i,j} \frac{1}{2\sqrt{R_{0,j}}}\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(f_{D,i,j} = \frac{2}{\sqrt{R_{0,i}}} d_{i,j} \frac{\sqrt{R_{0,j}}}{2}\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(g_{E,i,j} = \frac{2}{\sqrt{R_{0,i}}} e_{i,j}\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(g_{C,i,j,k} = \frac{2}{\sqrt{R_{0,i}}} c_{i,j,k}\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(g_{a,j} = \frac{1}{2\sqrt{R_{0,j}}}\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(f_{a,j} = \frac{\sqrt{R_{0,j}}}{2}\)</span></p></li>
+</ul>
+<p>For more details on the state-space circuit synthesis, refer to “Passive Macromodeling” by S. Grivet-Talocia and B. Gustavsen [4].</p>
+</section>
+<section id="Implementation-in-scikit-rf">
+<h4>Implementation in scikit-rf<a class="headerlink" href="#Implementation-in-scikit-rf" title="Link to this heading">#</a></h4>
+<p>The implementation in scikit-rf has changed several times in the past, experimenting with equivalent admittances, equivalent impedances, and direct state-space circuit synthesis, as shown above. Currently, scikit-rf uses a direct implementation of the state-space equations. Comparing the simulation runtimes in ngspice, Xyce, and LTspice, there are large differences between the types of equivalent netlists. While the exact reasons for the performance differences are difficult to investigate, it
+seems like the kind of controlled sources has a big impact in any simulation based on modified nodal analysis (MNA). Voltage-controlled current sources usually perform better than controlled voltage sources. Counterintuitively, the number of controlled sources is not always critical for most MNA circuit solvers, as long as the controlling signal is already present in the solution vector of the linear system. The file size of the synthesized equivalent netlist is therefore not representative of
+the performance in the simulator.</p>
+</section>
+</section>
+<section id="Case-2:-Vector-Fitted-Y-Parameters">
+<h3>Case 2: Vector Fitted Y Parameters<a class="headerlink" href="#Case-2:-Vector-Fitted-Y-Parameters" title="Link to this heading">#</a></h3>
+<p>Not implemented. See <a class="reference external" href="https://en.wikipedia.org/wiki/Admittance_parameters">Y Parameters</a> for a general equivalent circuit.</p>
+</section>
+<section id="Case-3:-Vector-Fitted-Z-Parameters">
+<h3>Case 3: Vector Fitted Z Parameters<a class="headerlink" href="#Case-3:-Vector-Fitted-Z-Parameters" title="Link to this heading">#</a></h3>
+<p>Not implemented. See <a class="reference external" href="https://en.wikipedia.org/wiki/Impedance_parameters">Z Parameters</a> for a general equivalent circuit.</p>
+</section>
+</section>
+<section id="References">
+<h2>References<a class="headerlink" href="#References" title="Link to this heading">#</a></h2>
+<div id="link_ref1"></div><p>[1] B. Gustavsen and A. Semlyen, “Rational approximation of frequency domain responses by vector fitting,” in IEEE Transactions on Power Delivery, vol. 14, no. 3, pp. 1052-1061, July 1999, DOI: <a class="reference external" href="https://doi.org/10.1109/61.772353">10.1109/61.772353</a>.</p>
+<div id="link_ref2"></div><p>[2] <a class="reference external" href="https://www.sintef.no/projectweb/vectorfitting/">https://www.sintef.no/projectweb/vectorfitting/</a></p>
+<div id="link_ref3"></div><p>[3] G. Antonini, “SPICE equivalent circuits of frequency-domain responses,” in IEEE Transactions on Electromagnetic Compatibility, vol. 45, no. 3, pp. 502-512, Aug. 2003, DOI: <a class="reference external" href="https://doi.org/10.1109/TEMC.2003.815528">10.1109/TEMC.2003.815528</a>.</p>
+<div id="link_ref4"></div><p>[4] “Passive Macromodeling” by S. Grivet-Talocia and B. Gustavsen, Wiley, 2016, DOI: <a class="reference external" href="https://doi.org/10.1002/9781119140931">10.1002/9781119140931</a>.</p>
+</section>
+</section>
+
+        </article><button class="back-to-top" type="button">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+  </svg>
+  <span>Back to top</span>
+</button><div class="navigation flex print:hidden"><div class="navigation-prev">
+    <a href="Media.html">
+      <i class="i-lucide chevron-left"></i>
+      <div class="page-info">
+        <span>Previous</span><div class="title">Media</div></div>
+    </a>
+  </div><div class="navigation-next">
+    <a href="VectorFittingParametric.html">
+      <div class="page-info">
+        <span>Next</span>
+        <div class="title">Parametric Vector Fitting</div>
+      </div>
+      <i class="i-lucide chevron-right"></i>
+    </a>
+  </div></div></div>
+    </div>
+  </main>
+</div>
+<footer class="sy-foot">
+  <div class="sy-foot-inner sy-container mx-auto">
+    <div class="sy-foot-reserved md:flex justify-between items-center">
+      <div class="sy-foot-copyright"><p>2025, scikit-rf team</p>
+  
+  <p>
+    Made with
+    
+    <a href="https://www.sphinx-doc.org/">Sphinx</a> and
+    
+    <a href="https://shibuya.lepture.com">Shibuya theme</a>.
+  </p>
+</div>
+      <div class="sy-foot-socials">
+  <a href="https://github.com/scikit-rf/scikit-rf" aria-label="GitHub">
+    <iconify-icon icon="simple-icons:github"></iconify-icon>
+  </a></div>
+    </div>
+  </div>
+</footer>
+      <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../_static/copybutton.js?v=34bd459d"></script>
+      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+      <script src="../_static/shibuya.js?v=50760d75"></script>
+      <script src="https://cdn.jsdelivr.net/npm/@jupyter-widgets/html-manager@^1.0.1/dist/embed-amd.js"></script>
+      <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
+      <script src="../_static/skrf.js?v=bdeb9fb0"></script></body>
+</html>

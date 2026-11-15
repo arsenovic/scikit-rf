@@ -1,0 +1,6 @@
+skrf.circuit.Circuit.T
+======================
+
+.. currentmodule:: skrf.circuit
+
+.. autoproperty:: Circuit.T

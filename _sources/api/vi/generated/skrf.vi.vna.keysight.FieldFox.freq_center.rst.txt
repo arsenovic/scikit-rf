@@ -1,0 +1,6 @@
+skrf.vi.vna.keysight.FieldFox.freq\_center
+==========================================
+
+.. currentmodule:: skrf.vi.vna.keysight
+
+.. autoproperty:: FieldFox.freq_center

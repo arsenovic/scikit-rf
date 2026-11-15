@@ -1,0 +1,6 @@
+skrf.vi.validators.BooleanValidator.\_\_init\_\_
+================================================
+
+.. currentmodule:: skrf.vi.validators
+
+.. automethod:: BooleanValidator.__init__

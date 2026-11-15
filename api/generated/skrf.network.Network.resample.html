@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en" data-accent-color="blue" data-content_root="../../">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>skrf.network.Network.resample - scikit-rf</title><link rel="author" title="About these documents" href="../../about.html" /><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="skrf.network.Network.rotate" href="skrf.network.Network.rotate.html" /><link rel="prev" title="skrf.network.Network.renumbered" href="skrf.network.Network.renumbered.html" /><script>
+    function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
+    setColorMode(localStorage._theme||"auto");
+  </script><link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=ad592e98" />
+    <link rel="stylesheet" type="text/css" href="../../_static/shibuya.css?v=2ceb65ce" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-codeautolink.css?v=b2176991" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link media="print" rel="stylesheet" type="text/css" href="../../_static/print.css?v=20ff2c19" />
+    <link rel="stylesheet" type="text/css" href="../../_static/skrf.css?v=7e772ba2" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --sy-f-text: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+  --sy-f-heading: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+}
+</style>
+    
+  <meta property="og:type" content="website"/><meta property="og:title" content="skrf.network.Network.resample"/>
+    <meta name="twitter:card" content="summary"/>
+  </head>
+<body><div class="sy-head">
+  <div class="sy-head-blur"></div>
+  <div class="sy-head-inner sy-container mx-auto">
+    <a class="sy-head-brand" href="../../index.html">
+      <img class="light-logo" src="../../_static/logo.svg" alt="scikit-rf" height="28" loading="lazy" />
+      <img class="dark-logo" src="../../_static/logo.svg" alt="scikit-rf" height="28" loading="lazy" />
+      <strong>scikit-rf</strong>
+    </a>
+    <div class="sy-head-nav" id="head-nav">
+      <nav class="sy-head-links"><ul><li class="link"><a href="../../index.html">Home</a></li><li class="link"><a href="../../tutorials/index.html">Tutorials</a></li><li class="link"><a href="../../examples/index.html">Examples</a></li><li class="link"><a href="../index.html">API</a></li><li class="link">
+          <a href="https://github.com/scikit-rf/scikit-rf">
+            <span>GitHub</span><i class="i-lucide external-link"></i></a>
+        </li></ul></nav>
+      <div class="sy-head-extra flex items-center print:hidden"><form class="searchbox flex items-center" action="../../search.html" method="get">
+  <input type="text" name="q" placeholder="Search" />
+  <kbd>/</kbd>
+</form><div class="sy-head-socials">
+  <a href="https://github.com/scikit-rf/scikit-rf" aria-label="GitHub">
+    <iconify-icon icon="simple-icons:github"></iconify-icon>
+  </a>
+  <a href="https://www.linkedin.com/groups/12462155/" aria-label="LinkedIn">
+    <iconify-icon icon="simple-icons:linkedin"></iconify-icon>
+  </a>
+  <a href="https://app.element.io/#/room/#scikit-rf:matrix.org" aria-label="Matrix">
+    <iconify-icon icon="simple-icons:matrix"></iconify-icon>
+  </a></div></div>
+    </div>
+    <div class="sy-head-actions flex items-center shrink-0 print:hidden"><button class="js-theme theme-switch flex items-center"
+data-aria-auto="Switch to light color mode"
+data-aria-light="Switch to dark color mode"
+data-aria-dark="Switch to auto color mode">
+<i class="i-lucide theme-icon"></i>
+</button><button class="md:hidden flex items-center js-menu" aria-label="Menu" type="button" aria-controls="head-nav" aria-expanded="false">
+        <div class="hamburger">
+          <span class="hamburger_1"></span>
+          <span class="hamburger_2"></span>
+          <span class="hamburger_3"></span>
+        </div>
+      </button>
+    </div>
+  </div>
+</div>
+<div class="sy-page sy-container flex mx-auto">
+  <aside id="lside" class="sy-lside md:w-72 md:shrink-0 print:hidden">
+    <div class="sy-lside-inner md:sticky">
+      <div class="sy-scrollbar p-6">
+        <div class="globaltoc" data-expand-depth="0"><p class="caption" role="heading" aria-level="3"><span class="caption-text">Getting started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../index.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/Installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/Introduction.html">Introduction</a></li>
+</ul>
+<p class="caption" role="heading" aria-level="3"><span class="caption-text">User guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../examples/index.html">Examples</a></li>
+</ul>
+<p class="caption" role="heading" aria-level="3"><span class="caption-text">Reference</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">API</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../network.html">network (<code class="xref py py-mod docutils literal notranslate"><span class="pre">skrf.network</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../frequency.html">frequency (<code class="xref py py-mod docutils literal notranslate"><span class="pre">skrf.frequency</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../networkSet.html">networkSet (<code class="xref py py-mod docutils literal notranslate"><span class="pre">skrf.networkSet</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../plotting.html">plotting (<code class="xref py py-mod docutils literal notranslate"><span class="pre">skrf.plotting</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../media/index.html">Media</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../taper.html">taper (<code class="xref py py-mod docutils literal notranslate"><span class="pre">skrf.taper</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../calibration/index.html">calibration (<code class="xref py py-mod docutils literal notranslate"><span class="pre">skrf.calibration.calibration</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../calibration/deembedding.html">deembedding (<code class="xref py py-mod docutils literal notranslate"><span class="pre">skrf.calibration.deembedding</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../vi/index.html">virtual instruments (<code class="xref py py-mod docutils literal notranslate"><span class="pre">skrf.vi</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../vi/vna.html">vna (<code class="xref py py-mod docutils literal notranslate"><span class="pre">skrf.vi.vna</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../vectorFitting.html">vectorFitting (<code class="xref py py-mod docutils literal notranslate"><span class="pre">skrf.vectorFitting</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../qfactor.html">Qfactor (<code class="xref py py-mod docutils literal notranslate"><span class="pre">skrf.qfactor</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../time.html">time (<code class="xref py py-mod docutils literal notranslate"><span class="pre">skrf.time</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../circuit.html">circuit (<code class="xref py py-mod docutils literal notranslate"><span class="pre">skrf.circuit</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../media/device.html">device (<code class="xref py py-mod docutils literal notranslate"><span class="pre">skrf.media.device</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mathFunctions.html">mathFunctions (<code class="xref py py-mod docutils literal notranslate"><span class="pre">skrf.mathFunctions</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tlineFunctions.html">tlineFunctions (<code class="xref py py-mod docutils literal notranslate"><span class="pre">skrf.tlineFunctions</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../instances.html">instances (<code class="xref py py-mod docutils literal notranslate"><span class="pre">skrf.instances</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../constants.html">constants (<code class="xref py py-mod docutils literal notranslate"><span class="pre">skrf.constants</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../data/index.html">data (<code class="xref py py-mod docutils literal notranslate"><span class="pre">skrf.data</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../util.html">util (<code class="xref py py-mod docutils literal notranslate"><span class="pre">skrf.util</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../io/index.html">IO</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../glossary.html">Glossary</a></li>
+</ul>
+<p class="caption" role="heading" aria-level="3"><span class="caption-text">Project</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing/index.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../citations_ack/acknowledging.html">Citing scikit-rf</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../citations_ack/citations.html">scikit-rf Citations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../about.html">About</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../users.html">Users</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../license.html">License</a></li>
+</ul>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="lside-overlay js-menu" role="button" aria-label="Close left sidebar" aria-controls="lside" aria-expanded="false"></div>
+  <aside id="rside" class="sy-rside pb-3 w-64 shrink-0 order-last">
+    <button class="rside-close js-menu xl:hidden" aria-label="Close Table of Contents" type="button" aria-controls="rside" aria-expanded="false">
+      <i class="i-lucide close"></i>
+    </button>
+    <div class="sy-scrollbar sy-rside-inner px-6 xl:top-16 xl:sticky xl:pl-0 pt-6 pb-4"><div class="localtoc"><h3>On this page</h3><ul>
+<li><a class="reference internal" href="#skrf.network.Network.resample"><code class="docutils literal notranslate"><span class="pre">Network.resample()</span></code></a></li>
+</ul>
+</div><div id="ethical-ad-placement" data-ea-publisher="readthedocs"></div></div>
+  </aside>
+  <div class="rside-overlay js-menu" role="button" aria-label="Close Table of Contents" aria-controls="rside" aria-expanded="false"></div>
+  <main class="sy-main w-full max-sm:max-w-full print:pt-6">
+<div class="sy-breadcrumbs" role="navigation">
+  <div class="sy-breadcrumbs-inner flex items-center">
+    <div class="md:hidden mr-3">
+      <button class="js-menu" aria-label="Menu" type="button" aria-controls="lside" aria-expanded="false">
+        <i class="i-lucide menu"></i>
+      </button>
+    </div>
+    <ol class="flex-1" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="../../index.html"><span itemprop="name">scikit-rf</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="1" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="../index.html"><span itemprop="name">API</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="2" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="../network.html"><span itemprop="name">network (<code class="xref py py-mod docutils literal notranslate"><span class="pre">skrf.network</span></code>)</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="3" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="skrf.network.Network.html"><span itemprop="name">skrf.network.Network</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="4" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <strong itemprop="name">skrf.network.Network.resample</strong>
+        <meta itemprop="position" content="5" />
+      </li></ol>
+    <div class="xl:hidden ml-1">
+      <button class="js-menu" aria-label="Show table of contents" type="button" aria-controls="rside"
+        aria-expanded="false">
+        <i class="i-lucide outdent"></i>
+      </button>
+    </div>
+  </div>
+</div><div class="flex flex-col break-words justify-between">
+      <div class="relative min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
+  <article class="yue" role="main">
+          <section id="skrf-network-network-resample">
+<h1>skrf.network.Network.resample<a class="headerlink" href="#skrf-network-network-resample" title="Link to this heading">#</a></h1>
+<dl class="py method">
+<dt class="sig sig-object py" id="skrf.network.Network.resample">
+<span class="sig-prename descclassname"><span class="pre">Network.</span></span><span class="sig-name descname"><span class="pre">resample</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">freq_or_n</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#skrf.network.Network.resample" title="Link to this definition">#</a></dt>
+<dd><p>Interpolate the current Network along frequency axis (inplace).</p>
+<p>The input ‘freq_or_n` can be either a new
+<a class="reference internal" href="skrf.frequency.Frequency.html#skrf.frequency.Frequency" title="skrf.frequency.Frequency"><code class="xref py py-class docutils literal notranslate"><span class="pre">Frequency</span></code></a> or an <cite>int</cite>, or a new
+frequency vector (in Hz).</p>
+<p>See <a class="reference internal" href="skrf.network.Network.interpolate.html#skrf.network.Network.interpolate" title="skrf.network.Network.interpolate"><code class="xref py py-func docutils literal notranslate"><span class="pre">interpolate()</span></code></a> for more information.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>freq_or_n</strong> (<a class="reference internal" href="skrf.frequency.Frequency.html#skrf.frequency.Frequency" title="skrf.frequency.Frequency"><code class="xref py py-class docutils literal notranslate"><span class="pre">Frequency</span></code></a> or int or list-like) – <p>The new frequency over which to interpolate. this arg may be
+one of the following:</p>
+<ul>
+<li><p>a new <a class="reference internal" href="skrf.frequency.Frequency.html#skrf.frequency.Frequency" title="skrf.frequency.Frequency"><code class="xref py py-class docutils literal notranslate"><span class="pre">Frequency</span></code></a> object</p></li>
+<li><p>an int: the current frequency span is resampled linearly.</p></li>
+<li><p>a list-like: create a new frequency using <a class="reference internal" href="skrf.frequency.Frequency.from_f.html#skrf.frequency.Frequency.from_f" title="skrf.frequency.Frequency.from_f"><code class="xref py py-meth docutils literal notranslate"><span class="pre">from_f()</span></code></a></p></li>
+</ul>
+</p></li>
+<li><p><strong>**kwargs</strong> (<em>keyword arguments</em>) – passed to <code class="xref py py-func docutils literal notranslate"><span class="pre">scipy.interpolate.interp1d()</span></code> initializer.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The interpolation is performed inplace.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="#skrf.network.Network.resample" title="skrf.network.Network.resample"><code class="xref py py-obj docutils literal notranslate"><span class="pre">resample</span></code></a>, <a class="reference internal" href="skrf.network.Network.interpolate.html#skrf.network.Network.interpolate" title="skrf.network.Network.interpolate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">interpolate</span></code></a>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">interpolate_from_f</span></code></p>
+</div>
+</dd></dl>
+
+</section>
+
+        </article><button class="back-to-top" type="button">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+  </svg>
+  <span>Back to top</span>
+</button><div class="navigation flex print:hidden"><div class="navigation-prev">
+    <a href="skrf.network.Network.renumbered.html">
+      <i class="i-lucide chevron-left"></i>
+      <div class="page-info">
+        <span>Previous</span><div class="title">skrf.network.Network.renumbered</div></div>
+    </a>
+  </div><div class="navigation-next">
+    <a href="skrf.network.Network.rotate.html">
+      <div class="page-info">
+        <span>Next</span>
+        <div class="title">skrf.network.Network.rotate</div>
+      </div>
+      <i class="i-lucide chevron-right"></i>
+    </a>
+  </div></div></div>
+    </div>
+  </main>
+</div>
+<footer class="sy-foot">
+  <div class="sy-foot-inner sy-container mx-auto">
+    <div class="sy-foot-reserved md:flex justify-between items-center">
+      <div class="sy-foot-copyright"><p>2025, scikit-rf team</p>
+  
+  <p>
+    Made with
+    
+    <a href="https://www.sphinx-doc.org/">Sphinx</a> and
+    
+    <a href="https://shibuya.lepture.com">Shibuya theme</a>.
+  </p>
+</div>
+      <div class="sy-foot-socials">
+  <a href="https://github.com/scikit-rf/scikit-rf" aria-label="GitHub">
+    <iconify-icon icon="simple-icons:github"></iconify-icon>
+  </a></div>
+    </div>
+  </div>
+</footer>
+      <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../_static/copybutton.js?v=34bd459d"></script>
+      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+      <script src="../../_static/shibuya.js?v=50760d75"></script>
+      <script src="https://cdn.jsdelivr.net/npm/@jupyter-widgets/html-manager@^1.0.1/dist/embed-amd.js"></script>
+      <script src="../../_static/skrf.js?v=bdeb9fb0"></script></body>
+</html>

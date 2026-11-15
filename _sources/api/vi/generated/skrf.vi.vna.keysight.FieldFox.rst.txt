@@ -1,0 +1,58 @@
+﻿skrf.vi.vna.keysight.FieldFox
+=============================
+
+.. currentmodule:: skrf.vi.vna.keysight
+
+.. autoclass:: FieldFox
+  :no-members:
+
+
+
+.. rubric:: Attributes
+
+.. autosummary::
+  :toctree:
+  :nosignatures:
+
+  ~FieldFox.active_trace
+  ~FieldFox.active_trace_sdata
+  ~FieldFox.calibration
+  ~FieldFox.freq_center
+  ~FieldFox.freq_span
+  ~FieldFox.freq_start
+  ~FieldFox.freq_step
+  ~FieldFox.freq_stop
+  ~FieldFox.frequency
+  ~FieldFox.if_bandwidth
+  ~FieldFox.is_continuous
+  ~FieldFox.npoints
+  ~FieldFox.nports
+  ~FieldFox.ntraces
+  ~FieldFox.query_format
+  ~FieldFox.sweep_time
+  ~FieldFox.timeout
+  ~FieldFox.window_configuration
+
+
+
+
+
+.. rubric:: Methods
+
+.. autosummary::
+  :toctree:
+  :nosignatures:
+
+  ~FieldFox.__init__
+  ~FieldFox.command
+  ~FieldFox.define_measurement
+  ~FieldFox.get_measurement_parameter
+  ~FieldFox.get_snp_network
+  ~FieldFox.query
+  ~FieldFox.query_values
+  ~FieldFox.read
+  ~FieldFox.read_values
+  ~FieldFox.sweep
+  ~FieldFox.write
+  ~FieldFox.write_values
+

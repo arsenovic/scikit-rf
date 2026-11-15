@@ -1,0 +1,6 @@
+﻿skrf.mathFunctions.rand\_rng
+============================
+
+.. currentmodule:: skrf.mathFunctions
+
+.. autofunction:: rand_rng

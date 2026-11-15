@@ -1,0 +1,6 @@
+skrf.vi.vna.nanovna.NanoVNAv2.get\_snp\_network
+===============================================
+
+.. currentmodule:: skrf.vi.vna.nanovna
+
+.. automethod:: NanoVNAv2.get_snp_network

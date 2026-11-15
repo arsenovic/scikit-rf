@@ -1,0 +1,6 @@
+skrf.circuit.Circuit.update\_networks
+=====================================
+
+.. currentmodule:: skrf.circuit
+
+.. automethod:: Circuit.update_networks

@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="en" data-accent-color="blue" data-content_root="../../">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>skrf.time - scikit-rf</title><link rel="author" title="About these documents" href="../../about.html" /><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><script>
+    function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
+    setColorMode(localStorage._theme||"auto");
+  </script><link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=ad592e98" />
+    <link rel="stylesheet" type="text/css" href="../../_static/shibuya.css?v=2ceb65ce" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-codeautolink.css?v=b2176991" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link media="print" rel="stylesheet" type="text/css" href="../../_static/print.css?v=20ff2c19" />
+    <link rel="stylesheet" type="text/css" href="../../_static/skrf.css?v=7e772ba2" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --sy-f-text: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+  --sy-f-heading: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+}
+</style>
+    
+  <meta property="og:type" content="website"/><meta property="og:title" content="skrf.time"/>
+    <meta name="twitter:card" content="summary"/>
+  </head>
+<body><div class="sy-head">
+  <div class="sy-head-blur"></div>
+  <div class="sy-head-inner sy-container mx-auto">
+    <a class="sy-head-brand" href="../../index.html">
+      <img class="light-logo" src="../../_static/logo.svg" alt="scikit-rf" height="28" loading="lazy" />
+      <img class="dark-logo" src="../../_static/logo.svg" alt="scikit-rf" height="28" loading="lazy" />
+      <strong>scikit-rf</strong>
+    </a>
+    <div class="sy-head-nav" id="head-nav">
+      <nav class="sy-head-links"><ul><li class="link"><a href="../../index.html">Home</a></li><li class="link"><a href="../../tutorials/index.html">Tutorials</a></li><li class="link"><a href="../../examples/index.html">Examples</a></li><li class="link"><a href="../../api/index.html">API</a></li><li class="link">
+          <a href="https://github.com/scikit-rf/scikit-rf">
+            <span>GitHub</span><i class="i-lucide external-link"></i></a>
+        </li></ul></nav>
+      <div class="sy-head-extra flex items-center print:hidden"><form class="searchbox flex items-center" action="../../search.html" method="get">
+  <input type="text" name="q" placeholder="Search" />
+  <kbd>/</kbd>
+</form><div class="sy-head-socials">
+  <a href="https://github.com/scikit-rf/scikit-rf" aria-label="GitHub">
+    <iconify-icon icon="simple-icons:github"></iconify-icon>
+  </a>
+  <a href="https://www.linkedin.com/groups/12462155/" aria-label="LinkedIn">
+    <iconify-icon icon="simple-icons:linkedin"></iconify-icon>
+  </a>
+  <a href="https://app.element.io/#/room/#scikit-rf:matrix.org" aria-label="Matrix">
+    <iconify-icon icon="simple-icons:matrix"></iconify-icon>
+  </a></div></div>
+    </div>
+    <div class="sy-head-actions flex items-center shrink-0 print:hidden"><button class="js-theme theme-switch flex items-center"
+data-aria-auto="Switch to light color mode"
+data-aria-light="Switch to dark color mode"
+data-aria-dark="Switch to auto color mode">
+<i class="i-lucide theme-icon"></i>
+</button><button class="md:hidden flex items-center js-menu" aria-label="Menu" type="button" aria-controls="head-nav" aria-expanded="false">
+        <div class="hamburger">
+          <span class="hamburger_1"></span>
+          <span class="hamburger_2"></span>
+          <span class="hamburger_3"></span>
+        </div>
+      </button>
+    </div>
+  </div>
+</div>
+<div class="sy-page sy-container flex mx-auto">
+  <aside id="lside" class="sy-lside md:w-72 md:shrink-0 print:hidden">
+    <div class="sy-lside-inner md:sticky">
+      <div class="sy-scrollbar p-6">
+        <div class="globaltoc" data-expand-depth="0"><p class="caption" role="heading" aria-level="3"><span class="caption-text">Getting started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../index.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/Installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/Introduction.html">Introduction</a></li>
+</ul>
+<p class="caption" role="heading" aria-level="3"><span class="caption-text">User guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../examples/index.html">Examples</a></li>
+</ul>
+<p class="caption" role="heading" aria-level="3"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../api/index.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../glossary.html">Glossary</a></li>
+</ul>
+<p class="caption" role="heading" aria-level="3"><span class="caption-text">Project</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing/index.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../citations_ack/acknowledging.html">Citing scikit-rf</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../citations_ack/citations.html">scikit-rf Citations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../about.html">About</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../users.html">Users</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../license.html">License</a></li>
+</ul>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="lside-overlay js-menu" role="button" aria-label="Close left sidebar" aria-controls="lside" aria-expanded="false"></div>
+  <aside id="rside" class="sy-rside pb-3 w-64 shrink-0 order-last">
+    <button class="rside-close js-menu xl:hidden" aria-label="Close Table of Contents" type="button" aria-controls="rside" aria-expanded="false">
+      <i class="i-lucide close"></i>
+    </button>
+    <div class="sy-scrollbar sy-rside-inner px-6 xl:top-16 xl:sticky xl:pl-0 pt-6 pb-4"><div id="ethical-ad-placement" data-ea-publisher="readthedocs"></div></div>
+  </aside>
+  <div class="rside-overlay js-menu" role="button" aria-label="Close Table of Contents" aria-controls="rside" aria-expanded="false"></div>
+  <main class="sy-main w-full max-sm:max-w-full print:pt-6">
+<div class="sy-breadcrumbs" role="navigation">
+  <div class="sy-breadcrumbs-inner flex items-center">
+    <div class="md:hidden mr-3">
+      <button class="js-menu" aria-label="Menu" type="button" aria-controls="lside" aria-expanded="false">
+        <i class="i-lucide menu"></i>
+      </button>
+    </div>
+    <ol class="flex-1" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="../../index.html"><span itemprop="name">scikit-rf</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="1" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="../index.html"><span itemprop="name">Module code</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="2" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <strong itemprop="name">skrf.time</strong>
+        <meta itemprop="position" content="3" />
+      </li></ol>
+    <div class="xl:hidden ml-1">
+      <button class="js-menu" aria-label="Show table of contents" type="button" aria-controls="rside"
+        aria-expanded="false">
+        <i class="i-lucide outdent"></i>
+      </button>
+    </div>
+  </div>
+</div><div class="flex flex-col break-words justify-between">
+      <div class="relative min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
+  <article class="yue" role="main">
+          <h1>Source code for skrf.time</h1><div class="highlight"><pre>
+<span></span><span data-line="1"><span class="sd">"""</span>
+</span><span data-line="2"><span class="sd">.. module:: skrf.time</span>
+</span><span data-line="3"><span class="sd">========================================</span>
+</span><span data-line="4"><span class="sd">time (:mod:`skrf.time`)</span>
+</span><span data-line="5"><span class="sd">========================================</span>
+</span><span data-line="6">
+</span><span data-line="7"><span class="sd">Time domain functions</span>
+</span><span data-line="8">
+</span><span data-line="9">
+</span><span data-line="10"><span class="sd">.. autosummary::</span>
+</span><span data-line="11"><span class="sd">   :toctree: generated/</span>
+</span><span data-line="12">
+</span><span data-line="13"><span class="sd">   time_gate</span>
+</span><span data-line="14"><span class="sd">   detect_span</span>
+</span><span data-line="15"><span class="sd">   find_n_peaks</span>
+</span><span data-line="16"><span class="sd">   indexes</span>
+</span><span data-line="17"><span class="sd">   get_window</span>
+</span><span data-line="18">
+</span><span data-line="19"><span class="sd">"""</span>
+</span><span data-line="20"><span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
+</span><span data-line="21">
+</span><span data-line="22"><span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
+</span><span data-line="23"><span class="kn">from</span><span class="w"> </span><span class="nn">collections.abc</span><span class="w"> </span><span class="kn">import</span> <span class="n">Callable</span>
+</span><span data-line="24">
+</span><span data-line="25"><span class="c1"># imports for type hinting</span>
+</span><span data-line="26"><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">TYPE_CHECKING</span>
+</span><span data-line="27">
+</span><span data-line="28"><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+</span><span data-line="29"><span class="kn">import</span><span class="w"> </span><span class="nn">scipy</span>
+</span><span data-line="30"><span class="kn">from</span><span class="w"> </span><span class="nn">numpy.fft</span><span class="w"> </span><span class="kn">import</span> <span class="n">fft</span><span class="p">,</span> <span class="n">fftshift</span><span class="p">,</span> <span class="n">ifft</span><span class="p">,</span> <span class="n">ifftshift</span><span class="p">,</span> <span class="n">irfft</span><span class="p">,</span> <span class="n">rfft</span>
+</span><span data-line="31">
+</span><span data-line="32"><span class="kn">from</span><span class="w"> </span><span class="nn">.util</span><span class="w"> </span><span class="kn">import</span> <span class="n">find_nearest_index</span>
+</span><span data-line="33">
+</span><span data-line="34"><span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
+</span><span data-line="35">    <span class="kn">from</span><span class="w"> </span><span class="nn">.network</span><span class="w"> </span><span class="kn">import</span> <span class="n">Network</span>
+</span><span data-line="36">
+</span><span data-line="37">
+<div class="viewcode-block" id="indexes">
+<a class="viewcode-back" href="../../api/generated/skrf.time.indexes.html#skrf.time.indexes">[docs]</a>
+</span><span data-line="38"><span class="k">def</span><span class="w"> </span><span class="nf">indexes</span><span class="p">(</span><span class="n">y</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">thres</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.3</span><span class="p">,</span> <span class="n">min_dist</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+</span><span data-line="39"><span class="w">    </span><span class="sd">"""</span>
+</span><span data-line="40"><span class="sd">    Peak detection routine.</span>
+</span><span data-line="41">
+</span><span data-line="42"><span class="sd">    Finds the numeric index of the peaks in *y* by taking its first order difference. By using</span>
+</span><span data-line="43"><span class="sd">    *thres* and *min_dist* parameters, it is possible to reduce the number of</span>
+</span><span data-line="44"><span class="sd">    detected peaks. *y* must be signed.</span>
+</span><span data-line="45">
+</span><span data-line="46"><span class="sd">    Parameters</span>
+</span><span data-line="47"><span class="sd">    ----------</span>
+</span><span data-line="48"><span class="sd">    y : ndarray (signed)</span>
+</span><span data-line="49"><span class="sd">        1D amplitude data to search for peaks.</span>
+</span><span data-line="50"><span class="sd">    thres : float between [0., 1.], optional</span>
+</span><span data-line="51"><span class="sd">        Normalized threshold. Only the peaks with amplitude higher than the</span>
+</span><span data-line="52"><span class="sd">        threshold will be detected. Default is 0.3</span>
+</span><span data-line="53"><span class="sd">    min_dist : int, optional</span>
+</span><span data-line="54"><span class="sd">        Minimum distance between each detected peak. The peak with the highest</span>
+</span><span data-line="55"><span class="sd">        amplitude is preferred to satisfy this constraint. Default is 1</span>
+</span><span data-line="56">
+</span><span data-line="57"><span class="sd">    Returns</span>
+</span><span data-line="58"><span class="sd">    -------</span>
+</span><span data-line="59"><span class="sd">    ndarray</span>
+</span><span data-line="60"><span class="sd">        Array containing the numeric indexes of the peaks that were detected</span>
+</span><span data-line="61">
+</span><span data-line="62"><span class="sd">    Notes</span>
+</span><span data-line="63"><span class="sd">    -----</span>
+</span><span data-line="64"><span class="sd">    This function was taken from peakutils-1.1.0</span>
+</span><span data-line="65"><span class="sd">    http://pythonhosted.org/PeakUtils/index.html</span>
+</span><span data-line="66">
+</span><span data-line="67"><span class="sd">    """</span>
+</span><span data-line="68">    <span class="c1">#This function was taken from peakutils, and is covered</span>
+</span><span data-line="69">    <span class="c1"># by the MIT license, included below:</span>
+</span><span data-line="70">
+</span><span data-line="71">    <span class="c1">#The MIT License (MIT)</span>
+</span><span data-line="72">
+</span><span data-line="73">    <span class="c1">#Copyright (c) 2014 Lucas Hermann Negri</span>
+</span><span data-line="74">
+</span><span data-line="75">    <span class="c1">#Permission is hereby granted, free of charge, to any person obtaining a copy</span>
+</span><span data-line="76">    <span class="c1">#of this software and associated documentation files (the "Software"), to deal</span>
+</span><span data-line="77">    <span class="c1">#in the Software without restriction, including without limitation the rights</span>
+</span><span data-line="78">    <span class="c1">#to use, copy, modify, merge, publish, distribute, sublicense, and/or sell</span>
+</span><span data-line="79">    <span class="c1">#copies of the Software, and to permit persons to whom the Software is</span>
+</span><span data-line="80">    <span class="c1">#furnished to do so, subject to the following conditions:</span>
+</span><span data-line="81">
+</span><span data-line="82">    <span class="c1">#The above copyright notice and this permission notice shall be included in</span>
+</span><span data-line="83">    <span class="c1">#all copies or substantial portions of the Software.</span>
+</span><span data-line="84">
+</span><span data-line="85">    <span class="c1">#THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR</span>
+</span><span data-line="86">    <span class="c1">#IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,</span>
+</span><span data-line="87">    <span class="c1">#FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE</span>
+</span><span data-line="88">    <span class="c1">#AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER</span>
+</span><span data-line="89">    <span class="c1">#LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,</span>
+</span><span data-line="90">    <span class="c1">#OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN</span>
+</span><span data-line="91">    <span class="c1">#THE SOFTWARE.</span>
+</span><span data-line="92">
+</span><span data-line="93">    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="ow">and</span> <span class="n">np</span><span class="o">.</span><span class="n">issubdtype</span><span class="p">(</span><span class="n">y</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">unsignedinteger</span><span class="p">):</span>
+</span><span data-line="94">        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"y must be signed"</span><span class="p">)</span>
+</span><span data-line="95">
+</span><span data-line="96">    <span class="n">thres</span> <span class="o">=</span> <span class="n">thres</span> <span class="o">*</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">y</span><span class="p">)</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">y</span><span class="p">))</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+</span><span data-line="97">    <span class="n">min_dist</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">min_dist</span><span class="p">)</span>
+</span><span data-line="98">
+</span><span data-line="99">    <span class="c1"># compute first order difference</span>
+</span><span data-line="100">    <span class="n">dy</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+</span><span data-line="101">
+</span><span data-line="102">    <span class="c1"># propagate left and right values successively to fill all plateau pixels (0-value)</span>
+</span><span data-line="103">    <span class="n">zeros</span><span class="p">,</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">dy</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+</span><span data-line="104">
+</span><span data-line="105">    <span class="c1"># check if the signal is totally flat</span>
+</span><span data-line="106">    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">zeros</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:</span>
+</span><span data-line="107">        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([])</span>
+</span><span data-line="108">
+</span><span data-line="109">    <span class="k">while</span> <span class="nb">len</span><span class="p">(</span><span class="n">zeros</span><span class="p">):</span>
+</span><span data-line="110">        <span class="c1"># add pixels 2 by 2 to propagate left and right value onto the zero-value pixel</span>
+</span><span data-line="111">        <span class="n">zerosr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">([</span><span class="n">dy</span><span class="p">[</span><span class="mi">1</span><span class="p">:],</span> <span class="mf">0.</span><span class="p">])</span>
+</span><span data-line="112">        <span class="n">zerosl</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">([</span><span class="mf">0.</span><span class="p">,</span> <span class="n">dy</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]])</span>
+</span><span data-line="113">
+</span><span data-line="114">        <span class="c1"># replace 0 with right value if non zero</span>
+</span><span data-line="115">        <span class="n">dy</span><span class="p">[</span><span class="n">zeros</span><span class="p">]</span><span class="o">=</span><span class="n">zerosr</span><span class="p">[</span><span class="n">zeros</span><span class="p">]</span>
+</span><span data-line="116">        <span class="n">zeros</span><span class="p">,</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">dy</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+</span><span data-line="117">
+</span><span data-line="118">        <span class="c1"># replace 0 with left value if non zero</span>
+</span><span data-line="119">        <span class="n">dy</span><span class="p">[</span><span class="n">zeros</span><span class="p">]</span> <span class="o">=</span> <span class="n">zerosl</span><span class="p">[</span><span class="n">zeros</span><span class="p">]</span>
+</span><span data-line="120">        <span class="n">zeros</span><span class="p">,</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">dy</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+</span><span data-line="121">
+</span><span data-line="122">    <span class="c1"># find the peaks by using the first order difference</span>
+</span><span data-line="123">    <span class="n">peaks</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">([</span><span class="n">dy</span><span class="p">,</span> <span class="mf">0.</span><span class="p">])</span> <span class="o">&lt;</span> <span class="mf">0.</span><span class="p">)</span>
+</span><span data-line="124">                     <span class="o">&amp;</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">([</span><span class="mf">0.</span><span class="p">,</span> <span class="n">dy</span><span class="p">])</span> <span class="o">&gt;</span> <span class="mf">0.</span><span class="p">)</span>
+</span><span data-line="125">                     <span class="o">&amp;</span> <span class="p">(</span><span class="n">y</span> <span class="o">&gt;</span> <span class="n">thres</span><span class="p">))[</span><span class="mi">0</span><span class="p">]</span>
+</span><span data-line="126">
+</span><span data-line="127">    <span class="c1"># handle multiple peaks, respecting the minimum distance</span>
+</span><span data-line="128">    <span class="k">if</span> <span class="n">peaks</span><span class="o">.</span><span class="n">size</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">min_dist</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+</span><span data-line="129">        <span class="n">highest</span> <span class="o">=</span> <span class="n">peaks</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="n">peaks</span><span class="p">])][::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+</span><span data-line="130">        <span class="n">rem</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">y</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">)</span>
+</span><span data-line="131">        <span class="n">rem</span><span class="p">[</span><span class="n">peaks</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+</span><span data-line="132">
+</span><span data-line="133">        <span class="k">for</span> <span class="n">peak</span> <span class="ow">in</span> <span class="n">highest</span><span class="p">:</span>
+</span><span data-line="134">            <span class="k">if</span> <span class="ow">not</span> <span class="n">rem</span><span class="p">[</span><span class="n">peak</span><span class="p">]:</span>
+</span><span data-line="135">                <span class="n">sl</span> <span class="o">=</span> <span class="nb">slice</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">peak</span> <span class="o">-</span> <span class="n">min_dist</span><span class="p">),</span> <span class="n">peak</span> <span class="o">+</span> <span class="n">min_dist</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+</span><span data-line="136">                <span class="n">rem</span><span class="p">[</span><span class="n">sl</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+</span><span data-line="137">                <span class="n">rem</span><span class="p">[</span><span class="n">peak</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+</span><span data-line="138">
+</span><span data-line="139">        <span class="n">peaks</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">y</span><span class="o">.</span><span class="n">size</span><span class="p">)[</span><span class="o">~</span><span class="n">rem</span><span class="p">]</span>
+</span><span data-line="140">
+</span><span data-line="141">    <span class="k">return</span> <span class="n">peaks</span></div>
+
+</span><span data-line="142">
+</span><span data-line="143">
+<div class="viewcode-block" id="find_n_peaks">
+<a class="viewcode-back" href="../../api/generated/skrf.time.find_n_peaks.html#skrf.time.find_n_peaks">[docs]</a>
+</span><span data-line="144"><span class="k">def</span><span class="w"> </span><span class="nf">find_n_peaks</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">n</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">thres</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.9</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
+</span><span data-line="145"><span class="w">    </span><span class="sd">"""</span>
+</span><span data-line="146"><span class="sd">    Find a given number of peaks in a signal.</span>
+</span><span data-line="147">
+</span><span data-line="148"><span class="sd">    Parameters</span>
+</span><span data-line="149"><span class="sd">    ----------</span>
+</span><span data-line="150"><span class="sd">    x : np.ndarray</span>
+</span><span data-line="151"><span class="sd">        signal</span>
+</span><span data-line="152"><span class="sd">    n : int</span>
+</span><span data-line="153"><span class="sd">        number of peaks to search for</span>
+</span><span data-line="154"><span class="sd">    thres : float, optional</span>
+</span><span data-line="155"><span class="sd">        threshold, default is 0.9</span>
+</span><span data-line="156"><span class="sd">    **kwargs : optional keyword arguments passed to :func:`indexes`</span>
+</span><span data-line="157">
+</span><span data-line="158"><span class="sd">    Returns</span>
+</span><span data-line="159"><span class="sd">    -------</span>
+</span><span data-line="160"><span class="sd">    peak_idxs : list of int</span>
+</span><span data-line="161"><span class="sd">        List containing the numeric indexes of the peaks that were detected</span>
+</span><span data-line="162">
+</span><span data-line="163"><span class="sd">    Raises</span>
+</span><span data-line="164"><span class="sd">    ------</span>
+</span><span data-line="165"><span class="sd">    ValueError</span>
+</span><span data-line="166"><span class="sd">        If no peaks are found.</span>
+</span><span data-line="167"><span class="sd">    """</span>
+</span><span data-line="168">    <span class="k">for</span> <span class="n">_dummy</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
+</span><span data-line="169">
+</span><span data-line="170">        <span class="n">idx</span> <span class="o">=</span> <span class="n">indexes</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+</span><span data-line="171">        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">idx</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">:</span>
+</span><span data-line="172">            <span class="n">thres</span> <span class="o">*=</span> <span class="mf">.5</span>
+</span><span data-line="173">
+</span><span data-line="174">        <span class="k">else</span><span class="p">:</span>
+</span><span data-line="175">            <span class="n">peak_vals</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">idx</span><span class="p">],</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)[:</span><span class="n">n</span><span class="p">]</span>
+</span><span data-line="176">            <span class="n">peak_idxs</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">k</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">peak_vals</span><span class="p">]</span>
+</span><span data-line="177">
+</span><span data-line="178">            <span class="k">return</span> <span class="n">peak_idxs</span>
+</span><span data-line="179">    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">'Couldnt find </span><span class="si">%i</span><span class="s1"> peaks'</span> <span class="o">%</span> <span class="n">n</span><span class="p">)</span></div>
+
+</span><span data-line="180">
+</span><span data-line="181"><span class="n">time_lookup_dict</span> <span class="o">=</span> <span class="p">{</span>
+</span><span data-line="182">    <span class="s2">"s"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+</span><span data-line="183">    <span class="s2">"ms"</span><span class="p">:</span> <span class="mf">1e-3</span><span class="p">,</span>
+</span><span data-line="184">    <span class="s2">"us"</span><span class="p">:</span> <span class="mf">1e-6</span><span class="p">,</span>
+</span><span data-line="185">    <span class="s2">"µs"</span><span class="p">:</span> <span class="mf">1e-6</span><span class="p">,</span>
+</span><span data-line="186">    <span class="s2">"ns"</span><span class="p">:</span> <span class="mf">1e-9</span><span class="p">,</span>
+</span><span data-line="187">    <span class="s2">"ps"</span><span class="p">:</span> <span class="mf">1e-12</span>
+</span><span data-line="188"><span class="p">}</span>
+</span><span data-line="189">
+<div class="viewcode-block" id="detect_span">
+<a class="viewcode-back" href="../../api/generated/skrf.time.detect_span.html#skrf.time.detect_span">[docs]</a>
+</span><span data-line="190"><span class="k">def</span><span class="w"> </span><span class="nf">detect_span</span><span class="p">(</span><span class="n">ntwk</span><span class="p">:</span> <span class="n">Network</span><span class="p">,</span> <span class="n">t_unit</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">""</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+</span><span data-line="191"><span class="w">    </span><span class="sd">"""</span>
+</span><span data-line="192"><span class="sd">    Detect the correct time-span between two largest peaks.</span>
+</span><span data-line="193">
+</span><span data-line="194"><span class="sd">    Parameters</span>
+</span><span data-line="195"><span class="sd">    ----------</span>
+</span><span data-line="196"><span class="sd">    ntwk : :class:`~skrf.network.Network`</span>
+</span><span data-line="197"><span class="sd">        network to get data from</span>
+</span><span data-line="198">
+</span><span data-line="199"><span class="sd">    t_unit : str</span>
+</span><span data-line="200"><span class="sd">        Time unit for start, stop, center and span arguments, defaults to seconds (s).</span>
+</span><span data-line="201">
+</span><span data-line="202"><span class="sd">        Possible values:</span>
+</span><span data-line="203"><span class="sd">            * 's': seconds</span>
+</span><span data-line="204"><span class="sd">            * 'ms': milliseconds</span>
+</span><span data-line="205"><span class="sd">            * 'µs' or 'us': microseconds</span>
+</span><span data-line="206"><span class="sd">            * 'ns': nanoseconds (default)</span>
+</span><span data-line="207"><span class="sd">            * 'ps': picoseconds</span>
+</span><span data-line="208">
+</span><span data-line="209">
+</span><span data-line="210"><span class="sd">    Returns</span>
+</span><span data-line="211"><span class="sd">    -------</span>
+</span><span data-line="212"><span class="sd">    span : float in unit t_unit</span>
+</span><span data-line="213"><span class="sd">    """</span>
+</span><span data-line="214">
+</span><span data-line="215">    <span class="k">if</span> <span class="n">t_unit</span> <span class="o">==</span> <span class="s2">""</span><span class="p">:</span>
+</span><span data-line="216">        <span class="c1"># Do not raise in autogate mode, where all parameters are None</span>
+</span><span data-line="217">        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s1">'''</span>
+</span><span data-line="218"><span class="s1">                        Time unit not passed: uses 's' per default.</span>
+</span><span data-line="219"><span class="s1">                        '''</span><span class="p">,</span>
+</span><span data-line="220">                        <span class="ne">DeprecationWarning</span><span class="p">,</span> <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+</span><span data-line="221">        <span class="n">t_unit</span> <span class="o">=</span> <span class="s1">'s'</span>
+</span><span data-line="222">
+</span><span data-line="223">    <span class="n">x</span> <span class="o">=</span> <span class="n">ntwk</span><span class="o">.</span><span class="n">s_time_db</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+</span><span data-line="224">    <span class="n">p1</span><span class="p">,</span> <span class="n">p2</span> <span class="o">=</span> <span class="n">find_n_peaks</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+</span><span data-line="225">    <span class="c1"># distance to nearest neighbor peak</span>
+</span><span data-line="226">    <span class="n">span</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">ntwk</span><span class="o">.</span><span class="n">frequency</span><span class="o">.</span><span class="n">t</span><span class="p">[</span><span class="n">p1</span><span class="p">]</span><span class="o">-</span><span class="n">ntwk</span><span class="o">.</span><span class="n">frequency</span><span class="o">.</span><span class="n">t</span><span class="p">[</span><span class="n">p2</span><span class="p">])</span>
+</span><span data-line="227">
+</span><span data-line="228">    <span class="k">return</span> <span class="n">span</span> <span class="o">/</span> <span class="n">time_lookup_dict</span><span class="p">[</span><span class="n">t_unit</span><span class="p">]</span></div>
+
+</span><span data-line="229">
+<div class="viewcode-block" id="get_window">
+<a class="viewcode-back" href="../../api/generated/skrf.time.get_window.html#skrf.time.get_window">[docs]</a>
+</span><span data-line="230"><span class="k">def</span><span class="w"> </span><span class="nf">get_window</span><span class="p">(</span><span class="n">window</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="nb">tuple</span> <span class="o">|</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Nx</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">fftbins</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+</span><span data-line="231"><span class="w">    </span><span class="sd">"""Calls a custom window function or `scipy.signal.get_window()` depending on the window argument.</span>
+</span><span data-line="232">
+</span><span data-line="233"><span class="sd">    Parameters</span>
+</span><span data-line="234"><span class="sd">    ----------</span>
+</span><span data-line="235"><span class="sd">    window : str, tuple or Callable</span>
+</span><span data-line="236"><span class="sd">        The callable window function or a valid window string</span>
+</span><span data-line="237"><span class="sd">        for `scipy.signal.get_window()`.</span>
+</span><span data-line="238"><span class="sd">    Nx : int</span>
+</span><span data-line="239"><span class="sd">        Number of samples</span>
+</span><span data-line="240"><span class="sd">    fftbins : bool</span>
+</span><span data-line="241"><span class="sd">        If True (default), create a periodic window, which is symmetric about sample `Nx / 2`.</span>
+</span><span data-line="242"><span class="sd">        If False, create a symmetric window, which is symmetric about sample `(Nx - 1) / 2`.</span>
+</span><span data-line="243"><span class="sd">        Only used for string or tuple window specifications, which are passed on to</span>
+</span><span data-line="244"><span class="sd">        `scipy.signal.get_window()`. Callable windows are called as `window(Nx)` and do not</span>
+</span><span data-line="245"><span class="sd">        receive this argument.</span>
+</span><span data-line="246">
+</span><span data-line="247"><span class="sd">    Returns</span>
+</span><span data-line="248"><span class="sd">    -------</span>
+</span><span data-line="249"><span class="sd">    window : np.ndarray</span>
+</span><span data-line="250"><span class="sd">        Window samples.</span>
+</span><span data-line="251"><span class="sd">    """</span>
+</span><span data-line="252">
+</span><span data-line="253">    <span class="k">if</span> <span class="nb">callable</span><span class="p">(</span><span class="n">window</span><span class="p">):</span>
+</span><span data-line="254">        <span class="k">return</span> <span class="n">window</span><span class="p">(</span><span class="n">Nx</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+</span><span data-line="255">    <span class="k">else</span><span class="p">:</span>
+</span><span data-line="256">        <span class="k">return</span> <span class="n">scipy</span><span class="o">.</span><span class="n">signal</span><span class="o">.</span><span class="n">get_window</span><span class="p">(</span><span class="n">window</span><span class="p">,</span> <span class="n">Nx</span><span class="o">=</span><span class="n">Nx</span><span class="p">,</span> <span class="n">fftbins</span><span class="o">=</span><span class="n">fftbins</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+</span><span data-line="257">
+<div class="viewcode-block" id="time_gate">
+<a class="viewcode-back" href="../../api/generated/skrf.time.time_gate.html#skrf.time.time_gate">[docs]</a>
+</span><span data-line="258"><span class="k">def</span><span class="w"> </span><span class="nf">time_gate</span><span class="p">(</span><span class="n">ntwk</span><span class="p">:</span> <span class="n">Network</span><span class="p">,</span> <span class="n">start</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">stop</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">center</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">span</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+</span><span data-line="259">              <span class="n">mode</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">'bandpass'</span><span class="p">,</span> <span class="n">window</span><span class="o">=</span><span class="p">(</span><span class="s1">'kaiser'</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span>
+</span><span data-line="260">              <span class="n">method</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span><span class="s1">'fft'</span><span class="p">,</span> <span class="n">fft_window</span><span class="p">:</span> <span class="nb">str</span><span class="o">=</span><span class="s1">'cosine'</span><span class="p">,</span> <span class="n">conv_mode</span><span class="p">:</span> <span class="nb">str</span><span class="o">=</span><span class="s1">'wrap'</span><span class="p">,</span> <span class="n">t_unit</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">""</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Network</span><span class="p">:</span>
+</span><span data-line="261"><span class="w">    </span><span class="sd">"""</span>
+</span><span data-line="262"><span class="sd">    Time-domain gating of one-port s-parameters with a window function from scipy.signal.windows.</span>
+</span><span data-line="263">
+</span><span data-line="264"><span class="sd">    The gate can be defined with start/stop times, or by center/span. All times are in units of seconds but</span>
+</span><span data-line="265"><span class="sd">    can be changed using the `t_unit` parameter.</span>
+</span><span data-line="266"><span class="sd">    Common windows are:</span>
+</span><span data-line="267">
+</span><span data-line="268"><span class="sd">    * ('kaiser', 6)</span>
+</span><span data-line="269"><span class="sd">    * 6 # integers are interpreted as kaiser beta-values</span>
+</span><span data-line="270"><span class="sd">    * 'hamming'</span>
+</span><span data-line="271"><span class="sd">    * 'boxcar'  # a straight up rect</span>
+</span><span data-line="272"><span class="sd">    * Callable function which accepts integer with window size as argument</span>
+</span><span data-line="273">
+</span><span data-line="274"><span class="sd">    If no parameters are passed this will try to auto-gate the largest</span>
+</span><span data-line="275"><span class="sd">    peak.</span>
+</span><span data-line="276">
+</span><span data-line="277"><span class="sd">    Parameters</span>
+</span><span data-line="278"><span class="sd">    ----------</span>
+</span><span data-line="279"><span class="sd">    ntwk : :class:`~skrf.network.Network`</span>
+</span><span data-line="280"><span class="sd">        network to operate on</span>
+</span><span data-line="281"><span class="sd">    start : number, or None</span>
+</span><span data-line="282"><span class="sd">        start of time gate in t_unit.</span>
+</span><span data-line="283"><span class="sd">    stop : number, or None</span>
+</span><span data-line="284"><span class="sd">        stop of time gate in t_unit.</span>
+</span><span data-line="285"><span class="sd">    center : number, or None</span>
+</span><span data-line="286"><span class="sd">        center of time gate, in t_unit. If None, and span is given,</span>
+</span><span data-line="287"><span class="sd">        the gate will be centered on the peak.</span>
+</span><span data-line="288"><span class="sd">    span : number, or None</span>
+</span><span data-line="289"><span class="sd">        span of time gate, in t_unit.  If None span will be half of the</span>
+</span><span data-line="290"><span class="sd">        distance to the second tallest peak</span>
+</span><span data-line="291"><span class="sd">    mode : ['bandpass', 'bandstop']</span>
+</span><span data-line="292"><span class="sd">        mode of gate</span>
+</span><span data-line="293"><span class="sd">    window : string, float, or tuple</span>
+</span><span data-line="294"><span class="sd">        passed to `window` arg of `scipy.signal.get_window()` or callable function.</span>
+</span><span data-line="295"><span class="sd">        String and tuple specifications are requested with `fftbins=False`, so that the</span>
+</span><span data-line="296"><span class="sd">        time-domain gate is symmetric about its center sample. Callable windows are called</span>
+</span><span data-line="297"><span class="sd">        as `window(window_width)` and are themselves responsible for returning a symmetric</span>
+</span><span data-line="298"><span class="sd">        window.</span>
+</span><span data-line="299"><span class="sd">    method : str</span>
+</span><span data-line="300"><span class="sd">        Gating method. There are 3 option: 'convolution', 'fft', 'rfft'.</span>
+</span><span data-line="301">
+</span><span data-line="302"><span class="sd">        With *'convolution'*, the time-domain gate gets transformed into frequency-domain using inverse FFT and the</span>
+</span><span data-line="303"><span class="sd">        gating is then achieved by convolution with the frequency-domain data.</span>
+</span><span data-line="304">
+</span><span data-line="305"><span class="sd">        With *'fft'* (default), the data gets transformed into time-domain using inverse FFT and the gating is achieved</span>
+</span><span data-line="306"><span class="sd">        by multiplication with the time-domain gate. The gated time-domain signal is then transformed back into</span>
+</span><span data-line="307"><span class="sd">        frequency-domain using FFT. As only positive signal frequencies are considered for the inverse FFT</span>
+</span><span data-line="308"><span class="sd">        (with or without a dc component), the resulting time-domain signal has the same number of samples as in the</span>
+</span><span data-line="309"><span class="sd">        frequency-domain, but is complex-valued. This method is also know as *time-domain band-pass mode*.</span>
+</span><span data-line="310">
+</span><span data-line="311"><span class="sd">        With *'rfft'*, the procedure is the same as with *'fft'*, but the inverse FFT uses a complex-conjugate copy of</span>
+</span><span data-line="312"><span class="sd">        the positive signal frequencies for the negative frequencies (Hermitian frequency response). A dc sample is</span>
+</span><span data-line="313"><span class="sd">        also required. The resulting time-domain signal is real-valued and has twice the number of samples, which gives</span>
+</span><span data-line="314"><span class="sd">        an improved time resolution. This method is also known as *time-domain low-pass mode*.</span>
+</span><span data-line="315">
+</span><span data-line="316"><span class="sd">    fft_window : str or tuple or None</span>
+</span><span data-line="317"><span class="sd">        Frequency-domain window applied before the inverse FFT in case of the (R)FFT method.</span>
+</span><span data-line="318"><span class="sd">        This parameter takes the same values as the `window` parameter.</span>
+</span><span data-line="319"><span class="sd">        Example: `window='hann` (default), or `window=('kaiser', 5)`, or `window=None`.</span>
+</span><span data-line="320"><span class="sd">        The window helps to remove artefacts such as time-domain sidelobes of the pulses, but it is a trade-off with</span>
+</span><span data-line="321"><span class="sd">        the achievable pulse width. The window is removed when the gated time-domain signals is transformed back into</span>
+</span><span data-line="322"><span class="sd">        frequency-domain.</span>
+</span><span data-line="323">
+</span><span data-line="324"><span class="sd">    conv_mode : str</span>
+</span><span data-line="325"><span class="sd">        Extension mode for the convolution (if selected) determining how the frequency-domain gate is extended beyond</span>
+</span><span data-line="326"><span class="sd">        the boundaries. This has a large effect on the generation of gating artefacts due to boundary effects. The</span>
+</span><span data-line="327"><span class="sd">        optimal mode depends on the data. See the parameter description of `scipy.ndimage.convolve1d` for the available</span>
+</span><span data-line="328"><span class="sd">        options.</span>
+</span><span data-line="329">
+</span><span data-line="330"><span class="sd">    t_unit : str</span>
+</span><span data-line="331"><span class="sd">        Time unit for start, stop, center and span arguments, defaults to seconds (s).</span>
+</span><span data-line="332">
+</span><span data-line="333"><span class="sd">        Possible values:</span>
+</span><span data-line="334"><span class="sd">            * 's': seconds (default)</span>
+</span><span data-line="335"><span class="sd">            * 'ms': milliseconds</span>
+</span><span data-line="336"><span class="sd">            * 'µs' or 'us': microseconds</span>
+</span><span data-line="337"><span class="sd">            * 'ns': nanoseconds</span>
+</span><span data-line="338"><span class="sd">            * 'ps': picoseconds</span>
+</span><span data-line="339">
+</span><span data-line="340">
+</span><span data-line="341"><span class="sd">    Note</span>
+</span><span data-line="342"><span class="sd">    ----</span>
+</span><span data-line="343"><span class="sd">    You can't gate things that are 'behind' strong reflections. This</span>
+</span><span data-line="344"><span class="sd">    is due to the multiple reflections that occur.</span>
+</span><span data-line="345">
+</span><span data-line="346"><span class="sd">    If you need to time-gate an N-port network, then you should</span>
+</span><span data-line="347"><span class="sd">    gate each s-parameter independently.</span>
+</span><span data-line="348">
+</span><span data-line="349"><span class="sd">    Returns</span>
+</span><span data-line="350"><span class="sd">    -------</span>
+</span><span data-line="351"><span class="sd">    ntwk : Network</span>
+</span><span data-line="352"><span class="sd">        copy of ntwk with time-gated s-parameters</span>
+</span><span data-line="353">
+</span><span data-line="354"><span class="sd">    .. warning::</span>
+</span><span data-line="355"><span class="sd">        Depending on sharpness of the gate, the band edges may be</span>
+</span><span data-line="356"><span class="sd">        inaccurate, due to properties of FFT. We do not re-normalize</span>
+</span><span data-line="357"><span class="sd">        anything.</span>
+</span><span data-line="358"><span class="sd">    """</span>
+</span><span data-line="359">
+</span><span data-line="360">    <span class="k">if</span> <span class="n">ntwk</span><span class="o">.</span><span class="n">nports</span> <span class="o">&gt;</span><span class="mi">1</span><span class="p">:</span>
+</span><span data-line="361">        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">'Time-gating only works on one-ports. Try passing `ntwk.s11` or `ntwk.s21`.'</span><span class="p">)</span>
+</span><span data-line="362">
+</span><span data-line="363">    <span class="k">if</span> <span class="n">t_unit</span> <span class="o">==</span> <span class="s2">""</span><span class="p">:</span>
+</span><span data-line="364">        <span class="k">if</span> <span class="ow">not</span> <span class="nb">all</span><span class="p">([</span><span class="n">e</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="p">[</span><span class="n">start</span><span class="p">,</span> <span class="n">stop</span><span class="p">,</span> <span class="n">center</span><span class="p">,</span> <span class="n">span</span><span class="p">]]):</span>
+</span><span data-line="365">            <span class="c1"># Do not raise in autogate mode, where all parameters are None</span>
+</span><span data-line="366">            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s1">'''</span>
+</span><span data-line="367"><span class="s1">                            Time unit not passed: uses 's' per default.</span>
+</span><span data-line="368"><span class="s1">                            '''</span><span class="p">,</span>
+</span><span data-line="369">                            <span class="ne">DeprecationWarning</span><span class="p">,</span> <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+</span><span data-line="370">        <span class="n">t_unit</span> <span class="o">=</span> <span class="s1">'s'</span>
+</span><span data-line="371">
+</span><span data-line="372">    <span class="n">t_mult</span> <span class="o">=</span> <span class="n">time_lookup_dict</span><span class="p">[</span><span class="n">t_unit</span><span class="p">]</span>
+</span><span data-line="373">
+</span><span data-line="374">    <span class="k">if</span> <span class="n">start</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">stop</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+</span><span data-line="375">        <span class="n">start</span> <span class="o">*=</span> <span class="n">t_mult</span>
+</span><span data-line="376">        <span class="n">stop</span> <span class="o">*=</span> <span class="n">t_mult</span>
+</span><span data-line="377">        <span class="n">span</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">stop</span><span class="o">-</span><span class="n">start</span><span class="p">)</span>
+</span><span data-line="378">        <span class="n">center</span> <span class="o">=</span> <span class="p">(</span><span class="n">stop</span><span class="o">+</span><span class="n">start</span><span class="p">)</span><span class="o">/</span><span class="mf">2.</span>
+</span><span data-line="379">
+</span><span data-line="380">    <span class="k">else</span><span class="p">:</span>
+</span><span data-line="381">        <span class="c1"># `t_unit` states the unit of the arguments the caller passed, so `t_mult` may only</span>
+</span><span data-line="382">        <span class="c1"># be applied to those. The values detected below are read in ns and are converted</span>
+</span><span data-line="383">        <span class="c1"># with the ns multiplier instead.</span>
+</span><span data-line="384">        <span class="n">ns_mult</span> <span class="o">=</span> <span class="n">time_lookup_dict</span><span class="p">[</span><span class="s2">"ns"</span><span class="p">]</span>
+</span><span data-line="385">
+</span><span data-line="386">        <span class="k">if</span> <span class="n">center</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+</span><span data-line="387">            <span class="c1"># they didn't provide center, so find the peak</span>
+</span><span data-line="388">            <span class="n">n</span> <span class="o">=</span> <span class="n">ntwk</span><span class="o">.</span><span class="n">s_time_mag</span><span class="o">.</span><span class="n">argmax</span><span class="p">()</span>
+</span><span data-line="389">            <span class="n">center</span> <span class="o">=</span> <span class="n">ntwk</span><span class="o">.</span><span class="n">frequency</span><span class="o">.</span><span class="n">t_ns</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="o">*</span> <span class="n">ns_mult</span>
+</span><span data-line="390">        <span class="k">else</span><span class="p">:</span>
+</span><span data-line="391">            <span class="n">center</span> <span class="o">*=</span> <span class="n">t_mult</span>
+</span><span data-line="392">
+</span><span data-line="393">        <span class="k">if</span> <span class="n">span</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+</span><span data-line="394">            <span class="n">span</span> <span class="o">=</span> <span class="n">detect_span</span><span class="p">(</span><span class="n">ntwk</span><span class="p">,</span> <span class="n">t_unit</span><span class="o">=</span><span class="s1">'ns'</span><span class="p">)</span> <span class="o">*</span> <span class="n">ns_mult</span>
+</span><span data-line="395">        <span class="k">else</span><span class="p">:</span>
+</span><span data-line="396">            <span class="n">span</span> <span class="o">*=</span> <span class="n">t_mult</span>
+</span><span data-line="397">
+</span><span data-line="398">        <span class="n">start</span> <span class="o">=</span> <span class="n">center</span> <span class="o">-</span> <span class="n">span</span> <span class="o">/</span> <span class="mf">2.</span>
+</span><span data-line="399">        <span class="n">stop</span> <span class="o">=</span> <span class="n">center</span> <span class="o">+</span> <span class="n">span</span> <span class="o">/</span> <span class="mf">2.</span>
+</span><span data-line="400">
+</span><span data-line="401">    <span class="n">ntwk_gated</span> <span class="o">=</span> <span class="n">ntwk</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+</span><span data-line="402">    <span class="n">method</span> <span class="o">=</span> <span class="n">method</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+</span><span data-line="403">    <span class="n">n_fd</span> <span class="o">=</span> <span class="n">ntwk</span><span class="o">.</span><span class="n">frequency</span><span class="o">.</span><span class="n">npoints</span>
+</span><span data-line="404">    <span class="n">df</span> <span class="o">=</span> <span class="n">ntwk</span><span class="o">.</span><span class="n">frequency</span><span class="o">.</span><span class="n">step</span>
+</span><span data-line="405">
+</span><span data-line="406">    <span class="k">if</span> <span class="n">method</span> <span class="o">==</span> <span class="s1">'convolution'</span><span class="p">:</span>
+</span><span data-line="407">        <span class="c1"># frequency-domain gating</span>
+</span><span data-line="408">        <span class="n">n_td</span> <span class="o">=</span> <span class="n">n_fd</span>
+</span><span data-line="409">        <span class="c1"># create dummy-window</span>
+</span><span data-line="410">        <span class="n">window_fd</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">n_fd</span><span class="p">)</span>
+</span><span data-line="411">
+</span><span data-line="412">    <span class="k">elif</span> <span class="n">method</span> <span class="o">==</span> <span class="s1">'fft'</span><span class="p">:</span>
+</span><span data-line="413">        <span class="c1"># time-domain band-pass mode</span>
+</span><span data-line="414">        <span class="n">n_td</span> <span class="o">=</span> <span class="n">n_fd</span>
+</span><span data-line="415">        <span class="k">if</span> <span class="n">fft_window</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+</span><span data-line="416">            <span class="c1"># create band-pass window (zero on both lower and upper limit, one at center)</span>
+</span><span data-line="417">            <span class="n">window_fd</span> <span class="o">=</span> <span class="n">get_window</span><span class="p">(</span><span class="n">fft_window</span><span class="p">,</span> <span class="n">n_fd</span><span class="p">)</span>
+</span><span data-line="418">        <span class="k">else</span><span class="p">:</span>
+</span><span data-line="419">            <span class="c1"># create dummy-window</span>
+</span><span data-line="420">            <span class="n">window_fd</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">n_fd</span><span class="p">)</span>
+</span><span data-line="421">
+</span><span data-line="422">    <span class="k">elif</span> <span class="n">method</span> <span class="o">==</span> <span class="s1">'rfft'</span><span class="p">:</span>
+</span><span data-line="423">        <span class="c1"># time-domain low-pass mode</span>
+</span><span data-line="424">        <span class="k">if</span> <span class="n">ntwk</span><span class="o">.</span><span class="n">f</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mf">0.0</span><span class="p">:</span>
+</span><span data-line="425">            <span class="c1"># no dc point included</span>
+</span><span data-line="426">            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s1">'The network data to be gated does not contain the dc point (0 Hz). This is required for the '</span>
+</span><span data-line="427">                          <span class="s1">'selected low-pass gating mode. Please consider to include the dc point if the results are '</span>
+</span><span data-line="428">                          <span class="s1">'inaccurate, either by direct measurement of by extrapolation using '</span>
+</span><span data-line="429">                          <span class="s1">'skrf.Network.extrapolate_to_dc().'</span><span class="p">,</span> <span class="ne">UserWarning</span><span class="p">,</span> <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+</span><span data-line="430">        <span class="n">n_td</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">n_fd</span> <span class="o">-</span> <span class="mi">1</span>
+</span><span data-line="431">        <span class="k">if</span> <span class="n">fft_window</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+</span><span data-line="432">            <span class="c1"># create low-pass window (one at lower limit at f=0, zero on upper limit)</span>
+</span><span data-line="433">            <span class="n">window_fd</span> <span class="o">=</span> <span class="n">get_window</span><span class="p">(</span><span class="n">fft_window</span><span class="p">,</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">n_fd</span><span class="p">)</span>
+</span><span data-line="434">            <span class="n">window_fd</span> <span class="o">=</span> <span class="n">window_fd</span><span class="p">[</span><span class="n">n_fd</span><span class="p">:]</span>
+</span><span data-line="435">        <span class="k">else</span><span class="p">:</span>
+</span><span data-line="436">            <span class="c1"># create dummy-window</span>
+</span><span data-line="437">            <span class="n">window_fd</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">n_fd</span><span class="p">)</span>
+</span><span data-line="438">
+</span><span data-line="439">    <span class="k">else</span><span class="p">:</span>
+</span><span data-line="440">        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s1">'Invalid parameter method=`</span><span class="si">{</span><span class="n">method</span><span class="si">}</span><span class="s1">`'</span><span class="p">)</span>
+</span><span data-line="441">
+</span><span data-line="442">    <span class="c1"># apply frequency-domain window</span>
+</span><span data-line="443">    <span class="n">ntwk_gated</span><span class="o">.</span><span class="n">s</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">ntwk_gated</span><span class="o">.</span><span class="n">s</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">window_fd</span>
+</span><span data-line="444">
+</span><span data-line="445">    <span class="c1"># create time vector</span>
+</span><span data-line="446">    <span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">fft</span><span class="o">.</span><span class="n">fftshift</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">fft</span><span class="o">.</span><span class="n">fftfreq</span><span class="p">(</span><span class="n">n_td</span><span class="p">,</span> <span class="n">df</span><span class="p">))</span>
+</span><span data-line="447">    <span class="c1"># find start/stop gate indices</span>
+</span><span data-line="448">    <span class="n">start_idx</span> <span class="o">=</span> <span class="n">find_nearest_index</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">start</span><span class="p">)</span>
+</span><span data-line="449">    <span class="n">stop_idx</span> <span class="o">=</span> <span class="n">find_nearest_index</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">stop</span><span class="p">)</span>
+</span><span data-line="450">
+</span><span data-line="451">    <span class="c1"># create gating window</span>
+</span><span data-line="452">    <span class="n">window_width</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">stop_idx</span> <span class="o">-</span> <span class="n">start_idx</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+</span><span data-line="453">    <span class="c1"># The gate multiplies a time vector that is centered on t = 0, so the window has to be symmetric</span>
+</span><span data-line="454">    <span class="c1"># about its own center sample. A periodic window (the scipy default) is symmetric about sample</span>
+</span><span data-line="455">    <span class="c1"># `window_width / 2` instead of `(window_width - 1) / 2`, which shifts the gate by half a sample</span>
+</span><span data-line="456">    <span class="c1"># and lowers its peak below unity.</span>
+</span><span data-line="457">    <span class="n">window</span> <span class="o">=</span> <span class="n">get_window</span><span class="p">(</span><span class="n">window</span><span class="p">,</span> <span class="n">window_width</span><span class="p">,</span> <span class="n">fftbins</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</span><span data-line="458">
+</span><span data-line="459">    <span class="c1"># create the gate by padding the window with zeros</span>
+</span><span data-line="460">    <span class="n">gate</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+</span><span data-line="461">    <span class="n">gate</span><span class="p">[</span><span class="n">start_idx</span><span class="p">:</span><span class="n">stop_idx</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">window</span>
+</span><span data-line="462">
+</span><span data-line="463">    <span class="k">if</span> <span class="n">method</span> <span class="o">==</span> <span class="s1">'convolution'</span><span class="p">:</span>
+</span><span data-line="464">        <span class="c1"># frequency-domain gating</span>
+</span><span data-line="465">        <span class="n">kernel</span> <span class="o">=</span> <span class="n">fftshift</span><span class="p">(</span><span class="n">fft</span><span class="p">(</span><span class="n">ifftshift</span><span class="p">(</span><span class="n">gate</span><span class="p">),</span> <span class="n">norm</span><span class="o">=</span><span class="s1">'forward'</span><span class="p">))</span>
+</span><span data-line="466">        <span class="n">ntwk_gated</span><span class="o">.</span><span class="n">s</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">ndimage</span><span class="o">.</span><span class="n">convolve1d</span><span class="p">(</span><span class="n">ntwk_gated</span><span class="o">.</span><span class="n">s</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">kernel</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="n">conv_mode</span><span class="p">)</span>
+</span><span data-line="467">    <span class="k">elif</span> <span class="n">method</span> <span class="o">==</span> <span class="s1">'fft'</span><span class="p">:</span>
+</span><span data-line="468">        <span class="c1"># time-domain band-pass mode</span>
+</span><span data-line="469">        <span class="n">s_td</span> <span class="o">=</span> <span class="n">fftshift</span><span class="p">(</span><span class="n">ifft</span><span class="p">(</span><span class="n">ntwk_gated</span><span class="o">.</span><span class="n">s</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]))</span>
+</span><span data-line="470">        <span class="n">s_td_g</span> <span class="o">=</span> <span class="n">s_td</span> <span class="o">*</span> <span class="n">gate</span>
+</span><span data-line="471">        <span class="n">ntwk_gated</span><span class="o">.</span><span class="n">s</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">fft</span><span class="p">(</span><span class="n">ifftshift</span><span class="p">(</span><span class="n">s_td_g</span><span class="p">))</span>
+</span><span data-line="472">    <span class="k">elif</span> <span class="n">method</span> <span class="o">==</span> <span class="s1">'rfft'</span><span class="p">:</span>
+</span><span data-line="473">        <span class="c1"># time-domain low-pass mode</span>
+</span><span data-line="474">        <span class="n">s_td</span> <span class="o">=</span> <span class="n">fftshift</span><span class="p">(</span><span class="n">irfft</span><span class="p">(</span><span class="n">ntwk_gated</span><span class="o">.</span><span class="n">s</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">n</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">t</span><span class="p">)))</span>
+</span><span data-line="475">        <span class="n">s_td_g</span> <span class="o">=</span> <span class="n">s_td</span> <span class="o">*</span> <span class="n">gate</span>
+</span><span data-line="476">        <span class="n">ntwk_gated</span><span class="o">.</span><span class="n">s</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">rfft</span><span class="p">(</span><span class="n">ifftshift</span><span class="p">(</span><span class="n">s_td_g</span><span class="p">))</span>
+</span><span data-line="477">
+</span><span data-line="478">    <span class="c1"># remove frequency-domain window</span>
+</span><span data-line="479">    <span class="n">ntwk_gated</span><span class="o">.</span><span class="n">s</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">ntwk_gated</span><span class="o">.</span><span class="n">s</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="n">window_fd</span>
+</span><span data-line="480">
+</span><span data-line="481">    <span class="k">if</span> <span class="n">mode</span> <span class="o">==</span> <span class="s1">'bandstop'</span><span class="p">:</span>
+</span><span data-line="482">        <span class="n">ntwk_gated</span> <span class="o">=</span> <span class="n">ntwk</span> <span class="o">-</span> <span class="n">ntwk_gated</span>
+</span><span data-line="483">    <span class="k">elif</span> <span class="n">mode</span> <span class="o">==</span> <span class="s1">'bandpass'</span><span class="p">:</span>
+</span><span data-line="484">        <span class="k">pass</span>
+</span><span data-line="485">    <span class="k">else</span><span class="p">:</span>
+</span><span data-line="486">        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">'mode should be </span><span class="se">\'</span><span class="s1">bandpass</span><span class="se">\'</span><span class="s1"> or </span><span class="se">\'</span><span class="s1">bandstop</span><span class="se">\'</span><span class="s1">'</span><span class="p">)</span>
+</span><span data-line="487">
+</span><span data-line="488">    <span class="k">return</span> <span class="n">ntwk_gated</span></div>
+
+</span></pre></div>
+        </article><button class="back-to-top" type="button">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+  </svg>
+  <span>Back to top</span>
+</button><div class="navigation flex print:hidden"></div></div>
+    </div>
+  </main>
+</div>
+<footer class="sy-foot">
+  <div class="sy-foot-inner sy-container mx-auto">
+    <div class="sy-foot-reserved md:flex justify-between items-center">
+      <div class="sy-foot-copyright"><p>2025, scikit-rf team</p>
+  
+  <p>
+    Made with
+    
+    <a href="https://www.sphinx-doc.org/">Sphinx</a> and
+    
+    <a href="https://shibuya.lepture.com">Shibuya theme</a>.
+  </p>
+</div>
+      <div class="sy-foot-socials">
+  <a href="https://github.com/scikit-rf/scikit-rf" aria-label="GitHub">
+    <iconify-icon icon="simple-icons:github"></iconify-icon>
+  </a></div>
+    </div>
+  </div>
+</footer>
+      <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../_static/copybutton.js?v=34bd459d"></script>
+      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+      <script src="../../_static/shibuya.js?v=50760d75"></script>
+      <script src="https://cdn.jsdelivr.net/npm/@jupyter-widgets/html-manager@^1.0.1/dist/embed-amd.js"></script>
+      <script src="../../_static/skrf.js?v=bdeb9fb0"></script></body>
+</html>

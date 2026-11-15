@@ -1,0 +1,1734 @@
+<!DOCTYPE html>
+<html lang="en" data-accent-color="blue" data-content_root="../../">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>skrf.mathFunctions - scikit-rf</title><link rel="author" title="About these documents" href="../../about.html" /><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><script>
+    function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
+    setColorMode(localStorage._theme||"auto");
+  </script><link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=ad592e98" />
+    <link rel="stylesheet" type="text/css" href="../../_static/shibuya.css?v=2ceb65ce" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-codeautolink.css?v=b2176991" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link media="print" rel="stylesheet" type="text/css" href="../../_static/print.css?v=20ff2c19" />
+    <link rel="stylesheet" type="text/css" href="../../_static/skrf.css?v=7e772ba2" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --sy-f-text: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+  --sy-f-heading: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+}
+</style>
+    
+  <meta property="og:type" content="website"/><meta property="og:title" content="skrf.mathFunctions"/>
+    <meta name="twitter:card" content="summary"/>
+  </head>
+<body><div class="sy-head">
+  <div class="sy-head-blur"></div>
+  <div class="sy-head-inner sy-container mx-auto">
+    <a class="sy-head-brand" href="../../index.html">
+      <img class="light-logo" src="../../_static/logo.svg" alt="scikit-rf" height="28" loading="lazy" />
+      <img class="dark-logo" src="../../_static/logo.svg" alt="scikit-rf" height="28" loading="lazy" />
+      <strong>scikit-rf</strong>
+    </a>
+    <div class="sy-head-nav" id="head-nav">
+      <nav class="sy-head-links"><ul><li class="link"><a href="../../index.html">Home</a></li><li class="link"><a href="../../tutorials/index.html">Tutorials</a></li><li class="link"><a href="../../examples/index.html">Examples</a></li><li class="link"><a href="../../api/index.html">API</a></li><li class="link">
+          <a href="https://github.com/scikit-rf/scikit-rf">
+            <span>GitHub</span><i class="i-lucide external-link"></i></a>
+        </li></ul></nav>
+      <div class="sy-head-extra flex items-center print:hidden"><form class="searchbox flex items-center" action="../../search.html" method="get">
+  <input type="text" name="q" placeholder="Search" />
+  <kbd>/</kbd>
+</form><div class="sy-head-socials">
+  <a href="https://github.com/scikit-rf/scikit-rf" aria-label="GitHub">
+    <iconify-icon icon="simple-icons:github"></iconify-icon>
+  </a>
+  <a href="https://www.linkedin.com/groups/12462155/" aria-label="LinkedIn">
+    <iconify-icon icon="simple-icons:linkedin"></iconify-icon>
+  </a>
+  <a href="https://app.element.io/#/room/#scikit-rf:matrix.org" aria-label="Matrix">
+    <iconify-icon icon="simple-icons:matrix"></iconify-icon>
+  </a></div></div>
+    </div>
+    <div class="sy-head-actions flex items-center shrink-0 print:hidden"><button class="js-theme theme-switch flex items-center"
+data-aria-auto="Switch to light color mode"
+data-aria-light="Switch to dark color mode"
+data-aria-dark="Switch to auto color mode">
+<i class="i-lucide theme-icon"></i>
+</button><button class="md:hidden flex items-center js-menu" aria-label="Menu" type="button" aria-controls="head-nav" aria-expanded="false">
+        <div class="hamburger">
+          <span class="hamburger_1"></span>
+          <span class="hamburger_2"></span>
+          <span class="hamburger_3"></span>
+        </div>
+      </button>
+    </div>
+  </div>
+</div>
+<div class="sy-page sy-container flex mx-auto">
+  <aside id="lside" class="sy-lside md:w-72 md:shrink-0 print:hidden">
+    <div class="sy-lside-inner md:sticky">
+      <div class="sy-scrollbar p-6">
+        <div class="globaltoc" data-expand-depth="0"><p class="caption" role="heading" aria-level="3"><span class="caption-text">Getting started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../index.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/Installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/Introduction.html">Introduction</a></li>
+</ul>
+<p class="caption" role="heading" aria-level="3"><span class="caption-text">User guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../examples/index.html">Examples</a></li>
+</ul>
+<p class="caption" role="heading" aria-level="3"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../api/index.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../glossary.html">Glossary</a></li>
+</ul>
+<p class="caption" role="heading" aria-level="3"><span class="caption-text">Project</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing/index.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../citations_ack/acknowledging.html">Citing scikit-rf</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../citations_ack/citations.html">scikit-rf Citations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../about.html">About</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../users.html">Users</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../license.html">License</a></li>
+</ul>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="lside-overlay js-menu" role="button" aria-label="Close left sidebar" aria-controls="lside" aria-expanded="false"></div>
+  <aside id="rside" class="sy-rside pb-3 w-64 shrink-0 order-last">
+    <button class="rside-close js-menu xl:hidden" aria-label="Close Table of Contents" type="button" aria-controls="rside" aria-expanded="false">
+      <i class="i-lucide close"></i>
+    </button>
+    <div class="sy-scrollbar sy-rside-inner px-6 xl:top-16 xl:sticky xl:pl-0 pt-6 pb-4"><div id="ethical-ad-placement" data-ea-publisher="readthedocs"></div></div>
+  </aside>
+  <div class="rside-overlay js-menu" role="button" aria-label="Close Table of Contents" aria-controls="rside" aria-expanded="false"></div>
+  <main class="sy-main w-full max-sm:max-w-full print:pt-6">
+<div class="sy-breadcrumbs" role="navigation">
+  <div class="sy-breadcrumbs-inner flex items-center">
+    <div class="md:hidden mr-3">
+      <button class="js-menu" aria-label="Menu" type="button" aria-controls="lside" aria-expanded="false">
+        <i class="i-lucide menu"></i>
+      </button>
+    </div>
+    <ol class="flex-1" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="../../index.html"><span itemprop="name">scikit-rf</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="1" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="../index.html"><span itemprop="name">Module code</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="2" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <strong itemprop="name">skrf.mathFunctions</strong>
+        <meta itemprop="position" content="3" />
+      </li></ol>
+    <div class="xl:hidden ml-1">
+      <button class="js-menu" aria-label="Show table of contents" type="button" aria-controls="rside"
+        aria-expanded="false">
+        <i class="i-lucide outdent"></i>
+      </button>
+    </div>
+  </div>
+</div><div class="flex flex-col break-words justify-between">
+      <div class="relative min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
+  <article class="yue" role="main">
+          <h1>Source code for skrf.mathFunctions</h1><div class="highlight"><pre>
+<span></span><span data-line="1"><span class="sd">"""</span>
+</span><span data-line="2"><span class="sd">mathFunctions (:mod:`skrf.mathFunctions`)</span>
+</span><span data-line="3"><span class="sd">=============================================</span>
+</span><span data-line="4">
+</span><span data-line="5">
+</span><span data-line="6"><span class="sd">Provides commonly used mathematical functions.</span>
+</span><span data-line="7">
+</span><span data-line="8"><span class="sd">Mathematical Constants</span>
+</span><span data-line="9"><span class="sd">----------------------</span>
+</span><span data-line="10"><span class="sd">Some convenient constants are defined in the :mod:`skrf.constants` module.</span>
+</span><span data-line="11">
+</span><span data-line="12"><span class="sd">Complex Component Conversion</span>
+</span><span data-line="13"><span class="sd">----------------------------</span>
+</span><span data-line="14">
+</span><span data-line="15"><span class="sd">.. autosummary::</span>
+</span><span data-line="16"><span class="sd">        :toctree: generated/</span>
+</span><span data-line="17">
+</span><span data-line="18"><span class="sd">        complex_2_reim</span>
+</span><span data-line="19"><span class="sd">        complex_2_magnitude</span>
+</span><span data-line="20"><span class="sd">        complex_2_db</span>
+</span><span data-line="21"><span class="sd">        complex_2_db10</span>
+</span><span data-line="22"><span class="sd">        complex_2_radian</span>
+</span><span data-line="23"><span class="sd">        complex_2_degree</span>
+</span><span data-line="24"><span class="sd">        complex_2_magnitude</span>
+</span><span data-line="25"><span class="sd">        complex_2_quadrature</span>
+</span><span data-line="26"><span class="sd">        complex_components</span>
+</span><span data-line="27">
+</span><span data-line="28"><span class="sd">Magnitude and decibel</span>
+</span><span data-line="29"><span class="sd">---------------------</span>
+</span><span data-line="30">
+</span><span data-line="31"><span class="sd">.. autosummary::</span>
+</span><span data-line="32"><span class="sd">        :toctree: generated/</span>
+</span><span data-line="33">
+</span><span data-line="34"><span class="sd">        magnitude_2_db</span>
+</span><span data-line="35"><span class="sd">        mag_2_db</span>
+</span><span data-line="36"><span class="sd">        mag_2_db10</span>
+</span><span data-line="37"><span class="sd">        db_2_magnitude</span>
+</span><span data-line="38"><span class="sd">        db_2_mag</span>
+</span><span data-line="39"><span class="sd">        db10_2_mag</span>
+</span><span data-line="40">
+</span><span data-line="41"><span class="sd">Phase Unwrapping</span>
+</span><span data-line="42"><span class="sd">----------------</span>
+</span><span data-line="43">
+</span><span data-line="44"><span class="sd">.. autosummary::</span>
+</span><span data-line="45"><span class="sd">        :toctree: generated/</span>
+</span><span data-line="46">
+</span><span data-line="47"><span class="sd">        unwrap_rad</span>
+</span><span data-line="48"><span class="sd">        sqrt_phase_unwrap</span>
+</span><span data-line="49">
+</span><span data-line="50"><span class="sd">Unit Conversion</span>
+</span><span data-line="51"><span class="sd">---------------</span>
+</span><span data-line="52">
+</span><span data-line="53"><span class="sd">.. autosummary::</span>
+</span><span data-line="54"><span class="sd">        :toctree: generated/</span>
+</span><span data-line="55">
+</span><span data-line="56"><span class="sd">        radian_2_degree</span>
+</span><span data-line="57"><span class="sd">        degree_2_radian</span>
+</span><span data-line="58"><span class="sd">        np_2_db</span>
+</span><span data-line="59"><span class="sd">        db_2_np</span>
+</span><span data-line="60"><span class="sd">        feet_2_meter</span>
+</span><span data-line="61"><span class="sd">        meter_2_feet</span>
+</span><span data-line="62"><span class="sd">        db_per_100feet_2_db_per_100meter</span>
+</span><span data-line="63">
+</span><span data-line="64"><span class="sd">Scalar-Complex Conversion</span>
+</span><span data-line="65"><span class="sd">-------------------------</span>
+</span><span data-line="66">
+</span><span data-line="67"><span class="sd">These conversions are useful for wrapping other functions that don't</span>
+</span><span data-line="68"><span class="sd">support complex numbers.</span>
+</span><span data-line="69">
+</span><span data-line="70"><span class="sd">.. autosummary::</span>
+</span><span data-line="71"><span class="sd">        :toctree: generated/</span>
+</span><span data-line="72">
+</span><span data-line="73"><span class="sd">        complex2Scalar</span>
+</span><span data-line="74"><span class="sd">        scalar2Complex</span>
+</span><span data-line="75">
+</span><span data-line="76"><span class="sd">Special Functions</span>
+</span><span data-line="77"><span class="sd">-----------------</span>
+</span><span data-line="78">
+</span><span data-line="79"><span class="sd">.. autosummary::</span>
+</span><span data-line="80"><span class="sd">        :toctree: generated/</span>
+</span><span data-line="81">
+</span><span data-line="82"><span class="sd">        dirac_delta</span>
+</span><span data-line="83"><span class="sd">        neuman</span>
+</span><span data-line="84"><span class="sd">        null</span>
+</span><span data-line="85"><span class="sd">        cross_ratio</span>
+</span><span data-line="86">
+</span><span data-line="87"><span class="sd">Random Number Generation</span>
+</span><span data-line="88"><span class="sd">------------------------</span>
+</span><span data-line="89">
+</span><span data-line="90"><span class="sd">.. autosummary::</span>
+</span><span data-line="91"><span class="sd">        :toctree: generated/</span>
+</span><span data-line="92">
+</span><span data-line="93"><span class="sd">        set_rand_rng</span>
+</span><span data-line="94"><span class="sd">        rand_rng</span>
+</span><span data-line="95"><span class="sd">        rand_c</span>
+</span><span data-line="96">
+</span><span data-line="97"><span class="sd">Various Utility Functions</span>
+</span><span data-line="98"><span class="sd">--------------------------</span>
+</span><span data-line="99"><span class="sd">.. autosummary::</span>
+</span><span data-line="100"><span class="sd">        :toctree: generated/</span>
+</span><span data-line="101">
+</span><span data-line="102"><span class="sd">        psd2TimeDomain</span>
+</span><span data-line="103"><span class="sd">        rational_interp</span>
+</span><span data-line="104"><span class="sd">        ifft</span>
+</span><span data-line="105"><span class="sd">        irfft</span>
+</span><span data-line="106"><span class="sd">        is_square</span>
+</span><span data-line="107"><span class="sd">        is_symmetric</span>
+</span><span data-line="108"><span class="sd">        is_Hermitian</span>
+</span><span data-line="109"><span class="sd">        is_positive_definite</span>
+</span><span data-line="110"><span class="sd">        is_positive_semidefinite</span>
+</span><span data-line="111"><span class="sd">        get_Hermitian_transpose</span>
+</span><span data-line="112"><span class="sd">        sqrt_known_sign</span>
+</span><span data-line="113"><span class="sd">        find_correct_sign</span>
+</span><span data-line="114"><span class="sd">        find_closest</span>
+</span><span data-line="115"><span class="sd">        inf_to_num</span>
+</span><span data-line="116"><span class="sd">        rsolve</span>
+</span><span data-line="117"><span class="sd">        nudge_eig</span>
+</span><span data-line="118">
+</span><span data-line="119">
+</span><span data-line="120"><span class="sd">"""</span>
+</span><span data-line="121"><span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
+</span><span data-line="122">
+</span><span data-line="123"><span class="kn">from</span><span class="w"> </span><span class="nn">collections.abc</span><span class="w"> </span><span class="kn">import</span> <span class="n">Callable</span>
+</span><span data-line="124">
+</span><span data-line="125"><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+</span><span data-line="126"><span class="kn">import</span><span class="w"> </span><span class="nn">scipy</span>
+</span><span data-line="127"><span class="kn">from</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="kn">import</span> <span class="n">imag</span><span class="p">,</span> <span class="n">pi</span><span class="p">,</span> <span class="n">real</span><span class="p">,</span> <span class="n">unwrap</span>
+</span><span data-line="128">
+</span><span data-line="129"><span class="kn">from</span><span class="w"> </span><span class="nn">.constants</span><span class="w"> </span><span class="kn">import</span> <span class="n">ALMOST_ZERO</span><span class="p">,</span> <span class="n">EIG_COND</span><span class="p">,</span> <span class="n">EIG_MIN</span><span class="p">,</span> <span class="n">INF</span><span class="p">,</span> <span class="n">LOG_OF_NEG</span><span class="p">,</span> <span class="n">NumberLike</span>
+</span><span data-line="130">
+</span><span data-line="131">
+</span><span data-line="132"><span class="c1"># simple conversions</span>
+<div class="viewcode-block" id="complex_2_magnitude">
+<a class="viewcode-back" href="../../api/generated/skrf.mathFunctions.complex_2_magnitude.html#skrf.mathFunctions.complex_2_magnitude">[docs]</a>
+</span><span data-line="133"><span class="k">def</span><span class="w"> </span><span class="nf">complex_2_magnitude</span><span class="p">(</span><span class="n">z</span><span class="p">:</span> <span class="n">NumberLike</span><span class="p">):</span>
+</span><span data-line="134"><span class="w">    </span><span class="sd">"""</span>
+</span><span data-line="135"><span class="sd">    Return the magnitude of the complex argument.</span>
+</span><span data-line="136">
+</span><span data-line="137"><span class="sd">    Parameters</span>
+</span><span data-line="138"><span class="sd">    ----------</span>
+</span><span data-line="139"><span class="sd">    z : number or array_like</span>
+</span><span data-line="140"><span class="sd">        A complex number or sequence of complex numbers</span>
+</span><span data-line="141">
+</span><span data-line="142"><span class="sd">    Returns</span>
+</span><span data-line="143"><span class="sd">    -------</span>
+</span><span data-line="144"><span class="sd">    mag : ndarray or scalar</span>
+</span><span data-line="145">
+</span><span data-line="146"><span class="sd">    """</span>
+</span><span data-line="147">    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">z</span><span class="p">)</span></div>
+
+</span><span data-line="148">
+</span><span data-line="149">
+<div class="viewcode-block" id="complex_2_db">
+<a class="viewcode-back" href="../../api/generated/skrf.mathFunctions.complex_2_db.html#skrf.mathFunctions.complex_2_db">[docs]</a>
+</span><span data-line="150"><span class="k">def</span><span class="w"> </span><span class="nf">complex_2_db</span><span class="p">(</span><span class="n">z</span><span class="p">:</span> <span class="n">NumberLike</span><span class="p">):</span>
+</span><span data-line="151"><span class="w">    </span><span class="sa">r</span><span class="sd">"""</span>
+</span><span data-line="152"><span class="sd">    Return the magnitude in dB of a complex number (as :math:`20\log_{10}(|z|)`)..</span>
+</span><span data-line="153">
+</span><span data-line="154"><span class="sd">    The magnitude in dB is defined as :math:`20\log_{10}(|z|)`</span>
+</span><span data-line="155"><span class="sd">    where :math:`z` is a complex number.</span>
+</span><span data-line="156">
+</span><span data-line="157"><span class="sd">    Parameters</span>
+</span><span data-line="158"><span class="sd">    ----------</span>
+</span><span data-line="159"><span class="sd">    z : number or array_like</span>
+</span><span data-line="160"><span class="sd">        A complex number or sequence of complex numbers</span>
+</span><span data-line="161">
+</span><span data-line="162"><span class="sd">    Returns</span>
+</span><span data-line="163"><span class="sd">    -------</span>
+</span><span data-line="164"><span class="sd">    mag20dB : ndarray or scalar</span>
+</span><span data-line="165"><span class="sd">    """</span>
+</span><span data-line="166">    <span class="k">return</span> <span class="n">magnitude_2_db</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">z</span><span class="p">))</span></div>
+
+</span><span data-line="167">
+</span><span data-line="168">
+<div class="viewcode-block" id="complex_2_db10">
+<a class="viewcode-back" href="../../api/generated/skrf.mathFunctions.complex_2_db10.html#skrf.mathFunctions.complex_2_db10">[docs]</a>
+</span><span data-line="169"><span class="k">def</span><span class="w"> </span><span class="nf">complex_2_db10</span><span class="p">(</span><span class="n">z</span><span class="p">:</span> <span class="n">NumberLike</span><span class="p">):</span>
+</span><span data-line="170"><span class="w">    </span><span class="sa">r</span><span class="sd">"""</span>
+</span><span data-line="171"><span class="sd">    Return the magnitude in dB of a complex number (as :math:`10\log_{10}(|z|)`).</span>
+</span><span data-line="172">
+</span><span data-line="173"><span class="sd">    The magnitude in dB is defined as :math:`10\log_{10}(|z|)`</span>
+</span><span data-line="174"><span class="sd">    where :math:`z` is a complex number.</span>
+</span><span data-line="175">
+</span><span data-line="176"><span class="sd">    Parameters</span>
+</span><span data-line="177"><span class="sd">    ----------</span>
+</span><span data-line="178"><span class="sd">    z : number or array_like</span>
+</span><span data-line="179"><span class="sd">        A complex number or sequence of complex numbers</span>
+</span><span data-line="180">
+</span><span data-line="181"><span class="sd">    Returns</span>
+</span><span data-line="182"><span class="sd">    -------</span>
+</span><span data-line="183"><span class="sd">    mag10dB : ndarray or scalar</span>
+</span><span data-line="184"><span class="sd">    """</span>
+</span><span data-line="185">    <span class="k">return</span> <span class="n">mag_2_db10</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">z</span><span class="p">))</span></div>
+
+</span><span data-line="186">
+</span><span data-line="187">
+<div class="viewcode-block" id="complex_2_radian">
+<a class="viewcode-back" href="../../api/generated/skrf.mathFunctions.complex_2_radian.html#skrf.mathFunctions.complex_2_radian">[docs]</a>
+</span><span data-line="188"><span class="k">def</span><span class="w"> </span><span class="nf">complex_2_radian</span><span class="p">(</span><span class="n">z</span><span class="p">:</span> <span class="n">NumberLike</span><span class="p">):</span>
+</span><span data-line="189"><span class="w">    </span><span class="sd">"""</span>
+</span><span data-line="190"><span class="sd">    Return the angle complex argument in radian.</span>
+</span><span data-line="191">
+</span><span data-line="192"><span class="sd">    Parameters</span>
+</span><span data-line="193"><span class="sd">    ----------</span>
+</span><span data-line="194"><span class="sd">    z : number or array_like</span>
+</span><span data-line="195"><span class="sd">        A complex number or sequence of complex numbers</span>
+</span><span data-line="196">
+</span><span data-line="197"><span class="sd">    Returns</span>
+</span><span data-line="198"><span class="sd">    -------</span>
+</span><span data-line="199"><span class="sd">    ang_rad : ndarray or scalar</span>
+</span><span data-line="200"><span class="sd">        The counterclockwise angle from the positive real axis on the complex</span>
+</span><span data-line="201"><span class="sd">        plane in the range ``(-pi, pi]``, with dtype as numpy.float64.</span>
+</span><span data-line="202"><span class="sd">    """</span>
+</span><span data-line="203">    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">angle</span><span class="p">(</span><span class="n">z</span><span class="p">)</span></div>
+
+</span><span data-line="204">
+</span><span data-line="205">
+<div class="viewcode-block" id="complex_2_degree">
+<a class="viewcode-back" href="../../api/generated/skrf.mathFunctions.complex_2_degree.html#skrf.mathFunctions.complex_2_degree">[docs]</a>
+</span><span data-line="206"><span class="k">def</span><span class="w"> </span><span class="nf">complex_2_degree</span><span class="p">(</span><span class="n">z</span><span class="p">:</span> <span class="n">NumberLike</span><span class="p">):</span>
+</span><span data-line="207"><span class="w">    </span><span class="sd">"""</span>
+</span><span data-line="208"><span class="sd">    Returns the angle complex argument in degree.</span>
+</span><span data-line="209">
+</span><span data-line="210"><span class="sd">    Parameters</span>
+</span><span data-line="211"><span class="sd">    ----------</span>
+</span><span data-line="212"><span class="sd">    z : number or array_like</span>
+</span><span data-line="213"><span class="sd">        A complex number or sequence of complex numbers</span>
+</span><span data-line="214">
+</span><span data-line="215"><span class="sd">    Returns</span>
+</span><span data-line="216"><span class="sd">    -------</span>
+</span><span data-line="217"><span class="sd">    ang_deg : ndarray or scalar</span>
+</span><span data-line="218"><span class="sd">    """</span>
+</span><span data-line="219">    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">angle</span><span class="p">(</span><span class="n">z</span><span class="p">,</span> <span class="n">deg</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div>
+
+</span><span data-line="220">
+</span><span data-line="221">
+<div class="viewcode-block" id="complex_2_quadrature">
+<a class="viewcode-back" href="../../api/generated/skrf.mathFunctions.complex_2_quadrature.html#skrf.mathFunctions.complex_2_quadrature">[docs]</a>
+</span><span data-line="222"><span class="k">def</span><span class="w"> </span><span class="nf">complex_2_quadrature</span><span class="p">(</span><span class="n">z</span><span class="p">:</span> <span class="n">NumberLike</span><span class="p">):</span>
+</span><span data-line="223"><span class="w">    </span><span class="sa">r</span><span class="sd">"""</span>
+</span><span data-line="224"><span class="sd">    Take a complex number and returns quadrature, which is (length, arc-length from real axis)</span>
+</span><span data-line="225">
+</span><span data-line="226"><span class="sd">    Arc-length is calculated as :math:`|z| \arg(z)`.</span>
+</span><span data-line="227">
+</span><span data-line="228"><span class="sd">    Parameters</span>
+</span><span data-line="229"><span class="sd">    ----------</span>
+</span><span data-line="230"><span class="sd">    z : number or array_like</span>
+</span><span data-line="231"><span class="sd">        A complex number or sequence of complex numbers</span>
+</span><span data-line="232">
+</span><span data-line="233"><span class="sd">    Returns</span>
+</span><span data-line="234"><span class="sd">    -------</span>
+</span><span data-line="235"><span class="sd">    mag : array like or scalar</span>
+</span><span data-line="236"><span class="sd">        magnitude (length)</span>
+</span><span data-line="237"><span class="sd">    arc_length : array like or scalar</span>
+</span><span data-line="238"><span class="sd">        arc-length from real axis: angle*magnitude</span>
+</span><span data-line="239"><span class="sd">    """</span>
+</span><span data-line="240">    <span class="k">return</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">z</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">angle</span><span class="p">(</span><span class="n">z</span><span class="p">)</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">z</span><span class="p">))</span></div>
+
+</span><span data-line="241">
+</span><span data-line="242">
+<div class="viewcode-block" id="complex_2_reim">
+<a class="viewcode-back" href="../../api/generated/skrf.mathFunctions.complex_2_reim.html#skrf.mathFunctions.complex_2_reim">[docs]</a>
+</span><span data-line="243"><span class="k">def</span><span class="w"> </span><span class="nf">complex_2_reim</span><span class="p">(</span><span class="n">z</span><span class="p">:</span> <span class="n">NumberLike</span><span class="p">):</span>
+</span><span data-line="244"><span class="w">    </span><span class="sd">"""</span>
+</span><span data-line="245"><span class="sd">    Return real and imaginary parts of a complex number.</span>
+</span><span data-line="246">
+</span><span data-line="247"><span class="sd">    Parameters</span>
+</span><span data-line="248"><span class="sd">    ----------</span>
+</span><span data-line="249"><span class="sd">    z : number or array_like</span>
+</span><span data-line="250"><span class="sd">        A complex number or sequence of complex numbers</span>
+</span><span data-line="251">
+</span><span data-line="252"><span class="sd">    Returns</span>
+</span><span data-line="253"><span class="sd">    -------</span>
+</span><span data-line="254"><span class="sd">    real : array like or scalar</span>
+</span><span data-line="255"><span class="sd">        real part of input</span>
+</span><span data-line="256"><span class="sd">    imag : array like or scalar</span>
+</span><span data-line="257"><span class="sd">        imaginary part of input</span>
+</span><span data-line="258"><span class="sd">    """</span>
+</span><span data-line="259">    <span class="k">return</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">z</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">imag</span><span class="p">(</span><span class="n">z</span><span class="p">))</span></div>
+
+</span><span data-line="260">
+</span><span data-line="261">
+<div class="viewcode-block" id="complex_components">
+<a class="viewcode-back" href="../../api/generated/skrf.mathFunctions.complex_components.html#skrf.mathFunctions.complex_components">[docs]</a>
+</span><span data-line="262"><span class="k">def</span><span class="w"> </span><span class="nf">complex_components</span><span class="p">(</span><span class="n">z</span><span class="p">:</span> <span class="n">NumberLike</span><span class="p">):</span>
+</span><span data-line="263"><span class="w">    </span><span class="sd">"""</span>
+</span><span data-line="264"><span class="sd">    Break up a complex array into all possible scalar components.</span>
+</span><span data-line="265">
+</span><span data-line="266"><span class="sd">    Parameters</span>
+</span><span data-line="267"><span class="sd">    ----------</span>
+</span><span data-line="268"><span class="sd">    z : number or array_like</span>
+</span><span data-line="269"><span class="sd">        A complex number or sequence of complex numbers</span>
+</span><span data-line="270">
+</span><span data-line="271"><span class="sd">    Returns</span>
+</span><span data-line="272"><span class="sd">    -------</span>
+</span><span data-line="273"><span class="sd">    c_real : array like or scalar</span>
+</span><span data-line="274"><span class="sd">        real part</span>
+</span><span data-line="275"><span class="sd">    c_imag : array like or scalar</span>
+</span><span data-line="276"><span class="sd">        imaginary part</span>
+</span><span data-line="277"><span class="sd">    c_angle : array like or scalar</span>
+</span><span data-line="278"><span class="sd">        angle in degrees</span>
+</span><span data-line="279"><span class="sd">    c_mag : array like or scalar</span>
+</span><span data-line="280"><span class="sd">        magnitude</span>
+</span><span data-line="281"><span class="sd">    c_arc : array like or scalar</span>
+</span><span data-line="282"><span class="sd">        arclength from real axis, angle*magnitude</span>
+</span><span data-line="283"><span class="sd">    """</span>
+</span><span data-line="284">    <span class="k">return</span> <span class="p">(</span><span class="o">*</span><span class="n">complex_2_reim</span><span class="p">(</span><span class="n">z</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">angle</span><span class="p">(</span><span class="n">z</span><span class="p">,</span><span class="n">deg</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span> <span class="o">*</span><span class="n">complex_2_quadrature</span><span class="p">(</span><span class="n">z</span><span class="p">))</span></div>
+
+</span><span data-line="285">
+</span><span data-line="286">
+<div class="viewcode-block" id="magnitude_2_db">
+<a class="viewcode-back" href="../../api/generated/skrf.mathFunctions.magnitude_2_db.html#skrf.mathFunctions.magnitude_2_db">[docs]</a>
+</span><span data-line="287"><span class="k">def</span><span class="w"> </span><span class="nf">magnitude_2_db</span><span class="p">(</span><span class="n">z</span><span class="p">:</span> <span class="n">NumberLike</span><span class="p">,</span> <span class="n">zero_nan</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">):</span>
+</span><span data-line="288"><span class="w">    </span><span class="sd">"""</span>
+</span><span data-line="289"><span class="sd">    Convert linear magnitude to dB.</span>
+</span><span data-line="290">
+</span><span data-line="291"><span class="sd">    Parameters</span>
+</span><span data-line="292"><span class="sd">    ----------</span>
+</span><span data-line="293"><span class="sd">    z : number or array_like</span>
+</span><span data-line="294"><span class="sd">        A complex number or sequence of complex numbers</span>
+</span><span data-line="295"><span class="sd">    zero_nan : bool, optional</span>
+</span><span data-line="296"><span class="sd">        Replace NaN with zero. The default is True.</span>
+</span><span data-line="297">
+</span><span data-line="298"><span class="sd">    Returns</span>
+</span><span data-line="299"><span class="sd">    -------</span>
+</span><span data-line="300"><span class="sd">    z : number or array_like</span>
+</span><span data-line="301"><span class="sd">       Magnitude in dB given by 20*log10(|z|)</span>
+</span><span data-line="302"><span class="sd">    """</span>
+</span><span data-line="303">    <span class="n">out</span> <span class="o">=</span> <span class="mi">20</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">z</span><span class="p">)</span>
+</span><span data-line="304">    <span class="k">if</span> <span class="n">zero_nan</span><span class="p">:</span>
+</span><span data-line="305">        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">nan_to_num</span><span class="p">(</span><span class="n">out</span><span class="p">,</span> <span class="n">nan</span><span class="o">=</span><span class="n">LOG_OF_NEG</span><span class="p">,</span> <span class="n">neginf</span><span class="o">=-</span><span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">)</span>
+</span><span data-line="306">    <span class="k">return</span> <span class="n">out</span></div>
+
+</span><span data-line="307">
+</span><span data-line="308"><span class="n">mag_2_db</span> <span class="o">=</span> <span class="n">magnitude_2_db</span>
+</span><span data-line="309">
+</span><span data-line="310">
+<div class="viewcode-block" id="mag_2_db10">
+<a class="viewcode-back" href="../../api/generated/skrf.mathFunctions.mag_2_db10.html#skrf.mathFunctions.mag_2_db10">[docs]</a>
+</span><span data-line="311"><span class="k">def</span><span class="w"> </span><span class="nf">mag_2_db10</span><span class="p">(</span><span class="n">z</span><span class="p">:</span> <span class="n">NumberLike</span><span class="p">,</span> <span class="n">zero_nan</span><span class="p">:</span><span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">):</span>
+</span><span data-line="312"><span class="w">    </span><span class="sd">"""</span>
+</span><span data-line="313"><span class="sd">    Convert linear magnitude to dB.</span>
+</span><span data-line="314">
+</span><span data-line="315"><span class="sd">    Parameters</span>
+</span><span data-line="316"><span class="sd">    ----------</span>
+</span><span data-line="317"><span class="sd">    z : array_like</span>
+</span><span data-line="318"><span class="sd">        A complex number or sequence of complex numbers</span>
+</span><span data-line="319"><span class="sd">    zero_nan : bool, optional</span>
+</span><span data-line="320"><span class="sd">        Replace NaN with zero. The default is True.</span>
+</span><span data-line="321">
+</span><span data-line="322"><span class="sd">    Returns</span>
+</span><span data-line="323"><span class="sd">    -------</span>
+</span><span data-line="324"><span class="sd">    z : array_like</span>
+</span><span data-line="325"><span class="sd">       Magnitude in dB given by 10*log10(|z|)</span>
+</span><span data-line="326"><span class="sd">    """</span>
+</span><span data-line="327">    <span class="n">out</span> <span class="o">=</span> <span class="mi">10</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">z</span><span class="p">)</span>
+</span><span data-line="328">    <span class="k">if</span> <span class="n">zero_nan</span><span class="p">:</span>
+</span><span data-line="329">        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">nan_to_num</span><span class="p">(</span><span class="n">out</span><span class="p">,</span> <span class="n">nan</span><span class="o">=</span><span class="n">LOG_OF_NEG</span><span class="p">,</span> <span class="n">neginf</span><span class="o">=-</span><span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">)</span>
+</span><span data-line="330">    <span class="k">return</span> <span class="n">out</span></div>
+
+</span><span data-line="331">
+</span><span data-line="332">
+<div class="viewcode-block" id="db_2_magnitude">
+<a class="viewcode-back" href="../../api/generated/skrf.mathFunctions.db_2_magnitude.html#skrf.mathFunctions.db_2_magnitude">[docs]</a>
+</span><span data-line="333"><span class="k">def</span><span class="w"> </span><span class="nf">db_2_magnitude</span><span class="p">(</span><span class="n">z</span><span class="p">:</span> <span class="n">NumberLike</span><span class="p">):</span>
+</span><span data-line="334"><span class="w">    </span><span class="sd">"""</span>
+</span><span data-line="335"><span class="sd">    Convert dB to linear magnitude.</span>
+</span><span data-line="336">
+</span><span data-line="337"><span class="sd">    Parameters</span>
+</span><span data-line="338"><span class="sd">    ----------</span>
+</span><span data-line="339"><span class="sd">    z : number or array_like</span>
+</span><span data-line="340"><span class="sd">        A complex number or sequence of complex numbers</span>
+</span><span data-line="341">
+</span><span data-line="342"><span class="sd">    Returns</span>
+</span><span data-line="343"><span class="sd">    -------</span>
+</span><span data-line="344"><span class="sd">    z : number or array_like</span>
+</span><span data-line="345"><span class="sd">        10**((z)/20) where z is a complex number</span>
+</span><span data-line="346"><span class="sd">    """</span>
+</span><span data-line="347">    <span class="k">return</span> <span class="mi">10</span><span class="o">**</span><span class="p">((</span><span class="n">z</span><span class="p">)</span><span class="o">/</span><span class="mf">20.</span><span class="p">)</span></div>
+
+</span><span data-line="348">
+</span><span data-line="349"><span class="n">db_2_mag</span> <span class="o">=</span> <span class="n">db_2_magnitude</span>
+</span><span data-line="350">
+</span><span data-line="351">
+<div class="viewcode-block" id="db10_2_mag">
+<a class="viewcode-back" href="../../api/generated/skrf.mathFunctions.db10_2_mag.html#skrf.mathFunctions.db10_2_mag">[docs]</a>
+</span><span data-line="352"><span class="k">def</span><span class="w"> </span><span class="nf">db10_2_mag</span><span class="p">(</span><span class="n">z</span><span class="p">:</span> <span class="n">NumberLike</span><span class="p">):</span>
+</span><span data-line="353"><span class="w">    </span><span class="sd">"""</span>
+</span><span data-line="354"><span class="sd">    Convert dB to linear magnitude.</span>
+</span><span data-line="355">
+</span><span data-line="356"><span class="sd">    Parameters</span>
+</span><span data-line="357"><span class="sd">    ----------</span>
+</span><span data-line="358"><span class="sd">    z : array_like</span>
+</span><span data-line="359"><span class="sd">        A complex number or sequence of complex numbers</span>
+</span><span data-line="360">
+</span><span data-line="361"><span class="sd">    Returns</span>
+</span><span data-line="362"><span class="sd">    -------</span>
+</span><span data-line="363"><span class="sd">    z : array_like</span>
+</span><span data-line="364"><span class="sd">        10**((z)/10) where z is a complex number</span>
+</span><span data-line="365"><span class="sd">    """</span>
+</span><span data-line="366">    <span class="k">return</span> <span class="mi">10</span><span class="o">**</span><span class="p">((</span><span class="n">z</span><span class="p">)</span><span class="o">/</span><span class="mf">10.</span><span class="p">)</span></div>
+
+</span><span data-line="367">
+</span><span data-line="368">
+</span><span data-line="369"><span class="k">def</span><span class="w"> </span><span class="nf">magdeg_2_reim</span><span class="p">(</span><span class="n">mag</span><span class="p">:</span> <span class="n">NumberLike</span><span class="p">,</span> <span class="n">deg</span><span class="p">:</span> <span class="n">NumberLike</span><span class="p">):</span>
+</span><span data-line="370"><span class="w">    </span><span class="sd">"""</span>
+</span><span data-line="371"><span class="sd">    Convert linear magnitude and phase (in deg) arrays into a complex array.</span>
+</span><span data-line="372">
+</span><span data-line="373"><span class="sd">    Parameters</span>
+</span><span data-line="374"><span class="sd">    ----------</span>
+</span><span data-line="375"><span class="sd">    mag : number or array_like</span>
+</span><span data-line="376"><span class="sd">        A complex number or sequence of real numbers</span>
+</span><span data-line="377"><span class="sd">    deg : number or array_like</span>
+</span><span data-line="378"><span class="sd">        A complex number or sequence of real numbers</span>
+</span><span data-line="379">
+</span><span data-line="380"><span class="sd">    Returns</span>
+</span><span data-line="381"><span class="sd">    -------</span>
+</span><span data-line="382"><span class="sd">    z : array_like</span>
+</span><span data-line="383"><span class="sd">        A complex number or sequence of complex numbers</span>
+</span><span data-line="384">
+</span><span data-line="385"><span class="sd">    """</span>
+</span><span data-line="386">    <span class="k">return</span> <span class="n">mag</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="mi">1</span><span class="n">j</span><span class="o">*</span><span class="n">deg</span><span class="o">*</span><span class="n">pi</span><span class="o">/</span><span class="mf">180.</span><span class="p">)</span>
+</span><span data-line="387">
+</span><span data-line="388"><span class="k">def</span><span class="w"> </span><span class="nf">dbdeg_2_reim</span><span class="p">(</span><span class="n">db</span><span class="p">:</span> <span class="n">NumberLike</span><span class="p">,</span> <span class="n">deg</span><span class="p">:</span> <span class="n">NumberLike</span><span class="p">):</span>
+</span><span data-line="389"><span class="w">    </span><span class="sd">"""</span>
+</span><span data-line="390"><span class="sd">    Converts dB magnitude and phase (in deg) arrays into a complex array.</span>
+</span><span data-line="391">
+</span><span data-line="392"><span class="sd">    Parameters</span>
+</span><span data-line="393"><span class="sd">    ----------</span>
+</span><span data-line="394"><span class="sd">    db : number or array_like</span>
+</span><span data-line="395"><span class="sd">        A realnumber or sequence of real numbers</span>
+</span><span data-line="396"><span class="sd">    deg : number or array_like</span>
+</span><span data-line="397"><span class="sd">        A real number or sequence of real numbers</span>
+</span><span data-line="398">
+</span><span data-line="399"><span class="sd">    Returns</span>
+</span><span data-line="400"><span class="sd">    -------</span>
+</span><span data-line="401"><span class="sd">    z : array_like</span>
+</span><span data-line="402"><span class="sd">        A complex number or sequence of complex numbers</span>
+</span><span data-line="403"><span class="sd">    """</span>
+</span><span data-line="404">    <span class="k">return</span> <span class="n">magdeg_2_reim</span><span class="p">(</span><span class="n">db_2_magnitude</span><span class="p">(</span><span class="n">db</span><span class="p">),</span> <span class="n">deg</span><span class="p">)</span>
+</span><span data-line="405">
+</span><span data-line="406">
+<div class="viewcode-block" id="db_2_np">
+<a class="viewcode-back" href="../../api/generated/skrf.mathFunctions.db_2_np.html#skrf.mathFunctions.db_2_np">[docs]</a>
+</span><span data-line="407"><span class="k">def</span><span class="w"> </span><span class="nf">db_2_np</span><span class="p">(</span><span class="n">db</span><span class="p">:</span> <span class="n">NumberLike</span><span class="p">):</span>
+</span><span data-line="408"><span class="w">    </span><span class="sd">"""</span>
+</span><span data-line="409"><span class="sd">    Converts a value in decibel (dB) to neper (Np).</span>
+</span><span data-line="410">
+</span><span data-line="411"><span class="sd">    Parameters</span>
+</span><span data-line="412"><span class="sd">    ----------</span>
+</span><span data-line="413"><span class="sd">    db : number or array_like</span>
+</span><span data-line="414"><span class="sd">        A real number or sequence of real numbers</span>
+</span><span data-line="415">
+</span><span data-line="416"><span class="sd">    Returns</span>
+</span><span data-line="417"><span class="sd">    -------</span>
+</span><span data-line="418"><span class="sd">    np : number or array_like</span>
+</span><span data-line="419"><span class="sd">        A real number of sequence of real numbers</span>
+</span><span data-line="420"><span class="sd">    """</span>
+</span><span data-line="421">    <span class="k">return</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span><span class="o">/</span><span class="mi">20</span><span class="p">)</span> <span class="o">*</span> <span class="n">db</span></div>
+
+</span><span data-line="422">
+</span><span data-line="423">
+<div class="viewcode-block" id="np_2_db">
+<a class="viewcode-back" href="../../api/generated/skrf.mathFunctions.np_2_db.html#skrf.mathFunctions.np_2_db">[docs]</a>
+</span><span data-line="424"><span class="k">def</span><span class="w"> </span><span class="nf">np_2_db</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">NumberLike</span><span class="p">):</span>
+</span><span data-line="425"><span class="w">    </span><span class="sd">"""</span>
+</span><span data-line="426"><span class="sd">    Converts a value in Nepers (Np) to decibel (dB).</span>
+</span><span data-line="427">
+</span><span data-line="428"><span class="sd">    Parameters</span>
+</span><span data-line="429"><span class="sd">    ----------</span>
+</span><span data-line="430"><span class="sd">    np : number or array_like</span>
+</span><span data-line="431"><span class="sd">        A real number or sequence of real numbers</span>
+</span><span data-line="432">
+</span><span data-line="433"><span class="sd">    Returns</span>
+</span><span data-line="434"><span class="sd">    -------</span>
+</span><span data-line="435"><span class="sd">    db : number or array_like</span>
+</span><span data-line="436"><span class="sd">        A real number of sequence of real numbers</span>
+</span><span data-line="437"><span class="sd">    """</span>
+</span><span data-line="438">    <span class="k">return</span> <span class="mi">20</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span> <span class="o">*</span> <span class="n">x</span></div>
+
+</span><span data-line="439">
+</span><span data-line="440">
+<div class="viewcode-block" id="radian_2_degree">
+<a class="viewcode-back" href="../../api/generated/skrf.mathFunctions.radian_2_degree.html#skrf.mathFunctions.radian_2_degree">[docs]</a>
+</span><span data-line="441"><span class="k">def</span><span class="w"> </span><span class="nf">radian_2_degree</span><span class="p">(</span><span class="n">rad</span><span class="p">:</span> <span class="n">NumberLike</span><span class="p">):</span>
+</span><span data-line="442"><span class="w">    </span><span class="sd">"""</span>
+</span><span data-line="443"><span class="sd">    Convert angles from radians to degrees.</span>
+</span><span data-line="444">
+</span><span data-line="445"><span class="sd">    Parameters</span>
+</span><span data-line="446"><span class="sd">    ----------</span>
+</span><span data-line="447"><span class="sd">    rad : number or array_like</span>
+</span><span data-line="448"><span class="sd">        Angle in radian</span>
+</span><span data-line="449">
+</span><span data-line="450"><span class="sd">    Returns</span>
+</span><span data-line="451"><span class="sd">    -------</span>
+</span><span data-line="452"><span class="sd">    deg : number or array_like</span>
+</span><span data-line="453"><span class="sd">        Angle in degree</span>
+</span><span data-line="454"><span class="sd">    """</span>
+</span><span data-line="455">    <span class="k">return</span> <span class="p">(</span><span class="n">rad</span><span class="p">)</span><span class="o">*</span><span class="mi">180</span><span class="o">/</span><span class="n">pi</span></div>
+
+</span><span data-line="456">
+</span><span data-line="457">
+<div class="viewcode-block" id="degree_2_radian">
+<a class="viewcode-back" href="../../api/generated/skrf.mathFunctions.degree_2_radian.html#skrf.mathFunctions.degree_2_radian">[docs]</a>
+</span><span data-line="458"><span class="k">def</span><span class="w"> </span><span class="nf">degree_2_radian</span><span class="p">(</span><span class="n">deg</span><span class="p">:</span> <span class="n">NumberLike</span><span class="p">):</span>
+</span><span data-line="459"><span class="w">    </span><span class="sd">"""</span>
+</span><span data-line="460"><span class="sd">    Convert angles from degrees to radians.</span>
+</span><span data-line="461">
+</span><span data-line="462"><span class="sd">    Parameters</span>
+</span><span data-line="463"><span class="sd">    ----------</span>
+</span><span data-line="464"><span class="sd">    deg : number or array_like</span>
+</span><span data-line="465"><span class="sd">        Angle in radian</span>
+</span><span data-line="466">
+</span><span data-line="467"><span class="sd">    Returns</span>
+</span><span data-line="468"><span class="sd">    -------</span>
+</span><span data-line="469"><span class="sd">    rad : number or array_like</span>
+</span><span data-line="470"><span class="sd">        Angle in degree</span>
+</span><span data-line="471"><span class="sd">    """</span>
+</span><span data-line="472">    <span class="k">return</span> <span class="p">(</span><span class="n">deg</span><span class="p">)</span><span class="o">*</span><span class="n">pi</span><span class="o">/</span><span class="mf">180.</span></div>
+
+</span><span data-line="473">
+</span><span data-line="474">
+<div class="viewcode-block" id="feet_2_meter">
+<a class="viewcode-back" href="../../api/generated/skrf.mathFunctions.feet_2_meter.html#skrf.mathFunctions.feet_2_meter">[docs]</a>
+</span><span data-line="475"><span class="k">def</span><span class="w"> </span><span class="nf">feet_2_meter</span><span class="p">(</span><span class="n">feet</span><span class="p">:</span> <span class="n">NumberLike</span> <span class="o">=</span> <span class="mi">1</span><span class="p">):</span>
+</span><span data-line="476"><span class="w">    </span><span class="sd">"""</span>
+</span><span data-line="477"><span class="sd">    Convert length in feet to meter.</span>
+</span><span data-line="478">
+</span><span data-line="479"><span class="sd">    1 foot is equal to 0.3048 meters.</span>
+</span><span data-line="480">
+</span><span data-line="481"><span class="sd">    Parameters</span>
+</span><span data-line="482"><span class="sd">    ----------</span>
+</span><span data-line="483"><span class="sd">    feet : number or array-like, optional</span>
+</span><span data-line="484"><span class="sd">        length in feet. Default is 1.</span>
+</span><span data-line="485">
+</span><span data-line="486"><span class="sd">    Returns</span>
+</span><span data-line="487"><span class="sd">    -------</span>
+</span><span data-line="488"><span class="sd">    meter: number or array-like</span>
+</span><span data-line="489"><span class="sd">        length in meter</span>
+</span><span data-line="490">
+</span><span data-line="491"><span class="sd">    See Also</span>
+</span><span data-line="492"><span class="sd">    --------</span>
+</span><span data-line="493"><span class="sd">    meter_2_feet</span>
+</span><span data-line="494"><span class="sd">    """</span>
+</span><span data-line="495">    <span class="k">return</span> <span class="mf">0.3048</span><span class="o">*</span><span class="n">feet</span></div>
+
+</span><span data-line="496">
+<div class="viewcode-block" id="meter_2_feet">
+<a class="viewcode-back" href="../../api/generated/skrf.mathFunctions.meter_2_feet.html#skrf.mathFunctions.meter_2_feet">[docs]</a>
+</span><span data-line="497"><span class="k">def</span><span class="w"> </span><span class="nf">meter_2_feet</span><span class="p">(</span><span class="n">meter</span><span class="p">:</span> <span class="n">NumberLike</span> <span class="o">=</span> <span class="mi">1</span><span class="p">):</span>
+</span><span data-line="498"><span class="w">    </span><span class="sd">"""</span>
+</span><span data-line="499"><span class="sd">    Convert length in meter to feet.</span>
+</span><span data-line="500">
+</span><span data-line="501"><span class="sd">    1 meter is equal to 0.3.28084 feet.</span>
+</span><span data-line="502">
+</span><span data-line="503"><span class="sd">    Parameters</span>
+</span><span data-line="504"><span class="sd">    ----------</span>
+</span><span data-line="505"><span class="sd">    meter : number or array-like, optional</span>
+</span><span data-line="506"><span class="sd">        length in meter. Default is 1.</span>
+</span><span data-line="507">
+</span><span data-line="508"><span class="sd">    Returns</span>
+</span><span data-line="509"><span class="sd">    -------</span>
+</span><span data-line="510"><span class="sd">    feet : number or array-like</span>
+</span><span data-line="511"><span class="sd">        length in feet</span>
+</span><span data-line="512">
+</span><span data-line="513"><span class="sd">    See Also</span>
+</span><span data-line="514"><span class="sd">    --------</span>
+</span><span data-line="515"><span class="sd">    feet_2_meter</span>
+</span><span data-line="516"><span class="sd">    """</span>
+</span><span data-line="517">    <span class="k">return</span> <span class="mf">3.28084</span><span class="o">*</span><span class="n">meter</span></div>
+
+</span><span data-line="518">
+</span><span data-line="519">
+<div class="viewcode-block" id="db_per_100feet_2_db_per_100meter">
+<a class="viewcode-back" href="../../api/generated/skrf.mathFunctions.db_per_100feet_2_db_per_100meter.html#skrf.mathFunctions.db_per_100feet_2_db_per_100meter">[docs]</a>
+</span><span data-line="520"><span class="k">def</span><span class="w"> </span><span class="nf">db_per_100feet_2_db_per_100meter</span><span class="p">(</span><span class="n">db_per_100feet</span><span class="p">:</span> <span class="n">NumberLike</span> <span class="o">=</span> <span class="mi">1</span><span class="p">):</span>
+</span><span data-line="521"><span class="w">    </span><span class="sd">"""</span>
+</span><span data-line="522"><span class="sd">    Convert attenuation values given in dB/100ft to dB/100m.</span>
+</span><span data-line="523">
+</span><span data-line="524"><span class="sd">    db_per_100meter = db_per_100feet * rf.meter_2_feet()</span>
+</span><span data-line="525">
+</span><span data-line="526"><span class="sd">    Parameters</span>
+</span><span data-line="527"><span class="sd">    ----------</span>
+</span><span data-line="528"><span class="sd">    db_per_100feet : number or array-like, optional</span>
+</span><span data-line="529"><span class="sd">        Attenuation in dB/ 100 ft. Default is 1.</span>
+</span><span data-line="530">
+</span><span data-line="531"><span class="sd">    Returns</span>
+</span><span data-line="532"><span class="sd">    -------</span>
+</span><span data-line="533"><span class="sd">    db_per_100meter : number or array-like</span>
+</span><span data-line="534"><span class="sd">        Attenuation in dB/ 100 m</span>
+</span><span data-line="535">
+</span><span data-line="536"><span class="sd">    See Also</span>
+</span><span data-line="537"><span class="sd">    --------</span>
+</span><span data-line="538"><span class="sd">    meter_2_feet</span>
+</span><span data-line="539"><span class="sd">    feet_2_meter</span>
+</span><span data-line="540"><span class="sd">    np_2_db</span>
+</span><span data-line="541"><span class="sd">    db_2_np</span>
+</span><span data-line="542"><span class="sd">    """</span>
+</span><span data-line="543">    <span class="k">return</span> <span class="n">db_per_100feet</span> <span class="o">*</span> <span class="mi">100</span> <span class="o">/</span> <span class="n">feet_2_meter</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span></div>
+
+</span><span data-line="544">
+</span><span data-line="545">
+<div class="viewcode-block" id="unwrap_rad">
+<a class="viewcode-back" href="../../api/generated/skrf.mathFunctions.unwrap_rad.html#skrf.mathFunctions.unwrap_rad">[docs]</a>
+</span><span data-line="546"><span class="k">def</span><span class="w"> </span><span class="nf">unwrap_rad</span><span class="p">(</span><span class="n">phi</span><span class="p">:</span> <span class="n">NumberLike</span><span class="p">):</span>
+</span><span data-line="547"><span class="w">    </span><span class="sd">"""</span>
+</span><span data-line="548"><span class="sd">    Unwraps a phase given in radians.</span>
+</span><span data-line="549">
+</span><span data-line="550"><span class="sd">    Parameters</span>
+</span><span data-line="551"><span class="sd">    ----------</span>
+</span><span data-line="552"><span class="sd">    phi : number or array_like</span>
+</span><span data-line="553"><span class="sd">        phase in radians</span>
+</span><span data-line="554">
+</span><span data-line="555"><span class="sd">    Returns</span>
+</span><span data-line="556"><span class="sd">    -------</span>
+</span><span data-line="557"><span class="sd">    phi : number of array_like</span>
+</span><span data-line="558"><span class="sd">        unwrapped phase in radians</span>
+</span><span data-line="559"><span class="sd">    """</span>
+</span><span data-line="560">    <span class="k">return</span> <span class="n">unwrap</span><span class="p">(</span><span class="n">phi</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span></div>
+
+</span><span data-line="561">
+</span><span data-line="562">
+<div class="viewcode-block" id="sqrt_known_sign">
+<a class="viewcode-back" href="../../api/generated/skrf.mathFunctions.sqrt_known_sign.html#skrf.mathFunctions.sqrt_known_sign">[docs]</a>
+</span><span data-line="563"><span class="k">def</span><span class="w"> </span><span class="nf">sqrt_known_sign</span><span class="p">(</span><span class="n">z_squared</span><span class="p">:</span> <span class="n">NumberLike</span><span class="p">,</span> <span class="n">z_approx</span><span class="p">:</span> <span class="n">NumberLike</span><span class="p">):</span>
+</span><span data-line="564"><span class="w">    </span><span class="sd">"""</span>
+</span><span data-line="565"><span class="sd">    Return the square root of a complex number, with sign chosen to match `z_approx`.</span>
+</span><span data-line="566">
+</span><span data-line="567"><span class="sd">    Parameters</span>
+</span><span data-line="568"><span class="sd">    ----------</span>
+</span><span data-line="569"><span class="sd">    z_squared : number or array-like</span>
+</span><span data-line="570"><span class="sd">        the complex to be square-rooted</span>
+</span><span data-line="571"><span class="sd">    z_approx : number or array-like</span>
+</span><span data-line="572"><span class="sd">        the approximate value of z. sign of z is chosen to match that of</span>
+</span><span data-line="573"><span class="sd">        z_approx</span>
+</span><span data-line="574">
+</span><span data-line="575"><span class="sd">    Returns</span>
+</span><span data-line="576"><span class="sd">    -------</span>
+</span><span data-line="577"><span class="sd">    z : number, array-like (same type as z_squared)</span>
+</span><span data-line="578"><span class="sd">        square root of z_squared.</span>
+</span><span data-line="579"><span class="sd">    """</span>
+</span><span data-line="580">    <span class="n">z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">z_squared</span><span class="p">)</span>
+</span><span data-line="581">    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span>
+</span><span data-line="582">        <span class="n">np</span><span class="o">.</span><span class="n">sign</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">angle</span><span class="p">(</span><span class="n">z</span><span class="p">))</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">sign</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">angle</span><span class="p">(</span><span class="n">z_approx</span><span class="p">)),</span>
+</span><span data-line="583">        <span class="n">z</span><span class="p">,</span> <span class="n">z</span><span class="o">.</span><span class="n">conj</span><span class="p">())</span></div>
+
+</span><span data-line="584">
+</span><span data-line="585">
+<div class="viewcode-block" id="find_correct_sign">
+<a class="viewcode-back" href="../../api/generated/skrf.mathFunctions.find_correct_sign.html#skrf.mathFunctions.find_correct_sign">[docs]</a>
+</span><span data-line="586"><span class="k">def</span><span class="w"> </span><span class="nf">find_correct_sign</span><span class="p">(</span><span class="n">z1</span><span class="p">:</span> <span class="n">NumberLike</span><span class="p">,</span> <span class="n">z2</span><span class="p">:</span> <span class="n">NumberLike</span><span class="p">,</span> <span class="n">z_approx</span><span class="p">:</span> <span class="n">NumberLike</span><span class="p">):</span>
+</span><span data-line="587"><span class="w">    </span><span class="sa">r</span><span class="sd">"""</span>
+</span><span data-line="588"><span class="sd">    Create new vector from z1, z2 choosing elements with sign matching z_approx.</span>
+</span><span data-line="589">
+</span><span data-line="590"><span class="sd">    This is used when you have to make a root choice on a complex number.</span>
+</span><span data-line="591"><span class="sd">    and you know the approximate value of the root.</span>
+</span><span data-line="592">
+</span><span data-line="593"><span class="sd">    .. math::</span>
+</span><span data-line="594">
+</span><span data-line="595"><span class="sd">        z1,z2 = \pm \sqrt(z^2)</span>
+</span><span data-line="596">
+</span><span data-line="597">
+</span><span data-line="598"><span class="sd">    Parameters</span>
+</span><span data-line="599"><span class="sd">    ----------</span>
+</span><span data-line="600"><span class="sd">    z1 : array-like</span>
+</span><span data-line="601"><span class="sd">        root 1</span>
+</span><span data-line="602"><span class="sd">    z2 : array-like</span>
+</span><span data-line="603"><span class="sd">        root 2</span>
+</span><span data-line="604"><span class="sd">    z_approx : array-like</span>
+</span><span data-line="605"><span class="sd">        approximate answer of z</span>
+</span><span data-line="606">
+</span><span data-line="607"><span class="sd">    Returns</span>
+</span><span data-line="608"><span class="sd">    -------</span>
+</span><span data-line="609"><span class="sd">    z3 : np.array</span>
+</span><span data-line="610"><span class="sd">        array built from z1 and z2 by</span>
+</span><span data-line="611"><span class="sd">        z1 where sign(z1) == sign(z_approx), z2 else</span>
+</span><span data-line="612">
+</span><span data-line="613"><span class="sd">    """</span>
+</span><span data-line="614">    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span>
+</span><span data-line="615">    <span class="n">np</span><span class="o">.</span><span class="n">sign</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">angle</span><span class="p">(</span><span class="n">z1</span><span class="p">))</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">sign</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">angle</span><span class="p">(</span><span class="n">z_approx</span><span class="p">)),</span><span class="n">z1</span><span class="p">,</span> <span class="n">z2</span><span class="p">)</span></div>
+
+</span><span data-line="616">
+</span><span data-line="617">
+<div class="viewcode-block" id="find_closest">
+<a class="viewcode-back" href="../../api/generated/skrf.mathFunctions.find_closest.html#skrf.mathFunctions.find_closest">[docs]</a>
+</span><span data-line="618"><span class="k">def</span><span class="w"> </span><span class="nf">find_closest</span><span class="p">(</span><span class="n">z1</span><span class="p">:</span> <span class="n">NumberLike</span><span class="p">,</span> <span class="n">z2</span><span class="p">:</span> <span class="n">NumberLike</span><span class="p">,</span> <span class="n">z_approx</span><span class="p">:</span> <span class="n">NumberLike</span><span class="p">):</span>
+</span><span data-line="619"><span class="w">    </span><span class="sd">"""</span>
+</span><span data-line="620"><span class="sd">    Return z1 or z2  depending on which is  closer to z_approx.</span>
+</span><span data-line="621">
+</span><span data-line="622"><span class="sd">    Parameters</span>
+</span><span data-line="623"><span class="sd">    ----------</span>
+</span><span data-line="624"><span class="sd">    z1 : array-like</span>
+</span><span data-line="625"><span class="sd">        root 1</span>
+</span><span data-line="626"><span class="sd">    z2 : array-like</span>
+</span><span data-line="627"><span class="sd">        root 2</span>
+</span><span data-line="628"><span class="sd">    z_approx : array-like</span>
+</span><span data-line="629"><span class="sd">        approximate answer of z</span>
+</span><span data-line="630">
+</span><span data-line="631"><span class="sd">    Returns</span>
+</span><span data-line="632"><span class="sd">    -------</span>
+</span><span data-line="633"><span class="sd">    z3 : np.array</span>
+</span><span data-line="634"><span class="sd">        array built from z1 and z2</span>
+</span><span data-line="635">
+</span><span data-line="636"><span class="sd">    """</span>
+</span><span data-line="637">    <span class="n">z1_dist</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">z1</span><span class="o">-</span><span class="n">z_approx</span><span class="p">)</span>
+</span><span data-line="638">    <span class="n">z2_dist</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">z2</span><span class="o">-</span><span class="n">z_approx</span><span class="p">)</span>
+</span><span data-line="639">
+</span><span data-line="640">    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">z1_dist</span><span class="o">&lt;</span><span class="n">z2_dist</span><span class="p">,</span><span class="n">z1</span><span class="p">,</span> <span class="n">z2</span><span class="p">)</span></div>
+
+</span><span data-line="641">
+<div class="viewcode-block" id="sqrt_phase_unwrap">
+<a class="viewcode-back" href="../../api/generated/skrf.mathFunctions.sqrt_phase_unwrap.html#skrf.mathFunctions.sqrt_phase_unwrap">[docs]</a>
+</span><span data-line="642"><span class="k">def</span><span class="w"> </span><span class="nf">sqrt_phase_unwrap</span><span class="p">(</span><span class="n">z</span><span class="p">:</span> <span class="n">NumberLike</span><span class="p">):</span>
+</span><span data-line="643"><span class="w">    </span><span class="sa">r</span><span class="sd">"""</span>
+</span><span data-line="644"><span class="sd">    Take the square root of a complex number with unwrapped phase.</span>
+</span><span data-line="645">
+</span><span data-line="646"><span class="sd">    This idea came from Lihan Chen.</span>
+</span><span data-line="647">
+</span><span data-line="648"><span class="sd">    .. math::</span>
+</span><span data-line="649">
+</span><span data-line="650"><span class="sd">        \sqrt{|z|} \exp( \arg_{unwrap}(z) / 2 )</span>
+</span><span data-line="651">
+</span><span data-line="652">
+</span><span data-line="653"><span class="sd">    Parameters</span>
+</span><span data-line="654"><span class="sd">    ----------</span>
+</span><span data-line="655"><span class="sd">    z : number or array_like</span>
+</span><span data-line="656"><span class="sd">        A complex number or sequence of complex numbers</span>
+</span><span data-line="657">
+</span><span data-line="658"><span class="sd">    Returns</span>
+</span><span data-line="659"><span class="sd">    -------</span>
+</span><span data-line="660"><span class="sd">    z : number of array_like</span>
+</span><span data-line="661"><span class="sd">        A complex number or sequence of complex numbers</span>
+</span><span data-line="662"><span class="sd">    """</span>
+</span><span data-line="663">    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">z</span><span class="p">))</span><span class="o">*</span>\
+</span><span data-line="664">            <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="mf">0.5</span><span class="o">*</span><span class="mi">1</span><span class="n">j</span><span class="o">*</span><span class="n">unwrap_rad</span><span class="p">(</span><span class="n">complex_2_radian</span><span class="p">(</span><span class="n">z</span><span class="p">)))</span></div>
+
+</span><span data-line="665">
+</span><span data-line="666">
+</span><span data-line="667"><span class="c1"># mathematical functions</span>
+<div class="viewcode-block" id="dirac_delta">
+<a class="viewcode-back" href="../../api/generated/skrf.mathFunctions.dirac_delta.html#skrf.mathFunctions.dirac_delta">[docs]</a>
+</span><span data-line="668"><span class="k">def</span><span class="w"> </span><span class="nf">dirac_delta</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">NumberLike</span><span class="p">):</span>
+</span><span data-line="669"><span class="w">    </span><span class="sa">r</span><span class="sd">"""</span>
+</span><span data-line="670"><span class="sd">    Calculate Dirac function.</span>
+</span><span data-line="671">
+</span><span data-line="672"><span class="sd">    Dirac function :math:`\delta(x)` defined as :math:`\delta(x)=1` if x=0,</span>
+</span><span data-line="673"><span class="sd">    0 otherwise.</span>
+</span><span data-line="674">
+</span><span data-line="675"><span class="sd">    Parameters</span>
+</span><span data-line="676"><span class="sd">    ----------</span>
+</span><span data-line="677"><span class="sd">    x : number of array_like</span>
+</span><span data-line="678"><span class="sd">        A real number or sequence of real numbers</span>
+</span><span data-line="679">
+</span><span data-line="680"><span class="sd">    Returns</span>
+</span><span data-line="681"><span class="sd">    -------</span>
+</span><span data-line="682"><span class="sd">    delta : number of array_like</span>
+</span><span data-line="683"><span class="sd">        1 or 0</span>
+</span><span data-line="684">
+</span><span data-line="685"><span class="sd">    References</span>
+</span><span data-line="686"><span class="sd">    ----------</span>
+</span><span data-line="687"><span class="sd">    https://en.wikipedia.org/wiki/Dirac_delta_function</span>
+</span><span data-line="688">
+</span><span data-line="689"><span class="sd">    """</span>
+</span><span data-line="690">    <span class="k">return</span> <span class="p">(</span><span class="n">x</span><span class="o">==</span><span class="mi">0</span><span class="p">)</span><span class="o">*</span><span class="mf">1.</span> <span class="o">+</span> <span class="p">(</span><span class="n">x</span><span class="o">!=</span><span class="mi">0</span><span class="p">)</span><span class="o">*</span><span class="mf">0.</span></div>
+
+</span><span data-line="691">
+</span><span data-line="692">
+<div class="viewcode-block" id="neuman">
+<a class="viewcode-back" href="../../api/generated/skrf.mathFunctions.neuman.html#skrf.mathFunctions.neuman">[docs]</a>
+</span><span data-line="693"><span class="k">def</span><span class="w"> </span><span class="nf">neuman</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">NumberLike</span><span class="p">):</span>
+</span><span data-line="694"><span class="w">    </span><span class="sa">r</span><span class="sd">"""</span>
+</span><span data-line="695"><span class="sd">    Calculate Neumans number.</span>
+</span><span data-line="696">
+</span><span data-line="697"><span class="sd">    It is defined as:</span>
+</span><span data-line="698">
+</span><span data-line="699"><span class="sd">    .. math::</span>
+</span><span data-line="700">
+</span><span data-line="701"><span class="sd">        2 - \delta(x)</span>
+</span><span data-line="702">
+</span><span data-line="703"><span class="sd">    where :math:`\delta` is the Dirac function.</span>
+</span><span data-line="704">
+</span><span data-line="705"><span class="sd">    Parameters</span>
+</span><span data-line="706"><span class="sd">    ----------</span>
+</span><span data-line="707"><span class="sd">    x : number or array_like</span>
+</span><span data-line="708"><span class="sd">        A real number or sequence of real numbers</span>
+</span><span data-line="709">
+</span><span data-line="710"><span class="sd">    Returns</span>
+</span><span data-line="711"><span class="sd">    -------</span>
+</span><span data-line="712"><span class="sd">    y : number or array_like</span>
+</span><span data-line="713"><span class="sd">        A real number or sequence of real numbers</span>
+</span><span data-line="714">
+</span><span data-line="715"><span class="sd">    See Also</span>
+</span><span data-line="716"><span class="sd">    --------</span>
+</span><span data-line="717"><span class="sd">    dirac_delta</span>
+</span><span data-line="718"><span class="sd">    """</span>
+</span><span data-line="719">    <span class="k">return</span> <span class="mf">2.</span> <span class="o">-</span> <span class="n">dirac_delta</span><span class="p">(</span><span class="n">x</span><span class="p">)</span></div>
+
+</span><span data-line="720">
+</span><span data-line="721">
+<div class="viewcode-block" id="null">
+<a class="viewcode-back" href="../../api/generated/skrf.mathFunctions.null.html#skrf.mathFunctions.null">[docs]</a>
+</span><span data-line="722"><span class="k">def</span><span class="w"> </span><span class="nf">null</span><span class="p">(</span><span class="n">A</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">eps</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-15</span><span class="p">):</span>
+</span><span data-line="723"><span class="w">    </span><span class="sd">"""</span>
+</span><span data-line="724"><span class="sd">    Calculate the null space of matrix A.</span>
+</span><span data-line="725">
+</span><span data-line="726"><span class="sd">    Parameters</span>
+</span><span data-line="727"><span class="sd">    ----------</span>
+</span><span data-line="728"><span class="sd">    A : array_like</span>
+</span><span data-line="729"><span class="sd">    eps : float</span>
+</span><span data-line="730">
+</span><span data-line="731"><span class="sd">    Returns</span>
+</span><span data-line="732"><span class="sd">    -------</span>
+</span><span data-line="733"><span class="sd">    null_space : array_like</span>
+</span><span data-line="734">
+</span><span data-line="735"><span class="sd">    References</span>
+</span><span data-line="736"><span class="sd">    ----------</span>
+</span><span data-line="737"><span class="sd">    https://scipy-cookbook.readthedocs.io/items/RankNullspace.html</span>
+</span><span data-line="738"><span class="sd">    https://stackoverflow.com/questions/5889142/python-numpy-scipy-finding-the-null-space-of-a-matrix</span>
+</span><span data-line="739"><span class="sd">    """</span>
+</span><span data-line="740">    <span class="n">u</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">vh</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">svd</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+</span><span data-line="741">    <span class="n">null_space</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">compress</span><span class="p">(</span><span class="n">s</span> <span class="o">&lt;=</span> <span class="n">eps</span><span class="p">,</span> <span class="n">vh</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</span><span data-line="742">    <span class="k">return</span> <span class="n">null_space</span><span class="o">.</span><span class="n">T</span></div>
+
+</span><span data-line="743">
+</span><span data-line="744">
+<div class="viewcode-block" id="inf_to_num">
+<a class="viewcode-back" href="../../api/generated/skrf.mathFunctions.inf_to_num.html#skrf.mathFunctions.inf_to_num">[docs]</a>
+</span><span data-line="745"><span class="k">def</span><span class="w"> </span><span class="nf">inf_to_num</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">NumberLike</span><span class="p">):</span>
+</span><span data-line="746"><span class="w">    </span><span class="sd">"""</span>
+</span><span data-line="747"><span class="sd">    Convert inf and -inf's to large numbers.</span>
+</span><span data-line="748">
+</span><span data-line="749"><span class="sd">    Parameters</span>
+</span><span data-line="750"><span class="sd">    ------------</span>
+</span><span data-line="751"><span class="sd">    x : array-like or number</span>
+</span><span data-line="752"><span class="sd">        the input array or number</span>
+</span><span data-line="753">
+</span><span data-line="754"><span class="sd">    Returns</span>
+</span><span data-line="755"><span class="sd">    -------</span>
+</span><span data-line="756"><span class="sd">    x : Number of array_like</span>
+</span><span data-line="757"><span class="sd">        Input without with +/- inf replaced by large numbers</span>
+</span><span data-line="758"><span class="sd">    """</span>
+</span><span data-line="759">    <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan_to_num</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">nan</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">posinf</span><span class="o">=</span><span class="n">INF</span><span class="p">,</span> <span class="n">neginf</span><span class="o">=-</span><span class="mi">1</span><span class="o">*</span><span class="n">INF</span><span class="p">)</span>
+</span><span data-line="760">    <span class="k">return</span> <span class="n">x</span></div>
+
+</span><span data-line="761">
+</span><span data-line="762">
+<div class="viewcode-block" id="cross_ratio">
+<a class="viewcode-back" href="../../api/generated/skrf.mathFunctions.cross_ratio.html#skrf.mathFunctions.cross_ratio">[docs]</a>
+</span><span data-line="763"><span class="k">def</span><span class="w"> </span><span class="nf">cross_ratio</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="n">NumberLike</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="n">NumberLike</span><span class="p">,</span> <span class="n">c</span><span class="p">:</span> <span class="n">NumberLike</span><span class="p">,</span> <span class="n">d</span><span class="p">:</span><span class="n">NumberLike</span><span class="p">):</span>
+</span><span data-line="764"><span class="w">    </span><span class="sa">r</span><span class="sd">"""</span>
+</span><span data-line="765"><span class="sd">    Calculate the cross ratio of a quadruple of distinct points on the real line.</span>
+</span><span data-line="766">
+</span><span data-line="767">
+</span><span data-line="768"><span class="sd">    The cross ratio is defined as:</span>
+</span><span data-line="769">
+</span><span data-line="770">
+</span><span data-line="771"><span class="sd">    .. math::</span>
+</span><span data-line="772">
+</span><span data-line="773"><span class="sd">        r = \frac{ (a-b)(c-d) }{ (a-d)(c-b) }</span>
+</span><span data-line="774">
+</span><span data-line="775">
+</span><span data-line="776">
+</span><span data-line="777"><span class="sd">    Parameters</span>
+</span><span data-line="778"><span class="sd">    ----------</span>
+</span><span data-line="779"><span class="sd">    a,b,c,d :  array-like or number</span>
+</span><span data-line="780">
+</span><span data-line="781"><span class="sd">    Returns</span>
+</span><span data-line="782"><span class="sd">    -------</span>
+</span><span data-line="783"><span class="sd">    r : array-like or number</span>
+</span><span data-line="784">
+</span><span data-line="785"><span class="sd">    References</span>
+</span><span data-line="786"><span class="sd">    ----------</span>
+</span><span data-line="787"><span class="sd">    https://en.wikipedia.org/wiki/Cross-ratio</span>
+</span><span data-line="788">
+</span><span data-line="789"><span class="sd">    """</span>
+</span><span data-line="790">    <span class="k">return</span> <span class="p">((</span><span class="n">a</span><span class="o">-</span><span class="n">b</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">c</span><span class="o">-</span><span class="n">d</span><span class="p">))</span><span class="o">/</span><span class="p">((</span><span class="n">a</span><span class="o">-</span><span class="n">d</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">c</span><span class="o">-</span><span class="n">b</span><span class="p">))</span></div>
+
+</span><span data-line="791">
+</span><span data-line="792">
+</span><span data-line="793"><span class="k">def</span><span class="w"> </span><span class="nf">complexify</span><span class="p">(</span><span class="n">f</span><span class="p">:</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+</span><span data-line="794"><span class="w">    </span><span class="sd">"""</span>
+</span><span data-line="795"><span class="sd">    Make a function f(scalar) into f(complex).</span>
+</span><span data-line="796">
+</span><span data-line="797"><span class="sd">    If `f(x)` then it returns `f_c(z) = f(real(z)) + 1j*f(imag(z))`</span>
+</span><span data-line="798">
+</span><span data-line="799"><span class="sd">    If the real/imag arguments are not first, then you may specify the</span>
+</span><span data-line="800"><span class="sd">    name given to them as kwargs.</span>
+</span><span data-line="801">
+</span><span data-line="802"><span class="sd">    Parameters</span>
+</span><span data-line="803"><span class="sd">    ----------</span>
+</span><span data-line="804"><span class="sd">    f : Callable</span>
+</span><span data-line="805"><span class="sd">        function of real variable</span>
+</span><span data-line="806"><span class="sd">    name : string, optional</span>
+</span><span data-line="807"><span class="sd">        name of the real/imag argument names if they are not first</span>
+</span><span data-line="808">
+</span><span data-line="809"><span class="sd">    Returns</span>
+</span><span data-line="810"><span class="sd">    -------</span>
+</span><span data-line="811"><span class="sd">    f_c : Callable</span>
+</span><span data-line="812"><span class="sd">        function of a complex variable</span>
+</span><span data-line="813">
+</span><span data-line="814"><span class="sd">    Examples</span>
+</span><span data-line="815"><span class="sd">    --------</span>
+</span><span data-line="816"><span class="sd">    &gt;&gt;&gt; def f(x): return x</span>
+</span><span data-line="817"><span class="sd">    &gt;&gt;&gt; f_c = rf.complexify(f)</span>
+</span><span data-line="818"><span class="sd">    &gt;&gt;&gt; z = 0.2 -1j*0.3</span>
+</span><span data-line="819"><span class="sd">    &gt;&gt;&gt; f_c(z)</span>
+</span><span data-line="820">
+</span><span data-line="821"><span class="sd">    """</span>
+</span><span data-line="822">    <span class="k">def</span><span class="w"> </span><span class="nf">f_c</span><span class="p">(</span><span class="n">z</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">):</span>
+</span><span data-line="823">        <span class="k">if</span> <span class="n">name</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+</span><span data-line="824">            <span class="n">kw_re</span> <span class="o">=</span> <span class="p">{</span><span class="n">name</span><span class="p">:</span> <span class="n">real</span><span class="p">(</span><span class="n">z</span><span class="p">)}</span>
+</span><span data-line="825">            <span class="n">kw_im</span> <span class="o">=</span> <span class="p">{</span><span class="n">name</span><span class="p">:</span> <span class="n">imag</span><span class="p">(</span><span class="n">z</span><span class="p">)}</span>
+</span><span data-line="826">            <span class="n">kw_re</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">kw</span><span class="p">)</span>
+</span><span data-line="827">            <span class="n">kw_im</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">kw</span><span class="p">)</span>
+</span><span data-line="828">            <span class="k">return</span> <span class="n">f</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kw_re</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="n">j</span><span class="o">*</span><span class="n">f</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kw_im</span><span class="p">)</span>
+</span><span data-line="829">        <span class="k">else</span><span class="p">:</span>
+</span><span data-line="830">            <span class="k">return</span> <span class="n">f</span><span class="p">(</span><span class="n">real</span><span class="p">(</span><span class="n">z</span><span class="p">),</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span><span class="o">**</span><span class="n">kw</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="n">j</span><span class="o">*</span><span class="n">f</span><span class="p">(</span><span class="n">imag</span><span class="p">(</span><span class="n">z</span><span class="p">),</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">)</span>
+</span><span data-line="831">    <span class="k">return</span> <span class="n">f_c</span>
+</span><span data-line="832">
+</span><span data-line="833">
+</span><span data-line="834">
+</span><span data-line="835"><span class="c1"># old functions just for reference</span>
+<div class="viewcode-block" id="complex2Scalar">
+<a class="viewcode-back" href="../../api/generated/skrf.mathFunctions.complex2Scalar.html#skrf.mathFunctions.complex2Scalar">[docs]</a>
+</span><span data-line="836"><span class="k">def</span><span class="w"> </span><span class="nf">complex2Scalar</span><span class="p">(</span><span class="n">z</span><span class="p">:</span> <span class="n">NumberLike</span><span class="p">):</span>
+</span><span data-line="837"><span class="w">    </span><span class="sd">"""</span>
+</span><span data-line="838"><span class="sd">    Serialize a list/array of complex numbers</span>
+</span><span data-line="839">
+</span><span data-line="840"><span class="sd">    Parameters</span>
+</span><span data-line="841"><span class="sd">    ----------</span>
+</span><span data-line="842"><span class="sd">    z : number or array_like</span>
+</span><span data-line="843"><span class="sd">        A complex number or sequence of complex numbers</span>
+</span><span data-line="844">
+</span><span data-line="845"><span class="sd">    Returns</span>
+</span><span data-line="846"><span class="sd">    -------</span>
+</span><span data-line="847"><span class="sd">    re_im : array_like</span>
+</span><span data-line="848"><span class="sd">        produce the following array for an input z:</span>
+</span><span data-line="849"><span class="sd">        z[0].real, z[0].imag, z[1].real, z[1].imag, etc.</span>
+</span><span data-line="850">
+</span><span data-line="851"><span class="sd">    See Also</span>
+</span><span data-line="852"><span class="sd">    --------</span>
+</span><span data-line="853"><span class="sd">    scalar2Complex</span>
+</span><span data-line="854"><span class="sd">    """</span>
+</span><span data-line="855">    <span class="n">z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">z</span><span class="p">)</span>
+</span><span data-line="856">    <span class="n">re_im</span> <span class="o">=</span> <span class="p">[]</span>
+</span><span data-line="857">    <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">z</span><span class="p">:</span>
+</span><span data-line="858">        <span class="n">re_im</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">k</span><span class="p">))</span>
+</span><span data-line="859">        <span class="n">re_im</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">imag</span><span class="p">(</span><span class="n">k</span><span class="p">))</span>
+</span><span data-line="860">    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">re_im</span><span class="p">)</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span></div>
+
+</span><span data-line="861">
+<div class="viewcode-block" id="scalar2Complex">
+<a class="viewcode-back" href="../../api/generated/skrf.mathFunctions.scalar2Complex.html#skrf.mathFunctions.scalar2Complex">[docs]</a>
+</span><span data-line="862"><span class="k">def</span><span class="w"> </span><span class="nf">scalar2Complex</span><span class="p">(</span><span class="n">s</span><span class="p">:</span> <span class="n">NumberLike</span><span class="p">):</span>
+</span><span data-line="863"><span class="w">    </span><span class="sd">"""</span>
+</span><span data-line="864"><span class="sd">    Unserialize a list/array of real and imag numbers into a complex array.</span>
+</span><span data-line="865">
+</span><span data-line="866"><span class="sd">    Inverse of :func:`complex2Scalar`.</span>
+</span><span data-line="867">
+</span><span data-line="868"><span class="sd">    Parameters</span>
+</span><span data-line="869"><span class="sd">    ----------</span>
+</span><span data-line="870"><span class="sd">    s : array_like</span>
+</span><span data-line="871"><span class="sd">        an array with real and imaginary parts ordered as:</span>
+</span><span data-line="872"><span class="sd">        z[0].real, z[0].imag, z[1].real, z[1].imag, etc.</span>
+</span><span data-line="873">
+</span><span data-line="874"><span class="sd">    Returns</span>
+</span><span data-line="875"><span class="sd">    -------</span>
+</span><span data-line="876"><span class="sd">    z : Number or array_like</span>
+</span><span data-line="877"><span class="sd">        A complex number or sequence of complex number</span>
+</span><span data-line="878">
+</span><span data-line="879"><span class="sd">    See Also</span>
+</span><span data-line="880"><span class="sd">    --------</span>
+</span><span data-line="881"><span class="sd">    complex2Scalar</span>
+</span><span data-line="882"><span class="sd">    """</span>
+</span><span data-line="883">    <span class="n">s</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+</span><span data-line="884">    <span class="n">z</span> <span class="o">=</span> <span class="p">[]</span>
+</span><span data-line="885">
+</span><span data-line="886">    <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">),</span><span class="mi">2</span><span class="p">):</span>
+</span><span data-line="887">        <span class="n">z</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="n">j</span><span class="o">*</span><span class="n">s</span><span class="p">[</span><span class="n">k</span><span class="o">+</span><span class="mi">1</span><span class="p">])</span>
+</span><span data-line="888">    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">z</span><span class="p">)</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span></div>
+
+</span><span data-line="889">
+</span><span data-line="890">
+</span><span data-line="891"><span class="k">def</span><span class="w"> </span><span class="nf">flatten_c_mat</span><span class="p">(</span><span class="n">s</span><span class="p">:</span> <span class="n">NumberLike</span><span class="p">,</span> <span class="n">order</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">'F'</span><span class="p">):</span>
+</span><span data-line="892"><span class="w">    </span><span class="sd">"""</span>
+</span><span data-line="893"><span class="sd">    Take a 2D (mxn) complex matrix and serialize and flatten it.</span>
+</span><span data-line="894">
+</span><span data-line="895"><span class="sd">    by default (using order='F') this generates the following</span>
+</span><span data-line="896"><span class="sd">    from a  2x2</span>
+</span><span data-line="897">
+</span><span data-line="898"><span class="sd">    [s11,s12;s21,s22]-&gt;[s11re,s11im,s21re,s12im, ...]</span>
+</span><span data-line="899">
+</span><span data-line="900"><span class="sd">    Parameters</span>
+</span><span data-line="901"><span class="sd">    ------------</span>
+</span><span data-line="902"><span class="sd">    s : ndarray</span>
+</span><span data-line="903"><span class="sd">        input 2D array</span>
+</span><span data-line="904"><span class="sd">    order : string, optional</span>
+</span><span data-line="905"><span class="sd">        either 'F' or 'C', for the order of flattening</span>
+</span><span data-line="906"><span class="sd">    """</span>
+</span><span data-line="907">    <span class="k">return</span> <span class="n">complex2Scalar</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">flatten</span><span class="p">(</span><span class="n">order</span><span class="o">=</span><span class="s1">'F'</span><span class="p">))</span>
+</span><span data-line="908">
+</span><span data-line="909">
+</span><span data-line="910"><span class="n">_global_rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">()</span>
+</span><span data-line="911">
+</span><span data-line="912">
+<div class="viewcode-block" id="set_rand_rng">
+<a class="viewcode-back" href="../../api/generated/skrf.mathFunctions.set_rand_rng.html#skrf.mathFunctions.set_rand_rng">[docs]</a>
+</span><span data-line="913"><span class="k">def</span><span class="w"> </span><span class="nf">set_rand_rng</span><span class="p">(</span><span class="n">rng</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">Generator</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+</span><span data-line="914"><span class="w">    </span><span class="sd">"""</span>
+</span><span data-line="915"><span class="sd">    Set the global :mod:`numpy` random number generator instance</span>
+</span><span data-line="916"><span class="sd">    for generating random numbers in scikit-rf. This is useful for</span>
+</span><span data-line="917"><span class="sd">    fixing a random seed for reproducible Monte Carlo analysis.</span>
+</span><span data-line="918">
+</span><span data-line="919"><span class="sd">    This function is expected to be called before using any scikit-rf</span>
+</span><span data-line="920"><span class="sd">    features, since it's a global variable and thread-unsafe. To temporarily</span>
+</span><span data-line="921"><span class="sd">    change the random number generator of a particular method (e.g.</span>
+</span><span data-line="922"><span class="sd">    :meth:`skrf.media.Media.random`), use the ``rng`` argument instead.</span>
+</span><span data-line="923">
+</span><span data-line="924"><span class="sd">    Parameters</span>
+</span><span data-line="925"><span class="sd">    -----------</span>
+</span><span data-line="926"><span class="sd">    rng : :class:`numpy.random.Generator`</span>
+</span><span data-line="927"><span class="sd">        Any random number generator accepted by :mod:`numpy`.</span>
+</span><span data-line="928">
+</span><span data-line="929"><span class="sd">    Examples</span>
+</span><span data-line="930"><span class="sd">    ---------</span>
+</span><span data-line="931"><span class="sd">    &gt;&gt;&gt; set_rand_rng(np.random.default_rng(seed=42))</span>
+</span><span data-line="932"><span class="sd">    """</span>
+</span><span data-line="933">    <span class="k">global</span> <span class="n">_global_rng</span>
+</span><span data-line="934">    <span class="n">_global_rng</span> <span class="o">=</span> <span class="n">rng</span></div>
+
+</span><span data-line="935">
+</span><span data-line="936">
+<div class="viewcode-block" id="rand_rng">
+<a class="viewcode-back" href="../../api/generated/skrf.mathFunctions.rand_rng.html#skrf.mathFunctions.rand_rng">[docs]</a>
+</span><span data-line="937"><span class="k">def</span><span class="w"> </span><span class="nf">rand_rng</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">Generator</span><span class="p">:</span>
+</span><span data-line="938"><span class="w">    </span><span class="sd">"""</span>
+</span><span data-line="939"><span class="sd">    Obtain the global :mod:`numpy` random number generator instance.</span>
+</span><span data-line="940"><span class="sd">    By default, it is :func:`numpy.random.default_rng`.</span>
+</span><span data-line="941"><span class="sd">    """</span>
+</span><span data-line="942">    <span class="k">return</span> <span class="n">_global_rng</span></div>
+
+</span><span data-line="943">
+</span><span data-line="944">
+<div class="viewcode-block" id="rand_c">
+<a class="viewcode-back" href="../../api/generated/skrf.mathFunctions.rand_c.html#skrf.mathFunctions.rand_c">[docs]</a>
+</span><span data-line="945"><span class="k">def</span><span class="w"> </span><span class="nf">rand_c</span><span class="p">(</span><span class="o">*</span><span class="n">size</span><span class="p">,</span> <span class="n">rng</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+</span><span data-line="946"><span class="w">    </span><span class="sd">"""</span>
+</span><span data-line="947"><span class="sd">    Creates a complex random array of shape s.</span>
+</span><span data-line="948">
+</span><span data-line="949"><span class="sd">    The bounds on real and imaginary values are (-1,1)</span>
+</span><span data-line="950">
+</span><span data-line="951"><span class="sd">    Parameters</span>
+</span><span data-line="952"><span class="sd">    -----------</span>
+</span><span data-line="953"><span class="sd">    s : list-like</span>
+</span><span data-line="954"><span class="sd">        shape of array</span>
+</span><span data-line="955">
+</span><span data-line="956"><span class="sd">    rng : :class:`numpy.random.Generator` or None</span>
+</span><span data-line="957"><span class="sd">        Any random number generator accepted by :mod:`numpy`.</span>
+</span><span data-line="958">
+</span><span data-line="959"><span class="sd">    Examples</span>
+</span><span data-line="960"><span class="sd">    ---------</span>
+</span><span data-line="961"><span class="sd">    &gt;&gt;&gt; x1 = rf.rand_c(2, 2)</span>
+</span><span data-line="962"><span class="sd">    &gt;&gt;&gt; x2 = rf.rand_c(2, 2, np.random.default_rng(seed=42))</span>
+</span><span data-line="963"><span class="sd">    """</span>
+</span><span data-line="964">    <span class="k">if</span> <span class="n">rng</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+</span><span data-line="965">        <span class="n">rng</span> <span class="o">=</span> <span class="n">_global_rng</span>
+</span><span data-line="966">    <span class="k">return</span> <span class="mi">1</span><span class="o">-</span><span class="mi">2</span><span class="o">*</span><span class="n">rng</span><span class="o">.</span><span class="n">random</span><span class="p">(</span><span class="n">size</span><span class="p">)</span> <span class="o">+</span> \
+</span><span data-line="967">        <span class="mi">1</span><span class="n">j</span><span class="o">-</span><span class="mi">2</span><span class="n">j</span><span class="o">*</span><span class="n">rng</span><span class="o">.</span><span class="n">random</span><span class="p">(</span><span class="n">size</span><span class="p">)</span></div>
+
+</span><span data-line="968">
+</span><span data-line="969">
+<div class="viewcode-block" id="psd2TimeDomain">
+<a class="viewcode-back" href="../../api/generated/skrf.mathFunctions.psd2TimeDomain.html#skrf.mathFunctions.psd2TimeDomain">[docs]</a>
+</span><span data-line="970"><span class="k">def</span><span class="w"> </span><span class="nf">psd2TimeDomain</span><span class="p">(</span><span class="n">f</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">windowType</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">'hamming'</span><span class="p">):</span>
+</span><span data-line="971"><span class="w">    </span><span class="sd">"""</span>
+</span><span data-line="972"><span class="sd">    Convert a one sided complex spectrum into a real time-signal.</span>
+</span><span data-line="973">
+</span><span data-line="974"><span class="sd">    Parameters</span>
+</span><span data-line="975"><span class="sd">    ----------</span>
+</span><span data-line="976"><span class="sd">    f : list or np.ndarray</span>
+</span><span data-line="977"><span class="sd">        frequency array</span>
+</span><span data-line="978"><span class="sd">    y : list of np.ndarray</span>
+</span><span data-line="979"><span class="sd">        complex PSD array</span>
+</span><span data-line="980"><span class="sd">    windowType: string</span>
+</span><span data-line="981"><span class="sd">        windowing function, defaults to 'hamming''</span>
+</span><span data-line="982">
+</span><span data-line="983"><span class="sd">    Returns</span>
+</span><span data-line="984"><span class="sd">    -------</span>
+</span><span data-line="985"><span class="sd">    timeVector : array_like</span>
+</span><span data-line="986"><span class="sd">        inverse units of the input variable f,</span>
+</span><span data-line="987"><span class="sd">    signalVector : array_like</span>
+</span><span data-line="988">
+</span><span data-line="989"><span class="sd">    Note</span>
+</span><span data-line="990"><span class="sd">    ----</span>
+</span><span data-line="991"><span class="sd">    If spectrum is not baseband then, `timeSignal` is modulated by `exp(t*2*pi*f[0])`.</span>
+</span><span data-line="992"><span class="sd">    So keep in mind units. Also, due to this, `f` must be increasing left to right.</span>
+</span><span data-line="993"><span class="sd">    """</span>
+</span><span data-line="994">    <span class="c1"># apply window function</span>
+</span><span data-line="995">    <span class="c1"># make sure windowType exists in scipy.signal</span>
+</span><span data-line="996">    <span class="k">if</span> <span class="nb">callable</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="n">scipy</span><span class="o">.</span><span class="n">signal</span><span class="p">,</span> <span class="n">windowType</span><span class="p">))</span> <span class="ow">and</span> <span class="p">(</span><span class="n">windowType</span> <span class="o">!=</span> <span class="s1">'rect'</span> <span class="p">):</span>
+</span><span data-line="997">        <span class="n">window</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">scipy</span><span class="o">.</span><span class="n">signal</span><span class="p">,</span> <span class="n">windowType</span><span class="p">)(</span><span class="nb">len</span><span class="p">(</span><span class="n">f</span><span class="p">))</span>
+</span><span data-line="998">        <span class="n">y</span> <span class="o">=</span> <span class="n">y</span> <span class="o">*</span> <span class="n">window</span>
+</span><span data-line="999">
+</span><span data-line="1000">    <span class="c1">#create other half of spectrum</span>
+</span><span data-line="1001">    <span class="n">spectrum</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">y</span><span class="p">[:</span><span class="mi">0</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]),</span><span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">y</span><span class="p">)]))</span> <span class="o">+</span> \
+</span><span data-line="1002">            <span class="mi">1</span><span class="n">j</span><span class="o">*</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">([</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">imag</span><span class="p">(</span><span class="n">y</span><span class="p">[:</span><span class="mi">0</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]),</span><span class="n">np</span><span class="o">.</span><span class="n">imag</span><span class="p">(</span><span class="n">y</span><span class="p">)]))</span>
+</span><span data-line="1003">
+</span><span data-line="1004">    <span class="c1"># do the transform</span>
+</span><span data-line="1005">    <span class="n">df</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">f</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">f</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</span><span data-line="1006">    <span class="n">T</span> <span class="o">=</span> <span class="mf">1.</span><span class="o">/</span><span class="n">df</span>
+</span><span data-line="1007">    <span class="n">timeVector</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="n">T</span><span class="o">/</span><span class="mf">2.</span><span class="p">,</span><span class="n">T</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="o">*</span><span class="nb">len</span><span class="p">(</span><span class="n">f</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+</span><span data-line="1008">    <span class="n">signalVector</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">fft</span><span class="o">.</span><span class="n">ifftshift</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">fft</span><span class="o">.</span><span class="n">ifft</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">fft</span><span class="o">.</span><span class="n">ifftshift</span><span class="p">(</span><span class="n">spectrum</span><span class="p">)))</span>
+</span><span data-line="1009">
+</span><span data-line="1010">    <span class="c1">#the imaginary part of this signal should be from fft errors only,</span>
+</span><span data-line="1011">    <span class="n">signalVector</span><span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">signalVector</span><span class="p">)</span>
+</span><span data-line="1012">    <span class="c1"># the response of frequency shifting is</span>
+</span><span data-line="1013">    <span class="c1"># exp(1j*2*pi*timeVector*f[0])</span>
+</span><span data-line="1014">    <span class="c1"># but I would have to manually undo this for the inverse, which is just</span>
+</span><span data-line="1015">    <span class="c1"># another variable to require. The reason you need this is because</span>
+</span><span data-line="1016">    <span class="c1"># you can't transform to a bandpass signal, only a lowpass.</span>
+</span><span data-line="1017">    <span class="c1">#</span>
+</span><span data-line="1018">    <span class="k">return</span> <span class="n">timeVector</span><span class="p">,</span> <span class="n">signalVector</span></div>
+
+</span><span data-line="1019">
+</span><span data-line="1020">
+<div class="viewcode-block" id="rational_interp">
+<a class="viewcode-back" href="../../api/generated/skrf.mathFunctions.rational_interp.html#skrf.mathFunctions.rational_interp">[docs]</a>
+</span><span data-line="1021"><span class="k">def</span><span class="w"> </span><span class="nf">rational_interp</span><span class="p">(</span>
+</span><span data-line="1022">        <span class="n">x</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+</span><span data-line="1023">        <span class="n">y</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+</span><span data-line="1024">        <span class="n">d</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span>
+</span><span data-line="1025">        <span class="n">epsilon</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-9</span><span class="p">,</span>
+</span><span data-line="1026">        <span class="n">axis</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+</span><span data-line="1027">        <span class="n">assume_sorted</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">:</span>
+</span><span data-line="1028"><span class="w">    </span><span class="sd">"""</span>
+</span><span data-line="1029"><span class="sd">    Interpolates function using rational polynomials of degree `d`.</span>
+</span><span data-line="1030">
+</span><span data-line="1031"><span class="sd">    Interpolating function is singular when xi is exactly one of the</span>
+</span><span data-line="1032"><span class="sd">    original x points. If xi is closer than epsilon to one of the original points,</span>
+</span><span data-line="1033"><span class="sd">    then the value at that points is returned instead.</span>
+</span><span data-line="1034">
+</span><span data-line="1035"><span class="sd">    Implementation is based on [#]_.</span>
+</span><span data-line="1036">
+</span><span data-line="1037"><span class="sd">    Parameters</span>
+</span><span data-line="1038"><span class="sd">    ----------</span>
+</span><span data-line="1039"><span class="sd">    x : np.ndarray</span>
+</span><span data-line="1040"><span class="sd">    y : np.ndarray</span>
+</span><span data-line="1041"><span class="sd">    d : int, optional</span>
+</span><span data-line="1042"><span class="sd">        order of the polynomial, by default 4</span>
+</span><span data-line="1043"><span class="sd">    epsilon : float, optional</span>
+</span><span data-line="1044"><span class="sd">        numerical tolerance, by default 1e-9</span>
+</span><span data-line="1045"><span class="sd">    axis : int, optional</span>
+</span><span data-line="1046"><span class="sd">        axis to operate on, by default 0</span>
+</span><span data-line="1047"><span class="sd">    assume_sorted : bool, optional</span>
+</span><span data-line="1048"><span class="sd">        If False, values of x can be in any order and they are sorted first.</span>
+</span><span data-line="1049"><span class="sd">        If True, x has to be an array of monotonically increasing values.</span>
+</span><span data-line="1050">
+</span><span data-line="1051"><span class="sd">    Returns</span>
+</span><span data-line="1052"><span class="sd">    -------</span>
+</span><span data-line="1053"><span class="sd">    fx : Callable</span>
+</span><span data-line="1054"><span class="sd">        Interpolate function</span>
+</span><span data-line="1055">
+</span><span data-line="1056"><span class="sd">    Raises</span>
+</span><span data-line="1057"><span class="sd">    ------</span>
+</span><span data-line="1058"><span class="sd">    NotImplementedError</span>
+</span><span data-line="1059"><span class="sd">        if axis != 0.</span>
+</span><span data-line="1060">
+</span><span data-line="1061"><span class="sd">    References</span>
+</span><span data-line="1062"><span class="sd">    ------------</span>
+</span><span data-line="1063"><span class="sd">    .. [#] M. S. Floater and K. Hormann, "Barycentric rational interpolation with no poles and high rates of</span>
+</span><span data-line="1064"><span class="sd">    approximation," Numer. Math., vol. 107, no. 2, pp. 315-331, Aug. 2007</span>
+</span><span data-line="1065"><span class="sd">    """</span>
+</span><span data-line="1066">    <span class="k">if</span> <span class="n">axis</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+</span><span data-line="1067">        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">"Axis other than 0 is not implemented"</span><span class="p">)</span>
+</span><span data-line="1068">
+</span><span data-line="1069">    <span class="k">if</span> <span class="ow">not</span> <span class="n">assume_sorted</span><span class="p">:</span>
+</span><span data-line="1070">        <span class="n">sort_indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="n">axis</span><span class="p">)</span>
+</span><span data-line="1071">        <span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="n">sort_indices</span><span class="p">]</span>
+</span><span data-line="1072">        <span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="p">[</span><span class="n">sort_indices</span><span class="p">]</span>
+</span><span data-line="1073">
+</span><span data-line="1074">    <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</span><span data-line="1075">    <span class="k">if</span> <span class="n">n</span> <span class="o">&lt;=</span> <span class="n">d</span><span class="p">:</span>
+</span><span data-line="1076">        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">'Not enough x-axis points'</span><span class="p">)</span>
+</span><span data-line="1077">
+</span><span data-line="1078">    <span class="n">w</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+</span><span data-line="1079">    <span class="c1"># Scaling to give close to 1 weights</span>
+</span><span data-line="1080">    <span class="n">hd</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">n</span><span class="o">//</span><span class="mi">2</span><span class="p">]</span> <span class="o">-</span> <span class="n">x</span><span class="p">[</span><span class="n">n</span><span class="o">//</span><span class="mi">2</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span><span class="o">**</span><span class="n">d</span>
+</span><span data-line="1081">    <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+</span><span data-line="1082">        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">k</span><span class="o">-</span><span class="n">d</span><span class="p">),</span> <span class="nb">min</span><span class="p">(</span><span class="n">k</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="o">-</span><span class="n">d</span><span class="p">)):</span>
+</span><span data-line="1083">            <span class="n">p</span><span class="p">,</span> <span class="n">xk</span> <span class="o">=</span> <span class="n">hd</span><span class="p">,</span> <span class="n">x</span><span class="p">[</span><span class="n">k</span><span class="p">]</span>
+</span><span data-line="1084">            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="nb">min</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">i</span><span class="o">+</span><span class="n">d</span><span class="o">+</span><span class="mi">1</span><span class="p">)):</span>
+</span><span data-line="1085">                <span class="k">if</span> <span class="n">j</span> <span class="o">==</span> <span class="n">k</span><span class="p">:</span>
+</span><span data-line="1086">                    <span class="k">continue</span>
+</span><span data-line="1087">                <span class="n">p</span> <span class="o">/=</span> <span class="p">(</span><span class="n">xk</span> <span class="o">-</span> <span class="n">x</span><span class="p">[</span><span class="n">j</span><span class="p">])</span>
+</span><span data-line="1088">            <span class="k">if</span> <span class="n">i</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+</span><span data-line="1089">                <span class="n">w</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">-=</span> <span class="n">p</span>
+</span><span data-line="1090">            <span class="k">else</span><span class="p">:</span>
+</span><span data-line="1091">                <span class="n">w</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">+=</span> <span class="n">p</span>
+</span><span data-line="1092">
+</span><span data-line="1093">    <span class="c1"># Add dimensions to match y shape</span>
+</span><span data-line="1094">    <span class="n">w_shape</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+</span><span data-line="1095">    <span class="n">w_shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+</span><span data-line="1096">    <span class="n">w</span> <span class="o">=</span> <span class="n">w</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">w_shape</span><span class="p">)</span>
+</span><span data-line="1097">
+</span><span data-line="1098">    <span class="k">def</span><span class="w"> </span><span class="nf">fx</span><span class="p">(</span><span class="n">xi</span><span class="p">):</span>
+</span><span data-line="1099">        <span class="c1"># The method will divide by zero if new x value is exactly existing x value.</span>
+</span><span data-line="1100">        <span class="c1"># To avoid this we need to check for too close values and replace them with</span>
+</span><span data-line="1101">        <span class="c1"># y value at that position.</span>
+</span><span data-line="1102">        <span class="n">idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">searchsorted</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">xi</span><span class="p">)</span>
+</span><span data-line="1103">        <span class="n">idx</span><span class="p">[</span><span class="n">idx</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)]</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
+</span><span data-line="1104">        <span class="n">nearest_idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">-</span> <span class="n">xi</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">epsilon</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+</span><span data-line="1105">        <span class="n">nearest_value</span> <span class="o">=</span> <span class="n">y</span><span class="p">[</span><span class="n">idx</span><span class="p">[</span><span class="n">nearest_idx</span><span class="p">]]</span>
+</span><span data-line="1106">
+</span><span data-line="1107">        <span class="n">xi</span> <span class="o">=</span> <span class="n">xi</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">*</span><span class="n">w_shape</span><span class="p">)</span>
+</span><span data-line="1108">        <span class="k">with</span> <span class="n">np</span><span class="o">.</span><span class="n">errstate</span><span class="p">(</span><span class="n">divide</span><span class="o">=</span><span class="s1">'ignore'</span><span class="p">,</span> <span class="n">invalid</span><span class="o">=</span><span class="s1">'ignore'</span><span class="p">):</span>
+</span><span data-line="1109">            <span class="k">assert</span> <span class="n">axis</span> <span class="o">==</span> <span class="mi">0</span>
+</span><span data-line="1110">            <span class="n">tmp</span> <span class="o">=</span> <span class="p">[</span><span class="n">w</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">/</span> <span class="p">(</span><span class="n">xi</span> <span class="o">-</span> <span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">)]</span>
+</span><span data-line="1111">            <span class="n">v</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="n">tmp</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">))</span> <span class="o">/</span> <span class="nb">sum</span><span class="p">(</span><span class="n">tmp</span><span class="p">)</span>
+</span><span data-line="1112">
+</span><span data-line="1113">        <span class="c1"># Fix divide by zero errors</span>
+</span><span data-line="1114">        <span class="k">for</span> <span class="n">e</span><span class="p">,</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">nearest_idx</span><span class="p">):</span>
+</span><span data-line="1115">            <span class="n">v</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">nearest_value</span><span class="p">[</span><span class="n">e</span><span class="p">]</span>
+</span><span data-line="1116">
+</span><span data-line="1117">        <span class="k">return</span> <span class="n">v</span>
+</span><span data-line="1118">
+</span><span data-line="1119">    <span class="k">return</span> <span class="n">fx</span></div>
+
+</span><span data-line="1120">
+<div class="viewcode-block" id="ifft">
+<a class="viewcode-back" href="../../api/generated/skrf.mathFunctions.ifft.html#skrf.mathFunctions.ifft">[docs]</a>
+</span><span data-line="1121"><span class="k">def</span><span class="w"> </span><span class="nf">ifft</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+</span><span data-line="1122"><span class="w">    </span><span class="sd">"""</span>
+</span><span data-line="1123"><span class="sd">    Transforms S-parameters to time-domain bandpass.</span>
+</span><span data-line="1124">
+</span><span data-line="1125"><span class="sd">    Parameters</span>
+</span><span data-line="1126"><span class="sd">    ----------</span>
+</span><span data-line="1127"><span class="sd">    x : array_like</span>
+</span><span data-line="1128"><span class="sd">        S-parameters vs frequency array.</span>
+</span><span data-line="1129">
+</span><span data-line="1130"><span class="sd">    Returns</span>
+</span><span data-line="1131"><span class="sd">    -------</span>
+</span><span data-line="1132"><span class="sd">    X : array_like</span>
+</span><span data-line="1133"><span class="sd">        Fourier transformed array</span>
+</span><span data-line="1134">
+</span><span data-line="1135"><span class="sd">    See Also</span>
+</span><span data-line="1136"><span class="sd">    --------</span>
+</span><span data-line="1137"><span class="sd">    irfft</span>
+</span><span data-line="1138"><span class="sd">    """</span>
+</span><span data-line="1139">    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">fft</span><span class="o">.</span><span class="n">fftshift</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">fft</span><span class="o">.</span><span class="n">ifft</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">fft</span><span class="o">.</span><span class="n">ifftshift</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">axes</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span> <span class="n">axes</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span></div>
+
+</span><span data-line="1140">
+</span><span data-line="1141">
+<div class="viewcode-block" id="irfft">
+<a class="viewcode-back" href="../../api/generated/skrf.mathFunctions.irfft.html#skrf.mathFunctions.irfft">[docs]</a>
+</span><span data-line="1142"><span class="k">def</span><span class="w"> </span><span class="nf">irfft</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">n</span><span class="p">:</span><span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+</span><span data-line="1143"><span class="w">    </span><span class="sd">"""</span>
+</span><span data-line="1144"><span class="sd">    Transforms S-parameters to time-domain, assuming complex conjugates for</span>
+</span><span data-line="1145"><span class="sd">    values corresponding to negative frequencies.</span>
+</span><span data-line="1146">
+</span><span data-line="1147"><span class="sd">    Parameters</span>
+</span><span data-line="1148"><span class="sd">    ----------</span>
+</span><span data-line="1149"><span class="sd">    x : array_like</span>
+</span><span data-line="1150"><span class="sd">        S-parameters vs frequency array.</span>
+</span><span data-line="1151"><span class="sd">    n : int, optional</span>
+</span><span data-line="1152"><span class="sd">        n parameter passed to :func:`numpy.fft.irfft`. Defaults to None.</span>
+</span><span data-line="1153">
+</span><span data-line="1154"><span class="sd">    Returns</span>
+</span><span data-line="1155"><span class="sd">    -------</span>
+</span><span data-line="1156"><span class="sd">    X : array_like</span>
+</span><span data-line="1157"><span class="sd">        Fourier transformed array</span>
+</span><span data-line="1158">
+</span><span data-line="1159"><span class="sd">    See Also</span>
+</span><span data-line="1160"><span class="sd">    --------</span>
+</span><span data-line="1161"><span class="sd">    ifft</span>
+</span><span data-line="1162"><span class="sd">    """</span>
+</span><span data-line="1163">    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">fft</span><span class="o">.</span><span class="n">fftshift</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">fft</span><span class="o">.</span><span class="n">irfft</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="n">n</span><span class="p">),</span> <span class="n">axes</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span></div>
+
+</span><span data-line="1164">
+</span><span data-line="1165">
+<div class="viewcode-block" id="is_square">
+<a class="viewcode-back" href="../../api/generated/skrf.mathFunctions.is_square.html#skrf.mathFunctions.is_square">[docs]</a>
+</span><span data-line="1166"><span class="k">def</span><span class="w"> </span><span class="nf">is_square</span><span class="p">(</span><span class="n">mat</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+</span><span data-line="1167"><span class="w">    </span><span class="sd">"""</span>
+</span><span data-line="1168"><span class="sd">    Tests whether mat is a square matrix.</span>
+</span><span data-line="1169">
+</span><span data-line="1170"><span class="sd">    Parameters</span>
+</span><span data-line="1171"><span class="sd">    ----------</span>
+</span><span data-line="1172"><span class="sd">    mat : np.ndarray</span>
+</span><span data-line="1173"><span class="sd">        Matrix to test for being square</span>
+</span><span data-line="1174">
+</span><span data-line="1175"><span class="sd">    Returns</span>
+</span><span data-line="1176"><span class="sd">    -------</span>
+</span><span data-line="1177"><span class="sd">    res : boolean</span>
+</span><span data-line="1178">
+</span><span data-line="1179"><span class="sd">    See Also</span>
+</span><span data-line="1180"><span class="sd">    --------</span>
+</span><span data-line="1181"><span class="sd">    is_unitary</span>
+</span><span data-line="1182"><span class="sd">    is_symmetric</span>
+</span><span data-line="1183"><span class="sd">    """</span>
+</span><span data-line="1184">    <span class="k">return</span> <span class="n">mat</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">mat</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span></div>
+
+</span><span data-line="1185">
+</span><span data-line="1186">
+</span><span data-line="1187"><span class="k">def</span><span class="w"> </span><span class="nf">is_unitary</span><span class="p">(</span><span class="n">mat</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">tol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">ALMOST_ZERO</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+</span><span data-line="1188"><span class="w">    </span><span class="sd">"""</span>
+</span><span data-line="1189"><span class="sd">    Tests mat for unitariness.</span>
+</span><span data-line="1190">
+</span><span data-line="1191"><span class="sd">    Parameters</span>
+</span><span data-line="1192"><span class="sd">    ----------</span>
+</span><span data-line="1193"><span class="sd">    mat : np.ndarray</span>
+</span><span data-line="1194"><span class="sd">        Matrix to test for unitariness</span>
+</span><span data-line="1195"><span class="sd">    tol : float</span>
+</span><span data-line="1196"><span class="sd">        Absolute tolerance. Defaults to :data:`ALMOST_ZERO`</span>
+</span><span data-line="1197">
+</span><span data-line="1198"><span class="sd">    Returns</span>
+</span><span data-line="1199"><span class="sd">    -------</span>
+</span><span data-line="1200"><span class="sd">    res : boolean or array of boolean</span>
+</span><span data-line="1201">
+</span><span data-line="1202"><span class="sd">    See Also</span>
+</span><span data-line="1203"><span class="sd">    --------</span>
+</span><span data-line="1204"><span class="sd">    is_square</span>
+</span><span data-line="1205"><span class="sd">    is_symmetric</span>
+</span><span data-line="1206">
+</span><span data-line="1207"><span class="sd">    """</span>
+</span><span data-line="1208">    <span class="k">if</span> <span class="ow">not</span> <span class="n">is_square</span><span class="p">(</span><span class="n">mat</span><span class="p">):</span>
+</span><span data-line="1209">        <span class="k">return</span> <span class="kc">False</span>
+</span><span data-line="1210">    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">get_Hermitian_transpose</span><span class="p">(</span><span class="n">mat</span><span class="p">)</span> <span class="o">@</span> <span class="n">mat</span><span class="p">,</span>
+</span><span data-line="1211">                        <span class="n">np</span><span class="o">.</span><span class="n">identity</span><span class="p">(</span><span class="n">mat</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="n">atol</span><span class="o">=</span><span class="n">tol</span><span class="p">)</span>
+</span><span data-line="1212">
+</span><span data-line="1213">
+<div class="viewcode-block" id="is_symmetric">
+<a class="viewcode-back" href="../../api/generated/skrf.mathFunctions.is_symmetric.html#skrf.mathFunctions.is_symmetric">[docs]</a>
+</span><span data-line="1214"><span class="k">def</span><span class="w"> </span><span class="nf">is_symmetric</span><span class="p">(</span><span class="n">mat</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">tol</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">ALMOST_ZERO</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+</span><span data-line="1215"><span class="w">    </span><span class="sd">"""</span>
+</span><span data-line="1216"><span class="sd">    Tests mat for symmetry.</span>
+</span><span data-line="1217">
+</span><span data-line="1218"><span class="sd">    Parameters</span>
+</span><span data-line="1219"><span class="sd">    ----------</span>
+</span><span data-line="1220"><span class="sd">    mat : np.ndarray</span>
+</span><span data-line="1221"><span class="sd">        Matrix to test for symmetry</span>
+</span><span data-line="1222"><span class="sd">    tol : float, optional</span>
+</span><span data-line="1223"><span class="sd">        Absolute tolerance. Defaults to :data:`ALMOST_ZERO`</span>
+</span><span data-line="1224">
+</span><span data-line="1225"><span class="sd">    Returns</span>
+</span><span data-line="1226"><span class="sd">    -------</span>
+</span><span data-line="1227"><span class="sd">    res : boolean or array of boolean</span>
+</span><span data-line="1228">
+</span><span data-line="1229"><span class="sd">    See Also</span>
+</span><span data-line="1230"><span class="sd">    --------</span>
+</span><span data-line="1231"><span class="sd">    is_square</span>
+</span><span data-line="1232"><span class="sd">    is_unitary</span>
+</span><span data-line="1233"><span class="sd">    """</span>
+</span><span data-line="1234">    <span class="k">if</span> <span class="ow">not</span> <span class="n">is_square</span><span class="p">(</span><span class="n">mat</span><span class="p">):</span>
+</span><span data-line="1235">        <span class="k">return</span> <span class="kc">False</span>
+</span><span data-line="1236">    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">mat</span><span class="p">,</span> <span class="n">mat</span><span class="o">.</span><span class="n">transpose</span><span class="p">(),</span> <span class="n">atol</span><span class="o">=</span><span class="n">tol</span><span class="p">)</span></div>
+
+</span><span data-line="1237">
+</span><span data-line="1238">
+<div class="viewcode-block" id="get_Hermitian_transpose">
+<a class="viewcode-back" href="../../api/generated/skrf.mathFunctions.get_Hermitian_transpose.html#skrf.mathFunctions.get_Hermitian_transpose">[docs]</a>
+</span><span data-line="1239"><span class="k">def</span><span class="w"> </span><span class="nf">get_Hermitian_transpose</span><span class="p">(</span><span class="n">mat</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+</span><span data-line="1240"><span class="w">    </span><span class="sd">"""</span>
+</span><span data-line="1241"><span class="sd">    Returns the conjugate transpose of mat.</span>
+</span><span data-line="1242">
+</span><span data-line="1243"><span class="sd">    Parameters</span>
+</span><span data-line="1244"><span class="sd">    ----------</span>
+</span><span data-line="1245"><span class="sd">    mat : np.ndarray</span>
+</span><span data-line="1246"><span class="sd">        Matrix to compute the conjugate transpose of</span>
+</span><span data-line="1247">
+</span><span data-line="1248"><span class="sd">    Returns</span>
+</span><span data-line="1249"><span class="sd">    -------</span>
+</span><span data-line="1250"><span class="sd">    mat : np.ndarray</span>
+</span><span data-line="1251">
+</span><span data-line="1252"><span class="sd">    """</span>
+</span><span data-line="1253">    <span class="k">return</span> <span class="n">mat</span><span class="o">.</span><span class="n">transpose</span><span class="p">()</span><span class="o">.</span><span class="n">conjugate</span><span class="p">()</span></div>
+
+</span><span data-line="1254">
+</span><span data-line="1255">
+<div class="viewcode-block" id="is_Hermitian">
+<a class="viewcode-back" href="../../api/generated/skrf.mathFunctions.is_Hermitian.html#skrf.mathFunctions.is_Hermitian">[docs]</a>
+</span><span data-line="1256"><span class="k">def</span><span class="w"> </span><span class="nf">is_Hermitian</span><span class="p">(</span><span class="n">mat</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">tol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">ALMOST_ZERO</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+</span><span data-line="1257"><span class="w">    </span><span class="sd">"""</span>
+</span><span data-line="1258"><span class="sd">    Tests whether mat is Hermitian.</span>
+</span><span data-line="1259">
+</span><span data-line="1260"><span class="sd">    Parameters</span>
+</span><span data-line="1261"><span class="sd">    ----------</span>
+</span><span data-line="1262"><span class="sd">    mat : np.ndarray</span>
+</span><span data-line="1263"><span class="sd">        Matrix to test for being Hermitian</span>
+</span><span data-line="1264"><span class="sd">    tol : float</span>
+</span><span data-line="1265"><span class="sd">        Absolute tolerance</span>
+</span><span data-line="1266">
+</span><span data-line="1267"><span class="sd">    Returns</span>
+</span><span data-line="1268"><span class="sd">    -------</span>
+</span><span data-line="1269"><span class="sd">    res : boolean</span>
+</span><span data-line="1270">
+</span><span data-line="1271"><span class="sd">    See Also</span>
+</span><span data-line="1272"><span class="sd">    --------</span>
+</span><span data-line="1273"><span class="sd">    is_positive_definite</span>
+</span><span data-line="1274"><span class="sd">    is_positive_semidefinite</span>
+</span><span data-line="1275"><span class="sd">    """</span>
+</span><span data-line="1276">    <span class="k">if</span> <span class="ow">not</span> <span class="n">is_square</span><span class="p">(</span><span class="n">mat</span><span class="p">):</span>
+</span><span data-line="1277">        <span class="k">return</span> <span class="kc">False</span>
+</span><span data-line="1278">    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">mat</span><span class="p">,</span> <span class="n">get_Hermitian_transpose</span><span class="p">(</span><span class="n">mat</span><span class="p">),</span> <span class="n">atol</span><span class="o">=</span><span class="n">tol</span><span class="p">)</span></div>
+
+</span><span data-line="1279">
+</span><span data-line="1280">
+<div class="viewcode-block" id="is_positive_definite">
+<a class="viewcode-back" href="../../api/generated/skrf.mathFunctions.is_positive_definite.html#skrf.mathFunctions.is_positive_definite">[docs]</a>
+</span><span data-line="1281"><span class="k">def</span><span class="w"> </span><span class="nf">is_positive_definite</span><span class="p">(</span><span class="n">mat</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">tol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">ALMOST_ZERO</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+</span><span data-line="1282"><span class="w">    </span><span class="sd">"""</span>
+</span><span data-line="1283"><span class="sd">    Tests mat for positive definiteness.</span>
+</span><span data-line="1284">
+</span><span data-line="1285"><span class="sd">    Verifying that</span>
+</span><span data-line="1286"><span class="sd">    (1) mat is symmetric</span>
+</span><span data-line="1287"><span class="sd">    (2) it's possible to compute the Cholesky decomposition of mat.</span>
+</span><span data-line="1288">
+</span><span data-line="1289"><span class="sd">    Parameters</span>
+</span><span data-line="1290"><span class="sd">    ----------</span>
+</span><span data-line="1291"><span class="sd">    mat : np.ndarray</span>
+</span><span data-line="1292"><span class="sd">        Matrix to test for positive definiteness</span>
+</span><span data-line="1293"><span class="sd">    tol : float, optional</span>
+</span><span data-line="1294"><span class="sd">        Absolute tolerance. Defaults to :data:`ALMOST_ZERO`</span>
+</span><span data-line="1295">
+</span><span data-line="1296"><span class="sd">    Returns</span>
+</span><span data-line="1297"><span class="sd">    -------</span>
+</span><span data-line="1298"><span class="sd">    res : bool or array of bool</span>
+</span><span data-line="1299">
+</span><span data-line="1300"><span class="sd">    See Also</span>
+</span><span data-line="1301"><span class="sd">    --------</span>
+</span><span data-line="1302"><span class="sd">    is_Hermitian</span>
+</span><span data-line="1303"><span class="sd">    is_positive_semidefinite</span>
+</span><span data-line="1304"><span class="sd">    """</span>
+</span><span data-line="1305">    <span class="k">if</span> <span class="ow">not</span> <span class="n">is_Hermitian</span><span class="p">(</span><span class="n">mat</span><span class="p">,</span> <span class="n">tol</span><span class="o">=</span><span class="n">tol</span><span class="p">):</span>
+</span><span data-line="1306">        <span class="k">return</span> <span class="kc">False</span>
+</span><span data-line="1307">    <span class="k">try</span><span class="p">:</span>
+</span><span data-line="1308">        <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">cholesky</span><span class="p">(</span><span class="n">mat</span><span class="p">)</span>
+</span><span data-line="1309">        <span class="k">return</span> <span class="kc">True</span>
+</span><span data-line="1310">    <span class="k">except</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">LinAlgError</span><span class="p">:</span>
+</span><span data-line="1311">        <span class="k">return</span> <span class="kc">False</span></div>
+
+</span><span data-line="1312">
+</span><span data-line="1313">
+<div class="viewcode-block" id="is_positive_semidefinite">
+<a class="viewcode-back" href="../../api/generated/skrf.mathFunctions.is_positive_semidefinite.html#skrf.mathFunctions.is_positive_semidefinite">[docs]</a>
+</span><span data-line="1314"><span class="k">def</span><span class="w"> </span><span class="nf">is_positive_semidefinite</span><span class="p">(</span><span class="n">mat</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">tol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">ALMOST_ZERO</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+</span><span data-line="1315"><span class="w">    </span><span class="sd">"""</span>
+</span><span data-line="1316"><span class="sd">    Tests mat for positive semidefiniteness.</span>
+</span><span data-line="1317">
+</span><span data-line="1318"><span class="sd">    Checking whether all eigenvalues of mat are nonnegative within a certain tolerance</span>
+</span><span data-line="1319">
+</span><span data-line="1320"><span class="sd">    Parameters</span>
+</span><span data-line="1321"><span class="sd">    ----------</span>
+</span><span data-line="1322"><span class="sd">    mat : np.ndarray</span>
+</span><span data-line="1323"><span class="sd">        Matrix to test for positive semidefiniteness</span>
+</span><span data-line="1324"><span class="sd">    tol : float, optional</span>
+</span><span data-line="1325"><span class="sd">        Absolute tolerance in determining nonnegativity due to loss of precision</span>
+</span><span data-line="1326"><span class="sd">        when computing the eigenvalues of mat. Defaults to :data:`ALMOST_ZERO`</span>
+</span><span data-line="1327">
+</span><span data-line="1328"><span class="sd">    Returns</span>
+</span><span data-line="1329"><span class="sd">    -------</span>
+</span><span data-line="1330"><span class="sd">    res : bool or array of bool</span>
+</span><span data-line="1331">
+</span><span data-line="1332"><span class="sd">    See Also</span>
+</span><span data-line="1333"><span class="sd">    --------</span>
+</span><span data-line="1334"><span class="sd">    is_Hermitian</span>
+</span><span data-line="1335"><span class="sd">    is_positive_definite</span>
+</span><span data-line="1336"><span class="sd">    """</span>
+</span><span data-line="1337">    <span class="k">if</span> <span class="ow">not</span> <span class="n">is_Hermitian</span><span class="p">(</span><span class="n">mat</span><span class="p">):</span>
+</span><span data-line="1338">        <span class="k">return</span> <span class="kc">False</span>
+</span><span data-line="1339">    <span class="k">try</span><span class="p">:</span>
+</span><span data-line="1340">        <span class="n">v</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">eigvalsh</span><span class="p">(</span><span class="n">mat</span><span class="p">)</span>
+</span><span data-line="1341">    <span class="k">except</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">LinAlgError</span><span class="p">:</span>
+</span><span data-line="1342">        <span class="k">return</span> <span class="kc">False</span>
+</span><span data-line="1343">    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">v</span> <span class="o">&gt;</span> <span class="o">-</span><span class="n">tol</span><span class="p">)</span></div>
+
+</span><span data-line="1344">
+<div class="viewcode-block" id="rsolve">
+<a class="viewcode-back" href="../../api/generated/skrf.mathFunctions.rsolve.html#skrf.mathFunctions.rsolve">[docs]</a>
+</span><span data-line="1345"><span class="k">def</span><span class="w"> </span><span class="nf">rsolve</span><span class="p">(</span><span class="n">A</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">B</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+</span><span data-line="1346"><span class="w">    </span><span class="sa">r</span><span class="sd">"""Solves x @ A = B.</span>
+</span><span data-line="1347">
+</span><span data-line="1348"><span class="sd">    Calls numpy.linalg.solve with transposed matrices.</span>
+</span><span data-line="1349">
+</span><span data-line="1350"><span class="sd">    Same as B @ np.linalg.inv(A) but avoids calculating the inverse and</span>
+</span><span data-line="1351"><span class="sd">    should be numerically slightly more accurate.</span>
+</span><span data-line="1352">
+</span><span data-line="1353"><span class="sd">    Input should have dimension of similar to (nfreqs, nports, nports).</span>
+</span><span data-line="1354">
+</span><span data-line="1355"><span class="sd">    Parameters</span>
+</span><span data-line="1356"><span class="sd">    ----------</span>
+</span><span data-line="1357"><span class="sd">    A : np.ndarray</span>
+</span><span data-line="1358"><span class="sd">    B : np.ndarray</span>
+</span><span data-line="1359">
+</span><span data-line="1360"><span class="sd">    Returns</span>
+</span><span data-line="1361"><span class="sd">    -------</span>
+</span><span data-line="1362"><span class="sd">    x : np.ndarray</span>
+</span><span data-line="1363"><span class="sd">    """</span>
+</span><span data-line="1364">    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span><span class="o">.</span><span class="n">conj</span><span class="p">(),</span>
+</span><span data-line="1365">            <span class="n">np</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">B</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span><span class="o">.</span><span class="n">conj</span><span class="p">()),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span></div>
+
+</span><span data-line="1366">
+<div class="viewcode-block" id="nudge_eig">
+<a class="viewcode-back" href="../../api/generated/skrf.mathFunctions.nudge_eig.html#skrf.mathFunctions.nudge_eig">[docs]</a>
+</span><span data-line="1367"><span class="k">def</span><span class="w"> </span><span class="nf">nudge_eig</span><span class="p">(</span><span class="n">mat</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+</span><span data-line="1368">              <span class="n">cond</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+</span><span data-line="1369">              <span class="n">min_eig</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span>  <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+</span><span data-line="1370"><span class="w">    </span><span class="sa">r</span><span class="sd">"""Nudge eigenvalues with absolute value smaller than</span>
+</span><span data-line="1371"><span class="sd">    max(cond * max(eigenvalue), min_eig) to that value.</span>
+</span><span data-line="1372"><span class="sd">    Can be used to avoid singularities in solving matrix equations.</span>
+</span><span data-line="1373">
+</span><span data-line="1374"><span class="sd">    Input should have dimension of similar to (nfreqs, nports, nports).</span>
+</span><span data-line="1375">
+</span><span data-line="1376"><span class="sd">    Parameters</span>
+</span><span data-line="1377"><span class="sd">    ----------</span>
+</span><span data-line="1378"><span class="sd">    mat : np.ndarray</span>
+</span><span data-line="1379"><span class="sd">        Matrices to nudge</span>
+</span><span data-line="1380"><span class="sd">    cond : float, optional</span>
+</span><span data-line="1381"><span class="sd">        Minimum eigenvalue ratio compared to the maximum eigenvalue.</span>
+</span><span data-line="1382"><span class="sd">        Default value is set by `skrf.constants.EIG_COND`.</span>
+</span><span data-line="1383"><span class="sd">    min_eig : float, optional</span>
+</span><span data-line="1384"><span class="sd">        Minimum eigenvalue.</span>
+</span><span data-line="1385"><span class="sd">        Default value is set by `skrf.constants.EIG_MIN`.</span>
+</span><span data-line="1386"><span class="sd">    Returns</span>
+</span><span data-line="1387"><span class="sd">    -------</span>
+</span><span data-line="1388"><span class="sd">    res : np.ndarray</span>
+</span><span data-line="1389"><span class="sd">        Nudged matrices</span>
+</span><span data-line="1390"><span class="sd">    """</span>
+</span><span data-line="1391">    <span class="c1"># use current constants</span>
+</span><span data-line="1392">    <span class="k">if</span> <span class="ow">not</span> <span class="n">cond</span><span class="p">:</span>
+</span><span data-line="1393">        <span class="n">cond</span> <span class="o">=</span> <span class="n">EIG_COND</span>
+</span><span data-line="1394">    <span class="k">if</span> <span class="ow">not</span> <span class="n">min_eig</span><span class="p">:</span>
+</span><span data-line="1395">        <span class="n">min_eig</span> <span class="o">=</span> <span class="n">EIG_MIN</span>
+</span><span data-line="1396">
+</span><span data-line="1397">    <span class="c1"># Eigenvalues and vectors</span>
+</span><span data-line="1398">    <span class="n">eigw</span><span class="p">,</span> <span class="n">eigv</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">eig</span><span class="p">(</span><span class="n">mat</span><span class="p">)</span>
+</span><span data-line="1399">    <span class="c1"># Max eigenvalue for each frequency</span>
+</span><span data-line="1400">    <span class="n">max_eig</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">amax</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">eigw</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</span><span data-line="1401">    <span class="c1"># Calculate mask for positions where problematic eigenvalues are</span>
+</span><span data-line="1402">    <span class="n">mask</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">logical_or</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">eigw</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">cond</span> <span class="o">*</span> <span class="n">max_eig</span><span class="p">[:,</span> <span class="kc">None</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">eigw</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">min_eig</span><span class="p">)</span>
+</span><span data-line="1403">    <span class="k">if</span> <span class="ow">not</span> <span class="n">mask</span><span class="o">.</span><span class="n">any</span><span class="p">():</span>
+</span><span data-line="1404">        <span class="c1"># Nothing to do. Return the original array.</span>
+</span><span data-line="1405">        <span class="k">return</span> <span class="n">mat</span>
+</span><span data-line="1406">
+</span><span data-line="1407">    <span class="n">mask_cond</span> <span class="o">=</span> <span class="n">cond</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="n">max_eig</span><span class="p">[:,</span> <span class="kc">None</span><span class="p">],</span> <span class="n">mat</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">)[</span><span class="n">mask</span><span class="p">]</span>
+</span><span data-line="1408">    <span class="n">mask_min</span> <span class="o">=</span> <span class="n">min_eig</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">mask_cond</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+</span><span data-line="1409">    <span class="c1"># Correct the eigenvalues</span>
+</span><span data-line="1410">    <span class="n">eigw</span><span class="p">[</span><span class="n">mask</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="n">mask_cond</span><span class="p">,</span> <span class="n">mask_min</span><span class="p">)</span>
+</span><span data-line="1411">
+</span><span data-line="1412">    <span class="c1"># Now assemble the eigendecomposited matrices back</span>
+</span><span data-line="1413">    <span class="n">e</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">mat</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">complex128</span><span class="p">)</span>
+</span><span data-line="1414">    <span class="n">np</span><span class="o">.</span><span class="n">einsum</span><span class="p">(</span><span class="s1">'ijj-&gt;ij'</span><span class="p">,</span> <span class="n">e</span><span class="p">)[</span><span class="o">...</span><span class="p">]</span> <span class="o">=</span> <span class="n">eigw</span>
+</span><span data-line="1415">    <span class="k">return</span> <span class="n">rsolve</span><span class="p">(</span><span class="n">eigv</span><span class="p">,</span> <span class="n">eigv</span> <span class="o">@</span> <span class="n">e</span><span class="p">)</span></div>
+
+</span></pre></div>
+        </article><button class="back-to-top" type="button">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+  </svg>
+  <span>Back to top</span>
+</button><div class="navigation flex print:hidden"></div></div>
+    </div>
+  </main>
+</div>
+<footer class="sy-foot">
+  <div class="sy-foot-inner sy-container mx-auto">
+    <div class="sy-foot-reserved md:flex justify-between items-center">
+      <div class="sy-foot-copyright"><p>2025, scikit-rf team</p>
+  
+  <p>
+    Made with
+    
+    <a href="https://www.sphinx-doc.org/">Sphinx</a> and
+    
+    <a href="https://shibuya.lepture.com">Shibuya theme</a>.
+  </p>
+</div>
+      <div class="sy-foot-socials">
+  <a href="https://github.com/scikit-rf/scikit-rf" aria-label="GitHub">
+    <iconify-icon icon="simple-icons:github"></iconify-icon>
+  </a></div>
+    </div>
+  </div>
+</footer>
+      <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../_static/copybutton.js?v=34bd459d"></script>
+      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+      <script src="../../_static/shibuya.js?v=50760d75"></script>
+      <script src="https://cdn.jsdelivr.net/npm/@jupyter-widgets/html-manager@^1.0.1/dist/embed-amd.js"></script>
+      <script src="../../_static/skrf.js?v=bdeb9fb0"></script></body>
+</html>

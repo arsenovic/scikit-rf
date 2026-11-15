@@ -1,0 +1,6 @@
+skrf.calibration.calibration.TUGMultilineTRL.total\_error
+=========================================================
+
+.. currentmodule:: skrf.calibration.calibration
+
+.. autoproperty:: TUGMultilineTRL.total_error

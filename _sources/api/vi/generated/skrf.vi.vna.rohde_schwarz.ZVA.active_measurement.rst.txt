@@ -1,0 +1,6 @@
+skrf.vi.vna.rohde\_schwarz.ZVA.active\_measurement
+==================================================
+
+.. currentmodule:: skrf.vi.vna.rohde_schwarz
+
+.. autoproperty:: ZVA.active_measurement

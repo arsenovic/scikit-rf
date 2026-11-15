@@ -1,0 +1,6 @@
+skrf.network.Network.nf\_circle
+===============================
+
+.. currentmodule:: skrf.network
+
+.. automethod:: Network.nf_circle

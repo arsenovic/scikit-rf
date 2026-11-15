@@ -1,0 +1,6 @@
+skrf.media.mline.MLine.capacitor\_q
+===================================
+
+.. currentmodule:: skrf.media.mline
+
+.. automethod:: MLine.capacitor_q

@@ -1,0 +1,6 @@
+skrf.vectorFitting.VectorFittingParametric.write\_npz
+=====================================================
+
+.. currentmodule:: skrf.vectorFitting
+
+.. automethod:: VectorFittingParametric.write_npz

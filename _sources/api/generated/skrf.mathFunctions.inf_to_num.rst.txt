@@ -1,0 +1,6 @@
+﻿skrf.mathFunctions.inf\_to\_num
+===============================
+
+.. currentmodule:: skrf.mathFunctions
+
+.. autofunction:: inf_to_num

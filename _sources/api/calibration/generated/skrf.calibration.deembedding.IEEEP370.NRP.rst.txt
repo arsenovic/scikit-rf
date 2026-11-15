@@ -1,0 +1,6 @@
+skrf.calibration.deembedding.IEEEP370.NRP
+=========================================
+
+.. currentmodule:: skrf.calibration.deembedding
+
+.. automethod:: IEEEP370.NRP

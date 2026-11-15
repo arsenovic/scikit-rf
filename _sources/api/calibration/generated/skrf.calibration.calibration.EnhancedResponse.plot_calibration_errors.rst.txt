@@ -1,0 +1,6 @@
+skrf.calibration.calibration.EnhancedResponse.plot\_calibration\_errors
+=======================================================================
+
+.. currentmodule:: skrf.calibration.calibration
+
+.. automethod:: EnhancedResponse.plot_calibration_errors

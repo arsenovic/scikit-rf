@@ -1,0 +1,6 @@
+skrf.media.rectangularWaveguide.RectangularWaveguide.shunt\_resistor
+====================================================================
+
+.. currentmodule:: skrf.media.rectangularWaveguide
+
+.. automethod:: RectangularWaveguide.shunt_resistor

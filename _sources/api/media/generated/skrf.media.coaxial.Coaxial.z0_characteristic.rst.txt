@@ -1,0 +1,6 @@
+skrf.media.coaxial.Coaxial.z0\_characteristic
+=============================================
+
+.. currentmodule:: skrf.media.coaxial
+
+.. autoproperty:: Coaxial.z0_characteristic

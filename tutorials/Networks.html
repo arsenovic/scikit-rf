@@ -1,0 +1,1540 @@
+<!DOCTYPE html>
+<html lang="en" data-accent-color="blue" data-content_root="../">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Networks - scikit-rf</title><link rel="author" title="About these documents" href="../about.html" /><link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Connecting Networks" href="Connecting_Networks.html" /><link rel="prev" title="Configuring frequency units" href="Frequency_units.html" /><script>
+    function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
+    setColorMode(localStorage._theme||"auto");
+  </script><link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=ad592e98" />
+    <link rel="stylesheet" type="text/css" href="../_static/shibuya.css?v=2ceb65ce" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-codeautolink.css?v=b2176991" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link media="print" rel="stylesheet" type="text/css" href="../_static/print.css?v=20ff2c19" />
+    <link rel="stylesheet" type="text/css" href="../_static/nbsphinx-code-cells.css?v=2aa19091" />
+    <link rel="stylesheet" type="text/css" href="../_static/skrf.css?v=7e772ba2" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --sy-f-text: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+  --sy-f-heading: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+}
+</style>
+    
+  <meta property="og:type" content="website"/><meta property="og:title" content="Networks"/>
+    <meta name="twitter:card" content="summary"/>
+  </head>
+<body><div class="sy-head">
+  <div class="sy-head-blur"></div>
+  <div class="sy-head-inner sy-container mx-auto">
+    <a class="sy-head-brand" href="../index.html">
+      <img class="light-logo" src="../_static/logo.svg" alt="scikit-rf" height="28" loading="lazy" />
+      <img class="dark-logo" src="../_static/logo.svg" alt="scikit-rf" height="28" loading="lazy" />
+      <strong>scikit-rf</strong>
+    </a>
+    <div class="sy-head-nav" id="head-nav">
+      <nav class="sy-head-links"><ul><li class="link"><a href="../index.html">Home</a></li><li class="link"><a href="index.html">Tutorials</a></li><li class="link"><a href="../examples/index.html">Examples</a></li><li class="link"><a href="../api/index.html">API</a></li><li class="link">
+          <a href="https://github.com/scikit-rf/scikit-rf">
+            <span>GitHub</span><i class="i-lucide external-link"></i></a>
+        </li></ul></nav>
+      <div class="sy-head-extra flex items-center print:hidden"><form class="searchbox flex items-center" action="../search.html" method="get">
+  <input type="text" name="q" placeholder="Search" />
+  <kbd>/</kbd>
+</form><div class="sy-head-socials">
+  <a href="https://github.com/scikit-rf/scikit-rf" aria-label="GitHub">
+    <iconify-icon icon="simple-icons:github"></iconify-icon>
+  </a>
+  <a href="https://www.linkedin.com/groups/12462155/" aria-label="LinkedIn">
+    <iconify-icon icon="simple-icons:linkedin"></iconify-icon>
+  </a>
+  <a href="https://app.element.io/#/room/#scikit-rf:matrix.org" aria-label="Matrix">
+    <iconify-icon icon="simple-icons:matrix"></iconify-icon>
+  </a></div></div>
+    </div>
+    <div class="sy-head-actions flex items-center shrink-0 print:hidden"><button class="js-theme theme-switch flex items-center"
+data-aria-auto="Switch to light color mode"
+data-aria-light="Switch to dark color mode"
+data-aria-dark="Switch to auto color mode">
+<i class="i-lucide theme-icon"></i>
+</button><button class="md:hidden flex items-center js-menu" aria-label="Menu" type="button" aria-controls="head-nav" aria-expanded="false">
+        <div class="hamburger">
+          <span class="hamburger_1"></span>
+          <span class="hamburger_2"></span>
+          <span class="hamburger_3"></span>
+        </div>
+      </button>
+    </div>
+  </div>
+</div>
+<div class="sy-page sy-container flex mx-auto">
+  <aside id="lside" class="sy-lside md:w-72 md:shrink-0 print:hidden">
+    <div class="sy-lside-inner md:sticky">
+      <div class="sy-scrollbar p-6">
+        <div class="globaltoc" data-expand-depth="0"><p class="caption" role="heading" aria-level="3"><span class="caption-text">Getting started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Introduction.html">Introduction</a></li>
+</ul>
+<p class="caption" role="heading" aria-level="3"><span class="caption-text">User guide</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Tutorials</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="Installation.html">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Introduction.html">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Frequency_units.html">Configuring frequency units</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Networks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Connecting_Networks.html">Connecting Networks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Plotting.html">Plotting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="NetworkSet.html">NetworkSet</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Circuit.html">Circuits</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Calibration.html">Calibration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Deembedding.html">De-embedding</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Q-Factor.html">Quality Factors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Media.html">Media</a></li>
+<li class="toctree-l2"><a class="reference internal" href="VectorFitting.html">Vector Fitting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="VectorFittingParametric.html">Parametric Vector Fitting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="VirtualInstruments.html">Virtual Instruments</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/index.html">Examples</a></li>
+</ul>
+<p class="caption" role="heading" aria-level="3"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../api/index.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../glossary.html">Glossary</a></li>
+</ul>
+<p class="caption" role="heading" aria-level="3"><span class="caption-text">Project</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../contributing/index.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../citations_ack/acknowledging.html">Citing scikit-rf</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../citations_ack/citations.html">scikit-rf Citations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../about.html">About</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../users.html">Users</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../license.html">License</a></li>
+</ul>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="lside-overlay js-menu" role="button" aria-label="Close left sidebar" aria-controls="lside" aria-expanded="false"></div>
+  <aside id="rside" class="sy-rside pb-3 w-64 shrink-0 order-last">
+    <button class="rside-close js-menu xl:hidden" aria-label="Close Table of Contents" type="button" aria-controls="rside" aria-expanded="false">
+      <i class="i-lucide close"></i>
+    </button>
+    <div class="sy-scrollbar sy-rside-inner px-6 xl:top-16 xl:sticky xl:pl-0 pt-6 pb-4"><div class="localtoc"><h3>On this page</h3><ul>
+<li><a class="reference internal" href="#Introduction">Introduction</a></li>
+<li><a class="reference internal" href="#Creating-Networks">Creating Networks</a><ul>
+<li><a class="reference internal" href="#Creating-Network-from-Touchstone-file">Creating Network from Touchstone file</a></li>
+<li><a class="reference internal" href="#Creating-Network-from-s-parameters">Creating Network from s-parameters</a></li>
+<li><a class="reference internal" href="#From-z-parameters">From z-parameters</a></li>
+<li><a class="reference internal" href="#From-other-network-parameters:-Y,-ABCD,-H,-T">From other network parameters: Y, ABCD, H, T</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#Basic-Properties">Basic Properties</a></li>
+<li><a class="reference internal" href="#Slicing">Slicing</a></li>
+<li><a class="reference internal" href="#Plotting">Plotting</a></li>
+<li><a class="reference internal" href="#Arithmetic-Operations">Arithmetic Operations</a></li>
+<li><a class="reference internal" href="#Comparison-of-Network">Comparison of Network</a></li>
+<li><a class="reference internal" href="#Cascading-and-De-embedding">Cascading and De-embedding</a></li>
+<li><a class="reference internal" href="#Connecting-Multi-ports">Connecting Multi-ports</a></li>
+<li><a class="reference internal" href="#Port-names">Port names</a><ul>
+<li><a class="reference internal" href="#Connecting-by-name">Connecting by name</a></li>
+<li><a class="reference internal" href="#Names-follow-the-ports">Names follow the ports</a></li>
+<li><a class="reference internal" href="#Mixed-mode">Mixed mode</a></li>
+<li><a class="reference internal" href="#Duplicate-names">Duplicate names</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#Interpolation-and-Concatenation">Interpolation and Concatenation</a></li>
+<li><a class="reference internal" href="#Reading-and-Writing">Reading and Writing</a></li>
+<li><a class="reference internal" href="#Other-Parameters">Other Parameters</a></li>
+<li><a class="reference internal" href="#References">References</a></li>
+</ul>
+</div><div id="ethical-ad-placement" data-ea-publisher="readthedocs"></div></div>
+  </aside>
+  <div class="rside-overlay js-menu" role="button" aria-label="Close Table of Contents" aria-controls="rside" aria-expanded="false"></div>
+  <main class="sy-main w-full max-sm:max-w-full print:pt-6">
+<div class="sy-breadcrumbs" role="navigation">
+  <div class="sy-breadcrumbs-inner flex items-center">
+    <div class="md:hidden mr-3">
+      <button class="js-menu" aria-label="Menu" type="button" aria-controls="lside" aria-expanded="false">
+        <i class="i-lucide menu"></i>
+      </button>
+    </div>
+    <ol class="flex-1" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="../index.html"><span itemprop="name">scikit-rf</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="1" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="index.html"><span itemprop="name">Tutorials</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="2" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <strong itemprop="name">Networks</strong>
+        <meta itemprop="position" content="3" />
+      </li></ol>
+    <a class="sk-download" href="Networks.ipynb" download>Download</a>
+    <div class="xl:hidden ml-1">
+      <button class="js-menu" aria-label="Show table of contents" type="button" aria-controls="rside"
+        aria-expanded="false">
+        <i class="i-lucide outdent"></i>
+      </button>
+    </div>
+  </div>
+</div><div class="flex flex-col break-words justify-between">
+      <div class="relative min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
+  <article class="yue" role="main">
+          <section id="Networks">
+<h1>Networks<a class="headerlink" href="#Networks" title="Link to this heading">#</a></h1>
+<section id="Introduction">
+<h2>Introduction<a class="headerlink" href="#Introduction" title="Link to this heading">#</a></h2>
+<p>This tutorial gives an overview of the microwave network analysis features of <strong>skrf</strong>. For this tutorial, and the rest of the scikit-rf documentation, it is assumed that <strong>skrf</strong> has been imported as <code class="docutils literal notranslate"><span class="pre">rf</span></code>. Whether or not you follow this convention in your own code is up to you.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[1]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="kn">import</span><span class="w"> </span><a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/index.html#module-numpy"><span class="nn">numpy</span></a><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+</span><span data-line="2">
+</span><span data-line="3"><span class="kn">import</span><span class="w"> </span><span class="nn">skrf</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">rf</span>
+</span></pre></div>
+</div>
+</div>
+<p>If this produces an import error, please see <a class="reference internal" href="Installation.html"><span class="doc">Installation</span></a>.</p>
+</section>
+<section id="Creating-Networks">
+<h2>Creating Networks<a class="headerlink" href="#Creating-Networks" title="Link to this heading">#</a></h2>
+<p><strong>skrf</strong> provides an object for a N-port microwave <a class="reference internal" href="../api/network.html"><span class="doc">Network</span></a>. A <a class="reference internal" href="../api/network.html"><span class="doc">Network</span></a> can be created in a number of ways:</p>
+<ul class="simple">
+<li><p>from a Touchstone file</p></li>
+<li><p>from S-parameters</p></li>
+<li><p>from Z-parameters</p></li>
+<li><p>from other RF parameters (Y, ABCD, T, etc.)</p></li>
+</ul>
+<p>Some examples for each situation is given below.</p>
+<section id="Creating-Network-from-Touchstone-file">
+<h3>Creating Network from Touchstone file<a class="headerlink" href="#Creating-Network-from-Touchstone-file" title="Link to this heading">#</a></h3>
+<p><a class="reference external" href="https://en.wikipedia.org/wiki/Touchstone_file">Touchstone file</a> (<code class="docutils literal notranslate"><span class="pre">.sNp</span></code> files, with <code class="docutils literal notranslate"><span class="pre">N</span></code> being the number of ports) is a <em>de facto</em> standard to export N-port network parameter data and noise data of linear active devices, passive filters, passive devices, or interconnect networks. Creating a Network from a Touchstone file is simple:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[2]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="kn">from</span><span class="w"> </span><span class="nn">skrf</span><span class="w"> </span><span class="kn">import</span> <a class="sphinx-codeautolink-a" href="../api/generated/skrf.frequency.Frequency.html#skrf.frequency.Frequency" title="skrf.frequency.Frequency"><span class="n">Frequency</span></a><span class="p">,</span> <a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">Network</span></a>
+</span><span data-line="2">
+</span><span data-line="3"><a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">ring_slot</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">Network</span></a><span class="p">(</span><span class="s1">'data/ring slot.s2p'</span><span class="p">)</span>
+</span></pre></div>
+</div>
+</div>
+<p>Note that some software, such as ANSYS HFSS, add additional information to the Touchstone standard, such as comments, simulation parameters, Port Impedance or Gamma (wavenumber). These data are also imported if detected.</p>
+<p>A short description of the network will be printed out if entered onto the command line</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[3]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">ring_slot</span></a>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[3]:
+</span></pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+2-Port Network: 'ring slot',  75.0-110.0 GHz, 201 pts, z0=[50.+0.j 50.+0.j]
+</pre></div></div>
+</div>
+</section>
+<section id="Creating-Network-from-s-parameters">
+<h3>Creating Network from s-parameters<a class="headerlink" href="#Creating-Network-from-s-parameters" title="Link to this heading">#</a></h3>
+<p>Networks can also be created by directly passing values for the <code class="docutils literal notranslate"><span class="pre">frequency</span></code>, <code class="docutils literal notranslate"><span class="pre">s</span></code>-parameters (and optionally the port impedance <code class="docutils literal notranslate"><span class="pre">z0</span></code>).</p>
+<p>The scattering matrix of a N-port Network is expected to be a Numpy array of shape <code class="docutils literal notranslate"><span class="pre">(nb_f,</span> <span class="pre">N,</span> <span class="pre">N)</span></code>, where <code class="docutils literal notranslate"><span class="pre">nb_f</span></code> is the number of frequency points and <code class="docutils literal notranslate"><span class="pre">N</span></code> the number of ports of the network.</p>
+<p><img alt="4ce3610901844d5e91025dee829038ef" class="no-scaled-link" src="../_images/arrays_s_vs_f.svg" width="300"/></p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[4]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="c1"># dummy 2-port network from Frequency and s-parameters</span>
+</span><span data-line="2"><a class="sphinx-codeautolink-a" href="../api/generated/skrf.frequency.Frequency.html#skrf.frequency.Frequency" title="skrf.frequency.Frequency"><span class="n">freq</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../api/generated/skrf.frequency.Frequency.html#skrf.frequency.Frequency" title="skrf.frequency.Frequency"><span class="n">Frequency</span></a><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">101</span><span class="p">,</span> <span class="s1">'ghz'</span><span class="p">)</span>
+</span><span data-line="3"><span class="n">rng</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/random/generator.html#numpy.random.default_rng" title="numpy.random.default_rng"><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span></a><span class="p">()</span>
+</span><span data-line="4"><span class="n">s</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">101</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span> <span class="o">+</span> <span class="mi">1</span><span class="n">j</span><span class="o">*</span><span class="n">rng</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">101</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>  <span class="c1"># random complex numbers</span>
+</span><span data-line="5"><span class="c1"># if not passed, will assume z0=50. name is optional but it's a good practice.</span>
+</span><span data-line="6"><a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">ntwk</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">Network</span></a><span class="p">(</span><span class="n">frequency</span><span class="o">=</span><a class="sphinx-codeautolink-a" href="../api/generated/skrf.frequency.Frequency.html#skrf.frequency.Frequency" title="skrf.frequency.Frequency"><span class="n">freq</span></a><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="n">s</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'random values 2-port'</span><span class="p">)</span>
+</span><span data-line="7"><a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">ntwk</span></a>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[4]:
+</span></pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+2-Port Network: 'random values 2-port',  1.0-10.0 GHz, 101 pts, z0=[50.+0.j 50.+0.j]
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[5]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.Network.plot_s_db.html#skrf.network.Network.plot_s_db" title="skrf.network.Network.plot_s_db"><span class="n">ntwk</span><span class="o">.</span><span class="n">plot_s_db</span></a><span class="p">()</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorials_Networks_15_0.png" src="../_images/tutorials_Networks_15_0.png"/>
+</div>
+</div>
+<p>Often, s-parameters are stored in separate arrays. In such case, one needs to forge the s-matrix:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[6]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="c1"># let's assume we have separate arrays for the frequency and s-parameters</span>
+</span><span data-line="2"><span class="n">f</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/generated/numpy.array.html#numpy.array" title="numpy.array"><span class="n">np</span><span class="o">.</span><span class="n">array</span></a><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span> <span class="c1"># in GHz</span>
+</span><span data-line="3"><span class="n">S11</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+</span><span data-line="4"><span class="n">S12</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+</span><span data-line="5"><span class="n">S21</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+</span><span data-line="6"><span class="n">S22</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+</span><span data-line="7">
+</span><span data-line="8"><span class="c1"># Before creating the scikit-rf Network object, one must forge the Frequency and S-matrix:</span>
+</span><span data-line="9"><a class="sphinx-codeautolink-a" href="../api/generated/skrf.frequency.Frequency.html#skrf.frequency.Frequency" title="skrf.frequency.Frequency"><span class="n">freq2</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../api/generated/skrf.frequency.Frequency.from_f.html#skrf.frequency.Frequency.from_f" title="skrf.frequency.Frequency.from_f"><span class="n">rf</span><span class="o">.</span><span class="n">Frequency</span><span class="o">.</span><span class="n">from_f</span></a><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s1">'GHz'</span><span class="p">)</span>
+</span><span data-line="10">
+</span><span data-line="11"><span class="c1"># forging S-matrix as shape (nb_f, 2, 2)</span>
+</span><span data-line="12"><span class="c1"># there is probably smarter way, but less explicit for the purpose of this example:</span>
+</span><span data-line="13"><span class="n">s</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/generated/numpy.zeros.html#numpy.zeros" title="numpy.zeros"><span class="n">np</span><span class="o">.</span><span class="n">zeros</span></a><span class="p">((</span><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/builtins/functions.html#len"><span class="nb">len</span></a><span class="p">(</span><span class="n">f</span><span class="p">),</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/builtins/functions.html#complex"><span class="nb">complex</span></a><span class="p">)</span>
+</span><span data-line="14"><span class="n">s</span><span class="p">[:,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">S11</span>
+</span><span data-line="15"><span class="n">s</span><span class="p">[:,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">S12</span>
+</span><span data-line="16"><span class="n">s</span><span class="p">[:,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">S21</span>
+</span><span data-line="17"><span class="n">s</span><span class="p">[:,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">S22</span>
+</span><span data-line="18">
+</span><span data-line="19"><span class="c1"># constructing Network object</span>
+</span><span data-line="20"><a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">ntw</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">rf</span><span class="o">.</span><span class="n">Network</span></a><span class="p">(</span><span class="n">frequency</span><span class="o">=</span><a class="sphinx-codeautolink-a" href="../api/generated/skrf.frequency.Frequency.html#skrf.frequency.Frequency" title="skrf.frequency.Frequency"><span class="n">freq2</span></a><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="n">s</span><span class="p">)</span>
+</span><span data-line="21">
+</span><span data-line="22"><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/builtins/functions.html#print"><span class="nb">print</span></a><span class="p">(</span><a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">ntw</span></a><span class="p">)</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+2-Port Network: '',  1.0-4.0 GHz, 4 pts, z0=[50.+0.j 50.+0.j]
+</pre></div></div>
+</div>
+<p>If necessary, the characteristic impedance can be passed as a scalar (same for all frequencies), as a list or an array:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[7]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">ntw2</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">rf</span><span class="o">.</span><span class="n">Network</span></a><span class="p">(</span><span class="n">frequency</span><span class="o">=</span><a class="sphinx-codeautolink-a" href="../api/generated/skrf.frequency.Frequency.html#skrf.frequency.Frequency" title="skrf.frequency.Frequency"><span class="n">freq</span></a><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="n">s</span><span class="p">,</span> <span class="n">z0</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'same z0 for all ports'</span><span class="p">)</span>
+</span><span data-line="2"><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/builtins/functions.html#print"><span class="nb">print</span></a><span class="p">(</span><a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">ntw2</span></a><span class="p">)</span>
+</span><span data-line="3"><a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">ntw3</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">rf</span><span class="o">.</span><span class="n">Network</span></a><span class="p">(</span><span class="n">frequency</span><span class="o">=</span><a class="sphinx-codeautolink-a" href="../api/generated/skrf.frequency.Frequency.html#skrf.frequency.Frequency" title="skrf.frequency.Frequency"><span class="n">freq</span></a><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="n">s</span><span class="p">,</span> <span class="n">z0</span><span class="o">=</span><span class="p">[</span><span class="mi">20</span><span class="p">,</span> <span class="mi">30</span><span class="p">],</span> <span class="n">name</span><span class="o">=</span><span class="s1">'different z0 for each port'</span><span class="p">)</span>
+</span><span data-line="4"><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/builtins/functions.html#print"><span class="nb">print</span></a><span class="p">(</span><a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">ntw3</span></a><span class="p">)</span>
+</span><span data-line="5"><a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">ntw4</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">rf</span><span class="o">.</span><span class="n">Network</span></a><span class="p">(</span><span class="n">frequency</span><span class="o">=</span><a class="sphinx-codeautolink-a" href="../api/generated/skrf.frequency.Frequency.html#skrf.frequency.Frequency" title="skrf.frequency.Frequency"><span class="n">freq</span></a><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="n">s</span><span class="p">,</span> <span class="n">z0</span><span class="o">=</span><span class="n">rng</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">2</span><span class="p">)),</span> <span class="n">name</span><span class="o">=</span><span class="s1">'different z0 for each frequencies and ports'</span><span class="p">)</span>
+</span><span data-line="6"><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/builtins/functions.html#print"><span class="nb">print</span></a><span class="p">(</span><a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">ntw4</span></a><span class="p">)</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+2-Port Network: 'same z0 for all ports',  1.0-10.0 GHz, 101 pts, z0=[25.+0.j 25.+0.j]
+2-Port Network: 'different z0 for each port',  1.0-10.0 GHz, 101 pts, z0=[20.+0.j 30.+0.j]
+2-Port Network: 'different z0 for each frequencies and ports',  1.0-10.0 GHz, 101 pts, z0=[0.76594509+0.j 0.30047553+0.j]
+</pre></div></div>
+</div>
+</section>
+<section id="From-z-parameters">
+<h3>From z-parameters<a class="headerlink" href="#From-z-parameters" title="Link to this heading">#</a></h3>
+<p>As networks are also defined from their Z-parameters, there is <code class="docutils literal notranslate"><span class="pre">from_z()</span></code> method of the Network:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[8]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="c1"># 1-port network example</span>
+</span><span data-line="2"><span class="n">z</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/generated/numpy.full.html#numpy.full" title="numpy.full"><span class="n">np</span><span class="o">.</span><span class="n">full</span></a><span class="p">((</span><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/builtins/functions.html#len"><span class="nb">len</span></a><span class="p">(</span><a class="sphinx-codeautolink-a" href="../api/generated/skrf.frequency.Frequency.html#skrf.frequency.Frequency" title="skrf.frequency.Frequency"><span class="n">freq</span></a><span class="p">),</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="mi">10</span><span class="n">j</span><span class="p">)</span>  <span class="c1"># replicate z=10j for all frequencies</span>
+</span><span data-line="3">
+</span><span data-line="4"><a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">ntw</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">rf</span><span class="o">.</span><span class="n">Network</span></a><span class="p">(</span><span class="n">frequency</span><span class="o">=</span><a class="sphinx-codeautolink-a" href="../api/generated/skrf.frequency.Frequency.html#skrf.frequency.Frequency" title="skrf.frequency.Frequency"><span class="n">freq</span></a><span class="p">,</span> <span class="n">z</span><span class="o">=</span><span class="n">z</span><span class="p">)</span>
+</span><span data-line="5"><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/builtins/functions.html#print"><span class="nb">print</span></a><span class="p">(</span><a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">ntw</span></a><span class="p">)</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+1-Port Network: '',  1.0-10.0 GHz, 101 pts, z0=[50.+0.j]
+</pre></div></div>
+</div>
+</section>
+<section id="From-other-network-parameters:-Y,-ABCD,-H,-T">
+<h3>From other network parameters: Y, ABCD, H, T<a class="headerlink" href="#From-other-network-parameters:-Y,-ABCD,-H,-T" title="Link to this heading">#</a></h3>
+<p>It is also possible to generate Networks from other kind of RF parameters: <a class="reference external" href="https://en.wikipedia.org/wiki/Two-port_network#Admittance_parameters_(y-parameters)">Y</a>, <a class="reference external" href="https://en.wikipedia.org/wiki/Two-port_network#ABCD-parameters">ABCD</a>, <a class="reference external" href="https://en.wikipedia.org/wiki/Two-port_network#Hybrid_parameters_(h-parameters)">H</a> or <a class="reference external" href="https://en.wikipedia.org/wiki/Two-port_network#Scattering_transfer_parameters_(T-parameters)">T</a> using the <code class="docutils literal notranslate"><span class="pre">y=</span></code>, <code class="docutils literal notranslate"><span class="pre">a=</span></code>, <code class="docutils literal notranslate"><span class="pre">h=</span></code> or <code class="docutils literal notranslate"><span class="pre">t=</span></code> parameters
+respectively when creating a <code class="docutils literal notranslate"><span class="pre">Network</span></code>.</p>
+<p>For example, the <a class="reference external" href="https://en.wikipedia.org/wiki/Two-port_network#ABCD-parameters">ABCD parameters</a> of a series-impedance is:</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[\begin{split}\left[
+\begin{array}{cc}
+1 &amp; Z \\
+0 &amp; 1
+\end{array}
+\right]\end{split}\]</div>
+</div>
+<p>so the associated Network can be created like:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[9]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">z</span> <span class="o">=</span> <span class="mi">20</span>
+</span><span data-line="2"><span class="n">abcd</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/generated/numpy.array.html#numpy.array" title="numpy.array"><span class="n">np</span><span class="o">.</span><span class="n">array</span></a><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="n">z</span><span class="p">],</span>
+</span><span data-line="3">              <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]])</span>
+</span><span data-line="4">
+</span><span data-line="5"><span class="n">a</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/generated/numpy.tile.html#numpy.tile" title="numpy.tile"><span class="n">np</span><span class="o">.</span><span class="n">tile</span></a><span class="p">(</span><span class="n">abcd</span><span class="p">,</span> <span class="p">(</span><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/builtins/functions.html#len"><span class="nb">len</span></a><span class="p">(</span><a class="sphinx-codeautolink-a" href="../api/generated/skrf.frequency.Frequency.html#skrf.frequency.Frequency" title="skrf.frequency.Frequency"><span class="n">freq</span></a><span class="p">),</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span>
+</span><span data-line="6"><a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">ntw</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">Network</span></a><span class="p">(</span><span class="n">frequency</span><span class="o">=</span><a class="sphinx-codeautolink-a" href="../api/generated/skrf.frequency.Frequency.html#skrf.frequency.Frequency" title="skrf.frequency.Frequency"><span class="n">freq</span></a><span class="p">,</span> <span class="n">a</span><span class="o">=</span><span class="n">a</span><span class="p">)</span>
+</span><span data-line="7"><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/builtins/functions.html#print"><span class="nb">print</span></a><span class="p">(</span><a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">ntw</span></a><span class="p">)</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+2-Port Network: '',  1.0-10.0 GHz, 101 pts, z0=[50.+0.j 50.+0.j]
+</pre></div></div>
+</div>
+<p>Note that convenience functions are also available for converting some parameters into another if required:</p>
+<div class="table-wrapper docutils container">
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>from:nbsphinx-math:<cite>to</cite></p></th>
+<th class="head"><p>S</p></th>
+<th class="head"><p>Z</p></th>
+<th class="head"><p>Y</p></th>
+<th class="head"><p>ABCD</p></th>
+<th class="head"><p>T</p></th>
+<th class="head"><p>H</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>S</p></td>
+<td></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">s2z</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">s2y</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">s2a</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">s2t</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">s2h</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>Z</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">z2s</span></code></p></td>
+<td></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">z2y</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">z2a</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">z2t</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">z2h</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>Y</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">y2s</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">y2z</span></code></p></td>
+<td></td>
+<td></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">y2t</span></code></p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>ABCD</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">a2s</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">a2z</span></code></p></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>T</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">t2s</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">t2z</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">t2y</span></code></p></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>H</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">h2s</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">h2z</span></code></p></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[10]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="c1"># example: converting a -&gt; s</span>
+</span><span data-line="2"><a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray"><span class="n">s</span></a> <span class="o">=</span> <span class="n">rf</span><span class="o">.</span><span class="n">network</span><span class="o">.</span><span class="n">a2s</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+</span><span data-line="3"><span class="c1"># checking that these S-params are the same</span>
+</span><span data-line="4"><a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/generated/numpy.all.html#numpy.all" title="numpy.all"><span class="n">np</span><span class="o">.</span><span class="n">all</span></a><span class="p">(</span><a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.Network.s.html#skrf.network.Network.s" title="skrf.network.Network.s"><span class="n">ntw</span><span class="o">.</span><span class="n">s</span></a> <span class="o">==</span> <a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray"><span class="n">s</span></a><span class="p">)</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[10]:
+</span></pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+np.True_
+</pre></div></div>
+</div>
+</section>
+</section>
+<section id="Basic-Properties">
+<h2>Basic Properties<a class="headerlink" href="#Basic-Properties" title="Link to this heading">#</a></h2>
+<p>The basic attributes of a microwave <a class="reference internal" href="../api/network.html"><span class="doc">Network</span></a> are provided by the following properties :</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Network.s</span></code> : Scattering Parameter matrix.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Network.z0</span></code> : Port Characteristic Impedance matrix.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Network.frequency</span></code> : Frequency Object.</p></li>
+</ul>
+<p>The <a class="reference internal" href="../api/network.html"><span class="doc">Network</span></a> object has numerous other properties and methods. If you are using IPython, then these properties and methods can be ‘tabbed’ out on the command line.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">In [1]: ring_slot.s&lt;TAB&gt;
+</span><span data-line="2">ring_slot.line.s              ring_slot.s_arcl         ring_slot.s_im
+</span><span data-line="3">ring_slot.line.s11            ring_slot.s_arcl_unwrap  ring_slot.s_mag
+</span><span data-line="4">...
+</span></pre></div>
+</div>
+<p>All of the network parameters are represented internally as complex <code class="docutils literal notranslate"><span class="pre">numpy.ndarray</span></code>. The s-parameters are of shape <code class="docutils literal notranslate"><span class="pre">(nfreq,</span> <span class="pre">nport,</span> <span class="pre">nport)</span></code>:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[11]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/generated/numpy.shape.html#numpy.shape" title="numpy.shape"><span class="n">np</span><span class="o">.</span><span class="n">shape</span></a><span class="p">(</span><a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.Network.s.html#skrf.network.Network.s" title="skrf.network.Network.s"><span class="n">ring_slot</span><span class="o">.</span><span class="n">s</span></a><span class="p">)</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[11]:
+</span></pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+(201, 2, 2)
+</pre></div></div>
+</div>
+</section>
+<section id="Slicing">
+<h2>Slicing<a class="headerlink" href="#Slicing" title="Link to this heading">#</a></h2>
+<p>You can slice the <code class="docutils literal notranslate"><span class="pre">Network.s</span></code> attribute any way you want.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[12]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.Network.s.html#skrf.network.Network.s" title="skrf.network.Network.s"><span class="n">ring_slot</span><span class="o">.</span><span class="n">s</span></a><span class="p">[:</span><span class="mi">11</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># get first 10 values of S21</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[12]:
+</span></pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+array([0.6134571 +0.36678139j, 0.6218194 +0.36403169j,
+       0.63024301+0.36109574j, 0.63872415+0.3579682j ,
+       0.64725874+0.35464377j, 0.65584238+0.35111711j,
+       0.66447037+0.34738295j, 0.6731377 +0.34343602j,
+       0.68183901+0.33927115j, 0.69056862+0.33488321j,
+       0.6993205 +0.3302672j ])
+</pre></div></div>
+</div>
+<p>Slicing by frequency can also be done directly on Network objects like so</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[13]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">ring_slot</span></a><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">10</span><span class="p">]</span> <span class="c1">#  Network for the first 10 frequency points</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[13]:
+</span></pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+2-Port Network: 'ring slot_subset',  75.0-76.575 GHz, 10 pts, z0=[50.+0.j 50.+0.j]
+</pre></div></div>
+</div>
+<p>or with a human friendly string,</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[14]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">ring_slot</span></a><span class="p">[</span><span class="s1">'80-90ghz'</span><span class="p">]</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[14]:
+</span></pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+2-Port Network: 'ring slot',  80.075-90.05 GHz, 58 pts, z0=[50.+0.j 50.+0.j]
+</pre></div></div>
+</div>
+<p>Notice that slicing directly on a Network <strong>returns a Network</strong>. So, a nice way to express slicing in both dimensions is</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[15]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">ring_slot</span><span class="o">.</span><span class="n">s11</span><span class="p">[</span><span class="s1">'80-90ghz'</span><span class="p">]</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[15]:
+</span></pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+1-Port Network: 'ring slot',  80.075-90.05 GHz, 58 pts, z0=[50.+0.j]
+</pre></div></div>
+</div>
+</section>
+<section id="Plotting">
+<h2>Plotting<a class="headerlink" href="#Plotting" title="Link to this heading">#</a></h2>
+<p>Amongst other things, the methods of the <a class="reference internal" href="../api/network.html"><span class="doc">Network</span></a> class provide convenient ways to plot components of the network parameters,</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Network.plot_s_db</span></code> : plot magnitude of s-parameters in log scale</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Network.plot_s_deg</span></code> : plot phase of s-parameters in degrees</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Network.plot_s_smith</span></code> : plot complex s-parameters on Smith Chart</p></li>
+<li><p>…</p></li>
+</ul>
+<p>If you would like to use skrf’s plot styling,</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[16]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="o">%</span><span class="k">matplotlib</span> inline
+</span><span data-line="2"><a class="sphinx-codeautolink-a" href="../api/generated/skrf.plotting.stylely.html#skrf.plotting.stylely" title="skrf.plotting.stylely"><span class="n">rf</span><span class="o">.</span><span class="n">stylely</span></a><span class="p">()</span>
+</span></pre></div>
+</div>
+</div>
+<p>To plot all four s-parameters of the <code class="docutils literal notranslate"><span class="pre">ring_slot</span></code> on the Smith Chart.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[17]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.Network.plot_s_smith.html#skrf.network.Network.plot_s_smith" title="skrf.network.Network.plot_s_smith"><span class="n">ring_slot</span><span class="o">.</span><span class="n">plot_s_smith</span></a><span class="p">()</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorials_Networks_45_0.png" src="../_images/tutorials_Networks_45_0.png"/>
+</div>
+</div>
+<p>Combining this with the slicing features,</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[18]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+</span><span data-line="2">
+</span><span data-line="3"><span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">'Ring Slot $S_</span><span class="si">{21}</span><span class="s1">$'</span><span class="p">)</span>
+</span><span data-line="4">
+</span><span data-line="5"><span class="n">ring_slot</span><span class="o">.</span><span class="n">s11</span><span class="o">.</span><span class="n">plot_s_db</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s1">'Full Band Response'</span><span class="p">)</span>
+</span><span data-line="6"><span class="n">ring_slot</span><span class="o">.</span><span class="n">s11</span><span class="p">[</span><span class="s1">'82-90ghz'</span><span class="p">]</span><span class="o">.</span><span class="n">plot_s_db</span><span class="p">(</span><span class="n">lw</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">'Band of Interest'</span><span class="p">)</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorials_Networks_47_0.png" src="../_images/tutorials_Networks_47_0.png"/>
+</div>
+</div>
+<p>For more detailed information about plotting see <a class="reference internal" href="Plotting.html"><span class="doc">Plotting</span></a>.</p>
+</section>
+<section id="Arithmetic-Operations">
+<h2>Arithmetic Operations<a class="headerlink" href="#Arithmetic-Operations" title="Link to this heading">#</a></h2>
+<p>Element-wise mathematical operations on the scattering parameter matrices are accessible through overloaded operators. To illustrate their usage, load a couple Networks stored in the <code class="docutils literal notranslate"><span class="pre">data</span></code> module.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[19]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="kn">from</span><span class="w"> </span><a class="sphinx-codeautolink-a" href="../api/data/index.html#module-skrf.data"><span class="nn">skrf.data</span></a><span class="w"> </span><span class="kn">import</span> <span class="n">wr2p2_delayshort</span> <span class="k">as</span> <span class="n">delayshort</span>
+</span><span data-line="2"><span class="kn">from</span><span class="w"> </span><a class="sphinx-codeautolink-a" href="../api/data/index.html#module-skrf.data"><span class="nn">skrf.data</span></a><span class="w"> </span><span class="kn">import</span> <span class="n">wr2p2_short</span> <span class="k">as</span> <span class="n">short</span>
+</span><span data-line="3">
+</span><span data-line="4"><span class="n">short</span> <span class="o">-</span> <span class="n">delayshort</span>
+</span><span data-line="5"><span class="n">short</span> <span class="o">+</span> <span class="n">delayshort</span>
+</span><span data-line="6"><span class="n">short</span> <span class="o">*</span> <span class="n">delayshort</span>
+</span><span data-line="7"><span class="n">short</span> <span class="o">/</span> <span class="n">delayshort</span>
+</span><br/></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[19]:
+</span></pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+1-Port Network: 'wr2p2,short',  330.0-500.0 GHz, 201 pts, z0=[50.+0.j]
+</pre></div></div>
+</div>
+<p>All of these operations return <a class="reference internal" href="../api/network.html"><span class="doc">Network</span></a> types. For example, to plot the complex difference between <code class="docutils literal notranslate"><span class="pre">short</span></code> and <code class="docutils literal notranslate"><span class="pre">delay_short</span></code>,</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[20]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">difference</span> <span class="o">=</span> <span class="p">(</span><span class="n">short</span> <span class="o">-</span> <span class="n">delayshort</span><span class="p">)</span>
+</span><span data-line="2"><span class="n">difference</span><span class="o">.</span><span class="n">plot_s_mag</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s1">'Mag of difference'</span><span class="p">)</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorials_Networks_52_0.png" src="../_images/tutorials_Networks_52_0.png"/>
+</div>
+</div>
+<p>Another common application is calculating the phase difference using the division operator,</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[21]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="p">(</span><span class="n">delayshort</span><span class="o">/</span><span class="n">short</span><span class="p">)</span><span class="o">.</span><span class="n">plot_s_deg</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s1">'Detrended Phase'</span><span class="p">)</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorials_Networks_54_0.png" src="../_images/tutorials_Networks_54_0.png"/>
+</div>
+</div>
+<p>Linear operators can also be used with scalars or an <code class="docutils literal notranslate"><span class="pre">numpy.ndarray</span></code> that have the same length as the <a class="reference internal" href="../api/network.html"><span class="doc">Network</span></a>.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[22]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">hopen</span> <span class="o">=</span> <span class="p">(</span><span class="n">short</span><span class="o">*-</span><span class="mi">1</span><span class="p">)</span>
+</span><span data-line="2"><span class="n">hopen</span><span class="o">.</span><span class="n">s</span><span class="p">[:</span><span class="mi">3</span><span class="p">,</span><span class="o">...</span><span class="p">]</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[22]:
+</span></pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+array([[[1.-0.j]],
+
+       [[1.-0.j]],
+
+       [[1.-0.j]]])
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[23]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">rando</span> <span class="o">=</span>  <span class="n">hopen</span> <span class="o">*</span><span class="n">rng</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/builtins/functions.html#len"><span class="nb">len</span></a><span class="p">(</span><span class="n">hopen</span><span class="p">))</span>
+</span><span data-line="2"><span class="n">rando</span><span class="o">.</span><span class="n">s</span><span class="p">[:</span><span class="mi">3</span><span class="p">,</span><span class="o">...</span><span class="p">]</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[23]:
+</span></pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+array([[[0.78302745+0.j]],
+
+       [[0.92238818+0.j]],
+
+       [[0.31484461+0.j]]])
+</pre></div></div>
+</div>
+</section>
+<section id="Comparison-of-Network">
+<h2>Comparison of Network<a class="headerlink" href="#Comparison-of-Network" title="Link to this heading">#</a></h2>
+<p>Comparison operators also work with networks:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[24]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">short</span> <span class="o">==</span> <span class="n">delayshort</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[24]:
+</span></pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+False
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[25]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">short</span> <span class="o">!=</span> <span class="n">delayshort</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[25]:
+</span></pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+True
+</pre></div></div>
+</div>
+</section>
+<section id="Cascading-and-De-embedding">
+<h2>Cascading and De-embedding<a class="headerlink" href="#Cascading-and-De-embedding" title="Link to this heading">#</a></h2>
+<p>Cascading and de-embeding 2-port Networks can also be done through operators. The <code class="docutils literal notranslate"><span class="pre">cascade</span></code> function can be called through the power operator, <code class="docutils literal notranslate"><span class="pre">**</span></code>. To calculate a new network which is the cascaded connection of the two individual Networks <code class="docutils literal notranslate"><span class="pre">line</span></code> and <code class="docutils literal notranslate"><span class="pre">short</span></code>,</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[26]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">short</span> <span class="o">=</span> <span class="n">rf</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">wr2p2_short</span>
+</span><span data-line="2"><span class="n">line</span> <span class="o">=</span> <span class="n">rf</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">wr2p2_line</span>
+</span><span data-line="3"><span class="n">delayshort</span> <span class="o">=</span> <span class="n">line</span> <span class="o">**</span> <span class="n">short</span>
+</span></pre></div>
+</div>
+</div>
+<p>De-embedding can be accomplished by cascading the <em>inverse</em> of a network. The inverse of a network is accessed through the property <code class="docutils literal notranslate"><span class="pre">Network.inv</span></code>. To de-embed the <code class="docutils literal notranslate"><span class="pre">short</span></code> from <code class="docutils literal notranslate"><span class="pre">delay_short</span></code>,</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[27]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">short_2</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.Network.inv.html#skrf.network.Network.inv" title="skrf.network.Network.inv"><span class="n">line</span><span class="o">.</span><span class="n">inv</span></a> <span class="o">**</span> <span class="n">delayshort</span>
+</span><span data-line="2">
+</span><span data-line="3"><span class="n">short_2</span> <span class="o">==</span> <span class="n">short</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[27]:
+</span></pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+True
+</pre></div></div>
+</div>
+<p>The cascading operator also works for to 2N-port Networks. This is illustrated in <a class="reference internal" href="../examples/networktheory/Balanced%20Network%20De-embedding.html"><span class="doc">this example on balanced Networks</span></a>. For example, assuming you want to cascade three 4-port Network <code class="docutils literal notranslate"><span class="pre">ntw1</span></code>, <code class="docutils literal notranslate"><span class="pre">ntw2</span></code> and <code class="docutils literal notranslate"><span class="pre">ntw3</span></code>, you can use: <code class="docutils literal notranslate"><span class="pre">resulting_ntw</span> <span class="pre">=</span> <span class="pre">ntw1</span> <span class="pre">**</span> <span class="pre">ntw2</span> <span class="pre">**</span> <span class="pre">ntw3</span></code>. Note that the port scheme assumed by the <code class="docutils literal notranslate"><span class="pre">**</span></code> cascading operator with 4-port networks is:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">   ntw1    ntw2    ntw3
+</span><span data-line="2">  +----+  +----+  +----+
+</span><span data-line="3">0-|0  2|--|0  2|--|0  2|-2
+</span><span data-line="4">1-|1  3|--|1  3|--|1  3|-3
+</span><span data-line="5">  +----+  +----+  +----+
+</span></pre></div>
+</div>
+<p>More documentation on Connecting Network is available here: <a class="reference internal" href="Connecting_Networks.html"><span class="doc">Connecting Networks</span></a>.</p>
+</section>
+<section id="Connecting-Multi-ports">
+<h2>Connecting Multi-ports<a class="headerlink" href="#Connecting-Multi-ports" title="Link to this heading">#</a></h2>
+<p><strong>skrf</strong> supports the connection of arbitrary ports of N-port networks. It accomplishes this using an algorithm called sub-network growth<a class="reference internal" href="#References"><span class="std std-ref">[1]</span></a>, available through the function <code class="docutils literal notranslate"><span class="pre">connect()</span></code>.</p>
+<p>As an example, terminating one port of an ideal 3-way splitter can be done like so,</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[28]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><a class="sphinx-codeautolink-a" href="../api/data/generated/skrf.data.tee.html#skrf.data.tee" title="skrf.data.tee"><span class="n">tee</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../api/data/generated/skrf.data.tee.html#skrf.data.tee" title="skrf.data.tee"><span class="n">rf</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">tee</span></a>
+</span><span data-line="2"><a class="sphinx-codeautolink-a" href="../api/data/generated/skrf.data.tee.html#skrf.data.tee" title="skrf.data.tee"><span class="n">tee</span></a>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[28]:
+</span></pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+3-Port Network: 'tee',  330.0-500.0 GHz, 201 pts, z0=[50.+0.j 50.+0.j 50.+0.j]
+</pre></div></div>
+</div>
+<p>To connect port <code class="docutils literal notranslate"><span class="pre">1</span></code> of the tee, to port <code class="docutils literal notranslate"><span class="pre">0</span></code> of the delay short,</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[29]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">terminated_tee</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.connect.html#skrf.network.connect" title="skrf.network.connect"><span class="n">rf</span><span class="o">.</span><span class="n">network</span><span class="o">.</span><span class="n">connect</span></a><span class="p">(</span><a class="sphinx-codeautolink-a" href="../api/data/generated/skrf.data.tee.html#skrf.data.tee" title="skrf.data.tee"><span class="n">tee</span></a><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">delayshort</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+</span><span data-line="2"><a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">terminated_tee</span></a>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[29]:
+</span></pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+2-Port Network: 'tee',  330.0-500.0 GHz, 201 pts, z0=[50.+0.j 50.+0.j]
+</pre></div></div>
+</div>
+<p>Note that this function takes into account port impedances. If two connected ports have different port impedances, an appropriate impedance mismatch is inserted.</p>
+<p>More information on connecting Networks is available here: <a class="reference internal" href="Connecting_Networks.html"><span class="doc">connecting Networks</span></a>.</p>
+<p>For advanced connections between many arbitrary N-port Networks, the <code class="docutils literal notranslate"><span class="pre">Circuit</span></code> object is more relevant since it allows defining explicitly the connections between ports and Networks. For more information, please refer to the <a class="reference internal" href="Circuit.html"><span class="doc">Circuit documentation</span></a>.</p>
+</section>
+<section id="Port-names">
+<h2>Port names<a class="headerlink" href="#Port-names" title="Link to this heading">#</a></h2>
+<p>The ports of a <a class="reference internal" href="../api/network.html"><span class="doc">Network</span></a> can be given names with <code class="docutils literal notranslate"><span class="pre">Network.port_names</span></code>. A named port can then be used anywhere a port index is accepted, and the names follow the ports they describe through operations which reorder, drop or combine ports.</p>
+<div class="admonition note">
+<p class="admonition-title">Version note</p>
+<p>Port names can only be used this way in versions after 2.0.1. In version 2.0.1 and earlier, Network.port_names is a plain attribute which most operations do not keep up to date, and it cannot be used to address a port.</p>
+</div>
+<p>Names are given either when the <a class="reference internal" href="../api/network.html"><span class="doc">Network</span></a> is created, or by assigning to the property afterwards. There has to be a name for every port.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[30]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><a class="sphinx-codeautolink-a" href="../api/generated/skrf.frequency.Frequency.html#skrf.frequency.Frequency" title="skrf.frequency.Frequency"><span class="n">freq</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../api/generated/skrf.frequency.Frequency.html#skrf.frequency.Frequency" title="skrf.frequency.Frequency"><span class="n">rf</span><span class="o">.</span><span class="n">Frequency</span></a><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s1">'GHz'</span><span class="p">)</span>
+</span><span data-line="2"><a class="sphinx-codeautolink-a" href="../api/media/generated/skrf.media.media.DefinedGammaZ0.html#skrf.media.media.DefinedGammaZ0" title="skrf.media.media.DefinedGammaZ0"><span class="n">media</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../api/media/generated/skrf.media.media.DefinedGammaZ0.html#skrf.media.media.DefinedGammaZ0" title="skrf.media.media.DefinedGammaZ0"><span class="n">rf</span><span class="o">.</span><span class="n">media</span><span class="o">.</span><span class="n">DefinedGammaZ0</span></a><span class="p">(</span><span class="n">frequency</span><span class="o">=</span><a class="sphinx-codeautolink-a" href="../api/generated/skrf.frequency.Frequency.html#skrf.frequency.Frequency" title="skrf.frequency.Frequency"><span class="n">freq</span></a><span class="p">,</span> <span class="n">z0_port</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+</span><span data-line="3">
+</span><span data-line="4"><a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">amp</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../api/media/generated/skrf.media.media.DefinedGammaZ0.attenuator.html#skrf.media.media.DefinedGammaZ0.attenuator" title="skrf.media.media.DefinedGammaZ0.attenuator"><span class="n">media</span><span class="o">.</span><span class="n">attenuator</span></a><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'amp'</span><span class="p">)</span>
+</span><span data-line="5"><a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.Network.port_names.html#skrf.network.Network.port_names" title="skrf.network.Network.port_names"><span class="n">amp</span><span class="o">.</span><span class="n">port_names</span></a> <span class="o">=</span> <span class="p">[</span><span class="s1">'in'</span><span class="p">,</span> <span class="s1">'out'</span><span class="p">]</span>
+</span><span data-line="6"><a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.Network.port_names.html#skrf.network.Network.port_names" title="skrf.network.Network.port_names"><span class="n">amp</span><span class="o">.</span><span class="n">port_names</span></a>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[30]:
+</span></pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+['in', 'out']
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[31]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">s</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/generated/numpy.zeros.html#numpy.zeros" title="numpy.zeros"><span class="n">np</span><span class="o">.</span><span class="n">zeros</span></a><span class="p">((</span><a class="sphinx-codeautolink-a" href="../api/generated/skrf.frequency.Frequency.npoints.html#skrf.frequency.Frequency.npoints" title="skrf.frequency.Frequency.npoints"><span class="n">freq</span><span class="o">.</span><span class="n">npoints</span></a><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/builtins/functions.html#complex"><span class="nb">complex</span></a><span class="p">)</span>
+</span><span data-line="2"><span class="n">s</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">s</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">10</span> <span class="o">**</span> <span class="p">(</span><span class="o">-</span><span class="mi">3</span> <span class="o">/</span> <span class="mi">20</span><span class="p">)</span>
+</span><span data-line="3">
+</span><span data-line="4"><a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">pad</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">rf</span><span class="o">.</span><span class="n">Network</span></a><span class="p">(</span><span class="n">frequency</span><span class="o">=</span><a class="sphinx-codeautolink-a" href="../api/generated/skrf.frequency.Frequency.html#skrf.frequency.Frequency" title="skrf.frequency.Frequency"><span class="n">freq</span></a><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="n">s</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'pad'</span><span class="p">,</span> <span class="n">port_names</span><span class="o">=</span><span class="p">[</span><span class="s1">'rf_in'</span><span class="p">,</span> <span class="s1">'rf_out'</span><span class="p">])</span>
+</span><span data-line="5"><a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.Network.port_names.html#skrf.network.Network.port_names" title="skrf.network.Network.port_names"><span class="n">pad</span><span class="o">.</span><span class="n">port_names</span></a>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[31]:
+</span></pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+['rf_in', 'rf_out']
+</pre></div></div>
+</div>
+<p>A <a class="reference internal" href="../api/network.html"><span class="doc">Network</span></a> without named ports has <code class="docutils literal notranslate"><span class="pre">port_names</span></code> set to <code class="docutils literal notranslate"><span class="pre">None</span></code>.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[32]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/builtins/functions.html#print"><span class="nb">print</span></a><span class="p">(</span><a class="sphinx-codeautolink-a" href="../api/media/generated/skrf.media.media.DefinedGammaZ0.attenuator.html#skrf.media.media.DefinedGammaZ0.attenuator" title="skrf.media.media.DefinedGammaZ0.attenuator"><span class="n">media</span><span class="o">.</span><span class="n">attenuator</span></a><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">)</span><span class="o">.</span><a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.Network.port_names.html#skrf.network.Network.port_names" title="skrf.network.Network.port_names"><span class="n">port_names</span></a><span class="p">)</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+None
+</pre></div></div>
+</div>
+<section id="Connecting-by-name">
+<h3>Connecting by name<a class="headerlink" href="#Connecting-by-name" title="Link to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">connect()</span></code> takes a port name in place of a port index and the output <code class="docutils literal notranslate"><span class="pre">Network</span></code> keeps the names of the ports which are left over.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[33]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">cascade</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.connect.html#skrf.network.connect" title="skrf.network.connect"><span class="n">rf</span><span class="o">.</span><span class="n">network</span><span class="o">.</span><span class="n">connect</span></a><span class="p">(</span><a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">amp</span></a><span class="p">,</span> <span class="s1">'out'</span><span class="p">,</span> <a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">pad</span></a><span class="p">,</span> <span class="s1">'rf_in'</span><span class="p">)</span>
+</span><span data-line="2"><a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.Network.port_names.html#skrf.network.Network.port_names" title="skrf.network.Network.port_names"><span class="n">cascade</span><span class="o">.</span><span class="n">port_names</span></a>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[33]:
+</span></pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+['in', 'rf_out']
+</pre></div></div>
+</div>
+<p>This is the same connection as the one made by indices, names are just another way of selecting a port.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[34]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">cascade</span></a> <span class="o">==</span> <a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.connect.html#skrf.network.connect" title="skrf.network.connect"><span class="n">rf</span><span class="o">.</span><span class="n">network</span><span class="o">.</span><span class="n">connect</span></a><span class="p">(</span><a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">amp</span></a><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">pad</span></a><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[34]:
+</span></pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+True
+</pre></div></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">innerconnect()</span></code>, <code class="docutils literal notranslate"><span class="pre">parallelconnect()</span></code>, <code class="docutils literal notranslate"><span class="pre">subnetwork()</span></code> and <code class="docutils literal notranslate"><span class="pre">renumber()</span></code> accept names the same way.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[35]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">tee</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.Network.copy.html#skrf.network.Network.copy" title="skrf.network.Network.copy"><span class="n">rf</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">tee</span><span class="o">.</span><span class="n">copy</span></a><span class="p">()</span>
+</span><span data-line="2"><a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.Network.port_names.html#skrf.network.Network.port_names" title="skrf.network.Network.port_names"><span class="n">tee</span><span class="o">.</span><span class="n">port_names</span></a> <span class="o">=</span> <span class="p">[</span><span class="s1">'sum'</span><span class="p">,</span> <span class="s1">'a'</span><span class="p">,</span> <span class="s1">'b'</span><span class="p">]</span>
+</span><span data-line="3">
+</span><span data-line="4"><a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.Network.subnetwork.html#skrf.network.Network.subnetwork" title="skrf.network.Network.subnetwork"><span class="n">tee</span><span class="o">.</span><span class="n">subnetwork</span></a><span class="p">([</span><span class="s1">'a'</span><span class="p">,</span> <span class="s1">'sum'</span><span class="p">])</span><span class="o">.</span><a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.Network.port_names.html#skrf.network.Network.port_names" title="skrf.network.Network.port_names"><span class="n">port_names</span></a>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[35]:
+</span></pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+['a', 'sum']
+</pre></div></div>
+</div>
+<p>In <code class="docutils literal notranslate"><span class="pre">renumber()</span></code> a name refers to the port which currently carries it, so the call below swaps the ports named <code class="docutils literal notranslate"><span class="pre">sum</span></code> and <code class="docutils literal notranslate"><span class="pre">b</span></code>.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[36]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.Network.renumbered.html#skrf.network.Network.renumbered" title="skrf.network.Network.renumbered"><span class="n">tee</span><span class="o">.</span><span class="n">renumbered</span></a><span class="p">([</span><span class="s1">'sum'</span><span class="p">,</span> <span class="s1">'b'</span><span class="p">],</span> <span class="p">[</span><span class="s1">'b'</span><span class="p">,</span> <span class="s1">'sum'</span><span class="p">])</span><span class="o">.</span><a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.Network.port_names.html#skrf.network.Network.port_names" title="skrf.network.Network.port_names"><span class="n">port_names</span></a>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[36]:
+</span></pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+['b', 'a', 'sum']
+</pre></div></div>
+</div>
+</section>
+<section id="Names-follow-the-ports">
+<h3>Names follow the ports<a class="headerlink" href="#Names-follow-the-ports" title="Link to this heading">#</a></h3>
+<p>A one-port taken out of a network is either a reflection coefficient, which is one of the ports and keeps its name, or a transmission coefficient, which is not any single port of the network and therefore has no name.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[37]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/builtins/functions.html#print"><span class="nb">print</span></a><span class="p">(</span><span class="n">amp</span><span class="o">.</span><span class="n">s11</span><span class="o">.</span><span class="n">port_names</span><span class="p">)</span> <span class="c1"># port 'in'</span>
+</span><span data-line="2"><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/builtins/functions.html#print"><span class="nb">print</span></a><span class="p">(</span><span class="n">amp</span><span class="o">.</span><span class="n">s22</span><span class="o">.</span><span class="n">port_names</span><span class="p">)</span> <span class="c1"># port 'out'</span>
+</span><span data-line="3"><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/builtins/functions.html#print"><span class="nb">print</span></a><span class="p">(</span><span class="n">amp</span><span class="o">.</span><span class="n">s21</span><span class="o">.</span><span class="n">port_names</span><span class="p">)</span> <span class="c1"># neither port</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+['in']
+['out']
+None
+</pre></div></div>
+</div>
+<p>The same one-ports can be picked out by name instead of by number.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[38]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">amp</span></a><span class="p">[</span><span class="s1">'in'</span><span class="p">,</span> <span class="s1">'in'</span><span class="p">]</span><span class="o">.</span><span class="n">port_names</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[38]:
+</span></pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+['in']
+</pre></div></div>
+</div>
+</section>
+<section id="Mixed-mode">
+<h3>Mixed mode<a class="headerlink" href="#Mixed-mode" title="Link to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">se2gmm()</span></code> replaces pairs of single ended ports with a differential and a common mode port. Each new port is named after the pair it is made of, so the names stay unique and say where the port came from.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[39]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">line_p</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../api/media/generated/skrf.media.media.DefinedGammaZ0.line.html#skrf.media.media.DefinedGammaZ0.line" title="skrf.media.media.DefinedGammaZ0.line"><span class="n">media</span><span class="o">.</span><span class="n">line</span></a><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="s1">'deg'</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'p'</span><span class="p">)</span>
+</span><span data-line="2"><a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">line_n</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../api/media/generated/skrf.media.media.DefinedGammaZ0.line.html#skrf.media.media.DefinedGammaZ0.line" title="skrf.media.media.DefinedGammaZ0.line"><span class="n">media</span><span class="o">.</span><span class="n">line</span></a><span class="p">(</span><span class="mi">70</span><span class="p">,</span> <span class="s1">'deg'</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'n'</span><span class="p">)</span>
+</span><span data-line="3">
+</span><span data-line="4"><a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">pair</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.concat_ports.html#skrf.network.concat_ports" title="skrf.network.concat_ports"><span class="n">rf</span><span class="o">.</span><span class="n">network</span><span class="o">.</span><span class="n">concat_ports</span></a><span class="p">([</span><a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">line_p</span></a><span class="p">,</span> <a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">line_n</span></a><span class="p">],</span> <span class="n">port_order</span><span class="o">=</span><span class="s1">'second'</span><span class="p">)</span>
+</span><span data-line="5"><a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.Network.port_names.html#skrf.network.Network.port_names" title="skrf.network.Network.port_names"><span class="n">pair</span><span class="o">.</span><span class="n">port_names</span></a> <span class="o">=</span> <span class="p">[</span><span class="s1">'in+'</span><span class="p">,</span> <span class="s1">'in-'</span><span class="p">,</span> <span class="s1">'out+'</span><span class="p">,</span> <span class="s1">'out-'</span><span class="p">]</span>
+</span><span data-line="6"><a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.Network.port_names.html#skrf.network.Network.port_names" title="skrf.network.Network.port_names"><span class="n">pair</span><span class="o">.</span><span class="n">port_names</span></a>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[39]:
+</span></pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+['in+', 'in-', 'out+', 'out-']
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[40]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">mm</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.Network.copy.html#skrf.network.Network.copy" title="skrf.network.Network.copy"><span class="n">pair</span><span class="o">.</span><span class="n">copy</span></a><span class="p">()</span>
+</span><span data-line="2"><a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.Network.se2gmm.html#skrf.network.Network.se2gmm" title="skrf.network.Network.se2gmm"><span class="n">mm</span><span class="o">.</span><span class="n">se2gmm</span></a><span class="p">(</span><span class="n">p</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+</span><span data-line="3"><a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.Network.port_names.html#skrf.network.Network.port_names" title="skrf.network.Network.port_names"><span class="n">mm</span><span class="o">.</span><span class="n">port_names</span></a>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[40]:
+</span></pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+['d(in+,in-)', 'd(out+,out-)', 'c(in+,in-)', 'c(out+,out-)']
+</pre></div></div>
+</div>
+<p>The differential insertion loss is then addressable by name.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[41]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">mm</span></a><span class="p">[</span><span class="s1">'d(in+,in-)'</span><span class="p">,</span> <span class="s1">'d(out+,out-)'</span><span class="p">]</span><span class="o">.</span><span class="n">s_db</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[41]:
+</span></pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+array([-0.13297082, -0.13297082, -0.13297082, -0.13297082, -0.13297082,
+       -0.13297082, -0.13297082, -0.13297082, -0.13297082, -0.13297082,
+       -0.13297082])
+</pre></div></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">gmm2se()</span></code> reverses the conversion and restores the single ended names.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[42]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.Network.gmm2se.html#skrf.network.Network.gmm2se" title="skrf.network.Network.gmm2se"><span class="n">mm</span><span class="o">.</span><span class="n">gmm2se</span></a><span class="p">(</span><span class="n">p</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+</span><span data-line="2"><a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.Network.port_names.html#skrf.network.Network.port_names" title="skrf.network.Network.port_names"><span class="n">mm</span><span class="o">.</span><span class="n">port_names</span></a>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[42]:
+</span></pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+['in+', 'in-', 'out+', 'out-']
+</pre></div></div>
+</div>
+</section>
+<section id="Duplicate-names">
+<h3>Duplicate names<a class="headerlink" href="#Duplicate-names" title="Link to this heading">#</a></h3>
+<p>Several ports may share a name, which happens for instance when a Touchstone file names them that way, or when <code class="docutils literal notranslate"><span class="pre">connect()</span></code> joins two networks which both have a port called <code class="docutils literal notranslate"><span class="pre">in</span></code>. Such a name cannot be used to address a port, since it does not identify one, and those ports have to be given by index instead.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[43]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">amp2</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.Network.copy.html#skrf.network.Network.copy" title="skrf.network.Network.copy"><span class="n">amp</span><span class="o">.</span><span class="n">copy</span></a><span class="p">()</span>
+</span><span data-line="2"><span class="n">amp2</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">'amp2'</span>
+</span><span data-line="3">
+</span><span data-line="4"><span class="c1"># the two ports named 'out' are the ones consumed, both 'in' ports are left</span>
+</span><span data-line="5"><a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">back_to_back</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.connect.html#skrf.network.connect" title="skrf.network.connect"><span class="n">rf</span><span class="o">.</span><span class="n">network</span><span class="o">.</span><span class="n">connect</span></a><span class="p">(</span><a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">amp</span></a><span class="p">,</span> <span class="s1">'out'</span><span class="p">,</span> <a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">amp2</span></a><span class="p">,</span> <span class="s1">'out'</span><span class="p">)</span>
+</span><span data-line="6"><a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.Network.port_names.html#skrf.network.Network.port_names" title="skrf.network.Network.port_names"><span class="n">back_to_back</span><span class="o">.</span><span class="n">port_names</span></a>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[43]:
+</span></pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+['in', 'in']
+</pre></div></div>
+</div>
+<p>Asking for a port by an ambiguous name raises rather than silently returning the first match.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[44]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="k">try</span><span class="p">:</span>
+</span><span data-line="2">    <a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">back_to_back</span></a><span class="p">[</span><span class="s1">'in'</span><span class="p">,</span> <span class="s1">'in'</span><span class="p">]</span>
+</span><span data-line="3"><span class="k">except</span> <a class="sphinx-codeautolink-a" href="https://docs.python.org/3/builtins/exceptions.html#ValueError"><span class="ne">ValueError</span></a> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
+</span><span data-line="4">    <a class="sphinx-codeautolink-a" href="https://docs.python.org/3/builtins/functions.html#print"><span class="nb">print</span></a><span class="p">(</span><span class="n">err</span><span class="p">)</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Port name 'in' is ambiguous, network has ports ['in', 'in']. Use the port index instead
+</pre></div></div>
+</div>
+</section>
+</section>
+<section id="Interpolation-and-Concatenation">
+<h2>Interpolation and Concatenation<a class="headerlink" href="#Interpolation-and-Concatenation" title="Link to this heading">#</a></h2>
+<p>A common need is to change the number of frequency points of a <a class="reference internal" href="../api/network.html"><span class="doc">Network</span></a>. To use the operators and cascading functions the networks involved must have matching frequencies, for instance. If two networks have different frequency information, then an error will be raised,</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[45]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="kn">from</span><span class="w"> </span><a class="sphinx-codeautolink-a" href="../api/data/index.html#module-skrf.data"><span class="nn">skrf.data</span></a><span class="w"> </span><span class="kn">import</span> <span class="n">wr2p2_line1</span> <span class="k">as</span> <span class="n">line1</span>
+</span><span data-line="2">
+</span><span data-line="3"><span class="n">line1</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[45]:
+</span></pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+2-Port Network: 'wr2p2,line1',  330.0-500.0 GHz, 101 pts, z0=[50.+0.j 50.+0.j]
+</pre></div></div>
+</div>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">line1+line
+</span><span data-line="2">
+</span><span data-line="3">---------------------------------------------------------------------------
+</span><span data-line="4">IndexError                                Traceback (most recent call last)
+</span><span data-line="5">&lt;ipython-input-49-82040f7eab08&gt; in &lt;module&gt;()
+</span><span data-line="6">----&gt; 1 line1+line
+</span><span data-line="7">
+</span><span data-line="8">/home/alex/code/scikit-rf/skrf/network.py in __add__(self, other)
+</span><span data-line="9">    500
+</span><span data-line="10">    501         if isinstance(other, Network):
+</span><span data-line="11">--&gt; 502             self.__compatible_for_scalar_operation_test(other)
+</span><span data-line="12">    503             result.s = self.s + other.s
+</span><span data-line="13">    504         else:
+</span><span data-line="14">
+</span><span data-line="15">/home/alex/code/scikit-rf/skrf/network.py in __compatible_for_scalar_operation_test(self, other)
+</span><span data-line="16">    701         '''
+</span><span data-line="17">    702         if other.frequency  != self.frequency:
+</span><span data-line="18">--&gt; 703             raise IndexError('Networks must have same frequency. See `Network.interpolate`')
+</span><span data-line="19">    704
+</span><span data-line="20">    705         if other.s.shape != self.s.shape:
+</span><span data-line="21">
+</span><span data-line="22">IndexError: Networks must have same frequency. See `Network.interpolate`
+</span></pre></div>
+</div>
+<p>This problem can be solved by interpolating one of Networks along the frequency axis using <code class="docutils literal notranslate"><span class="pre">Network.resample</span></code>.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[46]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.Network.resample.html#skrf.network.Network.resample" title="skrf.network.Network.resample"><span class="n">line1</span><span class="o">.</span><span class="n">resample</span></a><span class="p">(</span><span class="mi">201</span><span class="p">)</span>
+</span><span data-line="2"><span class="n">line1</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[46]:
+</span></pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+2-Port Network: 'wr2p2,line1',  330.0-500.0 GHz, 201 pts, z0=[50.+0.j 50.+0.j]
+</pre></div></div>
+</div>
+<p>And now we can do things</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[47]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">line1</span> <span class="o">+</span> <span class="n">line</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[47]:
+</span></pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+2-Port Network: 'wr2p2,line1',  330.0-500.0 GHz, 201 pts, z0=[50.+0.j 50.+0.j]
+</pre></div></div>
+</div>
+<p>You can also interpolate from a <code class="docutils literal notranslate"><span class="pre">Frequency</span></code> object. For example,</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[48]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.Network.interpolate.html#skrf.network.Network.interpolate" title="skrf.network.Network.interpolate"><span class="n">line</span><span class="o">.</span><span class="n">interpolate</span></a><span class="p">(</span><a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.Network.frequency.html#skrf.network.Network.frequency" title="skrf.network.Network.frequency"><span class="n">line1</span><span class="o">.</span><span class="n">frequency</span></a><span class="p">)</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[48]:
+</span></pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+2-Port Network: 'wr2p2,line',  330.0-500.0 GHz, 201 pts, z0=[50.+0.j 50.+0.j]
+</pre></div></div>
+</div>
+<p>A related application is the need to combine Networks which cover different frequency ranges. Two Networks can be concatenated (aka stitched) together using <code class="docutils literal notranslate"><span class="pre">stitch</span></code>, which concatenates networks along their frequency axis. To combine a WR-2.2 Network with a WR-1.5 Network,</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[49]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="kn">from</span><span class="w"> </span><a class="sphinx-codeautolink-a" href="../api/data/index.html#module-skrf.data"><span class="nn">skrf.data</span></a><span class="w"> </span><span class="kn">import</span> <span class="n">wr1p5_line</span><span class="p">,</span> <span class="n">wr2p2_line</span>
+</span><span data-line="2">
+</span><span data-line="3"><a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">big_line</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.stitch.html#skrf.network.stitch" title="skrf.network.stitch"><span class="n">rf</span><span class="o">.</span><span class="n">network</span><span class="o">.</span><span class="n">stitch</span></a><span class="p">(</span><span class="n">wr2p2_line</span><span class="p">,</span> <span class="n">wr1p5_line</span><span class="p">)</span>
+</span><span data-line="4"><a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">big_line</span></a>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+/home/alex/code/scikit-rf-docs/skrf/frequency.py:287: InvalidFrequencyWarning: Frequency values are not monotonously increasing!
+To get rid of the invalid values call `drop_non_monotonic_increasing`
+  temp_freq.check_monotonic_increasing()
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[49]:
+</span></pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+2-Port Network: 'wr2p2,line',  330.0-750.0 GHz, 402 pts, z0=[50.+0.j 50.+0.j]
+</pre></div></div>
+</div>
+</section>
+<section id="Reading-and-Writing">
+<h2>Reading and Writing<a class="headerlink" href="#Reading-and-Writing" title="Link to this heading">#</a></h2>
+<p>For long term data storage, <strong>skrf</strong> has support for reading and partial support for writing <a class="reference external" href="http://en.wikipedia.org/wiki/Touchstone_file">touchstone file format</a>. Reading is accomplished with the Network initializer as shown above, and writing with the method <code class="docutils literal notranslate"><span class="pre">Network.write_touchstone()</span></code>.</p>
+<p>For <strong>temporary</strong> data storage, <strong>skrf</strong> object can be <a class="reference external" href="http://docs.python.org/2/library/pickle.html">pickled</a> with the functions <code class="docutils literal notranslate"><span class="pre">skrf.io.general.read</span></code> and <code class="docutils literal notranslate"><span class="pre">skrf.io.general.write</span></code>. The reason to use temporary pickles over touchstones is that they store all attributes of a network, while touchstone files only store partial information.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[50]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><a class="sphinx-codeautolink-a" href="../api/io/generated/skrf.io.general.write.html#skrf.io.general.write" title="skrf.io.general.write"><span class="n">rf</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">write</span></a><span class="p">(</span><span class="s1">'data/myline.ntwk'</span><span class="p">,</span><span class="n">line</span><span class="p">)</span> <span class="c1"># write out Network using pickle</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[51]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">ntwk</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">Network</span></a><span class="p">(</span><span class="s1">'data/myline.ntwk'</span><span class="p">)</span> <span class="c1"># read Network using pickle</span>
+</span></pre></div>
+</div>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Pickling methods can’t support long term data storage because they require the structure of the object being written to remain unchanged. something that cannot be guaranteed in future versions of skrf.  (see <a class="reference external" href="http://docs.python.org/2/library/pickle.html">http://docs.python.org/2/library/pickle.html</a>)</p>
+</div>
+<p>Frequently there is an entire directory of files that need to be analyzed. <code class="docutils literal notranslate"><span class="pre">rf.read_all</span></code> creates Networks from all files in a directory quickly. To load all <strong>skrf</strong> files in the <code class="docutils literal notranslate"><span class="pre">data/</span></code> directory which contain the string <code class="docutils literal notranslate"><span class="pre">'wr2p2'</span></code>.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[52]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="dict"><span class="n">dict_o_ntwks</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../api/io/generated/skrf.io.general.read_all.html#skrf.io.general.read_all" title="skrf.io.general.read_all"><span class="n">rf</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_all</span></a><span class="p">(</span><span class="n">rf</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">pwd</span><span class="p">,</span> <span class="n">contains</span> <span class="o">=</span> <span class="s1">'wr2p2'</span><span class="p">)</span>
+</span><span data-line="2"><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="dict"><span class="n">dict_o_ntwks</span></a>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[52]:
+</span></pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+{'wr2p2,delayshort': 1-Port Network: 'wr2p2,delayshort',  330.0-500.0 GHz, 201 pts, z0=[50.+0.j],
+ 'wr2p2,line': 2-Port Network: 'wr2p2,line',  330.0-500.0 GHz, 201 pts, z0=[50.+0.j 50.+0.j],
+ 'wr2p2,line1': 2-Port Network: 'wr2p2,line1',  330.0-500.0 GHz, 101 pts, z0=[50.+0.j 50.+0.j],
+ 'wr2p2,short': 1-Port Network: 'wr2p2,short',  330.0-500.0 GHz, 201 pts, z0=[50.+0.j]}
+</pre></div></div>
+</div>
+<p>Other times you know the list of files that need to be analyzed. <code class="docutils literal notranslate"><span class="pre">rf.read_all</span></code> also accepts a files parameter. This example file list contains only files within the same directory, but you can store files however your application would benefit from.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[53]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="kn">import</span><span class="w"> </span><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/library/os.html#module-os"><span class="nn">os</span></a>
+</span><span data-line="2">
+</span><span data-line="3"><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="dict"><span class="n">dict_o_ntwks_files</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../api/io/generated/skrf.io.general.read_all.html#skrf.io.general.read_all" title="skrf.io.general.read_all"><span class="n">rf</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_all</span></a><span class="p">(</span>
+</span><span data-line="4">    <span class="n">files</span><span class="o">=</span><span class="p">[</span><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/library/os.path.html#os.path.join"><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span></a><span class="p">(</span><span class="n">rf</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">pwd</span><span class="p">,</span> <span class="n">test_file</span><span class="p">)</span> <span class="k">for</span> <span class="n">test_file</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">'ntwk1.s2p'</span><span class="p">,</span> <span class="s1">'ntwk2.s2p'</span><span class="p">]]</span>
+</span><span data-line="5"><span class="p">)</span>
+</span><span data-line="6"><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="dict"><span class="n">dict_o_ntwks_files</span></a>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[53]:
+</span></pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+{'ntwk1': 2-Port Network: 'ntwk1',  1.0-10.0 GHz, 91 pts, z0=[50.+0.j 50.+0.j]}
+</pre></div></div>
+</div>
+</section>
+<section id="Other-Parameters">
+<h2>Other Parameters<a class="headerlink" href="#Other-Parameters" title="Link to this heading">#</a></h2>
+<p>This tutorial focuses on s-parameters, but other network representations are available as well. Impedance and Admittance Parameters can be accessed through the parameters <code class="docutils literal notranslate"><span class="pre">Network.z</span></code> and <code class="docutils literal notranslate"><span class="pre">Network.y</span></code>, respectively. Scalar components of complex parameters, such as <code class="docutils literal notranslate"><span class="pre">Network.z_re</span></code>, <code class="docutils literal notranslate"><span class="pre">Network.z_im</span></code> and plotting methods are available as well.</p>
+<p>Other parameters are only available for 2-port networks, such as wave cascading parameters (<code class="docutils literal notranslate"><span class="pre">Network.t</span></code>), and ABCD-parameters (<code class="docutils literal notranslate"><span class="pre">Network.a</span></code>) or Hybrid parameters (<code class="docutils literal notranslate"><span class="pre">Network.h</span></code>).</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[54]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.Network.z.html#skrf.network.Network.z" title="skrf.network.Network.z"><span class="n">ring_slot</span><span class="o">.</span><span class="n">z</span></a><span class="p">[:</span><span class="mi">3</span><span class="p">,</span><span class="o">...</span><span class="p">]</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[54]:
+</span></pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+array([[[0.88442687+28.15350224j, 0.94703504+30.46757222j],
+        [0.94703504+30.46757222j, 1.0434417 +43.45766805j]],
+
+       [[0.91624901+28.72415928j, 0.98188607+31.09594438j],
+        [0.98188607+31.09594438j, 1.08168411+44.17642274j]],
+
+       [[0.94991736+29.31694632j, 1.01876516+31.74874257j],
+        [1.01876516+31.74874257j, 1.12215451+44.92215712j]]])
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[55]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.Network.plot_z_im.html#skrf.network.Network.plot_z_im" title="skrf.network.Network.plot_z_im"><span class="n">ring_slot</span><span class="o">.</span><span class="n">plot_z_im</span></a><span class="p">(</span><span class="n">m</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">n</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorials_Networks_123_0.png" src="../_images/tutorials_Networks_123_0.png"/>
+</div>
+</div>
+</section>
+<section id="References">
+<h2>References<a class="headerlink" href="#References" title="Link to this heading">#</a></h2>
+<p>[1] Compton, R.C.; , “Perspectives in microwave circuit analysis,” Circuits and Systems, 1989., Proceedings of the 32nd Midwest Symposium on , vol., no., pp.716-718 vol.2, 14-16 Aug 1989. URL: <a class="reference external" href="http://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&amp;arnumber=101955&amp;isnumber=3167">http://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&amp;arnumber=101955&amp;isnumber=3167</a></p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[ ]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1">
+</span></pre></div>
+</div>
+</div>
+</section>
+</section>
+
+        </article><button class="back-to-top" type="button">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+  </svg>
+  <span>Back to top</span>
+</button><div class="navigation flex print:hidden"><div class="navigation-prev">
+    <a href="Frequency_units.html">
+      <i class="i-lucide chevron-left"></i>
+      <div class="page-info">
+        <span>Previous</span><div class="title">Configuring frequency units</div></div>
+    </a>
+  </div><div class="navigation-next">
+    <a href="Connecting_Networks.html">
+      <div class="page-info">
+        <span>Next</span>
+        <div class="title">Connecting Networks</div>
+      </div>
+      <i class="i-lucide chevron-right"></i>
+    </a>
+  </div></div></div>
+    </div>
+  </main>
+</div>
+<footer class="sy-foot">
+  <div class="sy-foot-inner sy-container mx-auto">
+    <div class="sy-foot-reserved md:flex justify-between items-center">
+      <div class="sy-foot-copyright"><p>2025, scikit-rf team</p>
+  
+  <p>
+    Made with
+    
+    <a href="https://www.sphinx-doc.org/">Sphinx</a> and
+    
+    <a href="https://shibuya.lepture.com">Shibuya theme</a>.
+  </p>
+</div>
+      <div class="sy-foot-socials">
+  <a href="https://github.com/scikit-rf/scikit-rf" aria-label="GitHub">
+    <iconify-icon icon="simple-icons:github"></iconify-icon>
+  </a></div>
+    </div>
+  </div>
+</footer>
+      <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../_static/copybutton.js?v=34bd459d"></script>
+      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+      <script src="../_static/shibuya.js?v=50760d75"></script>
+      <script src="https://cdn.jsdelivr.net/npm/@jupyter-widgets/html-manager@^1.0.1/dist/embed-amd.js"></script>
+      <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
+      <script src="../_static/skrf.js?v=bdeb9fb0"></script></body>
+</html>

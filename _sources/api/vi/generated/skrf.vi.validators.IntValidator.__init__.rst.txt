@@ -1,0 +1,6 @@
+skrf.vi.validators.IntValidator.\_\_init\_\_
+============================================
+
+.. currentmodule:: skrf.vi.validators
+
+.. automethod:: IntValidator.__init__

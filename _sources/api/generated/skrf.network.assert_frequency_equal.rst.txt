@@ -1,0 +1,6 @@
+﻿skrf.network.assert\_frequency\_equal
+=====================================
+
+.. currentmodule:: skrf.network
+
+.. autofunction:: assert_frequency_equal

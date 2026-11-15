@@ -1,0 +1,6 @@
+skrf.circuit.Circuit.\_REDUCE\_OPTIONS.fromkeys
+===============================================
+
+.. currentmodule:: skrf.circuit
+
+.. automethod:: Circuit._REDUCE_OPTIONS.fromkeys

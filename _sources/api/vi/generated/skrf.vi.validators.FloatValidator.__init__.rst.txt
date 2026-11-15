@@ -1,0 +1,6 @@
+skrf.vi.validators.FloatValidator.\_\_init\_\_
+==============================================
+
+.. currentmodule:: skrf.vi.validators
+
+.. automethod:: FloatValidator.__init__

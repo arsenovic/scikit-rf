@@ -1,0 +1,6 @@
+skrf.network.Network.attribute
+==============================
+
+.. currentmodule:: skrf.network
+
+.. automethod:: Network.attribute

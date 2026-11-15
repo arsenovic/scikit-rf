@@ -1,0 +1,40 @@
+﻿skrf.calibration.calibration.MultiportCal
+=========================================
+
+.. currentmodule:: skrf.calibration.calibration
+
+.. autoclass:: MultiportCal
+  :no-members:
+
+
+
+.. rubric:: Attributes
+
+.. autosummary::
+  :toctree:
+  :nosignatures:
+
+  ~MultiportCal.coefs
+  ~MultiportCal.family
+
+
+
+
+
+.. rubric:: Methods
+
+.. autosummary::
+  :toctree:
+  :nosignatures:
+
+  ~MultiportCal.T_matrices
+  ~MultiportCal.__init__
+  ~MultiportCal.apply_cal
+  ~MultiportCal.coefs_to_ntwks
+  ~MultiportCal.dut_termination
+  ~MultiportCal.embed
+  ~MultiportCal.run
+  ~MultiportCal.run_2port
+  ~MultiportCal.terminate_2port
+  ~MultiportCal.unterminate_2port
+

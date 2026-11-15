@@ -1,0 +1,48 @@
+﻿skrf.vi.vna.nanovna.NanoVNAv2
+=============================
+
+.. currentmodule:: skrf.vi.vna.nanovna
+
+.. autoclass:: NanoVNAv2
+  :no-members:
+
+
+
+.. rubric:: Attributes
+
+.. autosummary::
+  :toctree:
+  :nosignatures:
+
+  ~NanoVNAv2.device_info
+  ~NanoVNAv2.freq_start
+  ~NanoVNAv2.freq_step
+  ~NanoVNAv2.freq_stop
+  ~NanoVNAv2.frequency
+  ~NanoVNAv2.id
+  ~NanoVNAv2.npoints
+  ~NanoVNAv2.timeout
+
+
+
+
+
+.. rubric:: Methods
+
+.. autosummary::
+  :toctree:
+  :nosignatures:
+
+  ~NanoVNAv2.__init__
+  ~NanoVNAv2.clear_fifo
+  ~NanoVNAv2.command
+  ~NanoVNAv2.get_s11_s21
+  ~NanoVNAv2.get_sdata
+  ~NanoVNAv2.get_snp_network
+  ~NanoVNAv2.query
+  ~NanoVNAv2.query_values
+  ~NanoVNAv2.read
+  ~NanoVNAv2.read_values
+  ~NanoVNAv2.write
+  ~NanoVNAv2.write_values
+

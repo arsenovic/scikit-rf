@@ -1,0 +1,6 @@
+skrf.vi.vna.nanovna.NanoVNAv2.freq\_step
+========================================
+
+.. currentmodule:: skrf.vi.vna.nanovna
+
+.. autoproperty:: NanoVNAv2.freq_step

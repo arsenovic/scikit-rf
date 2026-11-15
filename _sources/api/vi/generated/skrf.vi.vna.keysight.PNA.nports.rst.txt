@@ -1,0 +1,6 @@
+skrf.vi.vna.keysight.PNA.nports
+===============================
+
+.. currentmodule:: skrf.vi.vna.keysight
+
+.. autoproperty:: PNA.nports

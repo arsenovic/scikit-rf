@@ -1,0 +1,6 @@
+skrf.calibration.calibration.MultiportSOLT.coefs
+================================================
+
+.. currentmodule:: skrf.calibration.calibration
+
+.. autoproperty:: MultiportSOLT.coefs

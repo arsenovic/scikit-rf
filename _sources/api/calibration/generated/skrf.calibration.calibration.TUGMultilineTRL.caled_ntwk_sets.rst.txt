@@ -1,0 +1,6 @@
+skrf.calibration.calibration.TUGMultilineTRL.caled\_ntwk\_sets
+==============================================================
+
+.. currentmodule:: skrf.calibration.calibration
+
+.. autoproperty:: TUGMultilineTRL.caled_ntwk_sets

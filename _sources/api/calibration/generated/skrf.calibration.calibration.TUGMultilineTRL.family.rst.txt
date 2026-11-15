@@ -1,0 +1,6 @@
+skrf.calibration.calibration.TUGMultilineTRL.family
+===================================================
+
+.. currentmodule:: skrf.calibration.calibration
+
+.. autoattribute:: TUGMultilineTRL.family

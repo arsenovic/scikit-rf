@@ -1,0 +1,6 @@
+skrf.vi.vna.rohde\_schwarz.ZVA.create\_channel
+==============================================
+
+.. currentmodule:: skrf.vi.vna.rohde_schwarz
+
+.. automethod:: ZVA.create_channel

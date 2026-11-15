@@ -1,0 +1,6 @@
+skrf.calibration.calibration.TUGMultilineTRL.unbiased\_error
+============================================================
+
+.. currentmodule:: skrf.calibration.calibration
+
+.. autoproperty:: TUGMultilineTRL.unbiased_error

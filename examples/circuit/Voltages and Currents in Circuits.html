@@ -1,0 +1,1141 @@
+<!DOCTYPE html>
+<html lang="en" data-accent-color="blue" data-content_root="../../">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Voltages and Currents in Circuits - scikit-rf</title><link rel="author" title="About these documents" href="../../about.html" /><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="Wilkinson Power Divider" href="Wilkinson%20Power%20Splitter.html" /><link rel="prev" title="Lumped Elements Circuits" href="Lumped%20Element%20Circuits.html" /><script>
+    function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
+    setColorMode(localStorage._theme||"auto");
+  </script><link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=ad592e98" />
+    <link rel="stylesheet" type="text/css" href="../../_static/shibuya.css?v=2ceb65ce" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-codeautolink.css?v=b2176991" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link media="print" rel="stylesheet" type="text/css" href="../../_static/print.css?v=20ff2c19" />
+    <link rel="stylesheet" type="text/css" href="../../_static/nbsphinx-code-cells.css?v=2aa19091" />
+    <link rel="stylesheet" type="text/css" href="../../_static/skrf.css?v=7e772ba2" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --sy-f-text: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+  --sy-f-heading: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+}
+</style>
+    
+  <meta property="og:type" content="website"/><meta property="og:title" content="Voltages and Currents in Circuits"/>
+    <meta name="twitter:card" content="summary"/>
+  </head>
+<body><div class="sy-head">
+  <div class="sy-head-blur"></div>
+  <div class="sy-head-inner sy-container mx-auto">
+    <a class="sy-head-brand" href="../../index.html">
+      <img class="light-logo" src="../../_static/logo.svg" alt="scikit-rf" height="28" loading="lazy" />
+      <img class="dark-logo" src="../../_static/logo.svg" alt="scikit-rf" height="28" loading="lazy" />
+      <strong>scikit-rf</strong>
+    </a>
+    <div class="sy-head-nav" id="head-nav">
+      <nav class="sy-head-links"><ul><li class="link"><a href="../../index.html">Home</a></li><li class="link"><a href="../../tutorials/index.html">Tutorials</a></li><li class="link"><a href="../index.html">Examples</a></li><li class="link"><a href="../../api/index.html">API</a></li><li class="link">
+          <a href="https://github.com/scikit-rf/scikit-rf">
+            <span>GitHub</span><i class="i-lucide external-link"></i></a>
+        </li></ul></nav>
+      <div class="sy-head-extra flex items-center print:hidden"><form class="searchbox flex items-center" action="../../search.html" method="get">
+  <input type="text" name="q" placeholder="Search" />
+  <kbd>/</kbd>
+</form><div class="sy-head-socials">
+  <a href="https://github.com/scikit-rf/scikit-rf" aria-label="GitHub">
+    <iconify-icon icon="simple-icons:github"></iconify-icon>
+  </a>
+  <a href="https://www.linkedin.com/groups/12462155/" aria-label="LinkedIn">
+    <iconify-icon icon="simple-icons:linkedin"></iconify-icon>
+  </a>
+  <a href="https://app.element.io/#/room/#scikit-rf:matrix.org" aria-label="Matrix">
+    <iconify-icon icon="simple-icons:matrix"></iconify-icon>
+  </a></div></div>
+    </div>
+    <div class="sy-head-actions flex items-center shrink-0 print:hidden"><button class="js-theme theme-switch flex items-center"
+data-aria-auto="Switch to light color mode"
+data-aria-light="Switch to dark color mode"
+data-aria-dark="Switch to auto color mode">
+<i class="i-lucide theme-icon"></i>
+</button><button class="md:hidden flex items-center js-menu" aria-label="Menu" type="button" aria-controls="head-nav" aria-expanded="false">
+        <div class="hamburger">
+          <span class="hamburger_1"></span>
+          <span class="hamburger_2"></span>
+          <span class="hamburger_3"></span>
+        </div>
+      </button>
+    </div>
+  </div>
+</div>
+<div class="sy-page sy-container flex mx-auto">
+  <aside id="lside" class="sy-lside md:w-72 md:shrink-0 print:hidden">
+    <div class="sy-lside-inner md:sticky">
+      <div class="sy-scrollbar p-6">
+        <div class="globaltoc" data-expand-depth="0"><p class="caption" role="heading" aria-level="3"><span class="caption-text">Getting started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../index.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/Installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/Introduction.html">Introduction</a></li>
+</ul>
+<p class="caption" role="heading" aria-level="3"><span class="caption-text">User guide</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Examples</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../networktheory/index.html">Network Theory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../matching/index.html">Matching</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../metrology/index.html">Metrology and Calibration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../networksets/index.html">NetworkSets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../plotting/index.html">Plotting</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Circuit</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mixedmodeanalysis/index.html">Mixed Mode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../vectorfitting/index.html">Vector Fitting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../vectorfitting_parametric/index.html">Parametric Vector Fitting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../qfactor/index.html">Q-factor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../taper/index.html">Taper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../instrumentcontrol/index.html">Instrument Control</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../interactive/index.html">Interactive</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading" aria-level="3"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../api/index.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../glossary.html">Glossary</a></li>
+</ul>
+<p class="caption" role="heading" aria-level="3"><span class="caption-text">Project</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing/index.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../citations_ack/acknowledging.html">Citing scikit-rf</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../citations_ack/citations.html">scikit-rf Citations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../about.html">About</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../users.html">Users</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../license.html">License</a></li>
+</ul>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="lside-overlay js-menu" role="button" aria-label="Close left sidebar" aria-controls="lside" aria-expanded="false"></div>
+  <aside id="rside" class="sy-rside pb-3 w-64 shrink-0 order-last">
+    <button class="rside-close js-menu xl:hidden" aria-label="Close Table of Contents" type="button" aria-controls="rside" aria-expanded="false">
+      <i class="i-lucide close"></i>
+    </button>
+    <div class="sy-scrollbar sy-rside-inner px-6 xl:top-16 xl:sticky xl:pl-0 pt-6 pb-4"><div class="localtoc"><h3>On this page</h3><ul>
+<li><a class="reference internal" href="#A-simple-transmission-line">A simple transmission line</a></li>
+<li><a class="reference internal" href="#A-coaxial-T-with-different-characteristic-impedances">A coaxial T with different characteristic impedances</a><ul>
+<li><a class="reference internal" href="#Full-wave-reference-solution">Full-wave reference solution</a></li>
+<li><a class="reference internal" href="#In-a-Circuit-simulator">In a Circuit simulator</a></li>
+<li><a class="reference internal" href="#With-Circuit">With <code class="docutils literal notranslate"><span class="pre">Circuit</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#external-vs-internal-ports?">external vs internal ports?</a></li>
+<li><a class="reference internal" href="#Voltages-and-Currents-in-complex-Circuits">Voltages and Currents in complex Circuits</a><ul>
+<li><a class="reference internal" href="#power-waves-and-traveling-waves">power-waves and traveling-waves</a></li>
+<li><a class="reference internal" href="#Voltage-and-Traveling-waves">Voltage and Traveling waves</a></li>
+<li><a class="reference internal" href="#Voltage-under-impedance-mismatch">Voltage under impedance mismatch</a></li>
+<li><a class="reference internal" href="#Complex-Circuits-with-Parallel-Connections">Complex Circuits with Parallel Connections</a></li>
+<li><a class="reference internal" href="#Example">Example</a></li>
+</ul>
+</li>
+</ul>
+</div><div id="ethical-ad-placement" data-ea-publisher="readthedocs"></div></div>
+  </aside>
+  <div class="rside-overlay js-menu" role="button" aria-label="Close Table of Contents" aria-controls="rside" aria-expanded="false"></div>
+  <main class="sy-main w-full max-sm:max-w-full print:pt-6">
+<div class="sy-breadcrumbs" role="navigation">
+  <div class="sy-breadcrumbs-inner flex items-center">
+    <div class="md:hidden mr-3">
+      <button class="js-menu" aria-label="Menu" type="button" aria-controls="lside" aria-expanded="false">
+        <i class="i-lucide menu"></i>
+      </button>
+    </div>
+    <ol class="flex-1" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="../../index.html"><span itemprop="name">scikit-rf</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="1" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="../index.html"><span itemprop="name">Examples</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="2" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="index.html"><span itemprop="name">Circuit</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="3" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <strong itemprop="name">Voltages and Currents in Circuits</strong>
+        <meta itemprop="position" content="4" />
+      </li></ol>
+    <a class="sk-download" href="Voltages%20and%20Currents%20in%20Circuits.ipynb" download>Download</a>
+    <div class="xl:hidden ml-1">
+      <button class="js-menu" aria-label="Show table of contents" type="button" aria-controls="rside"
+        aria-expanded="false">
+        <i class="i-lucide outdent"></i>
+      </button>
+    </div>
+  </div>
+</div><div class="flex flex-col break-words justify-between">
+      <div class="relative min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
+  <article class="yue" role="main">
+          <section id="Voltages-and-Currents-in-Circuits">
+<h1>Voltages and Currents in Circuits<a class="headerlink" href="#Voltages-and-Currents-in-Circuits" title="Link to this heading">#</a></h1>
+<p>The scikit-rf <code class="docutils literal notranslate"><span class="pre">Circuit</span></code> object allows one to deduce the voltages and currents at all the intersections of the circuit for a given power (and phase) excitation at circuit’s ports. Here, few examples are examined, in order to clarify the conventions used for current directions.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[1]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="o">%</span><span class="k">matplotlib</span> inline
+</span></pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[2]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="c1"># standard imports</span>
+</span><span data-line="2"><span class="kn">import</span><span class="w"> </span><a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/index.html#module-numpy"><span class="nn">numpy</span></a><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+</span><span data-line="3">
+</span><span data-line="4"><span class="kn">import</span><span class="w"> </span><span class="nn">skrf</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">rf</span>
+</span><span data-line="5"><span class="kn">from</span><span class="w"> </span><a class="sphinx-codeautolink-a" href="../../api/circuit.html#module-skrf.circuit"><span class="nn">skrf.circuit</span></a><span class="w"> </span><span class="kn">import</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.circuit.Circuit.html#skrf.circuit.Circuit" title="skrf.circuit.Circuit"><span class="n">Circuit</span></a>
+</span></pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[3]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.plotting.stylely.html#skrf.plotting.stylely" title="skrf.plotting.stylely"><span class="n">rf</span><span class="o">.</span><span class="n">stylely</span></a><span class="p">()</span>
+</span></pre></div>
+</div>
+</div>
+<section id="A-simple-transmission-line">
+<h2>A simple transmission line<a class="headerlink" href="#A-simple-transmission-line" title="Link to this heading">#</a></h2>
+<p>To start, let’s assume a simple transmission line excited by a generator. Let’s assume the generator is matched to the line (<span class="math notranslate nohighlight">\(Z_s=Z_0\)</span>) and the line connected to a matched load (<span class="math notranslate nohighlight">\(Z_0=Z_L\)</span>), all 50 Ohm.</p>
+<p><img alt="b46833621b6d4accad84f0adf45660bb" src="../../_images/circuit_vi_simple_line.svg"/></p>
+<p>What is the RF currents and voltages at the input and output of this line for a given input power (and phase)?</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[4]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">P_f</span> <span class="o">=</span> <span class="mi">1</span>  <span class="c1"># forward power in Watt</span>
+</span><span data-line="2"><span class="n">Z</span> <span class="o">=</span> <span class="mi">50</span>  <span class="c1"># source internal impedance, line characteristic impedance and load impedance</span>
+</span><span data-line="3"><span class="n">L</span> <span class="o">=</span> <span class="mi">10</span>  <span class="c1"># line length in [m]</span>
+</span><span data-line="4">
+</span><span data-line="5"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.frequency.Frequency.html#skrf.frequency.Frequency" title="skrf.frequency.Frequency"><span class="n">freq</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.frequency.Frequency.html#skrf.frequency.Frequency" title="skrf.frequency.Frequency"><span class="n">rf</span><span class="o">.</span><span class="n">Frequency</span></a><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s1">'GHz'</span><span class="p">)</span>
+</span><span data-line="6"><a class="sphinx-codeautolink-a" href="../../api/media/generated/skrf.media.media.DefinedGammaZ0.html#skrf.media.media.DefinedGammaZ0" title="skrf.media.media.DefinedGammaZ0"><span class="n">line_media</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/media/generated/skrf.media.media.DefinedGammaZ0.html#skrf.media.media.DefinedGammaZ0" title="skrf.media.media.DefinedGammaZ0"><span class="n">rf</span><span class="o">.</span><span class="n">media</span><span class="o">.</span><span class="n">DefinedGammaZ0</span></a><span class="p">(</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.frequency.Frequency.html#skrf.frequency.Frequency" title="skrf.frequency.Frequency"><span class="n">freq</span></a><span class="p">,</span> <span class="n">z0</span><span class="o">=</span><span class="n">Z</span><span class="p">)</span>  <span class="c1"># lossless line medium</span>
+</span><span data-line="7"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">line</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/media/generated/skrf.media.media.DefinedGammaZ0.line.html#skrf.media.media.DefinedGammaZ0.line" title="skrf.media.media.DefinedGammaZ0.line"><span class="n">line_media</span><span class="o">.</span><span class="n">line</span></a><span class="p">(</span><span class="n">d</span><span class="o">=</span><span class="n">L</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s1">'m'</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'line'</span><span class="p">)</span>  <span class="c1"># transmission line Network</span>
+</span></pre></div>
+</div>
+</div>
+<p>Assuming the source generates an input power of <span class="math notranslate nohighlight">\(P_f\)</span> with a phase <span class="math notranslate nohighlight">\(\phi\)</span>, with such a line the voltage and current at the entrance of the line are:</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[V_{in} = \sqrt{2 Z_0 P_f} e^{j \phi}\]</div>
+</div>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[I_{in} = \sqrt{2 \frac{P_f}{Z_0}} e^{j \phi}\]</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[5]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">V_in</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/generated/numpy.sqrt.html#numpy.sqrt" title="numpy.sqrt"><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span></a><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">Z</span><span class="o">*</span><span class="n">P_f</span><span class="p">)</span>
+</span><span data-line="2"><span class="n">I_in</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/generated/numpy.sqrt.html#numpy.sqrt" title="numpy.sqrt"><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span></a><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">P_f</span><span class="o">/</span><span class="n">Z</span><span class="p">)</span>
+</span><span data-line="3"><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/builtins/functions.html#print"><span class="nb">print</span></a><span class="p">(</span><span class="sa">f</span><span class="s1">'Input voltage and current: </span><span class="si">{</span><span class="n">V_in</span><span class="si">}</span><span class="s1"> V and </span><span class="si">{</span><span class="n">I_in</span><span class="si">}</span><span class="s1"> A'</span><span class="p">)</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Input voltage and current: 10.0 V and 0.2 A
+</pre></div></div>
+</div>
+<p>The voltage and current evolve along the transmission line. The voltage and current at the output of the line can be calculated using the transmission line tools provided with scikit-rf:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[6]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">theta</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.tlineFunctions.theta.html#skrf.tlineFunctions.theta" title="skrf.tlineFunctions.theta"><span class="n">rf</span><span class="o">.</span><span class="n">tlineFunctions</span><span class="o">.</span><span class="n">theta</span></a><span class="p">(</span><a class="sphinx-codeautolink-a" href="../../api/media/generated/skrf.media.media.DefinedGammaZ0.gamma.html#skrf.media.media.DefinedGammaZ0.gamma" title="skrf.media.media.DefinedGammaZ0.gamma"><span class="n">line_media</span><span class="o">.</span><span class="n">gamma</span></a><span class="p">,</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.frequency.Frequency.f.html#skrf.frequency.Frequency.f" title="skrf.frequency.Frequency.f"><span class="n">freq</span><span class="o">.</span><span class="n">f</span></a><span class="p">,</span> <span class="n">L</span><span class="p">)</span>  <span class="c1"># electrical length</span>
+</span><span data-line="2"><span class="n">V_out</span><span class="p">,</span> <span class="n">I_out</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.tlineFunctions.voltage_current_propagation.html#skrf.tlineFunctions.voltage_current_propagation" title="skrf.tlineFunctions.voltage_current_propagation"><span class="n">rf</span><span class="o">.</span><span class="n">tlineFunctions</span><span class="o">.</span><span class="n">voltage_current_propagation</span></a><span class="p">(</span><span class="n">V_in</span><span class="p">,</span> <span class="n">I_in</span><span class="p">,</span> <span class="n">Z</span><span class="p">,</span> <span class="n">theta</span><span class="p">)</span>
+</span><span data-line="3"><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/builtins/functions.html#print"><span class="nb">print</span></a><span class="p">(</span><span class="sa">f</span><span class="s1">'Output voltage and current: </span><span class="si">{</span><span class="n">V_out</span><span class="si">}</span><span class="s1"> V and </span><span class="si">{</span><span class="n">I_out</span><span class="si">}</span><span class="s1"> A'</span><span class="p">)</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Output voltage and current: [-8.39071529+5.44021111j] V and [-0.16781431+0.10880422j] A
+</pre></div></div>
+</div>
+<p>Let’s perform the same calculation using <code class="docutils literal notranslate"><span class="pre">Circuit</span></code>. First, one needs to define the circuit, that is to create input/output ports and to connect these ports to the transmission line Network we’ve already created. Then, we can build the circuit:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[7]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">port1</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.circuit.Circuit.Port.html#skrf.circuit.Circuit.Port" title="skrf.circuit.Circuit.Port"><span class="n">Circuit</span><span class="o">.</span><span class="n">Port</span></a><span class="p">(</span><span class="n">frequency</span><span class="o">=</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.frequency.Frequency.html#skrf.frequency.Frequency" title="skrf.frequency.Frequency"><span class="n">freq</span></a><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'port1'</span><span class="p">,</span> <span class="n">z0</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+</span><span data-line="2"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">port2</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.circuit.Circuit.Port.html#skrf.circuit.Circuit.Port" title="skrf.circuit.Circuit.Port"><span class="n">Circuit</span><span class="o">.</span><span class="n">Port</span></a><span class="p">(</span><span class="n">frequency</span><span class="o">=</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.frequency.Frequency.html#skrf.frequency.Frequency" title="skrf.frequency.Frequency"><span class="n">freq</span></a><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'port2'</span><span class="p">,</span> <span class="n">z0</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+</span><span data-line="3"><span class="n">cnx</span> <span class="o">=</span> <span class="p">[</span>
+</span><span data-line="4">    <span class="p">[(</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">port1</span></a><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">line</span></a><span class="p">,</span> <span class="mi">0</span><span class="p">)],</span>
+</span><span data-line="5">    <span class="p">[(</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">port2</span></a><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">line</span></a><span class="p">,</span> <span class="mi">1</span><span class="p">)]</span>
+</span><span data-line="6"><span class="p">]</span>
+</span><span data-line="7"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.circuit.Circuit.html#skrf.circuit.Circuit" title="skrf.circuit.Circuit"><span class="n">crt</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.circuit.Circuit.html#skrf.circuit.Circuit" title="skrf.circuit.Circuit"><span class="n">Circuit</span></a><span class="p">(</span><span class="n">cnx</span><span class="p">)</span>
+</span></pre></div>
+</div>
+</div>
+<p>It’s always a good practice to check if the circuit’s graph is as expected. In this case, the graph is pretty simple: 2 ports connected to a 2-ports Network.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[8]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.circuit.Circuit.plot_graph.html#skrf.circuit.Circuit.plot_graph" title="skrf.circuit.Circuit.plot_graph"><span class="n">crt</span><span class="o">.</span><span class="n">plot_graph</span></a><span class="p">(</span><span class="n">network_labels</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">edge_labels</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">inter_labels</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/examples_circuit_Voltages_and_Currents_in_Circuits_13_0.png" src="../../_images/examples_circuit_Voltages_and_Currents_in_Circuits_13_0.png"/>
+</div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Circuit</span></code> provides two methods to determine voltages and currents at the circuit input/output ports (also known as “external ports”). These methods take as input the power and phase inputs at each ports:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[9]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">power</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>  <span class="c1"># 1 Watt at port1 and 0 at port2</span>
+</span><span data-line="2"><span class="n">phase</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>  <span class="c1"># 0 radians</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[10]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray"><span class="n">V_at_ports</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.circuit.Circuit.voltages_external.html#skrf.circuit.Circuit.voltages_external" title="skrf.circuit.Circuit.voltages_external"><span class="n">crt</span><span class="o">.</span><span class="n">voltages_external</span></a><span class="p">(</span><span class="n">power</span><span class="p">,</span> <span class="n">phase</span><span class="p">)</span>
+</span><span data-line="2"><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/builtins/functions.html#print"><span class="nb">print</span></a><span class="p">(</span><a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray"><span class="n">V_at_ports</span></a><span class="p">)</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[[10.        +0.j         -8.39071529+5.44021111j]]
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[11]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray"><span class="n">I_at_ports</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.circuit.Circuit.currents_external.html#skrf.circuit.Circuit.currents_external" title="skrf.circuit.Circuit.currents_external"><span class="n">crt</span><span class="o">.</span><span class="n">currents_external</span></a><span class="p">(</span><span class="n">power</span><span class="p">,</span> <span class="n">phase</span><span class="p">)</span>
+</span><span data-line="2"><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/builtins/functions.html#print"><span class="nb">print</span></a><span class="p">(</span><a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray"><span class="n">I_at_ports</span></a><span class="p">)</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[[0.2       +0.j         0.16781431-0.10880422j]]
+</pre></div></div>
+</div>
+<p>The results are similar to the previous, except the sign of the current at port2 which is reversed.</p>
+<p>This is normal, as the <code class="docutils literal notranslate"><span class="pre">currents_external()</span></code> method defines the positive direction of a current as the direction which “enters” into the circuit. More details about this convention at the bottom of this example.</p>
+</section>
+<section id="A-coaxial-T-with-different-characteristic-impedances">
+<h2>A coaxial T with different characteristic impedances<a class="headerlink" href="#A-coaxial-T-with-different-characteristic-impedances" title="Link to this heading">#</a></h2>
+<p>As a more advanced example, we’ve built in a full-wave software (here ANSYS HFSS, but other are fine too) the following structure: a coaxial T, defined with different coaxial cross-sections (and such different characteristic impedances).</p>
+<p><img alt="5c1383e290b2459485f339a74e6dab23" src="../../_images/circuit_vi_HFSS_Coaxial_T.png"/></p>
+<p>All the three ports are excited with different power and phase to complicate a bit, as the following:</p>
+<div class="table-wrapper docutils container">
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>port</p></th>
+<th class="head"><p>power [W]</p></th>
+<th class="head"><p>phase [deg]</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>#1</p></td>
+<td><p>1</p></td>
+<td><p>-10</p></td>
+</tr>
+<tr class="row-odd"><td><p>#2</p></td>
+<td><p>2</p></td>
+<td><p>-20</p></td>
+</tr>
+<tr class="row-even"><td><p>#3</p></td>
+<td><p>3</p></td>
+<td><p>+60</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<section id="Full-wave-reference-solution">
+<h3>Full-wave reference solution<a class="headerlink" href="#Full-wave-reference-solution" title="Link to this heading">#</a></h3>
+<p>The voltages and currents are evaluated in the full-wave software directly. Voltage is obtained by integrating the E fields along a straight line going from the inner to the outer conductors in the port’s cross-sections. Current is obtained by integrating the H fields along a circle enclosing the inner conductor in port’s cross-sections. Note the circles are directed in order to define the positive current direction as the direction inward the ports (right-hand rule).</p>
+<p>The full-wave solutions are given here for reference, at 3 frequencies:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[12]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="kn">import</span><span class="w"> </span><a class="sphinx-codeautolink-a" href="https://pandas.pydata.org/docs/index.html#module-pandas"><span class="nn">pandas</span></a><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>  <span class="c1"># convenient to read .csv files</span>
+</span><span data-line="2">
+</span><span data-line="3"><a class="sphinx-codeautolink-a" href="https://pandas.pydata.org/docs/reference/api/pandas.read_csv.html#pandas.read_csv" title="pandas.read_csv"><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span></a><span class="p">(</span><span class="s1">'circuit_vi_HFSS_Voltages.csv'</span><span class="p">)</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[12]:
+</span></pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th></th>
+<th>Phase [deg]</th>
+<th>Freq [MHz]</th>
+<th>mag(V1) [V]</th>
+<th>mag(V2) [V]</th>
+<th>mag(V3) [V]</th>
+<th>ang_deg(V1) [deg]</th>
+<th>ang_deg(V2) [deg]</th>
+<th>ang_deg(V3) [deg]</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>0</th>
+<td>0</td>
+<td>10</td>
+<td>19.333738</td>
+<td>20.846031</td>
+<td>15.272200</td>
+<td>-10.650177</td>
+<td>-9.289474</td>
+<td>-9.877413</td>
+</tr>
+<tr>
+<th>1</th>
+<td>0</td>
+<td>50</td>
+<td>7.495888</td>
+<td>12.520379</td>
+<td>14.048313</td>
+<td>-29.855289</td>
+<td>-44.233339</td>
+<td>168.419884</td>
+</tr>
+<tr>
+<th>2</th>
+<td>0</td>
+<td>100</td>
+<td>13.378541</td>
+<td>9.825921</td>
+<td>41.581058</td>
+<td>-38.869964</td>
+<td>-35.275652</td>
+<td>102.383086</td>
+</tr>
+</tbody>
+</table>
+</div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[13]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><a class="sphinx-codeautolink-a" href="https://pandas.pydata.org/docs/reference/api/pandas.read_csv.html#pandas.read_csv" title="pandas.read_csv"><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span></a><span class="p">(</span><span class="s1">'circuit_vi_HFSS_Currents.csv'</span><span class="p">)</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[13]:
+</span></pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th></th>
+<th>Phase [deg]</th>
+<th>Freq [MHz]</th>
+<th>mag(I1) [A]</th>
+<th>mag(I2) [A]</th>
+<th>mag(I3) [A]</th>
+<th>ang_deg(I1) [deg]</th>
+<th>ang_deg(I2) [deg]</th>
+<th>ang_deg(I3) [deg]</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>0</th>
+<td>0</td>
+<td>10</td>
+<td>0.021591</td>
+<td>0.137606</td>
+<td>0.512142</td>
+<td>156.244427</td>
+<td>-90.890034</td>
+<td>80.224971</td>
+</tr>
+<tr>
+<th>1</th>
+<td>0</td>
+<td>50</td>
+<td>0.275976</td>
+<td>0.389991</td>
+<td>0.622469</td>
+<td>2.596668</td>
+<td>6.317826</td>
+<td>44.672585</td>
+</tr>
+<tr>
+<th>2</th>
+<td>0</td>
+<td>100</td>
+<td>0.220526</td>
+<td>0.424061</td>
+<td>0.384085</td>
+<td>33.833593</td>
+<td>-8.087971</td>
+<td>-4.331087</td>
+</tr>
+</tbody>
+</table>
+</div></div>
+</div>
+</section>
+<section id="In-a-Circuit-simulator">
+<h3>In a Circuit simulator<a class="headerlink" href="#In-a-Circuit-simulator" title="Link to this heading">#</a></h3>
+<p>The voltages and currents can also be derived using a Circuit simulator, like for example:</p>
+<p><img alt="3ea404e2249f4c2a946715def030de99" class="no-scaled-link" src="../../_images/circuit_vi_Designer_circuit.png" width="800"/></p>
+<p>(where, again, the current probes are oriented in such a way that the current is positive when flowing in the Network). This gives essentially the same results:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[14]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><a class="sphinx-codeautolink-a" href="https://pandas.pydata.org/docs/reference/api/pandas.read_csv.html#pandas.read_csv" title="pandas.read_csv"><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span></a><span class="p">(</span><span class="s1">'circuit_vi_Designer_Voltages.csv'</span><span class="p">)</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[14]:
+</span></pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th></th>
+<th>Freq [MHz]</th>
+<th>mag(V(V1)) [V]</th>
+<th>mag(V(V2)) [V]</th>
+<th>mag(V(V3)) [V]</th>
+<th>ang_deg(V(V1)) [deg]</th>
+<th>ang_deg(V(V2)) [deg]</th>
+<th>ang_deg(V(V3)) [deg]</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>0</th>
+<td>10</td>
+<td>19.342985</td>
+<td>20.849054</td>
+<td>15.290036</td>
+<td>-10.644150</td>
+<td>-9.283262</td>
+<td>-9.870625</td>
+</tr>
+<tr>
+<th>1</th>
+<td>50</td>
+<td>7.499412</td>
+<td>12.522681</td>
+<td>14.064961</td>
+<td>-29.854300</td>
+<td>-44.230084</td>
+<td>168.423657</td>
+</tr>
+<tr>
+<th>2</th>
+<td>100</td>
+<td>13.385809</td>
+<td>9.828158</td>
+<td>41.631139</td>
+<td>-38.866437</td>
+<td>-35.272131</td>
+<td>102.384693</td>
+</tr>
+</tbody>
+</table>
+</div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[15]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><a class="sphinx-codeautolink-a" href="https://pandas.pydata.org/docs/reference/api/pandas.read_csv.html#pandas.read_csv" title="pandas.read_csv"><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span></a><span class="p">(</span><span class="s1">'circuit_vi_Designer_Currents.csv'</span><span class="p">)</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[15]:
+</span></pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th></th>
+<th>Freq [MHz]</th>
+<th>mag(I(I1)) [A]</th>
+<th>mag(I(I2)) [A]</th>
+<th>mag(I(I3)) [A]</th>
+<th>ang_deg(I(I1)) [deg]</th>
+<th>ang_deg(I(I2)) [deg]</th>
+<th>ang_deg(I(I3)) [deg]</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>0</th>
+<td>10</td>
+<td>0.021481</td>
+<td>0.137779</td>
+<td>0.509421</td>
+<td>156.253941</td>
+<td>-90.892977</td>
+<td>80.229605</td>
+</tr>
+<tr>
+<th>1</th>
+<td>50</td>
+<td>0.274448</td>
+<td>0.389875</td>
+<td>0.619155</td>
+<td>2.599727</td>
+<td>6.286661</td>
+<td>44.674195</td>
+</tr>
+<tr>
+<th>2</th>
+<td>100</td>
+<td>0.219239</td>
+<td>0.423718</td>
+<td>0.381925</td>
+<td>33.836727</td>
+<td>-8.152957</td>
+<td>-4.333328</td>
+</tr>
+</tbody>
+</table>
+</div></div>
+</div>
+</section>
+<section id="With-Circuit">
+<h3>With <code class="docutils literal notranslate"><span class="pre">Circuit</span></code><a class="headerlink" href="#With-Circuit" title="Link to this heading">#</a></h3>
+<p>Now let’s build the same circuit with scikit-rf <code class="docutils literal notranslate"><span class="pre">Circuit</span></code>:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[16]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="c1"># Importing the 3-port .s3p file exported from full-wave simulation</span>
+</span><span data-line="2"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">coaxial_T</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">rf</span><span class="o">.</span><span class="n">Network</span></a><span class="p">(</span><span class="s1">'circuit_vi_Coaxial_T.s3p'</span><span class="p">)</span>
+</span><span data-line="3"><span class="c1"># pay attention to the port's characteristic impedance</span>
+</span><span data-line="4"><span class="c1"># it should match the Network characteristic impedances otherwise this will generate mismatches</span>
+</span><span data-line="5"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">port1</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.circuit.Circuit.Port.html#skrf.circuit.Circuit.Port" title="skrf.circuit.Circuit.Port"><span class="n">Circuit</span><span class="o">.</span><span class="n">Port</span></a><span class="p">(</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.frequency.html#skrf.network.Network.frequency" title="skrf.network.Network.frequency"><span class="n">coaxial_T</span><span class="o">.</span><span class="n">frequency</span></a><span class="p">,</span> <span class="s1">'port1'</span><span class="p">,</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.z0.html#skrf.network.Network.z0" title="skrf.network.Network.z0"><span class="n">coaxial_T</span><span class="o">.</span><span class="n">z0</span></a><span class="p">[:,</span><span class="mi">0</span><span class="p">])</span>
+</span><span data-line="6"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">port2</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.circuit.Circuit.Port.html#skrf.circuit.Circuit.Port" title="skrf.circuit.Circuit.Port"><span class="n">Circuit</span><span class="o">.</span><span class="n">Port</span></a><span class="p">(</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.frequency.html#skrf.network.Network.frequency" title="skrf.network.Network.frequency"><span class="n">coaxial_T</span><span class="o">.</span><span class="n">frequency</span></a><span class="p">,</span> <span class="s1">'port2'</span><span class="p">,</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.z0.html#skrf.network.Network.z0" title="skrf.network.Network.z0"><span class="n">coaxial_T</span><span class="o">.</span><span class="n">z0</span></a><span class="p">[:,</span><span class="mi">1</span><span class="p">])</span>
+</span><span data-line="7"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">port3</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.circuit.Circuit.Port.html#skrf.circuit.Circuit.Port" title="skrf.circuit.Circuit.Port"><span class="n">Circuit</span><span class="o">.</span><span class="n">Port</span></a><span class="p">(</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.frequency.html#skrf.network.Network.frequency" title="skrf.network.Network.frequency"><span class="n">coaxial_T</span><span class="o">.</span><span class="n">frequency</span></a><span class="p">,</span> <span class="s1">'port3'</span><span class="p">,</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.z0.html#skrf.network.Network.z0" title="skrf.network.Network.z0"><span class="n">coaxial_T</span><span class="o">.</span><span class="n">z0</span></a><span class="p">[:,</span><span class="mi">2</span><span class="p">])</span>
+</span><span data-line="8"><span class="c1"># connection list</span>
+</span><span data-line="9"><span class="n">cnx</span> <span class="o">=</span> <span class="p">[</span>
+</span><span data-line="10">    <span class="p">[(</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">port1</span></a><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">coaxial_T</span></a><span class="p">,</span> <span class="mi">0</span><span class="p">)],</span>
+</span><span data-line="11">    <span class="p">[(</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">port2</span></a><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">coaxial_T</span></a><span class="p">,</span> <span class="mi">1</span><span class="p">)],</span>
+</span><span data-line="12">    <span class="p">[(</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">port3</span></a><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">coaxial_T</span></a><span class="p">,</span> <span class="mi">2</span><span class="p">)]</span>
+</span><span data-line="13"><span class="p">]</span>
+</span><span data-line="14"><span class="c1"># building the circuit</span>
+</span><span data-line="15"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.circuit.Circuit.html#skrf.circuit.Circuit" title="skrf.circuit.Circuit"><span class="n">crt</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.circuit.Circuit.html#skrf.circuit.Circuit" title="skrf.circuit.Circuit"><span class="n">Circuit</span></a><span class="p">(</span><span class="n">cnx</span><span class="p">)</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[17]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="c1"># let's check if our connection list is correctly defined</span>
+</span><span data-line="2"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.circuit.Circuit.plot_graph.html#skrf.circuit.Circuit.plot_graph" title="skrf.circuit.Circuit.plot_graph"><span class="n">crt</span><span class="o">.</span><span class="n">plot_graph</span></a><span class="p">(</span><span class="n">network_labels</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">edge_labels</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">inter_labels</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/examples_circuit_Voltages_and_Currents_in_Circuits_28_0.png" src="../../_images/examples_circuit_Voltages_and_Currents_in_Circuits_28_0.png"/>
+</div>
+</div>
+<p>The voltages and currents at the ports for the given excitation is:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[18]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">power</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>  <span class="c1"># input power in watts at ports 1, 2 and 3</span>
+</span><span data-line="2"><span class="n">phase</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/generated/numpy.deg2rad.html#numpy.deg2rad" title="numpy.deg2rad"><span class="n">np</span><span class="o">.</span><span class="n">deg2rad</span></a><span class="p">([</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="o">-</span><span class="mi">20</span><span class="p">,</span> <span class="o">+</span><span class="mi">60</span><span class="p">])</span>  <span class="c1"># input phase in rad at ports 1, 2 and 3</span>
+</span><span data-line="3">
+</span><span data-line="4"><a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray"><span class="n">voltages</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.circuit.Circuit.voltages_external.html#skrf.circuit.Circuit.voltages_external" title="skrf.circuit.Circuit.voltages_external"><span class="n">crt</span><span class="o">.</span><span class="n">voltages_external</span></a><span class="p">(</span><span class="n">power</span><span class="p">,</span> <span class="n">phase</span><span class="p">)</span>
+</span><span data-line="5"><a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray"><span class="n">currents</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.circuit.Circuit.currents_external.html#skrf.circuit.Circuit.currents_external" title="skrf.circuit.Circuit.currents_external"><span class="n">crt</span><span class="o">.</span><span class="n">currents_external</span></a><span class="p">(</span><span class="n">power</span><span class="p">,</span> <span class="n">phase</span><span class="p">)</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[19]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="c1"># just for a better rendering in the notebook</span>
+</span><span data-line="2"><a class="sphinx-codeautolink-a" href="https://pandas.pydata.org/docs/reference/api/pandas.concat.html#pandas.concat" title="pandas.concat"><span class="n">pd</span><span class="o">.</span><span class="n">concat</span></a><span class="p">([</span>
+</span><span data-line="3">    <a class="sphinx-codeautolink-a" href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.DataFrame"><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span></a><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray"><span class="n">voltages</span></a><span class="p">),</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">'mag V1'</span><span class="p">,</span> <span class="s1">'mag V2'</span><span class="p">,</span> <span class="s1">'mag V3'</span><span class="p">],</span> <span class="n">index</span><span class="o">=</span><span class="n">crt</span><span class="o">.</span><span class="n">frequency</span><span class="o">.</span><span class="n">f</span><span class="o">/</span><span class="mf">1e6</span><span class="p">),</span>
+</span><span data-line="4">    <a class="sphinx-codeautolink-a" href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.DataFrame"><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span></a><span class="p">(</span><a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/generated/numpy.angle.html#numpy.angle" title="numpy.angle"><span class="n">np</span><span class="o">.</span><span class="n">angle</span></a><span class="p">(</span><a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray"><span class="n">voltages</span></a><span class="p">,</span> <span class="n">deg</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">'Phase V1'</span><span class="p">,</span> <span class="s1">'Phase V2'</span><span class="p">,</span> <span class="s1">'Phase V3'</span><span class="p">],</span> <span class="n">index</span><span class="o">=</span><span class="n">crt</span><span class="o">.</span><span class="n">frequency</span><span class="o">.</span><span class="n">f</span><span class="o">/</span><span class="mf">1e6</span><span class="p">)</span>
+</span><span data-line="5"><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[19]:
+</span></pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th></th>
+<th>mag V1</th>
+<th>mag V2</th>
+<th>mag V3</th>
+<th>Phase V1</th>
+<th>Phase V2</th>
+<th>Phase V3</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>10.0</th>
+<td>19.342535</td>
+<td>20.848763</td>
+<td>15.289548</td>
+<td>-10.650167</td>
+<td>-9.289472</td>
+<td>-9.877400</td>
+</tr>
+<tr>
+<th>50.0</th>
+<td>7.499300</td>
+<td>12.522020</td>
+<td>14.064485</td>
+<td>-29.855280</td>
+<td>-44.233336</td>
+<td>168.419396</td>
+</tr>
+<tr>
+<th>100.0</th>
+<td>13.384629</td>
+<td>9.827209</td>
+<td>41.628636</td>
+<td>-38.869951</td>
+<td>-35.275642</td>
+<td>102.382983</td>
+</tr>
+</tbody>
+</table>
+</div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[20]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="c1"># just for a better rendering in the notebook</span>
+</span><span data-line="2"><a class="sphinx-codeautolink-a" href="https://pandas.pydata.org/docs/reference/api/pandas.concat.html#pandas.concat" title="pandas.concat"><span class="n">pd</span><span class="o">.</span><span class="n">concat</span></a><span class="p">([</span>
+</span><span data-line="3">    <a class="sphinx-codeautolink-a" href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.DataFrame"><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span></a><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray"><span class="n">currents</span></a><span class="p">),</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">'mag I1'</span><span class="p">,</span> <span class="s1">'mag I2'</span><span class="p">,</span> <span class="s1">'mag I3'</span><span class="p">],</span> <span class="n">index</span><span class="o">=</span><span class="n">crt</span><span class="o">.</span><span class="n">frequency</span><span class="o">.</span><span class="n">f</span><span class="o">/</span><span class="mf">1e6</span><span class="p">),</span>
+</span><span data-line="4">    <a class="sphinx-codeautolink-a" href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.DataFrame"><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span></a><span class="p">(</span><a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/generated/numpy.angle.html#numpy.angle" title="numpy.angle"><span class="n">np</span><span class="o">.</span><span class="n">angle</span></a><span class="p">(</span><a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray"><span class="n">currents</span></a><span class="p">,</span> <span class="n">deg</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">'Phase I1'</span><span class="p">,</span> <span class="s1">'Phase I2'</span><span class="p">,</span> <span class="s1">'Phase I3'</span><span class="p">],</span> <span class="n">index</span><span class="o">=</span><span class="n">crt</span><span class="o">.</span><span class="n">frequency</span><span class="o">.</span><span class="n">f</span><span class="o">/</span><span class="mf">1e6</span><span class="p">)</span>
+</span><span data-line="5"><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[20]:
+</span></pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th></th>
+<th>mag I1</th>
+<th>mag I2</th>
+<th>mag I3</th>
+<th>Phase I1</th>
+<th>Phase I2</th>
+<th>Phase I3</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>10.0</th>
+<td>0.021471</td>
+<td>0.137796</td>
+<td>0.509429</td>
+<td>156.241420</td>
+<td>-90.898041</td>
+<td>80.225072</td>
+</tr>
+<tr>
+<th>50.0</th>
+<td>0.274422</td>
+<td>0.389839</td>
+<td>0.619125</td>
+<td>2.597008</td>
+<td>6.284260</td>
+<td>44.671994</td>
+</tr>
+<tr>
+<th>100.0</th>
+<td>0.219233</td>
+<td>0.423683</td>
+<td>0.381901</td>
+<td>33.834350</td>
+<td>-8.154641</td>
+<td>-4.333857</td>
+</tr>
+</tbody>
+</table>
+</div></div>
+</div>
+<p>These results matches well the one given by the full-wave calculations, hourra.</p>
+</section>
+</section>
+<section id="external-vs-internal-ports?">
+<h2>external vs internal ports?<a class="headerlink" href="#external-vs-internal-ports?" title="Link to this heading">#</a></h2>
+<p>You have maybe noticed in the <code class="docutils literal notranslate"><span class="pre">Circuit</span></code> documentation that we often talk about “internal” or “inner” ports, and of “external” or “outer” ports. The external ports corresponds to the <code class="docutils literal notranslate"><span class="pre">Circuit.Port()</span></code> Networks defined when building a <code class="docutils literal notranslate"><span class="pre">Circuit</span></code>. The internal ports are all the other connexions inside the <code class="docutils literal notranslate"><span class="pre">Circuit</span></code></p>
+<p>The <code class="docutils literal notranslate"><span class="pre">Circuit</span></code> algorithm allows one to have access to the voltages and current at the internal connexions inside the circuit. In the previous examples, there is not too much internal ports as we’ve connected a N-port directly to external ports. However, in more complex usages we can have a lot (look to the other <code class="docutils literal notranslate"><span class="pre">Circuit</span></code> examples).</p>
+<p>In <code class="docutils literal notranslate"><span class="pre">Circuit</span></code>, voltages and currents are peak values. While voltages are defined in a non-ambiguous manner, positive currents can be defined in a way or another, leading to a 180 degree ambiguity. To solve this, we have chosen the following definition: internal currents are defined such as they are measured positive when flowing into Networks.</p>
+<p>Hence, you find that “external” current are sign opposite of “internal” ones at the corresponding ports, because the internal currents are actually flowing into the ports Networks.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[21]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="c1"># internals currents (currents at all connexions)</span>
+</span><span data-line="2"><span class="c1"># in this example, there are 6 internal connexions (3 pairs of connexions)</span>
+</span><span data-line="3"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.circuit.Circuit.currents.html#skrf.circuit.Circuit.currents" title="skrf.circuit.Circuit.currents"><span class="n">crt</span><span class="o">.</span><span class="n">currents</span></a><span class="p">(</span><span class="n">power</span><span class="p">,</span> <span class="n">phase</span><span class="p">)</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[21]:
+</span></pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+array([[ 0.0196517 -0.00865047j, -0.0196517 +0.00865047j,
+         0.00215969+0.13777892j, -0.00215969-0.13777892j,
+        -0.08649001-0.50203344j,  0.08649001+0.50203344j],
+       [-0.27414049-0.0124343j ,  0.27414049+0.0124343j ,
+        -0.38749668-0.04267229j,  0.38749668+0.04267229j,
+        -0.44028632-0.43527388j,  0.44028632+0.43527388j],
+       [-0.18210634-0.12206774j,  0.18210634+0.12206774j,
+        -0.41939939+0.0600975j ,  0.41939939-0.0600975j ,
+        -0.38080855+0.02885945j,  0.38080855-0.02885945j]])
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[22]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="c1"># This gives the indices of the "external" ports</span>
+</span><span data-line="2"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.circuit.Circuit.port_indexes.html#skrf.circuit.Circuit.port_indexes" title="skrf.circuit.Circuit.port_indexes"><span class="n">crt</span><span class="o">.</span><span class="n">port_indexes</span></a>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[22]:
+</span></pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[0, 2, 4]
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[23]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="c1"># So we can keep only "external" ports</span>
+</span><span data-line="2"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.circuit.Circuit.currents.html#skrf.circuit.Circuit.currents" title="skrf.circuit.Circuit.currents"><span class="n">crt</span><span class="o">.</span><span class="n">currents</span></a><span class="p">(</span><span class="n">power</span><span class="p">,</span> <span class="n">phase</span><span class="p">)[:,</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.circuit.Circuit.port_indexes.html#skrf.circuit.Circuit.port_indexes" title="skrf.circuit.Circuit.port_indexes"><span class="n">crt</span><span class="o">.</span><span class="n">port_indexes</span></a><span class="p">]</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[23]:
+</span></pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+array([[ 0.0196517 -0.00865047j,  0.00215969+0.13777892j,
+        -0.08649001-0.50203344j],
+       [-0.27414049-0.0124343j , -0.38749668-0.04267229j,
+        -0.44028632-0.43527388j],
+       [-0.18210634-0.12206774j, -0.41939939+0.0600975j ,
+        -0.38080855+0.02885945j]])
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[24]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="c1"># note the sign difference due to the convention chosen for internal ports</span>
+</span><span data-line="2"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.circuit.Circuit.currents_external.html#skrf.circuit.Circuit.currents_external" title="skrf.circuit.Circuit.currents_external"><span class="n">crt</span><span class="o">.</span><span class="n">currents_external</span></a><span class="p">(</span><span class="n">power</span><span class="p">,</span> <span class="n">phase</span><span class="p">)</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[24]:
+</span></pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+array([[-0.0196517 +0.00865047j, -0.00215969-0.13777892j,
+         0.08649001+0.50203344j],
+       [ 0.27414049+0.0124343j ,  0.38749668+0.04267229j,
+         0.44028632+0.43527388j],
+       [ 0.18210634+0.12206774j,  0.41939939-0.0600975j ,
+         0.38080855-0.02885945j]])
+</pre></div></div>
+</div>
+<p>The figure below illustrates these differences using the previous example:</p>
+<p><img alt="87debf332a4b4ee18bc22b2dd7d06a3e" class="no-scaled-link" src="../../_images/circuit_vi_convention_currents.png" width="800"/></p>
+</section>
+<section id="Voltages-and-Currents-in-complex-Circuits">
+<h2>Voltages and Currents in complex Circuits<a class="headerlink" href="#Voltages-and-Currents-in-complex-Circuits" title="Link to this heading">#</a></h2>
+<section id="power-waves-and-traveling-waves">
+<h3>power-waves and traveling-waves<a class="headerlink" href="#power-waves-and-traveling-waves" title="Link to this heading">#</a></h3>
+<p>In <code class="docutils literal notranslate"><span class="pre">scikit-rf</span></code>, the calculation of <code class="docutils literal notranslate"><span class="pre">Voltages</span></code> and <code class="docutils literal notranslate"><span class="pre">Currents</span></code> relies on the Scattering Parameters (<code class="docutils literal notranslate"><span class="pre">S-parameters</span></code>) of the <code class="docutils literal notranslate"><span class="pre">Circuit</span></code>. The default definition of <code class="docutils literal notranslate"><span class="pre">S-parameters</span></code> uses <a class="reference external" href="https://scikit-rf.readthedocs.io/en/latest/examples/networktheory/Working%20with%20Complex%20Characteristic%20Impedances.html">power-waves</a>, expressed as:</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[s_{ij} = \frac{b_i}{a_j}\]</div>
+</div>
+<p>where <span class="math notranslate nohighlight">\(b_i\)</span> and <span class="math notranslate nohighlight">\(a_j\)</span> represent the output and input power waves at ports <code class="docutils literal notranslate"><span class="pre">i</span></code> and <code class="docutils literal notranslate"><span class="pre">j</span></code> in a given <code class="docutils literal notranslate"><span class="pre">Network</span></code>, respectively.</p>
+<p>As an example, the methods <code class="docutils literal notranslate"><span class="pre">Circuit._b()</span></code> and <code class="docutils literal notranslate"><span class="pre">Circuit._a()</span></code> provide support for calculating these output and input power waves, although this is often unnecessary for typical use cases.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[25]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="c1"># To obtain the input/output power waves under given phase and amplitude, you can use:</span>
+</span><span data-line="2"><a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray"><span class="n">a</span></a> <span class="o">=</span> <span class="n">crt</span><span class="o">.</span><span class="n">_a</span><span class="p">(</span><span class="n">crt</span><span class="o">.</span><span class="n">_a_external</span><span class="p">(</span><span class="n">power</span><span class="p">,</span> <span class="n">phase</span><span class="p">))</span>
+</span><span data-line="3"><a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray"><span class="n">b</span></a> <span class="o">=</span> <span class="n">crt</span><span class="o">.</span><span class="n">_b</span><span class="p">(</span><a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray"><span class="n">a</span></a><span class="p">)</span>
+</span></pre></div>
+</div>
+</div>
+<p>From the <code class="docutils literal notranslate"><span class="pre">S-parameters</span></code> definition, we can determine the forward (input) traveling wave <span class="math notranslate nohighlight">\(V^+_i\)</span> and the backward (output) traveling wave <span class="math notranslate nohighlight">\(V^-_j\)</span> at ports <code class="docutils literal notranslate"><span class="pre">i</span></code> and <code class="docutils literal notranslate"><span class="pre">j</span></code> in a given <code class="docutils literal notranslate"><span class="pre">Network</span></code> as:</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[V_i^+ = a_i \sqrt{\Re({Z_0}_i)}\]</div>
+</div>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[V_j^- = b_j \sqrt{\Re({Z_0}_j)}\]</div>
+</div>
+<p>Here, <span class="math notranslate nohighlight">\({Z_0}_i\)</span> and <span class="math notranslate nohighlight">\({Z_0}_j\)</span> are the characteristic impedances at port <code class="docutils literal notranslate"><span class="pre">i</span></code> and <code class="docutils literal notranslate"><span class="pre">j</span></code>, respectively.</p>
+</section>
+<section id="Voltage-and-Traveling-waves">
+<h3>Voltage and Traveling waves<a class="headerlink" href="#Voltage-and-Traveling-waves" title="Link to this heading">#</a></h3>
+<p>In transmission line theory, the total voltage and total current are functions of the incident and reflected voltage wave amplitudes. Similarly, the <code class="docutils literal notranslate"><span class="pre">Voltage</span></code> and <code class="docutils literal notranslate"><span class="pre">Current</span></code> at each node in a <code class="docutils literal notranslate"><span class="pre">Circuit</span></code> can be calculated using the forward (input) and backward (output) traveling wave at the components’ ports that form the node.</p>
+<p>For simple series connections, such as when port <code class="docutils literal notranslate"><span class="pre">m</span></code> of <code class="docutils literal notranslate"><span class="pre">Network</span></code> <span class="math notranslate nohighlight">\(A\)</span> is connected to port <code class="docutils literal notranslate"><span class="pre">n</span></code> of <code class="docutils literal notranslate"><span class="pre">Network</span></code> <span class="math notranslate nohighlight">\(B\)</span>, the total <code class="docutils literal notranslate"><span class="pre">Voltage</span></code> at the node can be calculated using the same principles as for transmission lines:</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[V=V_m^- + V_n^-\]</div>
+</div>
+<p>Here, the <span class="math notranslate nohighlight">\(V_m^-\)</span> and <span class="math notranslate nohighlight">\(V_n^-\)</span> are the backward (output) traveling waves at ports <code class="docutils literal notranslate"><span class="pre">m</span></code> and <code class="docutils literal notranslate"><span class="pre">n</span></code>, respectively.</p>
+</section>
+<section id="Voltage-under-impedance-mismatch">
+<h3>Voltage under impedance mismatch<a class="headerlink" href="#Voltage-under-impedance-mismatch" title="Link to this heading">#</a></h3>
+<p>When the port characteristic impedances of <code class="docutils literal notranslate"><span class="pre">Network</span></code> <span class="math notranslate nohighlight">\(A\)</span>’s port <code class="docutils literal notranslate"><span class="pre">m</span></code> (<span class="math notranslate nohighlight">\({Z_0}_{Am}\)</span>) and <code class="docutils literal notranslate"><span class="pre">Network</span></code> <span class="math notranslate nohighlight">\(B\)</span>’s port <code class="docutils literal notranslate"><span class="pre">n</span></code> (<span class="math notranslate nohighlight">\({Z_0}_{Bn}\)</span>) are different, impedance mismatch occurs. This requires the use of the transmission coefficient <span class="math notranslate nohighlight">\(\Tau_{nm}\)</span> to correct the mismatch.</p>
+<p>When a voltage wave is transmitted from <code class="docutils literal notranslate"><span class="pre">Network</span></code> <span class="math notranslate nohighlight">\(A\)</span>’ port <code class="docutils literal notranslate"><span class="pre">m</span></code> to <code class="docutils literal notranslate"><span class="pre">Network</span></code> <span class="math notranslate nohighlight">\(B\)</span>’s port <code class="docutils literal notranslate"><span class="pre">n</span></code>, <code class="docutils literal notranslate"><span class="pre">Network</span></code> <span class="math notranslate nohighlight">\(A\)</span> can be treated as the source and <code class="docutils literal notranslate"><span class="pre">Network</span></code> <span class="math notranslate nohighlight">\(B\)</span> as the load. The transmission coefficient <span class="math notranslate nohighlight">\(\Tau_{nm}\)</span> from <code class="docutils literal notranslate"><span class="pre">m</span></code> to <code class="docutils literal notranslate"><span class="pre">n</span></code> can then be used to adjust for the mismatch:</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[\Tau_{nm} = \frac{2 Z_{Load}}{Z_{Load}+Z_{Source}} = \frac{2 {Z_0}_{Am}}{{Z_0}_{Am}+{Z_0}_{Bn}}\]</div>
+</div>
+</section>
+<section id="Complex-Circuits-with-Parallel-Connections">
+<h3>Complex Circuits with Parallel Connections<a class="headerlink" href="#Complex-Circuits-with-Parallel-Connections" title="Link to this heading">#</a></h3>
+<p>In more complex <code class="docutils literal notranslate"><span class="pre">Circuits</span></code>, such as those with parallel connections, multiple ports may converge at a node, each potentially having a different characteristic impedance. Despite the added complexity, the approach of using the transmission coefficient <span class="math notranslate nohighlight">\(\Tau\)</span> remains effective.</p>
+<p>By selecting one <code class="docutils literal notranslate"><span class="pre">Network</span></code>’s characteristic impedance <span class="math notranslate nohighlight">\(Z_l\)</span> as the source impedance and treating the combined characteristic impedance of the other <span class="math notranslate nohighlight">\(k\)</span> parallel <code class="docutils literal notranslate"><span class="pre">Networks</span></code> as the load impedance, the actual transmission coefficient for port <code class="docutils literal notranslate"><span class="pre">l</span></code> can be determined:</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[\frac{1}{Z_{Source}}=\sum_{i=0}^{k}{\frac{1}{Z_{i}}}-\frac{1}{Z_l}\]</div>
+</div>
+<p>This approach allows for the calculation of the effective impedance at the node, which can then be used to adjust for impedance mismatches and ensure accurate <code class="docutils literal notranslate"><span class="pre">Voltage</span></code> and <code class="docutils literal notranslate"><span class="pre">Current</span></code> calculations in complex parallel <code class="docutils literal notranslate"><span class="pre">Networks</span></code> configurations.</p>
+</section>
+<section id="Example">
+<h3>Example<a class="headerlink" href="#Example" title="Link to this heading">#</a></h3>
+<p>The <a class="reference external" href="https://scikit-rf.readthedocs.io/en/latest/examples/circuit/Wilkinson%20Power%20Splitter.html">Wilkinson Power Divider</a> provides an example of voltage and current calculations in complex circuits. It demonstrates the calculation for both purely series-connected <code class="docutils literal notranslate"><span class="pre">Circuit</span></code> using splitters and more complex <code class="docutils literal notranslate"><span class="pre">Circuit</span></code> that involve component parallelization, yielding consistent results in both scenarios.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[ ]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1">
+</span></pre></div>
+</div>
+</div>
+</section>
+</section>
+</section>
+
+        </article><button class="back-to-top" type="button">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+  </svg>
+  <span>Back to top</span>
+</button><div class="navigation flex print:hidden"><div class="navigation-prev">
+    <a href="Lumped%20Element%20Circuits.html">
+      <i class="i-lucide chevron-left"></i>
+      <div class="page-info">
+        <span>Previous</span><div class="title">Lumped Elements Circuits</div></div>
+    </a>
+  </div><div class="navigation-next">
+    <a href="Wilkinson%20Power%20Splitter.html">
+      <div class="page-info">
+        <span>Next</span>
+        <div class="title">Wilkinson Power Divider</div>
+      </div>
+      <i class="i-lucide chevron-right"></i>
+    </a>
+  </div></div></div>
+    </div>
+  </main>
+</div>
+<footer class="sy-foot">
+  <div class="sy-foot-inner sy-container mx-auto">
+    <div class="sy-foot-reserved md:flex justify-between items-center">
+      <div class="sy-foot-copyright"><p>2025, scikit-rf team</p>
+  
+  <p>
+    Made with
+    
+    <a href="https://www.sphinx-doc.org/">Sphinx</a> and
+    
+    <a href="https://shibuya.lepture.com">Shibuya theme</a>.
+  </p>
+</div>
+      <div class="sy-foot-socials">
+  <a href="https://github.com/scikit-rf/scikit-rf" aria-label="GitHub">
+    <iconify-icon icon="simple-icons:github"></iconify-icon>
+  </a></div>
+    </div>
+  </div>
+</footer>
+      <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../_static/copybutton.js?v=34bd459d"></script>
+      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+      <script src="../../_static/shibuya.js?v=50760d75"></script>
+      <script src="https://cdn.jsdelivr.net/npm/@jupyter-widgets/html-manager@^1.0.1/dist/embed-amd.js"></script>
+      <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
+      <script src="../../_static/skrf.js?v=bdeb9fb0"></script></body>
+</html>

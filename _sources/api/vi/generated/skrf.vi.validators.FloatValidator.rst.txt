@@ -1,0 +1,25 @@
+﻿skrf.vi.validators.FloatValidator
+=================================
+
+.. currentmodule:: skrf.vi.validators
+
+.. autoclass:: FloatValidator
+  :no-members:
+
+
+
+
+
+
+
+.. rubric:: Methods
+
+.. autosummary::
+  :toctree:
+  :nosignatures:
+
+  ~FloatValidator.__init__
+  ~FloatValidator.check_bounds
+  ~FloatValidator.validate_input
+  ~FloatValidator.validate_output
+

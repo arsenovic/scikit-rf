@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en" data-accent-color="blue" data-content_root="../../../">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>skrf.media.coaxial.Coaxial - scikit-rf</title><link rel="author" title="About these documents" href="../../../about.html" /><link rel="index" title="Index" href="../../../genindex.html" /><link rel="search" title="Search" href="../../../search.html" /><link rel="next" title="skrf.media.coaxial.Coaxial.C" href="skrf.media.coaxial.Coaxial.C.html" /><link rel="prev" title="skrf.media.cpw.CPW.write_csv" href="skrf.media.cpw.CPW.write_csv.html" /><script>
+    function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
+    setColorMode(localStorage._theme||"auto");
+  </script><link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=ad592e98" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/shibuya.css?v=2ceb65ce" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-codeautolink.css?v=b2176991" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+    <link media="print" rel="stylesheet" type="text/css" href="../../../_static/print.css?v=20ff2c19" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/skrf.css?v=7e772ba2" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --sy-f-text: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+  --sy-f-heading: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+}
+</style>
+    
+  <meta property="og:type" content="website"/><meta property="og:title" content="skrf.media.coaxial.Coaxial"/>
+    <meta name="twitter:card" content="summary"/>
+  </head>
+<body><div class="sy-head">
+  <div class="sy-head-blur"></div>
+  <div class="sy-head-inner sy-container mx-auto">
+    <a class="sy-head-brand" href="../../../index.html">
+      <img class="light-logo" src="../../../_static/logo.svg" alt="scikit-rf" height="28" loading="lazy" />
+      <img class="dark-logo" src="../../../_static/logo.svg" alt="scikit-rf" height="28" loading="lazy" />
+      <strong>scikit-rf</strong>
+    </a>
+    <div class="sy-head-nav" id="head-nav">
+      <nav class="sy-head-links"><ul><li class="link"><a href="../../../index.html">Home</a></li><li class="link"><a href="../../../tutorials/index.html">Tutorials</a></li><li class="link"><a href="../../../examples/index.html">Examples</a></li><li class="link"><a href="../../index.html">API</a></li><li class="link">
+          <a href="https://github.com/scikit-rf/scikit-rf">
+            <span>GitHub</span><i class="i-lucide external-link"></i></a>
+        </li></ul></nav>
+      <div class="sy-head-extra flex items-center print:hidden"><form class="searchbox flex items-center" action="../../../search.html" method="get">
+  <input type="text" name="q" placeholder="Search" />
+  <kbd>/</kbd>
+</form><div class="sy-head-socials">
+  <a href="https://github.com/scikit-rf/scikit-rf" aria-label="GitHub">
+    <iconify-icon icon="simple-icons:github"></iconify-icon>
+  </a>
+  <a href="https://www.linkedin.com/groups/12462155/" aria-label="LinkedIn">
+    <iconify-icon icon="simple-icons:linkedin"></iconify-icon>
+  </a>
+  <a href="https://app.element.io/#/room/#scikit-rf:matrix.org" aria-label="Matrix">
+    <iconify-icon icon="simple-icons:matrix"></iconify-icon>
+  </a></div></div>
+    </div>
+    <div class="sy-head-actions flex items-center shrink-0 print:hidden"><button class="js-theme theme-switch flex items-center"
+data-aria-auto="Switch to light color mode"
+data-aria-light="Switch to dark color mode"
+data-aria-dark="Switch to auto color mode">
+<i class="i-lucide theme-icon"></i>
+</button><button class="md:hidden flex items-center js-menu" aria-label="Menu" type="button" aria-controls="head-nav" aria-expanded="false">
+        <div class="hamburger">
+          <span class="hamburger_1"></span>
+          <span class="hamburger_2"></span>
+          <span class="hamburger_3"></span>
+        </div>
+      </button>
+    </div>
+  </div>
+</div>
+<div class="sy-page sy-container flex mx-auto">
+  <aside id="lside" class="sy-lside md:w-72 md:shrink-0 print:hidden">
+    <div class="sy-lside-inner md:sticky">
+      <div class="sy-scrollbar p-6">
+        <div class="globaltoc" data-expand-depth="0"><p class="caption" role="heading" aria-level="3"><span class="caption-text">Getting started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../index.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorials/Installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorials/Introduction.html">Introduction</a></li>
+</ul>
+<p class="caption" role="heading" aria-level="3"><span class="caption-text">User guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/index.html">Examples</a></li>
+</ul>
+<p class="caption" role="heading" aria-level="3"><span class="caption-text">Reference</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../index.html">API</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../network.html">network (<code class="xref py py-mod docutils literal notranslate"><span class="pre">skrf.network</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../frequency.html">frequency (<code class="xref py py-mod docutils literal notranslate"><span class="pre">skrf.frequency</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../networkSet.html">networkSet (<code class="xref py py-mod docutils literal notranslate"><span class="pre">skrf.networkSet</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../plotting.html">plotting (<code class="xref py py-mod docutils literal notranslate"><span class="pre">skrf.plotting</span></code>)</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../index.html">Media</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../taper.html">taper (<code class="xref py py-mod docutils literal notranslate"><span class="pre">skrf.taper</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../calibration/index.html">calibration (<code class="xref py py-mod docutils literal notranslate"><span class="pre">skrf.calibration.calibration</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../calibration/deembedding.html">deembedding (<code class="xref py py-mod docutils literal notranslate"><span class="pre">skrf.calibration.deembedding</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../vi/index.html">virtual instruments (<code class="xref py py-mod docutils literal notranslate"><span class="pre">skrf.vi</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../vi/vna.html">vna (<code class="xref py py-mod docutils literal notranslate"><span class="pre">skrf.vi.vna</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../vectorFitting.html">vectorFitting (<code class="xref py py-mod docutils literal notranslate"><span class="pre">skrf.vectorFitting</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../qfactor.html">Qfactor (<code class="xref py py-mod docutils literal notranslate"><span class="pre">skrf.qfactor</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../time.html">time (<code class="xref py py-mod docutils literal notranslate"><span class="pre">skrf.time</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../circuit.html">circuit (<code class="xref py py-mod docutils literal notranslate"><span class="pre">skrf.circuit</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../device.html">device (<code class="xref py py-mod docutils literal notranslate"><span class="pre">skrf.media.device</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../mathFunctions.html">mathFunctions (<code class="xref py py-mod docutils literal notranslate"><span class="pre">skrf.mathFunctions</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../tlineFunctions.html">tlineFunctions (<code class="xref py py-mod docutils literal notranslate"><span class="pre">skrf.tlineFunctions</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../instances.html">instances (<code class="xref py py-mod docutils literal notranslate"><span class="pre">skrf.instances</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../constants.html">constants (<code class="xref py py-mod docutils literal notranslate"><span class="pre">skrf.constants</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../data/index.html">data (<code class="xref py py-mod docutils literal notranslate"><span class="pre">skrf.data</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../util.html">util (<code class="xref py py-mod docutils literal notranslate"><span class="pre">skrf.util</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../io/index.html">IO</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../glossary.html">Glossary</a></li>
+</ul>
+<p class="caption" role="heading" aria-level="3"><span class="caption-text">Project</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing/index.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../citations_ack/acknowledging.html">Citing scikit-rf</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../citations_ack/citations.html">scikit-rf Citations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../about.html">About</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../users.html">Users</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../license.html">License</a></li>
+</ul>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="lside-overlay js-menu" role="button" aria-label="Close left sidebar" aria-controls="lside" aria-expanded="false"></div>
+  <aside id="rside" class="sy-rside pb-3 w-64 shrink-0 order-last">
+    <button class="rside-close js-menu xl:hidden" aria-label="Close Table of Contents" type="button" aria-controls="rside" aria-expanded="false">
+      <i class="i-lucide close"></i>
+    </button>
+    <div class="sy-scrollbar sy-rside-inner px-6 xl:top-16 xl:sticky xl:pl-0 pt-6 pb-4"><div class="localtoc"><h3>On this page</h3><ul>
+<li><a class="reference internal" href="#skrf.media.coaxial.Coaxial"><code class="docutils literal notranslate"><span class="pre">Coaxial</span></code></a></li>
+</ul>
+</div><div id="ethical-ad-placement" data-ea-publisher="readthedocs"></div></div>
+  </aside>
+  <div class="rside-overlay js-menu" role="button" aria-label="Close Table of Contents" aria-controls="rside" aria-expanded="false"></div>
+  <main class="sy-main w-full max-sm:max-w-full print:pt-6">
+<div class="sy-breadcrumbs" role="navigation">
+  <div class="sy-breadcrumbs-inner flex items-center">
+    <div class="md:hidden mr-3">
+      <button class="js-menu" aria-label="Menu" type="button" aria-controls="lside" aria-expanded="false">
+        <i class="i-lucide menu"></i>
+      </button>
+    </div>
+    <ol class="flex-1" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="../../../index.html"><span itemprop="name">scikit-rf</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="1" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="../../index.html"><span itemprop="name">API</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="2" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="../index.html"><span itemprop="name">Media</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="3" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <strong itemprop="name">skrf.media.coaxial.Coaxial</strong>
+        <meta itemprop="position" content="4" />
+      </li></ol>
+    <div class="xl:hidden ml-1">
+      <button class="js-menu" aria-label="Show table of contents" type="button" aria-controls="rside"
+        aria-expanded="false">
+        <i class="i-lucide outdent"></i>
+      </button>
+    </div>
+  </div>
+</div><div class="flex flex-col break-words justify-between">
+      <div class="relative min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
+  <article class="yue" role="main">
+          <section id="skrf-media-coaxial-coaxial">
+<h1>skrf.media.coaxial.Coaxial<a class="headerlink" href="#skrf-media-coaxial-coaxial" title="Link to this heading">#</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="skrf.media.coaxial.Coaxial">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">skrf.media.coaxial.</span></span><span class="sig-name descname"><span class="pre">Coaxial</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">frequency</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z0_port</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z0_override</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z0</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Dint</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.00081</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Dout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.005</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">epsilon_r</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tan_delta</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sigma</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">58000000.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'schelkunoff'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dielectric</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inner_conductor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outer_conductor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/skrf/media/coaxial.html#Coaxial"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skrf.media.coaxial.Coaxial" title="Link to this definition">#</a></dt>
+<dd><p>A coaxial transmission line defined in terms of its inner/outer
+diameters and permittivity.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>frequency</strong> (<a class="reference internal" href="../../generated/skrf.frequency.Frequency.html#skrf.frequency.Frequency" title="skrf.frequency.Frequency"><code class="xref py py-class docutils literal notranslate"><span class="pre">Frequency</span></code></a> object) – Frequency band.</p></li>
+<li><p><strong>z0_port</strong> (<em>number</em><em>, </em><em>array-like</em><em>, or </em><em>None</em>) – <cite>z0_port</cite> is the port impedance for networks generated by the media.
+If <cite>z0_port</cite> is not None, the networks generated by the media are
+renormalized (or in other words embedded) from the characteristic
+impedance z0 of the media to <cite>z0_port</cite>.
+Else if <cite>z0_port</cite> is None, the networks port impedances will be the raw
+characteristic impedance z0 of the media.
+(Default is None)</p></li>
+<li><p><strong>z0_override</strong> (<em>number</em><em>, </em><em>array-like</em><em>, or </em><em>None</em>) – <cite>z0_override</cite> override the characteristic impedance for the media.
+If <cite>z0_override</cite> is not None, the networks generated by the media have
+their characteristic impedance <cite>z0</cite> overridden by <cite>z0_override</cite>.
+(Default is None)</p></li>
+<li><p><strong>z0</strong> (<em>number</em><em>, </em><em>array-like</em><em>, or </em><em>None</em>) – deprecated parameter, alias to <cite>z0_override</cite> if <cite>z0_override</cite> is None.
+Emit a deprecation warning.</p></li>
+<li><p><strong>Dint</strong> (<em>number</em><em>, or </em><em>array-like</em>) – inner conductor diameter, in m</p></li>
+<li><p><strong>Dout</strong> (<em>number</em><em>, or </em><em>array-like</em>) – outer conductor diameter, in m</p></li>
+<li><p><strong>epsilon_r</strong> (<em>number</em><em>, or </em><em>array-like</em><em>, </em><em>optional</em>) – relative permittivity of the dielectric medium.
+Default is 1.</p></li>
+<li><p><strong>tan_delta</strong> (<em>number</em><em>, or </em><em>array-like</em><em>, </em><em>optional</em>) – loss tangent of the dielectric medium.
+Default is 0.</p></li>
+<li><p><strong>sigma</strong> (<em>number</em><em>, or </em><em>array-like</em><em>, </em><em>optional.</em>) – conductors electrical conductivity, in S/m.
+Default is 58e6, the conductivity of annealed copper at 20 °C (100% IACS).</p></li>
+<li><p><strong>tout</strong> (<em>number</em><em>, </em><em>array-like</em><em>, or </em><em>None</em><em>, </em><em>optional</em>) – wall thickness of the outer conductor, in m.
+If None (default), the shield is infinitely thick.</p></li>
+<li><p><strong>model</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a><em>, </em><em>optional</em>) – Model of the conductors. ‘schelkunoff’ (default) is the Bessel function
+solution of <a class="footnote-reference brackets" href="#schelkunoff" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>, ‘tesche’ the equivalent circuit
+approximation of <a class="footnote-reference brackets" href="#tesche" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a>.</p></li>
+<li><p><strong>dielectric</strong> (<a class="reference internal" href="../../io/generated/skrf.io.csv.AgilentCSV.dict.html#skrf.io.csv.AgilentCSV.dict" title="skrf.io.csv.AgilentCSV.dict"><em>dict</em></a><em> or </em><em>None</em><em>, </em><em>optional</em>) – Material of the dielectric filling, as a dict taking the keys <code class="docutils literal notranslate"><span class="pre">'ep_r'</span></code>
+(complex relative permittivity <span class="math notranslate nohighlight">\(\epsilon_r (1 - j\tan\delta)\)</span>) and
+<code class="docutils literal notranslate"><span class="pre">'mu_r'</span></code> (complex relative permeability), both defaulting to 1.
+If None (default), the filling is described by <cite>epsilon_r</cite> and <cite>tan_delta</cite>.</p></li>
+<li><p><strong>inner_conductor</strong> (<a class="reference internal" href="../../io/generated/skrf.io.csv.AgilentCSV.dict.html#skrf.io.csv.AgilentCSV.dict" title="skrf.io.csv.AgilentCSV.dict"><em>dict</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.15)"><em>list</em></a><em> of </em><a class="reference internal" href="../../io/generated/skrf.io.csv.AgilentCSV.dict.html#skrf.io.csv.AgilentCSV.dict" title="skrf.io.csv.AgilentCSV.dict"><em>dict</em></a><em>, or </em><em>None</em><em>, </em><em>optional</em>) – Material of the inner conductor. A single dict describes a bulk conductor,
+a list of dict a stack of coatings ordered from the dielectric inwards, of
+which the deepest layer is the bulk that carries the dc current. Each dict
+takes the keys <code class="docutils literal notranslate"><span class="pre">'sigma'</span></code>, <code class="docutils literal notranslate"><span class="pre">'mu_r'</span></code> and <code class="docutils literal notranslate"><span class="pre">'ep_r'</span></code> of the layer itself,
+and <code class="docutils literal notranslate"><span class="pre">'rms_roughness'</span></code>, <code class="docutils literal notranslate"><span class="pre">'boundary_loc'</span></code> and <code class="docutils literal notranslate"><span class="pre">'distribution'</span></code> of the
+boundary on top of it, which are handed to
+<a class="reference internal" href="../../generated/skrf.tlineFunctions.surface_impedance.html#skrf.tlineFunctions.surface_impedance" title="skrf.tlineFunctions.surface_impedance"><code class="xref py py-func docutils literal notranslate"><span class="pre">surface_impedance()</span></code></a>.
+If None (default), the conductor is smooth and made of bulk <cite>sigma</cite>.</p></li>
+<li><p><strong>outer_conductor</strong> (<a class="reference internal" href="../../io/generated/skrf.io.csv.AgilentCSV.dict.html#skrf.io.csv.AgilentCSV.dict" title="skrf.io.csv.AgilentCSV.dict"><em>dict</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.15)"><em>list</em></a><em> of </em><a class="reference internal" href="../../io/generated/skrf.io.csv.AgilentCSV.dict.html#skrf.io.csv.AgilentCSV.dict" title="skrf.io.csv.AgilentCSV.dict"><em>dict</em></a><em>, or </em><em>None</em><em>, </em><em>optional</em>) – Material of the outer conductor, described as <cite>inner_conductor</cite>.</p></li>
+</ul>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Dint, Dout, tout, epsilon_r, tan_delta, sigma can all be vectors as long
+as they are the same length</p>
+</div>
+<p class="rubric">References</p>
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="schelkunoff" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a href="#id1" role="doc-backlink">1</a><span class="fn-bracket">]</span></span>
+<p>S. A. Schelkunoff, “The electromagnetic theory of coaxial
+transmission lines and cylindrical shields,” Bell Syst. Tech. J.,
+vol. 13, no. 4, pp. 532-579, Oct. 1934.
+<a class="reference external" href="https://doi.org/10.1002/j.1538-7305.1934.tb00679.x">https://doi.org/10.1002/j.1538-7305.1934.tb00679.x</a></p>
+</aside>
+<aside class="footnote brackets" id="tesche" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a href="#id2" role="doc-backlink">2</a><span class="fn-bracket">]</span></span>
+<p>F. M. Tesche, “A Simple Model for the Line Parameters of a Lossy
+Coaxial Cable Filled With a Nondispersive Dielectric,” IEEE Trans.
+Electromagn. Compat., vol. 49, no. 1, pp. 12-17, Feb. 2007.
+<a class="reference external" href="https://doi.org/10.1109/TEMC.2006.888185">https://doi.org/10.1109/TEMC.2006.888185</a></p>
+</aside>
+</aside>
+<p class="rubric">Examples</p>
+<p>An RG58C/U flexible cable with copper conductors and a lossy polyethylene filling.
+Its characteristic impedance and the insertion loss of a 100 mm length of it at 5 GHz:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">skrf</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">rf</span>
+</span><span data-line="2"><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><a class="sphinx-codeautolink-a" href="../../../api/media/index.html#module-0"><span class="nn">skrf.media</span></a><span class="w"> </span><span class="kn">import</span> <a class="sphinx-codeautolink-a" href="../../../api/media/generated/skrf.media.coaxial.Coaxial.html#skrf.media.coaxial.Coaxial" title="skrf.media.coaxial.Coaxial"><span class="n">Coaxial</span></a>
+</span><span data-line="3"><span class="gp">&gt;&gt;&gt; </span><a class="sphinx-codeautolink-a" href="../../../api/generated/skrf.frequency.Frequency.html#skrf.frequency.Frequency" title="skrf.frequency.Frequency"><span class="n">freq</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../../api/generated/skrf.frequency.Frequency.html#skrf.frequency.Frequency" title="skrf.frequency.Frequency"><span class="n">rf</span><span class="o">.</span><span class="n">Frequency</span></a><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">101</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s1">'GHz'</span><span class="p">)</span>
+</span><span data-line="4"><span class="gp">&gt;&gt;&gt; </span><a class="sphinx-codeautolink-a" href="../../../api/media/generated/skrf.media.coaxial.Coaxial.html#skrf.media.coaxial.Coaxial" title="skrf.media.coaxial.Coaxial"><span class="n">rg58</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../../api/media/generated/skrf.media.coaxial.Coaxial.html#skrf.media.coaxial.Coaxial" title="skrf.media.coaxial.Coaxial"><span class="n">Coaxial</span></a><span class="p">(</span><a class="sphinx-codeautolink-a" href="../../../api/generated/skrf.frequency.Frequency.html#skrf.frequency.Frequency" title="skrf.frequency.Frequency"><span class="n">freq</span></a><span class="p">,</span> <span class="n">Dint</span><span class="o">=</span><span class="mf">0.91e-3</span><span class="p">,</span> <span class="n">Dout</span><span class="o">=</span><span class="mf">2.95e-3</span><span class="p">,</span> <span class="n">epsilon_r</span><span class="o">=</span><span class="mf">2.3</span><span class="p">,</span>
+</span><span data-line="5"><span class="gp">... </span>               <span class="n">tan_delta</span><span class="o">=</span><span class="mf">2e-4</span><span class="p">,</span> <span class="n">sigma</span><span class="o">=</span><span class="mf">58e6</span><span class="p">,</span> <span class="n">z0_port</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+</span><span data-line="6"><span class="gp">&gt;&gt;&gt; </span><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/builtins/functions.html#print"><span class="nb">print</span></a><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><a class="sphinx-codeautolink-a" href="../../../api/media/generated/skrf.media.coaxial.Coaxial.z0.html#skrf.media.coaxial.Coaxial.z0" title="skrf.media.coaxial.Coaxial.z0"><span class="n">rg58</span><span class="o">.</span><span class="n">z0</span></a><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> ohm, </span><span class="si">{</span><a class="sphinx-codeautolink-a" href="../../../api/media/generated/skrf.media.coaxial.Coaxial.line.html#skrf.media.coaxial.Coaxial.line" title="skrf.media.coaxial.Coaxial.line"><span class="n">rg58</span><span class="o">.</span><span class="n">line</span></a><span class="p">(</span><span class="mi">100</span><span class="p">,</span><span class="w"> </span><span class="s1">'mm'</span><span class="p">)</span><span class="o">.</span><a class="sphinx-codeautolink-a" href="../../../api/generated/skrf.network.Network.s_db.html#skrf.network.Network.s_db" title="skrf.network.Network.s_db"><span class="n">s_db</span></a><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2"> dB"</span><span class="p">)</span>
+</span><span data-line="7"><span class="go">46.56-0.05j ohm, -0.094 dB</span>
+</span></pre></div>
+</div>
+<p>The same cable roughened by 0.6 um rms at the inner conductor and by 1 um rms
+at the braided shield, which is described by giving each conductor a material
+of its own instead of the bulk <cite>sigma</cite>:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="gp">&gt;&gt;&gt; </span><a class="sphinx-codeautolink-a" href="../../../api/media/generated/skrf.media.coaxial.Coaxial.html#skrf.media.coaxial.Coaxial" title="skrf.media.coaxial.Coaxial"><span class="n">rg58</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../../api/media/generated/skrf.media.coaxial.Coaxial.html#skrf.media.coaxial.Coaxial" title="skrf.media.coaxial.Coaxial"><span class="n">Coaxial</span></a><span class="p">(</span><a class="sphinx-codeautolink-a" href="../../../api/generated/skrf.frequency.Frequency.html#skrf.frequency.Frequency" title="skrf.frequency.Frequency"><span class="n">freq</span></a><span class="p">,</span> <span class="n">Dint</span><span class="o">=</span><span class="mf">0.91e-3</span><span class="p">,</span> <span class="n">Dout</span><span class="o">=</span><span class="mf">2.95e-3</span><span class="p">,</span> <span class="n">epsilon_r</span><span class="o">=</span><span class="mf">2.3</span><span class="p">,</span>
+</span><span data-line="2"><span class="gp">... </span>               <span class="n">tan_delta</span><span class="o">=</span><span class="mf">2e-4</span><span class="p">,</span> <span class="n">z0_port</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span>
+</span><span data-line="3"><span class="gp">... </span>               <span class="n">inner_conductor</span><span class="o">=</span><span class="p">{</span><span class="s1">'sigma'</span><span class="p">:</span> <span class="mf">58e6</span><span class="p">,</span> <span class="s1">'rms_roughness'</span><span class="p">:</span> <span class="mf">0.6e-6</span><span class="p">},</span>
+</span><span data-line="4"><span class="gp">... </span>               <span class="n">outer_conductor</span><span class="o">=</span><span class="p">{</span><span class="s1">'sigma'</span><span class="p">:</span> <span class="mf">58e6</span><span class="p">,</span> <span class="s1">'rms_roughness'</span><span class="p">:</span> <span class="mf">1e-6</span><span class="p">})</span>
+</span><span data-line="5"><span class="gp">&gt;&gt;&gt; </span><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/builtins/functions.html#print"><span class="nb">print</span></a><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><a class="sphinx-codeautolink-a" href="../../../api/media/generated/skrf.media.coaxial.Coaxial.line.html#skrf.media.coaxial.Coaxial.line" title="skrf.media.coaxial.Coaxial.line"><span class="n">rg58</span><span class="o">.</span><span class="n">line</span></a><span class="p">(</span><span class="mi">100</span><span class="p">,</span><span class="w"> </span><span class="s1">'mm'</span><span class="p">)</span><span class="o">.</span><a class="sphinx-codeautolink-a" href="../../../api/generated/skrf.network.Network.s_db.html#skrf.network.Network.s_db" title="skrf.network.Network.s_db"><span class="n">s_db</span></a><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2"> dB"</span><span class="p">)</span>
+</span><span data-line="6"><span class="go">-0.140 dB</span>
+</span></pre></div>
+</div>
+<p>An APC-7 air line whose two conductors carry an ENIG finish, 0.05 um of gold
+over 4 um of nickel over copper, roughened by 50 nm rms at the outside and by
+0.2 um rms at the copper underneath:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="gp">&gt;&gt;&gt; </span><span class="n">enig</span> <span class="o">=</span> <span class="p">[{</span><span class="s1">'sigma'</span><span class="p">:</span> <span class="mf">41.1e6</span><span class="p">,</span> <span class="s1">'rms_roughness'</span><span class="p">:</span> <span class="mf">50e-9</span><span class="p">,</span> <span class="s1">'boundary_loc'</span><span class="p">:</span> <span class="mi">0</span><span class="p">},</span>
+</span><span data-line="2"><span class="gp">... </span>        <span class="p">{</span><span class="s1">'sigma'</span><span class="p">:</span> <span class="mf">14.5e6</span><span class="p">,</span> <span class="s1">'mu_r'</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span> <span class="s1">'rms_roughness'</span><span class="p">:</span> <span class="mf">50e-9</span><span class="p">,</span> <span class="s1">'boundary_loc'</span><span class="p">:</span> <span class="mf">0.05e-6</span><span class="p">},</span>
+</span><span data-line="3"><span class="gp">... </span>        <span class="p">{</span><span class="s1">'sigma'</span><span class="p">:</span> <span class="mf">58e6</span><span class="p">,</span> <span class="s1">'rms_roughness'</span><span class="p">:</span> <span class="mf">0.2e-6</span><span class="p">,</span> <span class="s1">'boundary_loc'</span><span class="p">:</span> <span class="mf">4.05e-6</span><span class="p">}]</span>
+</span><span data-line="4"><span class="gp">&gt;&gt;&gt; </span><a class="sphinx-codeautolink-a" href="../../../api/generated/skrf.frequency.Frequency.html#skrf.frequency.Frequency" title="skrf.frequency.Frequency"><span class="n">freq</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../../api/generated/skrf.frequency.Frequency.html#skrf.frequency.Frequency" title="skrf.frequency.Frequency"><span class="n">rf</span><span class="o">.</span><span class="n">Frequency</span></a><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">18</span><span class="p">,</span> <span class="mi">171</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s1">'GHz'</span><span class="p">)</span>
+</span><span data-line="5"><span class="gp">&gt;&gt;&gt; </span><a class="sphinx-codeautolink-a" href="../../../api/media/generated/skrf.media.coaxial.Coaxial.html#skrf.media.coaxial.Coaxial" title="skrf.media.coaxial.Coaxial"><span class="n">apc7</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../../api/media/generated/skrf.media.coaxial.Coaxial.html#skrf.media.coaxial.Coaxial" title="skrf.media.coaxial.Coaxial"><span class="n">Coaxial</span></a><span class="p">(</span><a class="sphinx-codeautolink-a" href="../../../api/generated/skrf.frequency.Frequency.html#skrf.frequency.Frequency" title="skrf.frequency.Frequency"><span class="n">freq</span></a><span class="p">,</span> <span class="n">Dint</span><span class="o">=</span><span class="mf">3.04e-3</span><span class="p">,</span> <span class="n">Dout</span><span class="o">=</span><span class="mf">7.00e-3</span><span class="p">,</span>
+</span><span data-line="6"><span class="gp">... </span>               <span class="n">inner_conductor</span><span class="o">=</span><span class="n">enig</span><span class="p">,</span> <span class="n">outer_conductor</span><span class="o">=</span><span class="n">enig</span><span class="p">)</span>
+</span><span data-line="7"><span class="gp">&gt;&gt;&gt; </span><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/builtins/functions.html#print"><span class="nb">print</span></a><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><a class="sphinx-codeautolink-a" href="../../../api/media/generated/skrf.media.coaxial.Coaxial.z0.html#skrf.media.coaxial.Coaxial.z0" title="skrf.media.coaxial.Coaxial.z0"><span class="n">apc7</span><span class="o">.</span><span class="n">z0</span></a><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> ohm, </span><span class="si">{</span><a class="sphinx-codeautolink-a" href="../../../api/media/generated/skrf.media.coaxial.Coaxial.line.html#skrf.media.coaxial.Coaxial.line" title="skrf.media.coaxial.Coaxial.line"><span class="n">apc7</span><span class="o">.</span><span class="n">line</span></a><span class="p">(</span><span class="mi">100</span><span class="p">,</span><span class="w"> </span><span class="s1">'mm'</span><span class="p">)</span><span class="o">.</span><a class="sphinx-codeautolink-a" href="../../../api/generated/skrf.network.Network.s_db.html#skrf.network.Network.s_db" title="skrf.network.Network.s_db"><span class="n">s_db</span></a><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2"> dB"</span><span class="p">)</span>
+</span><span data-line="8"><span class="go">50.22-0.25j ohm, -0.301 dB</span>
+</span></pre></div>
+</div>
+</dd></dl>
+<p class="rubric">Attributes</p>
+<div class="table-wrapper autosummary longtable docutils container">
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="skrf.media.coaxial.Coaxial.C.html#skrf.media.coaxial.Coaxial.C" title="skrf.media.coaxial.Coaxial.C"><code class="xref py py-obj docutils literal notranslate"><span class="pre">C</span></code></a></p></td>
+<td><p>Distributed capacitance C, in F/m</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="skrf.media.coaxial.Coaxial.G.html#skrf.media.coaxial.Coaxial.G" title="skrf.media.coaxial.Coaxial.G"><code class="xref py py-obj docutils literal notranslate"><span class="pre">G</span></code></a></p></td>
+<td><p>Distributed conductance G, in S/m</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="skrf.media.coaxial.Coaxial.L.html#skrf.media.coaxial.Coaxial.L" title="skrf.media.coaxial.Coaxial.L"><code class="xref py py-obj docutils literal notranslate"><span class="pre">L</span></code></a></p></td>
+<td><p>Distributed inductance L, in H/m</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="skrf.media.coaxial.Coaxial.R.html#skrf.media.coaxial.Coaxial.R" title="skrf.media.coaxial.Coaxial.R"><code class="xref py py-obj docutils literal notranslate"><span class="pre">R</span></code></a></p></td>
+<td><p>Distributed resistance R, in Ohm/m.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="skrf.media.coaxial.Coaxial.Rs.html#skrf.media.coaxial.Coaxial.Rs" title="skrf.media.coaxial.Coaxial.Rs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Rs</span></code></a></p></td>
+<td><p>Surface resistivity in Ohm/area.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="skrf.media.coaxial.Coaxial.Y.html#skrf.media.coaxial.Coaxial.Y" title="skrf.media.coaxial.Coaxial.Y"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Y</span></code></a></p></td>
+<td><p>Distributed Admittance, <span class="math notranslate nohighlight">\(Y^{'}\)</span>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="skrf.media.coaxial.Coaxial.Z.html#skrf.media.coaxial.Coaxial.Z" title="skrf.media.coaxial.Coaxial.Z"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Z</span></code></a></p></td>
+<td><p>Distributed Impedance, <span class="math notranslate nohighlight">\(Z^{'}\)</span>.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="skrf.media.coaxial.Coaxial.Z0.html#skrf.media.coaxial.Coaxial.Z0" title="skrf.media.coaxial.Coaxial.Z0"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Z0</span></code></a></p></td>
+<td><p>Characteristic Impedance</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="skrf.media.coaxial.Coaxial.a.html#skrf.media.coaxial.Coaxial.a" title="skrf.media.coaxial.Coaxial.a"><code class="xref py py-obj docutils literal notranslate"><span class="pre">a</span></code></a></p></td>
+<td><p>Inner radius of the coaxial line</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="skrf.media.coaxial.Coaxial.alpha.html#skrf.media.coaxial.Coaxial.alpha" title="skrf.media.coaxial.Coaxial.alpha"><code class="xref py py-obj docutils literal notranslate"><span class="pre">alpha</span></code></a></p></td>
+<td><p>Real (attenuation) component of gamma.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="skrf.media.coaxial.Coaxial.b.html#skrf.media.coaxial.Coaxial.b" title="skrf.media.coaxial.Coaxial.b"><code class="xref py py-obj docutils literal notranslate"><span class="pre">b</span></code></a></p></td>
+<td><p>Outer radius of the coaxial line</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="skrf.media.coaxial.Coaxial.beta.html#skrf.media.coaxial.Coaxial.beta" title="skrf.media.coaxial.Coaxial.beta"><code class="xref py py-obj docutils literal notranslate"><span class="pre">beta</span></code></a></p></td>
+<td><p>Imaginary (propagating) component of gamma.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="skrf.media.coaxial.Coaxial.gamma.html#skrf.media.coaxial.Coaxial.gamma" title="skrf.media.coaxial.Coaxial.gamma"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gamma</span></code></a></p></td>
+<td><p>Propagation Constant, <span class="math notranslate nohighlight">\(\gamma\)</span>.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="skrf.media.coaxial.Coaxial.npoints.html#skrf.media.coaxial.Coaxial.npoints" title="skrf.media.coaxial.Coaxial.npoints"><code class="xref py py-obj docutils literal notranslate"><span class="pre">npoints</span></code></a></p></td>
+<td><p>Number of points of the frequency axis.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="skrf.media.coaxial.Coaxial.v_g.html#skrf.media.coaxial.Coaxial.v_g" title="skrf.media.coaxial.Coaxial.v_g"><code class="xref py py-obj docutils literal notranslate"><span class="pre">v_g</span></code></a></p></td>
+<td><p>Complex group velocity (in m/s).</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="skrf.media.coaxial.Coaxial.v_p.html#skrf.media.coaxial.Coaxial.v_p" title="skrf.media.coaxial.Coaxial.v_p"><code class="xref py py-obj docutils literal notranslate"><span class="pre">v_p</span></code></a></p></td>
+<td><p>Complex phase velocity (in m/s).</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="skrf.media.coaxial.Coaxial.z0.html#skrf.media.coaxial.Coaxial.z0" title="skrf.media.coaxial.Coaxial.z0"><code class="xref py py-obj docutils literal notranslate"><span class="pre">z0</span></code></a></p></td>
+<td><p>Return Characteristic Impedance <cite>z0_characteristic</cite>.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="skrf.media.coaxial.Coaxial.z0_characteristic.html#skrf.media.coaxial.Coaxial.z0_characteristic" title="skrf.media.coaxial.Coaxial.z0_characteristic"><code class="xref py py-obj docutils literal notranslate"><span class="pre">z0_characteristic</span></code></a></p></td>
+<td><p>Characteristic Impedance, <span class="math notranslate nohighlight">\(z_0\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="skrf.media.coaxial.Coaxial.z0_override.html#skrf.media.coaxial.Coaxial.z0_override" title="skrf.media.coaxial.Coaxial.z0_override"><code class="xref py py-obj docutils literal notranslate"><span class="pre">z0_override</span></code></a></p></td>
+<td><p>Port Impedance.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="skrf.media.coaxial.Coaxial.z0_port.html#skrf.media.coaxial.Coaxial.z0_port" title="skrf.media.coaxial.Coaxial.z0_port"><code class="xref py py-obj docutils literal notranslate"><span class="pre">z0_port</span></code></a></p></td>
+<td><p>Port Impedance.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p class="rubric">Methods</p>
+<div class="table-wrapper autosummary longtable docutils container">
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="skrf.media.coaxial.Coaxial.__init__.html#skrf.media.coaxial.Coaxial.__init__" title="skrf.media.coaxial.Coaxial.__init__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__init__</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="skrf.media.coaxial.Coaxial.attenuator.html#skrf.media.coaxial.Coaxial.attenuator" title="skrf.media.coaxial.Coaxial.attenuator"><code class="xref py py-obj docutils literal notranslate"><span class="pre">attenuator</span></code></a></p></td>
+<td><p>Ideal matched attenuator of a given length.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="skrf.media.coaxial.Coaxial.capacitor.html#skrf.media.coaxial.Coaxial.capacitor" title="skrf.media.coaxial.Coaxial.capacitor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">capacitor</span></code></a></p></td>
+<td><p>Capacitor.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="skrf.media.coaxial.Coaxial.capacitor_q.html#skrf.media.coaxial.Coaxial.capacitor_q" title="skrf.media.coaxial.Coaxial.capacitor_q"><code class="xref py py-obj docutils literal notranslate"><span class="pre">capacitor_q</span></code></a></p></td>
+<td><p>Capacitor with Q factor.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="skrf.media.coaxial.Coaxial.copy.html#skrf.media.coaxial.Coaxial.copy" title="skrf.media.coaxial.Coaxial.copy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">copy</span></code></a></p></td>
+<td><p>Copy of this Media object.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="skrf.media.coaxial.Coaxial.delay_load.html#skrf.media.coaxial.Coaxial.delay_load" title="skrf.media.coaxial.Coaxial.delay_load"><code class="xref py py-obj docutils literal notranslate"><span class="pre">delay_load</span></code></a></p></td>
+<td><p>Delayed load.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="skrf.media.coaxial.Coaxial.delay_open.html#skrf.media.coaxial.Coaxial.delay_open" title="skrf.media.coaxial.Coaxial.delay_open"><code class="xref py py-obj docutils literal notranslate"><span class="pre">delay_open</span></code></a></p></td>
+<td><p>Delayed open transmission line.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="skrf.media.coaxial.Coaxial.delay_short.html#skrf.media.coaxial.Coaxial.delay_short" title="skrf.media.coaxial.Coaxial.delay_short"><code class="xref py py-obj docutils literal notranslate"><span class="pre">delay_short</span></code></a></p></td>
+<td><p>Delayed Short.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="skrf.media.coaxial.Coaxial.electrical_length.html#skrf.media.coaxial.Coaxial.electrical_length" title="skrf.media.coaxial.Coaxial.electrical_length"><code class="xref py py-obj docutils literal notranslate"><span class="pre">electrical_length</span></code></a></p></td>
+<td><p>Calculate the complex electrical length for a given distance.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="skrf.media.coaxial.Coaxial.extract_distance.html#skrf.media.coaxial.Coaxial.extract_distance" title="skrf.media.coaxial.Coaxial.extract_distance"><code class="xref py py-obj docutils literal notranslate"><span class="pre">extract_distance</span></code></a></p></td>
+<td><p>Determines physical distance from a transmission or reflection Network.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="skrf.media.coaxial.Coaxial.from_Z0_Dout.html#skrf.media.coaxial.Coaxial.from_Z0_Dout" title="skrf.media.coaxial.Coaxial.from_Z0_Dout"><code class="xref py py-obj docutils literal notranslate"><span class="pre">from_Z0_Dout</span></code></a></p></td>
+<td><p>Init from characteristic impedance and outer diameter.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="skrf.media.coaxial.Coaxial.from_attenuation_VF.html#skrf.media.coaxial.Coaxial.from_attenuation_VF" title="skrf.media.coaxial.Coaxial.from_attenuation_VF"><code class="xref py py-obj docutils literal notranslate"><span class="pre">from_attenuation_VF</span></code></a></p></td>
+<td><p>Init from electrical properties of the line: attenuation and velocity factor.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="skrf.media.coaxial.Coaxial.from_csv.html#skrf.media.coaxial.Coaxial.from_csv" title="skrf.media.coaxial.Coaxial.from_csv"><code class="xref py py-obj docutils literal notranslate"><span class="pre">from_csv</span></code></a></p></td>
+<td><p>Create a <cite>DistributedCircuit</cite> from numerical values stored in a csv file.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="skrf.media.coaxial.Coaxial.from_media.html#skrf.media.coaxial.Coaxial.from_media" title="skrf.media.coaxial.Coaxial.from_media"><code class="xref py py-obj docutils literal notranslate"><span class="pre">from_media</span></code></a></p></td>
+<td><p>Initializes a <cite>DistributedCircuit</cite> from an existing <a class="reference internal" href="skrf.media.media.Media.html#skrf.media.media.Media" title="skrf.media.media.Media"><code class="xref py py-class docutils literal notranslate"><span class="pre">Media</span></code></a> instance.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="skrf.media.coaxial.Coaxial.get_array_of.html#skrf.media.coaxial.Coaxial.get_array_of" title="skrf.media.coaxial.Coaxial.get_array_of"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_array_of</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="skrf.media.coaxial.Coaxial.impedance_mismatch.html#skrf.media.coaxial.Coaxial.impedance_mismatch" title="skrf.media.coaxial.Coaxial.impedance_mismatch"><code class="xref py py-obj docutils literal notranslate"><span class="pre">impedance_mismatch</span></code></a></p></td>
+<td><p>Two-port network for an impedance mismatch.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="skrf.media.coaxial.Coaxial.inductor.html#skrf.media.coaxial.Coaxial.inductor" title="skrf.media.coaxial.Coaxial.inductor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">inductor</span></code></a></p></td>
+<td><p>Inductor.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="skrf.media.coaxial.Coaxial.inductor_q.html#skrf.media.coaxial.Coaxial.inductor_q" title="skrf.media.coaxial.Coaxial.inductor_q"><code class="xref py py-obj docutils literal notranslate"><span class="pre">inductor_q</span></code></a></p></td>
+<td><p>Inductor with Q factor.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="skrf.media.coaxial.Coaxial.isolator.html#skrf.media.coaxial.Coaxial.isolator" title="skrf.media.coaxial.Coaxial.isolator"><code class="xref py py-obj docutils literal notranslate"><span class="pre">isolator</span></code></a></p></td>
+<td><p>Two-port isolator.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="skrf.media.coaxial.Coaxial.line.html#skrf.media.coaxial.Coaxial.line" title="skrf.media.coaxial.Coaxial.line"><code class="xref py py-obj docutils literal notranslate"><span class="pre">line</span></code></a></p></td>
+<td><p>Transmission line of a given length and impedance.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="skrf.media.coaxial.Coaxial.line_floating.html#skrf.media.coaxial.Coaxial.line_floating" title="skrf.media.coaxial.Coaxial.line_floating"><code class="xref py py-obj docutils literal notranslate"><span class="pre">line_floating</span></code></a></p></td>
+<td><p>Floating transmission line of a given length and impedance.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="skrf.media.coaxial.Coaxial.load.html#skrf.media.coaxial.Coaxial.load" title="skrf.media.coaxial.Coaxial.load"><code class="xref py py-obj docutils literal notranslate"><span class="pre">load</span></code></a></p></td>
+<td><p>Load of given reflection coefficient.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="skrf.media.coaxial.Coaxial.lossless_mismatch.html#skrf.media.coaxial.Coaxial.lossless_mismatch" title="skrf.media.coaxial.Coaxial.lossless_mismatch"><code class="xref py py-obj docutils literal notranslate"><span class="pre">lossless_mismatch</span></code></a></p></td>
+<td><p>Lossless, symmetric mismatch defined by its return loss.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="skrf.media.coaxial.Coaxial.match.html#skrf.media.coaxial.Coaxial.match" title="skrf.media.coaxial.Coaxial.match"><code class="xref py py-obj docutils literal notranslate"><span class="pre">match</span></code></a></p></td>
+<td><p>Perfect matched load (<span class="math notranslate nohighlight">\(\Gamma_0 = 0\)</span>).</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="skrf.media.coaxial.Coaxial.mode.html#skrf.media.coaxial.Coaxial.mode" title="skrf.media.coaxial.Coaxial.mode"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mode</span></code></a></p></td>
+<td><p>Create another mode in this medium.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="skrf.media.coaxial.Coaxial.open.html#skrf.media.coaxial.Coaxial.open" title="skrf.media.coaxial.Coaxial.open"><code class="xref py py-obj docutils literal notranslate"><span class="pre">open</span></code></a></p></td>
+<td><p>Open (<span class="math notranslate nohighlight">\(\Gamma_0 = 1\)</span>).</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="skrf.media.coaxial.Coaxial.plot.html#skrf.media.coaxial.Coaxial.plot" title="skrf.media.coaxial.Coaxial.plot"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="skrf.media.coaxial.Coaxial.random.html#skrf.media.coaxial.Coaxial.random" title="skrf.media.coaxial.Coaxial.random"><code class="xref py py-obj docutils literal notranslate"><span class="pre">random</span></code></a></p></td>
+<td><p>Complex random network.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="skrf.media.coaxial.Coaxial.resistor.html#skrf.media.coaxial.Coaxial.resistor" title="skrf.media.coaxial.Coaxial.resistor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">resistor</span></code></a></p></td>
+<td><p>Resistor.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="skrf.media.coaxial.Coaxial.short.html#skrf.media.coaxial.Coaxial.short" title="skrf.media.coaxial.Coaxial.short"><code class="xref py py-obj docutils literal notranslate"><span class="pre">short</span></code></a></p></td>
+<td><p>Short (<span class="math notranslate nohighlight">\(\Gamma_0 = -1\)</span>)</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="skrf.media.coaxial.Coaxial.shunt.html#skrf.media.coaxial.Coaxial.shunt" title="skrf.media.coaxial.Coaxial.shunt"><code class="xref py py-obj docutils literal notranslate"><span class="pre">shunt</span></code></a></p></td>
+<td><p>Shunts a <a class="reference internal" href="../../generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><code class="xref py py-class docutils literal notranslate"><span class="pre">Network</span></code></a>.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="skrf.media.coaxial.Coaxial.shunt_capacitor.html#skrf.media.coaxial.Coaxial.shunt_capacitor" title="skrf.media.coaxial.Coaxial.shunt_capacitor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">shunt_capacitor</span></code></a></p></td>
+<td><p>Shunted capacitor.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="skrf.media.coaxial.Coaxial.shunt_delay_load.html#skrf.media.coaxial.Coaxial.shunt_delay_load" title="skrf.media.coaxial.Coaxial.shunt_delay_load"><code class="xref py py-obj docutils literal notranslate"><span class="pre">shunt_delay_load</span></code></a></p></td>
+<td><p>Shunted delayed load.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="skrf.media.coaxial.Coaxial.shunt_delay_open.html#skrf.media.coaxial.Coaxial.shunt_delay_open" title="skrf.media.coaxial.Coaxial.shunt_delay_open"><code class="xref py py-obj docutils literal notranslate"><span class="pre">shunt_delay_open</span></code></a></p></td>
+<td><p>Shunted delayed open.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="skrf.media.coaxial.Coaxial.shunt_delay_short.html#skrf.media.coaxial.Coaxial.shunt_delay_short" title="skrf.media.coaxial.Coaxial.shunt_delay_short"><code class="xref py py-obj docutils literal notranslate"><span class="pre">shunt_delay_short</span></code></a></p></td>
+<td><p>Shunted delayed short.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="skrf.media.coaxial.Coaxial.shunt_inductor.html#skrf.media.coaxial.Coaxial.shunt_inductor" title="skrf.media.coaxial.Coaxial.shunt_inductor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">shunt_inductor</span></code></a></p></td>
+<td><p>Shunted inductor.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="skrf.media.coaxial.Coaxial.shunt_resistor.html#skrf.media.coaxial.Coaxial.shunt_resistor" title="skrf.media.coaxial.Coaxial.shunt_resistor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">shunt_resistor</span></code></a></p></td>
+<td><p>Shunted resistor.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="skrf.media.coaxial.Coaxial.splitter.html#skrf.media.coaxial.Coaxial.splitter" title="skrf.media.coaxial.Coaxial.splitter"><code class="xref py py-obj docutils literal notranslate"><span class="pre">splitter</span></code></a></p></td>
+<td><p>Ideal, lossless n-way splitter.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="skrf.media.coaxial.Coaxial.tee.html#skrf.media.coaxial.Coaxial.tee" title="skrf.media.coaxial.Coaxial.tee"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tee</span></code></a></p></td>
+<td><p>Ideal, lossless tee.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="skrf.media.coaxial.Coaxial.theta_2_d.html#skrf.media.coaxial.Coaxial.theta_2_d" title="skrf.media.coaxial.Coaxial.theta_2_d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">theta_2_d</span></code></a></p></td>
+<td><p>Convert electrical length to physical distance.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="skrf.media.coaxial.Coaxial.thru.html#skrf.media.coaxial.Coaxial.thru" title="skrf.media.coaxial.Coaxial.thru"><code class="xref py py-obj docutils literal notranslate"><span class="pre">thru</span></code></a></p></td>
+<td><p>Matched transmission line of length 0.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="skrf.media.coaxial.Coaxial.to_meters.html#skrf.media.coaxial.Coaxial.to_meters" title="skrf.media.coaxial.Coaxial.to_meters"><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_meters</span></code></a></p></td>
+<td><p>Translate various units of distance into meters.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="skrf.media.coaxial.Coaxial.white_gaussian_polar.html#skrf.media.coaxial.Coaxial.white_gaussian_polar" title="skrf.media.coaxial.Coaxial.white_gaussian_polar"><code class="xref py py-obj docutils literal notranslate"><span class="pre">white_gaussian_polar</span></code></a></p></td>
+<td><p>Complex zero-mean gaussian white-noise network.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="skrf.media.coaxial.Coaxial.write_csv.html#skrf.media.coaxial.Coaxial.write_csv" title="skrf.media.coaxial.Coaxial.write_csv"><code class="xref py py-obj docutils literal notranslate"><span class="pre">write_csv</span></code></a></p></td>
+<td><p>write this media's frequency, gamma, Z0, and z0 to a csv file.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+
+        </article><button class="back-to-top" type="button">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+  </svg>
+  <span>Back to top</span>
+</button><div class="navigation flex print:hidden"><div class="navigation-prev">
+    <a href="skrf.media.cpw.CPW.write_csv.html">
+      <i class="i-lucide chevron-left"></i>
+      <div class="page-info">
+        <span>Previous</span><div class="title">skrf.media.cpw.CPW.write_csv</div></div>
+    </a>
+  </div><div class="navigation-next">
+    <a href="skrf.media.coaxial.Coaxial.C.html">
+      <div class="page-info">
+        <span>Next</span>
+        <div class="title">skrf.media.coaxial.Coaxial.C</div>
+      </div>
+      <i class="i-lucide chevron-right"></i>
+    </a>
+  </div></div></div>
+    </div>
+  </main>
+</div>
+<footer class="sy-foot">
+  <div class="sy-foot-inner sy-container mx-auto">
+    <div class="sy-foot-reserved md:flex justify-between items-center">
+      <div class="sy-foot-copyright"><p>2025, scikit-rf team</p>
+  
+  <p>
+    Made with
+    
+    <a href="https://www.sphinx-doc.org/">Sphinx</a> and
+    
+    <a href="https://shibuya.lepture.com">Shibuya theme</a>.
+  </p>
+</div>
+      <div class="sy-foot-socials">
+  <a href="https://github.com/scikit-rf/scikit-rf" aria-label="GitHub">
+    <iconify-icon icon="simple-icons:github"></iconify-icon>
+  </a></div>
+    </div>
+  </div>
+</footer>
+      <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../../_static/copybutton.js?v=34bd459d"></script>
+      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+      <script src="../../../_static/shibuya.js?v=50760d75"></script>
+      <script src="https://cdn.jsdelivr.net/npm/@jupyter-widgets/html-manager@^1.0.1/dist/embed-amd.js"></script>
+      <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
+      <script src="../../../_static/skrf.js?v=bdeb9fb0"></script></body>
+</html>

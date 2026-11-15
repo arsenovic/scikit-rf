@@ -1,0 +1,6 @@
+skrf.vi.vna.keysight.PNA.query\_values
+======================================
+
+.. currentmodule:: skrf.vi.vna.keysight
+
+.. automethod:: PNA.query_values

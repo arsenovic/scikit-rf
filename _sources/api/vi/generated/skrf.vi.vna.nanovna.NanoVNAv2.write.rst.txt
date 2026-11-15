@@ -1,0 +1,6 @@
+skrf.vi.vna.nanovna.NanoVNAv2.write
+===================================
+
+.. currentmodule:: skrf.vi.vna.nanovna
+
+.. automethod:: NanoVNAv2.write

@@ -1,0 +1,6 @@
+skrf.vi.vna.keysight.FieldFox.timeout
+=====================================
+
+.. currentmodule:: skrf.vi.vna.keysight
+
+.. autoproperty:: FieldFox.timeout

@@ -1,0 +1,6 @@
+skrf.network.Network.port\_names
+================================
+
+.. currentmodule:: skrf.network
+
+.. autoproperty:: Network.port_names

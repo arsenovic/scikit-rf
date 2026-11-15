@@ -1,0 +1,6 @@
+skrf.calibration.calibration.TUGMultilineTRL.kappa
+==================================================
+
+.. currentmodule:: skrf.calibration.calibration
+
+.. autoproperty:: TUGMultilineTRL.kappa

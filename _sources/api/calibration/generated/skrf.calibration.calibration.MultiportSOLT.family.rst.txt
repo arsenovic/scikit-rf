@@ -1,0 +1,6 @@
+skrf.calibration.calibration.MultiportSOLT.family
+=================================================
+
+.. currentmodule:: skrf.calibration.calibration
+
+.. autoattribute:: MultiportSOLT.family

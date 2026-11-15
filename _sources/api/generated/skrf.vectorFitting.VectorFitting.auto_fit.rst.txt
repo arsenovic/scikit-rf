@@ -1,0 +1,6 @@
+skrf.vectorFitting.VectorFitting.auto\_fit
+==========================================
+
+.. currentmodule:: skrf.vectorFitting
+
+.. automethod:: VectorFitting.auto_fit

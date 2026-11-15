@@ -1,0 +1,6 @@
+skrf.calibration.calibration.MultiportCal.terminate\_2port
+==========================================================
+
+.. currentmodule:: skrf.calibration.calibration
+
+.. automethod:: MultiportCal.terminate_2port

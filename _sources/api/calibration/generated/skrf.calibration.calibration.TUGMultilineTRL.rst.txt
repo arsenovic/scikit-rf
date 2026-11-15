@@ -1,0 +1,78 @@
+﻿skrf.calibration.calibration.TUGMultilineTRL
+============================================
+
+.. currentmodule:: skrf.calibration.calibration
+
+.. autoclass:: TUGMultilineTRL
+  :no-members:
+
+
+
+.. rubric:: Attributes
+
+.. autosummary::
+  :toctree:
+  :nosignatures:
+
+  ~TUGMultilineTRL.T_matrices
+  ~TUGMultilineTRL.biased_error
+  ~TUGMultilineTRL.caled_ntwk_sets
+  ~TUGMultilineTRL.caled_ntwks
+  ~TUGMultilineTRL.coefs
+  ~TUGMultilineTRL.coefs_12term
+  ~TUGMultilineTRL.coefs_12term_ntwks
+  ~TUGMultilineTRL.coefs_3term
+  ~TUGMultilineTRL.coefs_3term_ntwks
+  ~TUGMultilineTRL.coefs_8term
+  ~TUGMultilineTRL.coefs_8term_ntwks
+  ~TUGMultilineTRL.coefs_ntwks
+  ~TUGMultilineTRL.effective_phase_deg
+  ~TUGMultilineTRL.er_eff
+  ~TUGMultilineTRL.error_ntwk
+  ~TUGMultilineTRL.family
+  ~TUGMultilineTRL.frequency
+  ~TUGMultilineTRL.gamma
+  ~TUGMultilineTRL.kappa
+  ~TUGMultilineTRL.lambd
+  ~TUGMultilineTRL.measured_unisolated
+  ~TUGMultilineTRL.measured_unterminated
+  ~TUGMultilineTRL.normalized_directivity
+  ~TUGMultilineTRL.nstandards
+  ~TUGMultilineTRL.output_from_run
+  ~TUGMultilineTRL.residual_ntwk_sets
+  ~TUGMultilineTRL.residual_ntwks
+  ~TUGMultilineTRL.total_error
+  ~TUGMultilineTRL.unbiased_error
+  ~TUGMultilineTRL.verify_12term
+  ~TUGMultilineTRL.verify_12term_ntwk
+
+
+
+
+
+.. rubric:: Methods
+
+.. autosummary::
+  :toctree:
+  :nosignatures:
+
+  ~TUGMultilineTRL.__init__
+  ~TUGMultilineTRL.apply_cal
+  ~TUGMultilineTRL.apply_cal_to_all_in_dir
+  ~TUGMultilineTRL.apply_cal_to_list
+  ~TUGMultilineTRL.apply_cal_to_network_set
+  ~TUGMultilineTRL.embed
+  ~TUGMultilineTRL.from_coefs
+  ~TUGMultilineTRL.from_coefs_ntwks
+  ~TUGMultilineTRL.plot_caled_ntwks
+  ~TUGMultilineTRL.plot_calibration_errors
+  ~TUGMultilineTRL.plot_residuals
+  ~TUGMultilineTRL.pop
+  ~TUGMultilineTRL.remove_and_cal
+  ~TUGMultilineTRL.renormalize
+  ~TUGMultilineTRL.run
+  ~TUGMultilineTRL.terminate
+  ~TUGMultilineTRL.unterminate
+  ~TUGMultilineTRL.update_coefs
+  ~TUGMultilineTRL.write
+

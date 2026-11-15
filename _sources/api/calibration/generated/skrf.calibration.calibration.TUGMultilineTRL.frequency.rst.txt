@@ -1,0 +1,6 @@
+skrf.calibration.calibration.TUGMultilineTRL.frequency
+======================================================
+
+.. currentmodule:: skrf.calibration.calibration
+
+.. autoproperty:: TUGMultilineTRL.frequency

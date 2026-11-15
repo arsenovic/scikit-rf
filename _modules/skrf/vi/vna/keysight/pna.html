@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="en" data-accent-color="blue" data-content_root="../../../../../">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>skrf.vi.vna.keysight.pna - scikit-rf</title><link rel="author" title="About these documents" href="../../../../../about.html" /><link rel="index" title="Index" href="../../../../../genindex.html" /><link rel="search" title="Search" href="../../../../../search.html" /><script>
+    function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
+    setColorMode(localStorage._theme||"auto");
+  </script><link rel="stylesheet" type="text/css" href="../../../../../_static/pygments.css?v=ad592e98" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/shibuya.css?v=2ceb65ce" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/sphinx-codeautolink.css?v=b2176991" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/copybutton.css?v=76b2166b" />
+    <link media="print" rel="stylesheet" type="text/css" href="../../../../../_static/print.css?v=20ff2c19" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/skrf.css?v=7e772ba2" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --sy-f-text: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+  --sy-f-heading: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+}
+</style>
+    
+  <meta property="og:type" content="website"/><meta property="og:title" content="skrf.vi.vna.keysight.pna"/>
+    <meta name="twitter:card" content="summary"/>
+  </head>
+<body><div class="sy-head">
+  <div class="sy-head-blur"></div>
+  <div class="sy-head-inner sy-container mx-auto">
+    <a class="sy-head-brand" href="../../../../../index.html">
+      <img class="light-logo" src="../../../../../_static/logo.svg" alt="scikit-rf" height="28" loading="lazy" />
+      <img class="dark-logo" src="../../../../../_static/logo.svg" alt="scikit-rf" height="28" loading="lazy" />
+      <strong>scikit-rf</strong>
+    </a>
+    <div class="sy-head-nav" id="head-nav">
+      <nav class="sy-head-links"><ul><li class="link"><a href="../../../../../index.html">Home</a></li><li class="link"><a href="../../../../../tutorials/index.html">Tutorials</a></li><li class="link"><a href="../../../../../examples/index.html">Examples</a></li><li class="link"><a href="../../../../../api/index.html">API</a></li><li class="link">
+          <a href="https://github.com/scikit-rf/scikit-rf">
+            <span>GitHub</span><i class="i-lucide external-link"></i></a>
+        </li></ul></nav>
+      <div class="sy-head-extra flex items-center print:hidden"><form class="searchbox flex items-center" action="../../../../../search.html" method="get">
+  <input type="text" name="q" placeholder="Search" />
+  <kbd>/</kbd>
+</form><div class="sy-head-socials">
+  <a href="https://github.com/scikit-rf/scikit-rf" aria-label="GitHub">
+    <iconify-icon icon="simple-icons:github"></iconify-icon>
+  </a>
+  <a href="https://www.linkedin.com/groups/12462155/" aria-label="LinkedIn">
+    <iconify-icon icon="simple-icons:linkedin"></iconify-icon>
+  </a>
+  <a href="https://app.element.io/#/room/#scikit-rf:matrix.org" aria-label="Matrix">
+    <iconify-icon icon="simple-icons:matrix"></iconify-icon>
+  </a></div></div>
+    </div>
+    <div class="sy-head-actions flex items-center shrink-0 print:hidden"><button class="js-theme theme-switch flex items-center"
+data-aria-auto="Switch to light color mode"
+data-aria-light="Switch to dark color mode"
+data-aria-dark="Switch to auto color mode">
+<i class="i-lucide theme-icon"></i>
+</button><button class="md:hidden flex items-center js-menu" aria-label="Menu" type="button" aria-controls="head-nav" aria-expanded="false">
+        <div class="hamburger">
+          <span class="hamburger_1"></span>
+          <span class="hamburger_2"></span>
+          <span class="hamburger_3"></span>
+        </div>
+      </button>
+    </div>
+  </div>
+</div>
+<div class="sy-page sy-container flex mx-auto">
+  <aside id="lside" class="sy-lside md:w-72 md:shrink-0 print:hidden">
+    <div class="sy-lside-inner md:sticky">
+      <div class="sy-scrollbar p-6">
+        <div class="globaltoc" data-expand-depth="0"><p class="caption" role="heading" aria-level="3"><span class="caption-text">Getting started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../index.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../tutorials/Installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../tutorials/Introduction.html">Introduction</a></li>
+</ul>
+<p class="caption" role="heading" aria-level="3"><span class="caption-text">User guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../examples/index.html">Examples</a></li>
+</ul>
+<p class="caption" role="heading" aria-level="3"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../api/index.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../glossary.html">Glossary</a></li>
+</ul>
+<p class="caption" role="heading" aria-level="3"><span class="caption-text">Project</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../contributing/index.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../citations_ack/acknowledging.html">Citing scikit-rf</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../citations_ack/citations.html">scikit-rf Citations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../about.html">About</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../users.html">Users</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../license.html">License</a></li>
+</ul>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="lside-overlay js-menu" role="button" aria-label="Close left sidebar" aria-controls="lside" aria-expanded="false"></div>
+  <aside id="rside" class="sy-rside pb-3 w-64 shrink-0 order-last">
+    <button class="rside-close js-menu xl:hidden" aria-label="Close Table of Contents" type="button" aria-controls="rside" aria-expanded="false">
+      <i class="i-lucide close"></i>
+    </button>
+    <div class="sy-scrollbar sy-rside-inner px-6 xl:top-16 xl:sticky xl:pl-0 pt-6 pb-4"><div id="ethical-ad-placement" data-ea-publisher="readthedocs"></div></div>
+  </aside>
+  <div class="rside-overlay js-menu" role="button" aria-label="Close Table of Contents" aria-controls="rside" aria-expanded="false"></div>
+  <main class="sy-main w-full max-sm:max-w-full print:pt-6">
+<div class="sy-breadcrumbs" role="navigation">
+  <div class="sy-breadcrumbs-inner flex items-center">
+    <div class="md:hidden mr-3">
+      <button class="js-menu" aria-label="Menu" type="button" aria-controls="lside" aria-expanded="false">
+        <i class="i-lucide menu"></i>
+      </button>
+    </div>
+    <ol class="flex-1" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="../../../../../index.html"><span itemprop="name">scikit-rf</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="1" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="../../../../index.html"><span itemprop="name">Module code</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="2" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <strong itemprop="name">skrf.vi.vna.keysight.pna</strong>
+        <meta itemprop="position" content="3" />
+      </li></ol>
+    <div class="xl:hidden ml-1">
+      <button class="js-menu" aria-label="Show table of contents" type="button" aria-controls="rside"
+        aria-expanded="false">
+        <i class="i-lucide outdent"></i>
+      </button>
+    </div>
+  </div>
+</div><div class="flex flex-col break-words justify-between">
+      <div class="relative min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
+  <article class="yue" role="main">
+          <h1>Source code for skrf.vi.vna.keysight.pna</h1><div class="highlight"><pre>
+<span></span><span data-line="1"><span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
+</span><span data-line="2">
+</span><span data-line="3"><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">TYPE_CHECKING</span>
+</span><span data-line="4">
+</span><span data-line="5"><span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
+</span><span data-line="6">    <span class="kn">from</span><span class="w"> </span><span class="nn">collections.abc</span><span class="w"> </span><span class="kn">import</span> <span class="n">Sequence</span>
+</span><span data-line="7">
+</span><span data-line="8"><span class="kn">import</span><span class="w"> </span><span class="nn">itertools</span>
+</span><span data-line="9"><span class="kn">from</span><span class="w"> </span><span class="nn">enum</span><span class="w"> </span><span class="kn">import</span> <span class="n">Enum</span>
+</span><span data-line="10"><span class="kn">from</span><span class="w"> </span><span class="nn">logging</span><span class="w"> </span><span class="kn">import</span> <span class="n">getLogger</span>
+</span><span data-line="11">
+</span><span data-line="12"><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+</span><span data-line="13">
+</span><span data-line="14"><span class="kn">import</span><span class="w"> </span><span class="nn">skrf</span>
+</span><span data-line="15"><span class="kn">from</span><span class="w"> </span><span class="nn">skrf.vi</span><span class="w"> </span><span class="kn">import</span> <span class="n">vna</span>
+</span><span data-line="16"><span class="kn">from</span><span class="w"> </span><span class="nn">skrf.vi.validators</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+</span><span data-line="17">    <span class="n">BooleanValidator</span><span class="p">,</span>
+</span><span data-line="18">    <span class="n">DelimitedStrValidator</span><span class="p">,</span>
+</span><span data-line="19">    <span class="n">EnumValidator</span><span class="p">,</span>
+</span><span data-line="20">    <span class="n">FloatValidator</span><span class="p">,</span>
+</span><span data-line="21">    <span class="n">FreqValidator</span><span class="p">,</span>
+</span><span data-line="22">    <span class="n">IntValidator</span><span class="p">,</span>
+</span><span data-line="23"><span class="p">)</span>
+</span><span data-line="24"><span class="kn">from</span><span class="w"> </span><span class="nn">skrf.vi.vna</span><span class="w"> </span><span class="kn">import</span> <span class="n">VNA</span><span class="p">,</span> <span class="n">ValuesFormat</span>
+</span><span data-line="25">
+</span><span data-line="26"><span class="n">logger</span> <span class="o">=</span> <span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+</span><span data-line="27">
+</span><span data-line="28"><span class="k">class</span><span class="w"> </span><span class="nc">SweepType</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+</span><span data-line="29">    <span class="n">LINEAR</span> <span class="o">=</span> <span class="s2">"LIN"</span>
+</span><span data-line="30">    <span class="n">LOG</span> <span class="o">=</span> <span class="s2">"LOG"</span>
+</span><span data-line="31">    <span class="n">POWER</span> <span class="o">=</span> <span class="s2">"POW"</span>
+</span><span data-line="32">    <span class="n">CW</span> <span class="o">=</span> <span class="s2">"CW"</span>
+</span><span data-line="33">    <span class="n">SEGMENT</span> <span class="o">=</span> <span class="s2">"SEGM"</span>
+</span><span data-line="34">    <span class="n">PHASE</span> <span class="o">=</span> <span class="s2">"PHAS"</span>
+</span><span data-line="35">
+</span><span data-line="36">
+</span><span data-line="37"><span class="k">class</span><span class="w"> </span><span class="nc">SweepMode</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+</span><span data-line="38">    <span class="n">HOLD</span> <span class="o">=</span> <span class="s2">"HOLD"</span>
+</span><span data-line="39">    <span class="n">CONTINUOUS</span> <span class="o">=</span> <span class="s2">"CONT"</span>
+</span><span data-line="40">    <span class="n">GROUPS</span> <span class="o">=</span> <span class="s2">"GRO"</span>
+</span><span data-line="41">    <span class="n">SINGLE</span> <span class="o">=</span> <span class="s2">"SING"</span>
+</span><span data-line="42">
+</span><span data-line="43">
+</span><span data-line="44"><span class="k">class</span><span class="w"> </span><span class="nc">TriggerSource</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+</span><span data-line="45">    <span class="n">EXTERNAL</span> <span class="o">=</span> <span class="s2">"EXT"</span>
+</span><span data-line="46">    <span class="n">IMMEDIATE</span> <span class="o">=</span> <span class="s2">"IMM"</span>
+</span><span data-line="47">    <span class="n">MANUAL</span> <span class="o">=</span> <span class="s2">"MAN"</span>
+</span><span data-line="48">
+</span><span data-line="49">
+</span><span data-line="50"><span class="k">class</span><span class="w"> </span><span class="nc">AveragingMode</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+</span><span data-line="51">    <span class="n">POINT</span> <span class="o">=</span> <span class="s2">"POIN"</span>
+</span><span data-line="52">    <span class="n">SWEEP</span> <span class="o">=</span> <span class="s2">"SWE"</span>
+</span><span data-line="53">
+</span><span data-line="54">
+<div class="viewcode-block" id="PNA">
+<a class="viewcode-back" href="../../../../../api/vi/generated/skrf.vi.vna.keysight.PNA.html#skrf.vi.vna.keysight.PNA">[docs]</a>
+</span><span data-line="55"><span class="k">class</span><span class="w"> </span><span class="nc">PNA</span><span class="p">(</span><span class="n">VNA</span><span class="p">):</span>
+</span><span data-line="56"><span class="w">    </span><span class="sd">'''</span>
+</span><span data-line="57"><span class="sd">    Keysight PNA, PNA-L, PNA-X.</span>
+</span><span data-line="58">
+</span><span data-line="59"><span class="sd">    PNA Models</span>
+</span><span data-line="60"><span class="sd">    ==========</span>
+</span><span data-line="61"><span class="sd">    E8361A, E8362B, E8363B, E8364B, N5221A, N5222A, N5224A, N5225A, N5227A</span>
+</span><span data-line="62"><span class="sd">    N5224B, N5222B, N5227B, N5225B, N5221B, E8356A, E8357A, E8358A, E8361A</span>
+</span><span data-line="63"><span class="sd">    E8361C, E8362A, E8362C, E8363A, E8363B, E8363C, E8364A, E8364B, E8364C</span>
+</span><span data-line="64"><span class="sd">    E8801A, E8802A, E8803A, N3381A, N3382A, N3383A, N5250C</span>
+</span><span data-line="65">
+</span><span data-line="66"><span class="sd">    PNA-L Models</span>
+</span><span data-line="67"><span class="sd">    ============</span>
+</span><span data-line="68"><span class="sd">    N5230A, N5230C, N5231A, N5232A, N5234A, N5235A, N5239A, N5234B, N5235B</span>
+</span><span data-line="69"><span class="sd">    N5231B, N5232B, N5239B</span>
+</span><span data-line="70">
+</span><span data-line="71"><span class="sd">    PNA-X Models</span>
+</span><span data-line="72"><span class="sd">    ============</span>
+</span><span data-line="73"><span class="sd">    N5241A, N5242A, N5244A, N5245A, N5247A, N5249A, N5247B, N5245B, N5244B</span>
+</span><span data-line="74"><span class="sd">    N5242B, N5241B, N5249B, N5264A, N5264B</span>
+</span><span data-line="75"><span class="sd">    '''</span>
+</span><span data-line="76">    <span class="c1"># TODO:</span>
+</span><span data-line="77">    <span class="c1"># - active_calset_name: SENS&lt;self:cnum&gt;:CORR:CSET:ACT? NAME</span>
+</span><span data-line="78">    <span class="c1"># - create_calset: SENS&lt;self:cnum&gt;:CORR:CSET:CRE &lt;name&gt;</span>
+</span><span data-line="79">    <span class="c1"># - calset_data: SENS&lt;self:cnum&gt;:CORR:CSET:DATA?  &lt;eterm&gt;,&lt;port a&gt;,&lt;port b&gt; '&lt;receiver&gt;'</span>
+</span><span data-line="80">
+</span><span data-line="81">
+</span><span data-line="82">    <span class="n">_models</span> <span class="o">=</span> <span class="p">{</span>
+</span><span data-line="83">        <span class="s2">"default"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"nports"</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s2">"unsupported"</span><span class="p">:</span> <span class="p">[]},</span>
+</span><span data-line="84">        <span class="s2">"E8362C"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"nports"</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s2">"unsupported"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"nports"</span><span class="p">,</span> <span class="s2">"freq_step"</span><span class="p">,</span> <span class="s2">"fast_sweep"</span><span class="p">]},</span>
+</span><span data-line="85">        <span class="s2">"N5227B"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"nports"</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span> <span class="s2">"unsupported"</span><span class="p">:</span> <span class="p">[]},</span>
+</span><span data-line="86">    <span class="p">}</span>
+</span><span data-line="87">
+</span><span data-line="88">    <span class="k">class</span><span class="w"> </span><span class="nc">Channel</span><span class="p">(</span><span class="n">vna</span><span class="o">.</span><span class="n">Channel</span><span class="p">):</span>
+</span><span data-line="89">        <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">,</span> <span class="n">cnum</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">cname</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+</span><span data-line="90">            <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">parent</span><span class="p">,</span> <span class="n">cnum</span><span class="p">,</span> <span class="n">cname</span><span class="p">)</span>
+</span><span data-line="91">
+</span><span data-line="92">            <span class="k">if</span> <span class="n">cnum</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">:</span>
+</span><span data-line="93">                <span class="n">default_msmnt</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"CH</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">cnum</span><span class="si">}</span><span class="s2">_S11_1"</span>
+</span><span data-line="94">                <span class="bp">self</span><span class="o">.</span><span class="n">create_measurement</span><span class="p">(</span><span class="n">default_msmnt</span><span class="p">,</span> <span class="s2">"S11"</span><span class="p">)</span>
+</span><span data-line="95">
+</span><span data-line="96">        <span class="k">def</span><span class="w"> </span><span class="nf">_on_delete</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span data-line="97">            <span class="bp">self</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">"SYST:CHAN:DEL </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">cnum</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</span><span data-line="98">
+</span><span data-line="99">        <span class="n">freq_start</span> <span class="o">=</span> <span class="n">VNA</span><span class="o">.</span><span class="n">command</span><span class="p">(</span>
+</span><span data-line="100">            <span class="n">get_cmd</span><span class="o">=</span><span class="s2">"SENS&lt;self:cnum&gt;:FREQ:STAR?"</span><span class="p">,</span>
+</span><span data-line="101">            <span class="n">set_cmd</span><span class="o">=</span><span class="s2">"SENS&lt;self:cnum&gt;:FREQ:STAR &lt;arg&gt;"</span><span class="p">,</span>
+</span><span data-line="102">            <span class="n">doc</span><span class="o">=</span><span class="s2">"""The start frequency [Hz]"""</span><span class="p">,</span>
+</span><span data-line="103">            <span class="n">validator</span><span class="o">=</span><span class="n">FreqValidator</span><span class="p">(),</span>
+</span><span data-line="104">        <span class="p">)</span>
+</span><span data-line="105">
+</span><span data-line="106">        <span class="n">freq_stop</span> <span class="o">=</span> <span class="n">VNA</span><span class="o">.</span><span class="n">command</span><span class="p">(</span>
+</span><span data-line="107">            <span class="n">get_cmd</span><span class="o">=</span><span class="s2">"SENS&lt;self:cnum&gt;:FREQ:STOP?"</span><span class="p">,</span>
+</span><span data-line="108">            <span class="n">set_cmd</span><span class="o">=</span><span class="s2">"SENS&lt;self:cnum&gt;:FREQ:STOP &lt;arg&gt;"</span><span class="p">,</span>
+</span><span data-line="109">            <span class="n">doc</span><span class="o">=</span><span class="s2">"""The stop frequency [Hz]"""</span><span class="p">,</span>
+</span><span data-line="110">            <span class="n">validator</span><span class="o">=</span><span class="n">FreqValidator</span><span class="p">(),</span>
+</span><span data-line="111">        <span class="p">)</span>
+</span><span data-line="112">
+</span><span data-line="113">        <span class="n">freq_span</span> <span class="o">=</span> <span class="n">VNA</span><span class="o">.</span><span class="n">command</span><span class="p">(</span>
+</span><span data-line="114">            <span class="n">get_cmd</span><span class="o">=</span><span class="s2">"SENS&lt;self:cnum&gt;:FREQ:SPAN?"</span><span class="p">,</span>
+</span><span data-line="115">            <span class="n">set_cmd</span><span class="o">=</span><span class="s2">"SENS&lt;self:cnum&gt;:FREQ:SPAN &lt;arg&gt;"</span><span class="p">,</span>
+</span><span data-line="116">            <span class="n">doc</span><span class="o">=</span><span class="s2">"""The frequency span [Hz]."""</span><span class="p">,</span>
+</span><span data-line="117">            <span class="n">validator</span><span class="o">=</span><span class="n">FreqValidator</span><span class="p">(),</span>
+</span><span data-line="118">        <span class="p">)</span>
+</span><span data-line="119">
+</span><span data-line="120">        <span class="n">freq_center</span> <span class="o">=</span> <span class="n">VNA</span><span class="o">.</span><span class="n">command</span><span class="p">(</span>
+</span><span data-line="121">            <span class="n">get_cmd</span><span class="o">=</span><span class="s2">"SENS&lt;self:cnum&gt;:FREQ:CENT?"</span><span class="p">,</span>
+</span><span data-line="122">            <span class="n">set_cmd</span><span class="o">=</span><span class="s2">"SENS&lt;self:cnum&gt;:FREQ:CENT &lt;arg&gt;"</span><span class="p">,</span>
+</span><span data-line="123">            <span class="n">doc</span><span class="o">=</span><span class="s2">"""The frequency span [Hz]."""</span><span class="p">,</span>
+</span><span data-line="124">            <span class="n">validator</span><span class="o">=</span><span class="n">FreqValidator</span><span class="p">(),</span>
+</span><span data-line="125">        <span class="p">)</span>
+</span><span data-line="126">
+</span><span data-line="127">        <span class="n">npoints</span> <span class="o">=</span> <span class="n">VNA</span><span class="o">.</span><span class="n">command</span><span class="p">(</span>
+</span><span data-line="128">            <span class="n">get_cmd</span><span class="o">=</span><span class="s2">"SENS&lt;self:cnum&gt;:SWE:POIN?"</span><span class="p">,</span>
+</span><span data-line="129">            <span class="n">set_cmd</span><span class="o">=</span><span class="s2">"SENS&lt;self:cnum&gt;:SWE:POIN &lt;arg&gt;"</span><span class="p">,</span>
+</span><span data-line="130">            <span class="n">doc</span><span class="o">=</span><span class="s2">"""The number of frequency points. Sets the frequency step as a</span>
+</span><span data-line="131"><span class="s2">                side effect</span>
+</span><span data-line="132"><span class="s2">            """</span><span class="p">,</span>
+</span><span data-line="133">            <span class="n">validator</span><span class="o">=</span><span class="n">IntValidator</span><span class="p">(),</span>
+</span><span data-line="134">        <span class="p">)</span>
+</span><span data-line="135">
+</span><span data-line="136">        <span class="n">if_bandwidth</span> <span class="o">=</span> <span class="n">VNA</span><span class="o">.</span><span class="n">command</span><span class="p">(</span>
+</span><span data-line="137">            <span class="n">get_cmd</span><span class="o">=</span><span class="s2">"SENS&lt;self:cnum&gt;:BWID?"</span><span class="p">,</span>
+</span><span data-line="138">            <span class="n">set_cmd</span><span class="o">=</span><span class="s2">"SENS&lt;self:cnum&gt;:BWID &lt;arg&gt;"</span><span class="p">,</span>
+</span><span data-line="139">            <span class="n">doc</span><span class="o">=</span><span class="s2">"""The IF bandwidth [Hz]"""</span><span class="p">,</span>
+</span><span data-line="140">            <span class="n">validator</span><span class="o">=</span><span class="n">FreqValidator</span><span class="p">(),</span>
+</span><span data-line="141">        <span class="p">)</span>
+</span><span data-line="142">
+</span><span data-line="143">        <span class="n">sweep_time</span> <span class="o">=</span> <span class="n">VNA</span><span class="o">.</span><span class="n">command</span><span class="p">(</span>
+</span><span data-line="144">            <span class="n">get_cmd</span><span class="o">=</span><span class="s2">"SENS&lt;self:cnum&gt;:SWE:TIME?"</span><span class="p">,</span>
+</span><span data-line="145">            <span class="n">set_cmd</span><span class="o">=</span><span class="s2">"SENS&lt;self:cnum&gt;:SWE:TIME &lt;arg&gt;"</span><span class="p">,</span>
+</span><span data-line="146">            <span class="n">doc</span><span class="o">=</span><span class="s2">"""The time in seconds for a single sweep [s]"""</span><span class="p">,</span>
+</span><span data-line="147">            <span class="n">validator</span><span class="o">=</span><span class="n">FloatValidator</span><span class="p">(</span><span class="n">decimal_places</span><span class="o">=</span><span class="mi">2</span><span class="p">),</span>
+</span><span data-line="148">        <span class="p">)</span>
+</span><span data-line="149">
+</span><span data-line="150">        <span class="n">sweep_type</span> <span class="o">=</span> <span class="n">VNA</span><span class="o">.</span><span class="n">command</span><span class="p">(</span>
+</span><span data-line="151">            <span class="n">get_cmd</span><span class="o">=</span><span class="s2">"SENS&lt;self:cnum&gt;:SWE:TYPE?"</span><span class="p">,</span>
+</span><span data-line="152">            <span class="n">set_cmd</span><span class="o">=</span><span class="s2">"SENS&lt;self:cnum&gt;:SWE:TYPE &lt;arg&gt;"</span><span class="p">,</span>
+</span><span data-line="153">            <span class="n">doc</span><span class="o">=</span><span class="s2">"""The type of sweep (linear, log, etc)"""</span><span class="p">,</span>
+</span><span data-line="154">            <span class="n">validator</span><span class="o">=</span><span class="n">EnumValidator</span><span class="p">(</span><span class="n">SweepType</span><span class="p">),</span>
+</span><span data-line="155">        <span class="p">)</span>
+</span><span data-line="156">
+</span><span data-line="157">        <span class="n">sweep_mode</span> <span class="o">=</span> <span class="n">VNA</span><span class="o">.</span><span class="n">command</span><span class="p">(</span>
+</span><span data-line="158">            <span class="n">get_cmd</span><span class="o">=</span><span class="s2">"SENS&lt;self:cnum&gt;:SWE:MODE?"</span><span class="p">,</span>
+</span><span data-line="159">            <span class="n">set_cmd</span><span class="o">=</span><span class="s2">"SENS&lt;self:cnum&gt;:SWE:MODE &lt;arg&gt;"</span><span class="p">,</span>
+</span><span data-line="160">            <span class="n">doc</span><span class="o">=</span><span class="s2">"""This channel's trigger mode"""</span><span class="p">,</span>
+</span><span data-line="161">            <span class="n">validator</span><span class="o">=</span><span class="n">EnumValidator</span><span class="p">(</span><span class="n">SweepMode</span><span class="p">),</span>
+</span><span data-line="162">        <span class="p">)</span>
+</span><span data-line="163">
+</span><span data-line="164">        <span class="n">measurement_numbers</span> <span class="o">=</span> <span class="n">VNA</span><span class="o">.</span><span class="n">command</span><span class="p">(</span>
+</span><span data-line="165">            <span class="n">get_cmd</span><span class="o">=</span><span class="s2">"SYST:MEAS:CAT? &lt;self:cnum&gt;"</span><span class="p">,</span>
+</span><span data-line="166">            <span class="n">set_cmd</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+</span><span data-line="167">            <span class="n">doc</span><span class="o">=</span><span class="s2">"""The list of measurement numbers on this channel"""</span><span class="p">,</span>
+</span><span data-line="168">            <span class="n">validator</span><span class="o">=</span><span class="n">DelimitedStrValidator</span><span class="p">(</span><span class="nb">int</span><span class="p">),</span>
+</span><span data-line="169">        <span class="p">)</span>
+</span><span data-line="170">
+</span><span data-line="171">        <span class="n">averaging_on</span> <span class="o">=</span> <span class="n">VNA</span><span class="o">.</span><span class="n">command</span><span class="p">(</span>
+</span><span data-line="172">            <span class="n">get_cmd</span><span class="o">=</span><span class="s2">"SENS&lt;self:cnum&gt;:AVER:STATE?"</span><span class="p">,</span>
+</span><span data-line="173">            <span class="n">set_cmd</span><span class="o">=</span><span class="s2">"SENS&lt;self:cnum&gt;:AVER:STATE &lt;arg&gt;"</span><span class="p">,</span>
+</span><span data-line="174">            <span class="n">doc</span><span class="o">=</span><span class="s2">"""Whether averaging is on or off"""</span><span class="p">,</span>
+</span><span data-line="175">            <span class="n">validator</span><span class="o">=</span><span class="n">BooleanValidator</span><span class="p">(),</span>
+</span><span data-line="176">        <span class="p">)</span>
+</span><span data-line="177">
+</span><span data-line="178">        <span class="n">averaging_count</span> <span class="o">=</span> <span class="n">VNA</span><span class="o">.</span><span class="n">command</span><span class="p">(</span>
+</span><span data-line="179">            <span class="n">get_cmd</span><span class="o">=</span><span class="s2">"SENS&lt;self:cnum&gt;:AVER:COUN?"</span><span class="p">,</span>
+</span><span data-line="180">            <span class="n">set_cmd</span><span class="o">=</span><span class="s2">"SENS&lt;self:cnum&gt;:AVER:COUN &lt;arg&gt;"</span><span class="p">,</span>
+</span><span data-line="181">            <span class="n">doc</span><span class="o">=</span><span class="s2">"""The number of measurements combined for an average"""</span><span class="p">,</span>
+</span><span data-line="182">            <span class="n">validator</span><span class="o">=</span><span class="n">IntValidator</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">65536</span><span class="p">),</span>
+</span><span data-line="183">        <span class="p">)</span>
+</span><span data-line="184">
+</span><span data-line="185">        <span class="n">averaging_mode</span> <span class="o">=</span> <span class="n">VNA</span><span class="o">.</span><span class="n">command</span><span class="p">(</span>
+</span><span data-line="186">            <span class="n">get_cmd</span><span class="o">=</span><span class="s2">"SENS&lt;self:cnum&gt;:AVER:MODE?"</span><span class="p">,</span>
+</span><span data-line="187">            <span class="n">set_cmd</span><span class="o">=</span><span class="s2">"SENS&lt;self:cnum&gt;:AVER:MODE &lt;arg&gt;"</span><span class="p">,</span>
+</span><span data-line="188">            <span class="n">doc</span><span class="o">=</span><span class="s2">"""How measurements are averaged together"""</span><span class="p">,</span>
+</span><span data-line="189">            <span class="n">validator</span><span class="o">=</span><span class="n">EnumValidator</span><span class="p">(</span><span class="n">AveragingMode</span><span class="p">),</span>
+</span><span data-line="190">        <span class="p">)</span>
+</span><span data-line="191">
+</span><span data-line="192">        <span class="n">n_sweep_groups</span> <span class="o">=</span> <span class="n">VNA</span><span class="o">.</span><span class="n">command</span><span class="p">(</span>
+</span><span data-line="193">            <span class="n">get_cmd</span><span class="o">=</span><span class="s2">"SENS&lt;self:cnum&gt;:SWE:GRO:COUN?"</span><span class="p">,</span>
+</span><span data-line="194">            <span class="n">set_cmd</span><span class="o">=</span><span class="s2">"SENS&lt;self:cnum&gt;:SWE:GRO:COUN &lt;arg&gt;"</span><span class="p">,</span>
+</span><span data-line="195">            <span class="n">doc</span><span class="o">=</span><span class="s2">"""The number of triggers sent for one trigger command"""</span><span class="p">,</span>
+</span><span data-line="196">            <span class="n">validator</span><span class="o">=</span><span class="n">IntValidator</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="mf">2e6</span><span class="p">)),</span>
+</span><span data-line="197">        <span class="p">)</span>
+</span><span data-line="198">
+</span><span data-line="199">        <span class="nd">@property</span>
+</span><span data-line="200">        <span class="k">def</span><span class="w"> </span><span class="nf">freq_step</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+</span><span data-line="201">            <span class="c1"># Not all instruments support SENS:FREQ:STEP</span>
+</span><span data-line="202">            <span class="n">f</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">frequency</span>
+</span><span data-line="203">            <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">step</span><span class="p">)</span>
+</span><span data-line="204">
+</span><span data-line="205">        <span class="nd">@freq_step</span><span class="o">.</span><span class="n">setter</span>
+</span><span data-line="206">        <span class="k">def</span><span class="w"> </span><span class="nf">freq_step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">f</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">float</span> <span class="o">|</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+</span><span data-line="207">            <span class="n">validator</span> <span class="o">=</span> <span class="n">FreqValidator</span><span class="p">()</span>
+</span><span data-line="208">            <span class="n">f</span> <span class="o">=</span> <span class="n">validator</span><span class="o">.</span><span class="n">validate_input</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+</span><span data-line="209">            <span class="n">freq</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">frequency</span>
+</span><span data-line="210">            <span class="bp">self</span><span class="o">.</span><span class="n">npoints</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">freq</span><span class="o">.</span><span class="n">start</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">freq</span><span class="o">.</span><span class="n">stop</span><span class="p">)</span> <span class="o">+</span> <span class="n">f</span><span class="p">,</span> <span class="n">f</span><span class="p">))</span>
+</span><span data-line="211">
+</span><span data-line="212">        <span class="nd">@property</span>
+</span><span data-line="213">        <span class="k">def</span><span class="w"> </span><span class="nf">frequency</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">skrf</span><span class="o">.</span><span class="n">Frequency</span><span class="p">:</span>
+</span><span data-line="214">            <span class="n">f</span> <span class="o">=</span> <span class="n">skrf</span><span class="o">.</span><span class="n">Frequency</span><span class="p">(</span>
+</span><span data-line="215">                <span class="n">start</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">freq_start</span><span class="p">,</span>
+</span><span data-line="216">                <span class="n">stop</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">freq_stop</span><span class="p">,</span>
+</span><span data-line="217">                <span class="n">npoints</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">npoints</span><span class="p">,</span>
+</span><span data-line="218">                <span class="n">unit</span><span class="o">=</span><span class="s2">"hz"</span><span class="p">,</span>
+</span><span data-line="219">            <span class="p">)</span>
+</span><span data-line="220">            <span class="k">return</span> <span class="n">f</span>
+</span><span data-line="221">
+</span><span data-line="222">        <span class="nd">@frequency</span><span class="o">.</span><span class="n">setter</span>
+</span><span data-line="223">        <span class="k">def</span><span class="w"> </span><span class="nf">frequency</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">f</span><span class="p">:</span> <span class="n">skrf</span><span class="o">.</span><span class="n">Frequency</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+</span><span data-line="224">            <span class="bp">self</span><span class="o">.</span><span class="n">freq_start</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">start</span>
+</span><span data-line="225">            <span class="bp">self</span><span class="o">.</span><span class="n">freq_stop</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">stop</span>
+</span><span data-line="226">            <span class="bp">self</span><span class="o">.</span><span class="n">npoints</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">npoints</span>
+</span><span data-line="227">
+</span><span data-line="228">        <span class="nd">@property</span>
+</span><span data-line="229">        <span class="k">def</span><span class="w"> </span><span class="nf">measurements</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]:</span>
+</span><span data-line="230">            <span class="n">msmnts</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="sa">f</span><span class="s2">"CALC</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">cnum</span><span class="si">}</span><span class="s2">:PAR:CAT:EXT?"</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">'"'</span><span class="p">,</span> <span class="s2">""</span><span class="p">)</span>
+</span><span data-line="231">            <span class="n">msmnts</span> <span class="o">=</span> <span class="n">msmnts</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">","</span><span class="p">)</span>
+</span><span data-line="232">            <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">msmnts</span><span class="p">[::</span><span class="mi">2</span><span class="p">],</span> <span class="n">msmnts</span><span class="p">[</span><span class="mi">1</span><span class="p">::</span><span class="mi">2</span><span class="p">]))</span>
+</span><span data-line="233">
+</span><span data-line="234">        <span class="nd">@property</span>
+</span><span data-line="235">        <span class="k">def</span><span class="w"> </span><span class="nf">measurement_names</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+</span><span data-line="236">            <span class="k">return</span> <span class="p">[</span><span class="n">msmnt</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">msmnt</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">measurements</span><span class="p">]</span>
+</span><span data-line="237">
+</span><span data-line="238">        <span class="nd">@property</span>
+</span><span data-line="239">        <span class="k">def</span><span class="w"> </span><span class="nf">calibration</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">skrf</span><span class="o">.</span><span class="n">Calibration</span><span class="p">:</span>
+</span><span data-line="240">            <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span>
+</span><span data-line="241">            <span class="c1"># orig_query_fmt = self.parent.query_format</span>
+</span><span data-line="242">            <span class="c1"># self.parent.query_format = ValuesFormat.BINARY_64</span>
+</span><span data-line="243">
+</span><span data-line="244">            <span class="c1"># eterm_re = re.compile(r"(\w+)\((\d),(\d)\)")</span>
+</span><span data-line="245">            <span class="c1"># cset_terms = self.query(f"SENS{self.cnum}:CORR:CSET:ETER:CAT?")</span>
+</span><span data-line="246">            <span class="c1"># terms = re.findall(eterm_re, cset_terms)</span>
+</span><span data-line="247">
+</span><span data-line="248">            <span class="c1"># if len(terms) == 3:</span>
+</span><span data-line="249">            <span class="c1">#     cal = skrf.OnePort</span>
+</span><span data-line="250">            <span class="c1"># elif len(terms) == 12:</span>
+</span><span data-line="251">            <span class="c1">#     # cal = skrf.TwoPort</span>
+</span><span data-line="252">            <span class="c1">#     raise NotImplementedError()</span>
+</span><span data-line="253">            <span class="c1"># else:</span>
+</span><span data-line="254">            <span class="c1">#     # cal = skrf.MultiPort</span>
+</span><span data-line="255">            <span class="c1">#     raise NotImplementedError()</span>
+</span><span data-line="256">
+</span><span data-line="257">            <span class="c1"># coeffs = {}</span>
+</span><span data-line="258">            <span class="c1"># for term in terms:</span>
+</span><span data-line="259">            <span class="c1">#     pna_name = term[0]</span>
+</span><span data-line="260">            <span class="c1">#     skrf_name = re.sub(</span>
+</span><span data-line="261">            <span class="c1">#         r"([A-Z])", lambda pat: f" {pat.group(1).lower()}", pna_name</span>
+</span><span data-line="262">            <span class="c1">#     ).strip()</span>
+</span><span data-line="263">
+</span><span data-line="264">            <span class="c1">#     coeffs[skrf_name] = self.query_values(</span>
+</span><span data-line="265">            <span class="c1">#         f"SENS{self.cnum}:CORR:CSET:ETERM? '{pna_name}({a},{b})'",</span>
+</span><span data-line="266">            <span class="c1">#         complex_values=True,</span>
+</span><span data-line="267">            <span class="c1">#         container=np.array,</span>
+</span><span data-line="268">            <span class="c1">#     )</span>
+</span><span data-line="269">
+</span><span data-line="270">            <span class="c1"># self.parent.query_format = orig_query_fmt</span>
+</span><span data-line="271">
+</span><span data-line="272">            <span class="c1"># freq = self.frequency</span>
+</span><span data-line="273">            <span class="c1"># return cal.from_coefs(freq, coeffs)</span>
+</span><span data-line="274">
+</span><span data-line="275">        <span class="nd">@calibration</span><span class="o">.</span><span class="n">setter</span>
+</span><span data-line="276">        <span class="k">def</span><span class="w"> </span><span class="nf">calibration</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cal</span><span class="p">:</span> <span class="n">skrf</span><span class="o">.</span><span class="n">Calibration</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+</span><span data-line="277">            <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span>
+</span><span data-line="278">
+</span><span data-line="279">        <span class="nd">@property</span>
+</span><span data-line="280">        <span class="k">def</span><span class="w"> </span><span class="nf">active_trace_sdata</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+</span><span data-line="281">            <span class="n">active_measurement</span> <span class="o">=</span> <span class="p">(</span>
+</span><span data-line="282">                <span class="bp">self</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="sa">f</span><span class="s2">"CALC</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">cnum</span><span class="si">}</span><span class="s2">:PAR:SEL?"</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">'"'</span><span class="p">,</span> <span class="s2">""</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">","</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+</span><span data-line="283">            <span class="p">)</span>
+</span><span data-line="284">            <span class="k">if</span> <span class="n">active_measurement</span> <span class="o">==</span> <span class="s2">""</span><span class="p">:</span>
+</span><span data-line="285">                <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">"No trace is active. Must select measurement first."</span><span class="p">)</span>
+</span><span data-line="286">            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">query_values</span><span class="p">(</span>
+</span><span data-line="287">                <span class="sa">f</span><span class="s2">"CALC</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">cnum</span><span class="si">}</span><span class="s2">:DATA? SDATA"</span><span class="p">,</span> <span class="n">complex_values</span><span class="o">=</span><span class="kc">True</span>
+</span><span data-line="288">            <span class="p">)</span>
+</span><span data-line="289">
+</span><span data-line="290">        <span class="k">def</span><span class="w"> </span><span class="nf">clear_averaging</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+</span><span data-line="291">            <span class="bp">self</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">"SENS</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">cnum</span><span class="si">}</span><span class="s2">:AVER:CLE"</span><span class="p">)</span>
+</span><span data-line="292">
+</span><span data-line="293">        <span class="k">def</span><span class="w"> </span><span class="nf">create_measurement</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">parameter</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+</span><span data-line="294">            <span class="bp">self</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">"CALC</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">cnum</span><span class="si">}</span><span class="s2">:PAR:EXT '</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">',</span><span class="si">{</span><span class="n">parameter</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</span><span data-line="295">            <span class="c1"># Not all instruments support DISP:WIND:TRAC:NEXT</span>
+</span><span data-line="296">            <span class="n">traces</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">"DISP:WIND:CAT?"</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">'"'</span><span class="p">,</span> <span class="s2">""</span><span class="p">)</span>
+</span><span data-line="297">            <span class="n">traces</span> <span class="o">=</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">tr</span><span class="p">)</span> <span class="k">for</span> <span class="n">tr</span> <span class="ow">in</span> <span class="n">traces</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">","</span><span class="p">)]</span> <span class="k">if</span> <span class="n">traces</span> <span class="o">!=</span> <span class="s2">"EMPTY"</span> <span class="k">else</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</span><span data-line="298">            <span class="n">next_tr</span> <span class="o">=</span> <span class="n">traces</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span>
+</span><span data-line="299">            <span class="bp">self</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">"DISP:WIND:TRAC</span><span class="si">{</span><span class="n">next_tr</span><span class="si">}</span><span class="s2">:FEED '</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">'"</span><span class="p">)</span>
+</span><span data-line="300">
+</span><span data-line="301">        <span class="k">def</span><span class="w"> </span><span class="nf">delete_measurement</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+</span><span data-line="302">            <span class="bp">self</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">"CALC</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">cnum</span><span class="si">}</span><span class="s2">:PAR:DEL '</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">'"</span><span class="p">)</span>
+</span><span data-line="303">
+</span><span data-line="304">        <span class="k">def</span><span class="w"> </span><span class="nf">get_measurement</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">skrf</span><span class="o">.</span><span class="n">Network</span><span class="p">:</span>
+</span><span data-line="305">            <span class="k">if</span> <span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">measurement_names</span><span class="p">:</span>
+</span><span data-line="306">                <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2"> does not exist"</span><span class="p">)</span>
+</span><span data-line="307">
+</span><span data-line="308">            <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">active_measurement</span> <span class="o">=</span> <span class="n">name</span>
+</span><span data-line="309">            <span class="n">ntwk</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_active_trace</span><span class="p">()</span>
+</span><span data-line="310">            <span class="n">ntwk</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
+</span><span data-line="311">            <span class="k">return</span> <span class="n">ntwk</span>
+</span><span data-line="312">
+</span><span data-line="313">        <span class="k">def</span><span class="w"> </span><span class="nf">get_active_trace</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">skrf</span><span class="o">.</span><span class="n">Network</span><span class="p">:</span>
+</span><span data-line="314">            <span class="bp">self</span><span class="o">.</span><span class="n">sweep</span><span class="p">()</span>
+</span><span data-line="315">            <span class="n">orig_query_fmt</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">query_format</span>
+</span><span data-line="316">            <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">query_format</span> <span class="o">=</span> <span class="n">ValuesFormat</span><span class="o">.</span><span class="n">BINARY_64</span>
+</span><span data-line="317">
+</span><span data-line="318">            <span class="n">ntwk</span> <span class="o">=</span> <span class="n">skrf</span><span class="o">.</span><span class="n">Network</span><span class="p">()</span>
+</span><span data-line="319">            <span class="n">ntwk</span><span class="o">.</span><span class="n">frequency</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">frequency</span>
+</span><span data-line="320">            <span class="n">ntwk</span><span class="o">.</span><span class="n">s</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">active_trace_sdata</span>
+</span><span data-line="321">
+</span><span data-line="322">            <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">query_format</span> <span class="o">=</span> <span class="n">orig_query_fmt</span>
+</span><span data-line="323">
+</span><span data-line="324">            <span class="k">return</span> <span class="n">ntwk</span>
+</span><span data-line="325">
+</span><span data-line="326">        <span class="k">def</span><span class="w"> </span><span class="nf">get_sdata</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">str</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">skrf</span><span class="o">.</span><span class="n">Network</span><span class="p">:</span>
+</span><span data-line="327">            <span class="bp">self</span><span class="o">.</span><span class="n">sweep</span><span class="p">()</span>
+</span><span data-line="328">            <span class="n">orig_query_fmt</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">query_format</span>
+</span><span data-line="329">            <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">query_format</span> <span class="o">=</span> <span class="n">ValuesFormat</span><span class="o">.</span><span class="n">BINARY_64</span>
+</span><span data-line="330">            <span class="n">param</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"S</span><span class="si">{</span><span class="n">a</span><span class="si">}{</span><span class="n">b</span><span class="si">}</span><span class="s2">"</span>
+</span><span data-line="331">            <span class="bp">self</span><span class="o">.</span><span class="n">create_measurement</span><span class="p">(</span><span class="s2">"SKRF_TMP"</span><span class="p">,</span> <span class="n">param</span><span class="p">)</span>
+</span><span data-line="332">            <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">active_measurement</span> <span class="o">=</span> <span class="s2">"SKRF_TMP"</span>
+</span><span data-line="333">
+</span><span data-line="334">            <span class="n">ntwk</span> <span class="o">=</span> <span class="n">skrf</span><span class="o">.</span><span class="n">Network</span><span class="p">()</span>
+</span><span data-line="335">            <span class="n">ntwk</span><span class="o">.</span><span class="n">frequency</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">frequency</span>
+</span><span data-line="336">            <span class="n">ntwk</span><span class="o">.</span><span class="n">s</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">active_trace_sdata</span>
+</span><span data-line="337">
+</span><span data-line="338">            <span class="bp">self</span><span class="o">.</span><span class="n">delete_measurement</span><span class="p">(</span><span class="s2">"SKRF_TMP"</span><span class="p">)</span>
+</span><span data-line="339">            <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">query_format</span> <span class="o">=</span> <span class="n">orig_query_fmt</span>
+</span><span data-line="340">
+</span><span data-line="341">            <span class="k">return</span> <span class="n">ntwk</span>
+</span><span data-line="342">
+</span><span data-line="343">        <span class="k">def</span><span class="w"> </span><span class="nf">get_snp_network</span><span class="p">(</span>
+</span><span data-line="344">            <span class="bp">self</span><span class="p">,</span>
+</span><span data-line="345">            <span class="n">ports</span><span class="p">:</span> <span class="n">Sequence</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+</span><span data-line="346">        <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">skrf</span><span class="o">.</span><span class="n">Network</span><span class="p">:</span>
+</span><span data-line="347">            <span class="k">if</span> <span class="n">ports</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+</span><span data-line="348">                <span class="n">ports</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">nports</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
+</span><span data-line="349">
+</span><span data-line="350">            <span class="n">orig_query_fmt</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">query_format</span>
+</span><span data-line="351">            <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">query_format</span> <span class="o">=</span> <span class="n">ValuesFormat</span><span class="o">.</span><span class="n">BINARY_64</span>
+</span><span data-line="352">            <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">active_channel</span> <span class="o">=</span> <span class="bp">self</span>
+</span><span data-line="353">            <span class="n">orig_snp_fmt</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">"MMEM:STOR:TRAC:FORM:SNP?"</span><span class="p">)</span>
+</span><span data-line="354">            <span class="bp">self</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">"MMEM:STOR:TRACE:FORM:SNP RI"</span><span class="p">)</span> <span class="c1"># Expect Real/Imaginary data</span>
+</span><span data-line="355">
+</span><span data-line="356">            <span class="n">msmnt_params</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">"S</span><span class="si">{</span><span class="n">a</span><span class="si">}{</span><span class="n">b</span><span class="si">}</span><span class="s2">"</span> <span class="k">for</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">itertools</span><span class="o">.</span><span class="n">product</span><span class="p">(</span><span class="n">ports</span><span class="p">,</span> <span class="n">repeat</span><span class="o">=</span><span class="mi">2</span><span class="p">)]</span>
+</span><span data-line="357">
+</span><span data-line="358">            <span class="n">names</span> <span class="o">=</span> <span class="p">[]</span>
+</span><span data-line="359">            <span class="c1"># Make sure the ports specified are driven</span>
+</span><span data-line="360">            <span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">msmnt_params</span><span class="p">:</span>
+</span><span data-line="361">                <span class="c1"># Not all models support CALC:PAR:TAG:NEXT</span>
+</span><span data-line="362">                <span class="n">name</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"CH</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">cnum</span><span class="si">}</span><span class="s2">_SKRF_</span><span class="si">{</span><span class="n">param</span><span class="si">}</span><span class="s2">"</span>
+</span><span data-line="363">                <span class="n">names</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+</span><span data-line="364">                <span class="bp">self</span><span class="o">.</span><span class="n">create_measurement</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">param</span><span class="p">)</span>
+</span><span data-line="365">
+</span><span data-line="366">            <span class="bp">self</span><span class="o">.</span><span class="n">sweep</span><span class="p">()</span>
+</span><span data-line="367">            <span class="n">port_str</span> <span class="o">=</span> <span class="s2">","</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">port</span><span class="p">)</span> <span class="k">for</span> <span class="n">port</span> <span class="ow">in</span> <span class="n">ports</span><span class="p">)</span>
+</span><span data-line="368">            <span class="n">raw</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">query_values</span><span class="p">(</span>
+</span><span data-line="369">                <span class="sa">f</span><span class="s2">"CALC</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">cnum</span><span class="si">}</span><span class="s2">:DATA:SNP:PORTS? '</span><span class="si">{</span><span class="n">port_str</span><span class="si">}</span><span class="s2">'"</span><span class="p">,</span> <span class="n">container</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span>
+</span><span data-line="370">            <span class="p">)</span>
+</span><span data-line="371">            <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">wait_for_complete</span><span class="p">()</span>
+</span><span data-line="372">
+</span><span data-line="373">            <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">names</span><span class="p">:</span>
+</span><span data-line="374">                <span class="bp">self</span><span class="o">.</span><span class="n">delete_measurement</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+</span><span data-line="375">
+</span><span data-line="376">            <span class="c1"># The data is sent back as:</span>
+</span><span data-line="377">            <span class="c1"># [</span>
+</span><span data-line="378">            <span class="c1">#   [frequency points],</span>
+</span><span data-line="379">            <span class="c1">#   [s11.real],</span>
+</span><span data-line="380">            <span class="c1">#   [s11.imag],</span>
+</span><span data-line="381">            <span class="c1">#   [s12.real],</span>
+</span><span data-line="382">            <span class="c1">#   [s12.imag],</span>
+</span><span data-line="383">            <span class="c1"># ...</span>
+</span><span data-line="384">            <span class="c1"># ]</span>
+</span><span data-line="385">            <span class="c1"># but flattened. So we recreate the above shape from the flattened data</span>
+</span><span data-line="386">            <span class="n">npoints</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">npoints</span>
+</span><span data-line="387">            <span class="n">nrows</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">raw</span><span class="p">)</span> <span class="o">//</span> <span class="n">npoints</span>
+</span><span data-line="388">            <span class="n">nports</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">ports</span><span class="p">)</span>
+</span><span data-line="389">            <span class="n">data</span> <span class="o">=</span> <span class="n">raw</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="n">nrows</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">))[</span><span class="mi">1</span><span class="p">:]</span>
+</span><span data-line="390">
+</span><span data-line="391">            <span class="n">ntwk</span> <span class="o">=</span> <span class="n">skrf</span><span class="o">.</span><span class="n">Network</span><span class="p">()</span>
+</span><span data-line="392">            <span class="n">ntwk</span><span class="o">.</span><span class="n">frequency</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">frequency</span>
+</span><span data-line="393">            <span class="n">ntwk</span><span class="o">.</span><span class="n">s</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span>
+</span><span data-line="394">                <span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">ntwk</span><span class="o">.</span><span class="n">frequency</span><span class="p">),</span> <span class="n">nports</span><span class="p">,</span> <span class="n">nports</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">complex</span>
+</span><span data-line="395">            <span class="p">)</span>
+</span><span data-line="396">            <span class="n">real_rows</span> <span class="o">=</span> <span class="n">data</span><span class="p">[::</span><span class="mi">2</span><span class="p">]</span>
+</span><span data-line="397">            <span class="n">imag_rows</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="mi">1</span><span class="p">::</span><span class="mi">2</span><span class="p">]</span>
+</span><span data-line="398">            <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nports</span><span class="p">):</span>
+</span><span data-line="399">                <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nports</span><span class="p">):</span>
+</span><span data-line="400">                    <span class="n">i</span> <span class="o">=</span> <span class="n">n</span> <span class="o">*</span> <span class="n">nports</span> <span class="o">+</span> <span class="n">m</span>
+</span><span data-line="401">                    <span class="n">ntwk</span><span class="o">.</span><span class="n">s</span><span class="p">[:,</span> <span class="n">n</span><span class="p">,</span> <span class="n">m</span><span class="p">]</span> <span class="o">=</span> <span class="n">real_rows</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="n">j</span> <span class="o">*</span> <span class="n">imag_rows</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+</span><span data-line="402">
+</span><span data-line="403">            <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">query_format</span> <span class="o">=</span> <span class="n">orig_query_fmt</span>
+</span><span data-line="404">            <span class="bp">self</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">"MMEM:STOR:TRACE:FORM:SNP </span><span class="si">{</span><span class="n">orig_snp_fmt</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</span><span data-line="405">
+</span><span data-line="406">            <span class="k">return</span> <span class="n">ntwk</span>
+</span><span data-line="407">
+</span><span data-line="408">        <span class="k">def</span><span class="w"> </span><span class="nf">sweep</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+</span><span data-line="409">            <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">trigger_source</span> <span class="o">=</span> <span class="n">TriggerSource</span><span class="o">.</span><span class="n">IMMEDIATE</span>
+</span><span data-line="410">            <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">_resource</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+</span><span data-line="411">
+</span><span data-line="412">            <span class="n">sweep_mode</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sweep_mode</span>
+</span><span data-line="413">            <span class="n">sweep_time</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sweep_time</span>
+</span><span data-line="414">            <span class="n">avg_on</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">averaging_on</span>
+</span><span data-line="415">            <span class="n">avg_mode</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">averaging_mode</span>
+</span><span data-line="416">
+</span><span data-line="417">            <span class="n">original_config</span> <span class="o">=</span> <span class="p">{</span>
+</span><span data-line="418">                <span class="s2">"sweep_mode"</span><span class="p">:</span> <span class="n">sweep_mode</span><span class="p">,</span>
+</span><span data-line="419">                <span class="s2">"sweep_time"</span><span class="p">:</span> <span class="n">sweep_time</span><span class="p">,</span>
+</span><span data-line="420">                <span class="s2">"averaging_on"</span><span class="p">:</span> <span class="n">avg_on</span><span class="p">,</span>
+</span><span data-line="421">                <span class="s2">"averaging_mode"</span><span class="p">:</span> <span class="n">avg_mode</span><span class="p">,</span>
+</span><span data-line="422">                <span class="s2">"timeout"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">_resource</span><span class="o">.</span><span class="n">timeout</span><span class="p">,</span>
+</span><span data-line="423">            <span class="p">}</span>
+</span><span data-line="424">
+</span><span data-line="425">            <span class="k">if</span> <span class="n">avg_on</span> <span class="ow">and</span> <span class="n">avg_mode</span> <span class="o">==</span> <span class="n">AveragingMode</span><span class="o">.</span><span class="n">SWEEP</span><span class="p">:</span>
+</span><span data-line="426">                <span class="bp">self</span><span class="o">.</span><span class="n">sweep_mode</span> <span class="o">=</span> <span class="n">SweepMode</span><span class="o">.</span><span class="n">GROUPS</span>
+</span><span data-line="427">                <span class="n">n_sweeps</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">averaging_count</span>
+</span><span data-line="428">                <span class="bp">self</span><span class="o">.</span><span class="n">n_sweep_groups</span> <span class="o">=</span> <span class="n">n_sweeps</span>
+</span><span data-line="429">                <span class="n">n_sweeps</span> <span class="o">*=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">nports</span>
+</span><span data-line="430">            <span class="k">else</span><span class="p">:</span>
+</span><span data-line="431">                <span class="bp">self</span><span class="o">.</span><span class="n">sweep_mode</span> <span class="o">=</span> <span class="n">SweepMode</span><span class="o">.</span><span class="n">SINGLE</span>
+</span><span data-line="432">                <span class="n">n_sweeps</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">nports</span>
+</span><span data-line="433">
+</span><span data-line="434">            <span class="k">try</span><span class="p">:</span>
+</span><span data-line="435">                <span class="n">sweep_time</span> <span class="o">*=</span> <span class="n">n_sweeps</span> <span class="o">*</span> <span class="mi">1_000</span>  <span class="c1"># 1s per port</span>
+</span><span data-line="436">                <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">_resource</span><span class="o">.</span><span class="n">timeout</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">sweep_time</span><span class="p">,</span> <span class="mi">5_000</span><span class="p">)</span>  <span class="c1"># minimum of 5s</span>
+</span><span data-line="437">                <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">wait_for_complete</span><span class="p">()</span>
+</span><span data-line="438">            <span class="k">finally</span><span class="p">:</span>
+</span><span data-line="439">                <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">_resource</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+</span><span data-line="440">                <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">_resource</span><span class="o">.</span><span class="n">timeout</span> <span class="o">=</span> <span class="n">original_config</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">"timeout"</span><span class="p">)</span>
+</span><span data-line="441">                <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">original_config</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+</span><span data-line="442">                    <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+</span><span data-line="443">
+<div class="viewcode-block" id="PNA.__init__">
+<a class="viewcode-back" href="../../../../../api/vi/generated/skrf.vi.vna.keysight.PNA.__init__.html#skrf.vi.vna.keysight.PNA.__init__">[docs]</a>
+</span><span data-line="444">    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">address</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">backend</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"@py"</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+</span><span data-line="445">        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">address</span><span class="p">,</span> <span class="n">backend</span><span class="p">)</span>
+</span><span data-line="446">
+</span><span data-line="447">        <span class="bp">self</span><span class="o">.</span><span class="n">_resource</span><span class="o">.</span><span class="n">read_termination</span> <span class="o">=</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span>
+</span><span data-line="448">        <span class="bp">self</span><span class="o">.</span><span class="n">_resource</span><span class="o">.</span><span class="n">write_termination</span> <span class="o">=</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span>
+</span><span data-line="449">
+</span><span data-line="450">        <span class="bp">self</span><span class="o">.</span><span class="n">create_channel</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s2">"Channel 1"</span><span class="p">)</span>
+</span><span data-line="451">        <span class="bp">self</span><span class="o">.</span><span class="n">active_channel</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ch1</span>
+</span><span data-line="452">
+</span><span data-line="453">        <span class="bp">self</span><span class="o">.</span><span class="n">model</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">","</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+</span><span data-line="454">        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_models</span><span class="p">:</span>
+</span><span data-line="455">            <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">f</span><span class="s2">"This model (</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="si">}</span><span class="s2">) has not been tested with "</span>
+</span><span data-line="456">                <span class="s2">"scikit-rf. By default, all features are turned on but older "</span>
+</span><span data-line="457">                <span class="s2">"instruments might be missing SCPI support for some commands "</span>
+</span><span data-line="458">                <span class="s2">"which will cause errors. Consider submitting an issue on GitHub to "</span>
+</span><span data-line="459">                <span class="s2">"help testing and adding support."</span><span class="p">)</span></div>
+
+</span><span data-line="460">
+</span><span data-line="461">    <span class="k">def</span><span class="w"> </span><span class="nf">_supports</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">feature</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+</span><span data-line="462">        <span class="n">model_config</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_models</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_models</span><span class="p">[</span><span class="s2">"default"</span><span class="p">])</span>
+</span><span data-line="463">        <span class="k">return</span> <span class="n">feature</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">model_config</span><span class="p">[</span><span class="s2">"unsupported"</span><span class="p">]</span>
+</span><span data-line="464">
+</span><span data-line="465">    <span class="k">def</span><span class="w"> </span><span class="nf">_model_param</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">param</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+</span><span data-line="466">        <span class="n">model_config</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_models</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_models</span><span class="p">[</span><span class="s2">"default"</span><span class="p">])</span>
+</span><span data-line="467">        <span class="k">return</span> <span class="n">model_config</span><span class="p">[</span><span class="n">param</span><span class="p">]</span>
+</span><span data-line="468">
+</span><span data-line="469">    <span class="n">trigger_source</span> <span class="o">=</span> <span class="n">VNA</span><span class="o">.</span><span class="n">command</span><span class="p">(</span>
+</span><span data-line="470">        <span class="n">get_cmd</span><span class="o">=</span><span class="s2">"TRIG:SOUR?"</span><span class="p">,</span>
+</span><span data-line="471">        <span class="n">set_cmd</span><span class="o">=</span><span class="s2">"TRIG:SOUR &lt;arg&gt;"</span><span class="p">,</span>
+</span><span data-line="472">        <span class="n">doc</span><span class="o">=</span><span class="s2">"""The source of the sweep trigger signal"""</span><span class="p">,</span>
+</span><span data-line="473">        <span class="n">validator</span><span class="o">=</span><span class="n">EnumValidator</span><span class="p">(</span><span class="n">TriggerSource</span><span class="p">),</span>
+</span><span data-line="474">    <span class="p">)</span>
+</span><span data-line="475">
+</span><span data-line="476">    <span class="n">nerrors</span> <span class="o">=</span> <span class="n">VNA</span><span class="o">.</span><span class="n">command</span><span class="p">(</span>
+</span><span data-line="477">        <span class="n">get_cmd</span><span class="o">=</span><span class="s2">"SYST:ERR:COUN?"</span><span class="p">,</span>
+</span><span data-line="478">        <span class="n">set_cmd</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+</span><span data-line="479">        <span class="n">doc</span><span class="o">=</span><span class="s2">"""The number of errors since last cleared (see</span>
+</span><span data-line="480"><span class="s2">            :func:`PNA.clear_errors`)"""</span><span class="p">,</span>
+</span><span data-line="481">        <span class="n">validator</span><span class="o">=</span><span class="n">IntValidator</span><span class="p">(),</span>
+</span><span data-line="482">    <span class="p">)</span>
+</span><span data-line="483">
+</span><span data-line="484">    <span class="n">channel_numbers</span> <span class="o">=</span> <span class="n">VNA</span><span class="o">.</span><span class="n">command</span><span class="p">(</span>
+</span><span data-line="485">        <span class="n">get_cmd</span><span class="o">=</span><span class="s2">"SYST:CHAN:CAT?"</span><span class="p">,</span>
+</span><span data-line="486">        <span class="n">set_cmd</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+</span><span data-line="487">        <span class="n">doc</span><span class="o">=</span><span class="s2">"""The channel numbers currently in use"""</span><span class="p">,</span>
+</span><span data-line="488">        <span class="n">validator</span><span class="o">=</span><span class="n">DelimitedStrValidator</span><span class="p">(</span><span class="nb">int</span><span class="p">),</span>
+</span><span data-line="489">    <span class="p">)</span>
+</span><span data-line="490">
+</span><span data-line="491">    <span class="nd">@property</span>
+</span><span data-line="492">    <span class="k">def</span><span class="w"> </span><span class="nf">nports</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+</span><span data-line="493">        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_supports</span><span class="p">(</span><span class="s2">"nports"</span><span class="p">):</span>
+</span><span data-line="494">            <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">"SYST:CAP:HARD:PORT:COUN?"</span><span class="p">))</span>
+</span><span data-line="495">        <span class="k">else</span><span class="p">:</span>
+</span><span data-line="496">            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model_param</span><span class="p">(</span><span class="s2">"nports"</span><span class="p">)</span>
+</span><span data-line="497">
+</span><span data-line="498">    <span class="nd">@property</span>
+</span><span data-line="499">    <span class="k">def</span><span class="w"> </span><span class="nf">active_channel</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Channel</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
+</span><span data-line="500">        <span class="n">num</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">"SYST:ACT:CHAN?"</span><span class="p">))</span>
+</span><span data-line="501">        <span class="k">return</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="sa">f</span><span class="s2">"ch</span><span class="si">{</span><span class="n">num</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+</span><span data-line="502">
+</span><span data-line="503">    <span class="nd">@active_channel</span><span class="o">.</span><span class="n">setter</span>
+</span><span data-line="504">    <span class="k">def</span><span class="w"> </span><span class="nf">active_channel</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ch</span><span class="p">:</span> <span class="n">Channel</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+</span><span data-line="505">        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">active_channel</span><span class="o">.</span><span class="n">cnum</span> <span class="o">==</span> <span class="n">ch</span><span class="o">.</span><span class="n">cnum</span><span class="p">:</span>
+</span><span data-line="506">            <span class="k">return</span>
+</span><span data-line="507">
+</span><span data-line="508">        <span class="n">msmnt</span> <span class="o">=</span> <span class="n">ch</span><span class="o">.</span><span class="n">measurement_numbers</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</span><span data-line="509">        <span class="bp">self</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">"CALC</span><span class="si">{</span><span class="n">ch</span><span class="o">.</span><span class="n">cnum</span><span class="si">}</span><span class="s2">:PAR:MNUM </span><span class="si">{</span><span class="n">msmnt</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</span><span data-line="510">
+</span><span data-line="511">    <span class="nd">@property</span>
+</span><span data-line="512">    <span class="k">def</span><span class="w"> </span><span class="nf">query_format</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">vna</span><span class="o">.</span><span class="n">ValuesFormat</span><span class="p">:</span>
+</span><span data-line="513">        <span class="n">fmt</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">"FORM?"</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">"+"</span><span class="p">,</span> <span class="s2">""</span><span class="p">)</span>
+</span><span data-line="514">        <span class="k">if</span> <span class="n">fmt</span> <span class="o">==</span> <span class="s2">"ASC,0"</span><span class="p">:</span>
+</span><span data-line="515">            <span class="bp">self</span><span class="o">.</span><span class="n">_values_fmt</span> <span class="o">=</span> <span class="n">vna</span><span class="o">.</span><span class="n">ValuesFormat</span><span class="o">.</span><span class="n">ASCII</span>
+</span><span data-line="516">        <span class="k">elif</span> <span class="n">fmt</span> <span class="o">==</span> <span class="s2">"REAL,32"</span><span class="p">:</span>
+</span><span data-line="517">            <span class="bp">self</span><span class="o">.</span><span class="n">_values_fmt</span> <span class="o">=</span> <span class="n">vna</span><span class="o">.</span><span class="n">ValuesFormat</span><span class="o">.</span><span class="n">BINARY_32</span>
+</span><span data-line="518">        <span class="k">elif</span> <span class="n">fmt</span> <span class="o">==</span> <span class="s2">"REAL,64"</span><span class="p">:</span>
+</span><span data-line="519">            <span class="bp">self</span><span class="o">.</span><span class="n">_values_fmt</span> <span class="o">=</span> <span class="n">vna</span><span class="o">.</span><span class="n">ValuesFormat</span><span class="o">.</span><span class="n">BINARY_64</span>
+</span><span data-line="520">        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_values_fmt</span>
+</span><span data-line="521">
+</span><span data-line="522">    <span class="nd">@query_format</span><span class="o">.</span><span class="n">setter</span>
+</span><span data-line="523">    <span class="k">def</span><span class="w"> </span><span class="nf">query_format</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fmt</span><span class="p">:</span> <span class="n">vna</span><span class="o">.</span><span class="n">ValuesFormat</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+</span><span data-line="524">        <span class="k">if</span> <span class="n">fmt</span> <span class="o">==</span> <span class="n">vna</span><span class="o">.</span><span class="n">ValuesFormat</span><span class="o">.</span><span class="n">ASCII</span><span class="p">:</span>
+</span><span data-line="525">            <span class="bp">self</span><span class="o">.</span><span class="n">_values_fmt</span> <span class="o">=</span> <span class="n">vna</span><span class="o">.</span><span class="n">ValuesFormat</span><span class="o">.</span><span class="n">ASCII</span>
+</span><span data-line="526">            <span class="bp">self</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">"FORM ASC,0"</span><span class="p">)</span>
+</span><span data-line="527">        <span class="k">elif</span> <span class="n">fmt</span> <span class="o">==</span> <span class="n">vna</span><span class="o">.</span><span class="n">ValuesFormat</span><span class="o">.</span><span class="n">BINARY_32</span><span class="p">:</span>
+</span><span data-line="528">            <span class="bp">self</span><span class="o">.</span><span class="n">_values_fmt</span> <span class="o">=</span> <span class="n">vna</span><span class="o">.</span><span class="n">ValuesFormat</span><span class="o">.</span><span class="n">BINARY_32</span>
+</span><span data-line="529">            <span class="bp">self</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">"FORM:BORD SWAP"</span><span class="p">)</span>
+</span><span data-line="530">            <span class="bp">self</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">"FORM REAL,32"</span><span class="p">)</span>
+</span><span data-line="531">        <span class="k">elif</span> <span class="n">fmt</span> <span class="o">==</span> <span class="n">vna</span><span class="o">.</span><span class="n">ValuesFormat</span><span class="o">.</span><span class="n">BINARY_64</span><span class="p">:</span>
+</span><span data-line="532">            <span class="bp">self</span><span class="o">.</span><span class="n">_values_fmt</span> <span class="o">=</span> <span class="n">vna</span><span class="o">.</span><span class="n">ValuesFormat</span><span class="o">.</span><span class="n">BINARY_64</span>
+</span><span data-line="533">            <span class="bp">self</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">"FORM:BORD SWAP"</span><span class="p">)</span>
+</span><span data-line="534">            <span class="bp">self</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">"FORM REAL,64"</span><span class="p">)</span>
+</span><span data-line="535">
+</span><span data-line="536">    <span class="nd">@property</span>
+</span><span data-line="537">    <span class="k">def</span><span class="w"> </span><span class="nf">active_measurement</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+</span><span data-line="538">        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">"SYST:ACT:MEAS?"</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">'"'</span><span class="p">,</span> <span class="s2">""</span><span class="p">)</span>
+</span><span data-line="539">
+</span><span data-line="540">    <span class="nd">@active_measurement</span><span class="o">.</span><span class="n">setter</span>
+</span><span data-line="541">    <span class="k">def</span><span class="w"> </span><span class="nf">active_measurement</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+</span><span data-line="542">        <span class="n">measurements</span> <span class="o">=</span> <span class="p">{</span>
+</span><span data-line="543">            <span class="n">name</span><span class="p">:</span> <span class="n">channel</span>
+</span><span data-line="544">            <span class="k">for</span> <span class="n">channel</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">channels</span>
+</span><span data-line="545">            <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">channel</span><span class="o">.</span><span class="n">measurement_names</span>
+</span><span data-line="546">        <span class="p">}</span>
+</span><span data-line="547">
+</span><span data-line="548">        <span class="k">if</span> <span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">measurements</span><span class="p">:</span>
+</span><span data-line="549">            <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2"> does not exist"</span><span class="p">)</span>
+</span><span data-line="550">
+</span><span data-line="551">        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_supports</span><span class="p">(</span><span class="s2">"fast_sweep"</span><span class="p">):</span>
+</span><span data-line="552">            <span class="bp">self</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">"CALC</span><span class="si">{</span><span class="n">measurements</span><span class="p">[</span><span class="n">name</span><span class="p">]</span><span class="o">.</span><span class="n">cnum</span><span class="si">}</span><span class="s2">:PAR:SEL '</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">',fast"</span><span class="p">)</span>
+</span><span data-line="553">        <span class="k">else</span><span class="p">:</span>
+</span><span data-line="554">            <span class="bp">self</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">"CALC</span><span class="si">{</span><span class="n">measurements</span><span class="p">[</span><span class="n">name</span><span class="p">]</span><span class="o">.</span><span class="n">cnum</span><span class="si">}</span><span class="s2">:PAR:SEL '</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">'"</span><span class="p">)</span></div>
+
+</span></pre></div>
+        </article><button class="back-to-top" type="button">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+  </svg>
+  <span>Back to top</span>
+</button><div class="navigation flex print:hidden"></div></div>
+    </div>
+  </main>
+</div>
+<footer class="sy-foot">
+  <div class="sy-foot-inner sy-container mx-auto">
+    <div class="sy-foot-reserved md:flex justify-between items-center">
+      <div class="sy-foot-copyright"><p>2025, scikit-rf team</p>
+  
+  <p>
+    Made with
+    
+    <a href="https://www.sphinx-doc.org/">Sphinx</a> and
+    
+    <a href="https://shibuya.lepture.com">Shibuya theme</a>.
+  </p>
+</div>
+      <div class="sy-foot-socials">
+  <a href="https://github.com/scikit-rf/scikit-rf" aria-label="GitHub">
+    <iconify-icon icon="simple-icons:github"></iconify-icon>
+  </a></div>
+    </div>
+  </div>
+</footer>
+      <script src="../../../../../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../../../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../../../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../../../../_static/copybutton.js?v=34bd459d"></script>
+      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+      <script src="../../../../../_static/shibuya.js?v=50760d75"></script>
+      <script src="https://cdn.jsdelivr.net/npm/@jupyter-widgets/html-manager@^1.0.1/dist/embed-amd.js"></script>
+      <script src="../../../../../_static/skrf.js?v=bdeb9fb0"></script></body>
+</html>

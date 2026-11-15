@@ -1,0 +1,6 @@
+﻿skrf.network.evenodd2delta
+==========================
+
+.. currentmodule:: skrf.network
+
+.. autofunction:: evenodd2delta

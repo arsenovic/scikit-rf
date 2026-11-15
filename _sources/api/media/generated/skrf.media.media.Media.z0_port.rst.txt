@@ -1,0 +1,6 @@
+skrf.media.media.Media.z0\_port
+===============================
+
+.. currentmodule:: skrf.media.media
+
+.. autoproperty:: Media.z0_port

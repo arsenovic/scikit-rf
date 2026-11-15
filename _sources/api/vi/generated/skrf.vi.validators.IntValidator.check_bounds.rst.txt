@@ -1,0 +1,6 @@
+skrf.vi.validators.IntValidator.check\_bounds
+=============================================
+
+.. currentmodule:: skrf.vi.validators
+
+.. automethod:: IntValidator.check_bounds

@@ -1,0 +1,6 @@
+﻿skrf.mathFunctions.find\_correct\_sign
+======================================
+
+.. currentmodule:: skrf.mathFunctions
+
+.. autofunction:: find_correct_sign

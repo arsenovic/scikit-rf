@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en" data-accent-color="blue" data-content_root="../">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Connecting Networks - scikit-rf</title><link rel="author" title="About these documents" href="../about.html" /><link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Plotting" href="Plotting.html" /><link rel="prev" title="Networks" href="Networks.html" /><script>
+    function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
+    setColorMode(localStorage._theme||"auto");
+  </script><link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=ad592e98" />
+    <link rel="stylesheet" type="text/css" href="../_static/shibuya.css?v=2ceb65ce" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-codeautolink.css?v=b2176991" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link media="print" rel="stylesheet" type="text/css" href="../_static/print.css?v=20ff2c19" />
+    <link rel="stylesheet" type="text/css" href="../_static/nbsphinx-code-cells.css?v=2aa19091" />
+    <link rel="stylesheet" type="text/css" href="../_static/skrf.css?v=7e772ba2" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --sy-f-text: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+  --sy-f-heading: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+}
+</style>
+    
+  <meta property="og:type" content="website"/><meta property="og:title" content="Connecting Networks"/>
+    <meta name="twitter:card" content="summary"/>
+  </head>
+<body><div class="sy-head">
+  <div class="sy-head-blur"></div>
+  <div class="sy-head-inner sy-container mx-auto">
+    <a class="sy-head-brand" href="../index.html">
+      <img class="light-logo" src="../_static/logo.svg" alt="scikit-rf" height="28" loading="lazy" />
+      <img class="dark-logo" src="../_static/logo.svg" alt="scikit-rf" height="28" loading="lazy" />
+      <strong>scikit-rf</strong>
+    </a>
+    <div class="sy-head-nav" id="head-nav">
+      <nav class="sy-head-links"><ul><li class="link"><a href="../index.html">Home</a></li><li class="link"><a href="index.html">Tutorials</a></li><li class="link"><a href="../examples/index.html">Examples</a></li><li class="link"><a href="../api/index.html">API</a></li><li class="link">
+          <a href="https://github.com/scikit-rf/scikit-rf">
+            <span>GitHub</span><i class="i-lucide external-link"></i></a>
+        </li></ul></nav>
+      <div class="sy-head-extra flex items-center print:hidden"><form class="searchbox flex items-center" action="../search.html" method="get">
+  <input type="text" name="q" placeholder="Search" />
+  <kbd>/</kbd>
+</form><div class="sy-head-socials">
+  <a href="https://github.com/scikit-rf/scikit-rf" aria-label="GitHub">
+    <iconify-icon icon="simple-icons:github"></iconify-icon>
+  </a>
+  <a href="https://www.linkedin.com/groups/12462155/" aria-label="LinkedIn">
+    <iconify-icon icon="simple-icons:linkedin"></iconify-icon>
+  </a>
+  <a href="https://app.element.io/#/room/#scikit-rf:matrix.org" aria-label="Matrix">
+    <iconify-icon icon="simple-icons:matrix"></iconify-icon>
+  </a></div></div>
+    </div>
+    <div class="sy-head-actions flex items-center shrink-0 print:hidden"><button class="js-theme theme-switch flex items-center"
+data-aria-auto="Switch to light color mode"
+data-aria-light="Switch to dark color mode"
+data-aria-dark="Switch to auto color mode">
+<i class="i-lucide theme-icon"></i>
+</button><button class="md:hidden flex items-center js-menu" aria-label="Menu" type="button" aria-controls="head-nav" aria-expanded="false">
+        <div class="hamburger">
+          <span class="hamburger_1"></span>
+          <span class="hamburger_2"></span>
+          <span class="hamburger_3"></span>
+        </div>
+      </button>
+    </div>
+  </div>
+</div>
+<div class="sy-page sy-container flex mx-auto">
+  <aside id="lside" class="sy-lside md:w-72 md:shrink-0 print:hidden">
+    <div class="sy-lside-inner md:sticky">
+      <div class="sy-scrollbar p-6">
+        <div class="globaltoc" data-expand-depth="0"><p class="caption" role="heading" aria-level="3"><span class="caption-text">Getting started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Introduction.html">Introduction</a></li>
+</ul>
+<p class="caption" role="heading" aria-level="3"><span class="caption-text">User guide</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Tutorials</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="Installation.html">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Introduction.html">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Frequency_units.html">Configuring frequency units</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Networks.html">Networks</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Connecting Networks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Plotting.html">Plotting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="NetworkSet.html">NetworkSet</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Circuit.html">Circuits</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Calibration.html">Calibration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Deembedding.html">De-embedding</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Q-Factor.html">Quality Factors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Media.html">Media</a></li>
+<li class="toctree-l2"><a class="reference internal" href="VectorFitting.html">Vector Fitting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="VectorFittingParametric.html">Parametric Vector Fitting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="VirtualInstruments.html">Virtual Instruments</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/index.html">Examples</a></li>
+</ul>
+<p class="caption" role="heading" aria-level="3"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../api/index.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../glossary.html">Glossary</a></li>
+</ul>
+<p class="caption" role="heading" aria-level="3"><span class="caption-text">Project</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../contributing/index.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../citations_ack/acknowledging.html">Citing scikit-rf</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../citations_ack/citations.html">scikit-rf Citations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../about.html">About</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../users.html">Users</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../license.html">License</a></li>
+</ul>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="lside-overlay js-menu" role="button" aria-label="Close left sidebar" aria-controls="lside" aria-expanded="false"></div>
+  <aside id="rside" class="sy-rside pb-3 w-64 shrink-0 order-last">
+    <button class="rside-close js-menu xl:hidden" aria-label="Close Table of Contents" type="button" aria-controls="rside" aria-expanded="false">
+      <i class="i-lucide close"></i>
+    </button>
+    <div class="sy-scrollbar sy-rside-inner px-6 xl:top-16 xl:sticky xl:pl-0 pt-6 pb-4"><div class="localtoc"><h3>On this page</h3><ul>
+<li><a class="reference internal" href="#Cascading-2-port-and-1-port-Networks">Cascading 2-port and 1-port Networks</a></li>
+<li><a class="reference internal" href="#Cascacing-2N-port-Networks">Cascacing 2N-port Networks</a></li>
+<li><a class="reference internal" href="#Cascading-Multi-port-Networks">Cascading Multi-port Networks</a></li>
+<li><a class="reference internal" href="#Multiple-Connections-of-Multi-port-Networks">Multiple Connections of Multi-port Networks</a></li>
+<li><a class="reference internal" href="#Networks-Connections-from-the-Intersection-Perspective">Networks Connections from the Intersection Perspective</a></li>
+<li><a class="reference internal" href="#References">References</a></li>
+</ul>
+</div><div id="ethical-ad-placement" data-ea-publisher="readthedocs"></div></div>
+  </aside>
+  <div class="rside-overlay js-menu" role="button" aria-label="Close Table of Contents" aria-controls="rside" aria-expanded="false"></div>
+  <main class="sy-main w-full max-sm:max-w-full print:pt-6">
+<div class="sy-breadcrumbs" role="navigation">
+  <div class="sy-breadcrumbs-inner flex items-center">
+    <div class="md:hidden mr-3">
+      <button class="js-menu" aria-label="Menu" type="button" aria-controls="lside" aria-expanded="false">
+        <i class="i-lucide menu"></i>
+      </button>
+    </div>
+    <ol class="flex-1" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="../index.html"><span itemprop="name">scikit-rf</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="1" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="index.html"><span itemprop="name">Tutorials</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="2" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <strong itemprop="name">Connecting Networks</strong>
+        <meta itemprop="position" content="3" />
+      </li></ol>
+    <a class="sk-download" href="Connecting_Networks.ipynb" download>Download</a>
+    <div class="xl:hidden ml-1">
+      <button class="js-menu" aria-label="Show table of contents" type="button" aria-controls="rside"
+        aria-expanded="false">
+        <i class="i-lucide outdent"></i>
+      </button>
+    </div>
+  </div>
+</div><div class="flex flex-col break-words justify-between">
+      <div class="relative min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
+  <article class="yue" role="main">
+          <section id="Connecting-Networks">
+<h1>Connecting Networks<a class="headerlink" href="#Connecting-Networks" title="Link to this heading">#</a></h1>
+<p><strong>scikit-rf</strong> supports the connection of arbitrary ports of N-port networks. It accomplishes this using an algorithm called sub-network growth<a class="reference internal" href="#References"><span class="std std-ref">[1]</span></a>, available through the function <code class="docutils literal notranslate"><span class="pre">connect()</span></code>. Note that this function takes into account port impedances. If two connected ports have different port impedances, an appropriate impedance mismatch is inserted. This capability is illustrated here with situations often encountered.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[1]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="kn">import</span><span class="w"> </span><span class="nn">skrf</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">rf</span>
+</span></pre></div>
+</div>
+</div>
+<section id="Cascading-2-port-and-1-port-Networks">
+<h2>Cascading 2-port and 1-port Networks<a class="headerlink" href="#Cascading-2-port-and-1-port-Networks" title="Link to this heading">#</a></h2>
+<p>A common problem is to connect two Networks one to the other, also known as cascading Networks, which creates a new Network. The figure below illustrates sile simple situations, where the port numbers are identified in gray:</p>
+<p><img alt="be855b972a394ee7962880980cd8f0b9" class="no-scaled-link" src="../_images/networks_connecting_2_2ports.svg" width="600"/></p>
+<p>or,</p>
+<p><img alt="06b1a834547b4cdab38e310829f679c4" class="no-scaled-link" src="../_images/networks_connecting_2port_1port.svg" width="600"/></p>
+<p>Let’s illustrate this by connecting a transmission line (2-port Network) to a short-circuit (1-port Network) to create a delay short (1-port Network):</p>
+<p><img alt="ddea0a3a1e544e97b4d4b0baee583df3" class="no-scaled-link" src="../_images/networks_delay_short.svg" width="600"/></p>
+<p>Cascading Networks being a frequent operation, it can done conveniently through the <code class="docutils literal notranslate"><span class="pre">**</span></code> operator or with the <code class="docutils literal notranslate"><span class="pre">cascade</span></code> function:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[2]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">line</span> <span class="o">=</span> <span class="n">rf</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">wr2p2_line</span>  <span class="c1"># 2-port</span>
+</span><span data-line="2"><span class="n">short</span> <span class="o">=</span> <span class="n">rf</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">wr2p2_short</span>  <span class="c1"># 1-port</span>
+</span><span data-line="3">
+</span><span data-line="4"><span class="n">delayshort</span> <span class="o">=</span> <span class="n">line</span> <span class="o">**</span> <span class="n">short</span>  <span class="c1"># --&gt; 1-port Network</span>
+</span><span data-line="5"><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/builtins/functions.html#print"><span class="nb">print</span></a><span class="p">(</span><span class="n">delayshort</span><span class="p">)</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+1-Port Network: 'wr2p2,line',  330.0-500.0 GHz, 201 pts, z0=[50.+0.j]
+</pre></div></div>
+</div>
+<p>or, equivalently using the <code class="docutils literal notranslate"><span class="pre">cascade()</span></code> function:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[3]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">delayshort2</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.cascade.html#skrf.network.cascade" title="skrf.network.cascade"><span class="n">rf</span><span class="o">.</span><span class="n">network</span><span class="o">.</span><span class="n">cascade</span></a><span class="p">(</span><span class="n">line</span><span class="p">,</span> <span class="n">short</span><span class="p">)</span>
+</span><span data-line="2"><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/builtins/functions.html#print"><span class="nb">print</span></a><span class="p">(</span><a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">delayshort2</span></a> <span class="o">==</span> <span class="n">delayshort</span><span class="p">)</span>  <span class="c1"># the result is the same</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+True
+</pre></div></div>
+</div>
+<p>It is of course possible to connect two 2-port Networks together using the <code class="docutils literal notranslate"><span class="pre">connect()</span></code> function. The <code class="docutils literal notranslate"><span class="pre">connect()</span></code> function requires the Networks and the port numbers to connect together. In our example, the port 1 of the line is connected to the port 0 of the short:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[4]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">delayshort3</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.connect.html#skrf.network.connect" title="skrf.network.connect"><span class="n">rf</span><span class="o">.</span><span class="n">network</span><span class="o">.</span><span class="n">connect</span></a><span class="p">(</span><span class="n">line</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">short</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+</span><span data-line="2"><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/builtins/functions.html#print"><span class="nb">print</span></a><span class="p">(</span><a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">delayshort3</span></a> <span class="o">==</span> <span class="n">delayshort</span><span class="p">)</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+True
+</pre></div></div>
+</div>
+<p>One often needs to cascade a chain Networks together:</p>
+<p><img alt="8f9412f001064c6f839f5b98f4ae2f91" class="no-scaled-link" src="../_images/networks_connecting_N_2ports.svg" width="700"/> or, <img alt="536ad2d24e4f4a6baa169f0a25e825a5" class="no-scaled-link" src="../_images/networks_connecting_N_2ports_1port.svg" width="700"/></p>
+<p>which can be realized using chained <code class="docutils literal notranslate"><span class="pre">**</span></code> or the convenient function <code class="docutils literal notranslate"><span class="pre">cascade_list</span></code>:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[5]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">line1</span> <span class="o">=</span> <span class="n">rf</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">wr2p2_line</span>  <span class="c1"># 2-port</span>
+</span><span data-line="2"><span class="n">line2</span> <span class="o">=</span> <span class="n">rf</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">wr2p2_line</span>  <span class="c1"># 2-port</span>
+</span><span data-line="3"><span class="n">line3</span> <span class="o">=</span> <span class="n">rf</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">wr2p2_line</span>  <span class="c1"># 2-port</span>
+</span><span data-line="4"><span class="n">line4</span> <span class="o">=</span> <span class="n">rf</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">wr2p2_line</span>  <span class="c1"># 2-port</span>
+</span><span data-line="5"><span class="n">short</span> <span class="o">=</span> <span class="n">rf</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">wr2p2_short</span>  <span class="c1"># 1-port</span>
+</span><span data-line="6">
+</span><span data-line="7"><span class="n">chain1</span> <span class="o">=</span> <span class="n">line1</span> <span class="o">**</span> <span class="n">line2</span> <span class="o">**</span> <span class="n">line3</span> <span class="o">**</span> <span class="n">line4</span> <span class="o">**</span> <span class="n">short</span>
+</span><span data-line="8">
+</span><span data-line="9"><a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">chain2</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.cascade_list.html#skrf.network.cascade_list" title="skrf.network.cascade_list"><span class="n">rf</span><span class="o">.</span><span class="n">network</span><span class="o">.</span><span class="n">cascade_list</span></a><span class="p">([</span><span class="n">line1</span><span class="p">,</span> <span class="n">line2</span><span class="p">,</span> <span class="n">line3</span><span class="p">,</span> <span class="n">line4</span><span class="p">,</span> <span class="n">short</span><span class="p">])</span>
+</span><span data-line="10">
+</span><span data-line="11"><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/builtins/functions.html#print"><span class="nb">print</span></a><span class="p">(</span><span class="n">chain1</span> <span class="o">==</span> <a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">chain2</span></a><span class="p">)</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+True
+</pre></div></div>
+</div>
+</section>
+<section id="Cascacing-2N-port-Networks">
+<h2>Cascacing 2N-port Networks<a class="headerlink" href="#Cascacing-2N-port-Networks" title="Link to this heading">#</a></h2>
+<p>The cascading operator <code class="docutils literal notranslate"><span class="pre">**</span></code> also works for to 2N-port Networks, width the following port scheme:</p>
+<p><img alt="02685e78f499473b9b8f1526e75c51f4" class="no-scaled-link" src="../_images/networks_connecting_2_2Nports.svg" width="600"/></p>
+<p>It also works for multiple 2N-port Network. For example, assuming you want to cascade three 4-port Network <code class="docutils literal notranslate"><span class="pre">ntw1</span></code>, <code class="docutils literal notranslate"><span class="pre">ntw2</span></code> and <code class="docutils literal notranslate"><span class="pre">ntw3</span></code>, you can use:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">resulting_ntw = ntw1 ** ntw2 ** ntw3
+</span></pre></div>
+</div>
+<p>This is illustrated in <a class="reference internal" href="../examples/networktheory/Balanced%20Network%20De-embedding.html"><span class="doc">this example on balanced Networks</span></a>.</p>
+</section>
+<section id="Cascading-Multi-port-Networks">
+<h2>Cascading Multi-port Networks<a class="headerlink" href="#Cascading-Multi-port-Networks" title="Link to this heading">#</a></h2>
+<p>To make specific connections between multi-port Networks, three solutions are available, which mostly depends of the complexity of the circuit one wants to build:</p>
+<ul class="simple">
+<li><p>For reduced number of connection(s): the <code class="docutils literal notranslate"><span class="pre">connect()</span></code> function</p></li>
+<li><p>For intermediate complexity, where you might need to connect multiple Networks in parallel to the same intersection, we offer the <code class="docutils literal notranslate"><span class="pre">parallelconnect()</span></code> method. This method provides a balance between the simplicity of <code class="docutils literal notranslate"><span class="pre">connect()</span></code> and the flexibility of <code class="docutils literal notranslate"><span class="pre">Circuit</span></code> object. For more information, please refer to the <code class="docutils literal notranslate"><span class="pre">`paralleconnect()</span></code> documentation &lt;../api/generated/skrf.network.paralleconnect.html#skrf.network.paralleconnect&gt;`__</p></li>
+<li><p>For more advanced connections between many arbitrary N-port Networks, the <code class="docutils literal notranslate"><span class="pre">Circuit</span></code> object is more relevant since it allows defining explicitly the connections between ports and Networks. For more information, please refer to the <a class="reference internal" href="Circuit.html"><span class="doc">Circuit documentation</span></a>.</p></li>
+</ul>
+<p>As an example, terminating one of the port of an a 3-port Network, such as an ideal 3-way splitter:</p>
+<p><img alt="e4b16f65b0d14341b97086f984dcf9a6" class="no-scaled-link" src="../_images/networks_connecting_3port_1port.svg" width="600"/></p>
+<p>can be done like:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[6]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><a class="sphinx-codeautolink-a" href="../api/data/generated/skrf.data.tee.html#skrf.data.tee" title="skrf.data.tee"><span class="n">tee</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../api/data/generated/skrf.data.tee.html#skrf.data.tee" title="skrf.data.tee"><span class="n">rf</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">tee</span></a>
+</span></pre></div>
+</div>
+</div>
+<p>To connect port <code class="docutils literal notranslate"><span class="pre">1</span></code> of the tee, to port <code class="docutils literal notranslate"><span class="pre">0</span></code> of the delay short,</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[7]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">terminated_tee</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.connect.html#skrf.network.connect" title="skrf.network.connect"><span class="n">rf</span><span class="o">.</span><span class="n">network</span><span class="o">.</span><span class="n">connect</span></a><span class="p">(</span><a class="sphinx-codeautolink-a" href="../api/data/generated/skrf.data.tee.html#skrf.data.tee" title="skrf.data.tee"><span class="n">tee</span></a><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">delayshort</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+</span><span data-line="2"><a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">terminated_tee</span></a>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[7]:
+</span></pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+2-Port Network: 'tee',  330.0-500.0 GHz, 201 pts, z0=[50.+0.j 50.+0.j]
+</pre></div></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">parallelconnect()</span></code> method also could handle this situation with just a slight change in syntax.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[8]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">terminated_tee_par</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.parallelconnect.html#skrf.network.parallelconnect" title="skrf.network.parallelconnect"><span class="n">rf</span><span class="o">.</span><span class="n">network</span><span class="o">.</span><span class="n">parallelconnect</span></a><span class="p">([</span><a class="sphinx-codeautolink-a" href="../api/data/generated/skrf.data.tee.html#skrf.data.tee" title="skrf.data.tee"><span class="n">tee</span></a><span class="p">,</span> <span class="n">delayshort</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+</span><span data-line="2"><a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">terminated_tee_par</span></a>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[8]:
+</span></pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+2-Port Network: '',  330.0-500.0 GHz, 201 pts, z0=[50.+0.j 50.+0.j]
+</pre></div></div>
+</div>
+<p>In the previous example, the port #2 of the 3-port Network <code class="docutils literal notranslate"><span class="pre">tee</span></code> becomes the port #1 of the resulting 2-port Network.</p>
+</section>
+<section id="Multiple-Connections-of-Multi-port-Networks">
+<h2>Multiple Connections of Multi-port Networks<a class="headerlink" href="#Multiple-Connections-of-Multi-port-Networks" title="Link to this heading">#</a></h2>
+<p>Keeping track of the port numbering when using multiple time the <code class="docutils literal notranslate"><span class="pre">connect</span></code> function can be tedious (this is the reason why the <a class="reference internal" href="Circuit.html"><span class="doc">Circuit object</span></a> can be simpler to use).</p>
+<p>Let’s illustrate this with the following example: connecting the port #1 of a tee-junction (3-port) to the port #0 of a transmission line (2-port):</p>
+<p><img alt="7223b6931f6749a8b5d5d66364d3eb29" class="no-scaled-link" src="../_images/networks_connecting_3port_2port.svg" width="600"/></p>
+<p>To keep track of the port scheme after the connection operation, let’s change the port characteristic impedances (in red in the figure above):</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[9]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.Network.z0.html#skrf.network.Network.z0" title="skrf.network.Network.z0"><span class="n">tee</span><span class="o">.</span><span class="n">z0</span></a> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+</span><span data-line="2"><a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.Network.z0.html#skrf.network.Network.z0" title="skrf.network.Network.z0"><span class="n">line</span><span class="o">.</span><span class="n">z0</span></a> <span class="o">=</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">]</span>
+</span><span data-line="3"><span class="c1"># the resulting network is:</span>
+</span><span data-line="4"><a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.connect.html#skrf.network.connect" title="skrf.network.connect"><span class="n">rf</span><span class="o">.</span><span class="n">network</span><span class="o">.</span><span class="n">connect</span></a><span class="p">(</span><a class="sphinx-codeautolink-a" href="../api/data/generated/skrf.data.tee.html#skrf.data.tee" title="skrf.data.tee"><span class="n">tee</span></a><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">line</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[9]:
+</span></pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+3-Port Network: 'tee',  330.0-500.0 GHz, 201 pts, z0=[ 1.+0.j 20.+0.j  3.+0.j]
+</pre></div></div>
+</div>
+</section>
+<section id="Networks-Connections-from-the-Intersection-Perspective">
+<h2>Networks Connections from the Intersection Perspective<a class="headerlink" href="#Networks-Connections-from-the-Intersection-Perspective" title="Link to this heading">#</a></h2>
+<p>In the previous example, we briefly introduced the <code class="docutils literal notranslate"><span class="pre">parallelconnect()</span></code> method. In this section, We will detail the application scenarios of the <code class="docutils literal notranslate"><span class="pre">parallelconnect()</span></code> method with multiple examples and provide recommendations for comparing the three solutions.</p>
+<p>Firstly, let’s consider the simplest example: inner-connecting any two ports within an N-port <code class="docutils literal notranslate"><span class="pre">Network</span></code>. This will result in an (N-2)-port <code class="docutils literal notranslate"><span class="pre">Network</span></code>.</p>
+<p><img alt="34137df69d98488187cd89a38adb2cae" class="no-scaled-link" src="../_images/networks_innerconnect_2_port.svg" width="600"/></p>
+<p>Here, we can use the <code class="docutils literal notranslate"><span class="pre">innerconnect()</span></code> method to connect any two ports within the N-port <code class="docutils literal notranslate"><span class="pre">Network</span></code></p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1"># Innerconnect the m'th and n'th ports of the N-Port Network
+</span><span data-line="2">inner_network = rf.network.innerconnect(nport_network, m, n)
+</span></pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">parallelconnect()</span></code> method could handle inner-connect situation like this:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">inner_network_par = rf.network.parallelconnect(nport_network, [[m, n]])
+</span></pre></div>
+</div>
+<p>If you anticipate the need to inner-connect more than 2 ports, the <code class="docutils literal notranslate"><span class="pre">innerconnect()</span></code> method will not suffice for this task. You’ll need to look into using <code class="docutils literal notranslate"><span class="pre">tee</span></code> (<code class="docutils literal notranslate"><span class="pre">splitter</span></code>) or <code class="docutils literal notranslate"><span class="pre">Circuit</span></code> object to achieve your goal. However, <code class="docutils literal notranslate"><span class="pre">parallelconnect()</span></code> offers a straightforward solution for such cases,</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1"># An example of inner-connect a list of ports of a N-port Network
+</span><span data-line="2">ports_list = [[m, n, ..., y, z]]
+</span><span data-line="3">inner_network2_par = rf.network.parallelconnect(nport_network, ports_list)
+</span></pre></div>
+</div>
+<p>The second example involves connecting two multi-port Networks. As this cases has been previously demonstrated, we will not delve into it again here.</p>
+<p>Moving on, let’s consider the parallel connection of multiple multi-port <code class="docutils literal notranslate"><span class="pre">Networks</span></code>. A common application of this is in the construction of a <code class="docutils literal notranslate"><span class="pre">T-type</span> <span class="pre">filter</span> <span class="pre">circuit</span></code>, figure taken from <a class="reference external" href="https://www.electroniclinic.com/filter-circuit-and-need-of-filters-in-electronics/#google_vignette">electroniclinic.com</a></p>
+<p><img alt="T-type filter circuit" src="../_images/t_type_filter.png"/></p>
+<p>Let’s ignore the specific details and just compare the three methods in implementing this example, you can use:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1"># 1. Connect() method with tee
+</span><span data-line="2">t_type_filter_ntwk = rf.network.connect(L1, 1, tee, 0)
+</span><span data-line="3">t_type_filter_ntwk = rf.network.connect(t_type_filter_ntwk, 1, C, 0)
+</span><span data-line="4">t_type_filter_ntwk = rf.network.connect(t_type_filter_ntwk, 2, L2, 0)
+</span><span data-line="5">t_type_filter_ntwk
+</span><span data-line="6">
+</span><span data-line="7"># 2. Circuit object method
+</span><span data-line="8">cnx = [
+</span><span data-line="9">    [(port1, 0), (L1, 0)],
+</span><span data-line="10">    [(port2, 0), (C , 1)],
+</span><span data-line="11">    [(port3, 0), (L2, 1)],
+</span><span data-line="12">    [(L1, 1), (C, 0), (L2, 0)]
+</span><span data-line="13">]
+</span><span data-line="14">t_type_filter_ckt = rf.cicuit.Circuit(cnx)
+</span><span data-line="15">t_type_filter_ntwk = t_type_filter_ckt.network
+</span><span data-line="16">t_type_filter_ntwk
+</span><span data-line="17">
+</span><span data-line="18"># 3. Parallelconnect() method
+</span><span data-line="19">t_type_filter_ntwk = rf.network.parallelconnect([L1, C, L2], [1, 0, 0])
+</span><span data-line="20">t_type_filter_ntwk
+</span></pre></div>
+</div>
+<p>It can be seen that the <code class="docutils literal notranslate"><span class="pre">parallelconnect()</span></code> method can realize the construction of <code class="docutils literal notranslate"><span class="pre">T-type</span> <span class="pre">filter</span></code> circuit very clearly and concisely.</p>
+<p>In this section, we compared the <code class="docutils literal notranslate"><span class="pre">parallelconnect()</span></code> method and compared it with the <code class="docutils literal notranslate"><span class="pre">connect()/innerconnect()</span></code> method and the <code class="docutils literal notranslate"><span class="pre">Circuit</span></code> object for connecting <code class="docutils literal notranslate"><span class="pre">Networks</span></code> from an intersection perspective.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">parallelconnect()</span></code> method excels in handling multiple parallel connections with minimal effort, making it ideal for scenarios requiring simplicity and efficiency. In contrast, the <code class="docutils literal notranslate"><span class="pre">connect()/innerconnect()</span></code> method is better suited for simpler, sequential connections, while the <code class="docutils literal notranslate"><span class="pre">Circuit</span></code> object is for complex, multi-layered connections with greater control.</p>
+<p>From the intersection perspective, the <code class="docutils literal notranslate"><span class="pre">Circuit</span></code> object is best for managing complex networks with multiple intersections, a task that exceeds the capabilities of other methods, which are designed for single intersection scenarios. And <code class="docutils literal notranslate"><span class="pre">innerconnect()/connect()</span></code> methods are limited to handling connections between individual or pairs of Networks, <code class="docutils literal notranslate"><span class="pre">parallelconnect()</span></code> removes the restriction on the number of Networks and can efficiently establish connections for multiple Networks in a single
+line of code, making it particularly advantageous for complex circuits with parallel connections at multiple points.</p>
+</section>
+<section id="References">
+<h2>References<a class="headerlink" href="#References" title="Link to this heading">#</a></h2>
+<p>[1] Compton, R.C.; , “Perspectives in microwave circuit analysis,” Circuits and Systems, 1989., Proceedings of the 32nd Midwest Symposium on , vol., no., pp.716-718 vol.2, 14-16 Aug 1989. URL: <a class="reference external" href="http://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&amp;arnumber=101955&amp;isnumber=3167">http://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&amp;arnumber=101955&amp;isnumber=3167</a></p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[ ]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1">
+</span></pre></div>
+</div>
+</div>
+</section>
+</section>
+
+        </article><button class="back-to-top" type="button">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+  </svg>
+  <span>Back to top</span>
+</button><div class="navigation flex print:hidden"><div class="navigation-prev">
+    <a href="Networks.html">
+      <i class="i-lucide chevron-left"></i>
+      <div class="page-info">
+        <span>Previous</span><div class="title">Networks</div></div>
+    </a>
+  </div><div class="navigation-next">
+    <a href="Plotting.html">
+      <div class="page-info">
+        <span>Next</span>
+        <div class="title">Plotting</div>
+      </div>
+      <i class="i-lucide chevron-right"></i>
+    </a>
+  </div></div></div>
+    </div>
+  </main>
+</div>
+<footer class="sy-foot">
+  <div class="sy-foot-inner sy-container mx-auto">
+    <div class="sy-foot-reserved md:flex justify-between items-center">
+      <div class="sy-foot-copyright"><p>2025, scikit-rf team</p>
+  
+  <p>
+    Made with
+    
+    <a href="https://www.sphinx-doc.org/">Sphinx</a> and
+    
+    <a href="https://shibuya.lepture.com">Shibuya theme</a>.
+  </p>
+</div>
+      <div class="sy-foot-socials">
+  <a href="https://github.com/scikit-rf/scikit-rf" aria-label="GitHub">
+    <iconify-icon icon="simple-icons:github"></iconify-icon>
+  </a></div>
+    </div>
+  </div>
+</footer>
+      <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../_static/copybutton.js?v=34bd459d"></script>
+      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+      <script src="../_static/shibuya.js?v=50760d75"></script>
+      <script src="https://cdn.jsdelivr.net/npm/@jupyter-widgets/html-manager@^1.0.1/dist/embed-amd.js"></script>
+      <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
+      <script src="../_static/skrf.js?v=bdeb9fb0"></script></body>
+</html>

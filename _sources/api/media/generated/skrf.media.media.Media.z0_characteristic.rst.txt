@@ -1,0 +1,6 @@
+skrf.media.media.Media.z0\_characteristic
+=========================================
+
+.. currentmodule:: skrf.media.media
+
+.. autoproperty:: Media.z0_characteristic

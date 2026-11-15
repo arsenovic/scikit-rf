@@ -1,0 +1,6 @@
+skrf.media.freespace.Freespace.z0\_override
+===========================================
+
+.. currentmodule:: skrf.media.freespace
+
+.. autoproperty:: Freespace.z0_override

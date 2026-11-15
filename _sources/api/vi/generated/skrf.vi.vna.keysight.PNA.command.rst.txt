@@ -1,0 +1,6 @@
+skrf.vi.vna.keysight.PNA.command
+================================
+
+.. currentmodule:: skrf.vi.vna.keysight
+
+.. automethod:: PNA.command

@@ -1,0 +1,6 @@
+skrf.vi.validators.FreqValidator.freq\_re
+=========================================
+
+.. currentmodule:: skrf.vi.validators
+
+.. autoattribute:: FreqValidator.freq_re

@@ -1,0 +1,45 @@
+﻿skrf.circuit.Circuit._REDUCE_OPTIONS
+====================================
+
+.. currentmodule:: skrf.circuit
+
+.. autoclass:: Circuit._REDUCE_OPTIONS
+  :no-members:
+
+
+
+.. rubric:: Attributes
+
+.. autosummary::
+  :toctree:
+  :nosignatures:
+
+  ~Circuit._REDUCE_OPTIONS.check_duplication
+  ~Circuit._REDUCE_OPTIONS.split_ground
+  ~Circuit._REDUCE_OPTIONS.split_multi
+  ~Circuit._REDUCE_OPTIONS.max_nports
+  ~Circuit._REDUCE_OPTIONS.dynamic_networks
+
+
+
+
+
+.. rubric:: Methods
+
+.. autosummary::
+  :toctree:
+  :nosignatures:
+
+  ~Circuit._REDUCE_OPTIONS.__init__
+  ~Circuit._REDUCE_OPTIONS.clear
+  ~Circuit._REDUCE_OPTIONS.copy
+  ~Circuit._REDUCE_OPTIONS.fromkeys
+  ~Circuit._REDUCE_OPTIONS.get
+  ~Circuit._REDUCE_OPTIONS.items
+  ~Circuit._REDUCE_OPTIONS.keys
+  ~Circuit._REDUCE_OPTIONS.pop
+  ~Circuit._REDUCE_OPTIONS.popitem
+  ~Circuit._REDUCE_OPTIONS.setdefault
+  ~Circuit._REDUCE_OPTIONS.update
+  ~Circuit._REDUCE_OPTIONS.values
+

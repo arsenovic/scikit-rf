@@ -1,0 +1,6 @@
+skrf.circuit.Circuit.C\_F
+=========================
+
+.. currentmodule:: skrf.circuit
+
+.. autoproperty:: Circuit.C_F

@@ -1,0 +1,6 @@
+﻿skrf.mathFunctions.sqrt\_known\_sign
+====================================
+
+.. currentmodule:: skrf.mathFunctions
+
+.. autofunction:: sqrt_known_sign

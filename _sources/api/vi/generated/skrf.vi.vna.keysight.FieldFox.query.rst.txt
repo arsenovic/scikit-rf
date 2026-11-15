@@ -1,0 +1,6 @@
+skrf.vi.vna.keysight.FieldFox.query
+===================================
+
+.. currentmodule:: skrf.vi.vna.keysight
+
+.. automethod:: FieldFox.query

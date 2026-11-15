@@ -1,0 +1,1219 @@
+<!DOCTYPE html>
+<html lang="en" data-accent-color="blue" data-content_root="../../../">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>skrf.io.touchstone - scikit-rf</title><link rel="author" title="About these documents" href="../../../about.html" /><link rel="index" title="Index" href="../../../genindex.html" /><link rel="search" title="Search" href="../../../search.html" /><script>
+    function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
+    setColorMode(localStorage._theme||"auto");
+  </script><link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=ad592e98" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/shibuya.css?v=2ceb65ce" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-codeautolink.css?v=b2176991" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+    <link media="print" rel="stylesheet" type="text/css" href="../../../_static/print.css?v=20ff2c19" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/skrf.css?v=7e772ba2" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --sy-f-text: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+  --sy-f-heading: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+}
+</style>
+    
+  <meta property="og:type" content="website"/><meta property="og:title" content="skrf.io.touchstone"/>
+    <meta name="twitter:card" content="summary"/>
+  </head>
+<body><div class="sy-head">
+  <div class="sy-head-blur"></div>
+  <div class="sy-head-inner sy-container mx-auto">
+    <a class="sy-head-brand" href="../../../index.html">
+      <img class="light-logo" src="../../../_static/logo.svg" alt="scikit-rf" height="28" loading="lazy" />
+      <img class="dark-logo" src="../../../_static/logo.svg" alt="scikit-rf" height="28" loading="lazy" />
+      <strong>scikit-rf</strong>
+    </a>
+    <div class="sy-head-nav" id="head-nav">
+      <nav class="sy-head-links"><ul><li class="link"><a href="../../../index.html">Home</a></li><li class="link"><a href="../../../tutorials/index.html">Tutorials</a></li><li class="link"><a href="../../../examples/index.html">Examples</a></li><li class="link"><a href="../../../api/index.html">API</a></li><li class="link">
+          <a href="https://github.com/scikit-rf/scikit-rf">
+            <span>GitHub</span><i class="i-lucide external-link"></i></a>
+        </li></ul></nav>
+      <div class="sy-head-extra flex items-center print:hidden"><form class="searchbox flex items-center" action="../../../search.html" method="get">
+  <input type="text" name="q" placeholder="Search" />
+  <kbd>/</kbd>
+</form><div class="sy-head-socials">
+  <a href="https://github.com/scikit-rf/scikit-rf" aria-label="GitHub">
+    <iconify-icon icon="simple-icons:github"></iconify-icon>
+  </a>
+  <a href="https://www.linkedin.com/groups/12462155/" aria-label="LinkedIn">
+    <iconify-icon icon="simple-icons:linkedin"></iconify-icon>
+  </a>
+  <a href="https://app.element.io/#/room/#scikit-rf:matrix.org" aria-label="Matrix">
+    <iconify-icon icon="simple-icons:matrix"></iconify-icon>
+  </a></div></div>
+    </div>
+    <div class="sy-head-actions flex items-center shrink-0 print:hidden"><button class="js-theme theme-switch flex items-center"
+data-aria-auto="Switch to light color mode"
+data-aria-light="Switch to dark color mode"
+data-aria-dark="Switch to auto color mode">
+<i class="i-lucide theme-icon"></i>
+</button><button class="md:hidden flex items-center js-menu" aria-label="Menu" type="button" aria-controls="head-nav" aria-expanded="false">
+        <div class="hamburger">
+          <span class="hamburger_1"></span>
+          <span class="hamburger_2"></span>
+          <span class="hamburger_3"></span>
+        </div>
+      </button>
+    </div>
+  </div>
+</div>
+<div class="sy-page sy-container flex mx-auto">
+  <aside id="lside" class="sy-lside md:w-72 md:shrink-0 print:hidden">
+    <div class="sy-lside-inner md:sticky">
+      <div class="sy-scrollbar p-6">
+        <div class="globaltoc" data-expand-depth="0"><p class="caption" role="heading" aria-level="3"><span class="caption-text">Getting started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../index.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorials/Installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorials/Introduction.html">Introduction</a></li>
+</ul>
+<p class="caption" role="heading" aria-level="3"><span class="caption-text">User guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/index.html">Examples</a></li>
+</ul>
+<p class="caption" role="heading" aria-level="3"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/index.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../glossary.html">Glossary</a></li>
+</ul>
+<p class="caption" role="heading" aria-level="3"><span class="caption-text">Project</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing/index.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../citations_ack/acknowledging.html">Citing scikit-rf</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../citations_ack/citations.html">scikit-rf Citations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../about.html">About</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../users.html">Users</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../license.html">License</a></li>
+</ul>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="lside-overlay js-menu" role="button" aria-label="Close left sidebar" aria-controls="lside" aria-expanded="false"></div>
+  <aside id="rside" class="sy-rside pb-3 w-64 shrink-0 order-last">
+    <button class="rside-close js-menu xl:hidden" aria-label="Close Table of Contents" type="button" aria-controls="rside" aria-expanded="false">
+      <i class="i-lucide close"></i>
+    </button>
+    <div class="sy-scrollbar sy-rside-inner px-6 xl:top-16 xl:sticky xl:pl-0 pt-6 pb-4"><div id="ethical-ad-placement" data-ea-publisher="readthedocs"></div></div>
+  </aside>
+  <div class="rside-overlay js-menu" role="button" aria-label="Close Table of Contents" aria-controls="rside" aria-expanded="false"></div>
+  <main class="sy-main w-full max-sm:max-w-full print:pt-6">
+<div class="sy-breadcrumbs" role="navigation">
+  <div class="sy-breadcrumbs-inner flex items-center">
+    <div class="md:hidden mr-3">
+      <button class="js-menu" aria-label="Menu" type="button" aria-controls="lside" aria-expanded="false">
+        <i class="i-lucide menu"></i>
+      </button>
+    </div>
+    <ol class="flex-1" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="../../../index.html"><span itemprop="name">scikit-rf</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="1" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="../../index.html"><span itemprop="name">Module code</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="2" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <strong itemprop="name">skrf.io.touchstone</strong>
+        <meta itemprop="position" content="3" />
+      </li></ol>
+    <div class="xl:hidden ml-1">
+      <button class="js-menu" aria-label="Show table of contents" type="button" aria-controls="rside"
+        aria-expanded="false">
+        <i class="i-lucide outdent"></i>
+      </button>
+    </div>
+  </div>
+</div><div class="flex flex-col break-words justify-between">
+      <div class="relative min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
+  <article class="yue" role="main">
+          <h1>Source code for skrf.io.touchstone</h1><div class="highlight"><pre>
+<span></span><span data-line="1"><span class="sd">"""</span>
+</span><span data-line="2"><span class="sd">.. module:: skrf.io.touchstone</span>
+</span><span data-line="3">
+</span><span data-line="4"><span class="sd">========================================</span>
+</span><span data-line="5"><span class="sd">touchstone (:mod:`skrf.io.touchstone`)</span>
+</span><span data-line="6"><span class="sd">========================================</span>
+</span><span data-line="7">
+</span><span data-line="8"><span class="sd">Touchstone class and utilities</span>
+</span><span data-line="9">
+</span><span data-line="10"><span class="sd">.. autosummary::</span>
+</span><span data-line="11"><span class="sd">   :toctree: generated/</span>
+</span><span data-line="12">
+</span><span data-line="13"><span class="sd">   Touchstone</span>
+</span><span data-line="14">
+</span><span data-line="15"><span class="sd">Functions related to reading/writing touchstones.</span>
+</span><span data-line="16"><span class="sd">-------------------------------------------------</span>
+</span><span data-line="17">
+</span><span data-line="18"><span class="sd">.. autosummary::</span>
+</span><span data-line="19"><span class="sd">   :toctree: generated/</span>
+</span><span data-line="20">
+</span><span data-line="21"><span class="sd">   hfss_touchstone_2_gamma_z0</span>
+</span><span data-line="22"><span class="sd">   hfss_touchstone_2_media</span>
+</span><span data-line="23"><span class="sd">   hfss_touchstone_2_network</span>
+</span><span data-line="24"><span class="sd">   read_zipped_touchstones</span>
+</span><span data-line="25">
+</span><span data-line="26"><span class="sd">"""</span>
+</span><span data-line="27"><span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
+</span><span data-line="28">
+</span><span data-line="29"><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">TYPE_CHECKING</span>
+</span><span data-line="30">
+</span><span data-line="31"><span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
+</span><span data-line="32">    <span class="kn">from</span><span class="w"> </span><span class="nn">..media</span><span class="w"> </span><span class="kn">import</span> <span class="n">DefinedGammaZ0</span>
+</span><span data-line="33">
+</span><span data-line="34"><span class="kn">import</span><span class="w"> </span><span class="nn">io</span>
+</span><span data-line="35"><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+</span><span data-line="36"><span class="kn">import</span><span class="w"> </span><span class="nn">re</span>
+</span><span data-line="37"><span class="kn">import</span><span class="w"> </span><span class="nn">typing</span>
+</span><span data-line="38"><span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
+</span><span data-line="39"><span class="kn">import</span><span class="w"> </span><span class="nn">zipfile</span>
+</span><span data-line="40"><span class="kn">from</span><span class="w"> </span><span class="nn">collections.abc</span><span class="w"> </span><span class="kn">import</span> <span class="n">Callable</span>
+</span><span data-line="41"><span class="kn">from</span><span class="w"> </span><span class="nn">dataclasses</span><span class="w"> </span><span class="kn">import</span> <span class="n">dataclass</span><span class="p">,</span> <span class="n">field</span>
+</span><span data-line="42"><span class="kn">from</span><span class="w"> </span><span class="nn">functools</span><span class="w"> </span><span class="kn">import</span> <span class="n">cached_property</span>
+</span><span data-line="43"><span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+</span><span data-line="44"><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Literal</span>
+</span><span data-line="45">
+</span><span data-line="46"><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+</span><span data-line="47">
+</span><span data-line="48"><span class="kn">from</span><span class="w"> </span><span class="nn">..constants</span><span class="w"> </span><span class="kn">import</span> <span class="n">FREQ_UNITS</span><span class="p">,</span> <span class="n">S_DEF_HFSS_DEFAULT</span><span class="p">,</span> <span class="n">S_DEFINITIONS</span><span class="p">,</span> <span class="n">SparamFormatT</span>
+</span><span data-line="49"><span class="kn">from</span><span class="w"> </span><span class="nn">..network</span><span class="w"> </span><span class="kn">import</span> <span class="n">Network</span>
+</span><span data-line="50"><span class="kn">from</span><span class="w"> </span><span class="nn">..util</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_fid</span>
+</span><span data-line="51">
+</span><span data-line="52">
+</span><span data-line="53"><span class="k">def</span><span class="w"> </span><span class="nf">remove_prefix</span><span class="p">(</span><span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">prefix</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+</span><span data-line="54">    <span class="k">if</span> <span class="n">text</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="n">prefix</span><span class="p">):</span>
+</span><span data-line="55">        <span class="k">return</span> <span class="n">text</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">prefix</span><span class="p">)</span> <span class="p">:]</span>
+</span><span data-line="56">    <span class="k">return</span> <span class="n">text</span>
+</span><span data-line="57">
+</span><span data-line="58">
+</span><span data-line="59"><span class="nd">@dataclass</span>
+</span><span data-line="60"><span class="k">class</span><span class="w"> </span><span class="nc">ParserState</span><span class="p">:</span>
+</span><span data-line="61"><span class="w">    </span><span class="sd">"""Class to hold dynamic variables while parsing the touchstone file.</span>
+</span><span data-line="62"><span class="sd">    """</span>
+</span><span data-line="63">    <span class="n">rank</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+</span><span data-line="64">    <span class="n">option_line_parsed</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+</span><span data-line="65">    <span class="n">hfss_gamma</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="nb">float</span><span class="p">]]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">list</span><span class="p">)</span>
+</span><span data-line="66">    <span class="n">hfss_impedance</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="nb">float</span><span class="p">]]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">list</span><span class="p">)</span>
+</span><span data-line="67">    <span class="n">comments</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">list</span><span class="p">)</span>
+</span><span data-line="68">    <span class="n">comments_after_option_line</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">list</span><span class="p">)</span>
+</span><span data-line="69">    <span class="n">matrix_format</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"full"</span>
+</span><span data-line="70">    <span class="n">parse_network</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>
+</span><span data-line="71">    <span class="n">_parse_noise</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+</span><span data-line="72">    <span class="n">f</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">list</span><span class="p">)</span>
+</span><span data-line="73">    <span class="n">f_noise</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">list</span><span class="p">)</span>
+</span><span data-line="74">    <span class="n">s</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">list</span><span class="p">)</span>
+</span><span data-line="75">    <span class="n">noise</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">list</span><span class="p">)</span>
+</span><span data-line="76">    <span class="n">two_port_order_legacy</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>
+</span><span data-line="77">    <span class="n">number_noise_freq</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+</span><span data-line="78">    <span class="n">port_names</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">dict</span><span class="p">)</span>
+</span><span data-line="79">    <span class="n">ansys_data_type</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+</span><span data-line="80">    <span class="n">mixed_mode_order</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+</span><span data-line="81">    <span class="n">frequency_unit</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"ghz"</span>
+</span><span data-line="82">    <span class="n">parameter</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"s"</span>
+</span><span data-line="83">    <span class="nb">format</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"ma"</span>
+</span><span data-line="84">    <span class="n">resistance</span><span class="p">:</span> <span class="nb">complex</span> <span class="o">=</span> <span class="nb">complex</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span>
+</span><span data-line="85">
+</span><span data-line="86">    <span class="nd">@cached_property</span>
+</span><span data-line="87">    <span class="k">def</span><span class="w"> </span><span class="nf">numbers_per_line</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+</span><span data-line="88"><span class="w">        </span><span class="sd">"""Returns data points per frequency point.</span>
+</span><span data-line="89">
+</span><span data-line="90"><span class="sd">        Returns:</span>
+</span><span data-line="91"><span class="sd">            int: Number of data points per frequency point.</span>
+</span><span data-line="92"><span class="sd">        """</span>
+</span><span data-line="93">        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">matrix_format</span> <span class="o">==</span> <span class="s2">"full"</span><span class="p">:</span>
+</span><span data-line="94">            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">rank</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="mi">2</span>
+</span><span data-line="95">        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">rank</span><span class="o">*</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rank</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+</span><span data-line="96">
+</span><span data-line="97">    <span class="nd">@property</span>
+</span><span data-line="98">    <span class="k">def</span><span class="w"> </span><span class="nf">parse_noise</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+</span><span data-line="99"><span class="w">        </span><span class="sd">"""Returns true if the parser expects noise data.</span>
+</span><span data-line="100">
+</span><span data-line="101"><span class="sd">        Returns:</span>
+</span><span data-line="102"><span class="sd">            bool: True, if noise data is expected.</span>
+</span><span data-line="103"><span class="sd">        """</span>
+</span><span data-line="104">        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parse_noise</span>
+</span><span data-line="105">
+</span><span data-line="106">    <span class="nd">@parse_noise</span><span class="o">.</span><span class="n">setter</span>
+</span><span data-line="107">    <span class="k">def</span><span class="w"> </span><span class="nf">parse_noise</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+</span><span data-line="108">        <span class="bp">self</span><span class="o">.</span><span class="n">parse_network</span> <span class="o">=</span> <span class="kc">False</span>
+</span><span data-line="109">        <span class="bp">self</span><span class="o">.</span><span class="n">_parse_noise</span> <span class="o">=</span> <span class="n">x</span>
+</span><span data-line="110">
+</span><span data-line="111">    <span class="nd">@property</span>
+</span><span data-line="112">    <span class="k">def</span><span class="w"> </span><span class="nf">frequency_mult</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+</span><span data-line="113">        <span class="n">_units</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="o">.</span><span class="n">lower</span><span class="p">():</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span><span class="n">v</span> <span class="ow">in</span> <span class="n">FREQ_UNITS</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+</span><span data-line="114">        <span class="k">return</span> <span class="n">_units</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">frequency_unit</span><span class="p">]</span>
+</span><span data-line="115">
+</span><span data-line="116">    <span class="k">def</span><span class="w"> </span><span class="nf">parse_port</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">line</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+</span><span data-line="117"><span class="w">        </span><span class="sd">"""Regex parser for port names.</span>
+</span><span data-line="118">
+</span><span data-line="119"><span class="sd">        Args:</span>
+</span><span data-line="120"><span class="sd">            line (str): Touchstone line.</span>
+</span><span data-line="121"><span class="sd">        """</span>
+</span><span data-line="122">        <span class="n">m</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="sa">r</span><span class="s2">"! Port\[(\d+)\]\s*=\s*(.*)$"</span><span class="p">,</span> <span class="n">line</span><span class="p">)</span>
+</span><span data-line="123">        <span class="k">if</span> <span class="n">m</span><span class="p">:</span>
+</span><span data-line="124">            <span class="bp">self</span><span class="o">.</span><span class="n">port_names</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+</span><span data-line="125">
+</span><span data-line="126">    <span class="k">def</span><span class="w"> </span><span class="nf">append_comment</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">line</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+</span><span data-line="127"><span class="w">        </span><span class="sd">"""Append comment, and append appropriate comment list.</span>
+</span><span data-line="128">
+</span><span data-line="129"><span class="sd">        Args:</span>
+</span><span data-line="130"><span class="sd">            line (str): Line to parse</span>
+</span><span data-line="131"><span class="sd">        """</span>
+</span><span data-line="132">        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">option_line_parsed</span><span class="p">:</span>
+</span><span data-line="133">            <span class="bp">self</span><span class="o">.</span><span class="n">comments_after_option_line</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+</span><span data-line="134">        <span class="k">else</span><span class="p">:</span>
+</span><span data-line="135">            <span class="bp">self</span><span class="o">.</span><span class="n">comments</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+</span><span data-line="136">
+</span><span data-line="137">    <span class="k">def</span><span class="w"> </span><span class="nf">parse_option_line</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">line</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+</span><span data-line="138"><span class="w">        </span><span class="sd">"""Parse the option line starting with #</span>
+</span><span data-line="139">
+</span><span data-line="140"><span class="sd">        Args:</span>
+</span><span data-line="141"><span class="sd">            line (str): Line to parse</span>
+</span><span data-line="142">
+</span><span data-line="143"><span class="sd">        Raises:</span>
+</span><span data-line="144"><span class="sd">            ValueError: If option line contains invalid options.</span>
+</span><span data-line="145">
+</span><span data-line="146"><span class="sd">        """</span>
+</span><span data-line="147">        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">option_line_parsed</span><span class="p">:</span>
+</span><span data-line="148">            <span class="k">return</span>
+</span><span data-line="149">        <span class="n">toks</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">lower</span><span class="p">()[</span><span class="mi">1</span><span class="p">:]</span><span class="o">.</span><span class="n">partition</span><span class="p">(</span><span class="s2">"!"</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+</span><span data-line="150">        <span class="c1"># fill the option line with the missing defaults</span>
+</span><span data-line="151">        <span class="n">toks</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="s2">"ghz"</span><span class="p">,</span> <span class="s2">"s"</span><span class="p">,</span> <span class="s2">"ma"</span><span class="p">,</span> <span class="s2">"r"</span><span class="p">,</span> <span class="s2">"50"</span><span class="p">][</span><span class="nb">len</span><span class="p">(</span><span class="n">toks</span><span class="p">)</span> <span class="p">:])</span>
+</span><span data-line="152">        <span class="bp">self</span><span class="o">.</span><span class="n">frequency_unit</span> <span class="o">=</span> <span class="n">toks</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</span><span data-line="153">        <span class="bp">self</span><span class="o">.</span><span class="n">parameter</span> <span class="o">=</span> <span class="n">toks</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+</span><span data-line="154">        <span class="bp">self</span><span class="o">.</span><span class="n">format</span> <span class="o">=</span> <span class="n">toks</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+</span><span data-line="155">        <span class="c1"># Version 1.1 allows one reference resistance per port</span>
+</span><span data-line="156">        <span class="n">resistance</span> <span class="o">=</span> <span class="p">[</span><span class="nb">complex</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">toks</span><span class="p">[</span><span class="mi">4</span><span class="p">:]]</span>
+</span><span data-line="157">        <span class="bp">self</span><span class="o">.</span><span class="n">resistance</span> <span class="o">=</span> <span class="n">resistance</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">resistance</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span> <span class="k">else</span> <span class="n">resistance</span>
+</span><span data-line="158">        <span class="n">err_msg</span> <span class="o">=</span> <span class="s2">""</span>
+</span><span data-line="159">        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">frequency_unit</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">"hz"</span><span class="p">,</span> <span class="s2">"khz"</span><span class="p">,</span> <span class="s2">"mhz"</span><span class="p">,</span> <span class="s2">"ghz"</span><span class="p">]:</span>
+</span><span data-line="160">            <span class="n">err_msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"ERROR: illegal frequency_unit </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">frequency_unit</span><span class="si">}</span><span class="se">\n</span><span class="s2">"</span>
+</span><span data-line="161">        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">parameter</span> <span class="ow">not</span> <span class="ow">in</span> <span class="s2">"syzgh"</span><span class="p">:</span>
+</span><span data-line="162">            <span class="n">err_msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"ERROR: illegal parameter value </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">parameter</span><span class="si">}</span><span class="se">\n</span><span class="s2">"</span>
+</span><span data-line="163">        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">format</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">typing</span><span class="o">.</span><span class="n">get_args</span><span class="p">(</span><span class="n">SparamFormatT</span><span class="p">):</span>
+</span><span data-line="164">            <span class="n">err_msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"ERROR: illegal format value </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">format</span><span class="si">}</span><span class="se">\n</span><span class="s2">"</span>
+</span><span data-line="165">
+</span><span data-line="166">        <span class="k">if</span> <span class="n">err_msg</span><span class="p">:</span>
+</span><span data-line="167">            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">err_msg</span><span class="p">)</span>
+</span><span data-line="168">
+</span><span data-line="169">        <span class="bp">self</span><span class="o">.</span><span class="n">option_line_parsed</span> <span class="o">=</span> <span class="kc">True</span>
+</span><span data-line="170">
+</span><span data-line="171">
+<div class="viewcode-block" id="Touchstone">
+<a class="viewcode-back" href="../../../api/io/generated/skrf.io.touchstone.Touchstone.html#skrf.io.touchstone.Touchstone">[docs]</a>
+</span><span data-line="172"><span class="k">class</span><span class="w"> </span><span class="nc">Touchstone</span><span class="p">:</span>
+</span><span data-line="173"><span class="w">    </span><span class="sd">"""</span>
+</span><span data-line="174"><span class="sd">    Class to read touchstone s-parameter files.</span>
+</span><span data-line="175">
+</span><span data-line="176"><span class="sd">    The reference for writing this class is the draft of the</span>
+</span><span data-line="177"><span class="sd">    Touchstone(R) File Format Specification Rev 2.0 [#]_ and</span>
+</span><span data-line="178"><span class="sd">    Touchstone(R) File Format Specification Version 2.0 [#]_ and</span>
+</span><span data-line="179"><span class="sd">    Touchstone(R) File Format Specification Version 2.1 [#]_</span>
+</span><span data-line="180">
+</span><span data-line="181"><span class="sd">    References</span>
+</span><span data-line="182"><span class="sd">    ----------</span>
+</span><span data-line="183"><span class="sd">    .. [#] https://ibis.org/interconnect_wip/touchstone_spec2_draft.pdf</span>
+</span><span data-line="184"><span class="sd">    .. [#] https://ibis.org/touchstone_ver2.0/touchstone_ver2_0.pdf</span>
+</span><span data-line="185"><span class="sd">    .. [#] https://ibis.org/touchstone_ver2.1/touchstone_ver2_1.pdf</span>
+</span><span data-line="186"><span class="sd">    """</span>
+</span><span data-line="187">
+<div class="viewcode-block" id="Touchstone.__init__">
+<a class="viewcode-back" href="../../../api/io/generated/skrf.io.touchstone.Touchstone.__init__.html#skrf.io.touchstone.Touchstone.__init__">[docs]</a>
+</span><span data-line="188">    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Path</span> <span class="o">|</span> <span class="n">typing</span><span class="o">.</span><span class="n">TextIO</span><span class="p">,</span> <span class="n">encoding</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+</span><span data-line="189"><span class="w">        </span><span class="sd">"""</span>
+</span><span data-line="190"><span class="sd">        constructor</span>
+</span><span data-line="191">
+</span><span data-line="192"><span class="sd">        Parameters</span>
+</span><span data-line="193"><span class="sd">        ----------</span>
+</span><span data-line="194"><span class="sd">        file : str, Path, or file-object</span>
+</span><span data-line="195"><span class="sd">            touchstone file to load</span>
+</span><span data-line="196"><span class="sd">        encoding : str, optional</span>
+</span><span data-line="197"><span class="sd">            define the file encoding to use. Default value is None,</span>
+</span><span data-line="198"><span class="sd">            meaning the encoding is guessed (ANSI, UTF-8 or Latin-1).</span>
+</span><span data-line="199">
+</span><span data-line="200"><span class="sd">        Examples</span>
+</span><span data-line="201"><span class="sd">        --------</span>
+</span><span data-line="202"><span class="sd">        From filename</span>
+</span><span data-line="203">
+</span><span data-line="204"><span class="sd">        &gt;&gt;&gt; t = rf.Touchstone('network.s2p')</span>
+</span><span data-line="205">
+</span><span data-line="206"><span class="sd">        File encoding can be specified to help parsing the special characters:</span>
+</span><span data-line="207">
+</span><span data-line="208"><span class="sd">        &gt;&gt;&gt; t = rf.Touchstone('network.s2p', encoding='ISO-8859-1')</span>
+</span><span data-line="209">
+</span><span data-line="210"><span class="sd">        From file-object</span>
+</span><span data-line="211">
+</span><span data-line="212"><span class="sd">        &gt;&gt;&gt; file = open('network.s2p')</span>
+</span><span data-line="213"><span class="sd">        &gt;&gt;&gt; t = rf.Touchstone(file)</span>
+</span><span data-line="214">
+</span><span data-line="215"><span class="sd">        From a io.StringIO object</span>
+</span><span data-line="216">
+</span><span data-line="217"><span class="sd">        &gt;&gt;&gt; link = 'https://raw.githubusercontent.com/scikit-rf/scikit-rf/master/examples/</span>
+</span><span data-line="218"><span class="sd">            basic_touchstone_plotting/horn antenna.s1p'</span>
+</span><span data-line="219"><span class="sd">        &gt;&gt;&gt; r = requests.get(link)</span>
+</span><span data-line="220"><span class="sd">        &gt;&gt;&gt; stringio = io.StringIO(r.text)</span>
+</span><span data-line="221"><span class="sd">        &gt;&gt;&gt; stringio.name = 'horn.s1p'  # must be provided for the Touchstone parser</span>
+</span><span data-line="222"><span class="sd">        &gt;&gt;&gt; horn = rf.Touchstone(stringio)</span>
+</span><span data-line="223">
+</span><span data-line="224"><span class="sd">        """</span>
+</span><span data-line="225">        <span class="c1">## file format version.</span>
+</span><span data-line="226">        <span class="c1"># Defined by default to 1.0, since version number can be omitted in V1.0 format</span>
+</span><span data-line="227">        <span class="bp">self</span><span class="o">.</span><span class="n">_version</span> <span class="o">=</span> <span class="s2">"1.0"</span>
+</span><span data-line="228">        <span class="c1">## comments in the file header</span>
+</span><span data-line="229">        <span class="bp">self</span><span class="o">.</span><span class="n">comments</span> <span class="o">=</span> <span class="s2">""</span>
+</span><span data-line="230">        <span class="c1">## unit of the frequency (Hz, kHz, MHz, GHz)</span>
+</span><span data-line="231">        <span class="bp">self</span><span class="o">.</span><span class="n">frequency_unit</span> <span class="o">=</span> <span class="kc">None</span>
+</span><span data-line="232">        <span class="c1">## number of frequency points</span>
+</span><span data-line="233">        <span class="bp">self</span><span class="o">.</span><span class="n">frequency_nb</span> <span class="o">=</span> <span class="kc">None</span>
+</span><span data-line="234">        <span class="c1">## s-parameter type (S,Y,Z,G,H)</span>
+</span><span data-line="235">        <span class="bp">self</span><span class="o">.</span><span class="n">parameter</span> <span class="o">=</span> <span class="kc">None</span>
+</span><span data-line="236">        <span class="c1">## s-parameter format (MA, DB, RI)</span>
+</span><span data-line="237">        <span class="bp">self</span><span class="o">.</span><span class="n">format</span> <span class="o">=</span> <span class="kc">None</span>
+</span><span data-line="238">        <span class="c1">## reference resistance, global setup</span>
+</span><span data-line="239">        <span class="bp">self</span><span class="o">.</span><span class="n">resistance</span> <span class="o">=</span> <span class="kc">None</span>
+</span><span data-line="240">        <span class="c1">## reference impedance for each s-parameter</span>
+</span><span data-line="241">        <span class="bp">self</span><span class="o">.</span><span class="n">reference</span> <span class="o">=</span> <span class="kc">None</span>
+</span><span data-line="242">
+</span><span data-line="243">        <span class="c1">## numpy array of original noise data</span>
+</span><span data-line="244">        <span class="bp">self</span><span class="o">.</span><span class="n">noise</span> <span class="o">=</span> <span class="kc">None</span>
+</span><span data-line="245">
+</span><span data-line="246">        <span class="c1">## kind of s-parameter data (s1p, s2p, s3p, s4p)</span>
+</span><span data-line="247">        <span class="bp">self</span><span class="o">.</span><span class="n">rank</span> <span class="o">=</span> <span class="kc">None</span>
+</span><span data-line="248">        <span class="c1">## Store port names in a list if they exist in the file</span>
+</span><span data-line="249">        <span class="bp">self</span><span class="o">.</span><span class="n">port_names</span> <span class="o">=</span> <span class="kc">None</span>
+</span><span data-line="250">
+</span><span data-line="251">        <span class="bp">self</span><span class="o">.</span><span class="n">comment_variables</span> <span class="o">=</span> <span class="kc">None</span>
+</span><span data-line="252">        <span class="c1"># Does the input file has HFSS per frequency port impedances</span>
+</span><span data-line="253">        <span class="bp">self</span><span class="o">.</span><span class="n">has_hfss_port_impedances</span> <span class="o">=</span> <span class="kc">False</span>
+</span><span data-line="254">        <span class="bp">self</span><span class="o">.</span><span class="n">gamma</span> <span class="o">=</span> <span class="kc">None</span>
+</span><span data-line="255">        <span class="bp">self</span><span class="o">.</span><span class="n">z0</span> <span class="o">=</span> <span class="kc">None</span>
+</span><span data-line="256">        <span class="bp">self</span><span class="o">.</span><span class="n">s_def</span> <span class="o">=</span> <span class="kc">None</span>
+</span><span data-line="257">        <span class="bp">self</span><span class="o">.</span><span class="n">port_modes</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([])</span>
+</span><span data-line="258">
+</span><span data-line="259">        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Path</span><span class="p">):</span>
+</span><span data-line="260">            <span class="n">file_path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+</span><span data-line="261">            <span class="k">if</span> <span class="n">encoding</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+</span><span data-line="262">                <span class="k">try</span><span class="p">:</span>
+</span><span data-line="263">                    <span class="n">file_contents</span> <span class="o">=</span> <span class="n">file_path</span><span class="o">.</span><span class="n">read_text</span><span class="p">(</span><span class="n">encoding</span><span class="o">=</span><span class="s2">"utf-8-sig"</span><span class="p">)</span>
+</span><span data-line="264">                <span class="k">except</span> <span class="ne">UnicodeDecodeError</span><span class="p">:</span>
+</span><span data-line="265">                    <span class="n">file_contents</span> <span class="o">=</span> <span class="n">file_path</span><span class="o">.</span><span class="n">read_text</span><span class="p">(</span><span class="n">encoding</span><span class="o">=</span><span class="s2">"ISO-8859-1"</span><span class="p">)</span>
+</span><span data-line="266">            <span class="k">else</span><span class="p">:</span>
+</span><span data-line="267">                <span class="n">file_contents</span> <span class="o">=</span> <span class="n">file_path</span><span class="o">.</span><span class="n">read_text</span><span class="p">(</span><span class="n">encoding</span><span class="o">=</span><span class="n">encoding</span><span class="p">)</span>
+</span><span data-line="268">
+</span><span data-line="269">            <span class="n">fid</span> <span class="o">=</span> <span class="n">io</span><span class="o">.</span><span class="n">StringIO</span><span class="p">(</span><span class="n">file_contents</span><span class="p">)</span>
+</span><span data-line="270">            <span class="n">fid</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span>
+</span><span data-line="271">        <span class="k">else</span><span class="p">:</span>
+</span><span data-line="272">            <span class="n">fid</span> <span class="o">=</span> <span class="n">get_fid</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+</span><span data-line="273">
+</span><span data-line="274">        <span class="k">try</span><span class="p">:</span>
+</span><span data-line="275">            <span class="bp">self</span><span class="o">.</span><span class="n">filename</span> <span class="o">=</span> <span class="n">fid</span><span class="o">.</span><span class="n">name</span>
+</span><span data-line="276">            <span class="bp">self</span><span class="o">.</span><span class="n">load_file</span><span class="p">(</span><span class="n">fid</span><span class="p">)</span>
+</span><span data-line="277">        <span class="k">finally</span><span class="p">:</span>
+</span><span data-line="278">            <span class="n">fid</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
+
+</span><span data-line="279">
+</span><span data-line="280">    <span class="nd">@staticmethod</span>
+</span><span data-line="281">    <span class="k">def</span><span class="w"> </span><span class="nf">_parse_n_floats</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">line</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">fid</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">TextIO</span><span class="p">,</span> <span class="n">n</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">before_comment</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">float</span><span class="p">]:</span>
+</span><span data-line="282"><span class="w">        </span><span class="sd">"""Parse a specified number of floats either in our outside a comment.</span>
+</span><span data-line="283">
+</span><span data-line="284"><span class="sd">        Args:</span>
+</span><span data-line="285"><span class="sd">            line (str): Actual line to parse.</span>
+</span><span data-line="286"><span class="sd">            fid (typing.TextIO): File descriptor to get new lines if necessary.</span>
+</span><span data-line="287"><span class="sd">            n (int): Number of floats to parse.</span>
+</span><span data-line="288"><span class="sd">            before_comment (bool): True, if the floats should get parsed in or outside a comment.</span>
+</span><span data-line="289">
+</span><span data-line="290"><span class="sd">        Returns:</span>
+</span><span data-line="291"><span class="sd">            list[float]: The parsed float values</span>
+</span><span data-line="292"><span class="sd">        """</span>
+</span><span data-line="293">        <span class="k">def</span><span class="w"> </span><span class="nf">get_part_of_line</span><span class="p">(</span><span class="n">line</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+</span><span data-line="294"><span class="w">            </span><span class="sd">"""Return either the part after or before a exclamation mark.</span>
+</span><span data-line="295">
+</span><span data-line="296"><span class="sd">            Args:</span>
+</span><span data-line="297"><span class="sd">                line (str): Line to parse.</span>
+</span><span data-line="298">
+</span><span data-line="299"><span class="sd">            Returns:</span>
+</span><span data-line="300"><span class="sd">                str: string subset.</span>
+</span><span data-line="301"><span class="sd">            """</span>
+</span><span data-line="302">            <span class="k">if</span> <span class="n">before_comment</span><span class="p">:</span>
+</span><span data-line="303">                <span class="k">return</span> <span class="n">line</span><span class="o">.</span><span class="n">partition</span><span class="p">(</span><span class="s2">"!"</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+</span><span data-line="304">            <span class="k">else</span><span class="p">:</span>
+</span><span data-line="305">                <span class="k">return</span> <span class="n">line</span><span class="o">.</span><span class="n">rpartition</span><span class="p">(</span><span class="s2">"!"</span><span class="p">)[</span><span class="mi">2</span><span class="p">]</span>
+</span><span data-line="306">
+</span><span data-line="307">        <span class="n">values</span> <span class="o">=</span> <span class="n">get_part_of_line</span><span class="p">(</span><span class="n">line</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+</span><span data-line="308">        <span class="n">ret</span> <span class="o">=</span> <span class="p">[]</span>
+</span><span data-line="309">        <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+</span><span data-line="310">            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">ret</span><span class="p">)</span> <span class="o">==</span> <span class="n">n</span><span class="p">:</span>
+</span><span data-line="311">                <span class="k">break</span>
+</span><span data-line="312">
+</span><span data-line="313">            <span class="k">if</span> <span class="ow">not</span> <span class="n">values</span><span class="p">:</span>
+</span><span data-line="314">                <span class="n">values</span> <span class="o">=</span> <span class="n">get_part_of_line</span><span class="p">(</span><span class="n">fid</span><span class="o">.</span><span class="n">readline</span><span class="p">())</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+</span><span data-line="315">            <span class="k">try</span><span class="p">:</span>
+</span><span data-line="316">                <span class="n">ret</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">values</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)))</span>
+</span><span data-line="317">            <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+</span><span data-line="318">                <span class="k">pass</span>
+</span><span data-line="319">
+</span><span data-line="320">        <span class="k">return</span> <span class="n">ret</span>
+</span><span data-line="321">
+</span><span data-line="322">    <span class="nd">@staticmethod</span>
+</span><span data-line="323">    <span class="k">def</span><span class="w"> </span><span class="nf">_parse_float_block</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">line</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">fid</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">TextIO</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">float</span><span class="p">]:</span>
+</span><span data-line="324"><span class="w">        </span><span class="sd">"""Parse a whole HFSS comment block, however many values it holds.</span>
+</span><span data-line="325">
+</span><span data-line="326"><span class="sd">        HFSS writes one value per port or a full matrix, wrapped over continuation lines either</span>
+</span><span data-line="327"><span class="sd">        way, so the count is not known in advance. The block is delimited instead: it ends at</span>
+</span><span data-line="328"><span class="sd">        the first line that is not a comment holding only numbers.</span>
+</span><span data-line="329">
+</span><span data-line="330"><span class="sd">        Args:</span>
+</span><span data-line="331"><span class="sd">            line (str): The keyword line.</span>
+</span><span data-line="332"><span class="sd">            fid (typing.TextIO): File descriptor to read continuation lines from.</span>
+</span><span data-line="333">
+</span><span data-line="334"><span class="sd">        Returns:</span>
+</span><span data-line="335"><span class="sd">            list[float]: Every value of the block.</span>
+</span><span data-line="336"><span class="sd">        """</span>
+</span><span data-line="337">        <span class="n">values</span> <span class="o">=</span> <span class="p">[]</span>
+</span><span data-line="338">        <span class="k">for</span> <span class="n">token</span> <span class="ow">in</span> <span class="n">line</span><span class="o">.</span><span class="n">rpartition</span><span class="p">(</span><span class="s2">"!"</span><span class="p">)[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">():</span>
+</span><span data-line="339">            <span class="k">try</span><span class="p">:</span>
+</span><span data-line="340">                <span class="n">values</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">token</span><span class="p">))</span>
+</span><span data-line="341">            <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+</span><span data-line="342">                <span class="k">pass</span>
+</span><span data-line="343">
+</span><span data-line="344">        <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+</span><span data-line="345">            <span class="n">position</span> <span class="o">=</span> <span class="n">fid</span><span class="o">.</span><span class="n">tell</span><span class="p">()</span>
+</span><span data-line="346">            <span class="n">continuation</span> <span class="o">=</span> <span class="n">fid</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+</span><span data-line="347">            <span class="n">more</span> <span class="o">=</span> <span class="kc">None</span>
+</span><span data-line="348">            <span class="k">if</span> <span class="n">continuation</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">"!"</span><span class="p">):</span>
+</span><span data-line="349">                <span class="k">try</span><span class="p">:</span>
+</span><span data-line="350">                    <span class="n">more</span> <span class="o">=</span> <span class="p">[</span><span class="nb">float</span><span class="p">(</span><span class="n">token</span><span class="p">)</span> <span class="k">for</span> <span class="n">token</span> <span class="ow">in</span> <span class="n">continuation</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span><span class="o">.</span><span class="n">split</span><span class="p">()]</span>
+</span><span data-line="351">                <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+</span><span data-line="352">                    <span class="n">more</span> <span class="o">=</span> <span class="kc">None</span>
+</span><span data-line="353">            <span class="k">if</span> <span class="ow">not</span> <span class="n">more</span><span class="p">:</span>
+</span><span data-line="354">                <span class="c1"># the line belongs to the main parse loop, hand it back</span>
+</span><span data-line="355">                <span class="n">fid</span><span class="o">.</span><span class="n">seek</span><span class="p">(</span><span class="n">position</span><span class="p">)</span>
+</span><span data-line="356">                <span class="k">break</span>
+</span><span data-line="357">            <span class="n">values</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">more</span><span class="p">)</span>
+</span><span data-line="358">
+</span><span data-line="359">        <span class="k">return</span> <span class="n">values</span>
+</span><span data-line="360">
+</span><span data-line="361">    <span class="k">def</span><span class="w"> </span><span class="nf">_hfss_port_values</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">blocks</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="nb">float</span><span class="p">]])</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+</span><span data-line="362"><span class="w">        </span><span class="sd">"""Reduce parsed HFSS comment blocks to one complex value per port and frequency.</span>
+</span><span data-line="363">
+</span><span data-line="364"><span class="sd">        Args:</span>
+</span><span data-line="365"><span class="sd">            blocks (list[list[float]]): One parsed block per frequency point.</span>
+</span><span data-line="366">
+</span><span data-line="367"><span class="sd">        Returns:</span>
+</span><span data-line="368"><span class="sd">            np.ndarray: Values of shape (frequencies, rank).</span>
+</span><span data-line="369"><span class="sd">        """</span>
+</span><span data-line="370">        <span class="n">values</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">blocks</span><span class="p">)</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">complex128</span><span class="p">)</span>
+</span><span data-line="371">        <span class="k">if</span> <span class="n">values</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">rank</span><span class="o">**</span><span class="mi">2</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">rank</span><span class="p">:</span>
+</span><span data-line="372">            <span class="c1"># Driven Terminal exports the full matrix, only its diagonal is per port (#354)</span>
+</span><span data-line="373">            <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">diagonal</span><span class="p">(</span><span class="n">values</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">rank</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">rank</span><span class="p">),</span> <span class="n">axis1</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">axis2</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+</span><span data-line="374">        <span class="k">if</span> <span class="n">values</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">rank</span><span class="p">:</span>
+</span><span data-line="375">            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+</span><span data-line="376">                <span class="sa">f</span><span class="s2">"Expected </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">rank</span><span class="si">}</span><span class="s2"> or </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">rank</span><span class="o">**</span><span class="mi">2</span><span class="si">}</span><span class="s2"> values per frequency in the HFSS "</span>
+</span><span data-line="377">                <span class="sa">f</span><span class="s2">"comments of </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">filename</span><span class="si">}</span><span class="s2">, got </span><span class="si">{</span><span class="n">values</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2">."</span><span class="p">,</span>
+</span><span data-line="378">                <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+</span><span data-line="379">            <span class="p">)</span>
+</span><span data-line="380">        <span class="k">return</span> <span class="n">values</span>
+</span><span data-line="381">
+</span><span data-line="382">    <span class="nd">@property</span>
+</span><span data-line="383">    <span class="k">def</span><span class="w"> </span><span class="nf">version</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+</span><span data-line="384"><span class="w">        </span><span class="sd">"""The version string.</span>
+</span><span data-line="385">
+</span><span data-line="386"><span class="sd">        Returns:</span>
+</span><span data-line="387"><span class="sd">            str: Version</span>
+</span><span data-line="388"><span class="sd">        """</span>
+</span><span data-line="389">        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_version</span>
+</span><span data-line="390">
+</span><span data-line="391">    <span class="nd">@version</span><span class="o">.</span><span class="n">setter</span>
+</span><span data-line="392">    <span class="k">def</span><span class="w"> </span><span class="nf">version</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+</span><span data-line="393">        <span class="bp">self</span><span class="o">.</span><span class="n">_version</span> <span class="o">=</span> <span class="n">x</span>
+</span><span data-line="394">        <span class="k">if</span> <span class="n">x</span> <span class="ow">in</span> <span class="p">{</span><span class="s2">"2.0"</span><span class="p">,</span> <span class="s2">"2.1"</span><span class="p">}:</span>
+</span><span data-line="395">            <span class="bp">self</span><span class="o">.</span><span class="n">_parse_dict</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_parse_dict_v2</span><span class="p">)</span>
+</span><span data-line="396">
+</span><span data-line="397">    <span class="k">def</span><span class="w"> </span><span class="nf">_parse_port</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fid</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">TextIO</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+</span><span data-line="398"><span class="w">        </span><span class="sd">"""</span>
+</span><span data-line="399"><span class="sd">        Reset file pointer and parse port names for more relaxed patterns.</span>
+</span><span data-line="400">
+</span><span data-line="401"><span class="sd">        Supported port-naming patterns include:</span>
+</span><span data-line="402"><span class="sd">        1. Standard Touchstone pattern:</span>
+</span><span data-line="403"><span class="sd">            - ! Port [1] = MyPort_VDD</span>
+</span><span data-line="404"><span class="sd">            - ! Port 60 : P060</span>
+</span><span data-line="405"><span class="sd">        2. Sigrity pattern:</span>
+</span><span data-line="406"><span class="sd">            - ! MyPort::VDD</span>
+</span><span data-line="407"><span class="sd">        """</span>
+</span><span data-line="408">        <span class="c1"># reset file pointer</span>
+</span><span data-line="409">        <span class="n">fid</span><span class="o">.</span><span class="n">seek</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+</span><span data-line="410">        <span class="n">port_style</span> <span class="o">=</span> <span class="kc">None</span>
+</span><span data-line="411">        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">fid</span><span class="p">:</span>
+</span><span data-line="412">            <span class="c1"># ex: ! Port [1] = MyPort_VDD; ! Port 60 : P060</span>
+</span><span data-line="413">            <span class="k">if</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="sa">r</span><span class="s1">'!\s*Port\s*[ \[]\d+[ \]]\s*[\=\:]\s*.+'</span><span class="p">,</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()):</span>
+</span><span data-line="414">                <span class="n">port_style</span> <span class="o">=</span> <span class="s1">'standard'</span>
+</span><span data-line="415">                <span class="k">break</span>
+</span><span data-line="416">            <span class="c1"># ex: ! MyPort::VDD</span>
+</span><span data-line="417">            <span class="k">if</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="sa">r</span><span class="s1">'!\s*\S+::[^:]+'</span><span class="p">,</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()):</span>
+</span><span data-line="418">                <span class="n">port_style</span> <span class="o">=</span> <span class="s1">'sigrity'</span>
+</span><span data-line="419">                <span class="k">break</span>
+</span><span data-line="420">            <span class="c1"># only find comments before first data point</span>
+</span><span data-line="421">            <span class="k">if</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="sa">r</span><span class="s1">'^\s*\d'</span><span class="p">,</span> <span class="n">line</span><span class="p">):</span>
+</span><span data-line="422">                <span class="k">break</span>
+</span><span data-line="423">        <span class="c1"># reset file pointer again</span>
+</span><span data-line="424">        <span class="n">fid</span><span class="o">.</span><span class="n">seek</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+</span><span data-line="425">        <span class="n">port_names</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+</span><span data-line="426">        <span class="n">port_pattern</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">'!\s*Port\s*[ \[]\d+[ \]]\s*[\=\:]\s*(.+)'</span> <span class="k">if</span> <span class="n">port_style</span> <span class="o">==</span> <span class="s1">'standard'</span> <span class="k">else</span> <span class="sa">r</span><span class="s1">'!\s*(\S+::[^:]+)'</span>
+</span><span data-line="427">        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">fid</span><span class="p">:</span>
+</span><span data-line="428">            <span class="k">if</span> <span class="n">m0</span> <span class="o">:=</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">port_pattern</span><span class="p">,</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()):</span>
+</span><span data-line="429">                <span class="n">port_names</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">m0</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+</span><span data-line="430">            <span class="c1"># only find comments before first data point</span>
+</span><span data-line="431">            <span class="k">if</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="sa">r</span><span class="s1">'^\s*\d'</span><span class="p">,</span> <span class="n">line</span><span class="p">):</span>
+</span><span data-line="432">                <span class="k">break</span>
+</span><span data-line="433">
+</span><span data-line="434">        <span class="k">return</span> <span class="n">port_names</span>
+</span><span data-line="435">
+</span><span data-line="436">    <span class="k">def</span><span class="w"> </span><span class="nf">_parse_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fid</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">TextIO</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ParserState</span><span class="p">:</span>
+</span><span data-line="437"><span class="w">        </span><span class="sd">"""</span>
+</span><span data-line="438"><span class="sd">        Parse the raw file and generate an structured view.</span>
+</span><span data-line="439">
+</span><span data-line="440"><span class="sd">        Parameters</span>
+</span><span data-line="441"><span class="sd">        ----------</span>
+</span><span data-line="442"><span class="sd">        fid : file object</span>
+</span><span data-line="443">
+</span><span data-line="444"><span class="sd">        Returns</span>
+</span><span data-line="445"><span class="sd">        -------</span>
+</span><span data-line="446"><span class="sd">        state: File content as ParserState</span>
+</span><span data-line="447">
+</span><span data-line="448"><span class="sd">        """</span>
+</span><span data-line="449">        <span class="n">state</span> <span class="o">=</span> <span class="n">ParserState</span><span class="p">()</span>
+</span><span data-line="450">
+</span><span data-line="451">        <span class="c1"># Check the filename extension.</span>
+</span><span data-line="452">        <span class="c1"># Should be .sNp for Touchstone format V1.0, and .ts for V2</span>
+</span><span data-line="453">        <span class="n">extension</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">filename</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">"."</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+</span><span data-line="454">
+</span><span data-line="455">        <span class="n">m</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="sa">r</span><span class="s2">"[ghsyz](\d+)p"</span><span class="p">,</span> <span class="n">extension</span><span class="p">)</span>
+</span><span data-line="456">        <span class="k">if</span> <span class="n">m</span><span class="p">:</span>
+</span><span data-line="457">            <span class="n">state</span><span class="o">.</span><span class="n">rank</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+</span><span data-line="458">        <span class="k">elif</span> <span class="n">extension</span> <span class="o">!=</span> <span class="s2">"ts"</span><span class="p">:</span>
+</span><span data-line="459">            <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">fid</span><span class="p">:</span>
+</span><span data-line="460">                <span class="k">if</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="sa">r</span><span class="s1">'^\s*\!'</span><span class="p">,</span> <span class="n">line</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+</span><span data-line="461">                    <span class="k">continue</span>
+</span><span data-line="462">
+</span><span data-line="463">                <span class="k">if</span> <span class="ow">not</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="sa">r</span><span class="s1">'^\[Version\]'</span><span class="p">,</span> <span class="n">line</span><span class="p">):</span>
+</span><span data-line="464">                    <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">filename</span><span class="si">}</span><span class="s2"> does not have a s-parameter extension (</span><span class="si">{</span><span class="n">extension</span><span class="si">}</span><span class="s2">)."</span>
+</span><span data-line="465">                            <span class="s2">"Please, correct the extension to of form: 'sNp', where N is any integer for Touchstone v1,"</span>
+</span><span data-line="466">                            <span class="s2">"or make sure input file is Touchstone v2."</span><span class="p">)</span>
+</span><span data-line="467">                    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+</span><span data-line="468">                <span class="k">else</span><span class="p">:</span>
+</span><span data-line="469">                    <span class="n">fid</span><span class="o">.</span><span class="n">seek</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+</span><span data-line="470">                <span class="k">break</span>
+</span><span data-line="471">
+</span><span data-line="472">        <span class="c1"># Lookup dictionary for parser</span>
+</span><span data-line="473">        <span class="c1"># Dictionary has string keys and values contains functions which</span>
+</span><span data-line="474">        <span class="c1"># need the current line as string argument. The type hints allow</span>
+</span><span data-line="475">        <span class="c1"># the IDE to provide full typing support</span>
+</span><span data-line="476">        <span class="c1"># Take care of the order of the elements when inserting new key words.</span>
+</span><span data-line="477">        <span class="bp">self</span><span class="o">.</span><span class="n">_parse_dict</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Callable</span><span class="p">[[</span><span class="nb">str</span><span class="p">],</span> <span class="kc">None</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{</span>
+</span><span data-line="478">            <span class="s2">"[version]"</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">"version"</span><span class="p">,</span> <span class="n">x</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">1</span><span class="p">]),</span>
+</span><span data-line="479">            <span class="s2">"#"</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">state</span><span class="o">.</span><span class="n">parse_option_line</span><span class="p">(</span><span class="n">x</span><span class="p">),</span>
+</span><span data-line="480">            <span class="s2">"! gamma"</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">state</span><span class="o">.</span><span class="n">hfss_gamma</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_parse_float_block</span><span class="p">(</span><span class="n">line</span><span class="o">=</span><span class="n">x</span><span class="p">,</span> <span class="n">fid</span><span class="o">=</span><span class="n">fid</span><span class="p">)),</span>
+</span><span data-line="481">            <span class="s2">"! port impedance"</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">state</span><span class="o">.</span><span class="n">hfss_impedance</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+</span><span data-line="482">                <span class="bp">self</span><span class="o">.</span><span class="n">_parse_float_block</span><span class="p">(</span><span class="n">line</span><span class="o">=</span><span class="n">remove_prefix</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">lower</span><span class="p">(),</span> <span class="s2">"! port impedance"</span><span class="p">),</span> <span class="n">fid</span><span class="o">=</span><span class="n">fid</span><span class="p">)</span>
+</span><span data-line="483">            <span class="p">),</span>
+</span><span data-line="484">            <span class="s2">"! port"</span><span class="p">:</span> <span class="n">state</span><span class="o">.</span><span class="n">parse_port</span><span class="p">,</span>
+</span><span data-line="485">            <span class="s2">"! terminal data exported"</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">_</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="s2">"ansys_data_type"</span><span class="p">,</span> <span class="s2">"terminal"</span><span class="p">),</span>
+</span><span data-line="486">            <span class="s2">"! modal data exported"</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">_</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="s2">"ansys_data_type"</span><span class="p">,</span> <span class="s2">"modal"</span><span class="p">),</span>
+</span><span data-line="487">            <span class="s2">"!"</span><span class="p">:</span> <span class="n">state</span><span class="o">.</span><span class="n">append_comment</span><span class="p">,</span>
+</span><span data-line="488">        <span class="p">}</span>
+</span><span data-line="489">
+</span><span data-line="490">        <span class="bp">self</span><span class="o">.</span><span class="n">_parse_dict_v2</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Callable</span><span class="p">[[</span><span class="nb">str</span><span class="p">],</span> <span class="kc">None</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{</span>
+</span><span data-line="491">            <span class="s2">"[number of ports]"</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="s2">"rank"</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">3</span><span class="p">])),</span>
+</span><span data-line="492">            <span class="s2">"[reference]"</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span>
+</span><span data-line="493">                <span class="bp">self</span><span class="p">,</span> <span class="s2">"reference"</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parse_n_floats</span><span class="p">(</span><span class="n">line</span><span class="o">=</span><span class="n">x</span><span class="p">,</span> <span class="n">fid</span><span class="o">=</span><span class="n">fid</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="n">state</span><span class="o">.</span><span class="n">rank</span><span class="p">,</span> <span class="n">before_comment</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span><span data-line="494">            <span class="p">),</span>
+</span><span data-line="495">            <span class="s2">"[number of frequencies]"</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">"frequency_nb"</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">3</span><span class="p">])),</span>
+</span><span data-line="496">            <span class="s2">"[matrix format]"</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="s2">"matrix_format"</span><span class="p">,</span> <span class="n">x</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">()),</span>
+</span><span data-line="497">            <span class="s2">"[network data]"</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">_</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="s2">"parse_network"</span><span class="p">,</span> <span class="kc">True</span><span class="p">),</span>
+</span><span data-line="498">            <span class="s2">"[noise data]"</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">_</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="s2">"parse_noise"</span><span class="p">,</span> <span class="kc">True</span><span class="p">),</span>
+</span><span data-line="499">            <span class="s2">"[two-port data order]"</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="s2">"two_port_order_legacy"</span><span class="p">,</span> <span class="s2">"21_12"</span> <span class="ow">in</span> <span class="n">x</span><span class="p">),</span>
+</span><span data-line="500">            <span class="s2">"[number of noise frequencies]"</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span>
+</span><span data-line="501">                <span class="n">state</span><span class="p">,</span> <span class="s2">"number_noise_freq"</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">partition</span><span class="p">(</span><span class="s2">"]"</span><span class="p">)[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
+</span><span data-line="502">            <span class="p">),</span>
+</span><span data-line="503">            <span class="s2">"[mixed-mode order]"</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">line</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="s2">"mixed_mode_order"</span><span class="p">,</span> <span class="n">line</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">2</span><span class="p">:]),</span>
+</span><span data-line="504">            <span class="s2">"[end]"</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+</span><span data-line="505">        <span class="p">}</span>
+</span><span data-line="506">
+</span><span data-line="507">        <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+</span><span data-line="508">            <span class="n">line</span> <span class="o">=</span> <span class="n">fid</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span>
+</span><span data-line="509">            <span class="k">if</span> <span class="ow">not</span> <span class="n">line</span><span class="p">:</span>
+</span><span data-line="510">                <span class="k">break</span>
+</span><span data-line="511">
+</span><span data-line="512">            <span class="c1"># some malformed Touchstone files have leading spaces, strip them,</span>
+</span><span data-line="513">            <span class="c1"># otherwise we can't identify the keywords in option lines.</span>
+</span><span data-line="514">            <span class="n">line_l</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+</span><span data-line="515">            <span class="k">if</span> <span class="ow">not</span> <span class="n">line_l</span><span class="p">:</span>
+</span><span data-line="516">                <span class="k">continue</span>
+</span><span data-line="517">
+</span><span data-line="518">            <span class="n">is_data_line</span> <span class="o">=</span> <span class="kc">True</span>
+</span><span data-line="519">            <span class="c1"># Avoid traversing the self._parse_dict for each line by checking the first letter</span>
+</span><span data-line="520">            <span class="c1"># {"!", "#", "["} covers all the first letters of the key of the current self._parse_dict</span>
+</span><span data-line="521">            <span class="k">if</span> <span class="n">line_l</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">in</span> <span class="p">{</span><span class="s2">"!"</span><span class="p">,</span> <span class="s2">"#"</span><span class="p">,</span> <span class="s2">"["</span><span class="p">}:</span>
+</span><span data-line="522">                <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parse_dict</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+</span><span data-line="523">                    <span class="k">if</span> <span class="n">line_l</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="n">k</span><span class="p">):</span>
+</span><span data-line="524">                        <span class="n">v</span><span class="p">(</span><span class="n">line_l</span><span class="p">)</span>
+</span><span data-line="525">                        <span class="n">is_data_line</span> <span class="o">=</span> <span class="kc">False</span>
+</span><span data-line="526">                        <span class="k">break</span>
+</span><span data-line="527">            <span class="k">if</span> <span class="n">is_data_line</span><span class="p">:</span>
+</span><span data-line="528">                <span class="k">if</span> <span class="s2">"!"</span> <span class="ow">in</span> <span class="n">line</span><span class="p">:</span>
+</span><span data-line="529">                    <span class="n">line</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">partition</span><span class="p">(</span><span class="s2">"!"</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+</span><span data-line="530">                <span class="n">values</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">float</span><span class="p">,</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()))</span>
+</span><span data-line="531">                <span class="k">if</span> <span class="ow">not</span> <span class="n">values</span><span class="p">:</span>
+</span><span data-line="532">                    <span class="k">continue</span>
+</span><span data-line="533">
+</span><span data-line="534">                <span class="k">if</span> <span class="p">(</span>
+</span><span data-line="535">                    <span class="n">state</span><span class="o">.</span><span class="n">f</span>
+</span><span data-line="536">                    <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">state</span><span class="o">.</span><span class="n">s</span><span class="p">)</span> <span class="o">%</span> <span class="n">state</span><span class="o">.</span><span class="n">numbers_per_line</span> <span class="o">==</span> <span class="mi">0</span>
+</span><span data-line="537">                    <span class="ow">and</span> <span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">state</span><span class="o">.</span><span class="n">f</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+</span><span data-line="538">                    <span class="ow">and</span> <span class="n">state</span><span class="o">.</span><span class="n">rank</span> <span class="o">==</span> <span class="mi">2</span>
+</span><span data-line="539">                    <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">version</span> <span class="o">==</span> <span class="s2">"1.0"</span>
+</span><span data-line="540">                <span class="p">):</span>
+</span><span data-line="541">                    <span class="n">state</span><span class="o">.</span><span class="n">parse_noise</span> <span class="o">=</span> <span class="kc">True</span>
+</span><span data-line="542">
+</span><span data-line="543">                <span class="k">if</span> <span class="n">state</span><span class="o">.</span><span class="n">parse_network</span><span class="p">:</span>
+</span><span data-line="544">                    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">state</span><span class="o">.</span><span class="n">s</span><span class="p">)</span> <span class="o">%</span> <span class="n">state</span><span class="o">.</span><span class="n">numbers_per_line</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+</span><span data-line="545">                        <span class="n">state</span><span class="o">.</span><span class="n">f</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">values</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
+</span><span data-line="546">                    <span class="n">state</span><span class="o">.</span><span class="n">s</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">values</span><span class="p">)</span>
+</span><span data-line="547">
+</span><span data-line="548">                <span class="k">elif</span> <span class="n">state</span><span class="o">.</span><span class="n">parse_noise</span><span class="p">:</span>
+</span><span data-line="549">                    <span class="n">state</span><span class="o">.</span><span class="n">noise</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">values</span><span class="p">)</span>
+</span><span data-line="550">
+</span><span data-line="551">        <span class="c1"># To prevent that port names are not correctly parsed</span>
+</span><span data-line="552">        <span class="k">if</span> <span class="ow">not</span> <span class="n">state</span><span class="o">.</span><span class="n">port_names</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">state</span><span class="o">.</span><span class="n">port_names</span><span class="p">)</span> <span class="o">!=</span> <span class="n">state</span><span class="o">.</span><span class="n">rank</span><span class="p">:</span>
+</span><span data-line="553">            <span class="n">port_names</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parse_port</span><span class="p">(</span><span class="n">fid</span><span class="p">)</span>
+</span><span data-line="554">            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">port_names</span><span class="p">)</span> <span class="o">==</span> <span class="n">state</span><span class="o">.</span><span class="n">rank</span><span class="p">:</span>
+</span><span data-line="555">                <span class="n">state</span><span class="o">.</span><span class="n">port_names</span> <span class="o">=</span> <span class="p">{</span><span class="n">i</span><span class="p">:</span> <span class="n">name</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">name</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">port_names</span><span class="p">)}</span>
+</span><span data-line="556">
+</span><span data-line="557">        <span class="k">return</span> <span class="n">state</span>
+</span><span data-line="558">
+<div class="viewcode-block" id="Touchstone.load_file">
+<a class="viewcode-back" href="../../../api/io/generated/skrf.io.touchstone.Touchstone.load_file.html#skrf.io.touchstone.Touchstone.load_file">[docs]</a>
+</span><span data-line="559">    <span class="k">def</span><span class="w"> </span><span class="nf">load_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fid</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">TextIO</span><span class="p">):</span>
+</span><span data-line="560"><span class="w">        </span><span class="sd">"""</span>
+</span><span data-line="561"><span class="sd">        Load the touchstone file into the internal data structures.</span>
+</span><span data-line="562">
+</span><span data-line="563"><span class="sd">        Parameters</span>
+</span><span data-line="564"><span class="sd">        ----------</span>
+</span><span data-line="565"><span class="sd">        fid : file object</span>
+</span><span data-line="566">
+</span><span data-line="567"><span class="sd">        """</span>
+</span><span data-line="568">
+</span><span data-line="569">        <span class="n">state</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parse_file</span><span class="p">(</span><span class="n">fid</span><span class="o">=</span><span class="n">fid</span><span class="p">)</span>
+</span><span data-line="570">
+</span><span data-line="571">        <span class="bp">self</span><span class="o">.</span><span class="n">comments</span> <span class="o">=</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()[</span><span class="mi">1</span><span class="p">:]</span> <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">state</span><span class="o">.</span><span class="n">comments</span><span class="p">])</span>
+</span><span data-line="572">        <span class="bp">self</span><span class="o">.</span><span class="n">comments_after_option_line</span> <span class="o">=</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()[</span><span class="mi">1</span><span class="p">:]</span> <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">state</span><span class="o">.</span><span class="n">comments_after_option_line</span><span class="p">])</span>
+</span><span data-line="573">        <span class="bp">self</span><span class="o">.</span><span class="n">rank</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">rank</span>
+</span><span data-line="574">        <span class="bp">self</span><span class="o">.</span><span class="n">frequency_unit</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">frequency_unit</span>
+</span><span data-line="575">        <span class="bp">self</span><span class="o">.</span><span class="n">parameter</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">parameter</span>
+</span><span data-line="576">        <span class="bp">self</span><span class="o">.</span><span class="n">format</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">format</span>
+</span><span data-line="577">        <span class="bp">self</span><span class="o">.</span><span class="n">resistance</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">resistance</span>
+</span><span data-line="578">
+</span><span data-line="579">        <span class="k">if</span> <span class="n">state</span><span class="o">.</span><span class="n">port_names</span><span class="p">:</span>
+</span><span data-line="580">            <span class="bp">self</span><span class="o">.</span><span class="n">port_names</span> <span class="o">=</span> <span class="p">[</span><span class="s2">""</span><span class="p">]</span> <span class="o">*</span> <span class="n">state</span><span class="o">.</span><span class="n">rank</span>
+</span><span data-line="581">            <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">state</span><span class="o">.</span><span class="n">port_names</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+</span><span data-line="582">                <span class="bp">self</span><span class="o">.</span><span class="n">port_names</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
+</span><span data-line="583">
+</span><span data-line="584">        <span class="k">if</span> <span class="n">state</span><span class="o">.</span><span class="n">hfss_gamma</span><span class="p">:</span>
+</span><span data-line="585">            <span class="bp">self</span><span class="o">.</span><span class="n">gamma</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_hfss_port_values</span><span class="p">(</span><span class="n">state</span><span class="o">.</span><span class="n">hfss_gamma</span><span class="p">)</span>
+</span><span data-line="586">
+</span><span data-line="587">
+</span><span data-line="588">        <span class="c1"># Impedance is parsed in the following order:</span>
+</span><span data-line="589">        <span class="c1"># - HFSS comments for each frequency point and each port.</span>
+</span><span data-line="590">        <span class="c1"># - TS v2 Reference keyword for each port.</span>
+</span><span data-line="591">        <span class="c1"># - Reference impedance from option line.</span>
+</span><span data-line="592">        <span class="k">if</span> <span class="n">state</span><span class="o">.</span><span class="n">hfss_impedance</span><span class="p">:</span>
+</span><span data-line="593">            <span class="bp">self</span><span class="o">.</span><span class="n">z0</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_hfss_port_values</span><span class="p">(</span><span class="n">state</span><span class="o">.</span><span class="n">hfss_impedance</span><span class="p">)</span>
+</span><span data-line="594">
+</span><span data-line="595">            <span class="bp">self</span><span class="o">.</span><span class="n">s_def</span> <span class="o">=</span> <span class="n">S_DEF_HFSS_DEFAULT</span>
+</span><span data-line="596">            <span class="bp">self</span><span class="o">.</span><span class="n">has_hfss_port_impedances</span> <span class="o">=</span> <span class="kc">True</span>
+</span><span data-line="597">            <span class="c1"># Load the reference impedance convention from the comments</span>
+</span><span data-line="598">            <span class="k">for</span> <span class="n">s_def</span> <span class="ow">in</span> <span class="n">S_DEFINITIONS</span><span class="p">:</span>
+</span><span data-line="599">                <span class="k">if</span> <span class="sa">f</span><span class="s1">'S-parameter uses the </span><span class="si">{</span><span class="n">s_def</span><span class="si">}</span><span class="s1"> definition'</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">comments</span><span class="p">:</span>
+</span><span data-line="600">                    <span class="bp">self</span><span class="o">.</span><span class="n">s_def</span> <span class="o">=</span> <span class="n">s_def</span>
+</span><span data-line="601">        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">reference</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+</span><span data-line="602">            <span class="bp">self</span><span class="o">.</span><span class="n">z0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">broadcast_to</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">resistance</span><span class="p">,</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">state</span><span class="o">.</span><span class="n">f</span><span class="p">),</span> <span class="n">state</span><span class="o">.</span><span class="n">rank</span><span class="p">))</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+</span><span data-line="603">        <span class="k">else</span><span class="p">:</span>
+</span><span data-line="604">            <span class="bp">self</span><span class="o">.</span><span class="n">z0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">broadcast_to</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">reference</span><span class="p">,</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">state</span><span class="o">.</span><span class="n">f</span><span class="p">),</span> <span class="n">state</span><span class="o">.</span><span class="n">rank</span><span class="p">))</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+</span><span data-line="605">
+</span><span data-line="606">        <span class="bp">self</span><span class="o">.</span><span class="n">f</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">state</span><span class="o">.</span><span class="n">f</span><span class="p">)</span>
+</span><span data-line="607">        <span class="k">if</span> <span class="ow">not</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">f</span><span class="p">):</span>
+</span><span data-line="608">            <span class="bp">self</span><span class="o">.</span><span class="n">s</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="n">state</span><span class="o">.</span><span class="n">rank</span><span class="p">,</span> <span class="n">state</span><span class="o">.</span><span class="n">rank</span><span class="p">))</span>
+</span><span data-line="609">            <span class="k">return</span>
+</span><span data-line="610">
+</span><span data-line="611">        <span class="n">raw</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">state</span><span class="o">.</span><span class="n">s</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">f</span><span class="p">),</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+</span><span data-line="612">
+</span><span data-line="613">        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">format</span> <span class="o">==</span> <span class="s2">"db"</span><span class="p">:</span>
+</span><span data-line="614">            <span class="n">raw</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">::</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mi">10</span> <span class="o">**</span> <span class="p">(</span><span class="n">raw</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">::</span><span class="mi">2</span><span class="p">]</span> <span class="o">/</span> <span class="mf">20.0</span><span class="p">)</span>
+</span><span data-line="615">
+</span><span data-line="616">        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">format</span> <span class="ow">in</span> <span class="p">([</span><span class="s2">"ma"</span><span class="p">,</span> <span class="s2">"db"</span><span class="p">]):</span>
+</span><span data-line="617">            <span class="n">s_flat</span> <span class="o">=</span> <span class="n">raw</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">::</span><span class="mi">2</span><span class="p">]</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="mi">1</span><span class="n">j</span> <span class="o">*</span> <span class="n">raw</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">::</span><span class="mi">2</span><span class="p">]</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mi">180</span><span class="p">)</span>
+</span><span data-line="618">        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">format</span> <span class="o">==</span> <span class="s2">"ri"</span><span class="p">:</span>
+</span><span data-line="619">            <span class="n">s_flat</span> <span class="o">=</span> <span class="n">raw</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">complex128</span><span class="p">)</span>
+</span><span data-line="620">
+</span><span data-line="621">        <span class="bp">self</span><span class="o">.</span><span class="n">s_flat</span> <span class="o">=</span> <span class="n">s_flat</span>
+</span><span data-line="622">
+</span><span data-line="623">        <span class="bp">self</span><span class="o">.</span><span class="n">s</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">f</span><span class="p">),</span> <span class="n">state</span><span class="o">.</span><span class="n">rank</span> <span class="o">*</span> <span class="n">state</span><span class="o">.</span><span class="n">rank</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">complex</span><span class="p">)</span>
+</span><span data-line="624">        <span class="k">if</span> <span class="n">state</span><span class="o">.</span><span class="n">matrix_format</span> <span class="o">==</span> <span class="s2">"full"</span><span class="p">:</span>
+</span><span data-line="625">            <span class="bp">self</span><span class="o">.</span><span class="n">s</span><span class="p">[:]</span> <span class="o">=</span> <span class="n">s_flat</span>
+</span><span data-line="626">        <span class="k">else</span><span class="p">:</span>
+</span><span data-line="627">            <span class="n">index</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">tril_indices</span><span class="p">(</span><span class="n">state</span><span class="o">.</span><span class="n">rank</span><span class="p">)</span> <span class="k">if</span> <span class="n">state</span><span class="o">.</span><span class="n">matrix_format</span> <span class="o">==</span> <span class="s2">"lower"</span> <span class="k">else</span> <span class="n">np</span><span class="o">.</span><span class="n">triu_indices</span><span class="p">(</span><span class="n">state</span><span class="o">.</span><span class="n">rank</span><span class="p">)</span>
+</span><span data-line="628">            <span class="n">index_flat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ravel_multi_index</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="p">(</span><span class="n">state</span><span class="o">.</span><span class="n">rank</span><span class="p">,</span> <span class="n">state</span><span class="o">.</span><span class="n">rank</span><span class="p">))</span>
+</span><span data-line="629">            <span class="bp">self</span><span class="o">.</span><span class="n">s</span><span class="p">[:,</span> <span class="n">index_flat</span><span class="p">]</span> <span class="o">=</span> <span class="n">s_flat</span>
+</span><span data-line="630">
+</span><span data-line="631">        <span class="k">if</span> <span class="n">state</span><span class="o">.</span><span class="n">rank</span> <span class="o">==</span> <span class="mi">2</span> <span class="ow">and</span> <span class="n">state</span><span class="o">.</span><span class="n">two_port_order_legacy</span><span class="p">:</span>
+</span><span data-line="632">            <span class="bp">self</span><span class="o">.</span><span class="n">s</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">s</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">state</span><span class="o">.</span><span class="n">rank</span><span class="p">,</span> <span class="n">state</span><span class="o">.</span><span class="n">rank</span><span class="p">)),</span> <span class="n">axes</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+</span><span data-line="633">        <span class="k">else</span><span class="p">:</span>
+</span><span data-line="634">            <span class="bp">self</span><span class="o">.</span><span class="n">s</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">s</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">state</span><span class="o">.</span><span class="n">rank</span><span class="p">,</span> <span class="n">state</span><span class="o">.</span><span class="n">rank</span><span class="p">))</span>
+</span><span data-line="635">
+</span><span data-line="636">        <span class="k">if</span> <span class="n">state</span><span class="o">.</span><span class="n">matrix_format</span> <span class="o">==</span> <span class="s2">"upper"</span><span class="p">:</span>
+</span><span data-line="637">            <span class="n">index_lower</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">tril_indices</span><span class="p">(</span><span class="n">state</span><span class="o">.</span><span class="n">rank</span><span class="p">)</span>
+</span><span data-line="638">            <span class="bp">self</span><span class="o">.</span><span class="n">s</span><span class="p">[(</span><span class="o">...</span><span class="p">,</span><span class="o">*</span><span class="n">index_lower</span><span class="p">)]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">s</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)[(</span><span class="o">...</span><span class="p">,</span><span class="o">*</span><span class="n">index_lower</span><span class="p">)]</span>
+</span><span data-line="639">        <span class="k">elif</span> <span class="n">state</span><span class="o">.</span><span class="n">matrix_format</span> <span class="o">==</span> <span class="s2">"lower"</span><span class="p">:</span>
+</span><span data-line="640">            <span class="n">index_upper</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">triu_indices</span><span class="p">(</span><span class="n">state</span><span class="o">.</span><span class="n">rank</span><span class="p">)</span>
+</span><span data-line="641">            <span class="bp">self</span><span class="o">.</span><span class="n">s</span><span class="p">[(</span><span class="o">...</span><span class="p">,</span><span class="o">*</span><span class="n">index_upper</span><span class="p">)]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">s</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)[(</span><span class="o">...</span><span class="p">,</span><span class="o">*</span><span class="n">index_upper</span><span class="p">)]</span>
+</span><span data-line="642">
+</span><span data-line="643">        <span class="bp">self</span><span class="o">.</span><span class="n">port_modes</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="s2">"S"</span><span class="p">]</span> <span class="o">*</span> <span class="n">state</span><span class="o">.</span><span class="n">rank</span><span class="p">)</span>
+</span><span data-line="644">        <span class="k">if</span> <span class="n">state</span><span class="o">.</span><span class="n">mixed_mode_order</span><span class="p">:</span>
+</span><span data-line="645">            <span class="n">new_order</span> <span class="o">=</span> <span class="p">[</span><span class="kc">None</span><span class="p">]</span> <span class="o">*</span> <span class="n">state</span><span class="o">.</span><span class="n">rank</span>
+</span><span data-line="646">            <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">mm</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">state</span><span class="o">.</span><span class="n">mixed_mode_order</span><span class="p">):</span>
+</span><span data-line="647">                <span class="k">if</span> <span class="n">mm</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">"s"</span><span class="p">):</span>
+</span><span data-line="648">                    <span class="n">new_order</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">mm</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span> <span class="o">-</span> <span class="mi">1</span>
+</span><span data-line="649">                <span class="k">else</span><span class="p">:</span>
+</span><span data-line="650">                    <span class="n">p1</span><span class="p">,</span> <span class="n">p2</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">([</span><span class="nb">int</span><span class="p">(</span><span class="n">e</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">mm</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">","</span><span class="p">)])</span>
+</span><span data-line="651">
+</span><span data-line="652">                    <span class="k">if</span> <span class="n">mm</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">"d"</span><span class="p">):</span>
+</span><span data-line="653">                        <span class="n">new_order</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">p1</span>
+</span><span data-line="654">                    <span class="k">else</span><span class="p">:</span>
+</span><span data-line="655">                        <span class="n">new_order</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">p2</span>
+</span><span data-line="656">                <span class="bp">self</span><span class="o">.</span><span class="n">port_modes</span><span class="p">[</span><span class="n">new_order</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">=</span> <span class="n">mm</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
+</span><span data-line="657">
+</span><span data-line="658">            <span class="n">order</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rank</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
+</span><span data-line="659">            <span class="bp">self</span><span class="o">.</span><span class="n">s</span><span class="p">[:,</span> <span class="n">new_order</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">s</span><span class="p">[:,</span> <span class="n">order</span><span class="p">,</span> <span class="p">:]</span>
+</span><span data-line="660">            <span class="bp">self</span><span class="o">.</span><span class="n">s</span><span class="p">[:,</span> <span class="p">:,</span> <span class="n">new_order</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">s</span><span class="p">[:,</span> <span class="p">:,</span> <span class="n">order</span><span class="p">]</span>
+</span><span data-line="661">            <span class="bp">self</span><span class="o">.</span><span class="n">z0</span><span class="p">[:,</span> <span class="bp">self</span><span class="o">.</span><span class="n">port_modes</span> <span class="o">==</span> <span class="s2">"D"</span><span class="p">]</span> <span class="o">*=</span> <span class="mi">2</span>
+</span><span data-line="662">            <span class="bp">self</span><span class="o">.</span><span class="n">z0</span><span class="p">[:,</span> <span class="bp">self</span><span class="o">.</span><span class="n">port_modes</span> <span class="o">==</span> <span class="s2">"C"</span><span class="p">]</span> <span class="o">/=</span> <span class="mi">2</span>
+</span><span data-line="663">
+</span><span data-line="664">        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">parameter</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">"g"</span><span class="p">,</span> <span class="s2">"h"</span><span class="p">,</span> <span class="s2">"y"</span><span class="p">,</span> <span class="s2">"z"</span><span class="p">]:</span>
+</span><span data-line="665">            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">version</span> <span class="o">==</span> <span class="s2">"1.0"</span><span class="p">:</span>
+</span><span data-line="666">                <span class="bp">self</span><span class="o">.</span><span class="n">s</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">s</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">z0</span><span class="p">[:,:,</span> <span class="kc">None</span><span class="p">]</span>
+</span><span data-line="667">
+</span><span data-line="668">            <span class="n">func_name</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">parameter</span><span class="si">}</span><span class="s2">2s"</span>
+</span><span data-line="669">            <span class="kn">from</span><span class="w"> </span><span class="nn">..</span><span class="w"> </span><span class="kn">import</span> <span class="n">network</span>
+</span><span data-line="670">            <span class="bp">self</span><span class="o">.</span><span class="n">s</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">network</span><span class="p">,</span> <span class="n">func_name</span><span class="p">)(</span><span class="bp">self</span><span class="o">.</span><span class="n">s</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">z0</span><span class="p">)</span>
+</span><span data-line="671">
+</span><span data-line="672">
+</span><span data-line="673">        <span class="c1"># multiplier from the frequency unit</span>
+</span><span data-line="674">        <span class="bp">self</span><span class="o">.</span><span class="n">frequency_mult</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">frequency_mult</span>
+</span><span data-line="675">
+</span><span data-line="676">        <span class="k">if</span> <span class="n">state</span><span class="o">.</span><span class="n">noise</span><span class="p">:</span>
+</span><span data-line="677">            <span class="bp">self</span><span class="o">.</span><span class="n">noise</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">state</span><span class="o">.</span><span class="n">noise</span><span class="p">)</span>
+</span><span data-line="678">            <span class="bp">self</span><span class="o">.</span><span class="n">noise</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">*=</span> <span class="bp">self</span><span class="o">.</span><span class="n">frequency_mult</span>
+</span><span data-line="679">
+</span><span data-line="680">        <span class="bp">self</span><span class="o">.</span><span class="n">f</span> <span class="o">*=</span> <span class="bp">self</span><span class="o">.</span><span class="n">frequency_mult</span></div>
+
+</span><span data-line="681">
+</span><span data-line="682">    <span class="nd">@property</span>
+</span><span data-line="683">    <span class="k">def</span><span class="w"> </span><span class="nf">sparameters</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+</span><span data-line="684"><span class="w">        </span><span class="sd">"""Touchstone data in tabular format.</span>
+</span><span data-line="685">
+</span><span data-line="686"><span class="sd">        Returns:</span>
+</span><span data-line="687"><span class="sd">            np.ndarray: Frequency and data array.</span>
+</span><span data-line="688"><span class="sd">        """</span>
+</span><span data-line="689">        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">"This method is deprecated and will be removed."</span><span class="p">,</span> <span class="ne">DeprecationWarning</span><span class="p">,</span> <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+</span><span data-line="690">        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">f</span><span class="p">[:,</span> <span class="kc">None</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">s_flat</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">f</span><span class="p">),</span> <span class="o">-</span><span class="mi">1</span><span class="p">)))</span>
+</span><span data-line="691">
+<div class="viewcode-block" id="Touchstone.get_comments">
+<a class="viewcode-back" href="../../../api/io/generated/skrf.io.touchstone.Touchstone.get_comments.html#skrf.io.touchstone.Touchstone.get_comments">[docs]</a>
+</span><span data-line="692">    <span class="k">def</span><span class="w"> </span><span class="nf">get_comments</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ignored_comments</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+</span><span data-line="693"><span class="w">        </span><span class="sd">"""</span>
+</span><span data-line="694"><span class="sd">        Returns the comments which appear anywhere in the file.</span>
+</span><span data-line="695">
+</span><span data-line="696"><span class="sd">        Comment lines containing ignored comments are removed.</span>
+</span><span data-line="697"><span class="sd">        By default these are comments which contain special meaning within</span>
+</span><span data-line="698"><span class="sd">        skrf and are not user comments.</span>
+</span><span data-line="699">
+</span><span data-line="700"><span class="sd">        Returns</span>
+</span><span data-line="701"><span class="sd">        -------</span>
+</span><span data-line="702"><span class="sd">        processed_comments : string</span>
+</span><span data-line="703">
+</span><span data-line="704"><span class="sd">        """</span>
+</span><span data-line="705">        <span class="k">if</span> <span class="n">ignored_comments</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+</span><span data-line="706">            <span class="n">ignored_comments</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"Created with skrf"</span><span class="p">]</span>
+</span><span data-line="707">        <span class="n">processed_comments</span> <span class="o">=</span> <span class="s2">""</span>
+</span><span data-line="708">        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">comments</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+</span><span data-line="709">            <span class="bp">self</span><span class="o">.</span><span class="n">comments</span> <span class="o">=</span> <span class="s2">""</span>
+</span><span data-line="710">        <span class="k">for</span> <span class="n">comment_line</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">comments</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="p">):</span>
+</span><span data-line="711">            <span class="k">for</span> <span class="n">ignored_comment</span> <span class="ow">in</span> <span class="n">ignored_comments</span><span class="p">:</span>
+</span><span data-line="712">                <span class="k">if</span> <span class="n">ignored_comment</span> <span class="ow">in</span> <span class="n">comment_line</span><span class="p">:</span>
+</span><span data-line="713">                    <span class="n">comment_line</span> <span class="o">=</span> <span class="kc">None</span>
+</span><span data-line="714">            <span class="k">if</span> <span class="n">comment_line</span><span class="p">:</span>
+</span><span data-line="715">                <span class="n">processed_comments</span> <span class="o">=</span> <span class="n">processed_comments</span> <span class="o">+</span> <span class="n">comment_line</span> <span class="o">+</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span>
+</span><span data-line="716">        <span class="k">return</span> <span class="n">processed_comments</span></div>
+
+</span><span data-line="717">
+<div class="viewcode-block" id="Touchstone.get_comment_variables">
+<a class="viewcode-back" href="../../../api/io/generated/skrf.io.touchstone.Touchstone.get_comment_variables.html#skrf.io.touchstone.Touchstone.get_comment_variables">[docs]</a>
+</span><span data-line="718">    <span class="k">def</span><span class="w"> </span><span class="nf">get_comment_variables</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]:</span>
+</span><span data-line="719"><span class="w">        </span><span class="sd">"""</span>
+</span><span data-line="720"><span class="sd">        Convert hfss variable comments to a dict of vars.</span>
+</span><span data-line="721">
+</span><span data-line="722"><span class="sd">        Returns</span>
+</span><span data-line="723"><span class="sd">        -------</span>
+</span><span data-line="724"><span class="sd">        var_dict : dict (numbers, units)</span>
+</span><span data-line="725"><span class="sd">            Dictionary containing the comments</span>
+</span><span data-line="726"><span class="sd">        """</span>
+</span><span data-line="727">        <span class="n">comments</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">comments</span>
+</span><span data-line="728">        <span class="n">p1</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s2">"\w* = \w*.*"</span><span class="p">)</span>
+</span><span data-line="729">        <span class="n">p2</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s2">"\s*(\d*\.?\d*)\s*(\w*)"</span><span class="p">)</span>
+</span><span data-line="730">        <span class="n">var_dict</span> <span class="o">=</span> <span class="p">{}</span>
+</span><span data-line="731">        <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">p1</span><span class="p">,</span> <span class="n">comments</span><span class="p">):</span>
+</span><span data-line="732">            <span class="k">try</span><span class="p">:</span>
+</span><span data-line="733">                <span class="n">var</span><span class="p">,</span> <span class="n">value</span> <span class="o">=</span> <span class="n">k</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">"="</span><span class="p">)</span>
+</span><span data-line="734">                <span class="n">var</span> <span class="o">=</span> <span class="n">var</span><span class="o">.</span><span class="n">rstrip</span><span class="p">()</span>
+</span><span data-line="735">                <span class="n">var_dict</span><span class="p">[</span><span class="n">var</span><span class="p">]</span> <span class="o">=</span> <span class="n">p2</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">value</span><span class="p">)</span><span class="o">.</span><span class="n">groups</span><span class="p">()</span>
+</span><span data-line="736">            <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+</span><span data-line="737">                <span class="k">pass</span>
+</span><span data-line="738">        <span class="k">return</span> <span class="n">var_dict</span></div>
+
+</span><span data-line="739">
+<div class="viewcode-block" id="Touchstone.get_format">
+<a class="viewcode-back" href="../../../api/io/generated/skrf.io.touchstone.Touchstone.get_format.html#skrf.io.touchstone.Touchstone.get_format">[docs]</a>
+</span><span data-line="740">    <span class="k">def</span><span class="w"> </span><span class="nf">get_format</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">format</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="n">SparamFormatT</span><span class="p">,</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">"orig"</span><span class="p">]]</span><span class="o">=</span><span class="s2">"ri"</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+</span><span data-line="741"><span class="w">        </span><span class="sd">"""</span>
+</span><span data-line="742"><span class="sd">        Returns the file format string used for the given format.</span>
+</span><span data-line="743">
+</span><span data-line="744"><span class="sd">        This is useful to get some information.</span>
+</span><span data-line="745">
+</span><span data-line="746"><span class="sd">        Returns</span>
+</span><span data-line="747"><span class="sd">        -------</span>
+</span><span data-line="748"><span class="sd">        format : string</span>
+</span><span data-line="749">
+</span><span data-line="750"><span class="sd">        """</span>
+</span><span data-line="751">        <span class="k">if</span> <span class="nb">format</span> <span class="o">==</span> <span class="s2">"orig"</span><span class="p">:</span>
+</span><span data-line="752">            <span class="n">frequency</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">frequency_unit</span>
+</span><span data-line="753">            <span class="nb">format</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">format</span>
+</span><span data-line="754">        <span class="k">else</span><span class="p">:</span>
+</span><span data-line="755">            <span class="n">frequency</span> <span class="o">=</span> <span class="s2">"hz"</span>
+</span><span data-line="756">        <span class="k">return</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">frequency</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">parameter</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="nb">format</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span><span class="si">}</span><span class="s2"> r </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">resistance</span><span class="si">}</span><span class="s2">"</span></div>
+
+</span><span data-line="757">
+<div class="viewcode-block" id="Touchstone.get_sparameter_names">
+<a class="viewcode-back" href="../../../api/io/generated/skrf.io.touchstone.Touchstone.get_sparameter_names.html#skrf.io.touchstone.Touchstone.get_sparameter_names">[docs]</a>
+</span><span data-line="758">    <span class="k">def</span><span class="w"> </span><span class="nf">get_sparameter_names</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">format</span><span class="p">:</span> <span class="n">SparamFormatT</span> <span class="o">=</span> <span class="s2">"ri"</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+</span><span data-line="759"><span class="w">        </span><span class="sd">"""</span>
+</span><span data-line="760"><span class="sd">        Generate a list of column names for the s-parameter data.</span>
+</span><span data-line="761"><span class="sd">        The names are different for each format.</span>
+</span><span data-line="762">
+</span><span data-line="763"><span class="sd">        Parameters</span>
+</span><span data-line="764"><span class="sd">        ----------</span>
+</span><span data-line="765"><span class="sd">        format : str</span>
+</span><span data-line="766"><span class="sd">          Format: ri, ma, db</span>
+</span><span data-line="767">
+</span><span data-line="768"><span class="sd">        Returns</span>
+</span><span data-line="769"><span class="sd">        -------</span>
+</span><span data-line="770"><span class="sd">        names : list</span>
+</span><span data-line="771"><span class="sd">            list of strings</span>
+</span><span data-line="772">
+</span><span data-line="773"><span class="sd">        """</span>
+</span><span data-line="774">        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">"This method is deprecated and will be removed."</span><span class="p">,</span> <span class="ne">DeprecationWarning</span><span class="p">,</span> <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+</span><span data-line="775">        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_sparameter_data</span><span class="p">(</span><span class="nb">format</span><span class="p">)</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span></div>
+
+</span><span data-line="776">
+<div class="viewcode-block" id="Touchstone.get_sparameter_data">
+<a class="viewcode-back" href="../../../api/io/generated/skrf.io.touchstone.Touchstone.get_sparameter_data.html#skrf.io.touchstone.Touchstone.get_sparameter_data">[docs]</a>
+</span><span data-line="777">    <span class="k">def</span><span class="w"> </span><span class="nf">get_sparameter_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">format</span><span class="p">:</span> <span class="n">SparamFormatT</span> <span class="o">=</span> <span class="s2">"ri"</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
+</span><span data-line="778"><span class="w">        </span><span class="sd">"""</span>
+</span><span data-line="779"><span class="sd">        Get the data of the s-parameter with the given format.</span>
+</span><span data-line="780">
+</span><span data-line="781"><span class="sd">        Parameters</span>
+</span><span data-line="782"><span class="sd">        ----------</span>
+</span><span data-line="783"><span class="sd">        format : str</span>
+</span><span data-line="784"><span class="sd">          Format: ri, ma, db</span>
+</span><span data-line="785">
+</span><span data-line="786"><span class="sd">        supported formats are:</span>
+</span><span data-line="787"><span class="sd">          ri:    data in real/imaginary</span>
+</span><span data-line="788"><span class="sd">          ma:    data in magnitude and angle (degree)</span>
+</span><span data-line="789"><span class="sd">          db:    data in log magnitude and angle (degree)</span>
+</span><span data-line="790">
+</span><span data-line="791"><span class="sd">        Returns</span>
+</span><span data-line="792"><span class="sd">        -------</span>
+</span><span data-line="793"><span class="sd">        ret: list</span>
+</span><span data-line="794"><span class="sd">            list of numpy.arrays</span>
+</span><span data-line="795">
+</span><span data-line="796"><span class="sd">        """</span>
+</span><span data-line="797">        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">"This method is deprecated and will be removed."</span><span class="p">,</span> <span class="ne">DeprecationWarning</span><span class="p">,</span> <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+</span><span data-line="798">        <span class="n">ret</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"frequency"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">f</span><span class="p">}</span>
+</span><span data-line="799">        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rank</span><span class="p">):</span>
+</span><span data-line="800">            <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rank</span><span class="p">):</span>
+</span><span data-line="801">                <span class="n">prefix</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"S</span><span class="si">{</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="si">}{</span><span class="n">k</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s2">"</span>
+</span><span data-line="802">                <span class="n">val</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">s</span><span class="p">[:,</span> <span class="n">j</span><span class="p">,</span> <span class="n">k</span><span class="p">]</span>
+</span><span data-line="803">                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">rank</span> <span class="o">==</span> <span class="mi">2</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">filename</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">"."</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s2">"s2p"</span><span class="p">:</span>
+</span><span data-line="804">                    <span class="n">prefix</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"S</span><span class="si">{</span><span class="n">k</span><span class="o">+</span><span class="mi">1</span><span class="si">}{</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s2">"</span>
+</span><span data-line="805">                    <span class="n">val</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">s</span><span class="p">[:,</span> <span class="n">k</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span>
+</span><span data-line="806">
+</span><span data-line="807">                <span class="k">if</span> <span class="nb">format</span> <span class="o">==</span> <span class="s2">"ri"</span><span class="p">:</span>
+</span><span data-line="808">                    <span class="n">ret</span><span class="p">[</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">prefix</span><span class="si">}</span><span class="s2">R"</span><span class="p">]</span> <span class="o">=</span> <span class="n">val</span><span class="o">.</span><span class="n">real</span>
+</span><span data-line="809">                    <span class="n">ret</span><span class="p">[</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">prefix</span><span class="si">}</span><span class="s2">I"</span><span class="p">]</span> <span class="o">=</span> <span class="n">val</span><span class="o">.</span><span class="n">imag</span>
+</span><span data-line="810">                <span class="k">elif</span> <span class="nb">format</span> <span class="o">==</span> <span class="s2">"ma"</span><span class="p">:</span>
+</span><span data-line="811">                    <span class="n">ret</span><span class="p">[</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">prefix</span><span class="si">}</span><span class="s2">M"</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">val</span><span class="p">)</span>
+</span><span data-line="812">                    <span class="n">ret</span><span class="p">[</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">prefix</span><span class="si">}</span><span class="s2">A"</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">angle</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="n">deg</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span><span data-line="813">                <span class="k">elif</span> <span class="nb">format</span> <span class="o">==</span> <span class="s2">"db"</span><span class="p">:</span>
+</span><span data-line="814">                    <span class="n">ret</span><span class="p">[</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">prefix</span><span class="si">}</span><span class="s2">DB"</span><span class="p">]</span> <span class="o">=</span> <span class="mi">20</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">val</span><span class="p">))</span>
+</span><span data-line="815">                    <span class="n">ret</span><span class="p">[</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">prefix</span><span class="si">}</span><span class="s2">A"</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">angle</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="n">deg</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span><span data-line="816">
+</span><span data-line="817">        <span class="k">return</span> <span class="n">ret</span></div>
+
+</span><span data-line="818">
+<div class="viewcode-block" id="Touchstone.get_sparameter_arrays">
+<a class="viewcode-back" href="../../../api/io/generated/skrf.io.touchstone.Touchstone.get_sparameter_arrays.html#skrf.io.touchstone.Touchstone.get_sparameter_arrays">[docs]</a>
+</span><span data-line="819">    <span class="k">def</span><span class="w"> </span><span class="nf">get_sparameter_arrays</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
+</span><span data-line="820"><span class="w">        </span><span class="sd">"""</span>
+</span><span data-line="821"><span class="sd">        Returns the s-parameters as a tuple of arrays.</span>
+</span><span data-line="822">
+</span><span data-line="823"><span class="sd">        The first element is the frequency vector (in Hz) and the s-parameters are a 3d numpy array.</span>
+</span><span data-line="824"><span class="sd">        The values of the s-parameters are complex number.</span>
+</span><span data-line="825">
+</span><span data-line="826"><span class="sd">        Returns</span>
+</span><span data-line="827"><span class="sd">        -------</span>
+</span><span data-line="828"><span class="sd">        param : tuple of arrays</span>
+</span><span data-line="829">
+</span><span data-line="830"><span class="sd">        Examples</span>
+</span><span data-line="831"><span class="sd">        --------</span>
+</span><span data-line="832"><span class="sd">        &gt;&gt;&gt; f, a = self.sgetparameter_arrays()</span>
+</span><span data-line="833"><span class="sd">        &gt;&gt;&gt; s11 = a[:, 0, 0]</span>
+</span><span data-line="834">
+</span><span data-line="835"><span class="sd">        """</span>
+</span><span data-line="836">        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">f</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">s</span></div>
+
+</span><span data-line="837">
+<div class="viewcode-block" id="Touchstone.get_noise_names">
+<a class="viewcode-back" href="../../../api/io/generated/skrf.io.touchstone.Touchstone.get_noise_names.html#skrf.io.touchstone.Touchstone.get_noise_names">[docs]</a>
+</span><span data-line="838">    <span class="k">def</span><span class="w"> </span><span class="nf">get_noise_names</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span data-line="839">        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">"not yet implemented"</span><span class="p">)</span></div>
+
+</span><span data-line="840">
+<div class="viewcode-block" id="Touchstone.get_noise_data">
+<a class="viewcode-back" href="../../../api/io/generated/skrf.io.touchstone.Touchstone.get_noise_data.html#skrf.io.touchstone.Touchstone.get_noise_data">[docs]</a>
+</span><span data-line="841">    <span class="k">def</span><span class="w"> </span><span class="nf">get_noise_data</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span data-line="842">        <span class="c1"># TBD = 1</span>
+</span><span data-line="843">        <span class="c1"># noise_frequency = noise_values[:,0]</span>
+</span><span data-line="844">        <span class="c1"># noise_minimum_figure = noise_values[:,1]</span>
+</span><span data-line="845">        <span class="c1"># noise_source_reflection = noise_values[:,2]</span>
+</span><span data-line="846">        <span class="c1"># noise_source_phase = noise_values[:,3]</span>
+</span><span data-line="847">        <span class="c1"># noise_normalized_resistance = noise_values[:,4]</span>
+</span><span data-line="848">        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">"not yet implemented"</span><span class="p">)</span></div>
+
+</span><span data-line="849">
+<div class="viewcode-block" id="Touchstone.get_gamma_z0">
+<a class="viewcode-back" href="../../../api/io/generated/skrf.io.touchstone.Touchstone.get_gamma_z0.html#skrf.io.touchstone.Touchstone.get_gamma_z0">[docs]</a>
+</span><span data-line="850">    <span class="k">def</span><span class="w"> </span><span class="nf">get_gamma_z0</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span data-line="851"><span class="w">        </span><span class="sd">"""</span>
+</span><span data-line="852"><span class="sd">        Extracts Z0 and Gamma comments from touchstone file (if provided).</span>
+</span><span data-line="853">
+</span><span data-line="854"><span class="sd">        Returns</span>
+</span><span data-line="855"><span class="sd">        -------</span>
+</span><span data-line="856"><span class="sd">        gamma : complex np.ndarray</span>
+</span><span data-line="857"><span class="sd">            complex  propagation constant</span>
+</span><span data-line="858"><span class="sd">        z0 : np.ndarray</span>
+</span><span data-line="859"><span class="sd">            complex port impedance</span>
+</span><span data-line="860"><span class="sd">        """</span>
+</span><span data-line="861">        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">gamma</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">z0</span></div>
+</div>
+
+</span><span data-line="862">
+</span><span data-line="863">
+<div class="viewcode-block" id="hfss_touchstone_2_gamma_z0">
+<a class="viewcode-back" href="../../../api/io/generated/skrf.io.touchstone.hfss_touchstone_2_gamma_z0.html#skrf.io.touchstone.hfss_touchstone_2_gamma_z0">[docs]</a>
+</span><span data-line="864"><span class="k">def</span><span class="w"> </span><span class="nf">hfss_touchstone_2_gamma_z0</span><span class="p">(</span><span class="n">filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
+</span><span data-line="865"><span class="w">    </span><span class="sd">"""</span>
+</span><span data-line="866"><span class="sd">    Extracts Z0 and Gamma comments from touchstone file.</span>
+</span><span data-line="867">
+</span><span data-line="868"><span class="sd">    Takes a HFSS-style Touchstone file with Gamma and Z0 comments and</span>
+</span><span data-line="869"><span class="sd">    extracts a triplet of arrays being: (frequency, Gamma, Z0)</span>
+</span><span data-line="870">
+</span><span data-line="871"><span class="sd">    Parameters</span>
+</span><span data-line="872"><span class="sd">    ----------</span>
+</span><span data-line="873"><span class="sd">    filename : string</span>
+</span><span data-line="874"><span class="sd">        the HFSS-style Touchstone file</span>
+</span><span data-line="875">
+</span><span data-line="876">
+</span><span data-line="877"><span class="sd">    Returns</span>
+</span><span data-line="878"><span class="sd">    -------</span>
+</span><span data-line="879"><span class="sd">    f : np.ndarray</span>
+</span><span data-line="880"><span class="sd">        frequency vector (in Hz)</span>
+</span><span data-line="881"><span class="sd">    gamma : complex np.ndarray</span>
+</span><span data-line="882"><span class="sd">        complex  propagation constant</span>
+</span><span data-line="883"><span class="sd">    z0 : np.ndarray</span>
+</span><span data-line="884"><span class="sd">        complex port impedance</span>
+</span><span data-line="885">
+</span><span data-line="886"><span class="sd">    Examples</span>
+</span><span data-line="887"><span class="sd">    --------</span>
+</span><span data-line="888"><span class="sd">    &gt;&gt;&gt; f,gamm,z0 = rf.hfss_touchstone_2_gamma_z0('line.s2p')</span>
+</span><span data-line="889"><span class="sd">    """</span>
+</span><span data-line="890">    <span class="n">ntwk</span> <span class="o">=</span> <span class="n">Network</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+</span><span data-line="891">
+</span><span data-line="892">    <span class="k">return</span> <span class="n">ntwk</span><span class="o">.</span><span class="n">frequency</span><span class="o">.</span><span class="n">f</span><span class="p">,</span> <span class="n">ntwk</span><span class="o">.</span><span class="n">gamma</span><span class="p">,</span> <span class="n">ntwk</span><span class="o">.</span><span class="n">z0</span></div>
+
+</span><span data-line="893">
+</span><span data-line="894">
+<div class="viewcode-block" id="hfss_touchstone_2_media">
+<a class="viewcode-back" href="../../../api/io/generated/skrf.io.touchstone.hfss_touchstone_2_media.html#skrf.io.touchstone.hfss_touchstone_2_media">[docs]</a>
+</span><span data-line="895"><span class="k">def</span><span class="w"> </span><span class="nf">hfss_touchstone_2_media</span><span class="p">(</span><span class="n">filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">DefinedGammaZ0</span><span class="p">]:</span>
+</span><span data-line="896"><span class="w">    </span><span class="sd">"""</span>
+</span><span data-line="897"><span class="sd">    Creates a :class:`~skrf.media.Media` object from a a HFSS-style Touchstone file with Gamma and Z0 comments.</span>
+</span><span data-line="898">
+</span><span data-line="899"><span class="sd">    Parameters</span>
+</span><span data-line="900"><span class="sd">    ----------</span>
+</span><span data-line="901"><span class="sd">    filename : string</span>
+</span><span data-line="902"><span class="sd">        the HFSS-style Touchstone file</span>
+</span><span data-line="903">
+</span><span data-line="904"><span class="sd">    Returns</span>
+</span><span data-line="905"><span class="sd">    -------</span>
+</span><span data-line="906"><span class="sd">    my_media : :class:`~skrf.media.media.Media` object</span>
+</span><span data-line="907"><span class="sd">        the transmission line model defined by the gamma, and z0</span>
+</span><span data-line="908"><span class="sd">        comments in the HFSS file.</span>
+</span><span data-line="909">
+</span><span data-line="910"><span class="sd">    Examples</span>
+</span><span data-line="911"><span class="sd">    --------</span>
+</span><span data-line="912"><span class="sd">    &gt;&gt;&gt; port1_media, port2_media = rf.hfss_touchstone_2_media('line.s2p')</span>
+</span><span data-line="913">
+</span><span data-line="914"><span class="sd">    See Also</span>
+</span><span data-line="915"><span class="sd">    --------</span>
+</span><span data-line="916"><span class="sd">    hfss_touchstone_2_gamma_z0 : returns gamma, and z0</span>
+</span><span data-line="917"><span class="sd">    """</span>
+</span><span data-line="918">    <span class="kn">from</span><span class="w"> </span><span class="nn">..media</span><span class="w"> </span><span class="kn">import</span> <span class="n">DefinedGammaZ0</span>
+</span><span data-line="919">
+</span><span data-line="920">    <span class="n">ntwk</span> <span class="o">=</span> <span class="n">Network</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+</span><span data-line="921">
+</span><span data-line="922">    <span class="n">freq</span> <span class="o">=</span> <span class="n">ntwk</span><span class="o">.</span><span class="n">frequency</span>
+</span><span data-line="923">    <span class="n">gamma</span> <span class="o">=</span> <span class="n">ntwk</span><span class="o">.</span><span class="n">gamma</span>
+</span><span data-line="924">    <span class="n">z0</span> <span class="o">=</span> <span class="n">ntwk</span><span class="o">.</span><span class="n">z0</span>
+</span><span data-line="925">
+</span><span data-line="926">    <span class="n">media_list</span> <span class="o">=</span> <span class="p">[]</span>
+</span><span data-line="927">
+</span><span data-line="928">    <span class="k">for</span> <span class="n">port_n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">gamma</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]):</span>
+</span><span data-line="929">        <span class="n">media_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">DefinedGammaZ0</span><span class="p">(</span><span class="n">frequency</span><span class="o">=</span><span class="n">freq</span><span class="p">,</span> <span class="n">gamma</span><span class="o">=</span><span class="n">gamma</span><span class="p">[:,</span> <span class="n">port_n</span><span class="p">],</span> <span class="n">z0</span><span class="o">=</span><span class="n">z0</span><span class="p">[:,</span> <span class="n">port_n</span><span class="p">]))</span>
+</span><span data-line="930">
+</span><span data-line="931">    <span class="k">return</span> <span class="n">media_list</span></div>
+
+</span><span data-line="932">
+</span><span data-line="933">
+<div class="viewcode-block" id="hfss_touchstone_2_network">
+<a class="viewcode-back" href="../../../api/io/generated/skrf.io.touchstone.hfss_touchstone_2_network.html#skrf.io.touchstone.hfss_touchstone_2_network">[docs]</a>
+</span><span data-line="934"><span class="k">def</span><span class="w"> </span><span class="nf">hfss_touchstone_2_network</span><span class="p">(</span><span class="n">filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Network</span><span class="p">:</span>
+</span><span data-line="935"><span class="w">    </span><span class="sd">"""</span>
+</span><span data-line="936"><span class="sd">    Creates a :class:`~skrf.Network` object from a a HFSS-style Touchstone file.</span>
+</span><span data-line="937">
+</span><span data-line="938"><span class="sd">    Parameters</span>
+</span><span data-line="939"><span class="sd">    ----------</span>
+</span><span data-line="940"><span class="sd">    filename : string</span>
+</span><span data-line="941"><span class="sd">        the HFSS-style Touchstone file</span>
+</span><span data-line="942">
+</span><span data-line="943"><span class="sd">    Returns</span>
+</span><span data-line="944"><span class="sd">    -------</span>
+</span><span data-line="945"><span class="sd">    my_network : :class:`~skrf.network.Network` object</span>
+</span><span data-line="946"><span class="sd">        the n-port network model</span>
+</span><span data-line="947">
+</span><span data-line="948"><span class="sd">    Examples</span>
+</span><span data-line="949"><span class="sd">    --------</span>
+</span><span data-line="950"><span class="sd">    &gt;&gt;&gt; my_network = rf.hfss_touchstone_2_network('DUT.s2p')</span>
+</span><span data-line="951">
+</span><span data-line="952"><span class="sd">    See Also</span>
+</span><span data-line="953"><span class="sd">    --------</span>
+</span><span data-line="954"><span class="sd">    hfss_touchstone_2_gamma_z0 : returns gamma, and z0</span>
+</span><span data-line="955"><span class="sd">    """</span>
+</span><span data-line="956">    <span class="n">my_network</span> <span class="o">=</span> <span class="n">Network</span><span class="p">(</span><span class="n">file</span><span class="o">=</span><span class="n">filename</span><span class="p">)</span>
+</span><span data-line="957">    <span class="k">return</span> <span class="n">my_network</span></div>
+
+</span><span data-line="958">
+</span><span data-line="959">
+<div class="viewcode-block" id="read_zipped_touchstones">
+<a class="viewcode-back" href="../../../api/io/generated/skrf.io.touchstone.read_zipped_touchstones.html#skrf.io.touchstone.read_zipped_touchstones">[docs]</a>
+</span><span data-line="960"><span class="k">def</span><span class="w"> </span><span class="nf">read_zipped_touchstones</span><span class="p">(</span>
+</span><span data-line="961">    <span class="n">ziparchive</span><span class="p">:</span> <span class="n">zipfile</span><span class="o">.</span><span class="n">ZipFile</span><span class="p">,</span>
+</span><span data-line="962">    <span class="nb">dir</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">""</span><span class="p">,</span>
+</span><span data-line="963">    <span class="n">encoding</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+</span><span data-line="964"><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Network</span><span class="p">]:</span>
+</span><span data-line="965"><span class="w">    </span><span class="sd">"""</span>
+</span><span data-line="966"><span class="sd">    similar to skrf.io.read_all_networks, which works for directories but only for Touchstones in ziparchives.</span>
+</span><span data-line="967">
+</span><span data-line="968"><span class="sd">    Parameters</span>
+</span><span data-line="969"><span class="sd">    ----------</span>
+</span><span data-line="970"><span class="sd">    ziparchive : :class:`zipfile.ZipFile`</span>
+</span><span data-line="971"><span class="sd">        an zip archive file, containing Touchstone files and open for reading</span>
+</span><span data-line="972"><span class="sd">    dir : str</span>
+</span><span data-line="973"><span class="sd">        the directory of the ziparchive to read networks from, default is "" which reads only the root directory</span>
+</span><span data-line="974"><span class="sd">    encoding : str, optional</span>
+</span><span data-line="975"><span class="sd">        File encoding. Supported encodings are ISO-8859-1 and UTF-8.</span>
+</span><span data-line="976"><span class="sd">        If omitted, encoding is detected for each file.</span>
+</span><span data-line="977">
+</span><span data-line="978"><span class="sd">    Returns</span>
+</span><span data-line="979"><span class="sd">    -------</span>
+</span><span data-line="980"><span class="sd">    dict</span>
+</span><span data-line="981"><span class="sd">        keys are touchstone filenames without extensions</span>
+</span><span data-line="982"><span class="sd">        values are network objects created from the touchstone files</span>
+</span><span data-line="983"><span class="sd">    """</span>
+</span><span data-line="984">    <span class="n">networks</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+</span><span data-line="985">    <span class="k">for</span> <span class="n">fname</span> <span class="ow">in</span> <span class="n">ziparchive</span><span class="o">.</span><span class="n">namelist</span><span class="p">():</span>  <span class="c1"># type: str</span>
+</span><span data-line="986">        <span class="n">directory</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">fname</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+</span><span data-line="987">        <span class="k">if</span> <span class="nb">dir</span> <span class="o">==</span> <span class="n">directory</span> <span class="ow">and</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="sa">r</span><span class="s2">"\.(?:s\d+p|ts)$"</span><span class="p">,</span> <span class="n">fname</span><span class="o">.</span><span class="n">lower</span><span class="p">()):</span>
+</span><span data-line="988">            <span class="n">network</span> <span class="o">=</span> <span class="n">Network</span><span class="o">.</span><span class="n">zipped_touchstone</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span> <span class="n">ziparchive</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="n">encoding</span><span class="p">)</span>
+</span><span data-line="989">            <span class="n">networks</span><span class="p">[</span><span class="n">network</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">network</span>
+</span><span data-line="990">    <span class="k">return</span> <span class="n">networks</span></div>
+
+</span></pre></div>
+        </article><button class="back-to-top" type="button">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+  </svg>
+  <span>Back to top</span>
+</button><div class="navigation flex print:hidden"></div></div>
+    </div>
+  </main>
+</div>
+<footer class="sy-foot">
+  <div class="sy-foot-inner sy-container mx-auto">
+    <div class="sy-foot-reserved md:flex justify-between items-center">
+      <div class="sy-foot-copyright"><p>2025, scikit-rf team</p>
+  
+  <p>
+    Made with
+    
+    <a href="https://www.sphinx-doc.org/">Sphinx</a> and
+    
+    <a href="https://shibuya.lepture.com">Shibuya theme</a>.
+  </p>
+</div>
+      <div class="sy-foot-socials">
+  <a href="https://github.com/scikit-rf/scikit-rf" aria-label="GitHub">
+    <iconify-icon icon="simple-icons:github"></iconify-icon>
+  </a></div>
+    </div>
+  </div>
+</footer>
+      <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../../_static/copybutton.js?v=34bd459d"></script>
+      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+      <script src="../../../_static/shibuya.js?v=50760d75"></script>
+      <script src="https://cdn.jsdelivr.net/npm/@jupyter-widgets/html-manager@^1.0.1/dist/embed-amd.js"></script>
+      <script src="../../../_static/skrf.js?v=bdeb9fb0"></script></body>
+</html>

@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en" data-accent-color="blue" data-content_root="../">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Examples - scikit-rf</title><link rel="author" title="About these documents" href="../about.html" /><link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Network Theory" href="networktheory/index.html" /><link rel="prev" title="Virtual Instruments" href="../tutorials/VirtualInstruments.html" /><script>
+    function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
+    setColorMode(localStorage._theme||"auto");
+  </script><link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=ad592e98" />
+    <link rel="stylesheet" type="text/css" href="../_static/shibuya.css?v=2ceb65ce" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-codeautolink.css?v=b2176991" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link media="print" rel="stylesheet" type="text/css" href="../_static/print.css?v=20ff2c19" />
+    <link rel="stylesheet" type="text/css" href="../_static/nbsphinx-gallery.css?v=26227f6e" />
+    <link rel="stylesheet" type="text/css" href="../_static/skrf.css?v=7e772ba2" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --sy-f-text: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+  --sy-f-heading: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+}
+</style>
+    
+  <meta property="og:type" content="website"/><meta property="og:title" content="Examples"/>
+    <meta name="twitter:card" content="summary"/>
+  </head>
+<body><div class="sy-head">
+  <div class="sy-head-blur"></div>
+  <div class="sy-head-inner sy-container mx-auto">
+    <a class="sy-head-brand" href="../index.html">
+      <img class="light-logo" src="../_static/logo.svg" alt="scikit-rf" height="28" loading="lazy" />
+      <img class="dark-logo" src="../_static/logo.svg" alt="scikit-rf" height="28" loading="lazy" />
+      <strong>scikit-rf</strong>
+    </a>
+    <div class="sy-head-nav" id="head-nav">
+      <nav class="sy-head-links"><ul><li class="link"><a href="../index.html">Home</a></li><li class="link"><a href="../tutorials/index.html">Tutorials</a></li><li class="link"><a href="#">Examples</a></li><li class="link"><a href="../api/index.html">API</a></li><li class="link">
+          <a href="https://github.com/scikit-rf/scikit-rf">
+            <span>GitHub</span><i class="i-lucide external-link"></i></a>
+        </li></ul></nav>
+      <div class="sy-head-extra flex items-center print:hidden"><form class="searchbox flex items-center" action="../search.html" method="get">
+  <input type="text" name="q" placeholder="Search" />
+  <kbd>/</kbd>
+</form><div class="sy-head-socials">
+  <a href="https://github.com/scikit-rf/scikit-rf" aria-label="GitHub">
+    <iconify-icon icon="simple-icons:github"></iconify-icon>
+  </a>
+  <a href="https://www.linkedin.com/groups/12462155/" aria-label="LinkedIn">
+    <iconify-icon icon="simple-icons:linkedin"></iconify-icon>
+  </a>
+  <a href="https://app.element.io/#/room/#scikit-rf:matrix.org" aria-label="Matrix">
+    <iconify-icon icon="simple-icons:matrix"></iconify-icon>
+  </a></div></div>
+    </div>
+    <div class="sy-head-actions flex items-center shrink-0 print:hidden"><button class="js-theme theme-switch flex items-center"
+data-aria-auto="Switch to light color mode"
+data-aria-light="Switch to dark color mode"
+data-aria-dark="Switch to auto color mode">
+<i class="i-lucide theme-icon"></i>
+</button><button class="md:hidden flex items-center js-menu" aria-label="Menu" type="button" aria-controls="head-nav" aria-expanded="false">
+        <div class="hamburger">
+          <span class="hamburger_1"></span>
+          <span class="hamburger_2"></span>
+          <span class="hamburger_3"></span>
+        </div>
+      </button>
+    </div>
+  </div>
+</div>
+<div class="sy-page sy-container flex mx-auto">
+  <aside id="lside" class="sy-lside md:w-72 md:shrink-0 print:hidden">
+    <div class="sy-lside-inner md:sticky">
+      <div class="sy-scrollbar p-6">
+        <div class="globaltoc" data-expand-depth="0"><p class="caption" role="heading" aria-level="3"><span class="caption-text">Getting started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/Installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/Introduction.html">Introduction</a></li>
+</ul>
+<p class="caption" role="heading" aria-level="3"><span class="caption-text">User guide</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Examples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="networktheory/index.html">Network Theory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="matching/index.html">Matching</a></li>
+<li class="toctree-l2"><a class="reference internal" href="metrology/index.html">Metrology and Calibration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="networksets/index.html">NetworkSets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plotting/index.html">Plotting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="circuit/index.html">Circuit</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mixedmodeanalysis/index.html">Mixed Mode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="vectorfitting/index.html">Vector Fitting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="vectorfitting_parametric/index.html">Parametric Vector Fitting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfactor/index.html">Q-factor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="taper/index.html">Taper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="instrumentcontrol/index.html">Instrument Control</a></li>
+<li class="toctree-l2"><a class="reference internal" href="interactive/index.html">Interactive</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading" aria-level="3"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../api/index.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../glossary.html">Glossary</a></li>
+</ul>
+<p class="caption" role="heading" aria-level="3"><span class="caption-text">Project</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../contributing/index.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../citations_ack/acknowledging.html">Citing scikit-rf</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../citations_ack/citations.html">scikit-rf Citations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../about.html">About</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../users.html">Users</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../license.html">License</a></li>
+</ul>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="lside-overlay js-menu" role="button" aria-label="Close left sidebar" aria-controls="lside" aria-expanded="false"></div>
+  <aside id="rside" class="sy-rside pb-3 w-64 shrink-0 order-last">
+    <button class="rside-close js-menu xl:hidden" aria-label="Close Table of Contents" type="button" aria-controls="rside" aria-expanded="false">
+      <i class="i-lucide close"></i>
+    </button>
+    <div class="sy-scrollbar sy-rside-inner px-6 xl:top-16 xl:sticky xl:pl-0 pt-6 pb-4"><div id="ethical-ad-placement" data-ea-publisher="readthedocs"></div></div>
+  </aside>
+  <div class="rside-overlay js-menu" role="button" aria-label="Close Table of Contents" aria-controls="rside" aria-expanded="false"></div>
+  <main class="sy-main w-full max-sm:max-w-full print:pt-6">
+<div class="sy-breadcrumbs" role="navigation">
+  <div class="sy-breadcrumbs-inner flex items-center">
+    <div class="md:hidden mr-3">
+      <button class="js-menu" aria-label="Menu" type="button" aria-controls="lside" aria-expanded="false">
+        <i class="i-lucide menu"></i>
+      </button>
+    </div>
+    <ol class="flex-1" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="../index.html"><span itemprop="name">scikit-rf</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="1" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <strong itemprop="name">Examples</strong>
+        <meta itemprop="position" content="2" />
+      </li></ol>
+    <div class="xl:hidden ml-1">
+      <button class="js-menu" aria-label="Show table of contents" type="button" aria-controls="rside"
+        aria-expanded="false">
+        <i class="i-lucide outdent"></i>
+      </button>
+    </div>
+  </div>
+</div><div class="flex flex-col break-words justify-between">
+      <div class="relative min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
+  <article class="yue" role="main">
+          <section id="examples">
+<span id="id1"></span><h1>Examples<a class="headerlink" href="#examples" title="Link to this heading">#</a></h1>
+<p>These examples are meant to give an overview of how skrf can be used.
+Each page can be followed along in a browser, or downloaded as an
+ipython <a class="reference external" href="http://ipython.org/notebook.html">notebook</a></p>
+<div class="toctree-wrapper compound">
+</div>
+<h2 class="rubric"><a class="reference internal" href="networktheory/index.html"><span class="doc">Network Theory</span></a></h2>
+<div class="toctree-wrapper compound">
+<div class="nbsphinx-gallery">
+<a class="reference internal" href="networktheory/Balanced%20Network%20De-embedding.html">
+  <div><img alt="" src="../_images/examples_networktheory_Balanced_Network_De-embedding_14_0.png"></div>
+  <div>Balanced Network De-embedding</div>
+</a>
+<a class="reference internal" href="networktheory/Balun_Transformer_Designs.html">
+  <div><img alt="" src="../_images/examples_networktheory_Balun_Transformer_Designs_19_1.png"></div>
+  <div>Balun &amp; Transformer Designs</div>
+</a>
+<a class="reference internal" href="networktheory/CPW%20media%20example.html">
+  <div><img alt="" src="../_images/examples_networktheory_CPW_media_example_10_1.png"></div>
+  <div>CPW media example</div>
+</a>
+<a class="reference internal" href="networktheory/Circular%20waveguide%20attenuation.html">
+  <div><img alt="" src="../_images/examples_networktheory_Circular_waveguide_attenuation_3_1.png"></div>
+  <div>Circular waveguide attenuation</div>
+</a>
+<a class="reference internal" href="networktheory/Correlating%20microstripline%20model%20to%20measurement.html">
+  <div><img alt="" src="../_images/examples_networktheory_Correlating_microstripline_model_to_measurement_21_0.png"></div>
+  <div>Correlating microstripline model to measurement</div>
+</a>
+<a class="reference internal" href="networktheory/DC%20Extrapolation%20for%20Time%20Domain%20.html">
+  <div><img alt="" src="../_images/examples_networktheory_DC_Extrapolation_for_Time_Domain__12_0.png"></div>
+  <div>DC Extrapolation for Time Domain</div>
+</a>
+<a class="reference internal" href="networktheory/DefinedAEpTandZ0%20media%20example.html">
+  <div><img alt="" src="../_images/examples_networktheory_DefinedAEpTandZ0_media_example_15_1.png"></div>
+  <div>DefinedAEpTandZ0 media example</div>
+</a>
+<a class="reference internal" href="networktheory/IEEEP370%20Deembedding.html">
+  <div><img alt="" src="../_images/examples_networktheory_IEEEP370_Deembedding_75_0.png"></div>
+  <div>IEEEP370 Deembedding</div>
+</a>
+<a class="reference internal" href="networktheory/LNA%20Example.html">
+  <div><img alt="" src="../_images/examples_networktheory_LNA_Example_20_0.png"></div>
+  <div>LNA Example</div>
+</a>
+<a class="reference internal" href="networktheory/Properties%20of%20Rectangular%20Waveguides.html">
+  <div><img alt="" src="../_images/examples_networktheory_Properties_of_Rectangular_Waveguides_14_1.png"></div>
+  <div>Properties of Rectangular Waveguide</div>
+</a>
+<a class="reference internal" href="networktheory/Renormalizing%20S-parameters.html">
+  <div><img alt="" src="../_images/examples_networktheory_Renormalizing_S-parameters_16_0.png"></div>
+  <div>Renormalizing S-parameters</div>
+</a>
+<a class="reference internal" href="networktheory/Time%20Domain.html">
+  <div><img alt="" src="../_images/examples_networktheory_Time_Domain_32_0.png"></div>
+  <div>Time Domain and Gating</div>
+</a>
+<a class="reference internal" href="networktheory/Time%20domain%20reflectometry%2C%20measurement%20vs%20simulation.html">
+  <div><img alt="" src="../_images/examples_networktheory_Time_domain_reflectometry,_measurement_vs_simulation_51_0.png"></div>
+  <div>Time domain reflectometry, measurement vs simulation</div>
+</a>
+<a class="reference internal" href="networktheory/Transmission%20Line%20Losses.html">
+  <div><img alt="" src="../_static/nbsphinx-no-thumbnail.svg"></div>
+  <div>Transmission Line Losses on a Loaded Lossy Line</div>
+</a>
+<a class="reference internal" href="networktheory/Transmission%20Line%20Properties%20and%20Manipulations.html">
+  <div><img alt="" src="../_images/examples_networktheory_Transmission_Line_Properties_and_Manipulations_52_1.png"></div>
+  <div>Modeling Transmission Line Properties</div>
+</a>
+<a class="reference internal" href="networktheory/Transmission%20Lines%20and%20SWR.html">
+  <div><img alt="" src="../_images/examples_networktheory_Transmission_Lines_and_SWR_20_1.png"></div>
+  <div>How does the SWR vary along a line?</div>
+</a>
+<a class="reference internal" href="networktheory/Working%20with%20Complex%20Characteristic%20Impedances.html">
+  <div><img alt="" src="../_images/examples_networktheory_Working_with_Complex_Characteristic_Impedances_12_0.png"></div>
+  <div>Working with Complex Characteristic Impedance</div>
+</a>
+</div>
+</div>
+<h2 class="rubric"><a class="reference internal" href="matching/index.html"><span class="doc">Matching</span></a></h2>
+<div class="toctree-wrapper compound">
+<div class="nbsphinx-gallery">
+<a class="reference internal" href="matching/Impedance%20Matching.html">
+  <div><img alt="" src="../_images/examples_matching_Impedance_Matching_21_0.png"></div>
+  <div>Impedance Matching</div>
+</a>
+</div>
+</div>
+<h2 class="rubric"><a class="reference internal" href="metrology/index.html"><span class="doc">Metrology and Calibration</span></a></h2>
+<div class="toctree-wrapper compound">
+<div class="nbsphinx-gallery">
+<a class="reference internal" href="metrology/Calibration%20With%20Three%20Receivers.html">
+  <div><img alt="" src="../_images/examples_metrology_Calibration_With_Three_Receivers_31_1.png"></div>
+  <div>Calibration With Three Receivers</div>
+</a>
+<a class="reference internal" href="metrology/LRRM.html">
+  <div><img alt="" src="../_images/examples_metrology_LRRM_42_1.png"></div>
+  <div>LRRM</div>
+</a>
+<a class="reference internal" href="metrology/Measuring%20a%20Mutiport%20Device%20with%20a%202-Port%20Network%20Analyzer.html">
+  <div><img alt="" src="../_images/examples_metrology_Measuring_a_Mutiport_Device_with_a_2-Port_Network_Analyzer_45_2.png"></div>
+  <div>Measuring a Multiport Device with a 2-Port Network Analyzer</div>
+</a>
+<a class="reference internal" href="metrology/Multi-port%20Calibration.html">
+  <div><img alt="" src="../_images/examples_metrology_Multi-port_Calibration_20_0.png"></div>
+  <div>Multi-port calibration</div>
+</a>
+<a class="reference internal" href="metrology/Multiline%20TRL.html">
+  <div><img alt="" src="../_images/examples_metrology_Multiline_TRL_42_0.png"></div>
+  <div>Multiline TRL</div>
+</a>
+<a class="reference internal" href="metrology/NanoVNA_V2_4port-splitter.html">
+  <div><img alt="" src="../_images/examples_metrology_NanoVNA_V2_4port-splitter_12_0.png"></div>
+  <div>Measuring a 4-Port With The 1.5-Port NanoVNA V2</div>
+</a>
+<a class="reference internal" href="metrology/One%20Port%20Tiered%20Calibration.html">
+  <div><img alt="" src="../_images/examples_metrology_One_Port_Tiered_Calibration_25_1.png"></div>
+  <div>One Port Tiered Calibration</div>
+</a>
+<a class="reference internal" href="metrology/SOLT.html">
+  <div><img alt="" src="../_images/examples_metrology_SOLT_24_0.png"></div>
+  <div>SOLT</div>
+</a>
+<a class="reference internal" href="metrology/SOLT%20Calibration%20Standards%20Creation.html">
+  <div><img alt="" src="../_images/examples_metrology_SOLT_Calibration_Standards_Creation_55_0.png"></div>
+  <div>SOLT Calibration Standards Creation</div>
+</a>
+<a class="reference internal" href="metrology/TRL.html">
+  <div><img alt="" src="../_images/examples_metrology_TRL_10_0.png"></div>
+  <div>TRL</div>
+</a>
+<a class="reference internal" href="metrology/TwoPortOnePath%2C%20EnhancedResponse%2C%20and%20FakeFlip.html">
+  <div><img alt="" src="../_images/examples_metrology_TwoPortOnePath,_EnhancedResponse,_and_FakeFlip_18_1.png"></div>
+  <div>TwoPortOnePath, EnhancedResponse, and FakeFlip</div>
+</a>
+</div>
+</div>
+<h2 class="rubric"><a class="reference internal" href="networksets/index.html"><span class="doc">NetworkSets</span></a></h2>
+<div class="toctree-wrapper compound">
+<div class="nbsphinx-gallery">
+<a class="reference internal" href="networksets/Export%20Network%20Set%20as%20MDIF%20File.html">
+  <div><img alt="" src="../_static/nbsphinx-no-thumbnail.svg"></div>
+  <div>Export Network Set as Generalized MDIF File</div>
+</a>
+<a class="reference internal" href="networksets/Interpolating%20Network%20Sets.html">
+  <div><img alt="" src="../_images/examples_networksets_Interpolating_Network_Sets_12_0.png"></div>
+  <div>Interpolating Network Sets</div>
+</a>
+<a class="reference internal" href="networksets/Sorting%20Network%20Sets.html">
+  <div><img alt="" src="../_images/examples_networksets_Sorting_Network_Sets_27_0.png"></div>
+  <div>Sorting Network Sets</div>
+</a>
+</div>
+</div>
+<h2 class="rubric"><a class="reference internal" href="plotting/index.html"><span class="doc">Plotting</span></a></h2>
+<div class="toctree-wrapper compound">
+<div class="nbsphinx-gallery">
+<a class="reference internal" href="plotting/Modeling%20RG-58.html">
+  <div><img alt="" src="../_images/examples_plotting_Modeling_RG-58_2_5.png"></div>
+  <div>Properties of RG-58</div>
+</a>
+<a class="reference internal" href="plotting/XKCD%20styling.html">
+  <div><img alt="" src="../_images/examples_plotting_XKCD_styling_4_2.png"></div>
+  <div>XKCDify</div>
+</a>
+</div>
+</div>
+<h2 class="rubric"><a class="reference internal" href="circuit/index.html"><span class="doc">Circuit</span></a></h2>
+<div class="toctree-wrapper compound">
+<div class="nbsphinx-gallery">
+<a class="reference internal" href="circuit/Lumped%20Element%20Circuits.html">
+  <div><img alt="" src="../_images/examples_circuit_Lumped_Element_Circuits_24_0.png"></div>
+  <div>Lumped Elements Circuits</div>
+</a>
+<a class="reference internal" href="circuit/Voltages%20and%20Currents%20in%20Circuits.html">
+  <div><img alt="" src="../_images/examples_circuit_Voltages_and_Currents_in_Circuits_28_0.png"></div>
+  <div>Voltages and Currents in Circuits</div>
+</a>
+<a class="reference internal" href="circuit/Wilkinson%20Power%20Splitter.html">
+  <div><img alt="" src="../_images/examples_circuit_Wilkinson_Power_Splitter_16_1.png"></div>
+  <div>Wilkinson Power Divider</div>
+</a>
+</div>
+</div>
+<h2 class="rubric"><a class="reference internal" href="mixedmodeanalysis/index.html"><span class="doc">Mixed Mode</span></a></h2>
+<div class="toctree-wrapper compound">
+<div class="nbsphinx-gallery">
+<a class="reference internal" href="mixedmodeanalysis/Mixed%20Mode%20Basics.html">
+  <div><img alt="" src="../_images/examples_mixedmodeanalysis_Mixed_Mode_Basics_11_0.png"></div>
+  <div>Mixed Mode S-Parameter Conversion</div>
+</a>
+<a class="reference internal" href="mixedmodeanalysis/Mixed%20Mode%20S%20and%20Impedance%20Transformation.html">
+  <div><img alt="" src="../_images/examples_mixedmodeanalysis_Mixed_Mode_S_and_Impedance_Transformation_5_0.png"></div>
+  <div>Mixed Mode S-Parameters &amp; Impedance Transformation</div>
+</a>
+</div>
+</div>
+<h2 class="rubric"><a class="reference internal" href="vectorfitting/index.html"><span class="doc">Vector Fitting</span></a></h2>
+<div class="toctree-wrapper compound">
+<div class="nbsphinx-gallery">
+<a class="reference internal" href="vectorfitting/vectorfitting_ex1_ringslot.html">
+  <div><img alt="" src="../_images/examples_vectorfitting_vectorfitting_ex1_ringslot_12_0.png"></div>
+  <div>Ex1: Ring Slot</div>
+</a>
+<a class="reference internal" href="vectorfitting/vectorfitting_ex2_190ghz_active.html">
+  <div><img alt="" src="../_images/examples_vectorfitting_vectorfitting_ex2_190ghz_active_13_0.png"></div>
+  <div>Ex2: Measured 190 GHz Active 2-Port</div>
+</a>
+<a class="reference internal" href="vectorfitting/vectorfitting_ex3_Agilent_E5071B.html">
+  <div><img alt="" src="../_images/examples_vectorfitting_vectorfitting_ex3_Agilent_E5071B_25_0.png"></div>
+  <div>Ex3: Fitting spiky responses</div>
+</a>
+<a class="reference internal" href="vectorfitting/vectorfitting_ex4_passivity.html">
+  <div><img alt="" src="../_images/examples_vectorfitting_vectorfitting_ex4_passivity_19_0.png"></div>
+  <div>Ex4: Passivity Evaluation and Enforcement</div>
+</a>
+<a class="reference internal" href="vectorfitting/vectorfitting_problems.html">
+  <div><img alt="" src="../_images/examples_vectorfitting_vectorfitting_problems_22_0.png"></div>
+  <div>Common problems and pitfalls</div>
+</a>
+</div>
+</div>
+<h2 class="rubric"><a class="reference internal" href="vectorfitting_parametric/index.html"><span class="doc">Parametric Vector Fitting</span></a></h2>
+<div class="toctree-wrapper compound">
+<div class="nbsphinx-gallery">
+<a class="reference internal" href="vectorfitting_parametric/example_spiral.html">
+  <div><img alt="" src="../_images/examples_vectorfitting_parametric_example_spiral_5_2.png"></div>
+  <div>Parametric Vector Fitting Of An Inductor</div>
+</a>
+</div>
+</div>
+<h2 class="rubric"><a class="reference internal" href="qfactor/index.html"><span class="doc">Q-factor</span></a></h2>
+<div class="toctree-wrapper compound">
+<div class="nbsphinx-gallery">
+<a class="reference internal" href="qfactor/Finding_Dk_Df_from_resonance_fitting.html">
+  <div><img alt="" src="../_images/examples_qfactor_Finding_Dk_Df_from_resonance_fitting_17_0.png"></div>
+  <div>Finding Dielectric Constant and Loss from Resonance Fitting</div>
+</a>
+</div>
+</div>
+<h2 class="rubric"><a class="reference internal" href="taper/index.html"><span class="doc">Taper</span></a></h2>
+<div class="toctree-wrapper compound">
+<div class="nbsphinx-gallery">
+<a class="reference internal" href="taper/tapered_transmission_lines.html">
+  <div><img alt="" src="../_images/examples_taper_tapered_transmission_lines_12_1.png"></div>
+  <div>Tapered Transmission Lines</div>
+</a>
+</div>
+</div>
+<h2 class="rubric"><a class="reference internal" href="instrumentcontrol/index.html"><span class="doc">Instrument Control</span></a></h2>
+<div class="toctree-wrapper compound">
+<div class="nbsphinx-gallery">
+<a class="reference internal" href="instrumentcontrol/VNA%20Control.html">
+  <div><img alt="" src="../_static/nbsphinx-no-thumbnail.svg"></div>
+  <div>VNA control</div>
+</a>
+</div>
+</div>
+<h2 class="rubric"><a class="reference internal" href="interactive/index.html"><span class="doc">Interactive</span></a></h2>
+<div class="toctree-wrapper compound">
+<div class="nbsphinx-gallery">
+<a class="reference internal" href="interactive/Interact%20Transmission%20Lines.html">
+  <div><img alt="" src="../_static/nbsphinx-no-thumbnail.svg"></div>
+  <div>Interactive Matching System</div>
+</a>
+<a class="reference internal" href="interactive/Interactive%20Coaxial%20Properties.html">
+  <div><img alt="" src="../_images/examples_interactive_Interactive_Coaxial_Properties_2_1.png"></div>
+  <div>Transmission Line Properties</div>
+</a>
+<a class="reference internal" href="interactive/Interactive%20Mismatched%20Line.html">
+  <div><img alt="" src="../_images/examples_interactive_Interactive_Mismatched_Line_4_0.jpg"></div>
+  <div>Interactive Mismatched Line</div>
+</a>
+</div>
+</div>
+</section>
+
+        </article><button class="back-to-top" type="button">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+  </svg>
+  <span>Back to top</span>
+</button><div class="navigation flex print:hidden"><div class="navigation-prev">
+    <a href="../tutorials/VirtualInstruments.html">
+      <i class="i-lucide chevron-left"></i>
+      <div class="page-info">
+        <span>Previous</span><div class="title">Virtual Instruments</div></div>
+    </a>
+  </div><div class="navigation-next">
+    <a href="networktheory/index.html">
+      <div class="page-info">
+        <span>Next</span>
+        <div class="title">Network Theory</div>
+      </div>
+      <i class="i-lucide chevron-right"></i>
+    </a>
+  </div></div></div>
+    </div>
+  </main>
+</div>
+<footer class="sy-foot">
+  <div class="sy-foot-inner sy-container mx-auto">
+    <div class="sy-foot-reserved md:flex justify-between items-center">
+      <div class="sy-foot-copyright"><p>2025, scikit-rf team</p>
+  
+  <p>
+    Made with
+    
+    <a href="https://www.sphinx-doc.org/">Sphinx</a> and
+    
+    <a href="https://shibuya.lepture.com">Shibuya theme</a>.
+  </p>
+</div>
+      <div class="sy-foot-socials">
+  <a href="https://github.com/scikit-rf/scikit-rf" aria-label="GitHub">
+    <iconify-icon icon="simple-icons:github"></iconify-icon>
+  </a></div>
+    </div>
+  </div>
+</footer>
+      <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../_static/copybutton.js?v=34bd459d"></script>
+      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+      <script src="../_static/shibuya.js?v=50760d75"></script>
+      <script src="https://cdn.jsdelivr.net/npm/@jupyter-widgets/html-manager@^1.0.1/dist/embed-amd.js"></script>
+      <script src="../_static/skrf.js?v=bdeb9fb0"></script></body>
+</html>

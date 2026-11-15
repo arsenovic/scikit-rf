@@ -1,0 +1,6 @@
+skrf.media.circularWaveguide.CircularWaveguide.z0\_characteristic
+=================================================================
+
+.. currentmodule:: skrf.media.circularWaveguide
+
+.. autoproperty:: CircularWaveguide.z0_characteristic

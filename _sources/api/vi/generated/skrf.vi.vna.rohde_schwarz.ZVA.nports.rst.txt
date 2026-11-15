@@ -1,0 +1,6 @@
+skrf.vi.vna.rohde\_schwarz.ZVA.nports
+=====================================
+
+.. currentmodule:: skrf.vi.vna.rohde_schwarz
+
+.. autoproperty:: ZVA.nports

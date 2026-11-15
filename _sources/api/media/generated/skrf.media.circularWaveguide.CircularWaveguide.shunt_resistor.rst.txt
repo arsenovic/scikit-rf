@@ -1,0 +1,6 @@
+skrf.media.circularWaveguide.CircularWaveguide.shunt\_resistor
+==============================================================
+
+.. currentmodule:: skrf.media.circularWaveguide
+
+.. automethod:: CircularWaveguide.shunt_resistor

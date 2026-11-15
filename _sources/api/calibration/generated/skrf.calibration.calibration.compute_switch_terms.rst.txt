@@ -1,0 +1,6 @@
+﻿skrf.calibration.calibration.compute\_switch\_terms
+===================================================
+
+.. currentmodule:: skrf.calibration.calibration
+
+.. autofunction:: compute_switch_terms

@@ -1,0 +1,6 @@
+skrf.io.touchstone.Touchstone.version
+=====================================
+
+.. currentmodule:: skrf.io.touchstone
+
+.. autoproperty:: Touchstone.version

@@ -1,0 +1,6 @@
+﻿skrf.calibration.calibration.ideal\_coefs\_12term
+=================================================
+
+.. currentmodule:: skrf.calibration.calibration
+
+.. autofunction:: ideal_coefs_12term

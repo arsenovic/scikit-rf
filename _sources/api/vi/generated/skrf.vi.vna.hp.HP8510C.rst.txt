@@ -1,0 +1,62 @@
+﻿skrf.vi.vna.hp.HP8510C
+======================
+
+.. currentmodule:: skrf.vi.vna.hp
+
+.. autoclass:: HP8510C
+  :no-members:
+
+
+
+.. rubric:: Attributes
+
+.. autosummary::
+  :toctree:
+  :nosignatures:
+
+  ~HP8510C.averaging
+  ~HP8510C.compound_sweep_plan
+  ~HP8510C.error
+  ~HP8510C.freq_start
+  ~HP8510C.freq_stop
+  ~HP8510C.frequency
+  ~HP8510C.id
+  ~HP8510C.is_continuous
+  ~HP8510C.max_hz
+  ~HP8510C.min_hz
+  ~HP8510C.npoints
+  ~HP8510C.timeout
+
+
+
+
+
+.. rubric:: Methods
+
+.. autosummary::
+  :toctree:
+  :nosignatures:
+
+  ~HP8510C.__init__
+  ~HP8510C.ask_for_cmplx
+  ~HP8510C.clear
+  ~HP8510C.command
+  ~HP8510C.get_snp_network
+  ~HP8510C.get_switch_terms
+  ~HP8510C.one_port
+  ~HP8510C.query
+  ~HP8510C.query_values
+  ~HP8510C.read
+  ~HP8510C.read_values
+  ~HP8510C.reset
+  ~HP8510C.set_frequency_ramp
+  ~HP8510C.set_frequency_single_point
+  ~HP8510C.set_frequency_step
+  ~HP8510C.set_frequency_sweep
+  ~HP8510C.switch_terms
+  ~HP8510C.two_port
+  ~HP8510C.wait_for_status
+  ~HP8510C.wait_until_finished
+  ~HP8510C.write
+  ~HP8510C.write_values
+

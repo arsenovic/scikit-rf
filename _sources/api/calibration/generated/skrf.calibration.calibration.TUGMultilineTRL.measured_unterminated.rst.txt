@@ -1,0 +1,6 @@
+skrf.calibration.calibration.TUGMultilineTRL.measured\_unterminated
+===================================================================
+
+.. currentmodule:: skrf.calibration.calibration
+
+.. autoproperty:: TUGMultilineTRL.measured_unterminated

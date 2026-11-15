@@ -1,0 +1,6 @@
+skrf.media.rectangularWaveguide.RectangularWaveguide.inductor\_q
+================================================================
+
+.. currentmodule:: skrf.media.rectangularWaveguide
+
+.. automethod:: RectangularWaveguide.inductor_q

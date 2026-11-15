@@ -1,0 +1,555 @@
+{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "# Measuring a Multiport Device with a 2-Port Network Analyzer"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Introduction"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "In microwave measurements, one commonly needs to measure a n-port device with a m-port network analyzer ($m<n$ of course). \n",
+    "\n",
+    "<img src=\"nports_with_2ports.svg\"/>\n",
+    "\n",
+    "This can be done by terminating each non-measured port with a matched load, and assuming the reflected power is negligible. With multiple measurements, it is then possible to reconstitute the original n-port. The first section of this example illustrates this method. \n",
+    "\n",
+    "However, in some cases this may not provide the most accurate results, or even be possible in all measurement environments. Or, sometime it is not possible to have matched loads for all ports. The second part of this example presents an elegant solution to this problem, using impedance renormalization. We'll call it *Tippet's technique*, because it has a good ring to it."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "from itertools import combinations\n",
+    "\n",
+    "import matplotlib.pyplot as plt\n",
+    "import numpy as np\n",
+    "\n",
+    "import skrf as rf\n",
+    "from skrf.network import connect, subnetwork\n",
+    "\n",
+    "%matplotlib inline\n",
+    "\n",
+    "rf.stylely()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Matched Ports\n",
+    "Let's assume that you have a 2-ports VNA. In order to measure a n-port network, you will need at least $p=n(n-1)/2$ measurements between the different pair of ports (total number of unique pairs of a set of n). \n",
+    "\n",
+    "For example, let's assume we wants to measure a 3-ports network with a 2-ports VNA. One needs to perform at least 3 measurements: between ports 1 & 2, between ports 2 & 3 and between ports 1 & 3. We will assume these measurements are then converted into three 2-ports `Network`. To build the full 3-ports `Network`, one needs to provide a list of these 3 (sub)networks to the scikit-rf builtin function `n_twoports_2_nport`. While the order of the measurements in the list is not important, pay attention to define the `Network.name` properties of these subnetworks to contain the port index, for example `p12` for the measurement between ports 1&2 or `p23` between 2&3, etc.\n",
+    "\n",
+    "Let's suppose we want to measure a tee:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "tee = rf.data.tee\n",
+    "print(tee)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "For the sake of the demonstration, we will \"fake\" the 3 distinct measurements by extracting 3 subsets of the original Network, i.e., 3 subnetworks:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# 2 port Networks as if one measures the tee with a 2 ports VNA\n",
+    "tee12 = subnetwork(tee, [0, 1])  # 2 port Network btw ports 1 & 2, port 3 being matched\n",
+    "tee23 = subnetwork(tee, [1, 2])  # 2 port Network btw ports 2 & 3, port 1 being matched\n",
+    "tee13 = subnetwork(tee, [0, 2])  # 2 port Network btw ports 1 & 3, port 2 being matched"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "In reality of course, these three Networks comes from three measurements with distinct pair of ports, the non-used port being properly matched. \n",
+    "\n",
+    "Before using the `n_twoports_2_nport` function, one must define the name of these subsets by setting the `Network.name` property, in order the function to know which corresponds to what:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "tee12.name = 'tee12'\n",
+    "tee23.name = 'tee23'\n",
+    "tee13.name = 'tee13'"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Now we can build the 3-ports Network from these three 2-port subnetworks:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "ntw_list = [tee12, tee23, tee13]\n",
+    "tee_rebuilt = rf.network.n_twoports_2_nport(ntw_list, nports=3)\n",
+    "print(tee_rebuilt)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# this is an ideal example, both Network are thus identical\n",
+    "print(tee == tee_rebuilt)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Tippet's Technique \n",
+    "This example demonstrates a numerical test of the technique described in \"*A Rigorous Technique for Measuring the Scattering Matrix of a Multiport Device with a 2-Port Network Analyzer*\" [1].\n",
+    "\n",
+    "In *Tippets technique*, several sub-networks are measured in a similar way as before, but the port terminations are not assumed to be matched. Instead, the terminations just have to be known and no more than one can be completely reflective. So, in general $|\\Gamma| \\ne 1$. \n",
+    "\n",
+    "During measurements, each port is terminated with a consistent termination. So port 1 is always terminated with $Z_1$ when not being measured. Once measured, each sub-network is re-normalized to these port impedances. Think about that. Finally, the composite network is constructed, and  may then be re-normalized to the desired system impedance, say $50$ ohm. \n",
+    "\n",
+    "* [1] J. C. Tippet and R. A. Speciale, “A Rigorous Technique for Measuring the Scattering Matrix of a Multiport Device with a 2-Port Network Analyzer,” IEEE Transactions on Microwave Theory and Techniques, vol. 30, no. 5, pp. 661–666, May 1982."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Outline of Tippet's Technique"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Following the example given in [1], measuring a 4-port network with a 2-port network analyzer.\n",
+    "\n",
+    "An outline of the technique: \n",
+    "\n",
+    "1. Calibrate 2-port network analyzer\n",
+    "2. Get four known terminations ($Z_1, Z_2, Z_3,Z_4$). No more than one can have  $|\\Gamma| = 1$\n",
+    "3. Measure all combinations of 2-port subnetworks (there are 6). Each port not currently being measured must be terminated with its corresponding load.\n",
+    "4. Renormalize each subnetwork to the impedances of the loads used to terminate it when note being measured. \n",
+    "5. Build composite 4-port, renormalize to VNA impedance. "
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Implementation"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "First, we create a Media object, which is used to generate networks for testing. We will use WR-10 Rectangular waveguide."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "wg = rf.instances.wr10"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Next, lets generate a random 4-port network which will be the DUT, that we are trying to measure with out 2-port network analyzer. "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "dut = wg.random(n_ports  = 4,name= 'dut')\n",
+    "dut"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Now, we need to define the loads used to terminate each port when it is not being measured, note as described in [1] not more than one can be have full reflection, $|\\Gamma| = 1$"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "loads = [wg.load(.1+.1j),\n",
+    "         wg.load(.2-.2j),\n",
+    "         wg.load(.3+.3j),\n",
+    "         wg.load(.5),\n",
+    "         ]\n",
+    "# construct the impedance array, of shape FXN\n",
+    "z_loads = np.array([k.z.flatten() for k in loads]).T\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Create required measurement port combinations.  There are 6 different measurements required to measure a 4-port with a 2-port VNA.  In general, #measurements = $n\\choose 2$, for n-port DUT on  a 2-port VNA."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "ports = np.arange(dut.nports)\n",
+    "port_combos = list(combinations(ports, 2))\n",
+    "port_combos"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Now to do it. Ok we loop over the port combo's and connect the loads to the right places, simulating  actual measurements. Each raw subnetwork measurement is saved, along with the renormalized subnetwork.   Finally, we stuff the result into the 4-port composite network. "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "composite = wg.match(nports = 4)  # composite network, to be filled.\n",
+    "measured,measured_renorm = {},{}  # measured subnetworks and renormalized sub-networks\n",
+    "\n",
+    "# ports  `a` and `b` are the ports we will connect the VNA too\n",
+    "for a,b in port_combos:\n",
+    "    # port `c` and `d` are the ports which we will connect the loads too\n",
+    "    c,d =ports[(ports!=a)& (ports!=b)]\n",
+    "\n",
+    "    # determine where `d` will be on four_port, after its reduced to a three_port\n",
+    "    e = np.where(ports[ports!=c]==d)[0][0]\n",
+    "\n",
+    "    # connect loads\n",
+    "    three_port = connect(dut,c, loads[c],0)\n",
+    "    two_port =  connect(three_port,e, loads[d],0)\n",
+    "\n",
+    "    # save raw and renormalized 2-port subnetworks\n",
+    "    measured['%i%i'%(a,b)] = two_port.copy()\n",
+    "    two_port.renormalize(np.c_[z_loads[:,a],z_loads[:,b]])\n",
+    "    measured_renorm['%i%i'%(a,b)] = two_port.copy()\n",
+    "\n",
+    "    # stuff this 2-port into the composite 4-port\n",
+    "    for i,m in enumerate([a,b]):\n",
+    "        for j,n in enumerate([a,b]):\n",
+    "            composite.s[:,m,n] = two_port.s[:,i,j]\n",
+    "\n",
+    "    # properly copy the port impedances\n",
+    "    composite.z0[:,a] = two_port.z0[:,0]\n",
+    "    composite.z0[:,b] = two_port.z0[:,1]\n",
+    "\n",
+    "# finally renormalize from load z0 to 50 ohms\n",
+    "composite.renormalize(50)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Results"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Self-Consistency"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Note that 6-measurements of 2-port subnetworks works out to 24 s-parameters, and we only need 16. This is because each reflect, s-parameter is measured three-times. As, in [1], we will use this redundant measurement as a check of our accuracy.\n",
+    "\n",
+    "The renormalized networks are stored in a dictionary with names based on their port indices, from this you can see that each have been renormalized to the appropriate z0. "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "measured_renorm"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Plotting all three raw measurements of $S_{11}$, we can see that they are not in agreement. These plots answer to plots 5 and 7 of [1]"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "s11_set = rf.networkSet.NetworkSet([measured[k] for k in measured if k[0]=='0'])\n",
+    "\n",
+    "plt.figure(figsize = (8,4))\n",
+    "plt.subplot(121)\n",
+    "s11_set .plot_s_db(0,0)\n",
+    "plt.subplot(122)\n",
+    "s11_set .plot_s_deg(0,0)\n",
+    "plt.tight_layout()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "However, the renormalized measurements agree perfectly. These plots answer to plots 6 and 8 of [1]"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "s11_set = rf.networkSet.NetworkSet([measured_renorm[k] for k in measured_renorm if k[0]=='0'])\n",
+    "\n",
+    "plt.figure(figsize = (8,4))\n",
+    "plt.subplot(121)\n",
+    "s11_set .plot_s_db(0,0)\n",
+    "plt.subplot(122)\n",
+    "s11_set .plot_s_deg(0,0)\n",
+    "plt.tight_layout()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Test For Accuracy"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Making sure our composite network is the same as our DUT"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "composite == dut"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Nice!. How close ?"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "sum((composite - dut).s_mag)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Dang!"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Practical Application"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "This could be used in many ways. In waveguide, one could just make a measurement of a radiating open after a standard two-port calibration (like TRL). Then using *Tippets technique*, you can  leave each port wide open while not being measured. This way you dont have to buy a bunch of loads. How sweet would that be?\n",
+    "\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## More Complex Simulations"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "def tippits(dut, gamma, noise=None):\n",
+    "    \"\"\"simulate tippits technique on a 4-port dut.\n",
+    "    \"\"\"\n",
+    "    ports = np.arange(dut.nports)\n",
+    "    port_combos = list(combinations(ports, 2))\n",
+    "\n",
+    "    loads = [wg.load(gamma) for k in ports]\n",
+    "\n",
+    "    # construct the impedance array, of shape FXN\n",
+    "    z_loads = np.array([k.z.flatten() for k in loads]).T\n",
+    "    composite = wg.match(nports = dut.nports)  # composite network, to be filled.\n",
+    "\n",
+    "    # ports  `a` and `b` are the ports we will connect the VNA too\n",
+    "    for a,b in port_combos:\n",
+    "        # port `c` and `d` are the ports which we will connect the loads too\n",
+    "        c,d =ports[(ports!=a)& (ports!=b)]\n",
+    "\n",
+    "        # determine where `d` will be on four_port, after its reduced to a three_port\n",
+    "        e = np.where(ports[ports!=c]==d)[0][0]\n",
+    "\n",
+    "        # connect loads\n",
+    "        three_port = connect(dut,c, loads[c],0)\n",
+    "        two_port =  connect(three_port,e, loads[d],0)\n",
+    "\n",
+    "        if noise is not None:\n",
+    "            two_port.add_noise_polar(*noise)\n",
+    "        # save raw and renormalized 2-port subnetworks\n",
+    "        measured['%i%i'%(a,b)] = two_port.copy()\n",
+    "        two_port.renormalize(np.c_[z_loads[:,a],z_loads[:,b]])\n",
+    "        measured_renorm['%i%i'%(a,b)] = two_port.copy()\n",
+    "\n",
+    "        # stuff this 2-port into the composite 4-port\n",
+    "        for i,m in enumerate([a,b]):\n",
+    "            for j,n in enumerate([a,b]):\n",
+    "                composite.s[:,m,n] = two_port.s[:,i,j]\n",
+    "\n",
+    "        # properly copy the port impedances\n",
+    "        composite.z0[:,a] = two_port.z0[:,0]\n",
+    "        composite.z0[:,b] = two_port.z0[:,1]\n",
+    "\n",
+    "    # finally renormalize from load z0 to 50 ohms\n",
+    "    composite.renormalize(50)\n",
+    "\n",
+    "    return composite"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "tags": [
+     "raises-exception"
+    ]
+   },
+   "outputs": [],
+   "source": [
+    "dut = wg.random(4)\n",
+    "\n",
+    "def er(gamma, *args):\n",
+    "    return max(abs(tippits(dut, rf.mathFunctions.db_2_mag(gamma),*args).s_db-dut.s_db).flatten())\n",
+    "\n",
+    "gammas = np.linspace(-40,-0.1,11)\n",
+    "\n",
+    "plt.title(r'Error vs $|\\Gamma|$')\n",
+    "plt.plot(gammas, [er(k) for k in gammas])\n",
+    "plt.semilogy()\n",
+    "plt.xlabel(r'$|\\Gamma|$ of Loads (dB)')\n",
+    "plt.ylabel('Max Error in DUT\\'s dB(S)')\n",
+    "\n",
+    "plt.figure()\n",
+    "noise = (1e-5,.1)\n",
+    "plt.title(r'Error vs $|\\Gamma|$ with reasonable noise')\n",
+    "plt.plot(gammas, [er(k, noise) for k in gammas])\n",
+    "plt.semilogy()\n",
+    "plt.xlabel(r'$|\\Gamma|$ of Loads (dB)')\n",
+    "\n",
+    "plt.ylabel('Max Error in DUT\\'s dB(S)')"
+   ]
+  }
+ ],
+ "metadata": {
+  "anaconda-cloud": {},
+  "celltoolbar": "Tags",
+  "kernelspec": {
+   "display_name": "Python 3 (ipykernel)",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.8.10"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 4
+}

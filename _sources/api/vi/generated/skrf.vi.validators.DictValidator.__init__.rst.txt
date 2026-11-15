@@ -1,0 +1,6 @@
+skrf.vi.validators.DictValidator.\_\_init\_\_
+=============================================
+
+.. currentmodule:: skrf.vi.validators
+
+.. automethod:: DictValidator.__init__

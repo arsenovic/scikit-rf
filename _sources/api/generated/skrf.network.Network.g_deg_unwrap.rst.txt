@@ -1,0 +1,6 @@
+skrf.network.Network.g\_deg\_unwrap
+===================================
+
+.. currentmodule:: skrf.network
+
+.. autoproperty:: Network.g_deg_unwrap

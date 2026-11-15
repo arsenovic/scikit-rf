@@ -1,0 +1,6 @@
+skrf.calibration.calibration.TUGMultilineTRL.coefs\_12term\_ntwks
+=================================================================
+
+.. currentmodule:: skrf.calibration.calibration
+
+.. autoproperty:: TUGMultilineTRL.coefs_12term_ntwks

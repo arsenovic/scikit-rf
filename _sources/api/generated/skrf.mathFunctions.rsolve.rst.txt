@@ -1,0 +1,6 @@
+﻿skrf.mathFunctions.rsolve
+=========================
+
+.. currentmodule:: skrf.mathFunctions
+
+.. autofunction:: rsolve

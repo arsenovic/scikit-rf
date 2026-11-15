@@ -1,0 +1,6 @@
+skrf.media.circularWaveguide.CircularWaveguide.line\_floating
+=============================================================
+
+.. currentmodule:: skrf.media.circularWaveguide
+
+.. automethod:: CircularWaveguide.line_floating

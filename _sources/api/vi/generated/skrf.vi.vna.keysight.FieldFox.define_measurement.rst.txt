@@ -1,0 +1,6 @@
+skrf.vi.vna.keysight.FieldFox.define\_measurement
+=================================================
+
+.. currentmodule:: skrf.vi.vna.keysight
+
+.. automethod:: FieldFox.define_measurement

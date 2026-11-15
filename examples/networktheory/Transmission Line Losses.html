@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="en" data-accent-color="blue" data-content_root="../../">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Transmission Line Losses on a Loaded Lossy Line - scikit-rf</title><link rel="author" title="About these documents" href="../../about.html" /><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="Modeling Transmission Line Properties" href="Transmission%20Line%20Properties%20and%20Manipulations.html" /><link rel="prev" title="Time domain reflectometry, measurement vs simulation" href="Time%20domain%20reflectometry%2C%20measurement%20vs%20simulation.html" /><script>
+    function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
+    setColorMode(localStorage._theme||"auto");
+  </script><link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=ad592e98" />
+    <link rel="stylesheet" type="text/css" href="../../_static/shibuya.css?v=2ceb65ce" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-codeautolink.css?v=b2176991" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link media="print" rel="stylesheet" type="text/css" href="../../_static/print.css?v=20ff2c19" />
+    <link rel="stylesheet" type="text/css" href="../../_static/nbsphinx-code-cells.css?v=2aa19091" />
+    <link rel="stylesheet" type="text/css" href="../../_static/skrf.css?v=7e772ba2" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --sy-f-text: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+  --sy-f-heading: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+}
+</style>
+    
+  <meta property="og:type" content="website"/><meta property="og:title" content="Transmission Line Losses on a Loaded Lossy Line"/>
+    <meta name="twitter:card" content="summary"/>
+  </head>
+<body><div class="sy-head">
+  <div class="sy-head-blur"></div>
+  <div class="sy-head-inner sy-container mx-auto">
+    <a class="sy-head-brand" href="../../index.html">
+      <img class="light-logo" src="../../_static/logo.svg" alt="scikit-rf" height="28" loading="lazy" />
+      <img class="dark-logo" src="../../_static/logo.svg" alt="scikit-rf" height="28" loading="lazy" />
+      <strong>scikit-rf</strong>
+    </a>
+    <div class="sy-head-nav" id="head-nav">
+      <nav class="sy-head-links"><ul><li class="link"><a href="../../index.html">Home</a></li><li class="link"><a href="../../tutorials/index.html">Tutorials</a></li><li class="link"><a href="../index.html">Examples</a></li><li class="link"><a href="../../api/index.html">API</a></li><li class="link">
+          <a href="https://github.com/scikit-rf/scikit-rf">
+            <span>GitHub</span><i class="i-lucide external-link"></i></a>
+        </li></ul></nav>
+      <div class="sy-head-extra flex items-center print:hidden"><form class="searchbox flex items-center" action="../../search.html" method="get">
+  <input type="text" name="q" placeholder="Search" />
+  <kbd>/</kbd>
+</form><div class="sy-head-socials">
+  <a href="https://github.com/scikit-rf/scikit-rf" aria-label="GitHub">
+    <iconify-icon icon="simple-icons:github"></iconify-icon>
+  </a>
+  <a href="https://www.linkedin.com/groups/12462155/" aria-label="LinkedIn">
+    <iconify-icon icon="simple-icons:linkedin"></iconify-icon>
+  </a>
+  <a href="https://app.element.io/#/room/#scikit-rf:matrix.org" aria-label="Matrix">
+    <iconify-icon icon="simple-icons:matrix"></iconify-icon>
+  </a></div></div>
+    </div>
+    <div class="sy-head-actions flex items-center shrink-0 print:hidden"><button class="js-theme theme-switch flex items-center"
+data-aria-auto="Switch to light color mode"
+data-aria-light="Switch to dark color mode"
+data-aria-dark="Switch to auto color mode">
+<i class="i-lucide theme-icon"></i>
+</button><button class="md:hidden flex items-center js-menu" aria-label="Menu" type="button" aria-controls="head-nav" aria-expanded="false">
+        <div class="hamburger">
+          <span class="hamburger_1"></span>
+          <span class="hamburger_2"></span>
+          <span class="hamburger_3"></span>
+        </div>
+      </button>
+    </div>
+  </div>
+</div>
+<div class="sy-page sy-container flex mx-auto">
+  <aside id="lside" class="sy-lside md:w-72 md:shrink-0 print:hidden">
+    <div class="sy-lside-inner md:sticky">
+      <div class="sy-scrollbar p-6">
+        <div class="globaltoc" data-expand-depth="0"><p class="caption" role="heading" aria-level="3"><span class="caption-text">Getting started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../index.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/Installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/Introduction.html">Introduction</a></li>
+</ul>
+<p class="caption" role="heading" aria-level="3"><span class="caption-text">User guide</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Examples</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Network Theory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../matching/index.html">Matching</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../metrology/index.html">Metrology and Calibration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../networksets/index.html">NetworkSets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../plotting/index.html">Plotting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../circuit/index.html">Circuit</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mixedmodeanalysis/index.html">Mixed Mode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../vectorfitting/index.html">Vector Fitting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../vectorfitting_parametric/index.html">Parametric Vector Fitting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../qfactor/index.html">Q-factor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../taper/index.html">Taper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../instrumentcontrol/index.html">Instrument Control</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../interactive/index.html">Interactive</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading" aria-level="3"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../api/index.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../glossary.html">Glossary</a></li>
+</ul>
+<p class="caption" role="heading" aria-level="3"><span class="caption-text">Project</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing/index.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../citations_ack/acknowledging.html">Citing scikit-rf</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../citations_ack/citations.html">scikit-rf Citations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../about.html">About</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../users.html">Users</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../license.html">License</a></li>
+</ul>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="lside-overlay js-menu" role="button" aria-label="Close left sidebar" aria-controls="lside" aria-expanded="false"></div>
+  <aside id="rside" class="sy-rside pb-3 w-64 shrink-0 order-last">
+    <button class="rside-close js-menu xl:hidden" aria-label="Close Table of Contents" type="button" aria-controls="rside" aria-expanded="false">
+      <i class="i-lucide close"></i>
+    </button>
+    <div class="sy-scrollbar sy-rside-inner px-6 xl:top-16 xl:sticky xl:pl-0 pt-6 pb-4"><div class="localtoc"><h3>On this page</h3><ul>
+<li><a class="reference internal" href="#Matched-Load">Matched Load</a></li>
+<li><a class="reference internal" href="#Non-Matched-load">Non Matched load</a></li>
+<li><a class="reference internal" href="#A-more-advanced-example">A more advanced example</a></li>
+<li><a class="reference internal" href="#References">References</a></li>
+</ul>
+</div><div id="ethical-ad-placement" data-ea-publisher="readthedocs"></div></div>
+  </aside>
+  <div class="rside-overlay js-menu" role="button" aria-label="Close Table of Contents" aria-controls="rside" aria-expanded="false"></div>
+  <main class="sy-main w-full max-sm:max-w-full print:pt-6">
+<div class="sy-breadcrumbs" role="navigation">
+  <div class="sy-breadcrumbs-inner flex items-center">
+    <div class="md:hidden mr-3">
+      <button class="js-menu" aria-label="Menu" type="button" aria-controls="lside" aria-expanded="false">
+        <i class="i-lucide menu"></i>
+      </button>
+    </div>
+    <ol class="flex-1" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="../../index.html"><span itemprop="name">scikit-rf</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="1" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="../index.html"><span itemprop="name">Examples</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="2" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="index.html"><span itemprop="name">Network Theory</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="3" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <strong itemprop="name">Transmission Line Losses on a Loaded Lossy Line</strong>
+        <meta itemprop="position" content="4" />
+      </li></ol>
+    <a class="sk-download" href="Transmission%20Line%20Losses.ipynb" download>Download</a>
+    <div class="xl:hidden ml-1">
+      <button class="js-menu" aria-label="Show table of contents" type="button" aria-controls="rside"
+        aria-expanded="false">
+        <i class="i-lucide outdent"></i>
+      </button>
+    </div>
+  </div>
+</div><div class="flex flex-col break-words justify-between">
+      <div class="relative min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
+  <article class="yue" role="main">
+          <section id="Transmission-Line-Losses-on-a-Loaded-Lossy-Line">
+<h1>Transmission Line Losses on a Loaded Lossy Line<a class="headerlink" href="#Transmission-Line-Losses-on-a-Loaded-Lossy-Line" title="Link to this heading">#</a></h1>
+<p>When dealing with RF power, for instance in radio, industry or scientific applications, a recurrent problem is to handle the inevitable RF losses correctly to avoid overheating of cables and components.</p>
+<section id="Matched-Load">
+<h2>Matched Load<a class="headerlink" href="#Matched-Load" title="Link to this heading">#</a></h2>
+<p>In this example, we will use <code class="docutils literal notranslate"><span class="pre">scikit-rf</span></code> to evaluate the losses in a 50 Ohm, 20 meters long, RG-8 cable (VF=0.84) charged with a resistive load <span class="math notranslate nohighlight">\(R_L=50\Omega\)</span> at 13.56 MHz. The cable losses are estimated to 1.483 dB/100 meters and the source power to 400W.</p>
+<p>First, the usual Python imports:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[1]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="o">%</span><span class="k">matplotlib</span> inline
+</span></pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[2]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="kn">import</span><span class="w"> </span><a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/index.html#module-numpy"><span class="nn">numpy</span></a><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+</span><span data-line="2">
+</span><span data-line="3"><span class="kn">import</span><span class="w"> </span><span class="nn">skrf</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">rf</span>
+</span><span data-line="4"><span class="kn">from</span><span class="w"> </span><a class="sphinx-codeautolink-a" href="../../api/constants.html#module-skrf.constants"><span class="nn">skrf.constants</span></a><span class="w"> </span><span class="kn">import</span> <a class="sphinx-codeautolink-a" href="../../api/constants.html#skrf.constants.c" title="skrf.constants.c"><span class="n">c</span></a>
+</span><span data-line="5"><span class="kn">from</span><span class="w"> </span><a class="sphinx-codeautolink-a" href="../../api/mathFunctions.html#module-skrf.mathFunctions"><span class="nn">skrf.mathFunctions</span></a><span class="w"> </span><span class="kn">import</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.mathFunctions.db_2_np.html#skrf.mathFunctions.db_2_np" title="skrf.mathFunctions.db_2_np"><span class="n">db_2_np</span></a><span class="p">,</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.mathFunctions.db_per_100feet_2_db_per_100meter.html#skrf.mathFunctions.db_per_100feet_2_db_per_100meter" title="skrf.mathFunctions.db_per_100feet_2_db_per_100meter"><span class="n">db_per_100feet_2_db_per_100meter</span></a><span class="p">,</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.mathFunctions.feet_2_meter.html#skrf.mathFunctions.feet_2_meter" title="skrf.mathFunctions.feet_2_meter"><span class="n">feet_2_meter</span></a><span class="p">,</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.mathFunctions.mag_2_db10.html#skrf.mathFunctions.mag_2_db10" title="skrf.mathFunctions.mag_2_db10"><span class="n">mag_2_db10</span></a>
+</span><span data-line="6"><span class="kn">from</span><span class="w"> </span><a class="sphinx-codeautolink-a" href="../../api/tlineFunctions.html#module-0"><span class="nn">skrf.tlineFunctions</span></a><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+</span><span data-line="7">    <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.tlineFunctions.Gamma0_2_swr.html#skrf.tlineFunctions.Gamma0_2_swr" title="skrf.tlineFunctions.Gamma0_2_swr"><span class="n">Gamma0_2_swr</span></a><span class="p">,</span>
+</span><span data-line="8">    <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.tlineFunctions.input_impedance_at_theta.html#skrf.tlineFunctions.input_impedance_at_theta" title="skrf.tlineFunctions.input_impedance_at_theta"><span class="n">input_impedance_at_theta</span></a><span class="p">,</span>
+</span><span data-line="9">    <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.tlineFunctions.voltage_current_propagation.html#skrf.tlineFunctions.voltage_current_propagation" title="skrf.tlineFunctions.voltage_current_propagation"><span class="n">voltage_current_propagation</span></a><span class="p">,</span>
+</span><span data-line="10">    <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.tlineFunctions.zl_2_Gamma0.html#skrf.tlineFunctions.zl_2_Gamma0" title="skrf.tlineFunctions.zl_2_Gamma0"><span class="n">zl_2_Gamma0</span></a><span class="p">,</span>
+</span><span data-line="11">    <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.tlineFunctions.zl_2_Gamma_in.html#skrf.tlineFunctions.zl_2_Gamma_in" title="skrf.tlineFunctions.zl_2_Gamma_in"><span class="n">zl_2_Gamma_in</span></a><span class="p">,</span>
+</span><span data-line="12">    <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.tlineFunctions.zl_2_total_loss.html#skrf.tlineFunctions.zl_2_total_loss" title="skrf.tlineFunctions.zl_2_total_loss"><span class="n">zl_2_total_loss</span></a><span class="p">,</span>
+</span><span data-line="13">    <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.tlineFunctions.zl_2_zin.html#skrf.tlineFunctions.zl_2_zin" title="skrf.tlineFunctions.zl_2_zin"><span class="n">zl_2_zin</span></a><span class="p">,</span>
+</span><span data-line="14"><span class="p">)</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[3]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.plotting.stylely.html#skrf.plotting.stylely" title="skrf.plotting.stylely"><span class="n">rf</span><span class="o">.</span><span class="n">stylely</span></a><span class="p">()</span>
+</span></pre></div>
+</div>
+</div>
+<p>Let’s define the problem constants:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[4]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">Pin</span> <span class="o">=</span> <span class="mi">400</span>  <span class="c1"># W</span>
+</span><span data-line="2"><span class="n">z0</span> <span class="o">=</span> <span class="mi">50</span> <span class="c1"># Ohm</span>
+</span><span data-line="3"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.frequency.Frequency.html#skrf.frequency.Frequency" title="skrf.frequency.Frequency"><span class="n">freq</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.frequency.Frequency.html#skrf.frequency.Frequency" title="skrf.frequency.Frequency"><span class="n">rf</span><span class="o">.</span><span class="n">Frequency</span></a><span class="p">(</span><span class="mf">13.56</span><span class="p">,</span> <span class="n">npoints</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s1">'MHz'</span><span class="p">)</span>
+</span><span data-line="4"><span class="n">VF</span> <span class="o">=</span> <span class="mf">0.84</span>
+</span><span data-line="5"><span class="n">RL</span> <span class="o">=</span> <span class="mi">50</span>  <span class="c1"># Ohm</span>
+</span><span data-line="6"><span class="n">L</span> <span class="o">=</span> <span class="mi">20</span>  <span class="c1"># m</span>
+</span></pre></div>
+</div>
+</div>
+<p>The propagation constant of the transmission line <span class="math notranslate nohighlight">\(\gamma=\alpha+j\beta\)</span> is:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[5]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">alpha</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.mathFunctions.db_2_np.html#skrf.mathFunctions.db_2_np" title="skrf.mathFunctions.db_2_np"><span class="n">db_2_np</span></a><span class="p">(</span><span class="mf">1.483</span><span class="o">/</span><span class="mi">100</span><span class="p">)</span>  <span class="c1"># Np/m</span>
+</span><span data-line="2"><span class="n">beta</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.frequency.Frequency.w.html#skrf.frequency.Frequency.w" title="skrf.frequency.Frequency.w"><span class="n">freq</span><span class="o">.</span><span class="n">w</span></a><span class="o">/</span><a class="sphinx-codeautolink-a" href="../../api/constants.html#skrf.constants.c" title="skrf.constants.c"><span class="n">c</span></a><span class="o">/</span><span class="n">VF</span>
+</span><span data-line="3"><span class="n">gamma</span> <span class="o">=</span> <span class="n">alpha</span> <span class="o">+</span> <span class="mi">1</span><span class="n">j</span><span class="o">*</span><span class="n">beta</span>
+</span></pre></div>
+</div>
+</div>
+<p>The matched line loss (or power attenuation), <span class="math notranslate nohighlight">\(a=e^{2\alpha L}\)</span>, is:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[6]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">a</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/generated/numpy.exp.html#numpy.exp" title="numpy.exp"><span class="n">np</span><span class="o">.</span><span class="n">exp</span></a><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">alpha</span><span class="o">*</span><span class="n">L</span><span class="p">)</span>  <span class="c1"># also simply 2.84/100*20</span>
+</span><span data-line="2"><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/builtins/functions.html#print"><span class="nb">print</span></a><span class="p">(</span><span class="s1">'Matched line loss: a='</span><span class="p">,</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.mathFunctions.mag_2_db10.html#skrf.mathFunctions.mag_2_db10" title="skrf.mathFunctions.mag_2_db10"><span class="n">mag_2_db10</span></a><span class="p">(</span><span class="n">a</span><span class="p">),</span> <span class="s1">'dB'</span><span class="p">)</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Matched line loss: a= 0.2966 dB
+</pre></div></div>
+</div>
+<p>If the line is charged with a matched load, ie. <span class="math notranslate nohighlight">\(R_L=50\Omega\)</span>, then the total line loss is <span class="math notranslate nohighlight">\(a\)</span>. The power lost in the cable will thus be:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[7]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/builtins/functions.html#print"><span class="nb">print</span></a><span class="p">(</span><span class="s1">'(Forward) Power delivered to the  load:'</span><span class="p">,</span> <span class="n">Pin</span><span class="o">/</span><span class="n">a</span><span class="p">,</span> <span class="s1">'W'</span><span class="p">)</span>
+</span><span data-line="2"><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/builtins/functions.html#print"><span class="nb">print</span></a><span class="p">(</span><span class="s1">'Power lost in the cable:'</span><span class="p">,</span> <span class="n">Pin</span> <span class="o">*</span><span class="p">(</span> <span class="mi">1</span> <span class="o">-</span> <span class="mi">1</span><span class="o">/</span><span class="n">a</span><span class="p">),</span> <span class="s1">'W'</span><span class="p">)</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+(Forward) Power delivered to the  load: 373.59408479883416 W
+Power lost in the cable: 26.405915201165886 W
+</pre></div></div>
+</div>
+<p>Which can also be checked by the <code class="docutils literal notranslate"><span class="pre">scikit-rf</span></code> transmission line function <code class="docutils literal notranslate"><span class="pre">zl_2_total_loss</span></code>:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[8]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">a_skrf</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.tlineFunctions.zl_2_total_loss.html#skrf.tlineFunctions.zl_2_total_loss" title="skrf.tlineFunctions.zl_2_total_loss"><span class="n">zl_2_total_loss</span></a><span class="p">(</span><span class="n">z0</span><span class="p">,</span> <span class="n">zl</span><span class="o">=</span><span class="n">RL</span><span class="p">,</span> <span class="n">theta</span><span class="o">=</span><span class="n">gamma</span><span class="o">*</span><span class="n">L</span><span class="p">)</span>
+</span><span data-line="2"><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/builtins/functions.html#print"><span class="nb">print</span></a><span class="p">(</span><span class="s1">'Power lost in the cable:'</span><span class="p">,</span>
+</span><span data-line="3">      <span class="n">Pin</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="mi">1</span><span class="o">/</span><span class="n">a_skrf</span><span class="p">),</span> <span class="s1">'W'</span><span class="p">)</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Power lost in the cable: [26.4059152] W
+</pre></div></div>
+</div>
+<p>Another way to evaluate the total power dissipated in the circuit is to evaluate the power expression:</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[P_{delivered} = \frac{1}{2} \Re \left[ V I^* \right]\]</div>
+</div>
+<p>where <span class="math notranslate nohighlight">\(V\)</span> and <span class="math notranslate nohighlight">\(I\)</span> are the (peak) total voltage and current. They can be evaluate using the transmission line function <code class="docutils literal notranslate"><span class="pre">voltage_current_propagation</span></code>:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[9]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="c1"># reflection coefficient and input impedance</span>
+</span><span data-line="2"><span class="n">Gamma_in</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.tlineFunctions.zl_2_Gamma_in.html#skrf.tlineFunctions.zl_2_Gamma_in" title="skrf.tlineFunctions.zl_2_Gamma_in"><span class="n">zl_2_Gamma_in</span></a><span class="p">(</span><span class="n">z0</span><span class="p">,</span> <span class="n">RL</span><span class="p">,</span> <span class="n">theta</span><span class="o">=</span><span class="n">gamma</span><span class="o">*</span><span class="n">L</span><span class="p">)</span>
+</span><span data-line="3"><span class="n">Z_in</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.tlineFunctions.zl_2_zin.html#skrf.tlineFunctions.zl_2_zin" title="skrf.tlineFunctions.zl_2_zin"><span class="n">zl_2_zin</span></a><span class="p">(</span><span class="n">z0</span><span class="p">,</span> <span class="n">RL</span><span class="p">,</span> <span class="n">theta</span><span class="o">=</span><span class="n">gamma</span><span class="o">*</span><span class="n">L</span><span class="p">)</span>
+</span><span data-line="4">
+</span><span data-line="5"><span class="c1"># voltage and current at the line input as a function of source power</span>
+</span><span data-line="6"><span class="n">V_in</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/generated/numpy.sqrt.html#numpy.sqrt" title="numpy.sqrt"><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span></a><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">z0</span><span class="o">*</span><span class="n">Pin</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">Gamma_in</span><span class="p">)</span>
+</span><span data-line="7"><span class="n">I_in</span> <span class="o">=</span> <span class="n">V_in</span><span class="o">/</span><span class="n">Z_in</span>
+</span><span data-line="8">
+</span><span data-line="9"><span class="c1"># voltage and current at z=L</span>
+</span><span data-line="10"><span class="n">V</span><span class="p">,</span><span class="n">I</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.tlineFunctions.voltage_current_propagation.html#skrf.tlineFunctions.voltage_current_propagation" title="skrf.tlineFunctions.voltage_current_propagation"><span class="n">voltage_current_propagation</span></a><span class="p">(</span><span class="n">V_in</span><span class="p">,</span> <span class="n">I_in</span><span class="p">,</span> <span class="n">z0</span><span class="p">,</span> <span class="n">gamma</span><span class="o">*</span><span class="n">L</span><span class="p">)</span>
+</span><span data-line="11"><span class="n">P_delivered</span> <span class="o">=</span> <span class="mi">1</span><span class="o">/</span><span class="mi">2</span> <span class="o">*</span> <a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/generated/numpy.real.html#numpy.real" title="numpy.real"><span class="n">np</span><span class="o">.</span><span class="n">real</span></a><span class="p">(</span><span class="n">V</span> <span class="o">*</span> <a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/generated/numpy.conj.html#numpy.conj" title="numpy.conj"><span class="n">np</span><span class="o">.</span><span class="n">conj</span></a><span class="p">(</span><span class="n">I</span><span class="p">))</span>
+</span><span data-line="12"><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/builtins/functions.html#print"><span class="nb">print</span></a><span class="p">(</span><span class="s1">'Power delivered to the load: '</span><span class="p">,</span> <span class="n">P_delivered</span><span class="p">,</span> <span class="s1">'W'</span><span class="p">)</span>
+</span><span data-line="13"><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/builtins/functions.html#print"><span class="nb">print</span></a><span class="p">(</span><span class="s1">'Power dissipated in the cable: '</span><span class="p">,</span><span class="n">Pin</span> <span class="o">-</span> <span class="n">P_delivered</span><span class="p">,</span> <span class="s1">'W'</span><span class="p">)</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Power delivered to the load:  [373.5940848] W
+Power dissipated in the cable:  [26.4059152] W
+</pre></div></div>
+</div>
+</section>
+<section id="Non-Matched-load">
+<h2>Non Matched load<a class="headerlink" href="#Non-Matched-load" title="Link to this heading">#</a></h2>
+<p>However, if the load is not perfectly matched to the line characteristic impedance <span class="math notranslate nohighlight">\(z_0\)</span>, for example with <span class="math notranslate nohighlight">\(R_L=200 + 30j\Omega\)</span>, additional losses are induced by the reflected wave. The reflection coefficient <span class="math notranslate nohighlight">\(\Gamma_{load}\)</span> induced by this load is:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[10]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">z0</span> <span class="o">=</span> <span class="mi">50</span>
+</span><span data-line="2"><span class="n">ZL</span> <span class="o">=</span> <span class="mi">200</span> <span class="o">-</span> <span class="mi">30</span><span class="n">j</span>
+</span><span data-line="3"><span class="n">Gamma_load</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.tlineFunctions.zl_2_Gamma0.html#skrf.tlineFunctions.zl_2_Gamma0" title="skrf.tlineFunctions.zl_2_Gamma0"><span class="n">zl_2_Gamma0</span></a><span class="p">(</span><span class="n">z0</span><span class="p">,</span> <span class="n">ZL</span><span class="p">)</span>
+</span><span data-line="4"><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/builtins/functions.html#print"><span class="nb">print</span></a><span class="p">(</span><span class="s1">'|Gamma_load|='</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">Gamma_load</span><span class="p">))</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+|Gamma_load|= [0.6075238]
+</pre></div></div>
+</div>
+<p>while the reflection coefficient seen at the input of the transmission line <span class="math notranslate nohighlight">\(\Gamma_{in}\)</span> is:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[11]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">Gamma_in</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.tlineFunctions.zl_2_Gamma_in.html#skrf.tlineFunctions.zl_2_Gamma_in" title="skrf.tlineFunctions.zl_2_Gamma_in"><span class="n">zl_2_Gamma_in</span></a><span class="p">(</span><span class="n">z0</span><span class="p">,</span> <span class="n">ZL</span><span class="p">,</span> <span class="n">theta</span><span class="o">=</span><span class="n">gamma</span><span class="o">*</span><span class="n">L</span><span class="p">)</span>
+</span><span data-line="2"><span class="n">SWR</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.tlineFunctions.Gamma0_2_swr.html#skrf.tlineFunctions.Gamma0_2_swr" title="skrf.tlineFunctions.Gamma0_2_swr"><span class="n">Gamma0_2_swr</span></a><span class="p">(</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.tlineFunctions.zl_2_Gamma_in.html#skrf.tlineFunctions.zl_2_Gamma_in" title="skrf.tlineFunctions.zl_2_Gamma_in"><span class="n">zl_2_Gamma_in</span></a><span class="p">(</span><span class="n">z0</span><span class="p">,</span> <span class="n">ZL</span><span class="p">,</span> <span class="n">theta</span><span class="o">=</span><span class="n">gamma</span><span class="o">*</span><span class="n">L</span><span class="p">))</span>
+</span><span data-line="3"><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/builtins/functions.html#print"><span class="nb">print</span></a><span class="p">(</span><span class="s1">'|Gamma_in|='</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">Gamma_in</span><span class="p">),</span> <span class="s1">'(SWR='</span><span class="p">,</span> <span class="n">SWR</span><span class="p">,</span><span class="s1">')'</span><span class="p">)</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+|Gamma_in|= [0.56741825] (SWR= [3.62340355] )
+</pre></div></div>
+</div>
+<p>The total loss in dB due to SWR is often stated as:</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[a_{[dB]} + 10 \log_{10} \frac{1 - |\Gamma_{in}|^2}{1 - |\Gamma_{load}|^2}\]</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[12]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="mi">10</span><span class="o">*</span><a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/generated/numpy.log10.html#numpy.log10" title="numpy.log10"><span class="n">np</span><span class="o">.</span><span class="n">log10</span></a><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="o">+</span> <span class="mi">10</span><span class="o">*</span><a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/generated/numpy.log10.html#numpy.log10" title="numpy.log10"><span class="n">np</span><span class="o">.</span><span class="n">log10</span></a><span class="p">((</span><span class="mi">1</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">Gamma_in</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">Gamma_load</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[12]:
+</span></pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+array([0.60942359])
+</pre></div></div>
+</div>
+<p>However, this expression is only correct if either properties are verified:</p>
+<ul class="simple">
+<li><ol class="lowerroman simple">
+<li><p>the characteristic impedance of the line is real (distorsionless line)</p></li>
+</ol>
+</li>
+<li><ol class="lowerroman simple" start="2">
+<li><p>reflection coefficient is real (ie real <span class="math notranslate nohighlight">\(Z_L/Z_0\)</span>) [1].</p></li>
+</ol>
+</li>
+</ul>
+<p>The 1st condition is met here, however it will not be the case in the next section.</p>
+<p>Anyway, the <code class="docutils literal notranslate"><span class="pre">scikit-rf</span></code> transmission line function <code class="docutils literal notranslate"><span class="pre">zl_2_total_loss</span></code> is correct in all conditions:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[13]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">a</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.tlineFunctions.zl_2_total_loss.html#skrf.tlineFunctions.zl_2_total_loss" title="skrf.tlineFunctions.zl_2_total_loss"><span class="n">zl_2_total_loss</span></a><span class="p">(</span><span class="n">z0</span><span class="p">,</span> <span class="n">zl</span><span class="o">=</span><span class="n">ZL</span><span class="p">,</span> <span class="n">theta</span><span class="o">=</span><span class="n">gamma</span> <span class="o">*</span> <span class="n">L</span><span class="p">)</span>
+</span><span data-line="2"><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/builtins/functions.html#print"><span class="nb">print</span></a><span class="p">(</span><span class="s1">'Total power loss: '</span><span class="p">,</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.mathFunctions.mag_2_db10.html#skrf.mathFunctions.mag_2_db10" title="skrf.mathFunctions.mag_2_db10"><span class="n">mag_2_db10</span></a><span class="p">(</span><span class="n">a</span><span class="p">),</span> <span class="s1">'dB'</span> <span class="p">)</span>
+</span><span data-line="3"><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/builtins/functions.html#print"><span class="nb">print</span></a><span class="p">(</span><span class="s1">'Delivered power:'</span><span class="p">,</span> <span class="n">Pin</span><span class="o">/</span><span class="n">a</span><span class="p">,</span> <span class="s1">'W'</span><span class="p">)</span>
+</span><span data-line="4"><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/builtins/functions.html#print"><span class="nb">print</span></a><span class="p">(</span><span class="s1">'The total power loss is the cable:'</span><span class="p">,</span> <span class="n">Pin</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="mi">1</span><span class="o">/</span><span class="n">a</span><span class="p">),</span> <span class="s1">'W'</span><span class="p">)</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Total power loss:  [0.60942359] dB
+Delivered power: [347.63030721] W
+The total power loss is the cable: [52.36969279] W
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[14]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="c1"># reflection coefficient and input impedance</span>
+</span><span data-line="2"><span class="n">Gamma_in</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.tlineFunctions.zl_2_Gamma_in.html#skrf.tlineFunctions.zl_2_Gamma_in" title="skrf.tlineFunctions.zl_2_Gamma_in"><span class="n">zl_2_Gamma_in</span></a><span class="p">(</span><span class="n">z0</span><span class="p">,</span> <span class="n">ZL</span><span class="p">,</span> <span class="n">theta</span><span class="o">=</span><span class="n">gamma</span><span class="o">*</span><span class="n">L</span><span class="p">)</span>
+</span><span data-line="3"><span class="n">Z_in</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.tlineFunctions.zl_2_zin.html#skrf.tlineFunctions.zl_2_zin" title="skrf.tlineFunctions.zl_2_zin"><span class="n">zl_2_zin</span></a><span class="p">(</span><span class="n">z0</span><span class="p">,</span> <span class="n">ZL</span><span class="p">,</span> <span class="n">theta</span><span class="o">=</span><span class="n">gamma</span><span class="o">*</span><span class="n">L</span><span class="p">)</span>
+</span><span data-line="4">
+</span><span data-line="5"><span class="c1"># voltage and current at the line input as a function of source power</span>
+</span><span data-line="6"><span class="n">V_in</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/generated/numpy.sqrt.html#numpy.sqrt" title="numpy.sqrt"><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span></a><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">z0</span><span class="o">*</span><span class="n">Pin</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">Gamma_in</span><span class="p">)</span>
+</span><span data-line="7"><span class="n">I_in</span> <span class="o">=</span> <span class="n">V_in</span><span class="o">/</span><span class="n">Z_in</span>
+</span><span data-line="8">
+</span><span data-line="9"><span class="c1"># voltage and current at z=L</span>
+</span><span data-line="10"><span class="n">V</span><span class="p">,</span><span class="n">I</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.tlineFunctions.voltage_current_propagation.html#skrf.tlineFunctions.voltage_current_propagation" title="skrf.tlineFunctions.voltage_current_propagation"><span class="n">voltage_current_propagation</span></a><span class="p">(</span><span class="n">V_in</span><span class="p">,</span> <span class="n">I_in</span><span class="p">,</span> <span class="n">z0</span><span class="p">,</span> <span class="n">gamma</span><span class="o">*</span><span class="n">L</span><span class="p">)</span>
+</span><span data-line="11"><span class="n">P_delivered</span> <span class="o">=</span> <span class="mi">1</span><span class="o">/</span><span class="mi">2</span> <span class="o">*</span> <a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/generated/numpy.real.html#numpy.real" title="numpy.real"><span class="n">np</span><span class="o">.</span><span class="n">real</span></a><span class="p">(</span><span class="n">V</span> <span class="o">*</span> <a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/generated/numpy.conj.html#numpy.conj" title="numpy.conj"><span class="n">np</span><span class="o">.</span><span class="n">conj</span></a><span class="p">(</span><span class="n">I</span><span class="p">))</span>
+</span><span data-line="12"><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/builtins/functions.html#print"><span class="nb">print</span></a><span class="p">(</span><span class="s1">'Power delivered to the load: '</span><span class="p">,</span> <span class="n">P_delivered</span><span class="p">,</span> <span class="s1">'W'</span><span class="p">)</span>
+</span><span data-line="13"><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/builtins/functions.html#print"><span class="nb">print</span></a><span class="p">(</span><span class="s1">'Power dissipated in the cable: '</span><span class="p">,</span><span class="n">Pin</span> <span class="o">-</span> <span class="n">P_delivered</span><span class="p">,</span> <span class="s1">'W'</span><span class="p">)</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Power delivered to the load:  [235.70604719] W
+Power dissipated in the cable:  [164.29395281] W
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[15]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.tlineFunctions.Gamma0_2_swr.html#skrf.tlineFunctions.Gamma0_2_swr" title="skrf.tlineFunctions.Gamma0_2_swr"><span class="n">Gamma0_2_swr</span></a><span class="p">(</span><span class="n">Gamma_in</span><span class="p">)</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[15]:
+</span></pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+array([3.62340355])
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[16]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="mi">10</span><span class="o">*</span><a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/generated/numpy.log10.html#numpy.log10" title="numpy.log10"><span class="n">np</span><span class="o">.</span><span class="n">log10</span></a><span class="p">(</span><span class="n">P_delivered</span><span class="o">/</span><span class="n">Pin</span><span class="p">)</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[16]:
+</span></pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+array([-2.29689267])
+</pre></div></div>
+</div>
+</section>
+<section id="A-more-advanced-example">
+<h2>A more advanced example<a class="headerlink" href="#A-more-advanced-example" title="Link to this heading">#</a></h2>
+<p>This example reproduces the example presented in reference [1].</p>
+<p>Let’s assume a coaxial line (<a class="reference external" href="https://thewireman.com/antennap.html">Wireman #551, 450-Ohm</a>) loaded with a complex load <span class="math notranslate nohighlight">\(Z_L=R_L + jX_L\)</span>, with the following parameters:</p>
+<ul class="simple">
+<li><p>line length: 100 feet</p></li>
+<li><p>frequency: 1.83 MHz</p></li>
+<li><p><a class="reference external" href="https://en.wikipedia.org/wiki/Propagation_constant#Attenuation_constant">attenuation constant</a>: <span class="math notranslate nohighlight">\(\alpha=\)</span> 0.095 dB/100 feet</p></li>
+<li><p>coaxial relative permittivity: <span class="math notranslate nohighlight">\(\epsilon_r=1.194\)</span> (<a class="reference external" href="https://en.wikipedia.org/wiki/Velocity_factor">Velocity Factor</a> VF=0.915)</p></li>
+<li><p>real part of the characteristic impedance: <span class="math notranslate nohighlight">\(R_0 = \Re \left[Z_0\right]\)</span>=402.75 Ohm</p></li>
+<li><p>Load resistance: <span class="math notranslate nohighlight">\(R_L\)</span> = 4.5 Ohm</p></li>
+<li><p>Load reactance: <span class="math notranslate nohighlight">\(X_L\)</span> = -1673 Ohm</p></li>
+</ul>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[17]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">Z_L</span> <span class="o">=</span> <span class="mf">4.5</span> <span class="o">-</span> <span class="mi">1673</span><span class="n">j</span>
+</span><span data-line="2"><span class="n">R_0</span> <span class="o">=</span> <span class="mf">402.75</span>
+</span><span data-line="3"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.frequency.Frequency.html#skrf.frequency.Frequency" title="skrf.frequency.Frequency"><span class="n">freq</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.frequency.Frequency.html#skrf.frequency.Frequency" title="skrf.frequency.Frequency"><span class="n">rf</span><span class="o">.</span><span class="n">Frequency</span></a><span class="p">(</span><span class="mf">1.83</span><span class="p">,</span> <span class="n">npoints</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s1">'MHz'</span><span class="p">)</span>
+</span><span data-line="4"><span class="n">VF</span> <span class="o">=</span> <span class="mf">0.915</span>
+</span><span data-line="5"><span class="n">L</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.mathFunctions.feet_2_meter.html#skrf.mathFunctions.feet_2_meter" title="skrf.mathFunctions.feet_2_meter"><span class="n">feet_2_meter</span></a><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
+</span></pre></div>
+</div>
+</div>
+<p>First, we can derive the propagation constant <span class="math notranslate nohighlight">\(\gamma=\alpha+j\beta\)</span> with <span class="math notranslate nohighlight">\(\beta=\frac{\omega}{c }\sqrt{\epsilon_r}\)</span> from the problem parameters:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[18]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">alpha</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.mathFunctions.db_2_np.html#skrf.mathFunctions.db_2_np" title="skrf.mathFunctions.db_2_np"><span class="n">db_2_np</span></a><span class="p">(</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.mathFunctions.db_per_100feet_2_db_per_100meter.html#skrf.mathFunctions.db_per_100feet_2_db_per_100meter" title="skrf.mathFunctions.db_per_100feet_2_db_per_100meter"><span class="n">db_per_100feet_2_db_per_100meter</span></a><span class="p">(</span><span class="mf">0.095</span><span class="p">)</span><span class="o">/</span><span class="mi">100</span><span class="p">)</span>
+</span><span data-line="2"><span class="n">beta</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.frequency.Frequency.w.html#skrf.frequency.Frequency.w" title="skrf.frequency.Frequency.w"><span class="n">freq</span><span class="o">.</span><span class="n">w</span></a><span class="o">/</span><a class="sphinx-codeautolink-a" href="../../api/constants.html#skrf.constants.c" title="skrf.constants.c"><span class="n">c</span></a><span class="o">/</span><span class="n">VF</span>
+</span><span data-line="3"><span class="n">gamma</span> <span class="o">=</span> <span class="n">alpha</span> <span class="o">+</span> <span class="mi">1</span><span class="n">j</span><span class="o">*</span><span class="n">beta</span>
+</span><span data-line="4"><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/builtins/functions.html#print"><span class="nb">print</span></a><span class="p">(</span><span class="n">gamma</span><span class="p">)</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[0.00035883+0.0419169j]
+</pre></div></div>
+</div>
+<div class="line-block">
+<div class="line">However, the transmission line characteristic reactance is not given in the problem parameters and must be determined. It can be approximated from a high-frequency, low-loss approximation [1]:</div>
+</div>
+<blockquote>
+<div><div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[Z_0 = R_0 + j X_0 \approx R_0 - j \frac{\alpha}{\beta}R_0\]</div>
+</div>
+</div></blockquote>
+<div class="line-block">
+<div class="line">ie,</div>
+</div>
+<blockquote>
+<div><div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[X_0 \approx - \frac{\alpha}{\beta}R_0\]</div>
+</div>
+</div></blockquote>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[19]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">X_0</span> <span class="o">=</span> <span class="o">-</span><span class="n">alpha</span><span class="o">/</span><span class="n">beta</span><span class="o">*</span><span class="n">R_0</span>
+</span><span data-line="2"><span class="n">Z_0</span> <span class="o">=</span> <span class="n">R_0</span> <span class="o">+</span> <span class="mi">1</span><span class="n">j</span><span class="o">*</span><span class="n">X_0</span>
+</span><span data-line="3"><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/builtins/functions.html#print"><span class="nb">print</span></a><span class="p">(</span><span class="s1">'X_0='</span><span class="p">,</span> <span class="n">X_0</span><span class="p">)</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+X_0= [-3.44778935]
+</pre></div></div>
+</div>
+<p>Now that we have both the characteristic impedance and the propagation constant of the line, the reflection coefficients, input impedance and total loss can be deduced:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[20]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/builtins/functions.html#print"><span class="nb">print</span></a><span class="p">(</span><span class="s1">'Gamma at load:'</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.tlineFunctions.zl_2_Gamma0.html#skrf.tlineFunctions.zl_2_Gamma0" title="skrf.tlineFunctions.zl_2_Gamma0"><span class="n">zl_2_Gamma0</span></a><span class="p">(</span><span class="n">Z_0</span><span class="p">,</span> <span class="n">Z_L</span><span class="p">)))</span>
+</span><span data-line="2"><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/builtins/functions.html#print"><span class="nb">print</span></a><span class="p">(</span><span class="s1">'Gamma at input:'</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.tlineFunctions.zl_2_Gamma_in.html#skrf.tlineFunctions.zl_2_Gamma_in" title="skrf.tlineFunctions.zl_2_Gamma_in"><span class="n">zl_2_Gamma_in</span></a><span class="p">(</span><span class="n">Z_0</span><span class="p">,</span> <span class="n">Z_L</span><span class="p">,</span> <span class="n">theta</span><span class="o">=</span><span class="n">gamma</span><span class="o">*</span><span class="n">L</span><span class="p">)))</span>
+</span><span data-line="3"><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/builtins/functions.html#print"><span class="nb">print</span></a><span class="p">(</span><span class="s1">'SWR at load:'</span><span class="p">,</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.tlineFunctions.Gamma0_2_swr.html#skrf.tlineFunctions.Gamma0_2_swr" title="skrf.tlineFunctions.Gamma0_2_swr"><span class="n">Gamma0_2_swr</span></a><span class="p">(</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.tlineFunctions.zl_2_Gamma0.html#skrf.tlineFunctions.zl_2_Gamma0" title="skrf.tlineFunctions.zl_2_Gamma0"><span class="n">zl_2_Gamma0</span></a><span class="p">(</span><span class="n">Z_0</span><span class="p">,</span> <span class="n">Z_L</span><span class="p">)))</span>
+</span><span data-line="4">
+</span><span data-line="5"><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/builtins/functions.html#print"><span class="nb">print</span></a><span class="p">(</span><span class="s1">'SWR at input:'</span><span class="p">,</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.tlineFunctions.Gamma0_2_swr.html#skrf.tlineFunctions.Gamma0_2_swr" title="skrf.tlineFunctions.Gamma0_2_swr"><span class="n">Gamma0_2_swr</span></a><span class="p">(</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.tlineFunctions.zl_2_Gamma_in.html#skrf.tlineFunctions.zl_2_Gamma_in" title="skrf.tlineFunctions.zl_2_Gamma_in"><span class="n">zl_2_Gamma_in</span></a><span class="p">(</span><span class="n">Z_0</span><span class="p">,</span> <span class="n">Z_L</span><span class="p">,</span> <span class="n">theta</span><span class="o">=</span><span class="n">gamma</span><span class="o">*</span><span class="n">L</span><span class="p">)))</span>
+</span><span data-line="6"><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/builtins/functions.html#print"><span class="nb">print</span></a><span class="p">(</span><span class="s1">'Input impedance:'</span><span class="p">,</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.tlineFunctions.input_impedance_at_theta.html#skrf.tlineFunctions.input_impedance_at_theta" title="skrf.tlineFunctions.input_impedance_at_theta"><span class="n">input_impedance_at_theta</span></a><span class="p">(</span><span class="n">Z_0</span><span class="p">,</span> <span class="n">Z_L</span><span class="p">,</span> <span class="n">theta</span><span class="o">=</span><span class="n">gamma</span><span class="o">*</span><span class="n">L</span> <span class="p">),</span> <span class="s1">'Ohm'</span><span class="p">)</span>
+</span><span data-line="7">
+</span><span data-line="8"><span class="n">total_loss_db</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.mathFunctions.mag_2_db10.html#skrf.mathFunctions.mag_2_db10" title="skrf.mathFunctions.mag_2_db10"><span class="n">mag_2_db10</span></a><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.tlineFunctions.zl_2_total_loss.html#skrf.tlineFunctions.zl_2_total_loss" title="skrf.tlineFunctions.zl_2_total_loss"><span class="n">zl_2_total_loss</span></a><span class="p">(</span><span class="n">z0</span><span class="o">=</span><span class="n">Z_0</span><span class="p">,</span> <span class="n">zl</span><span class="o">=</span><span class="n">Z_L</span><span class="p">,</span> <span class="n">theta</span><span class="o">=</span><span class="n">gamma</span><span class="o">*</span><span class="n">L</span><span class="p">)))</span>
+</span><span data-line="9"><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/builtins/functions.html#print"><span class="nb">print</span></a><span class="p">(</span><span class="s1">'Total loss:'</span><span class="p">,</span> <span class="n">total_loss_db</span><span class="p">,</span> <span class="s1">'dB'</span><span class="p">)</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Gamma at load: [0.99489308]
+Gamma at input: [0.97336654]
+SWR at load: [390.62580446]
+SWR at input: [74.09350335]
+Input impedance: [5.25687961-22.99765972j] Ohm
+Total loss: [13.27540882] dB
+</pre></div></div>
+</div>
+<p>which match the results presented in reference [1].</p>
+</section>
+<section id="References">
+<h2>References<a class="headerlink" href="#References" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>[1] Steve Stearns (K6OIK), A Transmission Line Power Paradox and Its Resolution, ARRL Pacificon Antenna Seminar, Santa Clara, CA October 10-12, 2014: <a class="reference external" href="https://www.fars.k6ya.org/docs/K6OIK-A_Transmission_Line_Power_Paradox_and_Its_Resolution.pdf">https://www.fars.k6ya.org/docs/K6OIK-A_Transmission_Line_Power_Paradox_and_Its_Resolution.pdf</a></p></li>
+</ul>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[ ]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1">
+</span></pre></div>
+</div>
+</div>
+</section>
+</section>
+
+        </article><button class="back-to-top" type="button">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+  </svg>
+  <span>Back to top</span>
+</button><div class="navigation flex print:hidden"><div class="navigation-prev">
+    <a href="Time%20domain%20reflectometry%2C%20measurement%20vs%20simulation.html">
+      <i class="i-lucide chevron-left"></i>
+      <div class="page-info">
+        <span>Previous</span><div class="title">Time domain reflectometry, measurement vs simulation</div></div>
+    </a>
+  </div><div class="navigation-next">
+    <a href="Transmission%20Line%20Properties%20and%20Manipulations.html">
+      <div class="page-info">
+        <span>Next</span>
+        <div class="title">Modeling Transmission Line Properties</div>
+      </div>
+      <i class="i-lucide chevron-right"></i>
+    </a>
+  </div></div></div>
+    </div>
+  </main>
+</div>
+<footer class="sy-foot">
+  <div class="sy-foot-inner sy-container mx-auto">
+    <div class="sy-foot-reserved md:flex justify-between items-center">
+      <div class="sy-foot-copyright"><p>2025, scikit-rf team</p>
+  
+  <p>
+    Made with
+    
+    <a href="https://www.sphinx-doc.org/">Sphinx</a> and
+    
+    <a href="https://shibuya.lepture.com">Shibuya theme</a>.
+  </p>
+</div>
+      <div class="sy-foot-socials">
+  <a href="https://github.com/scikit-rf/scikit-rf" aria-label="GitHub">
+    <iconify-icon icon="simple-icons:github"></iconify-icon>
+  </a></div>
+    </div>
+  </div>
+</footer>
+      <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../_static/copybutton.js?v=34bd459d"></script>
+      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+      <script src="../../_static/shibuya.js?v=50760d75"></script>
+      <script src="https://cdn.jsdelivr.net/npm/@jupyter-widgets/html-manager@^1.0.1/dist/embed-amd.js"></script>
+      <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
+      <script src="../../_static/skrf.js?v=bdeb9fb0"></script></body>
+</html>

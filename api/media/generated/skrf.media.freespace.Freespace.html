@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en" data-accent-color="blue" data-content_root="../../../">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>skrf.media.freespace.Freespace - scikit-rf</title><link rel="author" title="About these documents" href="../../../about.html" /><link rel="index" title="Index" href="../../../genindex.html" /><link rel="search" title="Search" href="../../../search.html" /><link rel="next" title="skrf.media.freespace.Freespace.Z0" href="skrf.media.freespace.Freespace.Z0.html" /><link rel="prev" title="skrf.media.mline.MLine.write_csv" href="skrf.media.mline.MLine.write_csv.html" /><script>
+    function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
+    setColorMode(localStorage._theme||"auto");
+  </script><link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=ad592e98" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/shibuya.css?v=2ceb65ce" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-codeautolink.css?v=b2176991" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+    <link media="print" rel="stylesheet" type="text/css" href="../../../_static/print.css?v=20ff2c19" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/skrf.css?v=7e772ba2" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --sy-f-text: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+  --sy-f-heading: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+}
+</style>
+    
+  <meta property="og:type" content="website"/><meta property="og:title" content="skrf.media.freespace.Freespace"/>
+    <meta name="twitter:card" content="summary"/>
+  </head>
+<body><div class="sy-head">
+  <div class="sy-head-blur"></div>
+  <div class="sy-head-inner sy-container mx-auto">
+    <a class="sy-head-brand" href="../../../index.html">
+      <img class="light-logo" src="../../../_static/logo.svg" alt="scikit-rf" height="28" loading="lazy" />
+      <img class="dark-logo" src="../../../_static/logo.svg" alt="scikit-rf" height="28" loading="lazy" />
+      <strong>scikit-rf</strong>
+    </a>
+    <div class="sy-head-nav" id="head-nav">
+      <nav class="sy-head-links"><ul><li class="link"><a href="../../../index.html">Home</a></li><li class="link"><a href="../../../tutorials/index.html">Tutorials</a></li><li class="link"><a href="../../../examples/index.html">Examples</a></li><li class="link"><a href="../../index.html">API</a></li><li class="link">
+          <a href="https://github.com/scikit-rf/scikit-rf">
+            <span>GitHub</span><i class="i-lucide external-link"></i></a>
+        </li></ul></nav>
+      <div class="sy-head-extra flex items-center print:hidden"><form class="searchbox flex items-center" action="../../../search.html" method="get">
+  <input type="text" name="q" placeholder="Search" />
+  <kbd>/</kbd>
+</form><div class="sy-head-socials">
+  <a href="https://github.com/scikit-rf/scikit-rf" aria-label="GitHub">
+    <iconify-icon icon="simple-icons:github"></iconify-icon>
+  </a>
+  <a href="https://www.linkedin.com/groups/12462155/" aria-label="LinkedIn">
+    <iconify-icon icon="simple-icons:linkedin"></iconify-icon>
+  </a>
+  <a href="https://app.element.io/#/room/#scikit-rf:matrix.org" aria-label="Matrix">
+    <iconify-icon icon="simple-icons:matrix"></iconify-icon>
+  </a></div></div>
+    </div>
+    <div class="sy-head-actions flex items-center shrink-0 print:hidden"><button class="js-theme theme-switch flex items-center"
+data-aria-auto="Switch to light color mode"
+data-aria-light="Switch to dark color mode"
+data-aria-dark="Switch to auto color mode">
+<i class="i-lucide theme-icon"></i>
+</button><button class="md:hidden flex items-center js-menu" aria-label="Menu" type="button" aria-controls="head-nav" aria-expanded="false">
+        <div class="hamburger">
+          <span class="hamburger_1"></span>
+          <span class="hamburger_2"></span>
+          <span class="hamburger_3"></span>
+        </div>
+      </button>
+    </div>
+  </div>
+</div>
+<div class="sy-page sy-container flex mx-auto">
+  <aside id="lside" class="sy-lside md:w-72 md:shrink-0 print:hidden">
+    <div class="sy-lside-inner md:sticky">
+      <div class="sy-scrollbar p-6">
+        <div class="globaltoc" data-expand-depth="0"><p class="caption" role="heading" aria-level="3"><span class="caption-text">Getting started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../index.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorials/Installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorials/Introduction.html">Introduction</a></li>
+</ul>
+<p class="caption" role="heading" aria-level="3"><span class="caption-text">User guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/index.html">Examples</a></li>
+</ul>
+<p class="caption" role="heading" aria-level="3"><span class="caption-text">Reference</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../index.html">API</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../network.html">network (<code class="xref py py-mod docutils literal notranslate"><span class="pre">skrf.network</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../frequency.html">frequency (<code class="xref py py-mod docutils literal notranslate"><span class="pre">skrf.frequency</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../networkSet.html">networkSet (<code class="xref py py-mod docutils literal notranslate"><span class="pre">skrf.networkSet</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../plotting.html">plotting (<code class="xref py py-mod docutils literal notranslate"><span class="pre">skrf.plotting</span></code>)</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../index.html">Media</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../taper.html">taper (<code class="xref py py-mod docutils literal notranslate"><span class="pre">skrf.taper</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../calibration/index.html">calibration (<code class="xref py py-mod docutils literal notranslate"><span class="pre">skrf.calibration.calibration</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../calibration/deembedding.html">deembedding (<code class="xref py py-mod docutils literal notranslate"><span class="pre">skrf.calibration.deembedding</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../vi/index.html">virtual instruments (<code class="xref py py-mod docutils literal notranslate"><span class="pre">skrf.vi</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../vi/vna.html">vna (<code class="xref py py-mod docutils literal notranslate"><span class="pre">skrf.vi.vna</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../vectorFitting.html">vectorFitting (<code class="xref py py-mod docutils literal notranslate"><span class="pre">skrf.vectorFitting</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../qfactor.html">Qfactor (<code class="xref py py-mod docutils literal notranslate"><span class="pre">skrf.qfactor</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../time.html">time (<code class="xref py py-mod docutils literal notranslate"><span class="pre">skrf.time</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../circuit.html">circuit (<code class="xref py py-mod docutils literal notranslate"><span class="pre">skrf.circuit</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../device.html">device (<code class="xref py py-mod docutils literal notranslate"><span class="pre">skrf.media.device</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../mathFunctions.html">mathFunctions (<code class="xref py py-mod docutils literal notranslate"><span class="pre">skrf.mathFunctions</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../tlineFunctions.html">tlineFunctions (<code class="xref py py-mod docutils literal notranslate"><span class="pre">skrf.tlineFunctions</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../instances.html">instances (<code class="xref py py-mod docutils literal notranslate"><span class="pre">skrf.instances</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../constants.html">constants (<code class="xref py py-mod docutils literal notranslate"><span class="pre">skrf.constants</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../data/index.html">data (<code class="xref py py-mod docutils literal notranslate"><span class="pre">skrf.data</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../util.html">util (<code class="xref py py-mod docutils literal notranslate"><span class="pre">skrf.util</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../io/index.html">IO</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../glossary.html">Glossary</a></li>
+</ul>
+<p class="caption" role="heading" aria-level="3"><span class="caption-text">Project</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing/index.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../citations_ack/acknowledging.html">Citing scikit-rf</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../citations_ack/citations.html">scikit-rf Citations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../about.html">About</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../users.html">Users</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../license.html">License</a></li>
+</ul>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="lside-overlay js-menu" role="button" aria-label="Close left sidebar" aria-controls="lside" aria-expanded="false"></div>
+  <aside id="rside" class="sy-rside pb-3 w-64 shrink-0 order-last">
+    <button class="rside-close js-menu xl:hidden" aria-label="Close Table of Contents" type="button" aria-controls="rside" aria-expanded="false">
+      <i class="i-lucide close"></i>
+    </button>
+    <div class="sy-scrollbar sy-rside-inner px-6 xl:top-16 xl:sticky xl:pl-0 pt-6 pb-4"><div class="localtoc"><h3>On this page</h3><ul>
+<li><a class="reference internal" href="#skrf.media.freespace.Freespace"><code class="docutils literal notranslate"><span class="pre">Freespace</span></code></a></li>
+</ul>
+</div><div id="ethical-ad-placement" data-ea-publisher="readthedocs"></div></div>
+  </aside>
+  <div class="rside-overlay js-menu" role="button" aria-label="Close Table of Contents" aria-controls="rside" aria-expanded="false"></div>
+  <main class="sy-main w-full max-sm:max-w-full print:pt-6">
+<div class="sy-breadcrumbs" role="navigation">
+  <div class="sy-breadcrumbs-inner flex items-center">
+    <div class="md:hidden mr-3">
+      <button class="js-menu" aria-label="Menu" type="button" aria-controls="lside" aria-expanded="false">
+        <i class="i-lucide menu"></i>
+      </button>
+    </div>
+    <ol class="flex-1" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="../../../index.html"><span itemprop="name">scikit-rf</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="1" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="../../index.html"><span itemprop="name">API</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="2" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="../index.html"><span itemprop="name">Media</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="3" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <strong itemprop="name">skrf.media.freespace.Freespace</strong>
+        <meta itemprop="position" content="4" />
+      </li></ol>
+    <div class="xl:hidden ml-1">
+      <button class="js-menu" aria-label="Show table of contents" type="button" aria-controls="rside"
+        aria-expanded="false">
+        <i class="i-lucide outdent"></i>
+      </button>
+    </div>
+  </div>
+</div><div class="flex flex-col break-words justify-between">
+      <div class="relative min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
+  <article class="yue" role="main">
+          <section id="skrf-media-freespace-freespace">
+<h1>skrf.media.freespace.Freespace<a class="headerlink" href="#skrf-media-freespace-freespace" title="Link to this heading">#</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="skrf.media.freespace.Freespace">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">skrf.media.freespace.</span></span><span class="sig-name descname"><span class="pre">Freespace</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">frequency</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z0_port</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z0_override</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z0</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ep_r</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span> <span class="pre">+</span> <span class="pre">0j</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mu_r</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span> <span class="pre">+</span> <span class="pre">0j</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ep_loss_tan</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mu_loss_tan</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rho</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/skrf/media/freespace.html#Freespace"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skrf.media.freespace.Freespace" title="Link to this definition">#</a></dt>
+<dd><p>A plane-wave (TEM Mode) in Freespace.</p>
+<p>A Freespace media can be constructed in two ways:</p>
+<ul class="simple">
+<li><p>from complex, relative permativity and permeability OR</p></li>
+<li><p>from real relative permativity and permeability with loss tangents.</p></li>
+</ul>
+<p>There is also a method to initialize from a
+existing distributed circuit, appropriately named
+<a class="reference internal" href="skrf.media.freespace.Freespace.from_distributed_circuit.html#skrf.media.freespace.Freespace.from_distributed_circuit" title="skrf.media.freespace.Freespace.from_distributed_circuit"><code class="xref py py-func docutils literal notranslate"><span class="pre">Freespace.from_distributed_circuit()</span></code></a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>frequency</strong> (<a class="reference internal" href="../../generated/skrf.frequency.Frequency.html#skrf.frequency.Frequency" title="skrf.frequency.Frequency"><code class="xref py py-class docutils literal notranslate"><span class="pre">Frequency</span></code></a> object) – frequency band of this transmission line medium</p></li>
+<li><p><strong>z0_port</strong> (<em>number</em><em>, </em><em>array-like</em><em>, or </em><em>None</em>) – <cite>z0_port</cite> is the port impedance for networks generated by the media.
+If <cite>z0_port</cite> is not None, the networks generated by the media are
+renormalized (or in other words embedded) from the characteristic
+impedance z0 of the media to <cite>z0_port</cite>.
+Else if <cite>z0_port</cite> is None, the networks port impedances will be the raw
+characteristic impedance z0 of the media.
+(Default is None)</p></li>
+<li><p><strong>z0_override</strong> (<em>number</em><em>, </em><em>array-like</em><em>, or </em><em>None</em>) – <cite>z0_override</cite> override the characteristic impedance for the media.
+If <cite>z0_override</cite> is not None, the networks generated by the media have
+their characteristic impedance <cite>z0</cite> overridden by <cite>z0_override</cite>.
+(Default is None)</p></li>
+<li><p><strong>z0</strong> (<em>number</em><em>, </em><em>array-like</em><em>, or </em><em>None</em>) – deprecated parameter, alias to <cite>z0_override</cite> if <cite>z0_override</cite> is None.
+Emit a deprecation warning.</p></li>
+<li><p><strong>ep_r</strong> (<em>number</em><em>, </em><em>array-like</em>) – complex relative permittivity. negative imaginary is lossy.</p></li>
+<li><p><strong>mu_r</strong> (<em>number</em><em>, </em><em>array-like</em>) – complex relative permeability. negative imaginary is lossy.</p></li>
+<li><p><strong>ep_loss_tan</strong> (<em>None</em><em>, </em><em>number</em><em>, </em><em>array-like</em>) – electric loss tangent (of the permativity).
+If not None, imag(ep_r) is ignored.</p></li>
+<li><p><strong>mu_loss_tan</strong> (<em>None</em><em>, </em><em>number</em><em>, </em><em>array-like</em>) – magnetic loss tangent (of the permeability).
+If not None, imag(mu_r) is ignored.</p></li>
+<li><p><strong>rho</strong> (<em>number</em><em>, </em><em>array-like</em><em>, </em><em>string</em><em> or </em><em>None</em>) – resistivity (ohm-m) of the conductor walls. If array-like
+must be same length as frequency. if str, it must be a key in
+<a class="reference internal" href="../../data/generated/skrf.data.materials.html#skrf.data.materials" title="skrf.data.materials"><code class="xref py py-data docutils literal notranslate"><span class="pre">skrf.data.materials</span></code></a>.
+Default is None (lossless).</p></li>
+<li><p><strong>*args</strong> (<em>arguments and keyword arguments</em>)</p></li>
+<li><p><strong>**kwargs</strong> (<em>arguments and keyword arguments</em>)</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">skrf.media.freespace</span><span class="w"> </span><span class="kn">import</span> <a class="sphinx-codeautolink-a" href="../../../api/media/generated/skrf.media.freespace.Freespace.html#skrf.media.freespace.Freespace" title="skrf.media.freespace.Freespace"><span class="n">Freespace</span></a>
+</span><span data-line="2"><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><a class="sphinx-codeautolink-a" href="../../../api/frequency.html#module-skrf.frequency"><span class="nn">skrf.frequency</span></a><span class="w"> </span><span class="kn">import</span> <a class="sphinx-codeautolink-a" href="../../../api/generated/skrf.frequency.Frequency.html#skrf.frequency.Frequency" title="skrf.frequency.Frequency"><span class="n">Frequency</span></a>
+</span><span data-line="3"><span class="gp">&gt;&gt;&gt; </span><a class="sphinx-codeautolink-a" href="../../../api/generated/skrf.frequency.Frequency.html#skrf.frequency.Frequency" title="skrf.frequency.Frequency"><span class="n">f</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../../api/generated/skrf.frequency.Frequency.html#skrf.frequency.Frequency" title="skrf.frequency.Frequency"><span class="n">Frequency</span></a><span class="p">(</span><span class="mi">75</span><span class="p">,</span><span class="mi">110</span><span class="p">,</span><span class="mi">101</span><span class="p">,</span><span class="s1">'ghz'</span><span class="p">)</span>
+</span><span data-line="4"><span class="gp">&gt;&gt;&gt; </span><a class="sphinx-codeautolink-a" href="../../../api/media/generated/skrf.media.freespace.Freespace.html#skrf.media.freespace.Freespace" title="skrf.media.freespace.Freespace"><span class="n">Freespace</span></a><span class="p">(</span><span class="n">frequency</span><span class="o">=</span><a class="sphinx-codeautolink-a" href="../../../api/generated/skrf.frequency.Frequency.html#skrf.frequency.Frequency" title="skrf.frequency.Frequency"><span class="n">f</span></a><span class="p">,</span> <span class="n">ep_r</span><span class="o">=</span><span class="mf">11.9</span><span class="p">)</span>
+</span><span data-line="5"><span class="gp">&gt;&gt;&gt; </span><a class="sphinx-codeautolink-a" href="../../../api/media/generated/skrf.media.freespace.Freespace.html#skrf.media.freespace.Freespace" title="skrf.media.freespace.Freespace"><span class="n">Freespace</span></a><span class="p">(</span><span class="n">frequency</span><span class="o">=</span><a class="sphinx-codeautolink-a" href="../../../api/generated/skrf.frequency.Frequency.html#skrf.frequency.Frequency" title="skrf.frequency.Frequency"><span class="n">f</span></a><span class="p">,</span> <span class="n">ep_r</span><span class="o">=</span><span class="mf">11.9</span><span class="o">-</span><span class="mf">1.1</span><span class="n">j</span><span class="p">)</span>
+</span><span data-line="6"><span class="gp">&gt;&gt;&gt; </span><a class="sphinx-codeautolink-a" href="../../../api/media/generated/skrf.media.freespace.Freespace.html#skrf.media.freespace.Freespace" title="skrf.media.freespace.Freespace"><span class="n">Freespace</span></a><span class="p">(</span><span class="n">frequency</span><span class="o">=</span><a class="sphinx-codeautolink-a" href="../../../api/generated/skrf.frequency.Frequency.html#skrf.frequency.Frequency" title="skrf.frequency.Frequency"><span class="n">f</span></a><span class="p">,</span> <span class="n">ep_r</span><span class="o">=</span><span class="mf">11.9</span><span class="p">,</span> <span class="n">ep_loss_tan</span><span class="o">=</span><span class="mf">.1</span><span class="p">)</span>
+</span><span data-line="7"><span class="gp">&gt;&gt;&gt; </span><a class="sphinx-codeautolink-a" href="../../../api/media/generated/skrf.media.freespace.Freespace.html#skrf.media.freespace.Freespace" title="skrf.media.freespace.Freespace"><span class="n">Freespace</span></a><span class="p">(</span><span class="n">frequency</span><span class="o">=</span><a class="sphinx-codeautolink-a" href="../../../api/generated/skrf.frequency.Frequency.html#skrf.frequency.Frequency" title="skrf.frequency.Frequency"><span class="n">f</span></a><span class="p">,</span> <span class="n">ep_r</span><span class="o">=</span><span class="mf">11.9</span><span class="o">-</span><span class="mf">1.1</span><span class="n">j</span><span class="p">,</span> <span class="n">mu_r</span> <span class="o">=</span> <span class="mf">1.1</span><span class="o">-</span><span class="mf">.1</span><span class="n">j</span><span class="p">)</span>
+</span></pre></div>
+</div>
+</dd></dl>
+<p class="rubric">Attributes</p>
+<div class="table-wrapper autosummary longtable docutils container">
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="skrf.media.freespace.Freespace.Z0.html#skrf.media.freespace.Freespace.Z0" title="skrf.media.freespace.Freespace.Z0"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Z0</span></code></a></p></td>
+<td><p>Characteristic Impedance</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="skrf.media.freespace.Freespace.alpha.html#skrf.media.freespace.Freespace.alpha" title="skrf.media.freespace.Freespace.alpha"><code class="xref py py-obj docutils literal notranslate"><span class="pre">alpha</span></code></a></p></td>
+<td><p>Real (attenuation) component of gamma.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="skrf.media.freespace.Freespace.beta.html#skrf.media.freespace.Freespace.beta" title="skrf.media.freespace.Freespace.beta"><code class="xref py py-obj docutils literal notranslate"><span class="pre">beta</span></code></a></p></td>
+<td><p>Imaginary (propagating) component of gamma.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="skrf.media.freespace.Freespace.ep.html#skrf.media.freespace.Freespace.ep" title="skrf.media.freespace.Freespace.ep"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ep</span></code></a></p></td>
+<td><p>Complex dielectric permittivity.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="skrf.media.freespace.Freespace.ep_with_rho.html#skrf.media.freespace.Freespace.ep_with_rho" title="skrf.media.freespace.Freespace.ep_with_rho"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ep_with_rho</span></code></a></p></td>
+<td><p>Complex permittivity with resistivity absorbed into its imaginary component.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="skrf.media.freespace.Freespace.gamma.html#skrf.media.freespace.Freespace.gamma" title="skrf.media.freespace.Freespace.gamma"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gamma</span></code></a></p></td>
+<td><p>Propagation Constant, <span class="math notranslate nohighlight">\(\gamma\)</span>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="skrf.media.freespace.Freespace.mu.html#skrf.media.freespace.Freespace.mu" title="skrf.media.freespace.Freespace.mu"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mu</span></code></a></p></td>
+<td><p>Complex dielectric permeability.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="skrf.media.freespace.Freespace.npoints.html#skrf.media.freespace.Freespace.npoints" title="skrf.media.freespace.Freespace.npoints"><code class="xref py py-obj docutils literal notranslate"><span class="pre">npoints</span></code></a></p></td>
+<td><p>Number of points of the frequency axis.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="skrf.media.freespace.Freespace.rho.html#skrf.media.freespace.Freespace.rho" title="skrf.media.freespace.Freespace.rho"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rho</span></code></a></p></td>
+<td><p>Conductivity in ohm*m.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="skrf.media.freespace.Freespace.v_g.html#skrf.media.freespace.Freespace.v_g" title="skrf.media.freespace.Freespace.v_g"><code class="xref py py-obj docutils literal notranslate"><span class="pre">v_g</span></code></a></p></td>
+<td><p>Complex group velocity (in m/s).</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="skrf.media.freespace.Freespace.v_p.html#skrf.media.freespace.Freespace.v_p" title="skrf.media.freespace.Freespace.v_p"><code class="xref py py-obj docutils literal notranslate"><span class="pre">v_p</span></code></a></p></td>
+<td><p>Complex phase velocity (in m/s).</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="skrf.media.freespace.Freespace.z0.html#skrf.media.freespace.Freespace.z0" title="skrf.media.freespace.Freespace.z0"><code class="xref py py-obj docutils literal notranslate"><span class="pre">z0</span></code></a></p></td>
+<td><p>Return Characteristic Impedance <cite>z0_characteristic</cite>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="skrf.media.freespace.Freespace.z0_characteristic.html#skrf.media.freespace.Freespace.z0_characteristic" title="skrf.media.freespace.Freespace.z0_characteristic"><code class="xref py py-obj docutils literal notranslate"><span class="pre">z0_characteristic</span></code></a></p></td>
+<td><p>Characteristic Impedance, <span class="math notranslate nohighlight">\(z_0\)</span>.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="skrf.media.freespace.Freespace.z0_override.html#skrf.media.freespace.Freespace.z0_override" title="skrf.media.freespace.Freespace.z0_override"><code class="xref py py-obj docutils literal notranslate"><span class="pre">z0_override</span></code></a></p></td>
+<td><p>Port Impedance.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="skrf.media.freespace.Freespace.z0_port.html#skrf.media.freespace.Freespace.z0_port" title="skrf.media.freespace.Freespace.z0_port"><code class="xref py py-obj docutils literal notranslate"><span class="pre">z0_port</span></code></a></p></td>
+<td><p>Port Impedance.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p class="rubric">Methods</p>
+<div class="table-wrapper autosummary longtable docutils container">
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="skrf.media.freespace.Freespace.__init__.html#skrf.media.freespace.Freespace.__init__" title="skrf.media.freespace.Freespace.__init__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__init__</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="skrf.media.freespace.Freespace.attenuator.html#skrf.media.freespace.Freespace.attenuator" title="skrf.media.freespace.Freespace.attenuator"><code class="xref py py-obj docutils literal notranslate"><span class="pre">attenuator</span></code></a></p></td>
+<td><p>Ideal matched attenuator of a given length.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="skrf.media.freespace.Freespace.capacitor.html#skrf.media.freespace.Freespace.capacitor" title="skrf.media.freespace.Freespace.capacitor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">capacitor</span></code></a></p></td>
+<td><p>Capacitor.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="skrf.media.freespace.Freespace.capacitor_q.html#skrf.media.freespace.Freespace.capacitor_q" title="skrf.media.freespace.Freespace.capacitor_q"><code class="xref py py-obj docutils literal notranslate"><span class="pre">capacitor_q</span></code></a></p></td>
+<td><p>Capacitor with Q factor.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="skrf.media.freespace.Freespace.copy.html#skrf.media.freespace.Freespace.copy" title="skrf.media.freespace.Freespace.copy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">copy</span></code></a></p></td>
+<td><p>Copy of this Media object.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="skrf.media.freespace.Freespace.delay_load.html#skrf.media.freespace.Freespace.delay_load" title="skrf.media.freespace.Freespace.delay_load"><code class="xref py py-obj docutils literal notranslate"><span class="pre">delay_load</span></code></a></p></td>
+<td><p>Delayed load.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="skrf.media.freespace.Freespace.delay_open.html#skrf.media.freespace.Freespace.delay_open" title="skrf.media.freespace.Freespace.delay_open"><code class="xref py py-obj docutils literal notranslate"><span class="pre">delay_open</span></code></a></p></td>
+<td><p>Delayed open transmission line.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="skrf.media.freespace.Freespace.delay_short.html#skrf.media.freespace.Freespace.delay_short" title="skrf.media.freespace.Freespace.delay_short"><code class="xref py py-obj docutils literal notranslate"><span class="pre">delay_short</span></code></a></p></td>
+<td><p>Delayed Short.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="skrf.media.freespace.Freespace.electrical_length.html#skrf.media.freespace.Freespace.electrical_length" title="skrf.media.freespace.Freespace.electrical_length"><code class="xref py py-obj docutils literal notranslate"><span class="pre">electrical_length</span></code></a></p></td>
+<td><p>Calculate the complex electrical length for a given distance.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="skrf.media.freespace.Freespace.extract_distance.html#skrf.media.freespace.Freespace.extract_distance" title="skrf.media.freespace.Freespace.extract_distance"><code class="xref py py-obj docutils literal notranslate"><span class="pre">extract_distance</span></code></a></p></td>
+<td><p>Determines physical distance from a transmission or reflection Network.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="skrf.media.freespace.Freespace.from_distributed_circuit.html#skrf.media.freespace.Freespace.from_distributed_circuit" title="skrf.media.freespace.Freespace.from_distributed_circuit"><code class="xref py py-obj docutils literal notranslate"><span class="pre">from_distributed_circuit</span></code></a></p></td>
+<td><p>Initialize a freespace from <a class="reference internal" href="skrf.media.distributedCircuit.DistributedCircuit.html#skrf.media.distributedCircuit.DistributedCircuit" title="skrf.media.distributedCircuit.DistributedCircuit"><code class="xref py py-class docutils literal notranslate"><span class="pre">DistributedCircuit</span></code></a>.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="skrf.media.freespace.Freespace.get_array_of.html#skrf.media.freespace.Freespace.get_array_of" title="skrf.media.freespace.Freespace.get_array_of"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_array_of</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="skrf.media.freespace.Freespace.impedance_mismatch.html#skrf.media.freespace.Freespace.impedance_mismatch" title="skrf.media.freespace.Freespace.impedance_mismatch"><code class="xref py py-obj docutils literal notranslate"><span class="pre">impedance_mismatch</span></code></a></p></td>
+<td><p>Two-port network for an impedance mismatch.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="skrf.media.freespace.Freespace.inductor.html#skrf.media.freespace.Freespace.inductor" title="skrf.media.freespace.Freespace.inductor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">inductor</span></code></a></p></td>
+<td><p>Inductor.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="skrf.media.freespace.Freespace.inductor_q.html#skrf.media.freespace.Freespace.inductor_q" title="skrf.media.freespace.Freespace.inductor_q"><code class="xref py py-obj docutils literal notranslate"><span class="pre">inductor_q</span></code></a></p></td>
+<td><p>Inductor with Q factor.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="skrf.media.freespace.Freespace.isolator.html#skrf.media.freespace.Freespace.isolator" title="skrf.media.freespace.Freespace.isolator"><code class="xref py py-obj docutils literal notranslate"><span class="pre">isolator</span></code></a></p></td>
+<td><p>Two-port isolator.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="skrf.media.freespace.Freespace.line.html#skrf.media.freespace.Freespace.line" title="skrf.media.freespace.Freespace.line"><code class="xref py py-obj docutils literal notranslate"><span class="pre">line</span></code></a></p></td>
+<td><p>Transmission line of a given length and impedance.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="skrf.media.freespace.Freespace.line_floating.html#skrf.media.freespace.Freespace.line_floating" title="skrf.media.freespace.Freespace.line_floating"><code class="xref py py-obj docutils literal notranslate"><span class="pre">line_floating</span></code></a></p></td>
+<td><p>Floating transmission line of a given length and impedance.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="skrf.media.freespace.Freespace.load.html#skrf.media.freespace.Freespace.load" title="skrf.media.freespace.Freespace.load"><code class="xref py py-obj docutils literal notranslate"><span class="pre">load</span></code></a></p></td>
+<td><p>Load of given reflection coefficient.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="skrf.media.freespace.Freespace.lossless_mismatch.html#skrf.media.freespace.Freespace.lossless_mismatch" title="skrf.media.freespace.Freespace.lossless_mismatch"><code class="xref py py-obj docutils literal notranslate"><span class="pre">lossless_mismatch</span></code></a></p></td>
+<td><p>Lossless, symmetric mismatch defined by its return loss.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="skrf.media.freespace.Freespace.match.html#skrf.media.freespace.Freespace.match" title="skrf.media.freespace.Freespace.match"><code class="xref py py-obj docutils literal notranslate"><span class="pre">match</span></code></a></p></td>
+<td><p>Perfect matched load (<span class="math notranslate nohighlight">\(\Gamma_0 = 0\)</span>).</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="skrf.media.freespace.Freespace.mode.html#skrf.media.freespace.Freespace.mode" title="skrf.media.freespace.Freespace.mode"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mode</span></code></a></p></td>
+<td><p>Create another mode in this medium.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="skrf.media.freespace.Freespace.open.html#skrf.media.freespace.Freespace.open" title="skrf.media.freespace.Freespace.open"><code class="xref py py-obj docutils literal notranslate"><span class="pre">open</span></code></a></p></td>
+<td><p>Open (<span class="math notranslate nohighlight">\(\Gamma_0 = 1\)</span>).</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="skrf.media.freespace.Freespace.plot.html#skrf.media.freespace.Freespace.plot" title="skrf.media.freespace.Freespace.plot"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="skrf.media.freespace.Freespace.plot_ep.html#skrf.media.freespace.Freespace.plot_ep" title="skrf.media.freespace.Freespace.plot_ep"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot_ep</span></code></a></p></td>
+<td><p>Plot the real and imaginary part of the complex permittivity.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="skrf.media.freespace.Freespace.plot_ep_mu.html#skrf.media.freespace.Freespace.plot_ep_mu" title="skrf.media.freespace.Freespace.plot_ep_mu"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot_ep_mu</span></code></a></p></td>
+<td><p>Plot the real and imaginary part of the complex permittivity with resistivity.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="skrf.media.freespace.Freespace.plot_mu.html#skrf.media.freespace.Freespace.plot_mu" title="skrf.media.freespace.Freespace.plot_mu"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot_mu</span></code></a></p></td>
+<td><p>Plot the real and imaginary part of the complex permeability.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="skrf.media.freespace.Freespace.random.html#skrf.media.freespace.Freespace.random" title="skrf.media.freespace.Freespace.random"><code class="xref py py-obj docutils literal notranslate"><span class="pre">random</span></code></a></p></td>
+<td><p>Complex random network.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="skrf.media.freespace.Freespace.resistor.html#skrf.media.freespace.Freespace.resistor" title="skrf.media.freespace.Freespace.resistor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">resistor</span></code></a></p></td>
+<td><p>Resistor.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="skrf.media.freespace.Freespace.short.html#skrf.media.freespace.Freespace.short" title="skrf.media.freespace.Freespace.short"><code class="xref py py-obj docutils literal notranslate"><span class="pre">short</span></code></a></p></td>
+<td><p>Short (<span class="math notranslate nohighlight">\(\Gamma_0 = -1\)</span>)</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="skrf.media.freespace.Freespace.shunt.html#skrf.media.freespace.Freespace.shunt" title="skrf.media.freespace.Freespace.shunt"><code class="xref py py-obj docutils literal notranslate"><span class="pre">shunt</span></code></a></p></td>
+<td><p>Shunts a <a class="reference internal" href="../../generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><code class="xref py py-class docutils literal notranslate"><span class="pre">Network</span></code></a>.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="skrf.media.freespace.Freespace.shunt_capacitor.html#skrf.media.freespace.Freespace.shunt_capacitor" title="skrf.media.freespace.Freespace.shunt_capacitor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">shunt_capacitor</span></code></a></p></td>
+<td><p>Shunted capacitor.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="skrf.media.freespace.Freespace.shunt_delay_load.html#skrf.media.freespace.Freespace.shunt_delay_load" title="skrf.media.freespace.Freespace.shunt_delay_load"><code class="xref py py-obj docutils literal notranslate"><span class="pre">shunt_delay_load</span></code></a></p></td>
+<td><p>Shunted delayed load.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="skrf.media.freespace.Freespace.shunt_delay_open.html#skrf.media.freespace.Freespace.shunt_delay_open" title="skrf.media.freespace.Freespace.shunt_delay_open"><code class="xref py py-obj docutils literal notranslate"><span class="pre">shunt_delay_open</span></code></a></p></td>
+<td><p>Shunted delayed open.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="skrf.media.freespace.Freespace.shunt_delay_short.html#skrf.media.freespace.Freespace.shunt_delay_short" title="skrf.media.freespace.Freespace.shunt_delay_short"><code class="xref py py-obj docutils literal notranslate"><span class="pre">shunt_delay_short</span></code></a></p></td>
+<td><p>Shunted delayed short.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="skrf.media.freespace.Freespace.shunt_inductor.html#skrf.media.freespace.Freespace.shunt_inductor" title="skrf.media.freespace.Freespace.shunt_inductor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">shunt_inductor</span></code></a></p></td>
+<td><p>Shunted inductor.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="skrf.media.freespace.Freespace.shunt_resistor.html#skrf.media.freespace.Freespace.shunt_resistor" title="skrf.media.freespace.Freespace.shunt_resistor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">shunt_resistor</span></code></a></p></td>
+<td><p>Shunted resistor.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="skrf.media.freespace.Freespace.splitter.html#skrf.media.freespace.Freespace.splitter" title="skrf.media.freespace.Freespace.splitter"><code class="xref py py-obj docutils literal notranslate"><span class="pre">splitter</span></code></a></p></td>
+<td><p>Ideal, lossless n-way splitter.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="skrf.media.freespace.Freespace.tee.html#skrf.media.freespace.Freespace.tee" title="skrf.media.freespace.Freespace.tee"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tee</span></code></a></p></td>
+<td><p>Ideal, lossless tee.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="skrf.media.freespace.Freespace.theta_2_d.html#skrf.media.freespace.Freespace.theta_2_d" title="skrf.media.freespace.Freespace.theta_2_d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">theta_2_d</span></code></a></p></td>
+<td><p>Convert electrical length to physical distance.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="skrf.media.freespace.Freespace.thru.html#skrf.media.freespace.Freespace.thru" title="skrf.media.freespace.Freespace.thru"><code class="xref py py-obj docutils literal notranslate"><span class="pre">thru</span></code></a></p></td>
+<td><p>Matched transmission line of length 0.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="skrf.media.freespace.Freespace.to_meters.html#skrf.media.freespace.Freespace.to_meters" title="skrf.media.freespace.Freespace.to_meters"><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_meters</span></code></a></p></td>
+<td><p>Translate various units of distance into meters.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="skrf.media.freespace.Freespace.white_gaussian_polar.html#skrf.media.freespace.Freespace.white_gaussian_polar" title="skrf.media.freespace.Freespace.white_gaussian_polar"><code class="xref py py-obj docutils literal notranslate"><span class="pre">white_gaussian_polar</span></code></a></p></td>
+<td><p>Complex zero-mean gaussian white-noise network.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="skrf.media.freespace.Freespace.write_csv.html#skrf.media.freespace.Freespace.write_csv" title="skrf.media.freespace.Freespace.write_csv"><code class="xref py py-obj docutils literal notranslate"><span class="pre">write_csv</span></code></a></p></td>
+<td><p>write this media's frequency, gamma, Z0, and z0 to a csv file.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+
+        </article><button class="back-to-top" type="button">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+  </svg>
+  <span>Back to top</span>
+</button><div class="navigation flex print:hidden"><div class="navigation-prev">
+    <a href="skrf.media.mline.MLine.write_csv.html">
+      <i class="i-lucide chevron-left"></i>
+      <div class="page-info">
+        <span>Previous</span><div class="title">skrf.media.mline.MLine.write_csv</div></div>
+    </a>
+  </div><div class="navigation-next">
+    <a href="skrf.media.freespace.Freespace.Z0.html">
+      <div class="page-info">
+        <span>Next</span>
+        <div class="title">skrf.media.freespace.Freespace.Z0</div>
+      </div>
+      <i class="i-lucide chevron-right"></i>
+    </a>
+  </div></div></div>
+    </div>
+  </main>
+</div>
+<footer class="sy-foot">
+  <div class="sy-foot-inner sy-container mx-auto">
+    <div class="sy-foot-reserved md:flex justify-between items-center">
+      <div class="sy-foot-copyright"><p>2025, scikit-rf team</p>
+  
+  <p>
+    Made with
+    
+    <a href="https://www.sphinx-doc.org/">Sphinx</a> and
+    
+    <a href="https://shibuya.lepture.com">Shibuya theme</a>.
+  </p>
+</div>
+      <div class="sy-foot-socials">
+  <a href="https://github.com/scikit-rf/scikit-rf" aria-label="GitHub">
+    <iconify-icon icon="simple-icons:github"></iconify-icon>
+  </a></div>
+    </div>
+  </div>
+</footer>
+      <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../../_static/copybutton.js?v=34bd459d"></script>
+      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+      <script src="../../../_static/shibuya.js?v=50760d75"></script>
+      <script src="https://cdn.jsdelivr.net/npm/@jupyter-widgets/html-manager@^1.0.1/dist/embed-amd.js"></script>
+      <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
+      <script src="../../../_static/skrf.js?v=bdeb9fb0"></script></body>
+</html>

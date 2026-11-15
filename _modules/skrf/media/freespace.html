@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en" data-accent-color="blue" data-content_root="../../../">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>skrf.media.freespace - scikit-rf</title><link rel="author" title="About these documents" href="../../../about.html" /><link rel="index" title="Index" href="../../../genindex.html" /><link rel="search" title="Search" href="../../../search.html" /><script>
+    function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
+    setColorMode(localStorage._theme||"auto");
+  </script><link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=ad592e98" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/shibuya.css?v=2ceb65ce" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-codeautolink.css?v=b2176991" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+    <link media="print" rel="stylesheet" type="text/css" href="../../../_static/print.css?v=20ff2c19" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/skrf.css?v=7e772ba2" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --sy-f-text: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+  --sy-f-heading: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+}
+</style>
+    
+  <meta property="og:type" content="website"/><meta property="og:title" content="skrf.media.freespace"/>
+    <meta name="twitter:card" content="summary"/>
+  </head>
+<body><div class="sy-head">
+  <div class="sy-head-blur"></div>
+  <div class="sy-head-inner sy-container mx-auto">
+    <a class="sy-head-brand" href="../../../index.html">
+      <img class="light-logo" src="../../../_static/logo.svg" alt="scikit-rf" height="28" loading="lazy" />
+      <img class="dark-logo" src="../../../_static/logo.svg" alt="scikit-rf" height="28" loading="lazy" />
+      <strong>scikit-rf</strong>
+    </a>
+    <div class="sy-head-nav" id="head-nav">
+      <nav class="sy-head-links"><ul><li class="link"><a href="../../../index.html">Home</a></li><li class="link"><a href="../../../tutorials/index.html">Tutorials</a></li><li class="link"><a href="../../../examples/index.html">Examples</a></li><li class="link"><a href="../../../api/index.html">API</a></li><li class="link">
+          <a href="https://github.com/scikit-rf/scikit-rf">
+            <span>GitHub</span><i class="i-lucide external-link"></i></a>
+        </li></ul></nav>
+      <div class="sy-head-extra flex items-center print:hidden"><form class="searchbox flex items-center" action="../../../search.html" method="get">
+  <input type="text" name="q" placeholder="Search" />
+  <kbd>/</kbd>
+</form><div class="sy-head-socials">
+  <a href="https://github.com/scikit-rf/scikit-rf" aria-label="GitHub">
+    <iconify-icon icon="simple-icons:github"></iconify-icon>
+  </a>
+  <a href="https://www.linkedin.com/groups/12462155/" aria-label="LinkedIn">
+    <iconify-icon icon="simple-icons:linkedin"></iconify-icon>
+  </a>
+  <a href="https://app.element.io/#/room/#scikit-rf:matrix.org" aria-label="Matrix">
+    <iconify-icon icon="simple-icons:matrix"></iconify-icon>
+  </a></div></div>
+    </div>
+    <div class="sy-head-actions flex items-center shrink-0 print:hidden"><button class="js-theme theme-switch flex items-center"
+data-aria-auto="Switch to light color mode"
+data-aria-light="Switch to dark color mode"
+data-aria-dark="Switch to auto color mode">
+<i class="i-lucide theme-icon"></i>
+</button><button class="md:hidden flex items-center js-menu" aria-label="Menu" type="button" aria-controls="head-nav" aria-expanded="false">
+        <div class="hamburger">
+          <span class="hamburger_1"></span>
+          <span class="hamburger_2"></span>
+          <span class="hamburger_3"></span>
+        </div>
+      </button>
+    </div>
+  </div>
+</div>
+<div class="sy-page sy-container flex mx-auto">
+  <aside id="lside" class="sy-lside md:w-72 md:shrink-0 print:hidden">
+    <div class="sy-lside-inner md:sticky">
+      <div class="sy-scrollbar p-6">
+        <div class="globaltoc" data-expand-depth="0"><p class="caption" role="heading" aria-level="3"><span class="caption-text">Getting started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../index.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorials/Installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorials/Introduction.html">Introduction</a></li>
+</ul>
+<p class="caption" role="heading" aria-level="3"><span class="caption-text">User guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/index.html">Examples</a></li>
+</ul>
+<p class="caption" role="heading" aria-level="3"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/index.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../glossary.html">Glossary</a></li>
+</ul>
+<p class="caption" role="heading" aria-level="3"><span class="caption-text">Project</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing/index.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../citations_ack/acknowledging.html">Citing scikit-rf</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../citations_ack/citations.html">scikit-rf Citations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../about.html">About</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../users.html">Users</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../license.html">License</a></li>
+</ul>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="lside-overlay js-menu" role="button" aria-label="Close left sidebar" aria-controls="lside" aria-expanded="false"></div>
+  <aside id="rside" class="sy-rside pb-3 w-64 shrink-0 order-last">
+    <button class="rside-close js-menu xl:hidden" aria-label="Close Table of Contents" type="button" aria-controls="rside" aria-expanded="false">
+      <i class="i-lucide close"></i>
+    </button>
+    <div class="sy-scrollbar sy-rside-inner px-6 xl:top-16 xl:sticky xl:pl-0 pt-6 pb-4"><div id="ethical-ad-placement" data-ea-publisher="readthedocs"></div></div>
+  </aside>
+  <div class="rside-overlay js-menu" role="button" aria-label="Close Table of Contents" aria-controls="rside" aria-expanded="false"></div>
+  <main class="sy-main w-full max-sm:max-w-full print:pt-6">
+<div class="sy-breadcrumbs" role="navigation">
+  <div class="sy-breadcrumbs-inner flex items-center">
+    <div class="md:hidden mr-3">
+      <button class="js-menu" aria-label="Menu" type="button" aria-controls="lside" aria-expanded="false">
+        <i class="i-lucide menu"></i>
+      </button>
+    </div>
+    <ol class="flex-1" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="../../../index.html"><span itemprop="name">scikit-rf</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="1" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="../../index.html"><span itemprop="name">Module code</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="2" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <strong itemprop="name">skrf.media.freespace</strong>
+        <meta itemprop="position" content="3" />
+      </li></ol>
+    <div class="xl:hidden ml-1">
+      <button class="js-menu" aria-label="Show table of contents" type="button" aria-controls="rside"
+        aria-expanded="false">
+        <i class="i-lucide outdent"></i>
+      </button>
+    </div>
+  </div>
+</div><div class="flex flex-col break-words justify-between">
+      <div class="relative min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
+  <article class="yue" role="main">
+          <h1>Source code for skrf.media.freespace</h1><div class="highlight"><pre>
+<span></span><span data-line="1"><span class="sd">"""</span>
+</span><span data-line="2"><span class="sd">freespace (:mod:`skrf.media.freespace`)</span>
+</span><span data-line="3"><span class="sd">========================================</span>
+</span><span data-line="4">
+</span><span data-line="5"><span class="sd">A plane-wave (TEM Mode) in Freespace.</span>
+</span><span data-line="6">
+</span><span data-line="7"><span class="sd">Represents a plane-wave in a homogeneous freespace, defined by</span>
+</span><span data-line="8"><span class="sd">the space's relative permittivity and relative permeability.</span>
+</span><span data-line="9">
+</span><span data-line="10"><span class="sd">.. autosummary::</span>
+</span><span data-line="11"><span class="sd">    :toctree: generated/</span>
+</span><span data-line="12">
+</span><span data-line="13"><span class="sd">    Freespace</span>
+</span><span data-line="14">
+</span><span data-line="15">
+</span><span data-line="16"><span class="sd">"""</span>
+</span><span data-line="17"><span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
+</span><span data-line="18">
+</span><span data-line="19"><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">TYPE_CHECKING</span>
+</span><span data-line="20">
+</span><span data-line="21"><span class="kn">from</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="kn">import</span> <span class="n">ones</span><span class="p">,</span> <span class="n">real</span><span class="p">,</span> <span class="n">sqrt</span>
+</span><span data-line="22">
+</span><span data-line="23"><span class="kn">from</span><span class="w"> </span><span class="nn">..</span><span class="w"> </span><span class="kn">import</span> <span class="n">constants</span> <span class="k">as</span> <span class="n">_const</span>
+</span><span data-line="24"><span class="kn">from</span><span class="w"> </span><span class="nn">..constants</span><span class="w"> </span><span class="kn">import</span> <span class="n">NumberLike</span>
+</span><span data-line="25"><span class="kn">from</span><span class="w"> </span><span class="nn">..data</span><span class="w"> </span><span class="kn">import</span> <span class="n">materials</span>
+</span><span data-line="26"><span class="kn">from</span><span class="w"> </span><span class="nn">.media</span><span class="w"> </span><span class="kn">import</span> <span class="n">Media</span>
+</span><span data-line="27">
+</span><span data-line="28"><span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
+</span><span data-line="29">    <span class="kn">from</span><span class="w"> </span><span class="nn">..frequency</span><span class="w"> </span><span class="kn">import</span> <span class="n">Frequency</span>
+</span><span data-line="30">
+</span><span data-line="31">
+<div class="viewcode-block" id="Freespace">
+<a class="viewcode-back" href="../../../api/media/generated/skrf.media.freespace.Freespace.html#skrf.media.freespace.Freespace">[docs]</a>
+</span><span data-line="32"><span class="k">class</span><span class="w"> </span><span class="nc">Freespace</span><span class="p">(</span><span class="n">Media</span><span class="p">):</span>
+</span><span data-line="33"><span class="w">    </span><span class="sa">r</span><span class="sd">"""</span>
+</span><span data-line="34"><span class="sd">    A plane-wave (TEM Mode) in Freespace.</span>
+</span><span data-line="35">
+</span><span data-line="36"><span class="sd">    A Freespace media can be constructed in two ways:</span>
+</span><span data-line="37">
+</span><span data-line="38"><span class="sd">    * from complex, relative permativity and permeability OR</span>
+</span><span data-line="39"><span class="sd">    * from real relative permativity and permeability with loss tangents.</span>
+</span><span data-line="40">
+</span><span data-line="41"><span class="sd">    There is also a method to initialize from a</span>
+</span><span data-line="42"><span class="sd">    existing distributed circuit, appropriately named</span>
+</span><span data-line="43"><span class="sd">    :func:`Freespace.from_distributed_circuit`</span>
+</span><span data-line="44">
+</span><span data-line="45">
+</span><span data-line="46"><span class="sd">    Parameters</span>
+</span><span data-line="47"><span class="sd">    ----------</span>
+</span><span data-line="48"><span class="sd">    frequency : :class:`~skrf.frequency.Frequency` object</span>
+</span><span data-line="49"><span class="sd">        frequency band of this transmission line medium</span>
+</span><span data-line="50"><span class="sd">    z0_port : number, array-like, or None</span>
+</span><span data-line="51"><span class="sd">        `z0_port` is the port impedance for networks generated by the media.</span>
+</span><span data-line="52"><span class="sd">        If `z0_port` is not None, the networks generated by the media are</span>
+</span><span data-line="53"><span class="sd">        renormalized (or in other words embedded) from the characteristic</span>
+</span><span data-line="54"><span class="sd">        impedance z0 of the media to `z0_port`.</span>
+</span><span data-line="55"><span class="sd">        Else if `z0_port` is None, the networks port impedances will be the raw</span>
+</span><span data-line="56"><span class="sd">        characteristic impedance z0 of the media.</span>
+</span><span data-line="57"><span class="sd">        (Default is None)</span>
+</span><span data-line="58"><span class="sd">    z0_override : number, array-like, or None</span>
+</span><span data-line="59"><span class="sd">        `z0_override` override the characteristic impedance for the media.</span>
+</span><span data-line="60"><span class="sd">        If `z0_override` is not None, the networks generated by the media have</span>
+</span><span data-line="61"><span class="sd">        their characteristic impedance `z0` overridden by `z0_override`.</span>
+</span><span data-line="62"><span class="sd">        (Default is None)</span>
+</span><span data-line="63"><span class="sd">    z0 : number, array-like, or None</span>
+</span><span data-line="64"><span class="sd">        deprecated parameter, alias to `z0_override` if `z0_override` is None.</span>
+</span><span data-line="65"><span class="sd">        Emit a deprecation warning.</span>
+</span><span data-line="66"><span class="sd">    ep_r : number, array-like</span>
+</span><span data-line="67"><span class="sd">        complex relative permittivity. negative imaginary is lossy.</span>
+</span><span data-line="68"><span class="sd">    mu_r : number, array-like</span>
+</span><span data-line="69"><span class="sd">        complex relative permeability. negative imaginary is lossy.</span>
+</span><span data-line="70"><span class="sd">    ep_loss_tan : None, number, array-like</span>
+</span><span data-line="71"><span class="sd">        electric loss tangent (of the permativity).</span>
+</span><span data-line="72"><span class="sd">        If not None, imag(ep_r) is ignored.</span>
+</span><span data-line="73"><span class="sd">    mu_loss_tan : None, number, array-like</span>
+</span><span data-line="74"><span class="sd">        magnetic loss tangent (of the permeability).</span>
+</span><span data-line="75"><span class="sd">        If not None, imag(mu_r) is ignored.</span>
+</span><span data-line="76"><span class="sd">    rho : number, array-like, string or None</span>
+</span><span data-line="77"><span class="sd">        resistivity (ohm-m) of the conductor walls. If array-like</span>
+</span><span data-line="78"><span class="sd">        must be same length as frequency. if str, it must be a key in</span>
+</span><span data-line="79"><span class="sd">        :data:`skrf.data.materials`.</span>
+</span><span data-line="80"><span class="sd">        Default is None (lossless).</span>
+</span><span data-line="81"><span class="sd">    \*args, \*\*kwargs : arguments and keyword arguments</span>
+</span><span data-line="82">
+</span><span data-line="83">
+</span><span data-line="84"><span class="sd">    Examples</span>
+</span><span data-line="85"><span class="sd">    --------</span>
+</span><span data-line="86"><span class="sd">    &gt;&gt;&gt; from skrf.media.freespace import Freespace</span>
+</span><span data-line="87"><span class="sd">    &gt;&gt;&gt; from skrf.frequency import Frequency</span>
+</span><span data-line="88"><span class="sd">    &gt;&gt;&gt; f = Frequency(75,110,101,'ghz')</span>
+</span><span data-line="89"><span class="sd">    &gt;&gt;&gt; Freespace(frequency=f, ep_r=11.9)</span>
+</span><span data-line="90"><span class="sd">    &gt;&gt;&gt; Freespace(frequency=f, ep_r=11.9-1.1j)</span>
+</span><span data-line="91"><span class="sd">    &gt;&gt;&gt; Freespace(frequency=f, ep_r=11.9, ep_loss_tan=.1)</span>
+</span><span data-line="92"><span class="sd">    &gt;&gt;&gt; Freespace(frequency=f, ep_r=11.9-1.1j, mu_r = 1.1-.1j)</span>
+</span><span data-line="93">
+</span><span data-line="94"><span class="sd">    """</span>
+</span><span data-line="95">
+<div class="viewcode-block" id="Freespace.__init__">
+<a class="viewcode-back" href="../../../api/media/generated/skrf.media.freespace.Freespace.__init__.html#skrf.media.freespace.Freespace.__init__">[docs]</a>
+</span><span data-line="96">    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">frequency</span><span class="p">:</span> <span class="n">Frequency</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+</span><span data-line="97">                 <span class="n">z0_port</span><span class="p">:</span> <span class="n">NumberLike</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+</span><span data-line="98">                 <span class="n">z0_override</span><span class="p">:</span> <span class="n">NumberLike</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+</span><span data-line="99">                 <span class="n">z0</span><span class="p">:</span> <span class="n">NumberLike</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+</span><span data-line="100">                 <span class="n">ep_r</span><span class="p">:</span> <span class="n">NumberLike</span> <span class="o">=</span> <span class="mi">1</span><span class="o">+</span><span class="mi">0</span><span class="n">j</span><span class="p">,</span> <span class="n">mu_r</span><span class="p">:</span> <span class="n">NumberLike</span> <span class="o">=</span> <span class="mi">1</span><span class="o">+</span><span class="mi">0</span><span class="n">j</span><span class="p">,</span>
+</span><span data-line="101">                 <span class="n">ep_loss_tan</span><span class="p">:</span> <span class="n">NumberLike</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+</span><span data-line="102">                 <span class="n">mu_loss_tan</span><span class="p">:</span> <span class="n">NumberLike</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+</span><span data-line="103">                 <span class="n">rho</span><span class="p">:</span> <span class="n">NumberLike</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+</span><span data-line="104">                 <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+</span><span data-line="105">        <span class="n">Media</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">frequency</span> <span class="o">=</span> <span class="n">frequency</span><span class="p">,</span>
+</span><span data-line="106">                       <span class="n">z0_port</span> <span class="o">=</span> <span class="n">z0_port</span><span class="p">,</span> <span class="n">z0_override</span> <span class="o">=</span> <span class="n">z0_override</span><span class="p">,</span> <span class="n">z0</span> <span class="o">=</span> <span class="n">z0</span><span class="p">)</span>
+</span><span data-line="107">        <span class="bp">self</span><span class="o">.</span><span class="n">ep_r</span> <span class="o">=</span> <span class="n">ep_r</span>
+</span><span data-line="108">        <span class="bp">self</span><span class="o">.</span><span class="n">mu_r</span> <span class="o">=</span> <span class="n">mu_r</span>
+</span><span data-line="109">        <span class="bp">self</span><span class="o">.</span><span class="n">rho</span> <span class="o">=</span> <span class="n">rho</span>
+</span><span data-line="110">
+</span><span data-line="111">        <span class="bp">self</span><span class="o">.</span><span class="n">ep_loss_tan</span> <span class="o">=</span> <span class="n">ep_loss_tan</span>
+</span><span data-line="112">        <span class="bp">self</span><span class="o">.</span><span class="n">mu_loss_tan</span> <span class="o">=</span> <span class="n">mu_loss_tan</span></div>
+
+</span><span data-line="113">
+</span><span data-line="114">    <span class="k">def</span><span class="w"> </span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+</span><span data-line="115">        <span class="n">f</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">frequency</span>
+</span><span data-line="116">        <span class="n">output</span> <span class="o">=</span> <span class="s1">'Freespace  Media.  </span><span class="si">%i</span><span class="s1">-</span><span class="si">%i</span><span class="s1"> </span><span class="si">%s</span><span class="s1">.  </span><span class="si">%i</span><span class="s1"> points'</span><span class="o">%</span>\
+</span><span data-line="117">                <span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">f_scaled</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">f</span><span class="o">.</span><span class="n">f_scaled</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">f</span><span class="o">.</span><span class="n">unit</span><span class="p">,</span> <span class="n">f</span><span class="o">.</span><span class="n">npoints</span><span class="p">)</span>
+</span><span data-line="118">        <span class="k">return</span> <span class="n">output</span>
+</span><span data-line="119">
+</span><span data-line="120">    <span class="k">def</span><span class="w"> </span><span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+</span><span data-line="121">        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="fm">__str__</span><span class="p">()</span>
+</span><span data-line="122">
+</span><span data-line="123">    <span class="nd">@property</span>
+</span><span data-line="124">    <span class="k">def</span><span class="w"> </span><span class="nf">ep</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NumberLike</span><span class="p">:</span>
+</span><span data-line="125"><span class="w">        </span><span class="sa">r</span><span class="sd">"""</span>
+</span><span data-line="126"><span class="sd">        Complex dielectric permittivity.</span>
+</span><span data-line="127">
+</span><span data-line="128"><span class="sd">        If :math:`\tan\delta_e` is not defined:</span>
+</span><span data-line="129">
+</span><span data-line="130"><span class="sd">        .. math::</span>
+</span><span data-line="131">
+</span><span data-line="132"><span class="sd">            \varepsilon = \varepsilon_0 \varepsilon_r</span>
+</span><span data-line="133">
+</span><span data-line="134"><span class="sd">        otherwise,</span>
+</span><span data-line="135">
+</span><span data-line="136"><span class="sd">        .. math::</span>
+</span><span data-line="137">
+</span><span data-line="138"><span class="sd">            \varepsilon = \varepsilon_0 \Re[\varepsilon_r] (1 - j\tan\delta_e)</span>
+</span><span data-line="139">
+</span><span data-line="140"><span class="sd">        where :math:`\tan\delta_e` is the electric loss tangent.</span>
+</span><span data-line="141">
+</span><span data-line="142"><span class="sd">        Returns</span>
+</span><span data-line="143"><span class="sd">        -------</span>
+</span><span data-line="144"><span class="sd">        ep : number or array-like</span>
+</span><span data-line="145"><span class="sd">            Complex dielectric permittivity in F/m.</span>
+</span><span data-line="146">
+</span><span data-line="147"><span class="sd">        """</span>
+</span><span data-line="148">
+</span><span data-line="149">        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">ep_loss_tan</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+</span><span data-line="150">            <span class="n">ep_r</span> <span class="o">=</span> <span class="n">real</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ep_r</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="mi">1</span><span class="n">j</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">ep_loss_tan</span><span class="p">)</span>
+</span><span data-line="151">        <span class="k">else</span><span class="p">:</span>
+</span><span data-line="152">            <span class="n">ep_r</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ep_r</span>
+</span><span data-line="153">        <span class="k">return</span> <span class="n">ep_r</span><span class="o">*</span><span class="n">_const</span><span class="o">.</span><span class="n">epsilon_0</span>
+</span><span data-line="154">
+</span><span data-line="155">    <span class="nd">@property</span>
+</span><span data-line="156">    <span class="k">def</span><span class="w"> </span><span class="nf">mu</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NumberLike</span><span class="p">:</span>
+</span><span data-line="157"><span class="w">        </span><span class="sa">r</span><span class="sd">"""</span>
+</span><span data-line="158"><span class="sd">        Complex dielectric permeability.</span>
+</span><span data-line="159">
+</span><span data-line="160"><span class="sd">        If :math:`\tan\delta_m` is not defined:</span>
+</span><span data-line="161">
+</span><span data-line="162"><span class="sd">        .. math::</span>
+</span><span data-line="163">
+</span><span data-line="164"><span class="sd">            \mu = \mu_0 \mu_r</span>
+</span><span data-line="165">
+</span><span data-line="166"><span class="sd">        otherwise,</span>
+</span><span data-line="167">
+</span><span data-line="168"><span class="sd">        .. math::</span>
+</span><span data-line="169">
+</span><span data-line="170"><span class="sd">            \mu = \mu_0 \Re[\mu_r] (1 - j\tan\delta_m)</span>
+</span><span data-line="171">
+</span><span data-line="172"><span class="sd">        where :math:`\tan\delta_m` is the magnetic loss tangent.</span>
+</span><span data-line="173">
+</span><span data-line="174"><span class="sd">        Returns</span>
+</span><span data-line="175"><span class="sd">        -------</span>
+</span><span data-line="176"><span class="sd">        mu : number</span>
+</span><span data-line="177"><span class="sd">            Complex permeability in H/m.</span>
+</span><span data-line="178"><span class="sd">        """</span>
+</span><span data-line="179">        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">mu_loss_tan</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+</span><span data-line="180">            <span class="n">mu_r</span> <span class="o">=</span> <span class="n">real</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mu_r</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span><span class="mi">1</span><span class="n">j</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">mu_loss_tan</span><span class="p">)</span>
+</span><span data-line="181">        <span class="k">else</span><span class="p">:</span>
+</span><span data-line="182">            <span class="n">mu_r</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mu_r</span>
+</span><span data-line="183">        <span class="k">return</span> <span class="n">mu_r</span><span class="o">*</span><span class="n">_const</span><span class="o">.</span><span class="n">mu_0</span>
+</span><span data-line="184">
+</span><span data-line="185">
+<div class="viewcode-block" id="Freespace.from_distributed_circuit">
+<a class="viewcode-back" href="../../../api/media/generated/skrf.media.freespace.Freespace.from_distributed_circuit.html#skrf.media.freespace.Freespace.from_distributed_circuit">[docs]</a>
+</span><span data-line="186">    <span class="nd">@classmethod</span>
+</span><span data-line="187">    <span class="k">def</span><span class="w"> </span><span class="nf">from_distributed_circuit</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">dc</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Media</span><span class="p">:</span>
+</span><span data-line="188"><span class="w">        </span><span class="sa">r</span><span class="sd">"""</span>
+</span><span data-line="189"><span class="sd">        Initialize a freespace from :class:`~skrf.media.distributedCircuit.DistributedCircuit`.</span>
+</span><span data-line="190">
+</span><span data-line="191"><span class="sd">        Parameters</span>
+</span><span data-line="192"><span class="sd">        ----------</span>
+</span><span data-line="193"><span class="sd">        dc: :class:`~skrf.media.distributedCircuit.DistributedCircuit`</span>
+</span><span data-line="194"><span class="sd">            a DistributedCircuit object</span>
+</span><span data-line="195"><span class="sd">        \*args, \*\*kwargs :</span>
+</span><span data-line="196"><span class="sd">            passed to `Freespace.__init__</span>
+</span><span data-line="197">
+</span><span data-line="198"><span class="sd">        Notes</span>
+</span><span data-line="199"><span class="sd">        -----</span>
+</span><span data-line="200"><span class="sd">        Here are the details::</span>
+</span><span data-line="201">
+</span><span data-line="202"><span class="sd">            w = dc.frequency.w</span>
+</span><span data-line="203"><span class="sd">            z= dc.Z/(w*mu_0)</span>
+</span><span data-line="204"><span class="sd">            y= dc.Y/(w*epsilon_0)</span>
+</span><span data-line="205"><span class="sd">            ep_r = -1j*y</span>
+</span><span data-line="206"><span class="sd">            mu_r = -1j*z</span>
+</span><span data-line="207">
+</span><span data-line="208"><span class="sd">        See Also</span>
+</span><span data-line="209"><span class="sd">        --------</span>
+</span><span data-line="210"><span class="sd">        skrf.media.distributedCircuit.DistributedCircuit</span>
+</span><span data-line="211">
+</span><span data-line="212"><span class="sd">        """</span>
+</span><span data-line="213">        <span class="n">w</span> <span class="o">=</span> <span class="n">dc</span><span class="o">.</span><span class="n">frequency</span><span class="o">.</span><span class="n">w</span>
+</span><span data-line="214">        <span class="n">z</span><span class="o">=</span> <span class="n">dc</span><span class="o">.</span><span class="n">Z</span><span class="o">/</span><span class="p">(</span><span class="n">w</span><span class="o">*</span><span class="n">_const</span><span class="o">.</span><span class="n">mu_0</span><span class="p">)</span>
+</span><span data-line="215">        <span class="n">y</span><span class="o">=</span> <span class="n">dc</span><span class="o">.</span><span class="n">Y</span><span class="o">/</span><span class="p">(</span><span class="n">w</span><span class="o">*</span><span class="n">_const</span><span class="o">.</span><span class="n">epsilon_0</span><span class="p">)</span>
+</span><span data-line="216">
+</span><span data-line="217">
+</span><span data-line="218">        <span class="n">kw</span><span class="o">=</span><span class="p">{}</span>
+</span><span data-line="219">        <span class="n">kw</span><span class="p">[</span><span class="s1">'ep_r'</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="n">j</span><span class="o">*</span><span class="n">y</span>
+</span><span data-line="220">        <span class="n">kw</span><span class="p">[</span><span class="s1">'mu_r'</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="n">j</span><span class="o">*</span><span class="n">z</span>
+</span><span data-line="221">
+</span><span data-line="222">        <span class="n">kwargs</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">kw</span><span class="p">)</span>
+</span><span data-line="223">        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">frequency</span><span class="o">=</span><span class="n">dc</span><span class="o">.</span><span class="n">frequency</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+</span><span data-line="224">
+</span><span data-line="225">    <span class="nd">@property</span>
+</span><span data-line="226">    <span class="k">def</span><span class="w"> </span><span class="nf">rho</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NumberLike</span><span class="p">:</span>
+</span><span data-line="227"><span class="w">        </span><span class="sd">"""</span>
+</span><span data-line="228"><span class="sd">        Conductivity in ohm*m.</span>
+</span><span data-line="229">
+</span><span data-line="230"><span class="sd">        Parameters</span>
+</span><span data-line="231"><span class="sd">        ----------</span>
+</span><span data-line="232"><span class="sd">        val : float, array-like or str</span>
+</span><span data-line="233"><span class="sd">            the resistivity in ohm*m. If array-like must be same length</span>
+</span><span data-line="234"><span class="sd">            as self.frequency. if str, it must be a key in</span>
+</span><span data-line="235"><span class="sd">            :data:`~skrf.data.materials`.</span>
+</span><span data-line="236">
+</span><span data-line="237"><span class="sd">        Examples</span>
+</span><span data-line="238"><span class="sd">        --------</span>
+</span><span data-line="239"><span class="sd">        &gt;&gt;&gt; wg.rho = 2.8e-8</span>
+</span><span data-line="240"><span class="sd">        &gt;&gt;&gt; wg.rho = 2.8e-8 * ones(len(wg.frequency))</span>
+</span><span data-line="241"><span class="sd">        &gt;&gt;&gt; wg.rho = 'al'</span>
+</span><span data-line="242"><span class="sd">        &gt;&gt;&gt; wg.rho = 'aluminum'</span>
+</span><span data-line="243"><span class="sd">        """</span>
+</span><span data-line="244">        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_rho</span>
+</span><span data-line="245">
+</span><span data-line="246">    <span class="nd">@rho</span><span class="o">.</span><span class="n">setter</span>
+</span><span data-line="247">    <span class="k">def</span><span class="w"> </span><span class="nf">rho</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">val</span><span class="p">):</span>
+</span><span data-line="248">        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+</span><span data-line="249">            <span class="bp">self</span><span class="o">.</span><span class="n">_rho</span> <span class="o">=</span> <span class="n">materials</span><span class="p">[</span><span class="n">val</span><span class="o">.</span><span class="n">lower</span><span class="p">()][</span><span class="s1">'resistivity(ohm*m)'</span><span class="p">]</span>
+</span><span data-line="250">        <span class="k">else</span><span class="p">:</span>
+</span><span data-line="251">            <span class="bp">self</span><span class="o">.</span><span class="n">_rho</span><span class="o">=</span><span class="n">val</span>
+</span><span data-line="252">
+</span><span data-line="253">    <span class="nd">@property</span>
+</span><span data-line="254">    <span class="k">def</span><span class="w"> </span><span class="nf">ep_with_rho</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NumberLike</span><span class="p">:</span>
+</span><span data-line="255"><span class="w">        </span><span class="sa">r</span><span class="sd">"""</span>
+</span><span data-line="256"><span class="sd">        Complex permittivity with resistivity absorbed into its imaginary component.</span>
+</span><span data-line="257">
+</span><span data-line="258"><span class="sd">        .. math::</span>
+</span><span data-line="259">
+</span><span data-line="260"><span class="sd">            \varepsilon - j \frac{1}{\rho\omega}</span>
+</span><span data-line="261">
+</span><span data-line="262"><span class="sd">        See Also</span>
+</span><span data-line="263"><span class="sd">        --------</span>
+</span><span data-line="264"><span class="sd">        rho</span>
+</span><span data-line="265"><span class="sd">        ep</span>
+</span><span data-line="266"><span class="sd">        """</span>
+</span><span data-line="267">        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">rho</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+</span><span data-line="268">            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">ep</span> <span class="o">-</span><span class="mi">1</span><span class="n">j</span><span class="o">/</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rho</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">frequency</span><span class="o">.</span><span class="n">w</span><span class="p">)</span>
+</span><span data-line="269">        <span class="k">else</span><span class="p">:</span>
+</span><span data-line="270">            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">ep</span>
+</span><span data-line="271">
+</span><span data-line="272">    <span class="nd">@property</span>
+</span><span data-line="273">    <span class="k">def</span><span class="w"> </span><span class="nf">gamma</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NumberLike</span><span class="p">:</span>
+</span><span data-line="274"><span class="w">        </span><span class="sa">r</span><span class="sd">"""</span>
+</span><span data-line="275"><span class="sd">        Propagation Constant, :math:`\gamma`.</span>
+</span><span data-line="276">
+</span><span data-line="277"><span class="sd">        Defined as,</span>
+</span><span data-line="278">
+</span><span data-line="279"><span class="sd">        .. math::</span>
+</span><span data-line="280">
+</span><span data-line="281"><span class="sd">                \gamma =  \sqrt{ Z^{'}  Y^{'}}</span>
+</span><span data-line="282">
+</span><span data-line="283"><span class="sd">        Returns</span>
+</span><span data-line="284"><span class="sd">        -------</span>
+</span><span data-line="285"><span class="sd">        gamma : np.ndarray</span>
+</span><span data-line="286"><span class="sd">            Propagation Constant,</span>
+</span><span data-line="287">
+</span><span data-line="288"><span class="sd">        Note</span>
+</span><span data-line="289"><span class="sd">        ----</span>
+</span><span data-line="290"><span class="sd">        The components of propagation constant are interpreted as follows:</span>
+</span><span data-line="291">
+</span><span data-line="292"><span class="sd">        * positive real(gamma) = attenuation</span>
+</span><span data-line="293"><span class="sd">        * positive imag(gamma) = forward propagation</span>
+</span><span data-line="294"><span class="sd">        """</span>
+</span><span data-line="295">        <span class="n">ep</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ep_with_rho</span>
+</span><span data-line="296">        <span class="k">return</span> <span class="mi">1</span><span class="n">j</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">frequency</span><span class="o">.</span><span class="n">w</span> <span class="o">*</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">ep</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">mu</span><span class="p">)</span>
+</span><span data-line="297">
+</span><span data-line="298">    <span class="nd">@property</span>
+</span><span data-line="299">    <span class="k">def</span><span class="w"> </span><span class="nf">z0_characteristic</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NumberLike</span><span class="p">:</span>
+</span><span data-line="300"><span class="w">        </span><span class="sa">r</span><span class="sd">"""</span>
+</span><span data-line="301"><span class="sd">        Characteristic Impedance, :math:`z_0`.</span>
+</span><span data-line="302">
+</span><span data-line="303"><span class="sd">        .. math::</span>
+</span><span data-line="304">
+</span><span data-line="305"><span class="sd">                Z_0 = \sqrt{ \frac{Z^{'}}{Y^{'}}}</span>
+</span><span data-line="306">
+</span><span data-line="307"><span class="sd">        Returns</span>
+</span><span data-line="308"><span class="sd">        -------</span>
+</span><span data-line="309"><span class="sd">        z0_characteristic : np.ndarray</span>
+</span><span data-line="310"><span class="sd">            Characteristic Impedance in units of ohms</span>
+</span><span data-line="311"><span class="sd">        """</span>
+</span><span data-line="312">        <span class="n">ep</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ep_with_rho</span>
+</span><span data-line="313">        <span class="k">return</span> <span class="n">sqrt</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mu</span><span class="o">/</span><span class="n">ep</span><span class="p">)</span><span class="o">*</span><span class="n">ones</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span>
+</span><span data-line="314">
+<div class="viewcode-block" id="Freespace.plot_ep">
+<a class="viewcode-back" href="../../../api/media/generated/skrf.media.freespace.Freespace.plot_ep.html#skrf.media.freespace.Freespace.plot_ep">[docs]</a>
+</span><span data-line="315">    <span class="k">def</span><span class="w"> </span><span class="nf">plot_ep</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span data-line="316"><span class="w">        </span><span class="sd">"""</span>
+</span><span data-line="317"><span class="sd">        Plot the real and imaginary part of the complex permittivity.</span>
+</span><span data-line="318"><span class="sd">        """</span>
+</span><span data-line="319">        <span class="bp">self</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ep_r</span><span class="o">.</span><span class="n">real</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">'ep_r real'</span><span class="p">)</span>
+</span><span data-line="320">        <span class="bp">self</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ep_r</span><span class="o">.</span><span class="n">imag</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">'ep_r imag'</span><span class="p">)</span></div>
+
+</span><span data-line="321">
+<div class="viewcode-block" id="Freespace.plot_mu">
+<a class="viewcode-back" href="../../../api/media/generated/skrf.media.freespace.Freespace.plot_mu.html#skrf.media.freespace.Freespace.plot_mu">[docs]</a>
+</span><span data-line="322">    <span class="k">def</span><span class="w"> </span><span class="nf">plot_mu</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span data-line="323"><span class="w">        </span><span class="sd">"""</span>
+</span><span data-line="324"><span class="sd">        Plot the real and imaginary part of the complex permeability.</span>
+</span><span data-line="325"><span class="sd">        """</span>
+</span><span data-line="326">        <span class="bp">self</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mu_r</span><span class="o">.</span><span class="n">real</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">'mu_r real'</span><span class="p">)</span>
+</span><span data-line="327">        <span class="bp">self</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mu_r</span><span class="o">.</span><span class="n">imag</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">'mu_r imag'</span><span class="p">)</span></div>
+
+</span><span data-line="328">
+<div class="viewcode-block" id="Freespace.plot_ep_mu">
+<a class="viewcode-back" href="../../../api/media/generated/skrf.media.freespace.Freespace.plot_ep_mu.html#skrf.media.freespace.Freespace.plot_ep_mu">[docs]</a>
+</span><span data-line="329">    <span class="k">def</span><span class="w"> </span><span class="nf">plot_ep_mu</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span data-line="330"><span class="w">        </span><span class="sd">"""</span>
+</span><span data-line="331"><span class="sd">        Plot the real and imaginary part of the complex permittivity with resistivity.</span>
+</span><span data-line="332"><span class="sd">        """</span>
+</span><span data-line="333">        <span class="bp">self</span><span class="o">.</span><span class="n">plot_ep</span><span class="p">()</span>
+</span><span data-line="334">        <span class="bp">self</span><span class="o">.</span><span class="n">plot_mu</span><span class="p">()</span></div>
+</div>
+
+</span></pre></div>
+        </article><button class="back-to-top" type="button">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+  </svg>
+  <span>Back to top</span>
+</button><div class="navigation flex print:hidden"></div></div>
+    </div>
+  </main>
+</div>
+<footer class="sy-foot">
+  <div class="sy-foot-inner sy-container mx-auto">
+    <div class="sy-foot-reserved md:flex justify-between items-center">
+      <div class="sy-foot-copyright"><p>2025, scikit-rf team</p>
+  
+  <p>
+    Made with
+    
+    <a href="https://www.sphinx-doc.org/">Sphinx</a> and
+    
+    <a href="https://shibuya.lepture.com">Shibuya theme</a>.
+  </p>
+</div>
+      <div class="sy-foot-socials">
+  <a href="https://github.com/scikit-rf/scikit-rf" aria-label="GitHub">
+    <iconify-icon icon="simple-icons:github"></iconify-icon>
+  </a></div>
+    </div>
+  </div>
+</footer>
+      <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../../_static/copybutton.js?v=34bd459d"></script>
+      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+      <script src="../../../_static/shibuya.js?v=50760d75"></script>
+      <script src="https://cdn.jsdelivr.net/npm/@jupyter-widgets/html-manager@^1.0.1/dist/embed-amd.js"></script>
+      <script src="../../../_static/skrf.js?v=bdeb9fb0"></script></body>
+</html>

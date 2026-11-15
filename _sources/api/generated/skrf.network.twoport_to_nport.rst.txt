@@ -1,0 +1,6 @@
+﻿skrf.network.twoport\_to\_nport
+===============================
+
+.. currentmodule:: skrf.network
+
+.. autofunction:: twoport_to_nport

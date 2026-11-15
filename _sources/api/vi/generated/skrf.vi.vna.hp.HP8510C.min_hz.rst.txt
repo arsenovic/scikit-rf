@@ -1,0 +1,6 @@
+skrf.vi.vna.hp.HP8510C.min\_hz
+==============================
+
+.. currentmodule:: skrf.vi.vna.hp
+
+.. autoattribute:: HP8510C.min_hz

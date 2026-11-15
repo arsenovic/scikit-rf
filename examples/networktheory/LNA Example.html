@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en" data-accent-color="blue" data-content_root="../../">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>LNA Example - scikit-rf</title><link rel="author" title="About these documents" href="../../about.html" /><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="Properties of Rectangular Waveguide" href="Properties%20of%20Rectangular%20Waveguides.html" /><link rel="prev" title="IEEEP370 Deembedding" href="IEEEP370%20Deembedding.html" /><script>
+    function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
+    setColorMode(localStorage._theme||"auto");
+  </script><link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=ad592e98" />
+    <link rel="stylesheet" type="text/css" href="../../_static/shibuya.css?v=2ceb65ce" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-codeautolink.css?v=b2176991" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link media="print" rel="stylesheet" type="text/css" href="../../_static/print.css?v=20ff2c19" />
+    <link rel="stylesheet" type="text/css" href="../../_static/nbsphinx-code-cells.css?v=2aa19091" />
+    <link rel="stylesheet" type="text/css" href="../../_static/skrf.css?v=7e772ba2" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --sy-f-text: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+  --sy-f-heading: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+}
+</style>
+    
+  <meta property="og:type" content="website"/><meta property="og:title" content="LNA Example"/>
+    <meta name="twitter:card" content="summary"/>
+  </head>
+<body><div class="sy-head">
+  <div class="sy-head-blur"></div>
+  <div class="sy-head-inner sy-container mx-auto">
+    <a class="sy-head-brand" href="../../index.html">
+      <img class="light-logo" src="../../_static/logo.svg" alt="scikit-rf" height="28" loading="lazy" />
+      <img class="dark-logo" src="../../_static/logo.svg" alt="scikit-rf" height="28" loading="lazy" />
+      <strong>scikit-rf</strong>
+    </a>
+    <div class="sy-head-nav" id="head-nav">
+      <nav class="sy-head-links"><ul><li class="link"><a href="../../index.html">Home</a></li><li class="link"><a href="../../tutorials/index.html">Tutorials</a></li><li class="link"><a href="../index.html">Examples</a></li><li class="link"><a href="../../api/index.html">API</a></li><li class="link">
+          <a href="https://github.com/scikit-rf/scikit-rf">
+            <span>GitHub</span><i class="i-lucide external-link"></i></a>
+        </li></ul></nav>
+      <div class="sy-head-extra flex items-center print:hidden"><form class="searchbox flex items-center" action="../../search.html" method="get">
+  <input type="text" name="q" placeholder="Search" />
+  <kbd>/</kbd>
+</form><div class="sy-head-socials">
+  <a href="https://github.com/scikit-rf/scikit-rf" aria-label="GitHub">
+    <iconify-icon icon="simple-icons:github"></iconify-icon>
+  </a>
+  <a href="https://www.linkedin.com/groups/12462155/" aria-label="LinkedIn">
+    <iconify-icon icon="simple-icons:linkedin"></iconify-icon>
+  </a>
+  <a href="https://app.element.io/#/room/#scikit-rf:matrix.org" aria-label="Matrix">
+    <iconify-icon icon="simple-icons:matrix"></iconify-icon>
+  </a></div></div>
+    </div>
+    <div class="sy-head-actions flex items-center shrink-0 print:hidden"><button class="js-theme theme-switch flex items-center"
+data-aria-auto="Switch to light color mode"
+data-aria-light="Switch to dark color mode"
+data-aria-dark="Switch to auto color mode">
+<i class="i-lucide theme-icon"></i>
+</button><button class="md:hidden flex items-center js-menu" aria-label="Menu" type="button" aria-controls="head-nav" aria-expanded="false">
+        <div class="hamburger">
+          <span class="hamburger_1"></span>
+          <span class="hamburger_2"></span>
+          <span class="hamburger_3"></span>
+        </div>
+      </button>
+    </div>
+  </div>
+</div>
+<div class="sy-page sy-container flex mx-auto">
+  <aside id="lside" class="sy-lside md:w-72 md:shrink-0 print:hidden">
+    <div class="sy-lside-inner md:sticky">
+      <div class="sy-scrollbar p-6">
+        <div class="globaltoc" data-expand-depth="0"><p class="caption" role="heading" aria-level="3"><span class="caption-text">Getting started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../index.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/Installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/Introduction.html">Introduction</a></li>
+</ul>
+<p class="caption" role="heading" aria-level="3"><span class="caption-text">User guide</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Examples</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Network Theory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../matching/index.html">Matching</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../metrology/index.html">Metrology and Calibration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../networksets/index.html">NetworkSets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../plotting/index.html">Plotting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../circuit/index.html">Circuit</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mixedmodeanalysis/index.html">Mixed Mode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../vectorfitting/index.html">Vector Fitting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../vectorfitting_parametric/index.html">Parametric Vector Fitting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../qfactor/index.html">Q-factor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../taper/index.html">Taper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../instrumentcontrol/index.html">Instrument Control</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../interactive/index.html">Interactive</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading" aria-level="3"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../api/index.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../glossary.html">Glossary</a></li>
+</ul>
+<p class="caption" role="heading" aria-level="3"><span class="caption-text">Project</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing/index.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../citations_ack/acknowledging.html">Citing scikit-rf</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../citations_ack/citations.html">scikit-rf Citations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../about.html">About</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../users.html">Users</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../license.html">License</a></li>
+</ul>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="lside-overlay js-menu" role="button" aria-label="Close left sidebar" aria-controls="lside" aria-expanded="false"></div>
+  <aside id="rside" class="sy-rside pb-3 w-64 shrink-0 order-last">
+    <button class="rside-close js-menu xl:hidden" aria-label="Close Table of Contents" type="button" aria-controls="rside" aria-expanded="false">
+      <i class="i-lucide close"></i>
+    </button>
+    <div class="sy-scrollbar sy-rside-inner px-6 xl:top-16 xl:sticky xl:pl-0 pt-6 pb-4"><div id="ethical-ad-placement" data-ea-publisher="readthedocs"></div></div>
+  </aside>
+  <div class="rside-overlay js-menu" role="button" aria-label="Close Table of Contents" aria-controls="rside" aria-expanded="false"></div>
+  <main class="sy-main w-full max-sm:max-w-full print:pt-6">
+<div class="sy-breadcrumbs" role="navigation">
+  <div class="sy-breadcrumbs-inner flex items-center">
+    <div class="md:hidden mr-3">
+      <button class="js-menu" aria-label="Menu" type="button" aria-controls="lside" aria-expanded="false">
+        <i class="i-lucide menu"></i>
+      </button>
+    </div>
+    <ol class="flex-1" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="../../index.html"><span itemprop="name">scikit-rf</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="1" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="../index.html"><span itemprop="name">Examples</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="2" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="index.html"><span itemprop="name">Network Theory</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="3" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <strong itemprop="name">LNA Example</strong>
+        <meta itemprop="position" content="4" />
+      </li></ol>
+    <a class="sk-download" href="LNA%20Example.ipynb" download>Download</a>
+    <div class="xl:hidden ml-1">
+      <button class="js-menu" aria-label="Show table of contents" type="button" aria-controls="rside"
+        aria-expanded="false">
+        <i class="i-lucide outdent"></i>
+      </button>
+    </div>
+  </div>
+</div><div class="flex flex-col break-words justify-between">
+      <div class="relative min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
+  <article class="yue" role="main">
+          <section id="LNA-Example">
+<h1>LNA Example<a class="headerlink" href="#LNA-Example" title="Link to this heading">#</a></h1>
+<p>Let’s design a LNA using Infineon’s BFU520 transistor. First we need to import scikit-rf and a bunch of other utilities:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[1]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+</span><span data-line="2"><span class="kn">import</span><span class="w"> </span><a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/index.html#module-numpy"><span class="nn">numpy</span></a><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+</span><span data-line="3">
+</span><span data-line="4"><span class="kn">import</span><span class="w"> </span><span class="nn">skrf</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">rf</span>
+</span><span data-line="5"><span class="kn">from</span><span class="w"> </span><a class="sphinx-codeautolink-a" href="../../api/media/index.html#module-0"><span class="nn">skrf.media</span></a><span class="w"> </span><span class="kn">import</span> <a class="sphinx-codeautolink-a" href="../../api/media/generated/skrf.media.distributedCircuit.DistributedCircuit.html#skrf.media.distributedCircuit.DistributedCircuit" title="skrf.media.distributedCircuit.DistributedCircuit"><span class="n">DistributedCircuit</span></a>
+</span><span data-line="6"><span class="kn">from</span><span class="w"> </span><a class="sphinx-codeautolink-a" href="../../api/network.html#module-0"><span class="nn">skrf.network</span></a><span class="w"> </span><span class="kn">import</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.s2z.html#skrf.network.s2z" title="skrf.network.s2z"><span class="n">s2z</span></a>
+</span><span data-line="7">
+</span><span data-line="8"><span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">'figure.figsize'</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">]</span>
+</span><span data-line="9">
+</span><span data-line="10"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.frequency.Frequency.html#skrf.frequency.Frequency" title="skrf.frequency.Frequency"><span class="n">f</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.frequency.Frequency.html#skrf.frequency.Frequency" title="skrf.frequency.Frequency"><span class="n">rf</span><span class="o">.</span><span class="n">Frequency</span></a><span class="p">(</span><span class="mf">0.4</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">101</span><span class="p">,</span> <span class="s1">'GHz'</span><span class="p">)</span>
+</span><span data-line="11"><a class="sphinx-codeautolink-a" href="../../api/media/generated/skrf.media.distributedCircuit.DistributedCircuit.html#skrf.media.distributedCircuit.DistributedCircuit" title="skrf.media.distributedCircuit.DistributedCircuit"><span class="n">tem</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/media/generated/skrf.media.distributedCircuit.DistributedCircuit.html#skrf.media.distributedCircuit.DistributedCircuit" title="skrf.media.distributedCircuit.DistributedCircuit"><span class="n">DistributedCircuit</span></a><span class="p">(</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.frequency.Frequency.html#skrf.frequency.Frequency" title="skrf.frequency.Frequency"><span class="n">f</span></a><span class="p">,</span> <span class="n">z0</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[2]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="c1"># import the scattering parameters/noise data for the transistor</span>
+</span><span data-line="2"><span class="n">bjt</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">rf</span><span class="o">.</span><span class="n">Network</span></a><span class="p">(</span><span class="s1">'BFU520_05V0_010mA_NF_SP.s2p'</span><span class="p">)</span><span class="o">.</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.interpolate.html#skrf.network.Network.interpolate" title="skrf.network.Network.interpolate"><span class="n">interpolate</span></a><span class="p">(</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.frequency.Frequency.html#skrf.frequency.Frequency" title="skrf.frequency.Frequency"><span class="n">f</span></a><span class="p">)</span>
+</span><span data-line="3"><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/builtins/functions.html#print"><span class="nb">print</span></a><span class="p">(</span><span class="n">bjt</span><span class="p">)</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+2-Port Network: 'BFU520_05V0_010mA_NF_SP',  0.4-2.0 GHz, 101 pts, z0=[50.+0.j 50.+0.j]
+</pre></div></div>
+</div>
+<p>Let’s plot the smith chart for it:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[3]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">bjt</span><span class="o">.</span><span class="n">plot_s_smith</span><span class="p">(</span><span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/examples_networktheory_LNA_Example_4_0.png" src="../../_images/examples_networktheory_LNA_Example_4_0.png"/>
+</div>
+</div>
+<p>Now let’s calculate the source and load stability curves. I’m slightly misusing the <code class="docutils literal notranslate"><span class="pre">Network</span></code> type to plot the curves; normally the curves you pass in to <code class="docutils literal notranslate"><span class="pre">Network</span></code> should be a function of frequency, but it also works to draw these circles as long as you don’t try to use any other functions on them</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[4]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">sqabs</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/generated/numpy.square.html#numpy.square" title="numpy.square"><span class="n">np</span><span class="o">.</span><span class="n">square</span></a><span class="p">(</span><a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/generated/numpy.absolute.html#numpy.absolute" title="numpy.absolute"><span class="n">np</span><span class="o">.</span><span class="n">absolute</span></a><span class="p">(</span><span class="n">x</span><span class="p">))</span>  <span class="c1"># noqa: E731</span>
+</span><span data-line="2">
+</span><span data-line="3"><span class="n">delta</span> <span class="o">=</span> <span class="n">bjt</span><span class="o">.</span><span class="n">s11</span><span class="o">.</span><span class="n">s</span><span class="o">*</span><span class="n">bjt</span><span class="o">.</span><span class="n">s22</span><span class="o">.</span><span class="n">s</span> <span class="o">-</span> <span class="n">bjt</span><span class="o">.</span><span class="n">s12</span><span class="o">.</span><span class="n">s</span><span class="o">*</span><span class="n">bjt</span><span class="o">.</span><span class="n">s21</span><span class="o">.</span><span class="n">s</span>
+</span><span data-line="4"><span class="n">rl</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/generated/numpy.absolute.html#numpy.absolute" title="numpy.absolute"><span class="n">np</span><span class="o">.</span><span class="n">absolute</span></a><span class="p">((</span><span class="n">bjt</span><span class="o">.</span><span class="n">s12</span><span class="o">.</span><span class="n">s</span> <span class="o">*</span> <span class="n">bjt</span><span class="o">.</span><span class="n">s21</span><span class="o">.</span><span class="n">s</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">sqabs</span><span class="p">(</span><span class="n">bjt</span><span class="o">.</span><span class="n">s22</span><span class="o">.</span><span class="n">s</span><span class="p">)</span> <span class="o">-</span> <span class="n">sqabs</span><span class="p">(</span><span class="n">delta</span><span class="p">)))</span>
+</span><span data-line="5"><span class="n">cl</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/generated/numpy.conj.html#numpy.conj" title="numpy.conj"><span class="n">np</span><span class="o">.</span><span class="n">conj</span></a><span class="p">(</span><span class="n">bjt</span><span class="o">.</span><span class="n">s22</span><span class="o">.</span><span class="n">s</span> <span class="o">-</span> <span class="n">delta</span><span class="o">*</span><a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/generated/numpy.conj.html#numpy.conj" title="numpy.conj"><span class="n">np</span><span class="o">.</span><span class="n">conj</span></a><span class="p">(</span><span class="n">bjt</span><span class="o">.</span><span class="n">s11</span><span class="o">.</span><span class="n">s</span><span class="p">))</span><span class="o">/</span><span class="p">(</span><span class="n">sqabs</span><span class="p">(</span><span class="n">bjt</span><span class="o">.</span><span class="n">s22</span><span class="o">.</span><span class="n">s</span><span class="p">)</span> <span class="o">-</span> <span class="n">sqabs</span><span class="p">(</span><span class="n">delta</span><span class="p">))</span>
+</span><span data-line="6">
+</span><span data-line="7"><span class="n">rs</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/generated/numpy.absolute.html#numpy.absolute" title="numpy.absolute"><span class="n">np</span><span class="o">.</span><span class="n">absolute</span></a><span class="p">((</span><span class="n">bjt</span><span class="o">.</span><span class="n">s12</span><span class="o">.</span><span class="n">s</span> <span class="o">*</span> <span class="n">bjt</span><span class="o">.</span><span class="n">s21</span><span class="o">.</span><span class="n">s</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">sqabs</span><span class="p">(</span><span class="n">bjt</span><span class="o">.</span><span class="n">s11</span><span class="o">.</span><span class="n">s</span><span class="p">)</span> <span class="o">-</span> <span class="n">sqabs</span><span class="p">(</span><span class="n">delta</span><span class="p">)))</span>
+</span><span data-line="8"><span class="n">cs</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/generated/numpy.conj.html#numpy.conj" title="numpy.conj"><span class="n">np</span><span class="o">.</span><span class="n">conj</span></a><span class="p">(</span><span class="n">bjt</span><span class="o">.</span><span class="n">s11</span><span class="o">.</span><span class="n">s</span> <span class="o">-</span> <span class="n">delta</span><span class="o">*</span><a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/generated/numpy.conj.html#numpy.conj" title="numpy.conj"><span class="n">np</span><span class="o">.</span><span class="n">conj</span></a><span class="p">(</span><span class="n">bjt</span><span class="o">.</span><span class="n">s22</span><span class="o">.</span><span class="n">s</span><span class="p">))</span><span class="o">/</span><span class="p">(</span><span class="n">sqabs</span><span class="p">(</span><span class="n">bjt</span><span class="o">.</span><span class="n">s11</span><span class="o">.</span><span class="n">s</span><span class="p">)</span> <span class="o">-</span> <span class="n">sqabs</span><span class="p">(</span><span class="n">delta</span><span class="p">))</span>
+</span><span data-line="9">
+</span><span data-line="10"><span class="k">def</span><span class="w"> </span><span class="nf">calc_circle</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">r</span><span class="p">):</span>
+</span><span data-line="11">    <span class="n">theta</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/generated/numpy.linspace.html#numpy.linspace" title="numpy.linspace"><span class="n">np</span><span class="o">.</span><span class="n">linspace</span></a><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/constants.html#numpy.pi" title="numpy.pi"><span class="n">np</span><span class="o">.</span><span class="n">pi</span></a><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>
+</span><span data-line="12">    <span class="k">return</span> <span class="n">c</span> <span class="o">+</span> <span class="n">r</span><span class="o">*</span><a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/generated/numpy.exp.html#numpy.exp" title="numpy.exp"><span class="n">np</span><span class="o">.</span><span class="n">exp</span></a><span class="p">(</span><span class="mf">1.0</span><span class="n">j</span><span class="o">*</span><span class="n">theta</span><span class="p">)</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[5]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">f</span> <span class="ow">in</span> <a class="sphinx-codeautolink-a" href="https://docs.python.org/3/builtins/functions.html#enumerate"><span class="nb">enumerate</span></a><span class="p">(</span><span class="n">bjt</span><span class="o">.</span><span class="n">f</span><span class="p">):</span>
+</span><span data-line="2">    <span class="c1"># decimate it a little</span>
+</span><span data-line="3">    <span class="k">if</span> <span class="n">i</span> <span class="o">%</span> <span class="mi">100</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+</span><span data-line="4">        <span class="k">continue</span>
+</span><span data-line="5">    <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">n</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">rf</span><span class="o">.</span><span class="n">Network</span></a><span class="p">(</span><span class="n">name</span><span class="o">=</span><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/builtins/stdtypes.html#str"><span class="nb">str</span></a><span class="p">(</span><span class="n">f</span><span class="o">/</span><span class="mf">1.e+9</span><span class="p">),</span> <span class="n">s</span><span class="o">=</span><span class="n">calc_circle</span><span class="p">(</span><span class="n">cs</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">rs</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]))</span>
+</span><span data-line="6">    <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.plot_s_smith.html#skrf.network.Network.plot_s_smith" title="skrf.network.Network.plot_s_smith"><span class="n">n</span><span class="o">.</span><span class="n">plot_s_smith</span></a><span class="p">()</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/examples_networktheory_LNA_Example_7_0.png" src="../../_images/examples_networktheory_LNA_Example_7_0.png"/>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[6]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">f</span> <span class="ow">in</span> <a class="sphinx-codeautolink-a" href="https://docs.python.org/3/builtins/functions.html#enumerate"><span class="nb">enumerate</span></a><span class="p">(</span><span class="n">bjt</span><span class="o">.</span><span class="n">f</span><span class="p">):</span>
+</span><span data-line="2">    <span class="c1"># decimate it a little</span>
+</span><span data-line="3">    <span class="k">if</span> <span class="n">i</span> <span class="o">%</span> <span class="mi">100</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+</span><span data-line="4">        <span class="k">continue</span>
+</span><span data-line="5">    <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">n</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">rf</span><span class="o">.</span><span class="n">Network</span></a><span class="p">(</span><span class="n">name</span><span class="o">=</span><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/builtins/stdtypes.html#str"><span class="nb">str</span></a><span class="p">(</span><span class="n">f</span><span class="o">/</span><span class="mf">1.e+9</span><span class="p">),</span> <span class="n">s</span><span class="o">=</span><span class="n">calc_circle</span><span class="p">(</span><span class="n">cl</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">rl</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]))</span>
+</span><span data-line="6">    <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.plot_s_smith.html#skrf.network.Network.plot_s_smith" title="skrf.network.Network.plot_s_smith"><span class="n">n</span><span class="o">.</span><span class="n">plot_s_smith</span></a><span class="p">()</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/examples_networktheory_LNA_Example_8_0.png" src="../../_images/examples_networktheory_LNA_Example_8_0.png"/>
+</div>
+</div>
+<p>So we can see that we need to avoid inductive loads near short circuit in the input matching network and high impedance inductive loads on the output.</p>
+<p>Let’s draw some constant noise circles. First we grab the noise parameters for our target frequency from the network model:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[7]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/builtins/functions.html#int" title="int"><span class="n">idx_915mhz</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.util.find_nearest_index.html#skrf.util.find_nearest_index" title="skrf.util.find_nearest_index"><span class="n">rf</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">find_nearest_index</span></a><span class="p">(</span><span class="n">bjt</span><span class="o">.</span><span class="n">f</span><span class="p">,</span> <span class="mf">915.e+6</span><span class="p">)</span>
+</span><span data-line="2">
+</span><span data-line="3"><span class="c1"># we need the normalized equivalent noise and optimum source coefficient to calculate the constant noise circles</span>
+</span><span data-line="4"><span class="n">rn</span> <span class="o">=</span> <span class="n">bjt</span><span class="o">.</span><span class="n">rn</span><span class="p">[</span><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/builtins/functions.html#int" title="int"><span class="n">idx_915mhz</span></a><span class="p">]</span><span class="o">/</span><span class="mi">50</span>
+</span><span data-line="5"><span class="n">gamma_opt</span> <span class="o">=</span> <span class="n">bjt</span><span class="o">.</span><span class="n">g_opt</span><span class="p">[</span><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/builtins/functions.html#int" title="int"><span class="n">idx_915mhz</span></a><span class="p">]</span>
+</span><span data-line="6"><span class="n">fmin</span> <span class="o">=</span> <span class="n">bjt</span><span class="o">.</span><span class="n">nfmin</span><span class="p">[</span><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/builtins/functions.html#int" title="int"><span class="n">idx_915mhz</span></a><span class="p">]</span>
+</span><span data-line="7">
+</span><span data-line="8"><span class="k">for</span> <span class="n">nf_added</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">]:</span>
+</span><span data-line="9">    <span class="n">nf</span> <span class="o">=</span> <span class="mi">10</span><span class="o">**</span><span class="p">(</span><span class="n">nf_added</span><span class="o">/</span><span class="mi">10</span><span class="p">)</span> <span class="o">*</span> <span class="n">fmin</span>
+</span><span data-line="10">
+</span><span data-line="11">    <span class="n">N</span> <span class="o">=</span> <span class="p">(</span><span class="n">nf</span> <span class="o">-</span> <span class="n">fmin</span><span class="p">)</span><span class="o">*</span><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/builtins/functions.html#abs"><span class="nb">abs</span></a><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">gamma_opt</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="o">/</span><span class="p">(</span><span class="mi">4</span><span class="o">*</span><span class="n">rn</span><span class="p">)</span>
+</span><span data-line="12">    <span class="n">c_n</span> <span class="o">=</span> <span class="n">gamma_opt</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">N</span><span class="p">)</span>
+</span><span data-line="13">    <span class="n">r_n</span> <span class="o">=</span> <span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">N</span><span class="p">)</span><span class="o">*</span><a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/generated/numpy.sqrt.html#numpy.sqrt" title="numpy.sqrt"><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span></a><span class="p">(</span><span class="n">N</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">N</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/builtins/functions.html#abs"><span class="nb">abs</span></a><span class="p">(</span><span class="n">gamma_opt</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
+</span><span data-line="14">
+</span><span data-line="15">    <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">n</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">rf</span><span class="o">.</span><span class="n">Network</span></a><span class="p">(</span><span class="n">name</span><span class="o">=</span><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/builtins/stdtypes.html#str"><span class="nb">str</span></a><span class="p">(</span><span class="n">nf_added</span><span class="p">),</span> <span class="n">s</span><span class="o">=</span><span class="n">calc_circle</span><span class="p">(</span><span class="n">c_n</span><span class="p">,</span> <span class="n">r_n</span><span class="p">))</span>
+</span><span data-line="16">    <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.plot_s_smith.html#skrf.network.Network.plot_s_smith" title="skrf.network.Network.plot_s_smith"><span class="n">n</span><span class="o">.</span><span class="n">plot_s_smith</span></a><span class="p">()</span>
+</span><span data-line="17">
+</span><span data-line="18"><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/builtins/functions.html#print"><span class="nb">print</span></a><span class="p">(</span><span class="s2">"the optimum source reflection coefficient is "</span><span class="p">,</span> <span class="n">gamma_opt</span><span class="p">)</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+the optimum source reflection coefficient is  (-0.08373015564356305+0.028299611051606704j)
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/examples_networktheory_LNA_Example_10_1.png" src="../../_images/examples_networktheory_LNA_Example_10_1.png"/>
+</div>
+</div>
+<p>So we can see from the chart that just leaving the input at 50 ohms gets us under 0.1 dB of extra noise, which seems pretty good. I’m actually not sure that these actually correspond to the noise figure level increments I have listed up there, but the circles should at least correspond to increasing noise figures</p>
+<p>So let’s leave the input at 50 ohms and figure out how to match the output network to maximize gain and stability. Let’s see what matching the load impedance with an unmatched input gives us:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[8]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">gamma_s</span> <span class="o">=</span> <span class="mf">0.0</span>
+</span><span data-line="2">
+</span><span data-line="3"><span class="n">gamma_l</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/generated/numpy.conj.html#numpy.conj" title="numpy.conj"><span class="n">np</span><span class="o">.</span><span class="n">conj</span></a><span class="p">(</span><span class="n">bjt</span><span class="o">.</span><span class="n">s22</span><span class="o">.</span><span class="n">s</span> <span class="o">-</span> <span class="n">bjt</span><span class="o">.</span><span class="n">s21</span><span class="o">.</span><span class="n">s</span><span class="o">*</span><span class="n">gamma_s</span><span class="o">*</span><span class="n">bjt</span><span class="o">.</span><span class="n">s12</span><span class="o">.</span><span class="n">s</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">bjt</span><span class="o">.</span><span class="n">s11</span><span class="o">.</span><span class="n">s</span><span class="o">*</span><span class="n">gamma_s</span><span class="p">))</span>
+</span><span data-line="4"><span class="n">gamma_l</span> <span class="o">=</span> <span class="n">gamma_l</span><span class="p">[</span><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/builtins/functions.html#int" title="int"><span class="n">idx_915mhz</span></a><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+</span><span data-line="5"><span class="n">is_gamma_l_stable</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/generated/numpy.absolute.html#numpy.absolute" title="numpy.absolute"><span class="n">np</span><span class="o">.</span><span class="n">absolute</span></a><span class="p">(</span><span class="n">gamma_l</span> <span class="o">-</span> <span class="n">cl</span><span class="p">[</span><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/builtins/functions.html#int" title="int"><span class="n">idx_915mhz</span></a><span class="p">])</span> <span class="o">&gt;</span> <span class="n">rl</span><span class="p">[</span><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/builtins/functions.html#int" title="int"><span class="n">idx_915mhz</span></a><span class="p">]</span>
+</span><span data-line="6">
+</span><span data-line="7"><span class="n">gamma_l</span><span class="p">,</span> <span class="n">is_gamma_l_stable</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[8]:
+</span></pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+(np.complex128(0.24318880200879378+0.3424018477949188j), array([[ True]]))
+</pre></div></div>
+</div>
+<p>This looks like it may be kind of close to the load instability circles, so it might make sense to pick a load point with less gain for more stability, or to pick a different source impedance with more noise.</p>
+<p>But for now let’s just build a matching network for this and see how it performs:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[9]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="k">def</span><span class="w"> </span><span class="nf">calc_matching_network_vals</span><span class="p">(</span><span class="n">z1</span><span class="p">,</span> <span class="n">z2</span><span class="p">):</span>
+</span><span data-line="2">    <span class="n">flipped</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/generated/numpy.real.html#numpy.real" title="numpy.real"><span class="n">np</span><span class="o">.</span><span class="n">real</span></a><span class="p">(</span><span class="n">z1</span><span class="p">)</span> <span class="o">&lt;</span> <a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/generated/numpy.real.html#numpy.real" title="numpy.real"><span class="n">np</span><span class="o">.</span><span class="n">real</span></a><span class="p">(</span><span class="n">z2</span><span class="p">)</span>
+</span><span data-line="3">    <span class="k">if</span> <span class="n">flipped</span><span class="p">:</span>
+</span><span data-line="4">        <span class="n">z2</span><span class="p">,</span> <span class="n">z1</span> <span class="o">=</span> <span class="n">z1</span><span class="p">,</span> <span class="n">z2</span>
+</span><span data-line="5">
+</span><span data-line="6">    <span class="c1"># cancel out the imaginary parts of both input and output impedances</span>
+</span><span data-line="7">    <span class="n">z1_par</span> <span class="o">=</span> <span class="mf">0.0</span>
+</span><span data-line="8">    <span class="k">if</span> <a class="sphinx-codeautolink-a" href="https://docs.python.org/3/builtins/functions.html#abs"><span class="nb">abs</span></a><span class="p">(</span><a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/generated/numpy.imag.html#numpy.imag" title="numpy.imag"><span class="n">np</span><span class="o">.</span><span class="n">imag</span></a><span class="p">(</span><span class="n">z1</span><span class="p">))</span> <span class="o">&gt;</span> <span class="mf">1e-6</span><span class="p">:</span>
+</span><span data-line="9">        <span class="c1"># parallel something to cancel out the imaginary part of</span>
+</span><span data-line="10">        <span class="c1"># z1's impedance</span>
+</span><span data-line="11">        <span class="n">z1_par</span> <span class="o">=</span> <span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="n">j</span><span class="o">*</span><a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/generated/numpy.imag.html#numpy.imag" title="numpy.imag"><span class="n">np</span><span class="o">.</span><span class="n">imag</span></a><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">z1</span><span class="p">))</span>
+</span><span data-line="12">        <span class="n">z1</span> <span class="o">=</span> <span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="mf">1.</span><span class="o">/</span><span class="n">z1</span> <span class="o">+</span> <span class="mi">1</span><span class="o">/</span><span class="n">z1_par</span><span class="p">)</span>
+</span><span data-line="13">    <span class="n">z2_ser</span> <span class="o">=</span> <span class="mf">0.0</span>
+</span><span data-line="14">    <span class="k">if</span> <a class="sphinx-codeautolink-a" href="https://docs.python.org/3/builtins/functions.html#abs"><span class="nb">abs</span></a><span class="p">(</span><a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/generated/numpy.imag.html#numpy.imag" title="numpy.imag"><span class="n">np</span><span class="o">.</span><span class="n">imag</span></a><span class="p">(</span><span class="n">z2</span><span class="p">))</span> <span class="o">&gt;</span> <span class="mf">1e-6</span><span class="p">:</span>
+</span><span data-line="15">        <span class="n">z2_ser</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="n">j</span><span class="o">*</span><a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/generated/numpy.imag.html#numpy.imag" title="numpy.imag"><span class="n">np</span><span class="o">.</span><span class="n">imag</span></a><span class="p">(</span><span class="n">z2</span><span class="p">)</span>
+</span><span data-line="16">        <span class="n">z2</span> <span class="o">=</span> <span class="n">z2</span> <span class="o">+</span> <span class="n">z2_ser</span>
+</span><span data-line="17">
+</span><span data-line="18">    <span class="n">Q</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/generated/numpy.sqrt.html#numpy.sqrt" title="numpy.sqrt"><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span></a><span class="p">((</span><a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/generated/numpy.real.html#numpy.real" title="numpy.real"><span class="n">np</span><span class="o">.</span><span class="n">real</span></a><span class="p">(</span><span class="n">z1</span><span class="p">)</span> <span class="o">-</span> <a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/generated/numpy.real.html#numpy.real" title="numpy.real"><span class="n">np</span><span class="o">.</span><span class="n">real</span></a><span class="p">(</span><span class="n">z2</span><span class="p">))</span><span class="o">/</span><a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/generated/numpy.real.html#numpy.real" title="numpy.real"><span class="n">np</span><span class="o">.</span><span class="n">real</span></a><span class="p">(</span><span class="n">z2</span><span class="p">))</span>
+</span><span data-line="19">    <span class="n">x1</span> <span class="o">=</span> <span class="o">-</span><span class="mf">1.</span><span class="n">j</span> <span class="o">*</span> <a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/generated/numpy.real.html#numpy.real" title="numpy.real"><span class="n">np</span><span class="o">.</span><span class="n">real</span></a><span class="p">(</span><span class="n">z1</span><span class="p">)</span><span class="o">/</span><span class="n">Q</span>
+</span><span data-line="20">    <span class="n">x2</span> <span class="o">=</span> <span class="mf">1.</span><span class="n">j</span> <span class="o">*</span> <a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/generated/numpy.real.html#numpy.real" title="numpy.real"><span class="n">np</span><span class="o">.</span><span class="n">real</span></a><span class="p">(</span><span class="n">z2</span><span class="p">)</span><span class="o">*</span><span class="n">Q</span>
+</span><span data-line="21">
+</span><span data-line="22">    <span class="n">x1_tot</span> <span class="o">=</span> <span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">z1_par</span> <span class="o">+</span> <span class="mi">1</span><span class="o">/</span><span class="n">x1</span><span class="p">)</span>
+</span><span data-line="23">    <span class="n">x2_tot</span> <span class="o">=</span> <span class="n">z2_ser</span> <span class="o">+</span> <span class="n">x2</span>
+</span><span data-line="24">    <span class="k">if</span> <span class="n">flipped</span><span class="p">:</span>
+</span><span data-line="25">        <span class="k">return</span> <span class="n">x2_tot</span><span class="p">,</span> <span class="n">x1_tot</span>
+</span><span data-line="26">    <span class="k">else</span><span class="p">:</span>
+</span><span data-line="27">        <span class="k">return</span> <span class="n">x1_tot</span><span class="p">,</span> <span class="n">x2_tot</span>
+</span><span data-line="28">
+</span><span data-line="29"><span class="n">z_l</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.s2z.html#skrf.network.s2z" title="skrf.network.s2z"><span class="n">s2z</span></a><span class="p">(</span><a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/generated/numpy.array.html#numpy.array" title="numpy.array"><span class="n">np</span><span class="o">.</span><span class="n">array</span></a><span class="p">([[[</span><span class="n">gamma_l</span><span class="p">]]]))[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span>
+</span><span data-line="30"><span class="c1"># note that we're matching against the conjugate;</span>
+</span><span data-line="31"><span class="c1"># this is because we want to see z_l from the BJT side</span>
+</span><span data-line="32"><span class="c1"># if we plugged in z the matching network would make</span>
+</span><span data-line="33"><span class="c1"># the 50 ohms look like np.conj(z) to match against it, so</span>
+</span><span data-line="34"><span class="c1"># we use np.conj(z_l) so that it'll look like z_l from the BJT's side</span>
+</span><span data-line="35"><span class="n">z_par</span><span class="p">,</span> <span class="n">z_ser</span> <span class="o">=</span> <span class="n">calc_matching_network_vals</span><span class="p">(</span><a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/generated/numpy.conj.html#numpy.conj" title="numpy.conj"><span class="n">np</span><span class="o">.</span><span class="n">conj</span></a><span class="p">(</span><span class="n">z_l</span><span class="p">),</span> <span class="mi">50</span><span class="p">)</span>
+</span><span data-line="36"><span class="n">z_l</span><span class="p">,</span> <span class="n">z_par</span><span class="p">,</span> <span class="n">z_ser</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[9]:
+</span></pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+(np.complex128(59.68243025631687+49.623296920134344j),
+ -567.3436907385121j,
+ 50.46880393432915j)
+</pre></div></div>
+</div>
+<p>Let’s calculate what the component values are:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[10]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">c_par</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/generated/numpy.real.html#numpy.real" title="numpy.real"><span class="n">np</span><span class="o">.</span><span class="n">real</span></a><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="mi">2</span><span class="n">j</span><span class="o">*</span><a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/constants.html#numpy.pi" title="numpy.pi"><span class="n">np</span><span class="o">.</span><span class="n">pi</span></a><span class="o">*</span><span class="mf">915e+6</span><span class="o">*</span><span class="n">z_par</span><span class="p">))</span>
+</span><span data-line="2"><span class="n">l_ser</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/generated/numpy.real.html#numpy.real" title="numpy.real"><span class="n">np</span><span class="o">.</span><span class="n">real</span></a><span class="p">(</span><span class="n">z_ser</span><span class="o">/</span><span class="p">(</span><span class="mi">2</span><span class="n">j</span><span class="o">*</span><a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/constants.html#numpy.pi" title="numpy.pi"><span class="n">np</span><span class="o">.</span><span class="n">pi</span></a><span class="o">*</span><span class="mf">915e+6</span><span class="p">))</span>
+</span><span data-line="3">
+</span><span data-line="4"><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/builtins/functions.html#print"><span class="nb">print</span></a><span class="p">(</span><span class="n">c_par</span><span class="p">,</span> <span class="n">l_ser</span><span class="p">)</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+3.065863450236221e-13 8.778535101731343e-09
+</pre></div></div>
+</div>
+<p>The capacitance is kind of low but the inductance seems reasonable. Let’s test it out:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[11]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">output_network</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/media/generated/skrf.media.distributedCircuit.DistributedCircuit.shunt_capacitor.html#skrf.media.distributedCircuit.DistributedCircuit.shunt_capacitor" title="skrf.media.distributedCircuit.DistributedCircuit.shunt_capacitor"><span class="n">tem</span><span class="o">.</span><span class="n">shunt_capacitor</span></a><span class="p">(</span><span class="n">c_par</span><span class="p">)</span> <span class="o">**</span> <a class="sphinx-codeautolink-a" href="../../api/media/generated/skrf.media.distributedCircuit.DistributedCircuit.inductor.html#skrf.media.distributedCircuit.DistributedCircuit.inductor" title="skrf.media.distributedCircuit.DistributedCircuit.inductor"><span class="n">tem</span><span class="o">.</span><span class="n">inductor</span></a><span class="p">(</span><span class="n">l_ser</span><span class="p">)</span>
+</span><span data-line="2">
+</span><span data-line="3"><span class="n">amplifier</span> <span class="o">=</span> <span class="n">bjt</span> <span class="o">**</span> <span class="n">output_network</span>
+</span><span data-line="4">
+</span><span data-line="5"><span class="n">amplifier</span><span class="o">.</span><span class="n">plot_s_smith</span><span class="p">()</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/examples_networktheory_LNA_Example_18_0.png" src="../../_images/examples_networktheory_LNA_Example_18_0.png"/>
+</div>
+</div>
+<p>That looks pretty reasonable; let’s take a look at the S21 to see what we got:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[12]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">amplifier</span><span class="o">.</span><span class="n">s21</span><span class="o">.</span><span class="n">plot_s_db</span><span class="p">()</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/examples_networktheory_LNA_Example_20_0.png" src="../../_images/examples_networktheory_LNA_Example_20_0.png"/>
+</div>
+</div>
+<p>So about 18 dB gain; let’s see what our noise figure is:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[13]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="mi">10</span><span class="o">*</span><a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/generated/numpy.log10.html#numpy.log10" title="numpy.log10"><span class="n">np</span><span class="o">.</span><span class="n">log10</span></a><span class="p">(</span><span class="n">amplifier</span><span class="o">.</span><span class="n">nf</span><span class="p">(</span><span class="mf">50.</span><span class="p">)[</span><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/builtins/functions.html#int" title="int"><span class="n">idx_915mhz</span></a><span class="p">])</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[13]:
+</span></pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+np.float64(0.9590591473171773)
+</pre></div></div>
+</div>
+<p>So 0.96 dB NF, which is reasonably close to the BJT tombstone optimal NF of 0.95 dB</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[ ]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1">
+</span></pre></div>
+</div>
+</div>
+</section>
+
+        </article><button class="back-to-top" type="button">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+  </svg>
+  <span>Back to top</span>
+</button><div class="navigation flex print:hidden"><div class="navigation-prev">
+    <a href="IEEEP370%20Deembedding.html">
+      <i class="i-lucide chevron-left"></i>
+      <div class="page-info">
+        <span>Previous</span><div class="title">IEEEP370 Deembedding</div></div>
+    </a>
+  </div><div class="navigation-next">
+    <a href="Properties%20of%20Rectangular%20Waveguides.html">
+      <div class="page-info">
+        <span>Next</span>
+        <div class="title">Properties of Rectangular Waveguide</div>
+      </div>
+      <i class="i-lucide chevron-right"></i>
+    </a>
+  </div></div></div>
+    </div>
+  </main>
+</div>
+<footer class="sy-foot">
+  <div class="sy-foot-inner sy-container mx-auto">
+    <div class="sy-foot-reserved md:flex justify-between items-center">
+      <div class="sy-foot-copyright"><p>2025, scikit-rf team</p>
+  
+  <p>
+    Made with
+    
+    <a href="https://www.sphinx-doc.org/">Sphinx</a> and
+    
+    <a href="https://shibuya.lepture.com">Shibuya theme</a>.
+  </p>
+</div>
+      <div class="sy-foot-socials">
+  <a href="https://github.com/scikit-rf/scikit-rf" aria-label="GitHub">
+    <iconify-icon icon="simple-icons:github"></iconify-icon>
+  </a></div>
+    </div>
+  </div>
+</footer>
+      <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../_static/copybutton.js?v=34bd459d"></script>
+      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+      <script src="../../_static/shibuya.js?v=50760d75"></script>
+      <script src="https://cdn.jsdelivr.net/npm/@jupyter-widgets/html-manager@^1.0.1/dist/embed-amd.js"></script>
+      <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
+      <script src="../../_static/skrf.js?v=bdeb9fb0"></script></body>
+</html>

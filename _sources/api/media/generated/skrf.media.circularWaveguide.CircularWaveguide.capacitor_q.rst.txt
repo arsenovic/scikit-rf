@@ -1,0 +1,6 @@
+skrf.media.circularWaveguide.CircularWaveguide.capacitor\_q
+===========================================================
+
+.. currentmodule:: skrf.media.circularWaveguide
+
+.. automethod:: CircularWaveguide.capacitor_q

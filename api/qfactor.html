@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en" data-accent-color="blue" data-content_root="../">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Qfactor (skrf.qfactor) - scikit-rf</title><link rel="author" title="About these documents" href="../about.html" /><link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="skrf.qfactor.Qfactor" href="generated/skrf.qfactor.Qfactor.html" /><link rel="prev" title="skrf.vectorFitting.VectorFittingParametric.write_npz" href="generated/skrf.vectorFitting.VectorFittingParametric.write_npz.html" /><script>
+    function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
+    setColorMode(localStorage._theme||"auto");
+  </script><link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=ad592e98" />
+    <link rel="stylesheet" type="text/css" href="../_static/shibuya.css?v=2ceb65ce" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-codeautolink.css?v=b2176991" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link media="print" rel="stylesheet" type="text/css" href="../_static/print.css?v=20ff2c19" />
+    <link rel="stylesheet" type="text/css" href="../_static/skrf.css?v=7e772ba2" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --sy-f-text: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+  --sy-f-heading: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+}
+</style>
+    
+  <meta property="og:type" content="website"/><meta property="og:title" content="Qfactor (skrf.qfactor)"/>
+    <meta name="twitter:card" content="summary"/>
+  </head>
+<body><div class="sy-head">
+  <div class="sy-head-blur"></div>
+  <div class="sy-head-inner sy-container mx-auto">
+    <a class="sy-head-brand" href="../index.html">
+      <img class="light-logo" src="../_static/logo.svg" alt="scikit-rf" height="28" loading="lazy" />
+      <img class="dark-logo" src="../_static/logo.svg" alt="scikit-rf" height="28" loading="lazy" />
+      <strong>scikit-rf</strong>
+    </a>
+    <div class="sy-head-nav" id="head-nav">
+      <nav class="sy-head-links"><ul><li class="link"><a href="../index.html">Home</a></li><li class="link"><a href="../tutorials/index.html">Tutorials</a></li><li class="link"><a href="../examples/index.html">Examples</a></li><li class="link"><a href="index.html">API</a></li><li class="link">
+          <a href="https://github.com/scikit-rf/scikit-rf">
+            <span>GitHub</span><i class="i-lucide external-link"></i></a>
+        </li></ul></nav>
+      <div class="sy-head-extra flex items-center print:hidden"><form class="searchbox flex items-center" action="../search.html" method="get">
+  <input type="text" name="q" placeholder="Search" />
+  <kbd>/</kbd>
+</form><div class="sy-head-socials">
+  <a href="https://github.com/scikit-rf/scikit-rf" aria-label="GitHub">
+    <iconify-icon icon="simple-icons:github"></iconify-icon>
+  </a>
+  <a href="https://www.linkedin.com/groups/12462155/" aria-label="LinkedIn">
+    <iconify-icon icon="simple-icons:linkedin"></iconify-icon>
+  </a>
+  <a href="https://app.element.io/#/room/#scikit-rf:matrix.org" aria-label="Matrix">
+    <iconify-icon icon="simple-icons:matrix"></iconify-icon>
+  </a></div></div>
+    </div>
+    <div class="sy-head-actions flex items-center shrink-0 print:hidden"><button class="js-theme theme-switch flex items-center"
+data-aria-auto="Switch to light color mode"
+data-aria-light="Switch to dark color mode"
+data-aria-dark="Switch to auto color mode">
+<i class="i-lucide theme-icon"></i>
+</button><button class="md:hidden flex items-center js-menu" aria-label="Menu" type="button" aria-controls="head-nav" aria-expanded="false">
+        <div class="hamburger">
+          <span class="hamburger_1"></span>
+          <span class="hamburger_2"></span>
+          <span class="hamburger_3"></span>
+        </div>
+      </button>
+    </div>
+  </div>
+</div>
+<div class="sy-page sy-container flex mx-auto">
+  <aside id="lside" class="sy-lside md:w-72 md:shrink-0 print:hidden">
+    <div class="sy-lside-inner md:sticky">
+      <div class="sy-scrollbar p-6">
+        <div class="globaltoc" data-expand-depth="0"><p class="caption" role="heading" aria-level="3"><span class="caption-text">Getting started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/Installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/Introduction.html">Introduction</a></li>
+</ul>
+<p class="caption" role="heading" aria-level="3"><span class="caption-text">User guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/index.html">Examples</a></li>
+</ul>
+<p class="caption" role="heading" aria-level="3"><span class="caption-text">Reference</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">API</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="network.html">network (<code class="xref py py-mod docutils literal notranslate"><span class="pre">skrf.network</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="frequency.html">frequency (<code class="xref py py-mod docutils literal notranslate"><span class="pre">skrf.frequency</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="networkSet.html">networkSet (<code class="xref py py-mod docutils literal notranslate"><span class="pre">skrf.networkSet</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plotting.html">plotting (<code class="xref py py-mod docutils literal notranslate"><span class="pre">skrf.plotting</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="media/index.html">Media</a></li>
+<li class="toctree-l2"><a class="reference internal" href="taper.html">taper (<code class="xref py py-mod docutils literal notranslate"><span class="pre">skrf.taper</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="calibration/index.html">calibration (<code class="xref py py-mod docutils literal notranslate"><span class="pre">skrf.calibration.calibration</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="calibration/deembedding.html">deembedding (<code class="xref py py-mod docutils literal notranslate"><span class="pre">skrf.calibration.deembedding</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="vi/index.html">virtual instruments (<code class="xref py py-mod docutils literal notranslate"><span class="pre">skrf.vi</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="vi/vna.html">vna (<code class="xref py py-mod docutils literal notranslate"><span class="pre">skrf.vi.vna</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="vectorFitting.html">vectorFitting (<code class="xref py py-mod docutils literal notranslate"><span class="pre">skrf.vectorFitting</span></code>)</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Qfactor (<code class="xref py py-mod docutils literal notranslate"><span class="pre">skrf.qfactor</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="time.html">time (<code class="xref py py-mod docutils literal notranslate"><span class="pre">skrf.time</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="circuit.html">circuit (<code class="xref py py-mod docutils literal notranslate"><span class="pre">skrf.circuit</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="media/device.html">device (<code class="xref py py-mod docutils literal notranslate"><span class="pre">skrf.media.device</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mathFunctions.html">mathFunctions (<code class="xref py py-mod docutils literal notranslate"><span class="pre">skrf.mathFunctions</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tlineFunctions.html">tlineFunctions (<code class="xref py py-mod docutils literal notranslate"><span class="pre">skrf.tlineFunctions</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="instances.html">instances (<code class="xref py py-mod docutils literal notranslate"><span class="pre">skrf.instances</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="constants.html">constants (<code class="xref py py-mod docutils literal notranslate"><span class="pre">skrf.constants</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="data/index.html">data (<code class="xref py py-mod docutils literal notranslate"><span class="pre">skrf.data</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="util.html">util (<code class="xref py py-mod docutils literal notranslate"><span class="pre">skrf.util</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="io/index.html">IO</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../glossary.html">Glossary</a></li>
+</ul>
+<p class="caption" role="heading" aria-level="3"><span class="caption-text">Project</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../contributing/index.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../citations_ack/acknowledging.html">Citing scikit-rf</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../citations_ack/citations.html">scikit-rf Citations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../about.html">About</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../users.html">Users</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../license.html">License</a></li>
+</ul>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="lside-overlay js-menu" role="button" aria-label="Close left sidebar" aria-controls="lside" aria-expanded="false"></div>
+  <aside id="rside" class="sy-rside pb-3 w-64 shrink-0 order-last">
+    <button class="rside-close js-menu xl:hidden" aria-label="Close Table of Contents" type="button" aria-controls="rside" aria-expanded="false">
+      <i class="i-lucide close"></i>
+    </button>
+    <div class="sy-scrollbar sy-rside-inner px-6 xl:top-16 xl:sticky xl:pl-0 pt-6 pb-4"><div class="localtoc"><h3>On this page</h3><ul>
+<li><a class="reference internal" href="#q-factor">Q-factor</a></li>
+<li><a class="reference internal" href="#loaded-and-unloaded-q-factor">Loaded and Unloaded Q-factor</a></li>
+<li><a class="reference internal" href="#relationships-between-loaded-and-unloaded-q-factors">Relationships between Loaded and Unloaded Q-factors</a></li>
+<li><a class="reference internal" href="#q-factor-determination-through-equivalent-circuit-models">Q-factor determination through equivalent-circuit models</a></li>
+</ul>
+</div><div id="ethical-ad-placement" data-ea-publisher="readthedocs"></div></div>
+  </aside>
+  <div class="rside-overlay js-menu" role="button" aria-label="Close Table of Contents" aria-controls="rside" aria-expanded="false"></div>
+  <main class="sy-main w-full max-sm:max-w-full print:pt-6">
+<div class="sy-breadcrumbs" role="navigation">
+  <div class="sy-breadcrumbs-inner flex items-center">
+    <div class="md:hidden mr-3">
+      <button class="js-menu" aria-label="Menu" type="button" aria-controls="lside" aria-expanded="false">
+        <i class="i-lucide menu"></i>
+      </button>
+    </div>
+    <ol class="flex-1" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="../index.html"><span itemprop="name">scikit-rf</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="1" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="index.html"><span itemprop="name">API</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="2" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <strong itemprop="name">Qfactor (<code class="xref py py-mod docutils literal notranslate"><span class="pre">skrf.qfactor</span></code>)</strong>
+        <meta itemprop="position" content="3" />
+      </li></ol>
+    <div class="xl:hidden ml-1">
+      <button class="js-menu" aria-label="Show table of contents" type="button" aria-controls="rside"
+        aria-expanded="false">
+        <i class="i-lucide outdent"></i>
+      </button>
+    </div>
+  </div>
+</div><div class="flex flex-col break-words justify-between">
+      <div class="relative min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
+  <article class="yue" role="main">
+          <section id="qfactor-skrf-qfactor">
+<span id="module-skrf.qfactor"></span><h1>Qfactor (<a class="reference internal" href="#module-skrf.qfactor" title="skrf.qfactor"><code class="xref py py-mod docutils literal notranslate"><span class="pre">skrf.qfactor</span></code></a>)<a class="headerlink" href="#qfactor-skrf-qfactor" title="Link to this heading">#</a></h1>
+<p>Module for estimating the Quality (Q) factor(s) from S-parameters.</p>
+<p>This class implements methods for determining <em>loaded</em> and <em>unloaded</em> Q-factor
+from frequency-domain S-parameters, that can be applied to measurements
+of transmission or reflection.</p>
+<p>Documentation and implementation are adapted from <a class="reference internal" href="generated/skrf.qfactor.Qfactor.fitted_s.html#mat58" id="id1"><span>[MAT58]</span></a></p>
+<section id="q-factor">
+<h2>Q-factor<a class="headerlink" href="#q-factor" title="Link to this heading">#</a></h2>
+<div class="table-wrapper autosummary longtable docutils container">
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/skrf.qfactor.Qfactor.html#skrf.qfactor.Qfactor" title="skrf.qfactor.Qfactor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Qfactor</span></code></a></p></td>
+<td><p>Q-factor calculation class.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="loaded-and-unloaded-q-factor">
+<h2>Loaded and Unloaded Q-factor<a class="headerlink" href="#loaded-and-unloaded-q-factor" title="Link to this heading">#</a></h2>
+<p>The Quality factor (Q-factor) of a resonator is defined by <a class="reference internal" href="#pozar" id="id2"><span>[Pozar]</span></a>:</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[Q = \frac{2 \pi U}{\Delta U}\]</div>
+</div>
+<p>where <span class="math notranslate nohighlight">\(U\)</span> is the average energy stored by the resonator and
+<span class="math notranslate nohighlight">\(\Delta U\)</span> is the decrease in the average stored energy per wave cycle
+at the resonant frequency, that is, the average power loss.</p>
+<p>The <em>loaded</em> Q-factor, <span class="math notranslate nohighlight">\(Q_L\)</span>, describes energy dissipation within the
+entire resonant system comprising of the resonator itself and the instrument
+used for observing resonances. The term loading refers to the effect that the
+external circuit has on measured quantities.</p>
+<p>The external circuit consists of the measuring instrument and uncalibrated lines,
+but not the couplings of microwave resonators. Loading by an instrument that
+has 50 Ohm impedance, such as a VNA, causes <span class="math notranslate nohighlight">\(Q_L\)</span> to be reduced substantially
+if strong coupling is used.</p>
+<p>For many applications the quantity that is desired is the <em>unloaded</em> Q-factor <span class="math notranslate nohighlight">\(Q_0\)</span>,
+which is determined by energy dissipation associated with the resonator only
+and therefore gives the best description of the resonant mode(s).</p>
+<p>In other words, <span class="math notranslate nohighlight">\(Q_0\)</span> is the Q-factor of the uncoupled resonator. The value of
+<span class="math notranslate nohighlight">\(Q_0\)</span> can be estimated from measurements of <span class="math notranslate nohighlight">\(Q_L\)</span>, but cannot be measured directly.
+<span class="math notranslate nohighlight">\(Q_0\)</span> is largely governed by ohmic loss arising from surface currents
+in the metal conductors (walls and loop couplings), and from dielectric loss
+in any insulating materials that may be present.</p>
+</section>
+<section id="relationships-between-loaded-and-unloaded-q-factors">
+<h2>Relationships between Loaded and Unloaded Q-factors<a class="headerlink" href="#relationships-between-loaded-and-unloaded-q-factors" title="Link to this heading">#</a></h2>
+<p>Energy dissipation in the external circuit is characterised by the <em>external</em> Q-factor,
+<span class="math notranslate nohighlight">\(Q_e\)</span>. For both series and parallel equivalent circuits, the three
+Q-factors are related by <a class="reference internal" href="#pozar" id="id3"><span>[Pozar]</span></a>:</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[\frac{1}{Q_L} = \frac{1}{Q_0} + \frac{1}{Q_e}\]</div>
+</div>
+<p>The coupling factor <span class="math notranslate nohighlight">\(\beta\)</span> is defined for each port as:</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[\beta = \frac{Q_0}{Q_e}\]</div>
+</div>
+<p>Finding the unloaded Q from measured S-parameters consists in first finding
+the coupling factor, then measure <span class="math notranslate nohighlight">\(Q_L\)</span> from the 3 dB bandwidth
+and using the relationships above.</p>
+<p>Fortunately, scikit-rf implements methods for determining loaded and
+unloaded Q-factors from frequency-domain S-parameters. The implemented methods
+are described in detail in <a class="reference internal" href="generated/skrf.qfactor.Qfactor.fitted_s.html#mat58" id="id4"><span>[MAT58]</span></a>, and can be applied to measurements of
+transmission or reflection.</p>
+</section>
+<section id="q-factor-determination-through-equivalent-circuit-models">
+<h2>Q-factor determination through equivalent-circuit models<a class="headerlink" href="#q-factor-determination-through-equivalent-circuit-models" title="Link to this heading">#</a></h2>
+<p>Characterisation of resonances from measurements in the frequency-domain
+can be achieved through equivalent-circuit models <a class="reference internal" href="generated/skrf.qfactor.Qfactor.fitted_s.html#mat58" id="id5"><span>[MAT58]</span></a>. Resonators can be
+modelled as an ideal RLC resonator connected to an external circuit,
+incorporating elements to account for a lossy coupling and coupling reactances.</p>
+<p>For high Q-factor resonators (in practice, <span class="math notranslate nohighlight">\(Q_L\)</span> &gt; 100), the S-parameter
+response of a resonator measured in a calibrated system with reference planes
+at the resonator couplings can be expressed like <a class="reference internal" href="generated/skrf.qfactor.Qfactor.fitted_s.html#mat58" id="id6"><span>[MAT58]</span></a>, <a class="reference internal" href="#galwas" id="id7"><span>[Galwas]</span></a> :</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[S = S_D + d \frac{e^{−2j\delta}}{1 + j Q_L t}\]</div>
+</div>
+<p>where <span class="math notranslate nohighlight">\(S_D\)</span> is the detuned S-parameter measured at frequencies far above or below
+resonance, <span class="math notranslate nohighlight">\(d\)</span> is The diameter of the Q-circle, <span class="math notranslate nohighlight">\(\delta\)</span> is a
+real-valued constant that defines the orientation of the Q-circle, and <span class="math notranslate nohighlight">\(t\)</span>
+is the fractional offset frequency given by:</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[t = \frac{f}{f_L} - \frac{f_L}{f}  \approx 2 \frac{f − f_L}{f_L}\]</div>
+</div>
+<p>where <span class="math notranslate nohighlight">\(f_L\)</span> is the loaded resonant frequency and <span class="math notranslate nohighlight">\(f\)</span> the frequency
+at which S is measured. This equation can be applied to measurements
+by transmission (S21 or S12) or reflection (S11 or S22).</p>
+<p>The S-parameters are fitted against a modified expression of the above equations
+to deduce the resonant frequency, loaded and unloaded Q-factors and other properties.</p>
+<p class="rubric">References</p>
+<div role="list" class="citation-list">
+<div class="citation" id="mat58" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>MAT58<span class="fn-bracket">]</span></span>
+<span class="backrefs">(<a role="doc-backlink" href="#id1">1</a>,<a role="doc-backlink" href="#id4">2</a>,<a role="doc-backlink" href="#id5">3</a>,<a role="doc-backlink" href="#id6">4</a>)</span>
+<p>“Q-factor Measurement by using a Vector Network Analyser”,
+A. P. Gregory, National Physical Laboratory Report MAT 58 (2021)
+<a class="reference external" href="https://eprintspublications.npl.co.uk/9304/">https://eprintspublications.npl.co.uk/9304/</a></p>
+</div>
+<div class="citation" id="pozar" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>Pozar<span class="fn-bracket">]</span></span>
+<span class="backrefs">(<a role="doc-backlink" href="#id2">1</a>,<a role="doc-backlink" href="#id3">2</a>)</span>
+<ol class="upperalpha simple" start="4">
+<li><ol class="upperalpha simple" start="13">
+<li><p>Pozar, Microwave engineering, 4th ed. J. Wiley, 2012.</p></li>
+</ol>
+</li>
+</ol>
+</div>
+<div class="citation" id="galwas" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id7">Galwas</a><span class="fn-bracket">]</span></span>
+<p>B. A. Galwas, ‘Scattering Matrix Description of Microwave
+Resonators’, IEEE Trans. Microwave Theory Techn., vol. 31, no. 8,
+pp. 669–671, Aug. 1983, doi: 10.1109/TMTT.1983.1131566.</p>
+</div>
+</div>
+</section>
+</section>
+
+        </article><button class="back-to-top" type="button">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+  </svg>
+  <span>Back to top</span>
+</button><div class="navigation flex print:hidden"><div class="navigation-prev">
+    <a href="generated/skrf.vectorFitting.VectorFittingParametric.write_npz.html">
+      <i class="i-lucide chevron-left"></i>
+      <div class="page-info">
+        <span>Previous</span><div class="title">skrf.vectorFitting.VectorFittingParametric.write_npz</div></div>
+    </a>
+  </div><div class="navigation-next">
+    <a href="generated/skrf.qfactor.Qfactor.html">
+      <div class="page-info">
+        <span>Next</span>
+        <div class="title">skrf.qfactor.Qfactor</div>
+      </div>
+      <i class="i-lucide chevron-right"></i>
+    </a>
+  </div></div></div>
+    </div>
+  </main>
+</div>
+<footer class="sy-foot">
+  <div class="sy-foot-inner sy-container mx-auto">
+    <div class="sy-foot-reserved md:flex justify-between items-center">
+      <div class="sy-foot-copyright"><p>2025, scikit-rf team</p>
+  
+  <p>
+    Made with
+    
+    <a href="https://www.sphinx-doc.org/">Sphinx</a> and
+    
+    <a href="https://shibuya.lepture.com">Shibuya theme</a>.
+  </p>
+</div>
+      <div class="sy-foot-socials">
+  <a href="https://github.com/scikit-rf/scikit-rf" aria-label="GitHub">
+    <iconify-icon icon="simple-icons:github"></iconify-icon>
+  </a></div>
+    </div>
+  </div>
+</footer>
+      <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../_static/copybutton.js?v=34bd459d"></script>
+      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+      <script src="../_static/shibuya.js?v=50760d75"></script>
+      <script src="https://cdn.jsdelivr.net/npm/@jupyter-widgets/html-manager@^1.0.1/dist/embed-amd.js"></script>
+      <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
+      <script src="../_static/skrf.js?v=bdeb9fb0"></script></body>
+</html>

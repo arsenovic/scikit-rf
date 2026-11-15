@@ -1,0 +1,151 @@
+{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "# Ex2: Measured 190 GHz Active 2-Port"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "The Vector Fitting feature is demonstrated using a 2-port S-matrix of an active circuit measured from 140 GHz to 220 GHz. Additional explanations and background information can be found in the [Vector Fitting tutorial](../../tutorials/VectorFitting.ipynb)."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "import numpy as np\n",
+    "\n",
+    "import skrf\n",
+    "from skrf.vectorFitting import VectorFitting"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "This example is a lot more tricky to fit, because the responses contain a few \"bumps\" and noise from the measurement. In such a case, finding a good number of initial poles can take a few iterations. A good alternative for such cases is the automatic vector fitting feature, `auto_fit()`, which automatically refines the number of poles until a good fit is achieved."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Load the Network from a Touchstone file and create the Vector Fitting instance and start the automatic fit:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "nw = skrf.network.Network('./190ghz_tx_measured.S2P')\n",
+    "vf = VectorFitting(nw)\n",
+    "vf.auto_fit()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "The function `plot_convergence()` can be helpful to examine the convergence and see if something was going wrong. Important parameters to check are the number of iterations until convergence and the final model order."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "vf.plot_convergence()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "print(f'model order = {vf.get_model_order(vf.poles)}')\n",
+    "print(f'n_poles_real = {np.sum(vf.poles.imag == 0.0)}')\n",
+    "print(f'n_poles_complex = {np.sum(vf.poles.imag > 0.0)}')"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Checking the results by comparing the model responses to the original sampled data indicates a successful fit, which is also indicated by a small rms error (less than 0.05):"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "vf.get_rms_error()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# plot frequency responses\n",
+    "vf.plot_s_db()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "It is a good idea to also check the model response well outside the original frequency range."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "scrolled": true
+   },
+   "outputs": [],
+   "source": [
+    "freqs = np.linspace(0, 500e9, 501) # plot model response from dc to 500 GHz\n",
+    "vf.plot_s_db(freqs=freqs)"
+   ]
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Python 3 (ipykernel)",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.11.2"
+  },
+  "nbsphinx": {
+   "timeout": 360
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 4
+}

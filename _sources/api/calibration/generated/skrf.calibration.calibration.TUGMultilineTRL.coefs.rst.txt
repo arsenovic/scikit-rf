@@ -1,0 +1,6 @@
+skrf.calibration.calibration.TUGMultilineTRL.coefs
+==================================================
+
+.. currentmodule:: skrf.calibration.calibration
+
+.. autoproperty:: TUGMultilineTRL.coefs

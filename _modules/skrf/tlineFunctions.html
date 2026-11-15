@@ -1,0 +1,1341 @@
+<!DOCTYPE html>
+<html lang="en" data-accent-color="blue" data-content_root="../../">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>skrf.tlineFunctions - scikit-rf</title><link rel="author" title="About these documents" href="../../about.html" /><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><script>
+    function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
+    setColorMode(localStorage._theme||"auto");
+  </script><link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=ad592e98" />
+    <link rel="stylesheet" type="text/css" href="../../_static/shibuya.css?v=2ceb65ce" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-codeautolink.css?v=b2176991" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link media="print" rel="stylesheet" type="text/css" href="../../_static/print.css?v=20ff2c19" />
+    <link rel="stylesheet" type="text/css" href="../../_static/skrf.css?v=7e772ba2" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --sy-f-text: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+  --sy-f-heading: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+}
+</style>
+    
+  <meta property="og:type" content="website"/><meta property="og:title" content="skrf.tlineFunctions"/>
+    <meta name="twitter:card" content="summary"/>
+  </head>
+<body><div class="sy-head">
+  <div class="sy-head-blur"></div>
+  <div class="sy-head-inner sy-container mx-auto">
+    <a class="sy-head-brand" href="../../index.html">
+      <img class="light-logo" src="../../_static/logo.svg" alt="scikit-rf" height="28" loading="lazy" />
+      <img class="dark-logo" src="../../_static/logo.svg" alt="scikit-rf" height="28" loading="lazy" />
+      <strong>scikit-rf</strong>
+    </a>
+    <div class="sy-head-nav" id="head-nav">
+      <nav class="sy-head-links"><ul><li class="link"><a href="../../index.html">Home</a></li><li class="link"><a href="../../tutorials/index.html">Tutorials</a></li><li class="link"><a href="../../examples/index.html">Examples</a></li><li class="link"><a href="../../api/index.html">API</a></li><li class="link">
+          <a href="https://github.com/scikit-rf/scikit-rf">
+            <span>GitHub</span><i class="i-lucide external-link"></i></a>
+        </li></ul></nav>
+      <div class="sy-head-extra flex items-center print:hidden"><form class="searchbox flex items-center" action="../../search.html" method="get">
+  <input type="text" name="q" placeholder="Search" />
+  <kbd>/</kbd>
+</form><div class="sy-head-socials">
+  <a href="https://github.com/scikit-rf/scikit-rf" aria-label="GitHub">
+    <iconify-icon icon="simple-icons:github"></iconify-icon>
+  </a>
+  <a href="https://www.linkedin.com/groups/12462155/" aria-label="LinkedIn">
+    <iconify-icon icon="simple-icons:linkedin"></iconify-icon>
+  </a>
+  <a href="https://app.element.io/#/room/#scikit-rf:matrix.org" aria-label="Matrix">
+    <iconify-icon icon="simple-icons:matrix"></iconify-icon>
+  </a></div></div>
+    </div>
+    <div class="sy-head-actions flex items-center shrink-0 print:hidden"><button class="js-theme theme-switch flex items-center"
+data-aria-auto="Switch to light color mode"
+data-aria-light="Switch to dark color mode"
+data-aria-dark="Switch to auto color mode">
+<i class="i-lucide theme-icon"></i>
+</button><button class="md:hidden flex items-center js-menu" aria-label="Menu" type="button" aria-controls="head-nav" aria-expanded="false">
+        <div class="hamburger">
+          <span class="hamburger_1"></span>
+          <span class="hamburger_2"></span>
+          <span class="hamburger_3"></span>
+        </div>
+      </button>
+    </div>
+  </div>
+</div>
+<div class="sy-page sy-container flex mx-auto">
+  <aside id="lside" class="sy-lside md:w-72 md:shrink-0 print:hidden">
+    <div class="sy-lside-inner md:sticky">
+      <div class="sy-scrollbar p-6">
+        <div class="globaltoc" data-expand-depth="0"><p class="caption" role="heading" aria-level="3"><span class="caption-text">Getting started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../index.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/Installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/Introduction.html">Introduction</a></li>
+</ul>
+<p class="caption" role="heading" aria-level="3"><span class="caption-text">User guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../examples/index.html">Examples</a></li>
+</ul>
+<p class="caption" role="heading" aria-level="3"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../api/index.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../glossary.html">Glossary</a></li>
+</ul>
+<p class="caption" role="heading" aria-level="3"><span class="caption-text">Project</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing/index.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../citations_ack/acknowledging.html">Citing scikit-rf</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../citations_ack/citations.html">scikit-rf Citations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../about.html">About</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../users.html">Users</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../license.html">License</a></li>
+</ul>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="lside-overlay js-menu" role="button" aria-label="Close left sidebar" aria-controls="lside" aria-expanded="false"></div>
+  <aside id="rside" class="sy-rside pb-3 w-64 shrink-0 order-last">
+    <button class="rside-close js-menu xl:hidden" aria-label="Close Table of Contents" type="button" aria-controls="rside" aria-expanded="false">
+      <i class="i-lucide close"></i>
+    </button>
+    <div class="sy-scrollbar sy-rside-inner px-6 xl:top-16 xl:sticky xl:pl-0 pt-6 pb-4"><div id="ethical-ad-placement" data-ea-publisher="readthedocs"></div></div>
+  </aside>
+  <div class="rside-overlay js-menu" role="button" aria-label="Close Table of Contents" aria-controls="rside" aria-expanded="false"></div>
+  <main class="sy-main w-full max-sm:max-w-full print:pt-6">
+<div class="sy-breadcrumbs" role="navigation">
+  <div class="sy-breadcrumbs-inner flex items-center">
+    <div class="md:hidden mr-3">
+      <button class="js-menu" aria-label="Menu" type="button" aria-controls="lside" aria-expanded="false">
+        <i class="i-lucide menu"></i>
+      </button>
+    </div>
+    <ol class="flex-1" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="../../index.html"><span itemprop="name">scikit-rf</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="1" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="../index.html"><span itemprop="name">Module code</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="2" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <strong itemprop="name">skrf.tlineFunctions</strong>
+        <meta itemprop="position" content="3" />
+      </li></ol>
+    <div class="xl:hidden ml-1">
+      <button class="js-menu" aria-label="Show table of contents" type="button" aria-controls="rside"
+        aria-expanded="false">
+        <i class="i-lucide outdent"></i>
+      </button>
+    </div>
+  </div>
+</div><div class="flex flex-col break-words justify-between">
+      <div class="relative min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
+  <article class="yue" role="main">
+          <h1>Source code for skrf.tlineFunctions</h1><div class="highlight"><pre>
+<span></span><span data-line="1"><span class="sa">r</span><span class="sd">"""</span>
+</span><span data-line="2"><span class="sd">.. module:: skrf.tlineFunctions</span>
+</span><span data-line="3"><span class="sd">===============================================</span>
+</span><span data-line="4"><span class="sd">tlineFunctions (:mod:`skrf.tlineFunctions`)</span>
+</span><span data-line="5"><span class="sd">===============================================</span>
+</span><span data-line="6">
+</span><span data-line="7"><span class="sd">This module provides functions related to transmission line theory.</span>
+</span><span data-line="8">
+</span><span data-line="9"><span class="sd">Impedance and Reflection Coefficient</span>
+</span><span data-line="10"><span class="sd">--------------------------------------</span>
+</span><span data-line="11"><span class="sd">These functions relate basic transmission line quantities such as</span>
+</span><span data-line="12"><span class="sd">characteristic impedance, input impedance, reflection coefficient, etc.</span>
+</span><span data-line="13"><span class="sd">Each function has two names. One is a long-winded but readable name and</span>
+</span><span data-line="14"><span class="sd">the other is a short-hand variable-like names. Below is a table relating</span>
+</span><span data-line="15"><span class="sd">these two names with each other as well as common mathematical symbols.</span>
+</span><span data-line="16">
+</span><span data-line="17"><span class="sd">====================  ======================  ================================</span>
+</span><span data-line="18"><span class="sd">Symbol                Variable Name           Long Name</span>
+</span><span data-line="19"><span class="sd">====================  ======================  ================================</span>
+</span><span data-line="20"><span class="sd">:math:`Z_l`           z_l                     load_impedance</span>
+</span><span data-line="21"><span class="sd">:math:`Z_{in}`        z_in                    input_impedance</span>
+</span><span data-line="22"><span class="sd">:math:`\Gamma_0`      Gamma_0                 reflection_coefficient</span>
+</span><span data-line="23"><span class="sd">:math:`\Gamma_{in}`   Gamma_in                reflection_coefficient_at_theta</span>
+</span><span data-line="24"><span class="sd">:math:`\theta`        theta                   electrical_length</span>
+</span><span data-line="25"><span class="sd">====================  ======================  ================================</span>
+</span><span data-line="26">
+</span><span data-line="27"><span class="sd">There may be a bit of confusion about the difference between the load</span>
+</span><span data-line="28"><span class="sd">impedance the input impedance. This is because the load impedance **is**</span>
+</span><span data-line="29"><span class="sd">the input impedance at the load. An illustration may provide some</span>
+</span><span data-line="30"><span class="sd">useful reference.</span>
+</span><span data-line="31">
+</span><span data-line="32"><span class="sd">Below is a (bad) illustration of a section of uniform transmission line</span>
+</span><span data-line="33"><span class="sd">of characteristic impedance :math:`Z_0`, and electrical length</span>
+</span><span data-line="34"><span class="sd">:math:`\theta`. The line is terminated on the right with some</span>
+</span><span data-line="35"><span class="sd">load impedance, :math:`Z_l`. The input impedance :math:`Z_{in}` and</span>
+</span><span data-line="36"><span class="sd">input reflection coefficient :math:`\Gamma_{in}` are</span>
+</span><span data-line="37"><span class="sd">looking in towards the load from the distance :math:`\theta` from the</span>
+</span><span data-line="38"><span class="sd">load.</span>
+</span><span data-line="39">
+</span><span data-line="40"><span class="sd">.. math::</span>
+</span><span data-line="41"><span class="sd">        Z_0, \theta</span>
+</span><span data-line="42">
+</span><span data-line="43"><span class="sd">        \text{o===============o=}[Z_l]</span>
+</span><span data-line="44">
+</span><span data-line="45"><span class="sd">        \to\qquad\qquad\qquad\quad\qquad \qquad \to \qquad \quad</span>
+</span><span data-line="46">
+</span><span data-line="47"><span class="sd">        Z_{in},\Gamma_{in}\qquad\qquad\qquad\qquad\quad Z_l,\Gamma_0</span>
+</span><span data-line="48">
+</span><span data-line="49"><span class="sd">So, to clarify the confusion,</span>
+</span><span data-line="50">
+</span><span data-line="51"><span class="sd">.. math::</span>
+</span><span data-line="52"><span class="sd">        Z_{in}= Z_{l},\qquad\qquad</span>
+</span><span data-line="53"><span class="sd">        \Gamma_{in}=\Gamma_l \text{ at }  \theta=0</span>
+</span><span data-line="54">
+</span><span data-line="55">
+</span><span data-line="56"><span class="sd">Short names</span>
+</span><span data-line="57"><span class="sd">+++++++++++++</span>
+</span><span data-line="58"><span class="sd">.. autosummary::</span>
+</span><span data-line="59"><span class="sd">        :toctree: generated/</span>
+</span><span data-line="60">
+</span><span data-line="61"><span class="sd">        theta</span>
+</span><span data-line="62">
+</span><span data-line="63"><span class="sd">        zl_2_Gamma0</span>
+</span><span data-line="64"><span class="sd">        zl_2_zin</span>
+</span><span data-line="65"><span class="sd">        zl_2_Gamma_in</span>
+</span><span data-line="66"><span class="sd">        zl_2_swr</span>
+</span><span data-line="67"><span class="sd">        zl_2_total_loss</span>
+</span><span data-line="68">
+</span><span data-line="69"><span class="sd">        Gamma0_2_zl</span>
+</span><span data-line="70"><span class="sd">        Gamma0_2_Gamma_in</span>
+</span><span data-line="71"><span class="sd">        Gamma0_2_zin</span>
+</span><span data-line="72"><span class="sd">        Gamma0_2_swr</span>
+</span><span data-line="73">
+</span><span data-line="74"><span class="sd">Long-names</span>
+</span><span data-line="75"><span class="sd">++++++++++++++</span>
+</span><span data-line="76"><span class="sd">.. autosummary::</span>
+</span><span data-line="77"><span class="sd">        :toctree: generated/</span>
+</span><span data-line="78">
+</span><span data-line="79"><span class="sd">        electrical_length</span>
+</span><span data-line="80">
+</span><span data-line="81"><span class="sd">        distance_2_electrical_length</span>
+</span><span data-line="82"><span class="sd">        electrical_length_2_distance</span>
+</span><span data-line="83">
+</span><span data-line="84"><span class="sd">        reflection_coefficient_at_theta</span>
+</span><span data-line="85"><span class="sd">        reflection_coefficient_2_input_impedance</span>
+</span><span data-line="86"><span class="sd">        reflection_coefficient_2_input_impedance_at_theta</span>
+</span><span data-line="87"><span class="sd">        reflection_coefficient_2_propagation_constant</span>
+</span><span data-line="88">
+</span><span data-line="89"><span class="sd">        input_impedance_at_theta</span>
+</span><span data-line="90"><span class="sd">        load_impedance_2_reflection_coefficient</span>
+</span><span data-line="91"><span class="sd">        load_impedance_2_reflection_coefficient_at_theta</span>
+</span><span data-line="92">
+</span><span data-line="93"><span class="sd">        voltage_current_propagation</span>
+</span><span data-line="94">
+</span><span data-line="95">
+</span><span data-line="96">
+</span><span data-line="97"><span class="sd">Distributed Circuit and Wave Quantities</span>
+</span><span data-line="98"><span class="sd">----------------------------------------</span>
+</span><span data-line="99"><span class="sd">.. autosummary::</span>
+</span><span data-line="100"><span class="sd">        :toctree: generated/</span>
+</span><span data-line="101">
+</span><span data-line="102"><span class="sd">        distributed_circuit_2_propagation_impedance</span>
+</span><span data-line="103"><span class="sd">        propagation_impedance_2_distributed_circuit</span>
+</span><span data-line="104">
+</span><span data-line="105"><span class="sd">Transmission Line Physics</span>
+</span><span data-line="106"><span class="sd">---------------------------------</span>
+</span><span data-line="107"><span class="sd">.. autosummary::</span>
+</span><span data-line="108"><span class="sd">        :toctree: generated/</span>
+</span><span data-line="109">
+</span><span data-line="110"><span class="sd">        skin_depth</span>
+</span><span data-line="111"><span class="sd">        surface_resistivity</span>
+</span><span data-line="112"><span class="sd">        surface_impedance</span>
+</span><span data-line="113"><span class="sd">"""</span>
+</span><span data-line="114">
+</span><span data-line="115"><span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
+</span><span data-line="116">
+</span><span data-line="117"><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+</span><span data-line="118"><span class="kn">from</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="kn">import</span> <span class="n">array</span><span class="p">,</span> <span class="n">exp</span><span class="p">,</span> <span class="n">pi</span><span class="p">,</span> <span class="n">real</span><span class="p">,</span> <span class="n">sqrt</span>
+</span><span data-line="119">
+</span><span data-line="120"><span class="kn">from</span><span class="w"> </span><span class="nn">.</span><span class="w"> </span><span class="kn">import</span> <span class="n">constants</span> <span class="k">as</span> <span class="n">_const</span>
+</span><span data-line="121"><span class="kn">from</span><span class="w"> </span><span class="nn">.</span><span class="w"> </span><span class="kn">import</span> <span class="n">mathFunctions</span> <span class="k">as</span> <span class="n">mf</span>
+</span><span data-line="122"><span class="kn">from</span><span class="w"> </span><span class="nn">.constants</span><span class="w"> </span><span class="kn">import</span> <span class="n">INF</span><span class="p">,</span> <span class="n">ONE</span><span class="p">,</span> <span class="n">NumberLike</span>
+</span><span data-line="123">
+</span><span data-line="124">
+<div class="viewcode-block" id="skin_depth">
+<a class="viewcode-back" href="../../api/generated/skrf.tlineFunctions.skin_depth.html#skrf.tlineFunctions.skin_depth">[docs]</a>
+</span><span data-line="125"><span class="k">def</span><span class="w"> </span><span class="nf">skin_depth</span><span class="p">(</span><span class="n">f</span><span class="p">:</span> <span class="n">NumberLike</span><span class="p">,</span> <span class="n">rho</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">mu_r</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
+</span><span data-line="126"><span class="w">    </span><span class="sa">r</span><span class="sd">"""</span>
+</span><span data-line="127"><span class="sd">    Skin depth for a material.</span>
+</span><span data-line="128">
+</span><span data-line="129"><span class="sd">    The skin depth is calculated as:</span>
+</span><span data-line="130">
+</span><span data-line="131">
+</span><span data-line="132"><span class="sd">    .. math::</span>
+</span><span data-line="133">
+</span><span data-line="134"><span class="sd">        \delta = \sqrt{\frac{ \rho }{ \pi f \mu_r \mu_0 }}</span>
+</span><span data-line="135">
+</span><span data-line="136"><span class="sd">    See www.microwaves101.com [#]_ or wikipedia [#]_ for more info.</span>
+</span><span data-line="137">
+</span><span data-line="138"><span class="sd">    Parameters</span>
+</span><span data-line="139"><span class="sd">    ----------</span>
+</span><span data-line="140"><span class="sd">    f : number or array-like</span>
+</span><span data-line="141"><span class="sd">        frequency, in Hz</span>
+</span><span data-line="142"><span class="sd">    rho : number of array-like</span>
+</span><span data-line="143"><span class="sd">        bulk resistivity of material, in ohm*m</span>
+</span><span data-line="144"><span class="sd">    mu_r : number or array-like</span>
+</span><span data-line="145"><span class="sd">        relative permeability of material</span>
+</span><span data-line="146">
+</span><span data-line="147"><span class="sd">    Returns</span>
+</span><span data-line="148"><span class="sd">    -------</span>
+</span><span data-line="149"><span class="sd">    skin depth : number or array-like</span>
+</span><span data-line="150"><span class="sd">        the skin depth, in meter</span>
+</span><span data-line="151">
+</span><span data-line="152"><span class="sd">    References</span>
+</span><span data-line="153"><span class="sd">    ----------</span>
+</span><span data-line="154"><span class="sd">    .. [#] https://www.microwaves101.com/encyclopedias/skin-depth</span>
+</span><span data-line="155"><span class="sd">    .. [#] http://en.wikipedia.org/wiki/Skin_effect</span>
+</span><span data-line="156">
+</span><span data-line="157"><span class="sd">    See Also</span>
+</span><span data-line="158"><span class="sd">    --------</span>
+</span><span data-line="159"><span class="sd">    surface_resistivity</span>
+</span><span data-line="160"><span class="sd">    surface_impedance</span>
+</span><span data-line="161">
+</span><span data-line="162"><span class="sd">    """</span>
+</span><span data-line="163">    <span class="k">return</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">rho</span><span class="o">/</span><span class="p">(</span><span class="n">pi</span><span class="o">*</span><span class="n">f</span><span class="o">*</span><span class="n">mu_r</span><span class="o">*</span><span class="n">_const</span><span class="o">.</span><span class="n">mu_0</span><span class="p">))</span></div>
+
+</span><span data-line="164">
+</span><span data-line="165">
+<div class="viewcode-block" id="surface_resistivity">
+<a class="viewcode-back" href="../../api/generated/skrf.tlineFunctions.surface_resistivity.html#skrf.tlineFunctions.surface_resistivity">[docs]</a>
+</span><span data-line="166"><span class="k">def</span><span class="w"> </span><span class="nf">surface_resistivity</span><span class="p">(</span><span class="n">f</span><span class="p">:</span> <span class="n">NumberLike</span><span class="p">,</span> <span class="n">rho</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">mu_r</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
+</span><span data-line="167"><span class="w">    </span><span class="sa">r</span><span class="sd">"""</span>
+</span><span data-line="168"><span class="sd">    Surface resistivity.</span>
+</span><span data-line="169">
+</span><span data-line="170"><span class="sd">    The surface resistivity is calculated as:</span>
+</span><span data-line="171">
+</span><span data-line="172">
+</span><span data-line="173"><span class="sd">    .. math::</span>
+</span><span data-line="174">
+</span><span data-line="175"><span class="sd">        \frac{ \rho }{ \delta }</span>
+</span><span data-line="176">
+</span><span data-line="177"><span class="sd">    where :math:`\delta` is the skin depth from :func:`skin_depth`.</span>
+</span><span data-line="178">
+</span><span data-line="179"><span class="sd">    See www.microwaves101.com [#]_ or wikipedia [#]_ for more info.</span>
+</span><span data-line="180">
+</span><span data-line="181"><span class="sd">    Parameters</span>
+</span><span data-line="182"><span class="sd">    ----------</span>
+</span><span data-line="183"><span class="sd">    f : number or array-like</span>
+</span><span data-line="184"><span class="sd">        frequency, in Hz</span>
+</span><span data-line="185"><span class="sd">    rho : number or array-like</span>
+</span><span data-line="186"><span class="sd">        bulk resistivity of material, in ohm*m</span>
+</span><span data-line="187"><span class="sd">    mu_r : number or array-like</span>
+</span><span data-line="188"><span class="sd">        relative permeability of material</span>
+</span><span data-line="189">
+</span><span data-line="190"><span class="sd">    Returns</span>
+</span><span data-line="191"><span class="sd">    -------</span>
+</span><span data-line="192"><span class="sd">    surface resistivity : number of array-like</span>
+</span><span data-line="193"><span class="sd">        Surface resistivity in ohms/square</span>
+</span><span data-line="194">
+</span><span data-line="195"><span class="sd">    References</span>
+</span><span data-line="196"><span class="sd">    ----------</span>
+</span><span data-line="197"><span class="sd">    .. [#] https://www.microwaves101.com/encyclopedias/sheet-resistance</span>
+</span><span data-line="198"><span class="sd">    .. [#] https://en.wikipedia.org/wiki/Sheet_resistance</span>
+</span><span data-line="199">
+</span><span data-line="200"><span class="sd">    See Also</span>
+</span><span data-line="201"><span class="sd">    --------</span>
+</span><span data-line="202"><span class="sd">    skin_depth</span>
+</span><span data-line="203"><span class="sd">    surface_impedance</span>
+</span><span data-line="204"><span class="sd">    """</span>
+</span><span data-line="205">    <span class="k">return</span> <span class="n">rho</span><span class="o">/</span><span class="n">skin_depth</span><span class="p">(</span><span class="n">rho</span><span class="o">=</span><span class="n">rho</span><span class="p">,</span> <span class="n">f</span><span class="o">=</span><span class="n">f</span><span class="p">,</span> <span class="n">mu_r</span><span class="o">=</span><span class="n">mu_r</span><span class="p">)</span></div>
+
+</span><span data-line="206">
+</span><span data-line="207">
+<div class="viewcode-block" id="surface_impedance">
+<a class="viewcode-back" href="../../api/generated/skrf.tlineFunctions.surface_impedance.html#skrf.tlineFunctions.surface_impedance">[docs]</a>
+</span><span data-line="208"><span class="k">def</span><span class="w"> </span><span class="nf">surface_impedance</span><span class="p">(</span><span class="n">f</span><span class="p">:</span> <span class="n">NumberLike</span><span class="p">,</span> <span class="n">material_properties</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">]</span> <span class="o">|</span> <span class="nb">dict</span><span class="p">,</span>
+</span><span data-line="209">                      <span class="n">rms_roughness</span><span class="p">:</span> <span class="n">NumberLike</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">boundary_loc</span><span class="p">:</span> <span class="n">NumberLike</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+</span><span data-line="210">                      <span class="n">distribution</span><span class="o">=</span><span class="s1">'norm'</span><span class="p">,</span> <span class="n">rtol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-6</span><span class="p">):</span>
+</span><span data-line="211"><span class="w">    </span><span class="sa">r</span><span class="sd">"""</span>
+</span><span data-line="212"><span class="sd">    Surface impedance of an arbitrary conductor boundary that</span>
+</span><span data-line="213"><span class="sd">    could compromise roughness and stack of materials.</span>
+</span><span data-line="214">
+</span><span data-line="215"><span class="sd">    The rough boundary between two materials, and, more generally, each</span>
+</span><span data-line="216"><span class="sd">    boundary of a stack of coated conductors, is described by the cumulative</span>
+</span><span data-line="217"><span class="sd">    distribution function (CDF) of its surface height, which grades the</span>
+</span><span data-line="218"><span class="sd">    material properties across the transition [#tegowski]_ [#gold]_:</span>
+</span><span data-line="219">
+</span><span data-line="220"><span class="sd">    .. math::</span>
+</span><span data-line="221">
+</span><span data-line="222"><span class="sd">        \mu(x) = \mu_1 + \sum_k \left( \mu_{k+1} - \mu_k \right) \mathrm{CDF}_k(x)</span>
+</span><span data-line="223">
+</span><span data-line="224"><span class="sd">    and likewise for :math:`\epsilon(x)`, with :math:`x` the depth into the</span>
+</span><span data-line="225"><span class="sd">    stack. The graded profile is discretized into short transmission line</span>
+</span><span data-line="226"><span class="sd">    segments with propagation constant :math:`\gamma_i = j\omega\sqrt{\mu_i \epsilon_i}`</span>
+</span><span data-line="227"><span class="sd">    and intrinsic impedance :math:`\eta_i = \sqrt{\mu_i / \epsilon_i}`, and the</span>
+</span><span data-line="228"><span class="sd">    input impedance is transformed from the deepest material up to the surface:</span>
+</span><span data-line="229">
+</span><span data-line="230"><span class="sd">    .. math::</span>
+</span><span data-line="231">
+</span><span data-line="232"><span class="sd">        Z_i = \eta_i \frac{Z_{i+1} + \eta_i \tanh(\gamma_i \Delta x_i)}</span>
+</span><span data-line="233"><span class="sd">                          {\eta_i + Z_{i+1} \tanh(\gamma_i \Delta x_i)}</span>
+</span><span data-line="234">
+</span><span data-line="235"><span class="sd">    The result is the surface impedance seen by a wave impinging on the stack.</span>
+</span><span data-line="236">
+</span><span data-line="237"><span class="sd">    Parameters</span>
+</span><span data-line="238"><span class="sd">    ----------</span>
+</span><span data-line="239"><span class="sd">    f : number or array-like</span>
+</span><span data-line="240"><span class="sd">        frequency, in Hz. Must be non-zero.</span>
+</span><span data-line="241"><span class="sd">    material_properties : list of dict or dict</span>
+</span><span data-line="242"><span class="sd">        Material stack, ordered from the outside medium the wave impinges from</span>
+</span><span data-line="243"><span class="sd">        (vacuum, dielectric) down to the deepest conductor. Each dict takes</span>
+</span><span data-line="244"><span class="sd">        any of the keys ``'sigma'`` (conductivity in S/m), ``'ep_r'``</span>
+</span><span data-line="245"><span class="sd">        (relative permittivity) and ``'mu_r'`` (relative permeability), with</span>
+</span><span data-line="246"><span class="sd">        defaults 0, 1 and 1; values are scalars or arrays matching ``f``.</span>
+</span><span data-line="247"><span class="sd">        Describe a conductor by ``'sigma'``, where ``'ep_r'``, if given, must be</span>
+</span><span data-line="248"><span class="sd">        real-valued. On the other hand, a lossy dielectric described by complex ``'ep_r'``.</span>
+</span><span data-line="249"><span class="sd">        Passing a single dict is a shorthand for that material below vacuum, i.e.</span>
+</span><span data-line="250"><span class="sd">        ``[{}, {...}]``. Consecutive materials are separated by one rough boundary each.</span>
+</span><span data-line="251"><span class="sd">    rms_roughness : number or array-like, optional</span>
+</span><span data-line="252"><span class="sd">        rms roughness (i.e., Rq or Rrms) of each boundary, in meter. One value per boundary;</span>
+</span><span data-line="253"><span class="sd">        a scalar applies to all. Default is 0.</span>
+</span><span data-line="254"><span class="sd">    boundary_loc : number or array-like, optional</span>
+</span><span data-line="255"><span class="sd">        Mean location of each boundary, in meter, in increasing order. Default is 0 for a single boundary.</span>
+</span><span data-line="256"><span class="sd">        For multiple boundaries, the first is at 0 and the last is at the total thickness of the stack,</span>
+</span><span data-line="257"><span class="sd">        e.g. ``[0, 0.05e-6, 4.05e-6]`` for a 50 nm gold layer on top of 4 um nickel layer.</span>
+</span><span data-line="258"><span class="sd">    distribution : str, frozen scipy.stats distribution, callable, or list thereof, optional</span>
+</span><span data-line="259"><span class="sd">        Height distribution of each boundary: the name of a scipy.stats</span>
+</span><span data-line="260"><span class="sd">        continuous distribution without shape parameters (``'norm'``</span>
+</span><span data-line="261"><span class="sd">        (default), ``'rayleigh'``, ``'uniform'``, ...), a frozen distribution</span>
+</span><span data-line="262"><span class="sd">        for those with shape parameters (e.g. ``scipy.stats.gamma(2)``), or a</span>
+</span><span data-line="263"><span class="sd">        function ``distribution(x, rms_roughness, boundary_loc)`` returning</span>
+</span><span data-line="264"><span class="sd">        the CDF at depths ``x``. Named and frozen distributions are shifted</span>
+</span><span data-line="265"><span class="sd">        and scaled to the given mean and standard deviation.</span>
+</span><span data-line="266"><span class="sd">    rtol : float, optional</span>
+</span><span data-line="267"><span class="sd">        Relative tolerance to which the discretization is refined. Default is 1e-6.</span>
+</span><span data-line="268">
+</span><span data-line="269"><span class="sd">    Returns</span>
+</span><span data-line="270"><span class="sd">    -------</span>
+</span><span data-line="271"><span class="sd">    Zs : complex number or array-like</span>
+</span><span data-line="272"><span class="sd">        surface impedance, in ohm (per square), at each frequency.</span>
+</span><span data-line="273">
+</span><span data-line="274"><span class="sd">    Notes</span>
+</span><span data-line="275"><span class="sd">    -----</span>
+</span><span data-line="276"><span class="sd">    The material variation inside each segment is handled by a 4th-order</span>
+</span><span data-line="277"><span class="sd">    Magnus scheme (Eqs. (252)-(254) in [#blanes]_), and the segment count over the</span>
+</span><span data-line="278"><span class="sd">    rough transitions is doubled, combining the last refinement levels by</span>
+</span><span data-line="279"><span class="sd">    Richardson extrapolation, until ``Zs`` changes by less than ``rtol``; a</span>
+</span><span data-line="280"><span class="sd">    ``RuntimeWarning`` is issued if the refinement does not converge.</span>
+</span><span data-line="281">
+</span><span data-line="282"><span class="sd">    A layer thinner than the roughness of its boundaries lets their CDFs cross, which</span>
+</span><span data-line="283"><span class="sd">    mixes the materials with negative weights and can flip the sign of the loss. The</span>
+</span><span data-line="284"><span class="sd">    CDFs are therefore put back in order before they are mixed, which leaves a well</span>
+</span><span data-line="285"><span class="sd">    formed stack as it is, and a ``RuntimeWarning`` is issued if negative weight is found.</span>
+</span><span data-line="286">
+</span><span data-line="287"><span class="sd">    With the default ``rms_roughness=0`` a single smooth conductor recovers the</span>
+</span><span data-line="288"><span class="sd">    classic :math:`(1 + j)\sqrt{\pi f \mu \rho}` known from</span>
+</span><span data-line="289"><span class="sd">    :func:`surface_resistivity`.</span>
+</span><span data-line="290">
+</span><span data-line="291"><span class="sd">    See Also</span>
+</span><span data-line="292"><span class="sd">    --------</span>
+</span><span data-line="293"><span class="sd">    skin_depth</span>
+</span><span data-line="294"><span class="sd">    surface_resistivity</span>
+</span><span data-line="295">
+</span><span data-line="296"><span class="sd">    References</span>
+</span><span data-line="297"><span class="sd">    ----------</span>
+</span><span data-line="298"><span class="sd">    .. [#tegowski] B. Tegowski, T. Jaschke, A. Sieganschin and A. F. Jacob, "A Transmission</span>
+</span><span data-line="299"><span class="sd">       Line Approach for Rough Conductor Surface Impedance Analysis," IEEE Trans.</span>
+</span><span data-line="300"><span class="sd">       Microw. Theory Techn., vol. 71, no. 2, pp. 471-479, 2023.</span>
+</span><span data-line="301"><span class="sd">       https://doi.org/10.1109/TMTT.2022.3206440</span>
+</span><span data-line="302"><span class="sd">    .. [#gold] G. Gold and K. Helmreich, "Modeling of transmission lines with multiple</span>
+</span><span data-line="303"><span class="sd">       coated conductors," 46th European Microwave Conference (EuMC), 2016.</span>
+</span><span data-line="304"><span class="sd">       https://doi.org/10.1109/EuMC.2016.7824423</span>
+</span><span data-line="305"><span class="sd">    .. [#blanes] S. Blanes, F. Casas, J. A. Oteo and J. Ros, "The Magnus expansion and</span>
+</span><span data-line="306"><span class="sd">       some of its applications," Physics Reports, vol. 470, no. 5-6, pp. 151-238,</span>
+</span><span data-line="307"><span class="sd">       2009. https://doi.org/10.1016/j.physrep.2008.11.001</span>
+</span><span data-line="308">
+</span><span data-line="309"><span class="sd">    Examples</span>
+</span><span data-line="310"><span class="sd">    --------</span>
+</span><span data-line="311"><span class="sd">    Smooth copper at 10 GHz, reproducing :math:`(1 + j) R_s`:</span>
+</span><span data-line="312">
+</span><span data-line="313"><span class="sd">    &gt;&gt;&gt; import skrf as rf</span>
+</span><span data-line="314"><span class="sd">    &gt;&gt;&gt; Zs = rf.tlineFunctions.surface_impedance(10e9, {'sigma': 58e6})</span>
+</span><span data-line="315"><span class="sd">    &gt;&gt;&gt; Rs = rf.tlineFunctions.surface_resistivity(10e9, rho=1/58e6, mu_r=1)</span>
+</span><span data-line="316"><span class="sd">    &gt;&gt;&gt; print(f"{Zs:.4f} ohm, {(1 + 1j)*Rs:.4f} ohm")</span>
+</span><span data-line="317"><span class="sd">    0.0261+0.0261j ohm, 0.0261+0.0261j ohm</span>
+</span><span data-line="318">
+</span><span data-line="319"><span class="sd">    The same conductor with 1 um rms roughness:</span>
+</span><span data-line="320">
+</span><span data-line="321"><span class="sd">    &gt;&gt;&gt; Zs = rf.tlineFunctions.surface_impedance(10e9, {'sigma': 58e6}, rms_roughness=1e-6)</span>
+</span><span data-line="322"><span class="sd">    &gt;&gt;&gt; print(f"{Zs:.4f} ohm")</span>
+</span><span data-line="323"><span class="sd">    0.0630+0.3356j ohm</span>
+</span><span data-line="324">
+</span><span data-line="325"><span class="sd">    The top side of a microstrip trace with an ENIG surface finish; a nearly</span>
+</span><span data-line="326"><span class="sd">    flat (5 nm rms) stack of 0.05 um gold and 4 um nickel on copper:</span>
+</span><span data-line="327">
+</span><span data-line="328"><span class="sd">    &gt;&gt;&gt; mats = [{}, {'sigma': 41.1e6}, {'sigma': 14.5e6, 'mu_r': 20}, {'sigma': 58e6}]</span>
+</span><span data-line="329"><span class="sd">    &gt;&gt;&gt; Zs = rf.tlineFunctions.surface_impedance(10e9, mats, rms_roughness=5e-9,</span>
+</span><span data-line="330"><span class="sd">    ...                                          boundary_loc=[0, 0.05e-6, 4.05e-6])</span>
+</span><span data-line="331"><span class="sd">    &gt;&gt;&gt; print(f"{Zs:.4f} ohm")</span>
+</span><span data-line="332"><span class="sd">    0.1895+0.1012j ohm</span>
+</span><span data-line="333">
+</span><span data-line="334"><span class="sd">    The bottom side of the trace; copper against the substrate</span>
+</span><span data-line="335"><span class="sd">    (:math:`\epsilon_r = 3.2`), rough at the copper-substrate boundary, from</span>
+</span><span data-line="336"><span class="sd">    1 to 100 GHz:</span>
+</span><span data-line="337">
+</span><span data-line="338"><span class="sd">    &gt;&gt;&gt; import numpy as np</span>
+</span><span data-line="339"><span class="sd">    &gt;&gt;&gt; f = np.logspace(9, 11, 201)</span>
+</span><span data-line="340"><span class="sd">    &gt;&gt;&gt; Zs = rf.tlineFunctions.surface_impedance(f, [{'ep_r': 3.2}, {'sigma': 58e6}],</span>
+</span><span data-line="341"><span class="sd">    ...                                          rms_roughness=0.5e-6)</span>
+</span><span data-line="342"><span class="sd">    &gt;&gt;&gt; print(f"{Zs[-1]:.4f} ohm")  # at 100 GHz</span>
+</span><span data-line="343"><span class="sd">    0.2743+1.5154j ohm</span>
+</span><span data-line="344"><span class="sd">    """</span>
+</span><span data-line="345">    <span class="n">f</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+</span><span data-line="346">    <span class="n">is_scalar</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">0</span>
+</span><span data-line="347">    <span class="n">f</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">atleast_1d</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+</span><span data-line="348">    <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">f</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">):</span>
+</span><span data-line="349">        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Frequency must be non-zero and positive."</span><span class="p">)</span>
+</span><span data-line="350">    <span class="n">omega</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="n">f</span>
+</span><span data-line="351">
+</span><span data-line="352">    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">material_properties</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+</span><span data-line="353">        <span class="n">material_properties</span> <span class="o">=</span> <span class="p">[{},</span> <span class="n">material_properties</span><span class="p">]</span>  <span class="c1"># a single material below vacuum</span>
+</span><span data-line="354">    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">material_properties</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
+</span><span data-line="355">        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"material_properties needs at least two materials (outside medium and conductor)."</span><span class="p">)</span>
+</span><span data-line="356">    <span class="n">mu_r</span><span class="p">,</span> <span class="n">ep_r</span> <span class="o">=</span> <span class="n">_parse_material_properties</span><span class="p">(</span><span class="n">material_properties</span><span class="p">,</span> <span class="n">omega</span><span class="p">)</span>  <span class="c1"># (M, nf) each</span>
+</span><span data-line="357">
+</span><span data-line="358">    <span class="c1"># one value per boundary between consecutive materials; a single value applies to all</span>
+</span><span data-line="359">    <span class="n">K</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">material_properties</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
+</span><span data-line="360">    <span class="n">rms_roughness</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">broadcast_to</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">rms_roughness</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">),</span> <span class="n">K</span><span class="p">)</span>
+</span><span data-line="361">    <span class="n">boundary_loc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">broadcast_to</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">boundary_loc</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">),</span> <span class="n">K</span><span class="p">)</span>
+</span><span data-line="362">    <span class="n">distribution</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">broadcast_to</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">distribution</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">object</span><span class="p">),</span> <span class="n">K</span><span class="p">))</span>
+</span><span data-line="363">    <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">boundary_loc</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">):</span>
+</span><span data-line="364">        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"boundary_loc must be sorted in increasing depth order (matching material_properties)."</span><span class="p">)</span>
+</span><span data-line="365">
+</span><span data-line="366">    <span class="c1"># computation span: reach 5 rms past every boundary, where a deeper boundary that is rougher</span>
+</span><span data-line="367">    <span class="c1"># reaches further out. Zs is referenced to x_start, where the material is still the outside medium.</span>
+</span><span data-line="368">    <span class="c1"># Zero roughness is floored to 1e-14 m, making that boundary a practically ideal step.</span>
+</span><span data-line="369">    <span class="n">reach</span> <span class="o">=</span> <span class="mi">5</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="n">rms_roughness</span><span class="p">,</span> <span class="mf">1e-14</span><span class="p">)</span>
+</span><span data-line="370">    <span class="n">x_start</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">boundary_loc</span> <span class="o">-</span> <span class="n">reach</span><span class="p">)</span>
+</span><span data-line="371">    <span class="n">x_end</span>   <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">boundary_loc</span> <span class="o">+</span> <span class="n">reach</span><span class="p">)</span>
+</span><span data-line="372">
+</span><span data-line="373">    <span class="c1"># ------- surface impedance, doubling the segments until it converges -------</span>
+</span><span data-line="374">    <span class="c1"># Doubling is the standard geometric refinement: total work stays about twice the</span>
+</span><span data-line="375">    <span class="c1"># finest level, and the fixed 2:1 ratio gives the Richardson factor 1/(2**4 - 1).</span>
+</span><span data-line="376">    <span class="n">eta_bulk</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">_const</span><span class="o">.</span><span class="n">mu_0</span><span class="o">*</span><span class="n">mu_r</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">/</span><span class="p">(</span><span class="n">_const</span><span class="o">.</span><span class="n">epsilon_0</span><span class="o">*</span><span class="n">ep_r</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]))</span>
+</span><span data-line="377">    <span class="n">Zs_levels</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># surface impedance at each refinement level</span>
+</span><span data-line="378">    <span class="n">negative_weight</span> <span class="o">=</span> <span class="mf">0.0</span>  <span class="c1"># most negative mixer weight. assume no negative weight until found otherwise</span>
+</span><span data-line="379">    <span class="n">converged</span> <span class="o">=</span> <span class="kc">False</span>
+</span><span data-line="380">    <span class="k">for</span> <span class="n">n_segments</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">64</span><span class="o">*</span><span class="mi">2</span><span class="o">**</span><span class="n">k</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">9</span><span class="p">)):</span>  <span class="c1"># 64, 128, ..., 16384</span>
+</span><span data-line="381">        <span class="n">edges</span> <span class="o">=</span> <span class="n">_segment_edges</span><span class="p">(</span><span class="n">rms_roughness</span><span class="p">,</span> <span class="n">boundary_loc</span><span class="p">,</span> <span class="n">x_start</span><span class="p">,</span> <span class="n">x_end</span><span class="p">,</span> <span class="n">n_segments</span><span class="p">)</span>
+</span><span data-line="382">        <span class="n">dx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">edges</span><span class="p">)</span>
+</span><span data-line="383">        <span class="n">n</span> <span class="o">=</span> <span class="n">dx</span><span class="o">.</span><span class="n">size</span>  <span class="c1"># actual segment count: n_segments in the transitions, plus the bulk gaps</span>
+</span><span data-line="384">        <span class="n">x</span> <span class="o">=</span> <span class="n">edges</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mf">0.5</span><span class="o">*</span><span class="n">dx</span>  <span class="c1"># segment midpoints</span>
+</span><span data-line="385">
+</span><span data-line="386">        <span class="c1"># material at the two Gauss-Legendre points of each segment, x -+ dx/(2*sqrt(3))</span>
+</span><span data-line="387">        <span class="n">x_gauss</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">x</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">/</span><span class="mi">6</span><span class="o">*</span><span class="n">dx</span><span class="p">,</span> <span class="n">x</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">/</span><span class="mi">6</span><span class="o">*</span><span class="n">dx</span><span class="p">])</span>
+</span><span data-line="388">        <span class="n">cdf</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">_roughness_cdf</span><span class="p">(</span><span class="n">x_gauss</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">loc</span><span class="p">,</span> <span class="n">dist</span><span class="p">)</span>
+</span><span data-line="389">                        <span class="k">for</span> <span class="n">r</span><span class="p">,</span> <span class="n">loc</span><span class="p">,</span> <span class="n">dist</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">rms_roughness</span><span class="p">,</span> <span class="n">boundary_loc</span><span class="p">,</span> <span class="n">distribution</span><span class="p">)])</span>
+</span><span data-line="390">        <span class="c1"># mixer weight of each material at every depth: 1 - F_0, F_0 - F_1, ..., F_(K-1)</span>
+</span><span data-line="391">        <span class="n">weight</span> <span class="o">=</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">cdf</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">prepend</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">append</span><span class="o">=</span><span class="mf">0.0</span><span class="p">)</span>
+</span><span data-line="392">        <span class="k">if</span> <span class="n">weight</span><span class="o">.</span><span class="n">min</span><span class="p">()</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>  <span class="c1"># negative weight detected. Pull the CDFs back into order.</span>
+</span><span data-line="393">            <span class="n">negative_weight</span> <span class="o">=</span> <span class="n">weight</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>
+</span><span data-line="394">            <span class="n">weight</span> <span class="o">=</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">_order_cdf</span><span class="p">(</span><span class="n">cdf</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">prepend</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">append</span><span class="o">=</span><span class="mf">0.0</span><span class="p">)</span>
+</span><span data-line="395">        <span class="n">mu_gauss</span> <span class="o">=</span> <span class="n">_const</span><span class="o">.</span><span class="n">mu_0</span><span class="o">*</span><span class="p">(</span><span class="n">mu_r</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">weight</span><span class="p">)</span>
+</span><span data-line="396">        <span class="n">ep_gauss</span> <span class="o">=</span> <span class="n">_const</span><span class="o">.</span><span class="n">epsilon_0</span><span class="o">*</span><span class="p">(</span><span class="n">ep_r</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">weight</span><span class="p">)</span>
+</span><span data-line="397">        <span class="n">mu_1</span><span class="p">,</span> <span class="n">mu_2</span> <span class="o">=</span> <span class="n">mu_gauss</span><span class="p">[:,</span> <span class="p">:</span><span class="n">n</span><span class="p">],</span> <span class="n">mu_gauss</span><span class="p">[:,</span> <span class="n">n</span><span class="p">:]</span>
+</span><span data-line="398">        <span class="n">ep_1</span><span class="p">,</span> <span class="n">ep_2</span> <span class="o">=</span> <span class="n">ep_gauss</span><span class="p">[:,</span> <span class="p">:</span><span class="n">n</span><span class="p">],</span> <span class="n">ep_gauss</span><span class="p">[:,</span> <span class="n">n</span><span class="p">:]</span>
+</span><span data-line="399">
+</span><span data-line="400">        <span class="c1"># Segment quantities of the 4th-order Magnus method (Eqs. (252)-(254) of Blanes et</span>
+</span><span data-line="401">        <span class="c1"># al., see docstring references): the electrical length s (= gamma*dx if uniform),</span>
+</span><span data-line="402">        <span class="c1"># the products eta*tanh(gamma*dx) and tanh(gamma*dx)/eta, and the correction d for</span>
+</span><span data-line="403">        <span class="c1"># the material variation inside the segment (d = 0 when mu_1 = mu_2 and ep_1 = ep_2).</span>
+</span><span data-line="404">        <span class="n">mu_sum</span><span class="p">,</span> <span class="n">ep_sum</span> <span class="o">=</span> <span class="n">mu_1</span> <span class="o">+</span> <span class="n">mu_2</span><span class="p">,</span> <span class="n">ep_1</span> <span class="o">+</span> <span class="n">ep_2</span>
+</span><span data-line="405">        <span class="n">d</span> <span class="o">=</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">/</span><span class="mi">12</span><span class="o">*</span><span class="n">dx</span><span class="o">**</span><span class="mi">2</span><span class="o">*</span><span class="n">omega</span><span class="p">[:,</span> <span class="kc">None</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span><span class="o">*</span><span class="p">(</span><span class="n">ep_1</span><span class="o">*</span><span class="n">mu_2</span> <span class="o">-</span> <span class="n">mu_1</span><span class="o">*</span><span class="n">ep_2</span><span class="p">)</span>
+</span><span data-line="406">        <span class="n">s</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">d</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="mf">0.25</span><span class="o">*</span><span class="n">dx</span><span class="o">**</span><span class="mi">2</span><span class="o">*</span><span class="n">omega</span><span class="p">[:,</span> <span class="kc">None</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span><span class="o">*</span><span class="n">mu_sum</span><span class="o">*</span><span class="n">ep_sum</span><span class="p">)</span>
+</span><span data-line="407">        <span class="n">tanh_over_s</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">tanh</span><span class="p">(</span><span class="n">s</span><span class="p">)</span><span class="o">/</span><span class="n">s</span>  <span class="c1"># even in s, so the branch of the sqrt above does not matter</span>
+</span><span data-line="408">        <span class="n">eta_tanh</span> <span class="o">=</span> <span class="n">tanh_over_s</span><span class="o">*</span><span class="mf">0.5</span><span class="n">j</span><span class="o">*</span><span class="n">dx</span><span class="o">*</span><span class="n">omega</span><span class="p">[:,</span> <span class="kc">None</span><span class="p">]</span><span class="o">*</span><span class="n">mu_sum</span>       <span class="c1"># eta*tanh(gamma*dx)</span>
+</span><span data-line="409">        <span class="n">tanh_over_eta</span> <span class="o">=</span> <span class="n">tanh_over_s</span><span class="o">*</span><span class="mf">0.5</span><span class="n">j</span><span class="o">*</span><span class="n">dx</span><span class="o">*</span><span class="n">omega</span><span class="p">[:,</span> <span class="kc">None</span><span class="p">]</span><span class="o">*</span><span class="n">ep_sum</span>  <span class="c1"># tanh(gamma*dx)/eta</span>
+</span><span data-line="410">        <span class="n">d</span> <span class="o">=</span> <span class="n">tanh_over_s</span><span class="o">*</span><span class="n">d</span>
+</span><span data-line="411">
+</span><span data-line="412">        <span class="c1"># transform from the deepest material up to the surface: the impedance recursion</span>
+</span><span data-line="413">        <span class="c1"># of Tegowski et al. (Eq. (9)) divided by eta, with the correction d</span>
+</span><span data-line="414">        <span class="n">Zs</span> <span class="o">=</span> <span class="n">eta_bulk</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+</span><span data-line="415">        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+</span><span data-line="416">            <span class="n">Zs</span> <span class="o">=</span> <span class="p">((</span><span class="mi">1</span> <span class="o">-</span> <span class="n">d</span><span class="p">[:,</span> <span class="n">i</span><span class="p">])</span><span class="o">*</span><span class="n">Zs</span> <span class="o">+</span> <span class="n">eta_tanh</span><span class="p">[:,</span> <span class="n">i</span><span class="p">])</span><span class="o">/</span><span class="p">((</span><span class="mi">1</span> <span class="o">+</span> <span class="n">d</span><span class="p">[:,</span> <span class="n">i</span><span class="p">])</span> <span class="o">+</span> <span class="n">tanh_over_eta</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span><span class="o">*</span><span class="n">Zs</span><span class="p">)</span>
+</span><span data-line="417">        <span class="n">Zs_levels</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Zs</span><span class="p">)</span>
+</span><span data-line="418">
+</span><span data-line="419">        <span class="c1"># Richardson extrapolation: the 4th-order error drops by 2**4 when the segment</span>
+</span><span data-line="420">        <span class="c1"># count doubles, so 1/(2**4 - 1) of the change cancels it. Stop once the</span>
+</span><span data-line="421">        <span class="c1"># extrapolated Zs settles within rtol.</span>
+</span><span data-line="422">        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">Zs_levels</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">3</span><span class="p">:</span>
+</span><span data-line="423">            <span class="n">Zs</span> <span class="o">=</span> <span class="n">Zs_levels</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="n">Zs_levels</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">Zs_levels</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">])</span><span class="o">/</span><span class="p">(</span><span class="mi">2</span><span class="o">**</span><span class="mi">4</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+</span><span data-line="424">            <span class="n">Zs_before</span> <span class="o">=</span> <span class="n">Zs_levels</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="n">Zs_levels</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span> <span class="o">-</span> <span class="n">Zs_levels</span><span class="p">[</span><span class="o">-</span><span class="mi">3</span><span class="p">])</span><span class="o">/</span><span class="p">(</span><span class="mi">2</span><span class="o">**</span><span class="mi">4</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+</span><span data-line="425">            <span class="n">change</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">Zs</span> <span class="o">-</span> <span class="n">Zs_before</span><span class="p">)</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">Zs</span><span class="p">))</span>
+</span><span data-line="426">            <span class="k">if</span> <span class="n">change</span> <span class="o">&lt;</span> <span class="n">rtol</span><span class="p">:</span>
+</span><span data-line="427">                <span class="n">converged</span> <span class="o">=</span> <span class="kc">True</span>
+</span><span data-line="428">                <span class="k">break</span>
+</span><span data-line="429">    <span class="k">if</span> <span class="n">negative_weight</span> <span class="o">&lt;</span> <span class="o">-</span><span class="mf">1e-6</span><span class="p">:</span>  <span class="c1"># 0.0001% of the mixture, anything below that is negligible error.</span>
+</span><span data-line="430">        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">"negative mixer weight, the roughness at a layer's boundaries being too "</span>
+</span><span data-line="431">                      <span class="s2">"large for its thickness; this is not physical, check rms_roughness."</span><span class="p">,</span>
+</span><span data-line="432">                      <span class="ne">RuntimeWarning</span><span class="p">,</span> <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+</span><span data-line="433">    <span class="k">if</span> <span class="ow">not</span> <span class="n">converged</span><span class="p">:</span>
+</span><span data-line="434">        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="sa">f</span><span class="s2">"surface_impedance did not converge to rtol=</span><span class="si">{</span><span class="n">rtol</span><span class="si">:</span><span class="s2">.1e</span><span class="si">}</span><span class="s2"> "</span>
+</span><span data-line="435">                      <span class="sa">f</span><span class="s2">"(last change </span><span class="si">{</span><span class="n">change</span><span class="si">:</span><span class="s2">.1e</span><span class="si">}</span><span class="s2">); returning the last refinement."</span><span class="p">,</span>
+</span><span data-line="436">                      <span class="ne">RuntimeWarning</span><span class="p">,</span> <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+</span><span data-line="437">    <span class="k">return</span> <span class="n">Zs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="n">is_scalar</span> <span class="k">else</span> <span class="n">Zs</span></div>
+
+</span><span data-line="438">
+</span><span data-line="439"><span class="k">def</span><span class="w"> </span><span class="nf">_order_cdf</span><span class="p">(</span><span class="n">cdf</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+</span><span data-line="440"><span class="w">    </span><span class="sd">"""</span>
+</span><span data-line="441"><span class="sd">    Pull the boundary CDFs into non-increasing order, cdf[0] &gt;= cdf[1] &gt;= ...</span>
+</span><span data-line="442">
+</span><span data-line="443"><span class="sd">    A deeper boundary cannot have been passed by more of the surface than a shallower one,</span>
+</span><span data-line="444"><span class="sd">    so the CDFs have to come in order. A roughness of the size of a layer thickness breaks</span>
+</span><span data-line="445"><span class="sd">    that and the mixer weights turn negative, which makes the blended material unphysical. The</span>
+</span><span data-line="446"><span class="sd">    CDFs are then pulled to the nearest ordered set in the least squares sense, by isotonic</span>
+</span><span data-line="447"><span class="sd">    regression over the boundaries at each depth, and an already ordered set is left as it is.</span>
+</span><span data-line="448"><span class="sd">    See https://en.wikipedia.org/wiki/Isotonic_regression</span>
+</span><span data-line="449"><span class="sd">    """</span>
+</span><span data-line="450">    <span class="n">K</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">cdf</span><span class="p">)</span>
+</span><span data-line="451">    <span class="k">if</span> <span class="n">K</span> <span class="o">&lt;</span> <span class="mi">2</span> <span class="ow">or</span> <span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">cdf</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">):</span>
+</span><span data-line="452">        <span class="k">return</span> <span class="n">cdf</span>  <span class="c1"># already ordered, nothing to do</span>
+</span><span data-line="453">    <span class="c1"># running sum, so the mean over boundaries s to t is (csum[t + 1] - csum[s])/(t - s + 1)</span>
+</span><span data-line="454">    <span class="n">csum</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">cdf</span><span class="p">[:</span><span class="mi">1</span><span class="p">]),</span> <span class="n">np</span><span class="o">.</span><span class="n">cumsum</span><span class="p">(</span><span class="n">cdf</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)])</span>
+</span><span data-line="455">    <span class="n">ordered</span> <span class="o">=</span> <span class="p">[]</span>
+</span><span data-line="456">    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">K</span><span class="p">):</span>
+</span><span data-line="457">        <span class="n">blocks</span> <span class="o">=</span> <span class="p">[[(</span><span class="n">csum</span><span class="p">[</span><span class="n">t</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">csum</span><span class="p">[</span><span class="n">s</span><span class="p">])</span><span class="o">/</span><span class="p">(</span><span class="n">t</span> <span class="o">-</span> <span class="n">s</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">K</span><span class="p">)]</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)]</span>
+</span><span data-line="458">        <span class="n">ordered</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">blocks</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span>
+</span><span data-line="459">    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">ordered</span><span class="p">)</span>
+</span><span data-line="460">
+</span><span data-line="461"><span class="k">def</span><span class="w"> </span><span class="nf">_roughness_cdf</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">NumberLike</span><span class="p">,</span> <span class="n">rms_roughness</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">boundary_loc</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">distribution</span><span class="p">):</span>
+</span><span data-line="462"><span class="w">    </span><span class="sd">"""</span>
+</span><span data-line="463"><span class="sd">    Cumulative height distribution of a rough boundary, evaluated at depths x.</span>
+</span><span data-line="464">
+</span><span data-line="465"><span class="sd">    ``distribution`` is the name of a scipy.stats continuous distribution</span>
+</span><span data-line="466"><span class="sd">    without shape parameters ('norm', 'rayleigh', 'uniform', ...), a frozen</span>
+</span><span data-line="467"><span class="sd">    one for those with shape parameters (e.g. ``scipy.stats.gamma(2)``), or a</span>
+</span><span data-line="468"><span class="sd">    function ``distribution(x, rms_roughness, boundary_loc)`` returning the</span>
+</span><span data-line="469"><span class="sd">    CDF. Named and frozen distributions are shifted and scaled to mean</span>
+</span><span data-line="470"><span class="sd">    ``boundary_loc`` and standard deviation ``rms_roughness``.</span>
+</span><span data-line="471"><span class="sd">    """</span>
+</span><span data-line="472">    <span class="kn">import</span><span class="w"> </span><span class="nn">scipy.stats</span>  <span class="c1"># heavy import: deferred so that `import skrf` stays lean</span>
+</span><span data-line="473">
+</span><span data-line="474">    <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+</span><span data-line="475">    <span class="n">rms_roughness</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">rms_roughness</span><span class="p">),</span> <span class="mf">1e-14</span><span class="p">)</span>  <span class="c1"># zero roughness --&gt; practically a step transition</span>
+</span><span data-line="476">
+</span><span data-line="477">    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">distribution</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+</span><span data-line="478">        <span class="n">dist</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="p">,</span> <span class="n">distribution</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+</span><span data-line="479">        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dist</span><span class="p">,</span> <span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">rv_continuous</span><span class="p">):</span>
+</span><span data-line="480">            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Unknown distribution '</span><span class="si">{</span><span class="n">distribution</span><span class="si">}</span><span class="s2">'. Use the name of a "</span>
+</span><span data-line="481">                             <span class="s2">"scipy.stats continuous distribution, e.g. 'norm', 'rayleigh', 'uniform'."</span><span class="p">)</span>
+</span><span data-line="482">        <span class="k">try</span><span class="p">:</span>
+</span><span data-line="483">            <span class="n">m</span><span class="p">,</span> <span class="n">v</span> <span class="o">=</span> <span class="n">dist</span><span class="o">.</span><span class="n">stats</span><span class="p">(</span><span class="n">moments</span><span class="o">=</span><span class="s1">'mv'</span><span class="p">)</span>
+</span><span data-line="484">        <span class="k">except</span> <span class="ne">TypeError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+</span><span data-line="485">            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Distribution '</span><span class="si">{</span><span class="n">distribution</span><span class="si">}</span><span class="s2">' requires shape parameters. Pass a frozen "</span>
+</span><span data-line="486">                             <span class="sa">f</span><span class="s2">"distribution instead, e.g. scipy.stats.</span><span class="si">{</span><span class="n">distribution</span><span class="si">}</span><span class="s2">(...)."</span><span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">e</span>
+</span><span data-line="487">        <span class="n">scale</span> <span class="o">=</span> <span class="n">rms_roughness</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">v</span><span class="p">))</span>
+</span><span data-line="488">        <span class="k">return</span> <span class="n">dist</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="n">boundary_loc</span> <span class="o">-</span> <span class="nb">float</span><span class="p">(</span><span class="n">m</span><span class="p">)</span><span class="o">*</span><span class="n">scale</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">scale</span><span class="p">)</span>
+</span><span data-line="489">
+</span><span data-line="490">    <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">distribution</span><span class="p">,</span> <span class="s1">'cdf'</span><span class="p">):</span>  <span class="c1"># frozen scipy.stats distribution</span>
+</span><span data-line="491">        <span class="n">m</span><span class="p">,</span> <span class="n">v</span> <span class="o">=</span> <span class="n">distribution</span><span class="o">.</span><span class="n">stats</span><span class="p">(</span><span class="n">moments</span><span class="o">=</span><span class="s1">'mv'</span><span class="p">)</span>
+</span><span data-line="492">        <span class="n">s</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">v</span><span class="p">))</span>
+</span><span data-line="493">        <span class="k">return</span> <span class="n">distribution</span><span class="o">.</span><span class="n">cdf</span><span class="p">((</span><span class="n">x</span> <span class="o">-</span> <span class="n">boundary_loc</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">s</span><span class="o">/</span><span class="n">rms_roughness</span><span class="p">)</span> <span class="o">+</span> <span class="nb">float</span><span class="p">(</span><span class="n">m</span><span class="p">))</span>
+</span><span data-line="494">
+</span><span data-line="495">    <span class="k">if</span> <span class="nb">callable</span><span class="p">(</span><span class="n">distribution</span><span class="p">):</span>  <span class="c1"># user-supplied CDF function</span>
+</span><span data-line="496">        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">distribution</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">rms_roughness</span><span class="p">,</span> <span class="n">boundary_loc</span><span class="p">))</span>
+</span><span data-line="497">
+</span><span data-line="498">    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Invalid distribution: </span><span class="si">{</span><span class="n">distribution</span><span class="si">!r}</span><span class="s2">"</span><span class="p">)</span>
+</span><span data-line="499">
+</span><span data-line="500">
+</span><span data-line="501"><span class="k">def</span><span class="w"> </span><span class="nf">_parse_material_properties</span><span class="p">(</span><span class="n">material_properties</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span> <span class="n">omega</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
+</span><span data-line="502"><span class="w">    </span><span class="sd">"""</span>
+</span><span data-line="503"><span class="sd">    Turn the list of material dicts into (M, nf) arrays of complex mu_r and ep_r.</span>
+</span><span data-line="504">
+</span><span data-line="505"><span class="sd">    A scalar value applies to all frequencies; an array must match the length</span>
+</span><span data-line="506"><span class="sd">    of the frequency vector. Conduction loss enters the relative permittivity</span>
+</span><span data-line="507"><span class="sd">    as -1j*sigma/(omega*epsilon_0).</span>
+</span><span data-line="508"><span class="sd">    """</span>
+</span><span data-line="509">    <span class="n">ones</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">omega</span><span class="p">)</span>
+</span><span data-line="510">    <span class="n">mu_r_list</span><span class="p">,</span> <span class="n">ep_r_list</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
+</span><span data-line="511">    <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">mat</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">material_properties</span><span class="p">):</span>
+</span><span data-line="512">        <span class="n">unknown</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">mat</span><span class="p">)</span> <span class="o">-</span> <span class="p">{</span><span class="s1">'sigma'</span><span class="p">,</span> <span class="s1">'mu_r'</span><span class="p">,</span> <span class="s1">'ep_r'</span><span class="p">}</span>
+</span><span data-line="513">        <span class="k">if</span> <span class="n">unknown</span><span class="p">:</span>  <span class="c1"># catch typos, which would otherwise silently fall back to the defaults</span>
+</span><span data-line="514">            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"material_properties[</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2">] has unknown key(s) </span><span class="si">{</span><span class="nb">sorted</span><span class="p">(</span><span class="n">unknown</span><span class="p">)</span><span class="si">}</span><span class="s2">; "</span>
+</span><span data-line="515">                             <span class="s2">"allowed keys are 'sigma', 'mu_r' and 'ep_r'."</span><span class="p">)</span>
+</span><span data-line="516">        <span class="n">sigma</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">mat</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'sigma'</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span><span class="o">*</span><span class="n">ones</span>
+</span><span data-line="517">        <span class="n">ep_r</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">mat</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'ep_r'</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">complex</span><span class="p">)</span><span class="o">*</span><span class="n">ones</span>
+</span><span data-line="518">        <span class="c1"># a conductor's loss is described by sigma; allowing a complex ep_r next to it</span>
+</span><span data-line="519">        <span class="c1"># would count the loss twice</span>
+</span><span data-line="520">        <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">sigma</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span> <span class="ow">and</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">ep_r</span><span class="o">.</span><span class="n">imag</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">):</span>
+</span><span data-line="521">            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"material_properties[</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2">]: a conductor (nonzero 'sigma') must have a "</span>
+</span><span data-line="522">                             <span class="s2">"real-valued 'ep_r'; for a lossy dielectric give a complex 'ep_r' and no 'sigma'."</span><span class="p">)</span>
+</span><span data-line="523">        <span class="n">mu_r_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">mat</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'mu_r'</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">complex</span><span class="p">)</span><span class="o">*</span><span class="n">ones</span><span class="p">)</span>
+</span><span data-line="524">        <span class="n">ep_r_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ep_r</span> <span class="o">-</span> <span class="mi">1</span><span class="n">j</span><span class="o">*</span><span class="n">sigma</span><span class="o">/</span><span class="p">(</span><span class="n">omega</span><span class="o">*</span><span class="n">_const</span><span class="o">.</span><span class="n">epsilon_0</span><span class="p">))</span>
+</span><span data-line="525">    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">mu_r_list</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">ep_r_list</span><span class="p">)</span>
+</span><span data-line="526">
+</span><span data-line="527">
+</span><span data-line="528"><span class="k">def</span><span class="w"> </span><span class="nf">_segment_edges</span><span class="p">(</span><span class="n">rms_roughness</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">boundary_loc</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+</span><span data-line="529">                   <span class="n">x_start</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">x_end</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">n_segments</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+</span><span data-line="530"><span class="w">    </span><span class="sd">"""</span>
+</span><span data-line="531"><span class="sd">    Segment edges for the impedance recursion: about n_segments spread uniformly</span>
+</span><span data-line="532"><span class="sd">    over the rough transitions [boundary_loc -+ 5*rms_roughness], merged where</span>
+</span><span data-line="533"><span class="sd">    they overlap. Each uniform bulk gap in between gets a single segment, which</span>
+</span><span data-line="534"><span class="sd">    is exact for a uniform line.</span>
+</span><span data-line="535"><span class="sd">    """</span>
+</span><span data-line="536">    <span class="n">intervals</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">([</span><span class="n">b</span> <span class="o">-</span> <span class="mi">5</span><span class="o">*</span><span class="nb">max</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="mf">1e-14</span><span class="p">),</span> <span class="n">b</span> <span class="o">+</span> <span class="mi">5</span><span class="o">*</span><span class="nb">max</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="mf">1e-14</span><span class="p">)]</span>
+</span><span data-line="537">                       <span class="k">for</span> <span class="n">r</span><span class="p">,</span> <span class="n">b</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">rms_roughness</span><span class="p">,</span> <span class="n">boundary_loc</span><span class="p">))</span>
+</span><span data-line="538">    <span class="n">merged</span> <span class="o">=</span> <span class="p">[</span><span class="n">intervals</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
+</span><span data-line="539">    <span class="k">for</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">intervals</span><span class="p">[</span><span class="mi">1</span><span class="p">:]:</span>
+</span><span data-line="540">        <span class="k">if</span> <span class="n">a</span> <span class="o">&lt;=</span> <span class="n">merged</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]:</span>
+</span><span data-line="541">            <span class="n">merged</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">merged</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">],</span> <span class="n">b</span><span class="p">)</span>
+</span><span data-line="542">        <span class="k">else</span><span class="p">:</span>
+</span><span data-line="543">            <span class="n">merged</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">])</span>
+</span><span data-line="544">    <span class="c1"># spread n_segments uniformly over the total transition width; each bulk gap gets one segment</span>
+</span><span data-line="545">    <span class="n">dx</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">b</span> <span class="o">-</span> <span class="n">a</span> <span class="k">for</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">merged</span><span class="p">)</span><span class="o">/</span><span class="n">n_segments</span>
+</span><span data-line="546">    <span class="n">edges</span> <span class="o">=</span> <span class="p">{</span><span class="n">x_start</span><span class="p">,</span> <span class="n">x_end</span><span class="p">}</span>
+</span><span data-line="547">    <span class="k">for</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">merged</span><span class="p">:</span>
+</span><span data-line="548">        <span class="n">edges</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="nb">max</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">round</span><span class="p">((</span><span class="n">b</span> <span class="o">-</span> <span class="n">a</span><span class="p">)</span><span class="o">/</span><span class="n">dx</span><span class="p">))</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
+</span><span data-line="549">    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">edges</span><span class="p">))</span>
+</span><span data-line="550">
+</span><span data-line="551">
+<div class="viewcode-block" id="distributed_circuit_2_propagation_impedance">
+<a class="viewcode-back" href="../../api/generated/skrf.tlineFunctions.distributed_circuit_2_propagation_impedance.html#skrf.tlineFunctions.distributed_circuit_2_propagation_impedance">[docs]</a>
+</span><span data-line="552"><span class="k">def</span><span class="w"> </span><span class="nf">distributed_circuit_2_propagation_impedance</span><span class="p">(</span><span class="n">distributed_admittance</span><span class="p">:</span> <span class="n">NumberLike</span><span class="p">,</span>
+</span><span data-line="553">        <span class="n">distributed_impedance</span><span class="p">:</span> <span class="n">NumberLike</span><span class="p">):</span>
+</span><span data-line="554"><span class="w">    </span><span class="sa">r</span><span class="sd">"""</span>
+</span><span data-line="555"><span class="sd">    Convert distributed circuit values to wave quantities.</span>
+</span><span data-line="556">
+</span><span data-line="557"><span class="sd">    This converts complex distributed impedance and admittance to</span>
+</span><span data-line="558"><span class="sd">    propagation constant and characteristic impedance. The relation is</span>
+</span><span data-line="559">
+</span><span data-line="560"><span class="sd">    .. math::</span>
+</span><span data-line="561"><span class="sd">        Z_0 = \sqrt{ \frac{Z^{'}}{Y^{'}}}</span>
+</span><span data-line="562"><span class="sd">        \quad\quad</span>
+</span><span data-line="563"><span class="sd">        \gamma = \sqrt{ Z^{'}  Y^{'}}</span>
+</span><span data-line="564">
+</span><span data-line="565"><span class="sd">    Parameters</span>
+</span><span data-line="566"><span class="sd">    ----------</span>
+</span><span data-line="567"><span class="sd">    distributed_admittance : number, array-like</span>
+</span><span data-line="568"><span class="sd">        distributed admittance</span>
+</span><span data-line="569"><span class="sd">    distributed_impedance :  number, array-like</span>
+</span><span data-line="570"><span class="sd">        distributed impedance</span>
+</span><span data-line="571">
+</span><span data-line="572"><span class="sd">    Returns</span>
+</span><span data-line="573"><span class="sd">    -------</span>
+</span><span data-line="574"><span class="sd">    propagation_constant : number, array-like</span>
+</span><span data-line="575"><span class="sd">        distributed impedance</span>
+</span><span data-line="576"><span class="sd">    characteristic_impedance : number, array-like</span>
+</span><span data-line="577"><span class="sd">        distributed impedance</span>
+</span><span data-line="578">
+</span><span data-line="579"><span class="sd">    See Also</span>
+</span><span data-line="580"><span class="sd">    --------</span>
+</span><span data-line="581"><span class="sd">        propagation_impedance_2_distributed_circuit : opposite conversion</span>
+</span><span data-line="582"><span class="sd">    """</span>
+</span><span data-line="583">    <span class="n">propagation_constant</span> <span class="o">=</span> \
+</span><span data-line="584">            <span class="n">sqrt</span><span class="p">(</span><span class="n">distributed_impedance</span><span class="o">*</span><span class="n">distributed_admittance</span><span class="p">)</span>
+</span><span data-line="585">    <span class="n">characteristic_impedance</span> <span class="o">=</span> \
+</span><span data-line="586">            <span class="n">sqrt</span><span class="p">(</span><span class="n">distributed_impedance</span><span class="o">/</span><span class="n">distributed_admittance</span><span class="p">)</span>
+</span><span data-line="587">    <span class="k">return</span> <span class="p">(</span><span class="n">propagation_constant</span><span class="p">,</span> <span class="n">characteristic_impedance</span><span class="p">)</span></div>
+
+</span><span data-line="588">
+</span><span data-line="589">
+<div class="viewcode-block" id="propagation_impedance_2_distributed_circuit">
+<a class="viewcode-back" href="../../api/generated/skrf.tlineFunctions.propagation_impedance_2_distributed_circuit.html#skrf.tlineFunctions.propagation_impedance_2_distributed_circuit">[docs]</a>
+</span><span data-line="590"><span class="k">def</span><span class="w"> </span><span class="nf">propagation_impedance_2_distributed_circuit</span><span class="p">(</span><span class="n">propagation_constant</span><span class="p">:</span> <span class="n">NumberLike</span><span class="p">,</span>
+</span><span data-line="591">        <span class="n">characteristic_impedance</span><span class="p">:</span> <span class="n">NumberLike</span><span class="p">):</span>
+</span><span data-line="592"><span class="w">    </span><span class="sa">r</span><span class="sd">"""</span>
+</span><span data-line="593"><span class="sd">    Convert wave quantities to distributed circuit values.</span>
+</span><span data-line="594">
+</span><span data-line="595"><span class="sd">    Convert complex propagation constant and characteristic impedance</span>
+</span><span data-line="596"><span class="sd">    to distributed impedance and admittance. The relation is,</span>
+</span><span data-line="597">
+</span><span data-line="598"><span class="sd">    .. math::</span>
+</span><span data-line="599"><span class="sd">        Z^{'} = \gamma  Z_0 \quad\quad</span>
+</span><span data-line="600"><span class="sd">        Y^{'} = \frac{\gamma}{Z_0}</span>
+</span><span data-line="601">
+</span><span data-line="602"><span class="sd">    Parameters</span>
+</span><span data-line="603"><span class="sd">    ----------</span>
+</span><span data-line="604"><span class="sd">    propagation_constant : number, array-like</span>
+</span><span data-line="605"><span class="sd">        distributed impedance</span>
+</span><span data-line="606"><span class="sd">    characteristic_impedance : number, array-like</span>
+</span><span data-line="607"><span class="sd">        distributed impedance</span>
+</span><span data-line="608">
+</span><span data-line="609"><span class="sd">    Returns</span>
+</span><span data-line="610"><span class="sd">    -------</span>
+</span><span data-line="611"><span class="sd">    distributed_admittance : number, array-like</span>
+</span><span data-line="612"><span class="sd">        distributed admittance</span>
+</span><span data-line="613"><span class="sd">    distributed_impedance :  number, array-like</span>
+</span><span data-line="614"><span class="sd">        distributed impedance</span>
+</span><span data-line="615">
+</span><span data-line="616">
+</span><span data-line="617"><span class="sd">    See Also</span>
+</span><span data-line="618"><span class="sd">    --------</span>
+</span><span data-line="619"><span class="sd">        distributed_circuit_2_propagation_impedance : opposite conversion</span>
+</span><span data-line="620"><span class="sd">    """</span>
+</span><span data-line="621">    <span class="n">distributed_admittance</span> <span class="o">=</span> <span class="n">propagation_constant</span><span class="o">/</span><span class="n">characteristic_impedance</span>
+</span><span data-line="622">    <span class="n">distributed_impedance</span> <span class="o">=</span> <span class="n">propagation_constant</span><span class="o">*</span><span class="n">characteristic_impedance</span>
+</span><span data-line="623">    <span class="k">return</span> <span class="p">(</span><span class="n">distributed_admittance</span><span class="p">,</span> <span class="n">distributed_impedance</span><span class="p">)</span></div>
+
+</span><span data-line="624">
+</span><span data-line="625">
+<div class="viewcode-block" id="electrical_length">
+<a class="viewcode-back" href="../../api/generated/skrf.tlineFunctions.electrical_length.html#skrf.tlineFunctions.electrical_length">[docs]</a>
+</span><span data-line="626"><span class="k">def</span><span class="w"> </span><span class="nf">electrical_length</span><span class="p">(</span><span class="n">gamma</span><span class="p">:</span> <span class="n">NumberLike</span><span class="p">,</span> <span class="n">f</span><span class="p">:</span> <span class="n">NumberLike</span><span class="p">,</span> <span class="n">d</span><span class="p">:</span> <span class="n">NumberLike</span><span class="p">,</span> <span class="n">deg</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
+</span><span data-line="627"><span class="w">    </span><span class="sa">r</span><span class="sd">"""</span>
+</span><span data-line="628"><span class="sd">    Electrical length of a section of transmission line.</span>
+</span><span data-line="629">
+</span><span data-line="630"><span class="sd">    .. math::</span>
+</span><span data-line="631"><span class="sd">        \theta = \gamma(f) \cdot d</span>
+</span><span data-line="632">
+</span><span data-line="633"><span class="sd">    Parameters</span>
+</span><span data-line="634"><span class="sd">    ----------</span>
+</span><span data-line="635"><span class="sd">    gamma : number, array-like or function</span>
+</span><span data-line="636"><span class="sd">        propagation constant. See Notes.</span>
+</span><span data-line="637"><span class="sd">        If passed as a function, takes frequency in Hz as a sole argument.</span>
+</span><span data-line="638"><span class="sd">    f : number or array-like</span>
+</span><span data-line="639"><span class="sd">        frequency at which to calculate</span>
+</span><span data-line="640"><span class="sd">    d : number or array-like</span>
+</span><span data-line="641"><span class="sd">        length of line, in meters</span>
+</span><span data-line="642"><span class="sd">    deg : Boolean</span>
+</span><span data-line="643"><span class="sd">        return in degrees or not.</span>
+</span><span data-line="644">
+</span><span data-line="645"><span class="sd">    Returns</span>
+</span><span data-line="646"><span class="sd">    -------</span>
+</span><span data-line="647"><span class="sd">    theta : number or array-like</span>
+</span><span data-line="648"><span class="sd">        electrical length in radians or degrees, depending on  value of deg.</span>
+</span><span data-line="649">
+</span><span data-line="650"><span class="sd">    See Also</span>
+</span><span data-line="651"><span class="sd">    --------</span>
+</span><span data-line="652"><span class="sd">        electrical_length_2_distance : opposite conversion</span>
+</span><span data-line="653">
+</span><span data-line="654"><span class="sd">    Note</span>
+</span><span data-line="655"><span class="sd">    ----</span>
+</span><span data-line="656"><span class="sd">    The convention has been chosen that forward propagation is</span>
+</span><span data-line="657"><span class="sd">    represented by the positive imaginary part of the value returned by</span>
+</span><span data-line="658"><span class="sd">    the gamma function.</span>
+</span><span data-line="659"><span class="sd">    """</span>
+</span><span data-line="660">    <span class="c1"># if gamma is not a function, create a dummy function which return gamma</span>
+</span><span data-line="661">    <span class="k">if</span> <span class="ow">not</span> <span class="nb">callable</span><span class="p">(</span><span class="n">gamma</span><span class="p">):</span>
+</span><span data-line="662">        <span class="n">_gamma</span> <span class="o">=</span> <span class="n">gamma</span>
+</span><span data-line="663">        <span class="k">def</span><span class="w"> </span><span class="nf">gamma</span><span class="p">(</span><span class="n">f0</span><span class="p">):</span> <span class="k">return</span> <span class="n">_gamma</span>
+</span><span data-line="664">
+</span><span data-line="665">    <span class="c1"># typecast to a 1D array</span>
+</span><span data-line="666">    <span class="n">f</span> <span class="o">=</span> <span class="n">array</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+</span><span data-line="667">    <span class="n">d</span> <span class="o">=</span> <span class="n">array</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+</span><span data-line="668">
+</span><span data-line="669">    <span class="k">if</span> <span class="ow">not</span> <span class="n">deg</span><span class="p">:</span>
+</span><span data-line="670">        <span class="k">return</span>  <span class="n">gamma</span><span class="p">(</span><span class="n">f</span><span class="p">)</span><span class="o">*</span><span class="n">d</span>
+</span><span data-line="671">    <span class="k">else</span><span class="p">:</span>
+</span><span data-line="672">        <span class="k">return</span>  <span class="n">mf</span><span class="o">.</span><span class="n">radian_2_degree</span><span class="p">(</span><span class="n">gamma</span><span class="p">(</span><span class="n">f</span><span class="p">)</span><span class="o">*</span><span class="n">d</span> <span class="p">)</span></div>
+
+</span><span data-line="673">
+</span><span data-line="674">
+<div class="viewcode-block" id="electrical_length_2_distance">
+<a class="viewcode-back" href="../../api/generated/skrf.tlineFunctions.electrical_length_2_distance.html#skrf.tlineFunctions.electrical_length_2_distance">[docs]</a>
+</span><span data-line="675"><span class="k">def</span><span class="w"> </span><span class="nf">electrical_length_2_distance</span><span class="p">(</span><span class="n">theta</span><span class="p">:</span> <span class="n">NumberLike</span><span class="p">,</span> <span class="n">gamma</span><span class="p">:</span> <span class="n">NumberLike</span><span class="p">,</span> <span class="n">f0</span><span class="p">:</span> <span class="n">NumberLike</span><span class="p">,</span> <span class="n">deg</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">):</span>
+</span><span data-line="676"><span class="w">    </span><span class="sa">r</span><span class="sd">"""</span>
+</span><span data-line="677"><span class="sd">    Convert electrical length to a physical distance.</span>
+</span><span data-line="678">
+</span><span data-line="679"><span class="sd">    .. math::</span>
+</span><span data-line="680"><span class="sd">        d = \frac{\theta}{\gamma(f_0)}</span>
+</span><span data-line="681">
+</span><span data-line="682"><span class="sd">    Parameters</span>
+</span><span data-line="683"><span class="sd">    ----------</span>
+</span><span data-line="684"><span class="sd">    theta : number or array-like</span>
+</span><span data-line="685"><span class="sd">        electrical length. units depend on `deg` option</span>
+</span><span data-line="686"><span class="sd">    gamma : number, array-like or function</span>
+</span><span data-line="687"><span class="sd">        propagation constant. See Notes.</span>
+</span><span data-line="688"><span class="sd">        If passed as a function, takes frequency in Hz as a sole argument.</span>
+</span><span data-line="689"><span class="sd">    f0 : number or array-like</span>
+</span><span data-line="690"><span class="sd">        frequency at which to calculate gamma</span>
+</span><span data-line="691"><span class="sd">    deg : Boolean</span>
+</span><span data-line="692"><span class="sd">        return in degrees or not.</span>
+</span><span data-line="693">
+</span><span data-line="694"><span class="sd">    Returns</span>
+</span><span data-line="695"><span class="sd">    -------</span>
+</span><span data-line="696"><span class="sd">    d : number or array-like (real)</span>
+</span><span data-line="697"><span class="sd">        physical distance in m</span>
+</span><span data-line="698">
+</span><span data-line="699"><span class="sd">    Note</span>
+</span><span data-line="700"><span class="sd">    ----</span>
+</span><span data-line="701"><span class="sd">    The convention has been chosen that forward propagation is</span>
+</span><span data-line="702"><span class="sd">    represented by the positive imaginary part of the value returned by</span>
+</span><span data-line="703"><span class="sd">    the gamma function.</span>
+</span><span data-line="704">
+</span><span data-line="705"><span class="sd">    See Also</span>
+</span><span data-line="706"><span class="sd">    --------</span>
+</span><span data-line="707"><span class="sd">        distance_2_electrical_length: opposite conversion</span>
+</span><span data-line="708"><span class="sd">    """</span>
+</span><span data-line="709">    <span class="c1"># if gamma is not a function, create a dummy function which return gamma</span>
+</span><span data-line="710">    <span class="k">if</span> <span class="ow">not</span> <span class="nb">callable</span><span class="p">(</span><span class="n">gamma</span><span class="p">):</span>
+</span><span data-line="711">        <span class="n">_gamma</span> <span class="o">=</span> <span class="n">gamma</span>
+</span><span data-line="712">        <span class="k">def</span><span class="w"> </span><span class="nf">gamma</span><span class="p">(</span><span class="n">f0</span><span class="p">):</span> <span class="k">return</span> <span class="n">_gamma</span>
+</span><span data-line="713">
+</span><span data-line="714">    <span class="k">if</span> <span class="n">deg</span><span class="p">:</span>
+</span><span data-line="715">        <span class="n">theta</span> <span class="o">=</span> <span class="n">mf</span><span class="o">.</span><span class="n">degree_2_radian</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span>
+</span><span data-line="716">    <span class="k">return</span> <span class="n">real</span><span class="p">(</span><span class="n">theta</span> <span class="o">/</span> <span class="n">gamma</span><span class="p">(</span><span class="n">f0</span><span class="p">))</span></div>
+
+</span><span data-line="717">
+</span><span data-line="718">
+<div class="viewcode-block" id="load_impedance_2_reflection_coefficient">
+<a class="viewcode-back" href="../../api/generated/skrf.tlineFunctions.load_impedance_2_reflection_coefficient.html#skrf.tlineFunctions.load_impedance_2_reflection_coefficient">[docs]</a>
+</span><span data-line="719"><span class="k">def</span><span class="w"> </span><span class="nf">load_impedance_2_reflection_coefficient</span><span class="p">(</span><span class="n">z0</span><span class="p">:</span> <span class="n">NumberLike</span><span class="p">,</span> <span class="n">zl</span><span class="p">:</span> <span class="n">NumberLike</span><span class="p">):</span>
+</span><span data-line="720"><span class="w">    </span><span class="sa">r</span><span class="sd">"""</span>
+</span><span data-line="721"><span class="sd">    Reflection coefficient from a load impedance.</span>
+</span><span data-line="722">
+</span><span data-line="723"><span class="sd">    Return the reflection coefficient for a given load impedance, and</span>
+</span><span data-line="724"><span class="sd">    characteristic impedance.</span>
+</span><span data-line="725">
+</span><span data-line="726"><span class="sd">    For a transmission line of characteristic impedance :math:`Z_0`</span>
+</span><span data-line="727"><span class="sd">    terminated with load impedance :math:`Z_l`, the complex reflection</span>
+</span><span data-line="728"><span class="sd">    coefficient is given by,</span>
+</span><span data-line="729">
+</span><span data-line="730"><span class="sd">    .. math::</span>
+</span><span data-line="731"><span class="sd">        \Gamma = \frac {Z_l - Z_0}{Z_l + Z_0}</span>
+</span><span data-line="732">
+</span><span data-line="733"><span class="sd">    Parameters</span>
+</span><span data-line="734"><span class="sd">    ----------</span>
+</span><span data-line="735"><span class="sd">    z0 : number or array-like</span>
+</span><span data-line="736"><span class="sd">        characteristic impedance</span>
+</span><span data-line="737"><span class="sd">    zl : number or array-like</span>
+</span><span data-line="738"><span class="sd">        load impedance (aka input impedance)</span>
+</span><span data-line="739">
+</span><span data-line="740"><span class="sd">    Returns</span>
+</span><span data-line="741"><span class="sd">    -------</span>
+</span><span data-line="742"><span class="sd">    gamma : number or array-like</span>
+</span><span data-line="743"><span class="sd">        reflection coefficient</span>
+</span><span data-line="744">
+</span><span data-line="745"><span class="sd">    See Also</span>
+</span><span data-line="746"><span class="sd">    --------</span>
+</span><span data-line="747"><span class="sd">        Gamma0_2_zl : reflection coefficient to load impedance</span>
+</span><span data-line="748">
+</span><span data-line="749"><span class="sd">    Note</span>
+</span><span data-line="750"><span class="sd">    ----</span>
+</span><span data-line="751"><span class="sd">    Inputs are typecasted to 1D complex array.</span>
+</span><span data-line="752"><span class="sd">    """</span>
+</span><span data-line="753">    <span class="c1"># typecast to a complex 1D array. this makes everything easier</span>
+</span><span data-line="754">    <span class="n">z0</span> <span class="o">=</span> <span class="n">array</span><span class="p">(</span><span class="n">z0</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">complex</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+</span><span data-line="755">    <span class="n">zl</span> <span class="o">=</span> <span class="n">array</span><span class="p">(</span><span class="n">zl</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">complex</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+</span><span data-line="756">
+</span><span data-line="757">    <span class="c1"># handle singularity  by numerically representing inf as big number</span>
+</span><span data-line="758">    <span class="n">zl</span><span class="p">[(</span><span class="n">zl</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">)]</span> <span class="o">=</span> <span class="n">INF</span>
+</span><span data-line="759">
+</span><span data-line="760">    <span class="k">return</span> <span class="p">((</span><span class="n">zl</span> <span class="o">-</span> <span class="n">z0</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">zl</span> <span class="o">+</span> <span class="n">z0</span><span class="p">))</span></div>
+
+</span><span data-line="761">
+</span><span data-line="762">
+<div class="viewcode-block" id="reflection_coefficient_2_input_impedance">
+<a class="viewcode-back" href="../../api/generated/skrf.tlineFunctions.reflection_coefficient_2_input_impedance.html#skrf.tlineFunctions.reflection_coefficient_2_input_impedance">[docs]</a>
+</span><span data-line="763"><span class="k">def</span><span class="w"> </span><span class="nf">reflection_coefficient_2_input_impedance</span><span class="p">(</span><span class="n">z0</span><span class="p">:</span> <span class="n">NumberLike</span><span class="p">,</span> <span class="n">Gamma</span><span class="p">:</span> <span class="n">NumberLike</span><span class="p">):</span>
+</span><span data-line="764"><span class="w">    </span><span class="sa">r</span><span class="sd">"""</span>
+</span><span data-line="765"><span class="sd">    Input impedance from a load reflection coefficient.</span>
+</span><span data-line="766">
+</span><span data-line="767"><span class="sd">    Calculate the input impedance given a reflection coefficient and</span>
+</span><span data-line="768"><span class="sd">    characteristic impedance.</span>
+</span><span data-line="769">
+</span><span data-line="770"><span class="sd">    .. math::</span>
+</span><span data-line="771"><span class="sd">        Z_0 \left(\frac {1 + \Gamma}{1-\Gamma} \right)</span>
+</span><span data-line="772">
+</span><span data-line="773"><span class="sd">    Parameters</span>
+</span><span data-line="774"><span class="sd">    ----------</span>
+</span><span data-line="775"><span class="sd">    Gamma : number or array-like</span>
+</span><span data-line="776"><span class="sd">        complex reflection coefficient</span>
+</span><span data-line="777"><span class="sd">    z0 : number or array-like</span>
+</span><span data-line="778"><span class="sd">        characteristic impedance</span>
+</span><span data-line="779">
+</span><span data-line="780"><span class="sd">    Returns</span>
+</span><span data-line="781"><span class="sd">    -------</span>
+</span><span data-line="782"><span class="sd">    zin : number or array-like</span>
+</span><span data-line="783"><span class="sd">        input impedance</span>
+</span><span data-line="784">
+</span><span data-line="785"><span class="sd">    """</span>
+</span><span data-line="786">    <span class="c1"># typecast to a complex 1D array. this makes everything easier</span>
+</span><span data-line="787">    <span class="n">Gamma</span> <span class="o">=</span> <span class="n">array</span><span class="p">(</span><span class="n">Gamma</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">complex</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+</span><span data-line="788">    <span class="n">z0</span> <span class="o">=</span> <span class="n">array</span><span class="p">(</span><span class="n">z0</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">complex</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+</span><span data-line="789">
+</span><span data-line="790">    <span class="c1"># handle singularity by numerically representing inf as close to 1</span>
+</span><span data-line="791">    <span class="n">Gamma</span><span class="p">[(</span><span class="n">Gamma</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)]</span> <span class="o">=</span> <span class="n">ONE</span>
+</span><span data-line="792">
+</span><span data-line="793">    <span class="k">return</span> <span class="n">z0</span><span class="o">*</span><span class="p">((</span><span class="mf">1.0</span> <span class="o">+</span> <span class="n">Gamma</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="mf">1.0</span> <span class="o">-</span> <span class="n">Gamma</span><span class="p">))</span></div>
+
+</span><span data-line="794">
+</span><span data-line="795">
+<div class="viewcode-block" id="reflection_coefficient_at_theta">
+<a class="viewcode-back" href="../../api/generated/skrf.tlineFunctions.reflection_coefficient_at_theta.html#skrf.tlineFunctions.reflection_coefficient_at_theta">[docs]</a>
+</span><span data-line="796"><span class="k">def</span><span class="w"> </span><span class="nf">reflection_coefficient_at_theta</span><span class="p">(</span><span class="n">Gamma0</span><span class="p">:</span> <span class="n">NumberLike</span><span class="p">,</span> <span class="n">theta</span><span class="p">:</span> <span class="n">NumberLike</span><span class="p">):</span>
+</span><span data-line="797"><span class="w">    </span><span class="sa">r</span><span class="sd">"""</span>
+</span><span data-line="798"><span class="sd">    Reflection coefficient at a given electrical length.</span>
+</span><span data-line="799">
+</span><span data-line="800"><span class="sd">    .. math::</span>
+</span><span data-line="801"><span class="sd">            \Gamma_{in} = \Gamma_0 e^{-2 \theta}</span>
+</span><span data-line="802">
+</span><span data-line="803"><span class="sd">    Parameters</span>
+</span><span data-line="804"><span class="sd">    ----------</span>
+</span><span data-line="805"><span class="sd">    Gamma0 : number or array-like</span>
+</span><span data-line="806"><span class="sd">        reflection coefficient at theta=0</span>
+</span><span data-line="807"><span class="sd">    theta : number or array-like</span>
+</span><span data-line="808"><span class="sd">        electrical length (may be complex)</span>
+</span><span data-line="809">
+</span><span data-line="810"><span class="sd">    Returns</span>
+</span><span data-line="811"><span class="sd">    -------</span>
+</span><span data-line="812"><span class="sd">    Gamma_in : number or array-like</span>
+</span><span data-line="813"><span class="sd">        input reflection coefficient</span>
+</span><span data-line="814">
+</span><span data-line="815"><span class="sd">    """</span>
+</span><span data-line="816">    <span class="n">Gamma0</span> <span class="o">=</span> <span class="n">array</span><span class="p">(</span><span class="n">Gamma0</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">complex</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+</span><span data-line="817">    <span class="n">theta</span> <span class="o">=</span> <span class="n">array</span><span class="p">(</span><span class="n">theta</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">complex</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+</span><span data-line="818">    <span class="k">return</span> <span class="n">Gamma0</span> <span class="o">*</span> <span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="o">*</span><span class="n">theta</span><span class="p">)</span></div>
+
+</span><span data-line="819">
+</span><span data-line="820">
+<div class="viewcode-block" id="input_impedance_at_theta">
+<a class="viewcode-back" href="../../api/generated/skrf.tlineFunctions.input_impedance_at_theta.html#skrf.tlineFunctions.input_impedance_at_theta">[docs]</a>
+</span><span data-line="821"><span class="k">def</span><span class="w"> </span><span class="nf">input_impedance_at_theta</span><span class="p">(</span><span class="n">z0</span><span class="p">:</span> <span class="n">NumberLike</span><span class="p">,</span> <span class="n">zl</span><span class="p">:</span> <span class="n">NumberLike</span><span class="p">,</span> <span class="n">theta</span><span class="p">:</span> <span class="n">NumberLike</span><span class="p">):</span>
+</span><span data-line="822"><span class="w">    </span><span class="sd">"""</span>
+</span><span data-line="823"><span class="sd">    Input impedance from load impedance at a given electrical length.</span>
+</span><span data-line="824">
+</span><span data-line="825"><span class="sd">    Input impedance of load impedance zl at a given electrical length,</span>
+</span><span data-line="826"><span class="sd">    given characteristic impedance z0.</span>
+</span><span data-line="827">
+</span><span data-line="828"><span class="sd">    Parameters</span>
+</span><span data-line="829"><span class="sd">    ----------</span>
+</span><span data-line="830"><span class="sd">    z0 : number or array-like</span>
+</span><span data-line="831"><span class="sd">        characteristic impedance</span>
+</span><span data-line="832"><span class="sd">    zl : number or array-like</span>
+</span><span data-line="833"><span class="sd">        load impedance</span>
+</span><span data-line="834"><span class="sd">    theta : number or array-like</span>
+</span><span data-line="835"><span class="sd">        electrical length of the line (may be complex)</span>
+</span><span data-line="836">
+</span><span data-line="837"><span class="sd">    Returns</span>
+</span><span data-line="838"><span class="sd">    -------</span>
+</span><span data-line="839"><span class="sd">    zin : number or array-like</span>
+</span><span data-line="840"><span class="sd">        input impedance at theta</span>
+</span><span data-line="841">
+</span><span data-line="842"><span class="sd">    """</span>
+</span><span data-line="843">    <span class="n">Gamma0</span> <span class="o">=</span> <span class="n">load_impedance_2_reflection_coefficient</span><span class="p">(</span><span class="n">z0</span><span class="o">=</span><span class="n">z0</span><span class="p">,</span> <span class="n">zl</span><span class="o">=</span><span class="n">zl</span><span class="p">)</span>
+</span><span data-line="844">    <span class="n">Gamma_in</span> <span class="o">=</span> <span class="n">reflection_coefficient_at_theta</span><span class="p">(</span><span class="n">Gamma0</span><span class="o">=</span><span class="n">Gamma0</span><span class="p">,</span> <span class="n">theta</span><span class="o">=</span><span class="n">theta</span><span class="p">)</span>
+</span><span data-line="845">    <span class="k">return</span> <span class="n">reflection_coefficient_2_input_impedance</span><span class="p">(</span><span class="n">z0</span><span class="o">=</span><span class="n">z0</span><span class="p">,</span> <span class="n">Gamma</span><span class="o">=</span><span class="n">Gamma_in</span><span class="p">)</span></div>
+
+</span><span data-line="846">
+</span><span data-line="847">
+<div class="viewcode-block" id="load_impedance_2_reflection_coefficient_at_theta">
+<a class="viewcode-back" href="../../api/generated/skrf.tlineFunctions.load_impedance_2_reflection_coefficient_at_theta.html#skrf.tlineFunctions.load_impedance_2_reflection_coefficient_at_theta">[docs]</a>
+</span><span data-line="848"><span class="k">def</span><span class="w"> </span><span class="nf">load_impedance_2_reflection_coefficient_at_theta</span><span class="p">(</span><span class="n">z0</span><span class="p">:</span> <span class="n">NumberLike</span><span class="p">,</span> <span class="n">zl</span><span class="p">:</span> <span class="n">NumberLike</span><span class="p">,</span> <span class="n">theta</span><span class="p">:</span> <span class="n">NumberLike</span><span class="p">):</span>
+</span><span data-line="849"><span class="w">    </span><span class="sd">"""</span>
+</span><span data-line="850"><span class="sd">    Reflection coefficient of load at a given electrical length.</span>
+</span><span data-line="851">
+</span><span data-line="852"><span class="sd">    Reflection coefficient of load impedance zl at a given electrical length,</span>
+</span><span data-line="853"><span class="sd">    given characteristic impedance z0.</span>
+</span><span data-line="854">
+</span><span data-line="855"><span class="sd">    Parameters</span>
+</span><span data-line="856"><span class="sd">    ----------</span>
+</span><span data-line="857"><span class="sd">    z0 : number or array-like</span>
+</span><span data-line="858"><span class="sd">        characteristic impedance.</span>
+</span><span data-line="859"><span class="sd">    zl : number or array-like</span>
+</span><span data-line="860"><span class="sd">        load impedance</span>
+</span><span data-line="861"><span class="sd">    theta : number or array-like</span>
+</span><span data-line="862"><span class="sd">        electrical length of the line (may be complex).</span>
+</span><span data-line="863">
+</span><span data-line="864"><span class="sd">    Returns</span>
+</span><span data-line="865"><span class="sd">    -------</span>
+</span><span data-line="866"><span class="sd">    Gamma_in : number or array-like</span>
+</span><span data-line="867"><span class="sd">        input reflection coefficient at theta</span>
+</span><span data-line="868">
+</span><span data-line="869"><span class="sd">    """</span>
+</span><span data-line="870">    <span class="n">Gamma0</span> <span class="o">=</span> <span class="n">load_impedance_2_reflection_coefficient</span><span class="p">(</span><span class="n">z0</span><span class="o">=</span><span class="n">z0</span><span class="p">,</span> <span class="n">zl</span><span class="o">=</span><span class="n">zl</span><span class="p">)</span>
+</span><span data-line="871">    <span class="n">Gamma_in</span> <span class="o">=</span> <span class="n">reflection_coefficient_at_theta</span><span class="p">(</span><span class="n">Gamma0</span><span class="o">=</span><span class="n">Gamma0</span><span class="p">,</span> <span class="n">theta</span><span class="o">=</span><span class="n">theta</span><span class="p">)</span>
+</span><span data-line="872">    <span class="k">return</span> <span class="n">Gamma_in</span></div>
+
+</span><span data-line="873">
+</span><span data-line="874">
+<div class="viewcode-block" id="reflection_coefficient_2_input_impedance_at_theta">
+<a class="viewcode-back" href="../../api/generated/skrf.tlineFunctions.reflection_coefficient_2_input_impedance_at_theta.html#skrf.tlineFunctions.reflection_coefficient_2_input_impedance_at_theta">[docs]</a>
+</span><span data-line="875"><span class="k">def</span><span class="w"> </span><span class="nf">reflection_coefficient_2_input_impedance_at_theta</span><span class="p">(</span><span class="n">z0</span><span class="p">:</span> <span class="n">NumberLike</span><span class="p">,</span> <span class="n">Gamma0</span><span class="p">:</span> <span class="n">NumberLike</span><span class="p">,</span> <span class="n">theta</span><span class="p">:</span> <span class="n">NumberLike</span><span class="p">):</span>
+</span><span data-line="876"><span class="w">    </span><span class="sd">"""</span>
+</span><span data-line="877"><span class="sd">    Input impedance from load reflection coefficient at a given electrical length.</span>
+</span><span data-line="878">
+</span><span data-line="879"><span class="sd">    Calculate the input impedance at electrical length theta, given a</span>
+</span><span data-line="880"><span class="sd">    reflection coefficient and characteristic impedance of the medium.</span>
+</span><span data-line="881">
+</span><span data-line="882"><span class="sd">    Parameters</span>
+</span><span data-line="883"><span class="sd">    ----------</span>
+</span><span data-line="884"><span class="sd">    z0 : number or array-like</span>
+</span><span data-line="885"><span class="sd">        characteristic impedance.</span>
+</span><span data-line="886"><span class="sd">    Gamma: number or array-like</span>
+</span><span data-line="887"><span class="sd">        reflection coefficient</span>
+</span><span data-line="888"><span class="sd">    theta: number or array-like</span>
+</span><span data-line="889"><span class="sd">        electrical length of the line, (may be complex)</span>
+</span><span data-line="890">
+</span><span data-line="891"><span class="sd">    Returns</span>
+</span><span data-line="892"><span class="sd">    -------</span>
+</span><span data-line="893"><span class="sd">    zin: number or array-like</span>
+</span><span data-line="894"><span class="sd">        input impedance at theta</span>
+</span><span data-line="895">
+</span><span data-line="896"><span class="sd">    """</span>
+</span><span data-line="897">    <span class="n">Gamma_in</span> <span class="o">=</span> <span class="n">reflection_coefficient_at_theta</span><span class="p">(</span><span class="n">Gamma0</span><span class="o">=</span><span class="n">Gamma0</span><span class="p">,</span> <span class="n">theta</span><span class="o">=</span><span class="n">theta</span><span class="p">)</span>
+</span><span data-line="898">    <span class="n">zin</span> <span class="o">=</span> <span class="n">reflection_coefficient_2_input_impedance</span><span class="p">(</span><span class="n">z0</span><span class="o">=</span><span class="n">z0</span><span class="p">,</span> <span class="n">Gamma</span><span class="o">=</span><span class="n">Gamma_in</span><span class="p">)</span>
+</span><span data-line="899">    <span class="k">return</span> <span class="n">zin</span></div>
+
+</span><span data-line="900">
+</span><span data-line="901">
+<div class="viewcode-block" id="reflection_coefficient_2_propagation_constant">
+<a class="viewcode-back" href="../../api/generated/skrf.tlineFunctions.reflection_coefficient_2_propagation_constant.html#skrf.tlineFunctions.reflection_coefficient_2_propagation_constant">[docs]</a>
+</span><span data-line="902"><span class="k">def</span><span class="w"> </span><span class="nf">reflection_coefficient_2_propagation_constant</span><span class="p">(</span><span class="n">Gamma_in</span><span class="p">:</span> <span class="n">NumberLike</span><span class="p">,</span> <span class="n">Gamma_l</span><span class="p">:</span> <span class="n">NumberLike</span><span class="p">,</span> <span class="n">d</span><span class="p">:</span> <span class="n">NumberLike</span><span class="p">):</span>
+</span><span data-line="903"><span class="w">    </span><span class="sa">r</span><span class="sd">"""</span>
+</span><span data-line="904"><span class="sd">    Propagation constant from line input and load reflection coefficients.</span>
+</span><span data-line="905">
+</span><span data-line="906"><span class="sd">    Calculate the propagation constant of a line of length d, given the</span>
+</span><span data-line="907"><span class="sd">    reflection coefficient and characteristic impedance of the medium.</span>
+</span><span data-line="908">
+</span><span data-line="909"><span class="sd">    .. math::</span>
+</span><span data-line="910"><span class="sd">        \Gamma_{in} = \Gamma_l e^{-2 j \gamma \cdot d}</span>
+</span><span data-line="911"><span class="sd">        \to \gamma = -\frac{1}{2 d} \ln \left ( \frac{ \Gamma_{in} }{ \Gamma_l } \right )</span>
+</span><span data-line="912">
+</span><span data-line="913"><span class="sd">    Parameters</span>
+</span><span data-line="914"><span class="sd">    ----------</span>
+</span><span data-line="915"><span class="sd">    Gamma_in : number or array-like</span>
+</span><span data-line="916"><span class="sd">        input reflection coefficient</span>
+</span><span data-line="917"><span class="sd">    Gamma_l :  number or array-like</span>
+</span><span data-line="918"><span class="sd">        load reflection coefficient</span>
+</span><span data-line="919"><span class="sd">    d : number or array-like</span>
+</span><span data-line="920"><span class="sd">        length of line, in meters</span>
+</span><span data-line="921">
+</span><span data-line="922"><span class="sd">    Returns</span>
+</span><span data-line="923"><span class="sd">    -------</span>
+</span><span data-line="924"><span class="sd">    gamma : number (complex) or array-like</span>
+</span><span data-line="925"><span class="sd">        propagation constant (see notes)</span>
+</span><span data-line="926">
+</span><span data-line="927"><span class="sd">    Note</span>
+</span><span data-line="928"><span class="sd">    ----</span>
+</span><span data-line="929"><span class="sd">    The convention has been chosen that forward propagation is</span>
+</span><span data-line="930"><span class="sd">    represented by the positive imaginary part of gamma.</span>
+</span><span data-line="931">
+</span><span data-line="932"><span class="sd">    """</span>
+</span><span data-line="933">    <span class="n">gamma</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">d</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">Gamma_in</span><span class="o">/</span><span class="n">Gamma_l</span><span class="p">)</span>
+</span><span data-line="934">    <span class="c1"># the imaginary part of gamma (=beta) cannot be negative with the given</span>
+</span><span data-line="935">    <span class="c1"># definition of gamma. Thus one should take the first modulo positive value</span>
+</span><span data-line="936">    <span class="n">gamma</span><span class="o">.</span><span class="n">imag</span> <span class="o">=</span> <span class="n">gamma</span><span class="o">.</span><span class="n">imag</span> <span class="o">%</span> <span class="p">(</span><span class="n">pi</span><span class="o">/</span><span class="n">d</span><span class="p">)</span>
+</span><span data-line="937">
+</span><span data-line="938">    <span class="k">return</span> <span class="n">gamma</span></div>
+
+</span><span data-line="939">
+</span><span data-line="940">
+<div class="viewcode-block" id="Gamma0_2_swr">
+<a class="viewcode-back" href="../../api/generated/skrf.tlineFunctions.Gamma0_2_swr.html#skrf.tlineFunctions.Gamma0_2_swr">[docs]</a>
+</span><span data-line="941"><span class="k">def</span><span class="w"> </span><span class="nf">Gamma0_2_swr</span><span class="p">(</span><span class="n">Gamma0</span><span class="p">:</span> <span class="n">NumberLike</span><span class="p">):</span>
+</span><span data-line="942"><span class="w">    </span><span class="sa">r</span><span class="sd">"""</span>
+</span><span data-line="943"><span class="sd">    Standing Wave Ratio (SWR) for a given reflection coefficient.</span>
+</span><span data-line="944">
+</span><span data-line="945"><span class="sd">    Standing Wave Ratio value is defined by:</span>
+</span><span data-line="946">
+</span><span data-line="947"><span class="sd">    .. math::</span>
+</span><span data-line="948"><span class="sd">        VSWR = \frac{1 + |\Gamma_0|}{1 - |\Gamma_0|}</span>
+</span><span data-line="949">
+</span><span data-line="950"><span class="sd">    Parameters</span>
+</span><span data-line="951"><span class="sd">    ----------</span>
+</span><span data-line="952"><span class="sd">    Gamma0 : number or array-like</span>
+</span><span data-line="953"><span class="sd">        Reflection coefficient</span>
+</span><span data-line="954">
+</span><span data-line="955"><span class="sd">    Returns</span>
+</span><span data-line="956"><span class="sd">    -------</span>
+</span><span data-line="957"><span class="sd">    swr : number or array-like</span>
+</span><span data-line="958"><span class="sd">        Standing Wave Ratio.</span>
+</span><span data-line="959">
+</span><span data-line="960"><span class="sd">    """</span>
+</span><span data-line="961">    <span class="k">return</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">Gamma0</span><span class="p">))</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">Gamma0</span><span class="p">))</span></div>
+
+</span><span data-line="962">
+</span><span data-line="963">
+<div class="viewcode-block" id="zl_2_swr">
+<a class="viewcode-back" href="../../api/generated/skrf.tlineFunctions.zl_2_swr.html#skrf.tlineFunctions.zl_2_swr">[docs]</a>
+</span><span data-line="964"><span class="k">def</span><span class="w"> </span><span class="nf">zl_2_swr</span><span class="p">(</span><span class="n">z0</span><span class="p">:</span> <span class="n">NumberLike</span><span class="p">,</span> <span class="n">zl</span><span class="p">:</span> <span class="n">NumberLike</span><span class="p">):</span>
+</span><span data-line="965"><span class="w">    </span><span class="sa">r</span><span class="sd">"""</span>
+</span><span data-line="966"><span class="sd">    Standing Wave Ratio (SWR) for a given load impedance.</span>
+</span><span data-line="967">
+</span><span data-line="968"><span class="sd">    Standing Wave Ratio value is defined by:</span>
+</span><span data-line="969">
+</span><span data-line="970"><span class="sd">    .. math::</span>
+</span><span data-line="971"><span class="sd">        VSWR = \frac{1 + |\Gamma|}{1 - |\Gamma|}</span>
+</span><span data-line="972">
+</span><span data-line="973"><span class="sd">    where</span>
+</span><span data-line="974">
+</span><span data-line="975"><span class="sd">    .. math::</span>
+</span><span data-line="976"><span class="sd">        \Gamma = \frac{Z_L - Z_0}{Z_L + Z_0}</span>
+</span><span data-line="977">
+</span><span data-line="978"><span class="sd">    Parameters</span>
+</span><span data-line="979"><span class="sd">    ----------</span>
+</span><span data-line="980"><span class="sd">    z0 : number or array-like</span>
+</span><span data-line="981"><span class="sd">        line characteristic impedance [Ohm]</span>
+</span><span data-line="982"><span class="sd">    zl : number or array-like</span>
+</span><span data-line="983"><span class="sd">        load impedance [Ohm]</span>
+</span><span data-line="984">
+</span><span data-line="985"><span class="sd">    Returns</span>
+</span><span data-line="986"><span class="sd">    -------</span>
+</span><span data-line="987"><span class="sd">    swr : number or array-like</span>
+</span><span data-line="988"><span class="sd">        Standing Wave Ratio.</span>
+</span><span data-line="989">
+</span><span data-line="990"><span class="sd">    """</span>
+</span><span data-line="991">    <span class="n">Gamma0</span> <span class="o">=</span> <span class="n">load_impedance_2_reflection_coefficient</span><span class="p">(</span><span class="n">z0</span><span class="p">,</span> <span class="n">zl</span><span class="p">)</span>
+</span><span data-line="992">    <span class="k">return</span> <span class="n">Gamma0_2_swr</span><span class="p">(</span><span class="n">Gamma0</span><span class="p">)</span></div>
+
+</span><span data-line="993">
+</span><span data-line="994">
+<div class="viewcode-block" id="voltage_current_propagation">
+<a class="viewcode-back" href="../../api/generated/skrf.tlineFunctions.voltage_current_propagation.html#skrf.tlineFunctions.voltage_current_propagation">[docs]</a>
+</span><span data-line="995"><span class="k">def</span><span class="w"> </span><span class="nf">voltage_current_propagation</span><span class="p">(</span><span class="n">v1</span><span class="p">:</span> <span class="n">NumberLike</span><span class="p">,</span> <span class="n">i1</span><span class="p">:</span> <span class="n">NumberLike</span><span class="p">,</span> <span class="n">z0</span><span class="p">:</span> <span class="n">NumberLike</span><span class="p">,</span> <span class="n">theta</span><span class="p">:</span> <span class="n">NumberLike</span><span class="p">):</span>
+</span><span data-line="996"><span class="w">    </span><span class="sd">"""</span>
+</span><span data-line="997"><span class="sd">    Voltages and currents calculated on electrical length theta of a transmission line.</span>
+</span><span data-line="998">
+</span><span data-line="999"><span class="sd">    Give voltage v2 and current i1 at theta, given voltage v1</span>
+</span><span data-line="1000"><span class="sd">    and current i1 at theta=0 and given characteristic parameters gamma and z0.</span>
+</span><span data-line="1001">
+</span><span data-line="1002"><span class="sd">    ::</span>
+</span><span data-line="1003">
+</span><span data-line="1004"><span class="sd">        i1                          i2</span>
+</span><span data-line="1005"><span class="sd">        ○--&gt;----------------------&gt;--○</span>
+</span><span data-line="1006">
+</span><span data-line="1007"><span class="sd">        v1         gamma,z0         v2</span>
+</span><span data-line="1008">
+</span><span data-line="1009"><span class="sd">        ○----------------------------○</span>
+</span><span data-line="1010">
+</span><span data-line="1011"><span class="sd">        &lt;------------ d -------------&gt;</span>
+</span><span data-line="1012">
+</span><span data-line="1013"><span class="sd">        theta=0                   theta</span>
+</span><span data-line="1014">
+</span><span data-line="1015"><span class="sd">    Uses (inverse) ABCD parameters of a transmission line.</span>
+</span><span data-line="1016">
+</span><span data-line="1017"><span class="sd">    Parameters</span>
+</span><span data-line="1018"><span class="sd">    ----------</span>
+</span><span data-line="1019"><span class="sd">    v1 : array-like (nfreqs,)</span>
+</span><span data-line="1020"><span class="sd">        total voltage at z=0</span>
+</span><span data-line="1021"><span class="sd">    i1 : array-like (nfreqs,)</span>
+</span><span data-line="1022"><span class="sd">        total current at z=0, directed toward the transmission line</span>
+</span><span data-line="1023"><span class="sd">    z0: array-like (nfreqs,)</span>
+</span><span data-line="1024"><span class="sd">        characteristic impedance</span>
+</span><span data-line="1025"><span class="sd">    theta : number or array-like (nfreq, ntheta)</span>
+</span><span data-line="1026"><span class="sd">        electrical length of the line (may be complex).</span>
+</span><span data-line="1027">
+</span><span data-line="1028"><span class="sd">    Return</span>
+</span><span data-line="1029"><span class="sd">    ------</span>
+</span><span data-line="1030"><span class="sd">    v2 : array-like (nfreqs, ntheta)</span>
+</span><span data-line="1031"><span class="sd">        total voltage at z=d</span>
+</span><span data-line="1032"><span class="sd">    i2 : array-like (nfreqs, ndtheta</span>
+</span><span data-line="1033"><span class="sd">        total current at z=d, directed outward the transmission line</span>
+</span><span data-line="1034"><span class="sd">    """</span>
+</span><span data-line="1035">    <span class="c1"># outer product by broadcasting of the electrical length</span>
+</span><span data-line="1036">    <span class="c1"># theta = gamma[:, np.newaxis] * d  # (nbfreqs x nbd)</span>
+</span><span data-line="1037">    <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">ndim</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+</span><span data-line="1038">        <span class="c1"># align 1-D (nfreqs,) inputs with the frequency axis of theta (nfreqs, ntheta),</span>
+</span><span data-line="1039">        <span class="c1"># which NumPy broadcasting would otherwise align with the last (ntheta) axis</span>
+</span><span data-line="1040">        <span class="n">nfreqs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">theta</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+</span><span data-line="1041">        <span class="n">v1</span><span class="p">,</span> <span class="n">i1</span><span class="p">,</span> <span class="n">z0</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span><span class="p">[:,</span> <span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">]</span> <span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">==</span> <span class="n">nfreqs</span> <span class="k">else</span> <span class="n">x</span>
+</span><span data-line="1042">                      <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">v1</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">i1</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">z0</span><span class="p">)))</span>
+</span><span data-line="1043">    <span class="c1"># ABCD parameters of a transmission line (gamma, z0)</span>
+</span><span data-line="1044">    <span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cosh</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span>
+</span><span data-line="1045">    <span class="n">B</span> <span class="o">=</span> <span class="n">z0</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sinh</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span>
+</span><span data-line="1046">    <span class="n">C</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sinh</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span><span class="o">/</span><span class="n">z0</span>
+</span><span data-line="1047">    <span class="n">D</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cosh</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span>
+</span><span data-line="1048">    <span class="c1"># transpose and de-transpose operations are necessary</span>
+</span><span data-line="1049">    <span class="c1"># for linalg.inv to inverse square matrices</span>
+</span><span data-line="1050">    <span class="n">ABCD</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">],[</span><span class="n">C</span><span class="p">,</span> <span class="n">D</span><span class="p">]])</span><span class="o">.</span><span class="n">transpose</span><span class="p">()</span>
+</span><span data-line="1051">    <span class="n">inv_ABCD</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">ABCD</span><span class="p">)</span><span class="o">.</span><span class="n">transpose</span><span class="p">()</span>
+</span><span data-line="1052">
+</span><span data-line="1053">    <span class="n">v2</span> <span class="o">=</span> <span class="n">inv_ABCD</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">v1</span> <span class="o">+</span> <span class="n">inv_ABCD</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">i1</span>
+</span><span data-line="1054">    <span class="n">i2</span> <span class="o">=</span> <span class="n">inv_ABCD</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">v1</span> <span class="o">+</span> <span class="n">inv_ABCD</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">i1</span>
+</span><span data-line="1055">    <span class="k">return</span> <span class="n">v2</span><span class="p">,</span> <span class="n">i2</span></div>
+
+</span><span data-line="1056">
+</span><span data-line="1057">
+<div class="viewcode-block" id="zl_2_total_loss">
+<a class="viewcode-back" href="../../api/generated/skrf.tlineFunctions.zl_2_total_loss.html#skrf.tlineFunctions.zl_2_total_loss">[docs]</a>
+</span><span data-line="1058"><span class="k">def</span><span class="w"> </span><span class="nf">zl_2_total_loss</span><span class="p">(</span><span class="n">z0</span><span class="p">:</span> <span class="n">NumberLike</span><span class="p">,</span> <span class="n">zl</span><span class="p">:</span> <span class="n">NumberLike</span><span class="p">,</span> <span class="n">theta</span><span class="p">:</span> <span class="n">NumberLike</span><span class="p">):</span>
+</span><span data-line="1059"><span class="w">    </span><span class="sa">r</span><span class="sd">"""</span>
+</span><span data-line="1060"><span class="sd">    Total loss of a terminated transmission line (in natural unit).</span>
+</span><span data-line="1061">
+</span><span data-line="1062"><span class="sd">    The total loss expressed in terms of the load impedance is [#]_ :</span>
+</span><span data-line="1063">
+</span><span data-line="1064"><span class="sd">    .. math::</span>
+</span><span data-line="1065"><span class="sd">        TL = \frac{R_{in}}{R_L} \left| \cosh \theta  + \frac{Z_L}{Z_0} \sinh\theta \right|^2</span>
+</span><span data-line="1066">
+</span><span data-line="1067"><span class="sd">    Parameters</span>
+</span><span data-line="1068"><span class="sd">    ----------</span>
+</span><span data-line="1069"><span class="sd">    z0 : number or array-like</span>
+</span><span data-line="1070"><span class="sd">        characteristic impedance.</span>
+</span><span data-line="1071"><span class="sd">    zl : number or array-like</span>
+</span><span data-line="1072"><span class="sd">        load impedance</span>
+</span><span data-line="1073"><span class="sd">    theta : number or array-like</span>
+</span><span data-line="1074"><span class="sd">        electrical length of the line (may be complex).</span>
+</span><span data-line="1075">
+</span><span data-line="1076"><span class="sd">    Returns</span>
+</span><span data-line="1077"><span class="sd">    -------</span>
+</span><span data-line="1078"><span class="sd">    total_loss: number or array-like</span>
+</span><span data-line="1079"><span class="sd">        total loss in natural unit</span>
+</span><span data-line="1080">
+</span><span data-line="1081"><span class="sd">    References</span>
+</span><span data-line="1082"><span class="sd">    ----------</span>
+</span><span data-line="1083"><span class="sd">    .. [#] Steve Stearns (K6OIK), Transmission Line Power Paradox and Its Resolution.</span>
+</span><span data-line="1084"><span class="sd">        ARRL PacificonAntenna Seminar, Santa Clara, CA, October 10-12, 2014.</span>
+</span><span data-line="1085"><span class="sd">        https://www.fars.k6ya.org/docs/K6OIK-A_Transmission_Line_Power_Paradox_and_Its_Resolution.pdf</span>
+</span><span data-line="1086">
+</span><span data-line="1087"><span class="sd">    """</span>
+</span><span data-line="1088">    <span class="n">Rin</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">zl_2_zin</span><span class="p">(</span><span class="n">z0</span><span class="p">,</span> <span class="n">zl</span><span class="p">,</span> <span class="n">theta</span><span class="p">))</span>
+</span><span data-line="1089">    <span class="n">total_loss</span> <span class="o">=</span> <span class="n">Rin</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">zl</span><span class="p">)</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">cosh</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span> <span class="o">+</span> <span class="n">zl</span><span class="o">/</span><span class="n">z0</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sinh</span><span class="p">(</span><span class="n">theta</span><span class="p">))</span><span class="o">**</span><span class="mi">2</span>
+</span><span data-line="1090">    <span class="k">return</span> <span class="n">total_loss</span></div>
+
+</span><span data-line="1091">
+</span><span data-line="1092">
+</span><span data-line="1093"><span class="c1"># short hand convenience.</span>
+</span><span data-line="1094"><span class="c1"># admittedly these follow no logical naming scheme, but they closely</span>
+</span><span data-line="1095"><span class="c1"># correspond to common symbolic conventions, and are convenient</span>
+</span><span data-line="1096"><span class="n">theta</span> <span class="o">=</span> <span class="n">electrical_length</span>
+</span><span data-line="1097"><span class="n">distance_2_electrical_length</span> <span class="o">=</span> <span class="n">electrical_length</span>
+</span><span data-line="1098">
+</span><span data-line="1099"><span class="n">zl_2_Gamma0</span> <span class="o">=</span> <span class="n">load_impedance_2_reflection_coefficient</span>
+</span><span data-line="1100"><span class="n">Gamma0_2_zl</span> <span class="o">=</span> <span class="n">reflection_coefficient_2_input_impedance</span>
+</span><span data-line="1101">
+</span><span data-line="1102"><span class="n">zl_2_zin</span> <span class="o">=</span> <span class="n">input_impedance_at_theta</span>
+</span><span data-line="1103"><span class="n">zl_2_Gamma_in</span> <span class="o">=</span> <span class="n">load_impedance_2_reflection_coefficient_at_theta</span>
+</span><span data-line="1104">
+</span><span data-line="1105"><span class="n">Gamma0_2_Gamma_in</span> <span class="o">=</span> <span class="n">reflection_coefficient_at_theta</span>
+</span><span data-line="1106"><span class="n">Gamma0_2_zin</span> <span class="o">=</span> <span class="n">reflection_coefficient_2_input_impedance_at_theta</span>
+</span></pre></div>
+        </article><button class="back-to-top" type="button">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+  </svg>
+  <span>Back to top</span>
+</button><div class="navigation flex print:hidden"></div></div>
+    </div>
+  </main>
+</div>
+<footer class="sy-foot">
+  <div class="sy-foot-inner sy-container mx-auto">
+    <div class="sy-foot-reserved md:flex justify-between items-center">
+      <div class="sy-foot-copyright"><p>2025, scikit-rf team</p>
+  
+  <p>
+    Made with
+    
+    <a href="https://www.sphinx-doc.org/">Sphinx</a> and
+    
+    <a href="https://shibuya.lepture.com">Shibuya theme</a>.
+  </p>
+</div>
+      <div class="sy-foot-socials">
+  <a href="https://github.com/scikit-rf/scikit-rf" aria-label="GitHub">
+    <iconify-icon icon="simple-icons:github"></iconify-icon>
+  </a></div>
+    </div>
+  </div>
+</footer>
+      <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../_static/copybutton.js?v=34bd459d"></script>
+      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+      <script src="../../_static/shibuya.js?v=50760d75"></script>
+      <script src="https://cdn.jsdelivr.net/npm/@jupyter-widgets/html-manager@^1.0.1/dist/embed-amd.js"></script>
+      <script src="../../_static/skrf.js?v=bdeb9fb0"></script></body>
+</html>

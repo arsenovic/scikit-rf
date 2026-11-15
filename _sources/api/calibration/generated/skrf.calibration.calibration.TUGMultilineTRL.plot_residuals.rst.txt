@@ -1,0 +1,6 @@
+skrf.calibration.calibration.TUGMultilineTRL.plot\_residuals
+============================================================
+
+.. currentmodule:: skrf.calibration.calibration
+
+.. automethod:: TUGMultilineTRL.plot_residuals

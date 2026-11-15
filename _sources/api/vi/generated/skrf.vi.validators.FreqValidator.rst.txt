@@ -1,0 +1,33 @@
+﻿skrf.vi.validators.FreqValidator
+================================
+
+.. currentmodule:: skrf.vi.validators
+
+.. autoclass:: FreqValidator
+  :no-members:
+
+
+
+.. rubric:: Attributes
+
+.. autosummary::
+  :toctree:
+  :nosignatures:
+
+  ~FreqValidator.freq_re
+  ~FreqValidator.si
+
+
+
+
+
+.. rubric:: Methods
+
+.. autosummary::
+  :toctree:
+  :nosignatures:
+
+  ~FreqValidator.__init__
+  ~FreqValidator.validate_input
+  ~FreqValidator.validate_output
+

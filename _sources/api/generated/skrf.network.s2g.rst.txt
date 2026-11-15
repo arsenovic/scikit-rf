@@ -1,0 +1,6 @@
+﻿skrf.network.s2g
+================
+
+.. currentmodule:: skrf.network
+
+.. autofunction:: s2g

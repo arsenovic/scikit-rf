@@ -1,0 +1,6 @@
+skrf.vi.vna.keysight.PNA.query\_format
+======================================
+
+.. currentmodule:: skrf.vi.vna.keysight
+
+.. autoproperty:: PNA.query_format

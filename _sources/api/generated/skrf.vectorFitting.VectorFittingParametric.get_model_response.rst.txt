@@ -1,0 +1,6 @@
+skrf.vectorFitting.VectorFittingParametric.get\_model\_response
+===============================================================
+
+.. currentmodule:: skrf.vectorFitting
+
+.. automethod:: VectorFittingParametric.get_model_response

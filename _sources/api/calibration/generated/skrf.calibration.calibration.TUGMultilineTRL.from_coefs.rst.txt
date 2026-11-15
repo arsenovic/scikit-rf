@@ -1,0 +1,6 @@
+skrf.calibration.calibration.TUGMultilineTRL.from\_coefs
+========================================================
+
+.. currentmodule:: skrf.calibration.calibration
+
+.. automethod:: TUGMultilineTRL.from_coefs

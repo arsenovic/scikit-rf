@@ -1,0 +1,6 @@
+skrf.calibration.calibration.TUGMultilineTRL.residual\_ntwks
+============================================================
+
+.. currentmodule:: skrf.calibration.calibration
+
+.. autoproperty:: TUGMultilineTRL.residual_ntwks

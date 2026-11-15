@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en" data-accent-color="blue" data-content_root="../../">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>skrf.tlineFunctions.surface_impedance - scikit-rf</title><link rel="author" title="About these documents" href="../../about.html" /><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="instances (skrf.instances)" href="../instances.html" /><link rel="prev" title="skrf.tlineFunctions.surface_resistivity" href="skrf.tlineFunctions.surface_resistivity.html" /><script>
+    function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
+    setColorMode(localStorage._theme||"auto");
+  </script><link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=ad592e98" />
+    <link rel="stylesheet" type="text/css" href="../../_static/shibuya.css?v=2ceb65ce" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-codeautolink.css?v=b2176991" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link media="print" rel="stylesheet" type="text/css" href="../../_static/print.css?v=20ff2c19" />
+    <link rel="stylesheet" type="text/css" href="../../_static/skrf.css?v=7e772ba2" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --sy-f-text: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+  --sy-f-heading: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+}
+</style>
+    
+  <meta property="og:type" content="website"/><meta property="og:title" content="skrf.tlineFunctions.surface_impedance"/>
+    <meta name="twitter:card" content="summary"/>
+  </head>
+<body><div class="sy-head">
+  <div class="sy-head-blur"></div>
+  <div class="sy-head-inner sy-container mx-auto">
+    <a class="sy-head-brand" href="../../index.html">
+      <img class="light-logo" src="../../_static/logo.svg" alt="scikit-rf" height="28" loading="lazy" />
+      <img class="dark-logo" src="../../_static/logo.svg" alt="scikit-rf" height="28" loading="lazy" />
+      <strong>scikit-rf</strong>
+    </a>
+    <div class="sy-head-nav" id="head-nav">
+      <nav class="sy-head-links"><ul><li class="link"><a href="../../index.html">Home</a></li><li class="link"><a href="../../tutorials/index.html">Tutorials</a></li><li class="link"><a href="../../examples/index.html">Examples</a></li><li class="link"><a href="../index.html">API</a></li><li class="link">
+          <a href="https://github.com/scikit-rf/scikit-rf">
+            <span>GitHub</span><i class="i-lucide external-link"></i></a>
+        </li></ul></nav>
+      <div class="sy-head-extra flex items-center print:hidden"><form class="searchbox flex items-center" action="../../search.html" method="get">
+  <input type="text" name="q" placeholder="Search" />
+  <kbd>/</kbd>
+</form><div class="sy-head-socials">
+  <a href="https://github.com/scikit-rf/scikit-rf" aria-label="GitHub">
+    <iconify-icon icon="simple-icons:github"></iconify-icon>
+  </a>
+  <a href="https://www.linkedin.com/groups/12462155/" aria-label="LinkedIn">
+    <iconify-icon icon="simple-icons:linkedin"></iconify-icon>
+  </a>
+  <a href="https://app.element.io/#/room/#scikit-rf:matrix.org" aria-label="Matrix">
+    <iconify-icon icon="simple-icons:matrix"></iconify-icon>
+  </a></div></div>
+    </div>
+    <div class="sy-head-actions flex items-center shrink-0 print:hidden"><button class="js-theme theme-switch flex items-center"
+data-aria-auto="Switch to light color mode"
+data-aria-light="Switch to dark color mode"
+data-aria-dark="Switch to auto color mode">
+<i class="i-lucide theme-icon"></i>
+</button><button class="md:hidden flex items-center js-menu" aria-label="Menu" type="button" aria-controls="head-nav" aria-expanded="false">
+        <div class="hamburger">
+          <span class="hamburger_1"></span>
+          <span class="hamburger_2"></span>
+          <span class="hamburger_3"></span>
+        </div>
+      </button>
+    </div>
+  </div>
+</div>
+<div class="sy-page sy-container flex mx-auto">
+  <aside id="lside" class="sy-lside md:w-72 md:shrink-0 print:hidden">
+    <div class="sy-lside-inner md:sticky">
+      <div class="sy-scrollbar p-6">
+        <div class="globaltoc" data-expand-depth="0"><p class="caption" role="heading" aria-level="3"><span class="caption-text">Getting started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../index.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/Installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/Introduction.html">Introduction</a></li>
+</ul>
+<p class="caption" role="heading" aria-level="3"><span class="caption-text">User guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../examples/index.html">Examples</a></li>
+</ul>
+<p class="caption" role="heading" aria-level="3"><span class="caption-text">Reference</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">API</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../network.html">network (<code class="xref py py-mod docutils literal notranslate"><span class="pre">skrf.network</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../frequency.html">frequency (<code class="xref py py-mod docutils literal notranslate"><span class="pre">skrf.frequency</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../networkSet.html">networkSet (<code class="xref py py-mod docutils literal notranslate"><span class="pre">skrf.networkSet</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../plotting.html">plotting (<code class="xref py py-mod docutils literal notranslate"><span class="pre">skrf.plotting</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../media/index.html">Media</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../taper.html">taper (<code class="xref py py-mod docutils literal notranslate"><span class="pre">skrf.taper</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../calibration/index.html">calibration (<code class="xref py py-mod docutils literal notranslate"><span class="pre">skrf.calibration.calibration</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../calibration/deembedding.html">deembedding (<code class="xref py py-mod docutils literal notranslate"><span class="pre">skrf.calibration.deembedding</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../vi/index.html">virtual instruments (<code class="xref py py-mod docutils literal notranslate"><span class="pre">skrf.vi</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../vi/vna.html">vna (<code class="xref py py-mod docutils literal notranslate"><span class="pre">skrf.vi.vna</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../vectorFitting.html">vectorFitting (<code class="xref py py-mod docutils literal notranslate"><span class="pre">skrf.vectorFitting</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../qfactor.html">Qfactor (<code class="xref py py-mod docutils literal notranslate"><span class="pre">skrf.qfactor</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../time.html">time (<code class="xref py py-mod docutils literal notranslate"><span class="pre">skrf.time</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../circuit.html">circuit (<code class="xref py py-mod docutils literal notranslate"><span class="pre">skrf.circuit</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../media/device.html">device (<code class="xref py py-mod docutils literal notranslate"><span class="pre">skrf.media.device</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mathFunctions.html">mathFunctions (<code class="xref py py-mod docutils literal notranslate"><span class="pre">skrf.mathFunctions</span></code>)</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../tlineFunctions.html">tlineFunctions (<code class="xref py py-mod docutils literal notranslate"><span class="pre">skrf.tlineFunctions</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../instances.html">instances (<code class="xref py py-mod docutils literal notranslate"><span class="pre">skrf.instances</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../constants.html">constants (<code class="xref py py-mod docutils literal notranslate"><span class="pre">skrf.constants</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../data/index.html">data (<code class="xref py py-mod docutils literal notranslate"><span class="pre">skrf.data</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../util.html">util (<code class="xref py py-mod docutils literal notranslate"><span class="pre">skrf.util</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../io/index.html">IO</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../glossary.html">Glossary</a></li>
+</ul>
+<p class="caption" role="heading" aria-level="3"><span class="caption-text">Project</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing/index.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../citations_ack/acknowledging.html">Citing scikit-rf</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../citations_ack/citations.html">scikit-rf Citations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../about.html">About</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../users.html">Users</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../license.html">License</a></li>
+</ul>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="lside-overlay js-menu" role="button" aria-label="Close left sidebar" aria-controls="lside" aria-expanded="false"></div>
+  <aside id="rside" class="sy-rside pb-3 w-64 shrink-0 order-last">
+    <button class="rside-close js-menu xl:hidden" aria-label="Close Table of Contents" type="button" aria-controls="rside" aria-expanded="false">
+      <i class="i-lucide close"></i>
+    </button>
+    <div class="sy-scrollbar sy-rside-inner px-6 xl:top-16 xl:sticky xl:pl-0 pt-6 pb-4"><div class="localtoc"><h3>On this page</h3><ul>
+<li><a class="reference internal" href="#skrf.tlineFunctions.surface_impedance"><code class="docutils literal notranslate"><span class="pre">surface_impedance()</span></code></a></li>
+</ul>
+</div><div id="ethical-ad-placement" data-ea-publisher="readthedocs"></div></div>
+  </aside>
+  <div class="rside-overlay js-menu" role="button" aria-label="Close Table of Contents" aria-controls="rside" aria-expanded="false"></div>
+  <main class="sy-main w-full max-sm:max-w-full print:pt-6">
+<div class="sy-breadcrumbs" role="navigation">
+  <div class="sy-breadcrumbs-inner flex items-center">
+    <div class="md:hidden mr-3">
+      <button class="js-menu" aria-label="Menu" type="button" aria-controls="lside" aria-expanded="false">
+        <i class="i-lucide menu"></i>
+      </button>
+    </div>
+    <ol class="flex-1" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="../../index.html"><span itemprop="name">scikit-rf</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="1" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="../index.html"><span itemprop="name">API</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="2" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="../tlineFunctions.html"><span itemprop="name">tlineFunctions (<code class="xref py py-mod docutils literal notranslate"><span class="pre">skrf.tlineFunctions</span></code>)</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="3" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <strong itemprop="name">skrf.tlineFunctions.surface_impedance</strong>
+        <meta itemprop="position" content="4" />
+      </li></ol>
+    <div class="xl:hidden ml-1">
+      <button class="js-menu" aria-label="Show table of contents" type="button" aria-controls="rside"
+        aria-expanded="false">
+        <i class="i-lucide outdent"></i>
+      </button>
+    </div>
+  </div>
+</div><div class="flex flex-col break-words justify-between">
+      <div class="relative min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
+  <article class="yue" role="main">
+          <section id="skrf-tlinefunctions-surface-impedance">
+<h1>skrf.tlineFunctions.surface_impedance<a class="headerlink" href="#skrf-tlinefunctions-surface-impedance" title="Link to this heading">#</a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="skrf.tlineFunctions.surface_impedance">
+<span class="sig-prename descclassname"><span class="pre">skrf.tlineFunctions.</span></span><span class="sig-name descname"><span class="pre">surface_impedance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">f</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">material_properties</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rms_roughness</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">boundary_loc</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">distribution</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'norm'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rtol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-06</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/skrf/tlineFunctions.html#surface_impedance"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skrf.tlineFunctions.surface_impedance" title="Link to this definition">#</a></dt>
+<dd><p>Surface impedance of an arbitrary conductor boundary that
+could compromise roughness and stack of materials.</p>
+<p>The rough boundary between two materials, and, more generally, each
+boundary of a stack of coated conductors, is described by the cumulative
+distribution function (CDF) of its surface height, which grades the
+material properties across the transition <a class="footnote-reference brackets" href="#tegowski" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a> <a class="footnote-reference brackets" href="#gold" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a>:</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[\mu(x) = \mu_1 + \sum_k \left( \mu_{k+1} - \mu_k \right) \mathrm{CDF}_k(x)\]</div>
+</div>
+<p>and likewise for <span class="math notranslate nohighlight">\(\epsilon(x)\)</span>, with <span class="math notranslate nohighlight">\(x\)</span> the depth into the
+stack. The graded profile is discretized into short transmission line
+segments with propagation constant <span class="math notranslate nohighlight">\(\gamma_i = j\omega\sqrt{\mu_i \epsilon_i}\)</span>
+and intrinsic impedance <span class="math notranslate nohighlight">\(\eta_i = \sqrt{\mu_i / \epsilon_i}\)</span>, and the
+input impedance is transformed from the deepest material up to the surface:</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[Z_i = \eta_i \frac{Z_{i+1} + \eta_i \tanh(\gamma_i \Delta x_i)}
+                  {\eta_i + Z_{i+1} \tanh(\gamma_i \Delta x_i)}\]</div>
+</div>
+<p>The result is the surface impedance seen by a wave impinging on the stack.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>f</strong> (<em>number</em><em> or </em><em>array-like</em>) – frequency, in Hz. Must be non-zero.</p></li>
+<li><p><strong>material_properties</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.15)"><em>list</em></a><em> of </em><a class="reference internal" href="../io/generated/skrf.io.csv.AgilentCSV.dict.html#skrf.io.csv.AgilentCSV.dict" title="skrf.io.csv.AgilentCSV.dict"><em>dict</em></a><em> or </em><a class="reference internal" href="../io/generated/skrf.io.csv.AgilentCSV.dict.html#skrf.io.csv.AgilentCSV.dict" title="skrf.io.csv.AgilentCSV.dict"><em>dict</em></a>) – Material stack, ordered from the outside medium the wave impinges from
+(vacuum, dielectric) down to the deepest conductor. Each dict takes
+any of the keys <code class="docutils literal notranslate"><span class="pre">'sigma'</span></code> (conductivity in S/m), <code class="docutils literal notranslate"><span class="pre">'ep_r'</span></code>
+(relative permittivity) and <code class="docutils literal notranslate"><span class="pre">'mu_r'</span></code> (relative permeability), with
+defaults 0, 1 and 1; values are scalars or arrays matching <code class="docutils literal notranslate"><span class="pre">f</span></code>.
+Describe a conductor by <code class="docutils literal notranslate"><span class="pre">'sigma'</span></code>, where <code class="docutils literal notranslate"><span class="pre">'ep_r'</span></code>, if given, must be
+real-valued. On the other hand, a lossy dielectric described by complex <code class="docutils literal notranslate"><span class="pre">'ep_r'</span></code>.
+Passing a single dict is a shorthand for that material below vacuum, i.e.
+<code class="docutils literal notranslate"><span class="pre">[{},</span> <span class="pre">{...}]</span></code>. Consecutive materials are separated by one rough boundary each.</p></li>
+<li><p><strong>rms_roughness</strong> (<em>number</em><em> or </em><em>array-like</em><em>, </em><em>optional</em>) – rms roughness (i.e., Rq or Rrms) of each boundary, in meter. One value per boundary;
+a scalar applies to all. Default is 0.</p></li>
+<li><p><strong>boundary_loc</strong> (<em>number</em><em> or </em><em>array-like</em><em>, </em><em>optional</em>) – Mean location of each boundary, in meter, in increasing order. Default is 0 for a single boundary.
+For multiple boundaries, the first is at 0 and the last is at the total thickness of the stack,
+e.g. <code class="docutils literal notranslate"><span class="pre">[0,</span> <span class="pre">0.05e-6,</span> <span class="pre">4.05e-6]</span></code> for a 50 nm gold layer on top of 4 um nickel layer.</p></li>
+<li><p><strong>distribution</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a><em>, </em><em>frozen scipy.stats distribution</em><em>, </em><em>callable</em><em>, or </em><em>list thereof</em><em>, </em><em>optional</em>) – Height distribution of each boundary: the name of a scipy.stats
+continuous distribution without shape parameters (<code class="docutils literal notranslate"><span class="pre">'norm'</span></code>
+(default), <code class="docutils literal notranslate"><span class="pre">'rayleigh'</span></code>, <code class="docutils literal notranslate"><span class="pre">'uniform'</span></code>, …), a frozen distribution
+for those with shape parameters (e.g. <code class="docutils literal notranslate"><span class="pre">scipy.stats.gamma(2)</span></code>), or a
+function <code class="docutils literal notranslate"><span class="pre">distribution(x,</span> <span class="pre">rms_roughness,</span> <span class="pre">boundary_loc)</span></code> returning
+the CDF at depths <code class="docutils literal notranslate"><span class="pre">x</span></code>. Named and frozen distributions are shifted
+and scaled to the given mean and standard deviation.</p></li>
+<li><p><strong>rtol</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)"><em>float</em></a><em>, </em><em>optional</em>) – Relative tolerance to which the discretization is refined. Default is 1e-6.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>Zs</strong> – surface impedance, in ohm (per square), at each frequency.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>complex number or array-like</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>The material variation inside each segment is handled by a 4th-order
+Magnus scheme (Eqs. (252)-(254) in <a class="footnote-reference brackets" href="#blanes" id="id3" role="doc-noteref"><span class="fn-bracket">[</span>3<span class="fn-bracket">]</span></a>), and the segment count over the
+rough transitions is doubled, combining the last refinement levels by
+Richardson extrapolation, until <code class="docutils literal notranslate"><span class="pre">Zs</span></code> changes by less than <code class="docutils literal notranslate"><span class="pre">rtol</span></code>; a
+<code class="docutils literal notranslate"><span class="pre">RuntimeWarning</span></code> is issued if the refinement does not converge.</p>
+<p>A layer thinner than the roughness of its boundaries lets their CDFs cross, which
+mixes the materials with negative weights and can flip the sign of the loss. The
+CDFs are therefore put back in order before they are mixed, which leaves a well
+formed stack as it is, and a <code class="docutils literal notranslate"><span class="pre">RuntimeWarning</span></code> is issued if negative weight is found.</p>
+<p>With the default <code class="docutils literal notranslate"><span class="pre">rms_roughness=0</span></code> a single smooth conductor recovers the
+classic <span class="math notranslate nohighlight">\((1 + j)\sqrt{\pi f \mu \rho}\)</span> known from
+<a class="reference internal" href="skrf.tlineFunctions.surface_resistivity.html#skrf.tlineFunctions.surface_resistivity" title="skrf.tlineFunctions.surface_resistivity"><code class="xref py py-func docutils literal notranslate"><span class="pre">surface_resistivity()</span></code></a>.</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="skrf.tlineFunctions.skin_depth.html#skrf.tlineFunctions.skin_depth" title="skrf.tlineFunctions.skin_depth"><code class="xref py py-obj docutils literal notranslate"><span class="pre">skin_depth</span></code></a>, <a class="reference internal" href="skrf.tlineFunctions.surface_resistivity.html#skrf.tlineFunctions.surface_resistivity" title="skrf.tlineFunctions.surface_resistivity"><code class="xref py py-obj docutils literal notranslate"><span class="pre">surface_resistivity</span></code></a></p>
+</div>
+<p class="rubric">References</p>
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="tegowski" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a href="#id1" role="doc-backlink">1</a><span class="fn-bracket">]</span></span>
+<p>B. Tegowski, T. Jaschke, A. Sieganschin and A. F. Jacob, “A Transmission
+Line Approach for Rough Conductor Surface Impedance Analysis,” IEEE Trans.
+Microw. Theory Techn., vol. 71, no. 2, pp. 471-479, 2023.
+<a class="reference external" href="https://doi.org/10.1109/TMTT.2022.3206440">https://doi.org/10.1109/TMTT.2022.3206440</a></p>
+</aside>
+<aside class="footnote brackets" id="gold" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a href="#id2" role="doc-backlink">2</a><span class="fn-bracket">]</span></span>
+<p>G. Gold and K. Helmreich, “Modeling of transmission lines with multiple
+coated conductors,” 46th European Microwave Conference (EuMC), 2016.
+<a class="reference external" href="https://doi.org/10.1109/EuMC.2016.7824423">https://doi.org/10.1109/EuMC.2016.7824423</a></p>
+</aside>
+<aside class="footnote brackets" id="blanes" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a href="#id3" role="doc-backlink">3</a><span class="fn-bracket">]</span></span>
+<p>S. Blanes, F. Casas, J. A. Oteo and J. Ros, “The Magnus expansion and
+some of its applications,” Physics Reports, vol. 470, no. 5-6, pp. 151-238,
+2009. <a class="reference external" href="https://doi.org/10.1016/j.physrep.2008.11.001">https://doi.org/10.1016/j.physrep.2008.11.001</a></p>
+</aside>
+</aside>
+<p class="rubric">Examples</p>
+<p>Smooth copper at 10 GHz, reproducing <span class="math notranslate nohighlight">\((1 + j) R_s\)</span>:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">skrf</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">rf</span>
+</span><span data-line="2"><span class="gp">&gt;&gt;&gt; </span><span class="n">Zs</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.tlineFunctions.surface_impedance.html#skrf.tlineFunctions.surface_impedance" title="skrf.tlineFunctions.surface_impedance"><span class="n">rf</span><span class="o">.</span><span class="n">tlineFunctions</span><span class="o">.</span><span class="n">surface_impedance</span></a><span class="p">(</span><span class="mf">10e9</span><span class="p">,</span> <span class="p">{</span><span class="s1">'sigma'</span><span class="p">:</span> <span class="mf">58e6</span><span class="p">})</span>
+</span><span data-line="3"><span class="gp">&gt;&gt;&gt; </span><span class="n">Rs</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.tlineFunctions.surface_resistivity.html#skrf.tlineFunctions.surface_resistivity" title="skrf.tlineFunctions.surface_resistivity"><span class="n">rf</span><span class="o">.</span><span class="n">tlineFunctions</span><span class="o">.</span><span class="n">surface_resistivity</span></a><span class="p">(</span><span class="mf">10e9</span><span class="p">,</span> <span class="n">rho</span><span class="o">=</span><span class="mi">1</span><span class="o">/</span><span class="mf">58e6</span><span class="p">,</span> <span class="n">mu_r</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</span><span data-line="4"><span class="gp">&gt;&gt;&gt; </span><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/builtins/functions.html#print"><span class="nb">print</span></a><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">Zs</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2"> ohm, </span><span class="si">{</span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="n">j</span><span class="p">)</span><span class="o">*</span><span class="n">Rs</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2"> ohm"</span><span class="p">)</span>
+</span><span data-line="5"><span class="go">0.0261+0.0261j ohm, 0.0261+0.0261j ohm</span>
+</span></pre></div>
+</div>
+<p>The same conductor with 1 um rms roughness:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="gp">&gt;&gt;&gt; </span><span class="n">Zs</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.tlineFunctions.surface_impedance.html#skrf.tlineFunctions.surface_impedance" title="skrf.tlineFunctions.surface_impedance"><span class="n">rf</span><span class="o">.</span><span class="n">tlineFunctions</span><span class="o">.</span><span class="n">surface_impedance</span></a><span class="p">(</span><span class="mf">10e9</span><span class="p">,</span> <span class="p">{</span><span class="s1">'sigma'</span><span class="p">:</span> <span class="mf">58e6</span><span class="p">},</span> <span class="n">rms_roughness</span><span class="o">=</span><span class="mf">1e-6</span><span class="p">)</span>
+</span><span data-line="2"><span class="gp">&gt;&gt;&gt; </span><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/builtins/functions.html#print"><span class="nb">print</span></a><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">Zs</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2"> ohm"</span><span class="p">)</span>
+</span><span data-line="3"><span class="go">0.0630+0.3356j ohm</span>
+</span></pre></div>
+</div>
+<p>The top side of a microstrip trace with an ENIG surface finish; a nearly
+flat (5 nm rms) stack of 0.05 um gold and 4 um nickel on copper:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="gp">&gt;&gt;&gt; </span><span class="n">mats</span> <span class="o">=</span> <span class="p">[{},</span> <span class="p">{</span><span class="s1">'sigma'</span><span class="p">:</span> <span class="mf">41.1e6</span><span class="p">},</span> <span class="p">{</span><span class="s1">'sigma'</span><span class="p">:</span> <span class="mf">14.5e6</span><span class="p">,</span> <span class="s1">'mu_r'</span><span class="p">:</span> <span class="mi">20</span><span class="p">},</span> <span class="p">{</span><span class="s1">'sigma'</span><span class="p">:</span> <span class="mf">58e6</span><span class="p">}]</span>
+</span><span data-line="2"><span class="gp">&gt;&gt;&gt; </span><span class="n">Zs</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.tlineFunctions.surface_impedance.html#skrf.tlineFunctions.surface_impedance" title="skrf.tlineFunctions.surface_impedance"><span class="n">rf</span><span class="o">.</span><span class="n">tlineFunctions</span><span class="o">.</span><span class="n">surface_impedance</span></a><span class="p">(</span><span class="mf">10e9</span><span class="p">,</span> <span class="n">mats</span><span class="p">,</span> <span class="n">rms_roughness</span><span class="o">=</span><span class="mf">5e-9</span><span class="p">,</span>
+</span><span data-line="3"><span class="gp">... </span>                                         <span class="n">boundary_loc</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.05e-6</span><span class="p">,</span> <span class="mf">4.05e-6</span><span class="p">])</span>
+</span><span data-line="4"><span class="gp">&gt;&gt;&gt; </span><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/builtins/functions.html#print"><span class="nb">print</span></a><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">Zs</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2"> ohm"</span><span class="p">)</span>
+</span><span data-line="5"><span class="go">0.1895+0.1012j ohm</span>
+</span></pre></div>
+</div>
+<p>The bottom side of the trace; copper against the substrate
+(<span class="math notranslate nohighlight">\(\epsilon_r = 3.2\)</span>), rough at the copper-substrate boundary, from
+1 to 100 GHz:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/index.html#module-numpy"><span class="nn">numpy</span></a><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+</span><span data-line="2"><span class="gp">&gt;&gt;&gt; </span><span class="n">f</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/generated/numpy.logspace.html#numpy.logspace" title="numpy.logspace"><span class="n">np</span><span class="o">.</span><span class="n">logspace</span></a><span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">201</span><span class="p">)</span>
+</span><span data-line="3"><span class="gp">&gt;&gt;&gt; </span><span class="n">Zs</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.tlineFunctions.surface_impedance.html#skrf.tlineFunctions.surface_impedance" title="skrf.tlineFunctions.surface_impedance"><span class="n">rf</span><span class="o">.</span><span class="n">tlineFunctions</span><span class="o">.</span><span class="n">surface_impedance</span></a><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="p">[{</span><span class="s1">'ep_r'</span><span class="p">:</span> <span class="mf">3.2</span><span class="p">},</span> <span class="p">{</span><span class="s1">'sigma'</span><span class="p">:</span> <span class="mf">58e6</span><span class="p">}],</span>
+</span><span data-line="4"><span class="gp">... </span>                                         <span class="n">rms_roughness</span><span class="o">=</span><span class="mf">0.5e-6</span><span class="p">)</span>
+</span><span data-line="5"><span class="gp">&gt;&gt;&gt; </span><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/builtins/functions.html#print"><span class="nb">print</span></a><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">Zs</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2"> ohm"</span><span class="p">)</span>  <span class="c1"># at 100 GHz</span>
+</span><span data-line="6"><span class="go">0.2743+1.5154j ohm</span>
+</span></pre></div>
+</div>
+</dd></dl>
+</section>
+
+        </article><button class="back-to-top" type="button">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+  </svg>
+  <span>Back to top</span>
+</button><div class="navigation flex print:hidden"><div class="navigation-prev">
+    <a href="skrf.tlineFunctions.surface_resistivity.html">
+      <i class="i-lucide chevron-left"></i>
+      <div class="page-info">
+        <span>Previous</span><div class="title">skrf.tlineFunctions.surface_resistivity</div></div>
+    </a>
+  </div><div class="navigation-next">
+    <a href="../instances.html">
+      <div class="page-info">
+        <span>Next</span>
+        <div class="title">instances (<code class="xref py py-mod docutils literal notranslate"><span class="pre">skrf.instances</span></code>)</div>
+      </div>
+      <i class="i-lucide chevron-right"></i>
+    </a>
+  </div></div></div>
+    </div>
+  </main>
+</div>
+<footer class="sy-foot">
+  <div class="sy-foot-inner sy-container mx-auto">
+    <div class="sy-foot-reserved md:flex justify-between items-center">
+      <div class="sy-foot-copyright"><p>2025, scikit-rf team</p>
+  
+  <p>
+    Made with
+    
+    <a href="https://www.sphinx-doc.org/">Sphinx</a> and
+    
+    <a href="https://shibuya.lepture.com">Shibuya theme</a>.
+  </p>
+</div>
+      <div class="sy-foot-socials">
+  <a href="https://github.com/scikit-rf/scikit-rf" aria-label="GitHub">
+    <iconify-icon icon="simple-icons:github"></iconify-icon>
+  </a></div>
+    </div>
+  </div>
+</footer>
+      <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../_static/copybutton.js?v=34bd459d"></script>
+      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+      <script src="../../_static/shibuya.js?v=50760d75"></script>
+      <script src="https://cdn.jsdelivr.net/npm/@jupyter-widgets/html-manager@^1.0.1/dist/embed-amd.js"></script>
+      <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
+      <script src="../../_static/skrf.js?v=bdeb9fb0"></script></body>
+</html>

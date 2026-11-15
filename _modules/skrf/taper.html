@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="en" data-accent-color="blue" data-content_root="../../">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>skrf.taper - scikit-rf</title><link rel="author" title="About these documents" href="../../about.html" /><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><script>
+    function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
+    setColorMode(localStorage._theme||"auto");
+  </script><link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=ad592e98" />
+    <link rel="stylesheet" type="text/css" href="../../_static/shibuya.css?v=2ceb65ce" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-codeautolink.css?v=b2176991" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link media="print" rel="stylesheet" type="text/css" href="../../_static/print.css?v=20ff2c19" />
+    <link rel="stylesheet" type="text/css" href="../../_static/skrf.css?v=7e772ba2" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --sy-f-text: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+  --sy-f-heading: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+}
+</style>
+    
+  <meta property="og:type" content="website"/><meta property="og:title" content="skrf.taper"/>
+    <meta name="twitter:card" content="summary"/>
+  </head>
+<body><div class="sy-head">
+  <div class="sy-head-blur"></div>
+  <div class="sy-head-inner sy-container mx-auto">
+    <a class="sy-head-brand" href="../../index.html">
+      <img class="light-logo" src="../../_static/logo.svg" alt="scikit-rf" height="28" loading="lazy" />
+      <img class="dark-logo" src="../../_static/logo.svg" alt="scikit-rf" height="28" loading="lazy" />
+      <strong>scikit-rf</strong>
+    </a>
+    <div class="sy-head-nav" id="head-nav">
+      <nav class="sy-head-links"><ul><li class="link"><a href="../../index.html">Home</a></li><li class="link"><a href="../../tutorials/index.html">Tutorials</a></li><li class="link"><a href="../../examples/index.html">Examples</a></li><li class="link"><a href="../../api/index.html">API</a></li><li class="link">
+          <a href="https://github.com/scikit-rf/scikit-rf">
+            <span>GitHub</span><i class="i-lucide external-link"></i></a>
+        </li></ul></nav>
+      <div class="sy-head-extra flex items-center print:hidden"><form class="searchbox flex items-center" action="../../search.html" method="get">
+  <input type="text" name="q" placeholder="Search" />
+  <kbd>/</kbd>
+</form><div class="sy-head-socials">
+  <a href="https://github.com/scikit-rf/scikit-rf" aria-label="GitHub">
+    <iconify-icon icon="simple-icons:github"></iconify-icon>
+  </a>
+  <a href="https://www.linkedin.com/groups/12462155/" aria-label="LinkedIn">
+    <iconify-icon icon="simple-icons:linkedin"></iconify-icon>
+  </a>
+  <a href="https://app.element.io/#/room/#scikit-rf:matrix.org" aria-label="Matrix">
+    <iconify-icon icon="simple-icons:matrix"></iconify-icon>
+  </a></div></div>
+    </div>
+    <div class="sy-head-actions flex items-center shrink-0 print:hidden"><button class="js-theme theme-switch flex items-center"
+data-aria-auto="Switch to light color mode"
+data-aria-light="Switch to dark color mode"
+data-aria-dark="Switch to auto color mode">
+<i class="i-lucide theme-icon"></i>
+</button><button class="md:hidden flex items-center js-menu" aria-label="Menu" type="button" aria-controls="head-nav" aria-expanded="false">
+        <div class="hamburger">
+          <span class="hamburger_1"></span>
+          <span class="hamburger_2"></span>
+          <span class="hamburger_3"></span>
+        </div>
+      </button>
+    </div>
+  </div>
+</div>
+<div class="sy-page sy-container flex mx-auto">
+  <aside id="lside" class="sy-lside md:w-72 md:shrink-0 print:hidden">
+    <div class="sy-lside-inner md:sticky">
+      <div class="sy-scrollbar p-6">
+        <div class="globaltoc" data-expand-depth="0"><p class="caption" role="heading" aria-level="3"><span class="caption-text">Getting started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../index.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/Installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/Introduction.html">Introduction</a></li>
+</ul>
+<p class="caption" role="heading" aria-level="3"><span class="caption-text">User guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../examples/index.html">Examples</a></li>
+</ul>
+<p class="caption" role="heading" aria-level="3"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../api/index.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../glossary.html">Glossary</a></li>
+</ul>
+<p class="caption" role="heading" aria-level="3"><span class="caption-text">Project</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing/index.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../citations_ack/acknowledging.html">Citing scikit-rf</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../citations_ack/citations.html">scikit-rf Citations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../about.html">About</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../users.html">Users</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../license.html">License</a></li>
+</ul>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="lside-overlay js-menu" role="button" aria-label="Close left sidebar" aria-controls="lside" aria-expanded="false"></div>
+  <aside id="rside" class="sy-rside pb-3 w-64 shrink-0 order-last">
+    <button class="rside-close js-menu xl:hidden" aria-label="Close Table of Contents" type="button" aria-controls="rside" aria-expanded="false">
+      <i class="i-lucide close"></i>
+    </button>
+    <div class="sy-scrollbar sy-rside-inner px-6 xl:top-16 xl:sticky xl:pl-0 pt-6 pb-4"><div id="ethical-ad-placement" data-ea-publisher="readthedocs"></div></div>
+  </aside>
+  <div class="rside-overlay js-menu" role="button" aria-label="Close Table of Contents" aria-controls="rside" aria-expanded="false"></div>
+  <main class="sy-main w-full max-sm:max-w-full print:pt-6">
+<div class="sy-breadcrumbs" role="navigation">
+  <div class="sy-breadcrumbs-inner flex items-center">
+    <div class="md:hidden mr-3">
+      <button class="js-menu" aria-label="Menu" type="button" aria-controls="lside" aria-expanded="false">
+        <i class="i-lucide menu"></i>
+      </button>
+    </div>
+    <ol class="flex-1" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="../../index.html"><span itemprop="name">scikit-rf</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="1" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="../index.html"><span itemprop="name">Module code</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="2" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <strong itemprop="name">skrf.taper</strong>
+        <meta itemprop="position" content="3" />
+      </li></ol>
+    <div class="xl:hidden ml-1">
+      <button class="js-menu" aria-label="Show table of contents" type="button" aria-controls="rside"
+        aria-expanded="false">
+        <i class="i-lucide outdent"></i>
+      </button>
+    </div>
+  </div>
+</div><div class="flex flex-col break-words justify-between">
+      <div class="relative min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
+  <article class="yue" role="main">
+          <h1>Source code for skrf.taper</h1><div class="highlight"><pre>
+<span></span><span data-line="1"><span class="sd">"""</span>
+</span><span data-line="2"><span class="sd">taper (:mod:`skrf.taper`)</span>
+</span><span data-line="3"><span class="sd">=========================</span>
+</span><span data-line="4">
+</span><span data-line="5"><span class="sd">Taper Objects</span>
+</span><span data-line="6">
+</span><span data-line="7"><span class="sd">Tapered transformers, or tapers in short, are used to match</span>
+</span><span data-line="8"><span class="sd">one impedance to another (from Z1 to Z2) [#]_.</span>
+</span><span data-line="9">
+</span><span data-line="10"><span class="sd">By tapering a transmission line, a very broadband impedance match (low VSWR)</span>
+</span><span data-line="11"><span class="sd">can be realized over a wide bandwidth, the longer the taper, the wider the frequency band.</span>
+</span><span data-line="12">
+</span><span data-line="13"><span class="sd">References</span>
+</span><span data-line="14"><span class="sd">----------</span>
+</span><span data-line="15"><span class="sd">.. [#] https://www.microwaves101.com/encyclopedias/tapered-transformers</span>
+</span><span data-line="16">
+</span><span data-line="17"><span class="sd">.. autosummary::</span>
+</span><span data-line="18"><span class="sd">    :toctree: generated/</span>
+</span><span data-line="19">
+</span><span data-line="20"><span class="sd">    Taper1D</span>
+</span><span data-line="21"><span class="sd">    Linear</span>
+</span><span data-line="22"><span class="sd">    Exponential</span>
+</span><span data-line="23"><span class="sd">    SmoothStep</span>
+</span><span data-line="24"><span class="sd">    Klopfenstein</span>
+</span><span data-line="25">
+</span><span data-line="26"><span class="sd">"""</span>
+</span><span data-line="27">
+</span><span data-line="28"><span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
+</span><span data-line="29">
+</span><span data-line="30"><span class="kn">from</span><span class="w"> </span><span class="nn">collections.abc</span><span class="w"> </span><span class="kn">import</span> <span class="n">Callable</span>
+</span><span data-line="31"><span class="kn">from</span><span class="w"> </span><span class="nn">numbers</span><span class="w"> </span><span class="kn">import</span> <span class="n">Number</span>
+</span><span data-line="32">
+</span><span data-line="33"><span class="kn">import</span><span class="w"> </span><span class="nn">scipy</span>
+</span><span data-line="34"><span class="kn">from</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="kn">import</span> <span class="n">arccosh</span><span class="p">,</span> <span class="n">array</span><span class="p">,</span> <span class="n">cosh</span><span class="p">,</span> <span class="n">exp</span><span class="p">,</span> <span class="n">heaviside</span><span class="p">,</span> <span class="n">linspace</span><span class="p">,</span> <span class="n">log</span><span class="p">,</span> <span class="n">sqrt</span>
+</span><span data-line="35">
+</span><span data-line="36"><span class="kn">from</span><span class="w"> </span><span class="nn">.network</span><span class="w"> </span><span class="kn">import</span> <span class="n">cascade_list</span>
+</span><span data-line="37">
+</span><span data-line="38">
+<div class="viewcode-block" id="Taper1D">
+<a class="viewcode-back" href="../../api/generated/skrf.taper.Taper1D.html#skrf.taper.Taper1D">[docs]</a>
+</span><span data-line="39"><span class="k">class</span><span class="w"> </span><span class="nc">Taper1D</span><span class="p">:</span>
+</span><span data-line="40"><span class="w">    </span><span class="sd">"""</span>
+</span><span data-line="41"><span class="sd">    Generic 1D Taper Object</span>
+</span><span data-line="42"><span class="sd">    """</span>
+</span><span data-line="43">
+<div class="viewcode-block" id="Taper1D.__init__">
+<a class="viewcode-back" href="../../api/generated/skrf.taper.Taper1D.__init__.html#skrf.taper.Taper1D.__init__">[docs]</a>
+</span><span data-line="44">    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
+</span><span data-line="45">        <span class="bp">self</span><span class="p">,</span>
+</span><span data-line="46">        <span class="n">med</span><span class="p">,</span>
+</span><span data-line="47">        <span class="n">start</span><span class="p">:</span> <span class="n">Number</span><span class="p">,</span>
+</span><span data-line="48">        <span class="n">stop</span><span class="p">:</span> <span class="n">Number</span><span class="p">,</span>
+</span><span data-line="49">        <span class="n">n_sections</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+</span><span data-line="50">        <span class="n">f</span><span class="p">:</span> <span class="n">Callable</span><span class="p">,</span>
+</span><span data-line="51">        <span class="n">length</span><span class="p">:</span> <span class="n">Number</span><span class="p">,</span>
+</span><span data-line="52">        <span class="n">length_unit</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"m"</span><span class="p">,</span>
+</span><span data-line="53">        <span class="n">param</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"z0"</span><span class="p">,</span>
+</span><span data-line="54">        <span class="n">f_is_normed</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+</span><span data-line="55">        <span class="n">med_kw</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+</span><span data-line="56">        <span class="n">f_kw</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+</span><span data-line="57">    <span class="p">):</span>
+</span><span data-line="58"><span class="w">        </span><span class="sd">"""</span>
+</span><span data-line="59"><span class="sd">        Generic 1D Taper Constructor.</span>
+</span><span data-line="60">
+</span><span data-line="61"><span class="sd">        Parameters</span>
+</span><span data-line="62"><span class="sd">        ----------</span>
+</span><span data-line="63"><span class="sd">        med : :class:`~skrf.media.media.Media`</span>
+</span><span data-line="64"><span class="sd">            A :class:`~skrf.media.media.Media` object or a `@classmethod` `__init__`,</span>
+</span><span data-line="65"><span class="sd">            used to generate the transmission line.</span>
+</span><span data-line="66"><span class="sd">            See `med_kw` for arguments.</span>
+</span><span data-line="67"><span class="sd">            Examples:</span>
+</span><span data-line="68">
+</span><span data-line="69"><span class="sd">            * `skrf.media.RectangularWaveguide`  # a class</span>
+</span><span data-line="70"><span class="sd">            * `skrf.media.RectangularWaveguide.from_z0`  # an init</span>
+</span><span data-line="71">
+</span><span data-line="72"><span class="sd">        start : number</span>
+</span><span data-line="73"><span class="sd">            starting value for `param`</span>
+</span><span data-line="74"><span class="sd">        stop : number</span>
+</span><span data-line="75"><span class="sd">            stop value for `param`</span>
+</span><span data-line="76"><span class="sd">        n_sections : int</span>
+</span><span data-line="77"><span class="sd">            number of sections in taper</span>
+</span><span data-line="78"><span class="sd">        f : Callable</span>
+</span><span data-line="79"><span class="sd">            function defining the taper transition. must take either</span>
+</span><span data-line="80"><span class="sd">            no arguments or take `(x,length, start, stop)`.</span>
+</span><span data-line="81"><span class="sd">            see `f_is_normed` arguments</span>
+</span><span data-line="82"><span class="sd">        length : number</span>
+</span><span data-line="83"><span class="sd">            physical length of the taper (in `length_unit`)</span>
+</span><span data-line="84"><span class="sd">        length_unit : str</span>
+</span><span data-line="85"><span class="sd">            unit of length variable. see `skrf.to_meters`</span>
+</span><span data-line="86"><span class="sd">        param : str</span>
+</span><span data-line="87"><span class="sd">            name of the parameter of `med` that varies along the taper</span>
+</span><span data-line="88"><span class="sd">        f_is_normed: bool</span>
+</span><span data-line="89"><span class="sd">            is `f` scalable and normalized. ie can f just be scaled</span>
+</span><span data-line="90"><span class="sd">            to fit different start/stop conditions? if so then f is</span>
+</span><span data-line="91"><span class="sd">            called with no arguments, and must  have domain and raings</span>
+</span><span data-line="92"><span class="sd">            of [0,1], and [0,1]</span>
+</span><span data-line="93"><span class="sd">        f_kw : dict</span>
+</span><span data-line="94"><span class="sd">            passed to `f()` when  called</span>
+</span><span data-line="95"><span class="sd">        med_kw : dict</span>
+</span><span data-line="96"><span class="sd">            passed to `med.__init__` when an instance is created</span>
+</span><span data-line="97">
+</span><span data-line="98"><span class="sd">        Note</span>
+</span><span data-line="99"><span class="sd">        ----</span>
+</span><span data-line="100"><span class="sd">        The default behaviour should is to taper based on impedance.</span>
+</span><span data-line="101"><span class="sd">        To do this we inspect the `med` class for a `from_z0`</span>
+</span><span data-line="102"><span class="sd">        init method, and if it exists, we assign it to `med` attribute,</span>
+</span><span data-line="103"><span class="sd">        in `__init__`.</span>
+</span><span data-line="104"><span class="sd">        Admittedly having `med` be a class or a method is abuse,</span>
+</span><span data-line="105"><span class="sd">        it makes for a intuitive operation.</span>
+</span><span data-line="106">
+</span><span data-line="107"><span class="sd">        Examples</span>
+</span><span data-line="108"><span class="sd">        --------</span>
+</span><span data-line="109"><span class="sd">        Create a linear taper from 100 to 1000mil</span>
+</span><span data-line="110">
+</span><span data-line="111"><span class="sd">        &gt;&gt;&gt; from skrf import Frequency, RectangularWaveguide, Taper1D, mil, inch</span>
+</span><span data-line="112"><span class="sd">        &gt;&gt;&gt; taper = Taper1D(med=RectangularWaveguide,</span>
+</span><span data-line="113"><span class="sd">                            param='a',</span>
+</span><span data-line="114"><span class="sd">                            start=100*mil,</span>
+</span><span data-line="115"><span class="sd">                            stop=1000*mil,</span>
+</span><span data-line="116"><span class="sd">                            length=1*inch,</span>
+</span><span data-line="117"><span class="sd">                            n_sections=20,</span>
+</span><span data-line="118"><span class="sd">                            f=lambda x: x,</span>
+</span><span data-line="119"><span class="sd">                            f_is_normed=True,</span>
+</span><span data-line="120"><span class="sd">                            med_kw={'frequency':Frequency(75,110,101,'ghz')})</span>
+</span><span data-line="121"><span class="sd">        """</span>
+</span><span data-line="122">        <span class="k">if</span> <span class="n">f_kw</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+</span><span data-line="123">            <span class="n">f_kw</span> <span class="o">=</span> <span class="p">{}</span>
+</span><span data-line="124">        <span class="k">if</span> <span class="n">med_kw</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+</span><span data-line="125">            <span class="n">med_kw</span> <span class="o">=</span> <span class="p">{}</span>
+</span><span data-line="126">        <span class="bp">self</span><span class="o">.</span><span class="n">med</span> <span class="o">=</span> <span class="n">med</span>
+</span><span data-line="127">        <span class="bp">self</span><span class="o">.</span><span class="n">param</span> <span class="o">=</span> <span class="n">param</span>
+</span><span data-line="128">        <span class="bp">self</span><span class="o">.</span><span class="n">start</span> <span class="o">=</span> <span class="n">start</span>
+</span><span data-line="129">        <span class="bp">self</span><span class="o">.</span><span class="n">stop</span> <span class="o">=</span> <span class="n">stop</span>
+</span><span data-line="130">        <span class="bp">self</span><span class="o">.</span><span class="n">f</span> <span class="o">=</span> <span class="n">f</span>
+</span><span data-line="131">        <span class="bp">self</span><span class="o">.</span><span class="n">f_is_normed</span> <span class="o">=</span> <span class="n">f_is_normed</span>
+</span><span data-line="132">        <span class="bp">self</span><span class="o">.</span><span class="n">length</span> <span class="o">=</span> <span class="n">length</span>
+</span><span data-line="133">        <span class="bp">self</span><span class="o">.</span><span class="n">length_unit</span> <span class="o">=</span> <span class="n">length_unit</span>
+</span><span data-line="134">        <span class="bp">self</span><span class="o">.</span><span class="n">n_sections</span> <span class="o">=</span> <span class="n">n_sections</span>
+</span><span data-line="135">        <span class="bp">self</span><span class="o">.</span><span class="n">med_kw</span> <span class="o">=</span> <span class="n">med_kw</span>
+</span><span data-line="136">        <span class="bp">self</span><span class="o">.</span><span class="n">f_kw</span> <span class="o">=</span> <span class="n">f_kw</span>
+</span><span data-line="137">
+</span><span data-line="138">        <span class="c1"># the default behaviour should be to taper based on impedance.</span>
+</span><span data-line="139">        <span class="c1"># to do this we inspect the media class for a `from_z0`</span>
+</span><span data-line="140">        <span class="c1"># init method, and if it exists, we assign it to `med` attribute</span>
+</span><span data-line="141">        <span class="c1"># admittedly having `med` be a class or a method is abuse,</span>
+</span><span data-line="142">        <span class="c1"># it makes for a intuitive operation</span>
+</span><span data-line="143">        <span class="k">if</span> <span class="n">param</span> <span class="o">==</span> <span class="s2">"z0"</span><span class="p">:</span>
+</span><span data-line="144">            <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">med</span><span class="p">,</span> <span class="s2">"from_z0"</span><span class="p">):</span>
+</span><span data-line="145">                <span class="bp">self</span><span class="o">.</span><span class="n">med</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">med</span><span class="o">.</span><span class="n">from_z0</span></div>
+
+</span><span data-line="146">
+</span><span data-line="147">    <span class="k">def</span><span class="w"> </span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+</span><span data-line="148">        <span class="k">return</span> <span class="s2">"Taper: </span><span class="si">{classname}</span><span class="s2">: </span><span class="si">{param}</span><span class="s2"> from </span><span class="si">{start}</span><span class="s2">-</span><span class="si">{stop}</span><span class="s2">"</span>
+</span><span data-line="149">
+</span><span data-line="150">    <span class="nd">@property</span>
+</span><span data-line="151">    <span class="k">def</span><span class="w"> </span><span class="nf">section_length</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Number</span><span class="p">:</span>
+</span><span data-line="152"><span class="w">        </span><span class="sd">"""</span>
+</span><span data-line="153"><span class="sd">        Section length.</span>
+</span><span data-line="154">
+</span><span data-line="155"><span class="sd">        Returns</span>
+</span><span data-line="156"><span class="sd">        -------</span>
+</span><span data-line="157"><span class="sd">        l : number</span>
+</span><span data-line="158"><span class="sd">        """</span>
+</span><span data-line="159">        <span class="k">return</span> <span class="mf">1.0</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">length</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_sections</span>
+</span><span data-line="160">
+</span><span data-line="161">    <span class="nd">@property</span>
+</span><span data-line="162">    <span class="k">def</span><span class="w"> </span><span class="nf">value_vector</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span data-line="163">        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">f_is_normed</span><span class="p">:</span>
+</span><span data-line="164">            <span class="n">x</span> <span class="o">=</span> <span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_sections</span><span class="p">)</span>
+</span><span data-line="165">            <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">f_kw</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">stop</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">start</span><span class="p">)</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">start</span>
+</span><span data-line="166">        <span class="k">else</span><span class="p">:</span>
+</span><span data-line="167">            <span class="n">x</span> <span class="o">=</span> <span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">length</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_sections</span><span class="p">)</span>
+</span><span data-line="168">            <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">length</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">start</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">stop</span><span class="p">,</span> <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">f_kw</span><span class="p">)</span>
+</span><span data-line="169">        <span class="k">return</span> <span class="n">y</span>
+</span><span data-line="170">
+<div class="viewcode-block" id="Taper1D.media_at">
+<a class="viewcode-back" href="../../api/generated/skrf.taper.Taper1D.media_at.html#skrf.taper.Taper1D.media_at">[docs]</a>
+</span><span data-line="171">    <span class="k">def</span><span class="w"> </span><span class="nf">media_at</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">val</span><span class="p">:</span> <span class="n">Number</span><span class="p">):</span>
+</span><span data-line="172"><span class="w">        </span><span class="sd">"""</span>
+</span><span data-line="173"><span class="sd">        Create a media instance for the taper with parameter value `val`.</span>
+</span><span data-line="174">
+</span><span data-line="175"><span class="sd">        Parameters</span>
+</span><span data-line="176"><span class="sd">        ----------</span>
+</span><span data-line="177"><span class="sd">        val : number</span>
+</span><span data-line="178"><span class="sd">            parameter value</span>
+</span><span data-line="179">
+</span><span data-line="180"><span class="sd">        Returns</span>
+</span><span data-line="181"><span class="sd">        -------</span>
+</span><span data-line="182"><span class="sd">        media : :class:`~skrf.media.media.Media`</span>
+</span><span data-line="183"><span class="sd">            media instance for the taper for the given parameter value</span>
+</span><span data-line="184"><span class="sd">        """</span>
+</span><span data-line="185">        <span class="n">med_kw</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">med_kw</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+</span><span data-line="186">        <span class="n">med_kw</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="bp">self</span><span class="o">.</span><span class="n">param</span><span class="p">:</span> <span class="n">val</span><span class="p">})</span>
+</span><span data-line="187">        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">med</span><span class="p">(</span><span class="o">**</span><span class="n">med_kw</span><span class="p">)</span></div>
+
+</span><span data-line="188">
+<div class="viewcode-block" id="Taper1D.section_at">
+<a class="viewcode-back" href="../../api/generated/skrf.taper.Taper1D.section_at.html#skrf.taper.Taper1D.section_at">[docs]</a>
+</span><span data-line="189">    <span class="k">def</span><span class="w"> </span><span class="nf">section_at</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">val</span><span class="p">:</span> <span class="n">Number</span><span class="p">):</span>
+</span><span data-line="190"><span class="w">        </span><span class="sd">"""</span>
+</span><span data-line="191"><span class="sd">        Create a single section of the taper with parameter value `val`.</span>
+</span><span data-line="192">
+</span><span data-line="193"><span class="sd">        Parameters</span>
+</span><span data-line="194"><span class="sd">        ----------</span>
+</span><span data-line="195"><span class="sd">        val : number</span>
+</span><span data-line="196"><span class="sd">            parameter value</span>
+</span><span data-line="197">
+</span><span data-line="198"><span class="sd">        Returns</span>
+</span><span data-line="199"><span class="sd">        -------</span>
+</span><span data-line="200"><span class="sd">        media : :class:`~skrf.network.Network`</span>
+</span><span data-line="201"><span class="sd">            Network instance for the section of the taper</span>
+</span><span data-line="202"><span class="sd">            for the given parameter value</span>
+</span><span data-line="203"><span class="sd">        """</span>
+</span><span data-line="204">        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">media_at</span><span class="p">(</span><span class="n">val</span><span class="p">)</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">section_length</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">length_unit</span><span class="p">)</span></div>
+
+</span><span data-line="205">
+</span><span data-line="206">    <span class="nd">@property</span>
+</span><span data-line="207">    <span class="k">def</span><span class="w"> </span><span class="nf">medias</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+</span><span data-line="208"><span class="w">        </span><span class="sd">"""</span>
+</span><span data-line="209"><span class="sd">        List of medias.</span>
+</span><span data-line="210">
+</span><span data-line="211"><span class="sd">        Returns</span>
+</span><span data-line="212"><span class="sd">        -------</span>
+</span><span data-line="213"><span class="sd">        medias : list of :class:`~skrf.media.media.Media`</span>
+</span><span data-line="214"><span class="sd">        """</span>
+</span><span data-line="215">        <span class="k">return</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">media_at</span><span class="p">(</span><span class="n">k</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">value_vector</span><span class="p">]</span>
+</span><span data-line="216">
+</span><span data-line="217">    <span class="nd">@property</span>
+</span><span data-line="218">    <span class="k">def</span><span class="w"> </span><span class="nf">sections</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+</span><span data-line="219"><span class="w">        </span><span class="sd">"""</span>
+</span><span data-line="220"><span class="sd">        List of sections.</span>
+</span><span data-line="221">
+</span><span data-line="222"><span class="sd">        Returns</span>
+</span><span data-line="223"><span class="sd">        -------</span>
+</span><span data-line="224"><span class="sd">        sections : list of :class:`~skrf.network.Network`</span>
+</span><span data-line="225"><span class="sd">        """</span>
+</span><span data-line="226">        <span class="k">return</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">section_at</span><span class="p">(</span><span class="n">k</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">value_vector</span><span class="p">]</span>
+</span><span data-line="227">
+</span><span data-line="228">    <span class="nd">@property</span>
+</span><span data-line="229">    <span class="k">def</span><span class="w"> </span><span class="nf">network</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span data-line="230"><span class="w">        </span><span class="sd">"""</span>
+</span><span data-line="231"><span class="sd">        Resulting Network</span>
+</span><span data-line="232">
+</span><span data-line="233"><span class="sd">        Returns</span>
+</span><span data-line="234"><span class="sd">        -------</span>
+</span><span data-line="235"><span class="sd">        ntwk : :class:`~skrf.network.Network`</span>
+</span><span data-line="236"><span class="sd">        """</span>
+</span><span data-line="237">        <span class="k">return</span> <span class="n">cascade_list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sections</span><span class="p">)</span></div>
+
+</span><span data-line="238">
+</span><span data-line="239">
+<div class="viewcode-block" id="Linear">
+<a class="viewcode-back" href="../../api/generated/skrf.taper.Linear.html#skrf.taper.Linear">[docs]</a>
+</span><span data-line="240"><span class="k">class</span><span class="w"> </span><span class="nc">Linear</span><span class="p">(</span><span class="n">Taper1D</span><span class="p">):</span>
+</span><span data-line="241"><span class="w">    </span><span class="sd">"""</span>
+</span><span data-line="242"><span class="sd">    A linear Taper.</span>
+</span><span data-line="243">
+</span><span data-line="244"><span class="sd">    Defined by :math:`f(x)=x`</span>
+</span><span data-line="245">
+</span><span data-line="246"><span class="sd">    """</span>
+</span><span data-line="247">
+<div class="viewcode-block" id="Linear.__init__">
+<a class="viewcode-back" href="../../api/generated/skrf.taper.Linear.__init__.html#skrf.taper.Linear.__init__">[docs]</a>
+</span><span data-line="248">    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">):</span>
+</span><span data-line="249">        <span class="n">opts</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">f</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">,</span> <span class="n">f_is_normed</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span><span data-line="250">        <span class="n">kw</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">opts</span><span class="p">)</span>
+</span><span data-line="251">        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">kw</span><span class="p">)</span></div>
+</div>
+
+</span><span data-line="252">
+</span><span data-line="253">
+<div class="viewcode-block" id="Exponential">
+<a class="viewcode-back" href="../../api/generated/skrf.taper.Exponential.html#skrf.taper.Exponential">[docs]</a>
+</span><span data-line="254"><span class="k">class</span><span class="w"> </span><span class="nc">Exponential</span><span class="p">(</span><span class="n">Taper1D</span><span class="p">):</span>
+</span><span data-line="255"><span class="w">    </span><span class="sa">r</span><span class="sd">"""</span>
+</span><span data-line="256"><span class="sd">    An Exponential Taper.</span>
+</span><span data-line="257">
+</span><span data-line="258"><span class="sd">    Defined by :math:`f(x) = f_0 \exp\left[ \frac{x}{x_1}  \ln\left( \frac{f_1}{f_0} \right) \right]`</span>
+</span><span data-line="259">
+</span><span data-line="260"><span class="sd">    where:</span>
+</span><span data-line="261">
+</span><span data-line="262"><span class="sd">    *    :math:`f_0`: start param value</span>
+</span><span data-line="263"><span class="sd">    *    :math:`f_1`: stop param value</span>
+</span><span data-line="264"><span class="sd">    *    :math:`x`: independent variable (position along taper)</span>
+</span><span data-line="265"><span class="sd">    *    :math:`x_1`: length of taper</span>
+</span><span data-line="266">
+</span><span data-line="267"><span class="sd">    """</span>
+</span><span data-line="268">
+<div class="viewcode-block" id="Exponential.__init__">
+<a class="viewcode-back" href="../../api/generated/skrf.taper.Exponential.__init__.html#skrf.taper.Exponential.__init__">[docs]</a>
+</span><span data-line="269">    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">):</span>
+</span><span data-line="270"><span class="w">        </span><span class="sd">"""</span>
+</span><span data-line="271"><span class="sd">        Exponential Taper Constructor</span>
+</span><span data-line="272"><span class="sd">        """</span>
+</span><span data-line="273">
+</span><span data-line="274">        <span class="k">def</span><span class="w"> </span><span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">stop</span><span class="p">):</span>
+</span><span data-line="275">            <span class="k">return</span> <span class="n">start</span> <span class="o">*</span> <span class="n">exp</span><span class="p">(</span><span class="n">x</span> <span class="o">/</span> <span class="n">length</span> <span class="o">*</span> <span class="p">(</span><span class="n">log</span><span class="p">(</span><span class="n">stop</span> <span class="o">/</span> <span class="n">start</span><span class="p">)))</span>
+</span><span data-line="276">
+</span><span data-line="277">        <span class="n">opts</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">f</span><span class="o">=</span><span class="n">f</span><span class="p">,</span> <span class="n">f_is_normed</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</span><span data-line="278">        <span class="n">kw</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">opts</span><span class="p">)</span>
+</span><span data-line="279">        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">kw</span><span class="p">)</span></div>
+</div>
+
+</span><span data-line="280">
+</span><span data-line="281">
+<div class="viewcode-block" id="SmoothStep">
+<a class="viewcode-back" href="../../api/generated/skrf.taper.SmoothStep.html#skrf.taper.SmoothStep">[docs]</a>
+</span><span data-line="282"><span class="k">class</span><span class="w"> </span><span class="nc">SmoothStep</span><span class="p">(</span><span class="n">Taper1D</span><span class="p">):</span>
+</span><span data-line="283"><span class="w">    </span><span class="sd">"""</span>
+</span><span data-line="284"><span class="sd">    A smoothstep Taper.</span>
+</span><span data-line="285">
+</span><span data-line="286"><span class="sd">    There is no analytical basis for this in the EE world that I know</span>
+</span><span data-line="287"><span class="sd">    of. it is just a reasonable smooth curve, that is easy to implement.</span>
+</span><span data-line="288">
+</span><span data-line="289"><span class="sd">    :math:`f(x) = (3 x^2 - 2x^3)`</span>
+</span><span data-line="290">
+</span><span data-line="291"><span class="sd">    References</span>
+</span><span data-line="292"><span class="sd">    ----------</span>
+</span><span data-line="293"><span class="sd">    https://en.wikipedia.org/wiki/Smoothstep</span>
+</span><span data-line="294">
+</span><span data-line="295"><span class="sd">    """</span>
+</span><span data-line="296">
+<div class="viewcode-block" id="SmoothStep.__init__">
+<a class="viewcode-back" href="../../api/generated/skrf.taper.SmoothStep.__init__.html#skrf.taper.SmoothStep.__init__">[docs]</a>
+</span><span data-line="297">    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">):</span>
+</span><span data-line="298"><span class="w">        </span><span class="sd">"""</span>
+</span><span data-line="299"><span class="sd">        Smoothstep Taper Constructor.</span>
+</span><span data-line="300"><span class="sd">        """</span>
+</span><span data-line="301">
+</span><span data-line="302">        <span class="k">def</span><span class="w"> </span><span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+</span><span data-line="303">            <span class="k">return</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">x</span><span class="o">**</span><span class="mi">3</span>
+</span><span data-line="304">
+</span><span data-line="305">        <span class="n">opts</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">f</span><span class="o">=</span><span class="n">f</span><span class="p">,</span> <span class="n">f_is_normed</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span><span data-line="306">        <span class="n">kw</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">opts</span><span class="p">)</span>
+</span><span data-line="307">        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">kw</span><span class="p">)</span></div>
+</div>
+
+</span><span data-line="308">
+</span><span data-line="309">
+<div class="viewcode-block" id="Klopfenstein">
+<a class="viewcode-back" href="../../api/generated/skrf.taper.Klopfenstein.html#skrf.taper.Klopfenstein">[docs]</a>
+</span><span data-line="310"><span class="k">class</span><span class="w"> </span><span class="nc">Klopfenstein</span><span class="p">(</span><span class="n">Taper1D</span><span class="p">):</span>
+</span><span data-line="311"><span class="w">    </span><span class="sd">"""</span>
+</span><span data-line="312"><span class="sd">    Klopfenstein Taper.</span>
+</span><span data-line="313">
+</span><span data-line="314"><span class="sd">    This impedance taper was first described by R. W. Klopfenstein [#microwaves101]_ in a paper titled</span>
+</span><span data-line="315"><span class="sd">    "A Transmission Line Taper of Improved Design", published in 1956 [#Klopfenstein]_ .</span>
+</span><span data-line="316"><span class="sd">    A correction to Klopfenstein's math was published by in May 1973 by Darko Kajfez and Jame Prewit [#Kajfez]_ .</span>
+</span><span data-line="317">
+</span><span data-line="318"><span class="sd">    Parameters</span>
+</span><span data-line="319"><span class="sd">    ----------</span>
+</span><span data-line="320"><span class="sd">    * rmax: maximum reflection coefficient in the pass band in percentage of :math:`\rho_0`</span>
+</span><span data-line="321">
+</span><span data-line="322"><span class="sd">    References</span>
+</span><span data-line="323"><span class="sd">    ----------</span>
+</span><span data-line="324"><span class="sd">    .. [#microwaves101] https://www.microwaves101.com/encyclopedias/klopfenstein-taper</span>
+</span><span data-line="325"><span class="sd">    .. [#Klopfenstein] R. W. Klopfenstein Proc. IRE. vol. 44 pp. 31-35 Jan. 1956.</span>
+</span><span data-line="326"><span class="sd">        doi: 10.1109/JRPROC.1956.274847</span>
+</span><span data-line="327"><span class="sd">        https://ieeexplore.ieee.org/document/4051841</span>
+</span><span data-line="328"><span class="sd">    .. [#Kajfez] D. Kajfez and J. O. Prewitt, "Correction to "A Transmission Line Taper of Improved Design" (Letters),"</span>
+</span><span data-line="329"><span class="sd">        in IEEE Transactions on Microwave Theory and Techniques, vol. 21, no. 5, pp. 364-364, May 1973,</span>
+</span><span data-line="330"><span class="sd">        doi: 10.1109/TMTT.1973.1128003.</span>
+</span><span data-line="331"><span class="sd">        https://ieeexplore.ieee.org/document/1128003</span>
+</span><span data-line="332"><span class="sd">    """</span>
+</span><span data-line="333">
+</span><span data-line="334">    <span class="k">def</span><span class="w"> </span><span class="nf">_phi</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">z</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Number</span><span class="p">],</span> <span class="n">a</span><span class="p">:</span> <span class="n">Number</span><span class="p">):</span>
+</span><span data-line="335"><span class="w">        </span><span class="sa">r</span><span class="sd">"""</span>
+</span><span data-line="336"><span class="sd">        :math:`\phi` function</span>
+</span><span data-line="337"><span class="sd">        """</span>
+</span><span data-line="338">        <span class="n">quad</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">integrate</span><span class="o">.</span><span class="n">quad</span>
+</span><span data-line="339">        <span class="n">iv</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">special</span><span class="o">.</span><span class="n">iv</span>
+</span><span data-line="340">        <span class="k">return</span> <span class="n">array</span><span class="p">([</span><span class="n">quad</span><span class="p">(</span><span class="k">lambda</span> <span class="n">y</span><span class="p">:</span> <span class="n">iv</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">a</span> <span class="o">*</span> <span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">y</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span> <span class="o">/</span> <span class="n">a</span> <span class="o">/</span> <span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">y</span><span class="o">**</span><span class="mi">2</span><span class="p">),</span> <span class="mi">0</span><span class="p">,</span> <span class="n">zi</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">zi</span> <span class="ow">in</span> <span class="n">z</span><span class="p">])</span>
+</span><span data-line="341">
+<div class="viewcode-block" id="Klopfenstein.__init__">
+<a class="viewcode-back" href="../../api/generated/skrf.taper.Klopfenstein.__init__.html#skrf.taper.Klopfenstein.__init__">[docs]</a>
+</span><span data-line="342">    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">):</span>
+</span><span data-line="343"><span class="w">        </span><span class="sd">"""</span>
+</span><span data-line="344"><span class="sd">        Klopfenstein Taper Constructor.</span>
+</span><span data-line="345"><span class="sd">        """</span>
+</span><span data-line="346">
+</span><span data-line="347">        <span class="k">def</span><span class="w"> </span><span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">stop</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+</span><span data-line="348">            <span class="n">rmax</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"rmax"</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">)</span>
+</span><span data-line="349">
+</span><span data-line="350">            <span class="n">z</span> <span class="o">=</span> <span class="n">x</span> <span class="o">-</span> <span class="n">length</span> <span class="o">/</span> <span class="mi">2</span>
+</span><span data-line="351">            <span class="n">log_ratio</span> <span class="o">=</span> <span class="n">log</span><span class="p">(</span><span class="n">stop</span> <span class="o">/</span> <span class="n">start</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span>
+</span><span data-line="352">            <span class="n">a</span> <span class="o">=</span> <span class="n">arccosh</span><span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="n">rmax</span><span class="p">)</span>
+</span><span data-line="353">            <span class="n">log_value</span> <span class="o">=</span> <span class="n">log</span><span class="p">(</span><span class="n">start</span> <span class="o">*</span> <span class="n">stop</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">log_ratio</span> <span class="o">/</span> <span class="n">cosh</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span>
+</span><span data-line="354">                <span class="n">a</span> <span class="o">*</span> <span class="n">a</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_phi</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">z</span> <span class="o">/</span> <span class="n">length</span><span class="p">,</span> <span class="n">a</span><span class="p">)</span> <span class="o">+</span> <span class="n">heaviside</span><span class="p">(</span><span class="n">z</span> <span class="o">-</span> <span class="n">length</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="n">heaviside</span><span class="p">(</span><span class="n">z</span> <span class="o">+</span> <span class="n">length</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
+</span><span data-line="355">            <span class="p">)</span>
+</span><span data-line="356">            <span class="k">return</span> <span class="n">exp</span><span class="p">(</span><span class="n">log_value</span><span class="p">)</span>
+</span><span data-line="357">
+</span><span data-line="358">        <span class="n">opts</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">f</span><span class="o">=</span><span class="n">f</span><span class="p">,</span> <span class="n">f_is_normed</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</span><span data-line="359">        <span class="n">kw</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">opts</span><span class="p">)</span>
+</span><span data-line="360">        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">kw</span><span class="p">)</span></div>
+</div>
+
+</span></pre></div>
+        </article><button class="back-to-top" type="button">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+  </svg>
+  <span>Back to top</span>
+</button><div class="navigation flex print:hidden"></div></div>
+    </div>
+  </main>
+</div>
+<footer class="sy-foot">
+  <div class="sy-foot-inner sy-container mx-auto">
+    <div class="sy-foot-reserved md:flex justify-between items-center">
+      <div class="sy-foot-copyright"><p>2025, scikit-rf team</p>
+  
+  <p>
+    Made with
+    
+    <a href="https://www.sphinx-doc.org/">Sphinx</a> and
+    
+    <a href="https://shibuya.lepture.com">Shibuya theme</a>.
+  </p>
+</div>
+      <div class="sy-foot-socials">
+  <a href="https://github.com/scikit-rf/scikit-rf" aria-label="GitHub">
+    <iconify-icon icon="simple-icons:github"></iconify-icon>
+  </a></div>
+    </div>
+  </div>
+</footer>
+      <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../_static/copybutton.js?v=34bd459d"></script>
+      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+      <script src="../../_static/shibuya.js?v=50760d75"></script>
+      <script src="https://cdn.jsdelivr.net/npm/@jupyter-widgets/html-manager@^1.0.1/dist/embed-amd.js"></script>
+      <script src="../../_static/skrf.js?v=bdeb9fb0"></script></body>
+</html>

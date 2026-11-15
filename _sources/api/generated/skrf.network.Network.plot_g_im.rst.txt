@@ -1,0 +1,6 @@
+skrf.network.Network.plot\_g\_im
+================================
+
+.. currentmodule:: skrf.network
+
+.. automethod:: Network.plot_g_im

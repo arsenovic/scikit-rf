@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="en" data-accent-color="blue" data-content_root="../../../../../">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>skrf.vi.vna.hp.hp8510c - scikit-rf</title><link rel="author" title="About these documents" href="../../../../../about.html" /><link rel="index" title="Index" href="../../../../../genindex.html" /><link rel="search" title="Search" href="../../../../../search.html" /><script>
+    function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
+    setColorMode(localStorage._theme||"auto");
+  </script><link rel="stylesheet" type="text/css" href="../../../../../_static/pygments.css?v=ad592e98" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/shibuya.css?v=2ceb65ce" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/sphinx-codeautolink.css?v=b2176991" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/copybutton.css?v=76b2166b" />
+    <link media="print" rel="stylesheet" type="text/css" href="../../../../../_static/print.css?v=20ff2c19" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/skrf.css?v=7e772ba2" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --sy-f-text: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+  --sy-f-heading: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+}
+</style>
+    
+  <meta property="og:type" content="website"/><meta property="og:title" content="skrf.vi.vna.hp.hp8510c"/>
+    <meta name="twitter:card" content="summary"/>
+  </head>
+<body><div class="sy-head">
+  <div class="sy-head-blur"></div>
+  <div class="sy-head-inner sy-container mx-auto">
+    <a class="sy-head-brand" href="../../../../../index.html">
+      <img class="light-logo" src="../../../../../_static/logo.svg" alt="scikit-rf" height="28" loading="lazy" />
+      <img class="dark-logo" src="../../../../../_static/logo.svg" alt="scikit-rf" height="28" loading="lazy" />
+      <strong>scikit-rf</strong>
+    </a>
+    <div class="sy-head-nav" id="head-nav">
+      <nav class="sy-head-links"><ul><li class="link"><a href="../../../../../index.html">Home</a></li><li class="link"><a href="../../../../../tutorials/index.html">Tutorials</a></li><li class="link"><a href="../../../../../examples/index.html">Examples</a></li><li class="link"><a href="../../../../../api/index.html">API</a></li><li class="link">
+          <a href="https://github.com/scikit-rf/scikit-rf">
+            <span>GitHub</span><i class="i-lucide external-link"></i></a>
+        </li></ul></nav>
+      <div class="sy-head-extra flex items-center print:hidden"><form class="searchbox flex items-center" action="../../../../../search.html" method="get">
+  <input type="text" name="q" placeholder="Search" />
+  <kbd>/</kbd>
+</form><div class="sy-head-socials">
+  <a href="https://github.com/scikit-rf/scikit-rf" aria-label="GitHub">
+    <iconify-icon icon="simple-icons:github"></iconify-icon>
+  </a>
+  <a href="https://www.linkedin.com/groups/12462155/" aria-label="LinkedIn">
+    <iconify-icon icon="simple-icons:linkedin"></iconify-icon>
+  </a>
+  <a href="https://app.element.io/#/room/#scikit-rf:matrix.org" aria-label="Matrix">
+    <iconify-icon icon="simple-icons:matrix"></iconify-icon>
+  </a></div></div>
+    </div>
+    <div class="sy-head-actions flex items-center shrink-0 print:hidden"><button class="js-theme theme-switch flex items-center"
+data-aria-auto="Switch to light color mode"
+data-aria-light="Switch to dark color mode"
+data-aria-dark="Switch to auto color mode">
+<i class="i-lucide theme-icon"></i>
+</button><button class="md:hidden flex items-center js-menu" aria-label="Menu" type="button" aria-controls="head-nav" aria-expanded="false">
+        <div class="hamburger">
+          <span class="hamburger_1"></span>
+          <span class="hamburger_2"></span>
+          <span class="hamburger_3"></span>
+        </div>
+      </button>
+    </div>
+  </div>
+</div>
+<div class="sy-page sy-container flex mx-auto">
+  <aside id="lside" class="sy-lside md:w-72 md:shrink-0 print:hidden">
+    <div class="sy-lside-inner md:sticky">
+      <div class="sy-scrollbar p-6">
+        <div class="globaltoc" data-expand-depth="0"><p class="caption" role="heading" aria-level="3"><span class="caption-text">Getting started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../index.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../tutorials/Installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../tutorials/Introduction.html">Introduction</a></li>
+</ul>
+<p class="caption" role="heading" aria-level="3"><span class="caption-text">User guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../examples/index.html">Examples</a></li>
+</ul>
+<p class="caption" role="heading" aria-level="3"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../api/index.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../glossary.html">Glossary</a></li>
+</ul>
+<p class="caption" role="heading" aria-level="3"><span class="caption-text">Project</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../contributing/index.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../citations_ack/acknowledging.html">Citing scikit-rf</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../citations_ack/citations.html">scikit-rf Citations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../about.html">About</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../users.html">Users</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../license.html">License</a></li>
+</ul>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="lside-overlay js-menu" role="button" aria-label="Close left sidebar" aria-controls="lside" aria-expanded="false"></div>
+  <aside id="rside" class="sy-rside pb-3 w-64 shrink-0 order-last">
+    <button class="rside-close js-menu xl:hidden" aria-label="Close Table of Contents" type="button" aria-controls="rside" aria-expanded="false">
+      <i class="i-lucide close"></i>
+    </button>
+    <div class="sy-scrollbar sy-rside-inner px-6 xl:top-16 xl:sticky xl:pl-0 pt-6 pb-4"><div id="ethical-ad-placement" data-ea-publisher="readthedocs"></div></div>
+  </aside>
+  <div class="rside-overlay js-menu" role="button" aria-label="Close Table of Contents" aria-controls="rside" aria-expanded="false"></div>
+  <main class="sy-main w-full max-sm:max-w-full print:pt-6">
+<div class="sy-breadcrumbs" role="navigation">
+  <div class="sy-breadcrumbs-inner flex items-center">
+    <div class="md:hidden mr-3">
+      <button class="js-menu" aria-label="Menu" type="button" aria-controls="lside" aria-expanded="false">
+        <i class="i-lucide menu"></i>
+      </button>
+    </div>
+    <ol class="flex-1" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="../../../../../index.html"><span itemprop="name">scikit-rf</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="1" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="../../../../index.html"><span itemprop="name">Module code</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="2" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <strong itemprop="name">skrf.vi.vna.hp.hp8510c</strong>
+        <meta itemprop="position" content="3" />
+      </li></ol>
+    <div class="xl:hidden ml-1">
+      <button class="js-menu" aria-label="Show table of contents" type="button" aria-controls="rside"
+        aria-expanded="false">
+        <i class="i-lucide outdent"></i>
+      </button>
+    </div>
+  </div>
+</div><div class="flex flex-col break-words justify-between">
+      <div class="relative min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
+  <article class="yue" role="main">
+          <h1>Source code for skrf.vi.vna.hp.hp8510c</h1><div class="highlight"><pre>
+<span></span><span data-line="1"><span class="sd">"""</span>
+</span><span data-line="2"><span class="sd">.. module:: skrf.vi.vna.hp.hp8510c</span>
+</span><span data-line="3"><span class="sd">=================================================</span>
+</span><span data-line="4"><span class="sd">HP 8510C (:mod:`skrf.vi.vna.hp.hp8510c`)</span>
+</span><span data-line="5"><span class="sd">=================================================</span>
+</span><span data-line="6">
+</span><span data-line="7"><span class="sd">HP8510C Class</span>
+</span><span data-line="8"><span class="sd">================</span>
+</span><span data-line="9">
+</span><span data-line="10"><span class="sd">.. autosummary::</span>
+</span><span data-line="11"><span class="sd">    :nosignatures:</span>
+</span><span data-line="12"><span class="sd">    :toctree: generated/</span>
+</span><span data-line="13"><span class="sd">"""</span>
+</span><span data-line="14">
+</span><span data-line="15"><span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
+</span><span data-line="16"><span class="kn">from</span><span class="w"> </span><span class="nn">logging</span><span class="w"> </span><span class="kn">import</span> <span class="n">getLogger</span>
+</span><span data-line="17">
+</span><span data-line="18"><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+</span><span data-line="19"><span class="kn">import</span><span class="w"> </span><span class="nn">pyvisa</span>
+</span><span data-line="20">
+</span><span data-line="21"><span class="kn">import</span><span class="w"> </span><span class="nn">skrf</span>
+</span><span data-line="22"><span class="kn">import</span><span class="w"> </span><span class="nn">skrf.network</span>
+</span><span data-line="23"><span class="kn">from</span><span class="w"> </span><span class="nn">skrf.vi.vna</span><span class="w"> </span><span class="kn">import</span> <span class="n">VNA</span>
+</span><span data-line="24">
+</span><span data-line="25"><span class="kn">from</span><span class="w"> </span><span class="nn">.hp8510c_sweep_plan</span><span class="w"> </span><span class="kn">import</span> <span class="n">SweepPlan</span>
+</span><span data-line="26">
+</span><span data-line="27"><span class="n">logger</span> <span class="o">=</span> <span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+</span><span data-line="28">
+<div class="viewcode-block" id="HP8510C">
+<a class="viewcode-back" href="../../../../../api/vi/generated/skrf.vi.vna.hp.HP8510C.html#skrf.vi.vna.hp.HP8510C">[docs]</a>
+</span><span data-line="29"><span class="k">class</span><span class="w"> </span><span class="nc">HP8510C</span><span class="p">(</span><span class="n">VNA</span><span class="p">):</span>
+</span><span data-line="30"><span class="w">    </span><span class="sd">'''</span>
+</span><span data-line="31"><span class="sd">    HP 8510 driver that is capable of compound sweeps, segmented sweeps,</span>
+</span><span data-line="32"><span class="sd">    and fast binary transfers. These features make this venerable old instrument</span>
+</span><span data-line="33"><span class="sd">    much more pleasant to use in the 21st century. Likely works with "A" and</span>
+</span><span data-line="34"><span class="sd">    "B" versions of the instrument as well.</span>
+</span><span data-line="35">
+</span><span data-line="36"><span class="sd">    Compound sweeps occur automatically when the user requests a sweep larger</span>
+</span><span data-line="37"><span class="sd">    than what the instrument natively supports (51/101/201/401/801pts). This</span>
+</span><span data-line="38"><span class="sd">    driver takes multiple shorter sweeps and stitches them together.</span>
+</span><span data-line="39">
+</span><span data-line="40"><span class="sd">    Segmented sweeps occur automatically when the user requests a short or</span>
+</span><span data-line="41"><span class="sd">    irregularly spaced sweep (see "Advanced Example" below). The 8510 actually</span>
+</span><span data-line="42"><span class="sd">    does support sweeps other than 51/101/201/401/801pts, but only in a separate</span>
+</span><span data-line="43"><span class="sd">    mode (segmented sweep mode) and with significant restrictions. This driver</span>
+</span><span data-line="44"><span class="sd">    knows how to handle segmented sweep mode to get what it wants.</span>
+</span><span data-line="45">
+</span><span data-line="46">
+</span><span data-line="47"><span class="sd">    Examples</span>
+</span><span data-line="48"><span class="sd">    ============</span>
+</span><span data-line="49">
+</span><span data-line="50"><span class="sd">    Basic one-port:</span>
+</span><span data-line="51">
+</span><span data-line="52"><span class="sd">    .. code-block:: python</span>
+</span><span data-line="53">
+</span><span data-line="54"><span class="sd">        vna = skrf.vi.vna.hp.HP8510C(address='TCPIP::ad007-right.lan::gpib0,16::INSTR', backend='@py')</span>
+</span><span data-line="55"><span class="sd">        vna.set_frequency_sweep(2e9,3e9,201)</span>
+</span><span data-line="56"><span class="sd">        vna.get_snp_network(ports=(1,))</span>
+</span><span data-line="57">
+</span><span data-line="58">
+</span><span data-line="59">
+</span><span data-line="60"><span class="sd">    Basic two-port:</span>
+</span><span data-line="61">
+</span><span data-line="62"><span class="sd">    .. code-block:: python</span>
+</span><span data-line="63">
+</span><span data-line="64"><span class="sd">        vna = skrf.vi.vna.hp.HP8510C(address='TCPIP::ad007-right.lan::gpib0,16::INSTR', backend='@py')</span>
+</span><span data-line="65"><span class="sd">        vna.set_frequency_sweep(2e9,3e9,201)</span>
+</span><span data-line="66"><span class="sd">        vna.get_snp_network(ports=(1,2))</span>
+</span><span data-line="67">
+</span><span data-line="68">
+</span><span data-line="69">
+</span><span data-line="70"><span class="sd">    Intermediate example -- note that 1001 point sweeps are not natively supported by the instrument; this driver</span>
+</span><span data-line="71"><span class="sd">    takes multiple sweeps and stitches the results together.</span>
+</span><span data-line="72">
+</span><span data-line="73"><span class="sd">    .. code-block:: python</span>
+</span><span data-line="74">
+</span><span data-line="75"><span class="sd">        vna = skrf.vi.vna.hp.HP8510C(address='TCPIP::ad007-right.lan::gpib0,16::INSTR', backend='@py')</span>
+</span><span data-line="76"><span class="sd">        vna.set_frequency_sweep(2e9,3e9,1001)</span>
+</span><span data-line="77"><span class="sd">        vna.get_snp_network(ports=(1,2))</span>
+</span><span data-line="78">
+</span><span data-line="79"><span class="sd">    Advanced example. The driver is handed a bucket of frequencies containing</span>
+</span><span data-line="80"><span class="sd">    two separate bands mashed together. Behind the scenes it will construct a</span>
+</span><span data-line="81"><span class="sd">    sweep plan consisting of one native sweep and one segmented sweep, perform</span>
+</span><span data-line="82"><span class="sd">    both, and stitch the results together -- but all the user need worry about</span>
+</span><span data-line="83"><span class="sd">    is constructing the request and interpreting the results.</span>
+</span><span data-line="84">
+</span><span data-line="85"><span class="sd">    .. code-block:: python</span>
+</span><span data-line="86">
+</span><span data-line="87"><span class="sd">        vna = skrf.vi.vna.hp.HP8510C(address='TCPIP::ad007-right.lan::gpib0,16::INSTR', backend='@py')</span>
+</span><span data-line="88"><span class="sd">        freq_block_1 = np.linspace(1e9,2e9,801)</span>
+</span><span data-line="89"><span class="sd">        freq_block_2 = [10e9,11e9,12e9]</span>
+</span><span data-line="90"><span class="sd">        freqs = np.concatenate((freq_block_1, freq_block_2))</span>
+</span><span data-line="91"><span class="sd">        vna.frequency = skrf.Frequency.from_f(freqs, unit="Hz")</span>
+</span><span data-line="92"><span class="sd">        vna.get_snp_network(ports=(1,2))</span>
+</span><span data-line="93"><span class="sd">    '''</span>
+</span><span data-line="94">    <span class="n">min_hz</span> <span class="o">=</span> <span class="kc">None</span>  <span class="c1">#: Minimum frequency supported by instrument</span>
+</span><span data-line="95">    <span class="n">max_hz</span> <span class="o">=</span> <span class="kc">None</span>  <span class="c1">#: Maximum frequency supported by instrument</span>
+</span><span data-line="96">    <span class="n">compound_sweep_plan</span> <span class="o">=</span> <span class="kc">None</span>
+</span><span data-line="97">    <span class="c1">#: If None, get_snp_network()/one_port()/two_port() just ask the VNA for data.</span>
+</span><span data-line="98">    <span class="c1"># If populated, those methods perform the multiple sweeps in the plan and stitch together the results.</span>
+</span><span data-line="99">
+<div class="viewcode-block" id="HP8510C.__init__">
+<a class="viewcode-back" href="../../../../../api/vi/generated/skrf.vi.vna.hp.HP8510C.__init__.html#skrf.vi.vna.hp.HP8510C.__init__">[docs]</a>
+</span><span data-line="100">    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">address</span> <span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">backend</span> <span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"@py"</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+</span><span data-line="101">        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">address</span><span class="p">,</span> <span class="n">backend</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+</span><span data-line="102">        <span class="c1"># Tested 2024-03-09:</span>
+</span><span data-line="103">        <span class="c1">#     HP8510C.07.14</span>
+</span><span data-line="104">        <span class="c1">#     AD007 (a VXI11-complaint GPIB-Ethernet adapter)</span>
+</span><span data-line="105">        <span class="c1">#     address="TCPIP::ad007-right.lan::gpib0,16::INSTR", backend="@py"</span>
+</span><span data-line="106">
+</span><span data-line="107">        <span class="c1"># 8510s are slow. This check ensures we won't wait 60s for connection error.</span>
+</span><span data-line="108">        <span class="bp">self</span><span class="o">.</span><span class="n">_resource</span><span class="o">.</span><span class="n">timeout</span> <span class="o">=</span> <span class="mi">2_000</span>
+</span><span data-line="109">        <span class="n">id_str</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s1">'OUTPIDEN;'</span><span class="p">)</span>
+</span><span data-line="110">        <span class="k">assert</span><span class="p">(</span><span class="s1">'HP8510'</span> <span class="ow">in</span> <span class="n">id_str</span><span class="p">)</span> <span class="c1"># example: 'HP8510C.07.14: Aug 26  1998 '</span>
+</span><span data-line="111">
+</span><span data-line="112">        <span class="c1"># 8510s are slow. Actual work might take actual 60 seconds.</span>
+</span><span data-line="113">        <span class="bp">self</span><span class="o">.</span><span class="n">_resource</span><span class="o">.</span><span class="n">timeout</span> <span class="o">=</span> <span class="mi">60_000</span>
+</span><span data-line="114">        <span class="bp">self</span><span class="o">.</span><span class="n">_resource</span><span class="o">.</span><span class="n">read_termination</span> <span class="o">=</span> <span class="kc">False</span> <span class="c1"># Binary mode doesn't work if we allow premature termination on \n</span>
+</span><span data-line="115">        <span class="bp">self</span><span class="o">.</span><span class="n">read_raw</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_resource</span><span class="o">.</span><span class="n">read_raw</span>
+</span><span data-line="116">        <span class="bp">self</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+</span><span data-line="117">        <span class="bp">self</span><span class="o">.</span><span class="n">min_hz</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">freq_start</span>
+</span><span data-line="118">        <span class="bp">self</span><span class="o">.</span><span class="n">max_hz</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">freq_stop</span>
+</span><span data-line="119">        <span class="bp">self</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">'STEP;'</span><span class="p">)</span>
+</span><span data-line="120">
+</span><span data-line="121">        <span class="c1"># If compound_sweep_plan is None, we rely on the internal state of the analyzer.</span>
+</span><span data-line="122">        <span class="c1"># If compound_sweep_plan is a SweepPlan object, we must take multiple short sweeps</span>
+</span><span data-line="123">        <span class="c1"># on the 8510 and stitch them into a single compound sweep ourselves.</span>
+</span><span data-line="124">        <span class="bp">self</span><span class="o">.</span><span class="n">compound_sweep_plan</span> <span class="o">=</span> <span class="kc">None</span></div>
+
+</span><span data-line="125">
+</span><span data-line="126">    <span class="nd">@property</span>
+</span><span data-line="127">    <span class="k">def</span><span class="w"> </span><span class="nf">id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span data-line="128"><span class="w">        </span><span class="sd">''' Instrument ID string '''</span>
+</span><span data-line="129">        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">"OUTPIDEN;"</span><span class="p">)</span>
+</span><span data-line="130">
+<div class="viewcode-block" id="HP8510C.reset">
+<a class="viewcode-back" href="../../../../../api/vi/generated/skrf.vi.vna.hp.HP8510C.reset.html#skrf.vi.vna.hp.HP8510C.reset">[docs]</a>
+</span><span data-line="131">    <span class="k">def</span><span class="w"> </span><span class="nf">reset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span data-line="132"><span class="w">        </span><span class="sd">''' Preset instrument. '''</span>
+</span><span data-line="133">        <span class="bp">self</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">"FACTPRES;"</span><span class="p">)</span>
+</span><span data-line="134">        <span class="bp">self</span><span class="o">.</span><span class="n">wait_until_finished</span><span class="p">()</span></div>
+
+</span><span data-line="135">
+<div class="viewcode-block" id="HP8510C.clear">
+<a class="viewcode-back" href="../../../../../api/vi/generated/skrf.vi.vna.hp.HP8510C.clear.html#skrf.vi.vna.hp.HP8510C.clear">[docs]</a>
+</span><span data-line="136">    <span class="k">def</span><span class="w"> </span><span class="nf">clear</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span data-line="137">        <span class="bp">self</span><span class="o">.</span><span class="n">_resource</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></div>
+
+</span><span data-line="138">
+<div class="viewcode-block" id="HP8510C.wait_until_finished">
+<a class="viewcode-back" href="../../../../../api/vi/generated/skrf.vi.vna.hp.HP8510C.wait_until_finished.html#skrf.vi.vna.hp.HP8510C.wait_until_finished">[docs]</a>
+</span><span data-line="139">    <span class="k">def</span><span class="w"> </span><span class="nf">wait_until_finished</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span data-line="140">        <span class="bp">self</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">"OUTPIDEN;"</span><span class="p">)</span></div>
+
+</span><span data-line="141">
+<div class="viewcode-block" id="HP8510C.get_snp_network">
+<a class="viewcode-back" href="../../../../../api/vi/generated/skrf.vi.vna.hp.HP8510C.get_snp_network.html#skrf.vi.vna.hp.HP8510C.get_snp_network">[docs]</a>
+</span><span data-line="142">    <span class="k">def</span><span class="w"> </span><span class="nf">get_snp_network</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ports</span><span class="p">,</span> <span class="n">cw</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+</span><span data-line="143"><span class="w">        </span><span class="sd">''' MAIN METHOD for obtaining S parameters, like get_snp_network((1,)) or get_snp_network((1,2)). '''</span>
+</span><span data-line="144">        <span class="n">ports</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">ports</span><span class="p">)</span>
+</span><span data-line="145">        <span class="n">sweep</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"sweep"</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+</span><span data-line="146">        <span class="k">if</span> <span class="n">ports</span><span class="o">==</span><span class="p">(</span><span class="mi">1</span><span class="p">,):</span>
+</span><span data-line="147">            <span class="bp">self</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">'s11;'</span><span class="p">)</span>
+</span><span data-line="148">            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">one_port</span><span class="p">(</span><span class="n">fresh_sweep</span><span class="o">=</span><span class="n">sweep</span><span class="p">,</span> <span class="n">cw</span><span class="o">=</span><span class="n">cw</span><span class="p">)</span>
+</span><span data-line="149">        <span class="k">elif</span> <span class="n">ports</span><span class="o">==</span><span class="p">(</span><span class="mi">2</span><span class="p">,):</span>
+</span><span data-line="150">            <span class="bp">self</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">'s22;'</span><span class="p">)</span>
+</span><span data-line="151">            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">one_port</span><span class="p">(</span><span class="n">fresh_sweep</span><span class="o">=</span><span class="n">sweep</span><span class="p">,</span> <span class="n">cw</span><span class="o">=</span><span class="n">cw</span><span class="p">)</span>
+</span><span data-line="152">        <span class="k">elif</span> <span class="n">ports</span><span class="o">==</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span> <span class="ow">or</span> <span class="n">ports</span><span class="o">==</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">):</span>
+</span><span data-line="153">            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">two_port</span><span class="p">(</span><span class="n">fresh_sweep</span><span class="o">=</span><span class="n">sweep</span><span class="p">,</span> <span class="n">cw</span><span class="o">=</span><span class="n">cw</span><span class="p">)</span>
+</span><span data-line="154">        <span class="k">else</span><span class="p">:</span>
+</span><span data-line="155">            <span class="k">raise</span><span class="p">(</span><span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Invalid ports "</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">ports</span><span class="p">)</span><span class="o">+</span><span class="s2">". Options: (1,) (2,) (1,2)."</span><span class="p">))</span></div>
+
+</span><span data-line="156">
+<div class="viewcode-block" id="HP8510C.get_switch_terms">
+<a class="viewcode-back" href="../../../../../api/vi/generated/skrf.vi.vna.hp.HP8510C.get_switch_terms.html#skrf.vi.vna.hp.HP8510C.get_switch_terms">[docs]</a>
+</span><span data-line="157">    <span class="k">def</span><span class="w"> </span><span class="nf">get_switch_terms</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ports</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+</span><span data-line="158"><span class="w">        </span><span class="sd">'''</span>
+</span><span data-line="159"><span class="sd">        Returns (forward_one_port,reverse_one_port) switch terms.</span>
+</span><span data-line="160"><span class="sd">        The ports short be connected with a half decent THRU before calling.</span>
+</span><span data-line="161"><span class="sd">        These measure how much signal is reflected from the imperfect switched</span>
+</span><span data-line="162"><span class="sd">        termination on the non-stimulated port.</span>
+</span><span data-line="163"><span class="sd">        '''</span>
+</span><span data-line="164">        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">switch_terms</span><span class="p">()</span></div>
+
+</span><span data-line="165">
+</span><span data-line="166">    <span class="nd">@property</span>
+</span><span data-line="167">    <span class="k">def</span><span class="w"> </span><span class="nf">error</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span data-line="168"><span class="w">        </span><span class="sd">''' Error from OUTPERRO '''</span>
+</span><span data-line="169">        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s1">'OUTPERRO'</span><span class="p">)</span>
+</span><span data-line="170">
+</span><span data-line="171">    <span class="nd">@property</span>
+</span><span data-line="172">    <span class="k">def</span><span class="w"> </span><span class="nf">is_continuous</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span data-line="173"><span class="w">        </span><span class="sd">''' True iff sweep mode is continuous. Can be set. '''</span>
+</span><span data-line="174">        <span class="n">answer_dict</span><span class="o">=</span><span class="p">{</span><span class="s1">'</span><span class="se">\"</span><span class="s1">HOLD</span><span class="se">\"</span><span class="s1">'</span><span class="p">:</span><span class="kc">False</span><span class="p">,</span><span class="s1">'</span><span class="se">\"</span><span class="s1">CONTINUAL</span><span class="se">\"</span><span class="s1">'</span><span class="p">:</span><span class="kc">True</span><span class="p">}</span>
+</span><span data-line="175">        <span class="k">return</span> <span class="n">answer_dict</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s1">'GROU?'</span><span class="p">)]</span>
+</span><span data-line="176">
+</span><span data-line="177">    <span class="nd">@is_continuous</span><span class="o">.</span><span class="n">setter</span>
+</span><span data-line="178">    <span class="k">def</span><span class="w"> </span><span class="nf">is_continuous</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">choice</span><span class="p">):</span>
+</span><span data-line="179">        <span class="k">if</span> <span class="n">choice</span><span class="p">:</span>
+</span><span data-line="180">            <span class="bp">self</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">'CONT;'</span><span class="p">)</span>
+</span><span data-line="181">        <span class="k">elif</span> <span class="ow">not</span> <span class="n">choice</span><span class="p">:</span>
+</span><span data-line="182">            <span class="bp">self</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">'SING;'</span><span class="p">)</span>
+</span><span data-line="183">        <span class="k">else</span><span class="p">:</span>
+</span><span data-line="184">            <span class="k">raise</span><span class="p">(</span><span class="ne">ValueError</span><span class="p">(</span><span class="s1">'takes a boolean'</span><span class="p">))</span>
+</span><span data-line="185">
+</span><span data-line="186">    <span class="nd">@property</span>
+</span><span data-line="187">    <span class="k">def</span><span class="w"> </span><span class="nf">averaging</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span data-line="188"><span class="w">        </span><span class="sd">''' Averaging factor for AVERON '''</span>
+</span><span data-line="189">        <span class="k">raise</span> <span class="ne">NotImplementedError</span>
+</span><span data-line="190">
+</span><span data-line="191">    <span class="nd">@averaging</span><span class="o">.</span><span class="n">setter</span>
+</span><span data-line="192">    <span class="k">def</span><span class="w"> </span><span class="nf">averaging</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">factor</span> <span class="p">):</span>
+</span><span data-line="193">        <span class="bp">self</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">'AVERON </span><span class="si">%i</span><span class="s1">;'</span><span class="o">%</span><span class="n">factor</span> <span class="p">)</span>
+</span><span data-line="194">
+</span><span data-line="195">    <span class="nd">@property</span>
+</span><span data-line="196">    <span class="k">def</span><span class="w"> </span><span class="nf">_frequency</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span data-line="197"><span class="w">        </span><span class="sd">''' Frequencies of non-compound sweep '''</span>
+</span><span data-line="198">        <span class="n">freq</span><span class="o">=</span><span class="n">skrf</span><span class="o">.</span><span class="n">Frequency</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">freq_start</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">freq_stop</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_npoints</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s1">'hz'</span> <span class="p">)</span>
+</span><span data-line="199">        <span class="k">return</span> <span class="n">freq</span>
+</span><span data-line="200">
+</span><span data-line="201">    <span class="nd">@property</span>
+</span><span data-line="202">    <span class="k">def</span><span class="w"> </span><span class="nf">frequency</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span data-line="203"><span class="w">        </span><span class="sd">''' Frequencies of compound sweep '''</span>
+</span><span data-line="204">        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">compound_sweep_plan</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+</span><span data-line="205">            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_frequency</span>
+</span><span data-line="206">        <span class="k">return</span> <span class="n">skrf</span><span class="o">.</span><span class="n">Frequency</span><span class="o">.</span><span class="n">from_f</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">compound_sweep_plan</span><span class="o">.</span><span class="n">get_hz</span><span class="p">(),</span> <span class="n">unit</span><span class="o">=</span><span class="s1">'hz'</span><span class="p">)</span>
+</span><span data-line="207">
+</span><span data-line="208">    <span class="nd">@frequency</span><span class="o">.</span><span class="n">setter</span>
+</span><span data-line="209">    <span class="k">def</span><span class="w"> </span><span class="nf">frequency</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">frequency_obj</span><span class="p">:</span> <span class="n">skrf</span><span class="o">.</span><span class="n">Frequency</span><span class="p">):</span>
+</span><span data-line="210"><span class="w">        </span><span class="sd">''' List sweep using hz, an array of frequencies.</span>
+</span><span data-line="211"><span class="sd">        If hz is too long, multiple sweeps will automatically be performed.'''</span>
+</span><span data-line="212">        <span class="n">hz</span> <span class="o">=</span> <span class="n">frequency_obj</span><span class="o">.</span><span class="n">f</span>
+</span><span data-line="213">        <span class="n">valid</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">min_hz</span><span class="o">&lt;=</span><span class="n">hz</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">hz</span><span class="o">&lt;=</span><span class="bp">self</span><span class="o">.</span><span class="n">max_hz</span><span class="p">)</span>
+</span><span data-line="214">        <span class="k">if</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">valid</span><span class="p">):</span>
+</span><span data-line="215">            <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">f</span><span class="s2">"set_frequency called with </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">valid</span><span class="p">)</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">valid</span><span class="p">)</span><span class="si">}</span><span class="s2"> points out of VNA frequency range. "</span>
+</span><span data-line="216">                           <span class="s2">"Dropping them."</span><span class="p">)</span>
+</span><span data-line="217">            <span class="n">hz</span> <span class="o">=</span> <span class="n">hz</span><span class="p">[</span><span class="n">valid</span><span class="p">]</span>
+</span><span data-line="218">        <span class="bp">self</span><span class="o">.</span><span class="n">compound_sweep_plan</span> <span class="o">=</span> <span class="n">SweepPlan</span><span class="o">.</span><span class="n">from_hz</span><span class="p">(</span><span class="n">hz</span><span class="p">)</span>
+</span><span data-line="219">
+<div class="viewcode-block" id="HP8510C.set_frequency_single_point">
+<a class="viewcode-back" href="../../../../../api/vi/generated/skrf.vi.vna.hp.HP8510C.set_frequency_single_point.html#skrf.vi.vna.hp.HP8510C.set_frequency_single_point">[docs]</a>
+</span><span data-line="220">    <span class="k">def</span><span class="w"> </span><span class="nf">set_frequency_single_point</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">f_cw</span><span class="p">,</span> <span class="n">npoint</span><span class="o">=</span><span class="mi">51</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+</span><span data-line="221"><span class="w">        </span><span class="sd">''' Set single point mode (CW) '''</span>
+</span><span data-line="222">        <span class="bp">self</span><span class="o">.</span><span class="n">compound_sweep_plan</span> <span class="o">=</span> <span class="kc">None</span>
+</span><span data-line="223">        <span class="n">f_unit</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"f_unit"</span><span class="p">,</span> <span class="s2">"hz"</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+</span><span data-line="224">        <span class="k">if</span> <span class="n">f_unit</span> <span class="o">!=</span> <span class="s2">"hz"</span><span class="p">:</span>
+</span><span data-line="225">            <span class="n">hz_cw</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">to_hz</span><span class="p">(</span><span class="n">f_cw</span><span class="p">,</span> <span class="n">f_unit</span><span class="p">)</span>
+</span><span data-line="226">        <span class="k">else</span><span class="p">:</span>
+</span><span data-line="227">            <span class="n">hz_cw</span> <span class="o">=</span> <span class="n">f_cw</span>
+</span><span data-line="228">        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_resource</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+</span><span data-line="229">            <span class="bp">self</span><span class="o">.</span><span class="n">_resource</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+</span><span data-line="230">        <span class="k">if</span> <span class="n">npoint</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">51</span><span class="p">,</span><span class="mi">101</span><span class="p">,</span><span class="mi">201</span><span class="p">,</span><span class="mi">401</span><span class="p">,</span><span class="mi">801</span><span class="p">]:</span>
+</span><span data-line="231">            <span class="k">raise</span><span class="p">(</span><span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Invalid npoints "</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">npoint</span><span class="p">)</span><span class="o">+</span><span class="s2">". Options: 51,101,201,401,801."</span><span class="p">))</span>
+</span><span data-line="232">        <span class="bp">self</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">'SINP; CWFREQ </span><span class="si">%f</span><span class="s1">;POIN</span><span class="si">%i</span><span class="s1">;'</span><span class="o">%</span><span class="p">(</span><span class="n">hz_cw</span><span class="p">,</span> <span class="n">npoint</span><span class="p">))</span></div>
+
+</span><span data-line="233">
+</span><span data-line="234">
+<div class="viewcode-block" id="HP8510C.set_frequency_sweep">
+<a class="viewcode-back" href="../../../../../api/vi/generated/skrf.vi.vna.hp.HP8510C.set_frequency_sweep.html#skrf.vi.vna.hp.HP8510C.set_frequency_sweep">[docs]</a>
+</span><span data-line="235">    <span class="k">def</span><span class="w"> </span><span class="nf">set_frequency_sweep</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">f_start</span><span class="p">,</span> <span class="n">f_stop</span><span class="p">,</span> <span class="n">f_npoints</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+</span><span data-line="236"><span class="w">        </span><span class="sd">''' Interprets units and calls set_frequency_step '''</span>
+</span><span data-line="237">        <span class="n">f_unit</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"f_unit"</span><span class="p">,</span> <span class="s2">"hz"</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+</span><span data-line="238">        <span class="k">if</span> <span class="n">f_unit</span> <span class="o">!=</span> <span class="s2">"hz"</span><span class="p">:</span>
+</span><span data-line="239">            <span class="n">hz_start</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">to_hz</span><span class="p">(</span><span class="n">f_start</span><span class="p">,</span> <span class="n">f_unit</span><span class="p">)</span>
+</span><span data-line="240">            <span class="n">hz_stop</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">to_hz</span><span class="p">(</span><span class="n">f_stop</span><span class="p">,</span> <span class="n">f_unit</span><span class="p">)</span>
+</span><span data-line="241">        <span class="k">else</span><span class="p">:</span>
+</span><span data-line="242">            <span class="n">hz_start</span><span class="p">,</span> <span class="n">hz_stop</span> <span class="o">=</span> <span class="n">f_start</span><span class="p">,</span> <span class="n">f_stop</span>
+</span><span data-line="243">        <span class="bp">self</span><span class="o">.</span><span class="n">set_frequency_step</span><span class="p">(</span><span class="n">hz_start</span><span class="p">,</span> <span class="n">hz_stop</span><span class="p">,</span> <span class="n">f_npoints</span><span class="p">)</span></div>
+
+</span><span data-line="244">
+<div class="viewcode-block" id="HP8510C.set_frequency_step">
+<a class="viewcode-back" href="../../../../../api/vi/generated/skrf.vi.vna.hp.HP8510C.set_frequency_step.html#skrf.vi.vna.hp.HP8510C.set_frequency_step">[docs]</a>
+</span><span data-line="245">    <span class="k">def</span><span class="w"> </span><span class="nf">set_frequency_step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">hz_start</span><span class="p">,</span> <span class="n">hz_stop</span><span class="p">,</span> <span class="n">npoint</span><span class="o">=</span><span class="mi">801</span><span class="p">):</span>
+</span><span data-line="246"><span class="w">        </span><span class="sd">''' Step (slow, synthesized) sweep + logic to handle lots of npoint. '''</span>
+</span><span data-line="247">        <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_instrument_natively_supports_steps</span><span class="p">(</span><span class="n">npoint</span><span class="p">)):</span>
+</span><span data-line="248">            <span class="bp">self</span><span class="o">.</span><span class="n">compound_sweep_plan</span> <span class="o">=</span> <span class="kc">None</span>
+</span><span data-line="249">            <span class="bp">self</span><span class="o">.</span><span class="n">_set_instrument_step_state</span><span class="p">(</span><span class="n">hz_start</span><span class="p">,</span> <span class="n">hz_stop</span><span class="p">,</span> <span class="n">npoint</span><span class="p">)</span>
+</span><span data-line="250">        <span class="k">else</span><span class="p">:</span>
+</span><span data-line="251">            <span class="bp">self</span><span class="o">.</span><span class="n">compound_sweep_plan</span> <span class="o">=</span> <span class="n">SweepPlan</span><span class="o">.</span><span class="n">from_ssn</span><span class="p">(</span><span class="n">hz_start</span><span class="p">,</span> <span class="n">hz_stop</span><span class="p">,</span> <span class="n">npoint</span><span class="p">)</span></div>
+
+</span><span data-line="252">
+<div class="viewcode-block" id="HP8510C.set_frequency_ramp">
+<a class="viewcode-back" href="../../../../../api/vi/generated/skrf.vi.vna.hp.HP8510C.set_frequency_ramp.html#skrf.vi.vna.hp.HP8510C.set_frequency_ramp">[docs]</a>
+</span><span data-line="253">    <span class="k">def</span><span class="w"> </span><span class="nf">set_frequency_ramp</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">hz_start</span><span class="p">,</span> <span class="n">hz_stop</span><span class="p">,</span> <span class="n">npoint</span><span class="o">=</span><span class="mi">801</span><span class="p">):</span>
+</span><span data-line="254"><span class="w">        </span><span class="sd">''' Ramp (fast, not synthesized) sweep. Must have standard npoint. '''</span>
+</span><span data-line="255">        <span class="k">if</span> <span class="n">npoint</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="n">valid_npoints</span> <span class="o">:=</span> <span class="p">[</span><span class="mi">51</span><span class="p">,</span><span class="mi">101</span><span class="p">,</span><span class="mi">201</span><span class="p">,</span><span class="mi">401</span><span class="p">,</span><span class="mi">801</span><span class="p">]):</span>
+</span><span data-line="256">            <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">f</span><span class="s2">"8510C only supports NPOINT in </span><span class="si">{</span><span class="n">valid_npoints</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</span><span data-line="257">        <span class="bp">self</span><span class="o">.</span><span class="n">_resource</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+</span><span data-line="258">        <span class="bp">self</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">'RAMP; STAR </span><span class="si">%f</span><span class="s1">; STOP </span><span class="si">%f</span><span class="s1">; POIN</span><span class="si">%i</span><span class="s1">;'</span><span class="o">%</span><span class="p">(</span><span class="n">hz_start</span><span class="p">,</span><span class="n">hz_stop</span><span class="p">,</span><span class="n">npoint</span><span class="p">))</span></div>
+
+</span><span data-line="259">
+</span><span data-line="260">    <span class="nd">@property</span>
+</span><span data-line="261">    <span class="k">def</span><span class="w"> </span><span class="nf">freq_start</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span data-line="262"><span class="w">        </span><span class="sd">''' Start frequency [hz] '''</span>
+</span><span data-line="263">        <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s1">'STAR;OUTPACTI;'</span><span class="p">))</span>
+</span><span data-line="264">
+</span><span data-line="265">    <span class="nd">@freq_start</span><span class="o">.</span><span class="n">setter</span>
+</span><span data-line="266">    <span class="k">def</span><span class="w"> </span><span class="nf">freq_start</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_start_hz</span><span class="p">):</span>
+</span><span data-line="267">        <span class="bp">self</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s1">'STEP; STAR </span><span class="si">{</span><span class="n">new_start_hz</span><span class="si">}</span><span class="s1">;'</span><span class="p">)</span>
+</span><span data-line="268">
+</span><span data-line="269">    <span class="nd">@property</span>
+</span><span data-line="270">    <span class="k">def</span><span class="w"> </span><span class="nf">freq_stop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span data-line="271"><span class="w">        </span><span class="sd">''' Stop frequency [hz] '''</span>
+</span><span data-line="272">        <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s1">'STOP;OUTPACTI;'</span><span class="p">))</span>
+</span><span data-line="273">
+</span><span data-line="274">    <span class="nd">@freq_stop</span><span class="o">.</span><span class="n">setter</span>
+</span><span data-line="275">    <span class="k">def</span><span class="w"> </span><span class="nf">freq_stop</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_stop_hz</span><span class="p">):</span>
+</span><span data-line="276">        <span class="bp">self</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s1">'STEP; STOP </span><span class="si">{</span><span class="n">new_stop_hz</span><span class="si">}</span><span class="s1">;'</span><span class="p">)</span>
+</span><span data-line="277">
+</span><span data-line="278">    <span class="nd">@property</span>
+</span><span data-line="279">    <span class="k">def</span><span class="w"> </span><span class="nf">_npoints</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span data-line="280"><span class="w">        </span><span class="sd">''' Number of points in non-compound sweep '''</span>
+</span><span data-line="281">        <span class="n">instrument_ret_val</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s1">'POIN;OUTPACTI;'</span><span class="p">)</span>
+</span><span data-line="282">        <span class="n">v1</span> <span class="o">=</span> <span class="n">instrument_ret_val</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+</span><span data-line="283">        <span class="n">v2</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">v1</span><span class="p">)</span>
+</span><span data-line="284">        <span class="n">v3</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">v2</span><span class="p">)</span>
+</span><span data-line="285">        <span class="k">return</span> <span class="n">v3</span>
+</span><span data-line="286">
+</span><span data-line="287">    <span class="nd">@property</span>
+</span><span data-line="288">    <span class="k">def</span><span class="w"> </span><span class="nf">npoints</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span data-line="289"><span class="w">        </span><span class="sd">''' Number of points in compound sweep (if programmed) or non-compound sweep '''</span>
+</span><span data-line="290">        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">compound_sweep_plan</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+</span><span data-line="291">            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_npoints</span>
+</span><span data-line="292">        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">compound_sweep_plan</span><span class="o">.</span><span class="n">get_hz</span><span class="p">())</span>
+</span><span data-line="293">
+</span><span data-line="294">    <span class="nd">@npoints</span><span class="o">.</span><span class="n">setter</span>
+</span><span data-line="295">    <span class="k">def</span><span class="w"> </span><span class="nf">npoints</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">npoint</span><span class="p">):</span>
+</span><span data-line="296"><span class="w">        </span><span class="sd">''' Set number of points in sweep'''</span>
+</span><span data-line="297">        <span class="n">hz_start</span><span class="p">,</span> <span class="n">hz_stop</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">freq_start</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">freq_stop</span>
+</span><span data-line="298">        <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_instrument_natively_supports_steps</span><span class="p">(</span><span class="n">npoint</span><span class="p">)):</span>
+</span><span data-line="299">            <span class="bp">self</span><span class="o">.</span><span class="n">compound_sweep_plan</span> <span class="o">=</span> <span class="kc">None</span>
+</span><span data-line="300">            <span class="bp">self</span><span class="o">.</span><span class="n">_set_instrument_step_state</span><span class="p">(</span><span class="n">hz_start</span><span class="p">,</span> <span class="n">hz_stop</span><span class="p">,</span> <span class="n">npoint</span><span class="p">)</span>
+</span><span data-line="301">        <span class="k">else</span><span class="p">:</span>
+</span><span data-line="302">            <span class="bp">self</span><span class="o">.</span><span class="n">compound_sweep_plan</span> <span class="o">=</span> <span class="n">SweepPlan</span><span class="o">.</span><span class="n">from_ssn</span><span class="p">(</span><span class="n">hz_start</span><span class="p">,</span> <span class="n">hz_stop</span><span class="p">,</span> <span class="n">npoint</span><span class="p">)</span>
+</span><span data-line="303">
+</span><span data-line="304">    <span class="k">def</span><span class="w"> </span><span class="nf">_instrument_natively_supports_steps</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">npoint</span><span class="p">):</span>
+</span><span data-line="305">        <span class="k">if</span> <span class="n">npoint</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">51</span><span class="p">,</span><span class="mi">101</span><span class="p">,</span><span class="mi">201</span><span class="p">,</span><span class="mi">401</span><span class="p">,</span><span class="mi">801</span><span class="p">]:</span>
+</span><span data-line="306">            <span class="k">return</span> <span class="kc">True</span>
+</span><span data-line="307">        <span class="k">if</span> <span class="n">npoint</span><span class="o">&lt;=</span><span class="mi">792</span><span class="p">:</span> <span class="c1"># Supported with a single native list sweep</span>
+</span><span data-line="308">            <span class="k">return</span> <span class="kc">True</span>
+</span><span data-line="309">        <span class="k">return</span> <span class="kc">False</span>
+</span><span data-line="310">
+</span><span data-line="311">    <span class="k">def</span><span class="w"> </span><span class="nf">_set_instrument_step_state</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">hz_start</span><span class="p">,</span> <span class="n">hz_stop</span><span class="p">,</span> <span class="n">npoint</span><span class="o">=</span><span class="mi">801</span><span class="p">):</span>
+</span><span data-line="312">        <span class="k">assert</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_instrument_natively_supports_steps</span><span class="p">(</span><span class="n">npoint</span><span class="p">))</span>
+</span><span data-line="313">        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_resource</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+</span><span data-line="314">            <span class="bp">self</span><span class="o">.</span><span class="n">_resource</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+</span><span data-line="315">        <span class="k">if</span> <span class="n">npoint</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">51</span><span class="p">,</span><span class="mi">101</span><span class="p">,</span><span class="mi">201</span><span class="p">,</span><span class="mi">401</span><span class="p">,</span><span class="mi">801</span><span class="p">]:</span>
+</span><span data-line="316">            <span class="c1"># If it's a directly supported step sweep npoints, use regular sweep</span>
+</span><span data-line="317">            <span class="bp">self</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">'STEP; STAR </span><span class="si">%f</span><span class="s1">; STOP </span><span class="si">%f</span><span class="s1">; POIN</span><span class="si">%i</span><span class="s1">;'</span><span class="o">%</span><span class="p">(</span><span class="n">hz_start</span><span class="p">,</span><span class="n">hz_stop</span><span class="p">,</span><span class="n">npoint</span><span class="p">))</span>
+</span><span data-line="318">        <span class="k">elif</span> <span class="n">npoint</span><span class="o">&lt;=</span><span class="mi">792</span><span class="p">:</span>
+</span><span data-line="319">            <span class="c1"># List sweep lets us support, for example, 401&lt;npoints&lt;801</span>
+</span><span data-line="320">            <span class="bp">self</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">'STEP;'</span><span class="p">)</span>
+</span><span data-line="321">            <span class="bp">self</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">'EDITLIST;'</span><span class="p">)</span>
+</span><span data-line="322">            <span class="bp">self</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">'CLEL;'</span><span class="p">)</span>
+</span><span data-line="323">            <span class="bp">self</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">'SADD;'</span><span class="p">)</span>
+</span><span data-line="324">            <span class="bp">self</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">'STAR </span><span class="si">%f</span><span class="s1">; STOP </span><span class="si">%f</span><span class="s1">; POIN </span><span class="si">%i</span><span class="s1">;'</span><span class="o">%</span><span class="p">(</span><span class="n">hz_start</span><span class="p">,</span><span class="n">hz_stop</span><span class="p">,</span><span class="n">npoint</span><span class="p">))</span>
+</span><span data-line="325">            <span class="bp">self</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">'SDON; EDITDONE; LISFREQ;'</span><span class="p">)</span>
+</span><span data-line="326">
+</span><span data-line="327">    <span class="k">def</span><span class="w"> </span><span class="nf">_set_instrument_cwstep_state</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">hz_list</span><span class="p">):</span>
+</span><span data-line="328">        <span class="k">assert</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">hz_list</span><span class="p">)</span><span class="o">&lt;=</span><span class="mi">30</span><span class="p">)</span> <span class="c1"># 8510 only supports CW lists up to length 30</span>
+</span><span data-line="329">        <span class="bp">self</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">'STEP;'</span><span class="p">)</span>
+</span><span data-line="330">        <span class="bp">self</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">'EDITLIST;'</span><span class="p">)</span>
+</span><span data-line="331">        <span class="bp">self</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">'CLEL;'</span><span class="p">)</span>
+</span><span data-line="332">        <span class="k">for</span> <span class="n">hz</span> <span class="ow">in</span> <span class="n">hz_list</span><span class="p">:</span>
+</span><span data-line="333">            <span class="bp">self</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">'SADD;'</span><span class="p">)</span>
+</span><span data-line="334">            <span class="bp">self</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s1">'CWFREQ </span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">hz</span><span class="p">)</span><span class="si">}</span><span class="s1">;'</span><span class="p">)</span>
+</span><span data-line="335">        <span class="bp">self</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">'SDON; EDITDONE; LISFREQ;'</span><span class="p">)</span>
+</span><span data-line="336">
+<div class="viewcode-block" id="HP8510C.ask_for_cmplx">
+<a class="viewcode-back" href="../../../../../api/vi/generated/skrf.vi.vna.hp.HP8510C.ask_for_cmplx.html#skrf.vi.vna.hp.HP8510C.ask_for_cmplx">[docs]</a>
+</span><span data-line="337">    <span class="k">def</span><span class="w"> </span><span class="nf">ask_for_cmplx</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">outp_cmd</span><span class="p">,</span> <span class="n">timeout_s</span><span class="o">=</span><span class="mi">30</span><span class="p">):</span>
+</span><span data-line="338"><span class="w">        </span><span class="sd">"""Like ask_for_values, but use FORM2 binary transfer, much faster than ASCII."""</span>
+</span><span data-line="339">        <span class="c1"># Benchmarks:</span>
+</span><span data-line="340">        <span class="c1">#  %time i.write('FORM4; OUTPDATA'); i._read(); None      # 7960ms</span>
+</span><span data-line="341">        <span class="c1">#  %time i.write('FORM2; OUTPDATA'); i._read_raw(); None  #  399ms</span>
+</span><span data-line="342">        <span class="bp">self</span><span class="o">.</span><span class="n">wait_for_status</span><span class="p">(</span><span class="n">max_wait_seconds</span><span class="o">=</span><span class="n">timeout_s</span><span class="p">)</span>
+</span><span data-line="343">        <span class="bp">self</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">'FORM2;'</span><span class="p">)</span>
+</span><span data-line="344">        <span class="bp">self</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">outp_cmd</span><span class="p">)</span>
+</span><span data-line="345">        <span class="n">buf</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">read_raw</span><span class="p">()</span>
+</span><span data-line="346">        <span class="n">float_bin</span> <span class="o">=</span> <span class="n">buf</span><span class="p">[</span><span class="mi">4</span><span class="p">:]</span> <span class="c1"># Skip 4 header bytes and trailing newline</span>
+</span><span data-line="347">        <span class="k">try</span><span class="p">:</span>
+</span><span data-line="348">            <span class="n">floats</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">frombuffer</span><span class="p">(</span><span class="n">float_bin</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">'&gt;f4'</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">))</span>
+</span><span data-line="349">        <span class="k">except</span> <span class="ne">ValueError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+</span><span data-line="350">            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Buffer </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">buf</span><span class="p">)</span><span class="si">}</span><span class="s2">, len: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">buf</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</span><span data-line="351">            <span class="k">raise</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+</span><span data-line="352">        <span class="n">cmplxs</span> <span class="o">=</span> <span class="p">(</span><span class="n">floats</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="n">j</span><span class="o">*</span><span class="n">floats</span><span class="p">[:,</span><span class="mi">1</span><span class="p">])</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+</span><span data-line="353">        <span class="k">return</span> <span class="n">cmplxs</span></div>
+
+</span><span data-line="354">
+</span><span data-line="355">    <span class="k">def</span><span class="w"> </span><span class="nf">_one_port</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cw</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">expected_hz</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">fresh_sweep</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+</span><span data-line="356"><span class="w">        </span><span class="sd">''' Perform a single sweep and return Network data. '''</span>
+</span><span data-line="357">        <span class="k">if</span> <span class="n">fresh_sweep</span><span class="p">:</span>
+</span><span data-line="358">            <span class="k">if</span> <span class="n">cw</span><span class="p">:</span>
+</span><span data-line="359">                <span class="bp">self</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">'SINP;'</span><span class="p">)</span> <span class="c1"># Poll for sweep status</span>
+</span><span data-line="360">            <span class="k">else</span><span class="p">:</span>
+</span><span data-line="361">                <span class="bp">self</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">'SING;'</span><span class="p">)</span> <span class="c1"># Poll for sweep status</span>
+</span><span data-line="362">        <span class="n">s</span> <span class="o">=</span>  <span class="bp">self</span><span class="o">.</span><span class="n">ask_for_cmplx</span><span class="p">(</span><span class="s1">'OUTPDATA'</span><span class="p">)</span>
+</span><span data-line="363">        <span class="n">ntwk</span> <span class="o">=</span> <span class="n">skrf</span><span class="o">.</span><span class="n">Network</span><span class="p">()</span>
+</span><span data-line="364">        <span class="n">ntwk</span><span class="o">.</span><span class="n">s</span> <span class="o">=</span> <span class="n">s</span>
+</span><span data-line="365">        <span class="n">hz</span> <span class="o">=</span> <span class="n">expected_hz</span> <span class="k">if</span> <span class="n">expected_hz</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">_frequency</span><span class="o">.</span><span class="n">f</span>
+</span><span data-line="366">        <span class="k">assert</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">)</span><span class="o">==</span><span class="nb">len</span><span class="p">(</span><span class="n">hz</span><span class="p">))</span>
+</span><span data-line="367">        <span class="n">ntwk</span><span class="o">.</span><span class="n">frequency</span> <span class="o">=</span> <span class="n">skrf</span><span class="o">.</span><span class="n">Frequency</span><span class="o">.</span><span class="n">from_f</span><span class="p">(</span><span class="n">hz</span><span class="p">,</span><span class="n">unit</span><span class="o">=</span><span class="s1">'hz'</span><span class="p">)</span>
+</span><span data-line="368">        <span class="k">return</span> <span class="n">ntwk</span>
+</span><span data-line="369">
+<div class="viewcode-block" id="HP8510C.one_port">
+<a class="viewcode-back" href="../../../../../api/vi/generated/skrf.vi.vna.hp.HP8510C.one_port.html#skrf.vi.vna.hp.HP8510C.one_port">[docs]</a>
+</span><span data-line="370">    <span class="k">def</span><span class="w"> </span><span class="nf">one_port</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cw</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+</span><span data-line="371"><span class="w">        </span><span class="sd">''' Performs a single sweep OR COMPOUND SWEEP and returns Network data. '''</span>
+</span><span data-line="372">        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">compound_sweep_plan</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+</span><span data-line="373">            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_one_port</span><span class="p">(</span><span class="n">cw</span><span class="o">=</span><span class="n">cw</span><span class="p">)</span>
+</span><span data-line="374">        <span class="n">old_start_hz</span><span class="p">,</span> <span class="n">old_stop_hz</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">freq_start</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">freq_stop</span>
+</span><span data-line="375">        <span class="n">stitched_network</span> <span class="o">=</span> <span class="kc">None</span>
+</span><span data-line="376">        <span class="k">for</span> <span class="n">sweep_section</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">compound_sweep_plan</span><span class="o">.</span><span class="n">get_sections</span><span class="p">():</span>
+</span><span data-line="377">            <span class="n">sweep_section</span><span class="o">.</span><span class="n">apply_8510</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+</span><span data-line="378">            <span class="n">chunk_net_nomask</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_one_port</span><span class="p">(</span><span class="n">expected_hz</span><span class="o">=</span><span class="n">sweep_section</span><span class="o">.</span><span class="n">get_raw_hz</span><span class="p">())</span>
+</span><span data-line="379">            <span class="n">chunk_net</span> <span class="o">=</span> <span class="n">sweep_section</span><span class="o">.</span><span class="n">mask_8510</span><span class="p">(</span><span class="n">chunk_net_nomask</span><span class="p">)</span>
+</span><span data-line="380">            <span class="n">stitched_network</span> <span class="o">=</span> <span class="p">(</span><span class="n">chunk_net</span> <span class="k">if</span> <span class="n">stitched_network</span> <span class="ow">is</span> <span class="kc">None</span>
+</span><span data-line="381">                                <span class="k">else</span> <span class="n">skrf</span><span class="o">.</span><span class="n">network</span><span class="o">.</span><span class="n">stitch</span><span class="p">(</span><span class="n">stitched_network</span><span class="p">,</span> <span class="n">chunk_net</span><span class="p">))</span>
+</span><span data-line="382">        <span class="bp">self</span><span class="o">.</span><span class="n">freq_start</span> <span class="o">=</span> <span class="n">old_start_hz</span>
+</span><span data-line="383">        <span class="bp">self</span><span class="o">.</span><span class="n">freq_stop</span>  <span class="o">=</span> <span class="n">old_stop_hz</span>
+</span><span data-line="384">        <span class="k">return</span> <span class="n">stitched_network</span></div>
+
+</span><span data-line="385">
+</span><span data-line="386">    <span class="k">def</span><span class="w"> </span><span class="nf">_two_port</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cw</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">expected_hz</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">fresh_sweep</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+</span><span data-line="387"><span class="w">        </span><span class="sd">''' Performs a single sweep and returns Network data. '''</span>
+</span><span data-line="388">        <span class="c1"># ASCII vs Binary transfer performance:</span>
+</span><span data-line="389">        <span class="c1">#  ascii_xfer separate_sweep: 32s</span>
+</span><span data-line="390">        <span class="c1">#  bin_xfer   separate_sweep: 08s</span>
+</span><span data-line="391">        <span class="c1">#  ------------------------------</span>
+</span><span data-line="392">        <span class="c1">#  Decision: spend time to implement binary transfer. It matters.</span>
+</span><span data-line="393">        <span class="c1">#</span>
+</span><span data-line="394">        <span class="c1"># Sweep mode:</span>
+</span><span data-line="395">        <span class="c1">#  source  mode   strategy  time</span>
+</span><span data-line="396">        <span class="c1">#  83651   ramp   FOUPOVER  12.8s</span>
+</span><span data-line="397">        <span class="c1">#  83651   ramp   4xSxx     11.6s  &lt;-- in ramp mode + faststep, consecutive Sxx sweeps are fastest</span>
+</span><span data-line="398">        <span class="c1">#  83651   ramp   FULL2PORT 14.5s</span>
+</span><span data-line="399">        <span class="c1">#  83651   step   FOUPOVER  50.0s  &lt;-- in step mode, FOUPOVER is a tad faster.</span>
+</span><span data-line="400">        <span class="c1">#  83651   step   4xSxx     52.5s</span>
+</span><span data-line="401">        <span class="c1">#  83651   step   FULL2PORT 52.3s</span>
+</span><span data-line="402">        <span class="c1">#  --------------------------</span>
+</span><span data-line="403">        <span class="c1">#  Decision: use consecutive Sxx sweeps everywhere for simplicity + max speed of fast sweeps</span>
+</span><span data-line="404">        <span class="bp">self</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">'s11;'</span><span class="p">)</span>
+</span><span data-line="405">        <span class="n">s11</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_one_port</span><span class="p">(</span><span class="n">expected_hz</span><span class="o">=</span><span class="n">expected_hz</span><span class="p">,</span> <span class="n">cw</span><span class="o">=</span><span class="n">cw</span><span class="p">,</span> <span class="n">fresh_sweep</span><span class="o">=</span><span class="n">fresh_sweep</span><span class="p">)</span><span class="o">.</span><span class="n">s</span><span class="p">[:,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span>
+</span><span data-line="406">        <span class="bp">self</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">'s12;'</span><span class="p">)</span>
+</span><span data-line="407">        <span class="n">s12</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_one_port</span><span class="p">(</span><span class="n">expected_hz</span><span class="o">=</span><span class="n">expected_hz</span><span class="p">,</span> <span class="n">cw</span><span class="o">=</span><span class="n">cw</span><span class="p">,</span> <span class="n">fresh_sweep</span><span class="o">=</span><span class="n">fresh_sweep</span><span class="p">)</span><span class="o">.</span><span class="n">s</span><span class="p">[:,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span>
+</span><span data-line="408">        <span class="bp">self</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">'s22;'</span><span class="p">)</span>
+</span><span data-line="409">        <span class="n">s22</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_one_port</span><span class="p">(</span><span class="n">expected_hz</span><span class="o">=</span><span class="n">expected_hz</span><span class="p">,</span> <span class="n">cw</span><span class="o">=</span><span class="n">cw</span><span class="p">,</span> <span class="n">fresh_sweep</span><span class="o">=</span><span class="n">fresh_sweep</span><span class="p">)</span><span class="o">.</span><span class="n">s</span><span class="p">[:,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span>
+</span><span data-line="410">        <span class="bp">self</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">'s21;'</span><span class="p">)</span>
+</span><span data-line="411">        <span class="n">s21</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_one_port</span><span class="p">(</span><span class="n">expected_hz</span><span class="o">=</span><span class="n">expected_hz</span><span class="p">,</span> <span class="n">cw</span><span class="o">=</span><span class="n">cw</span><span class="p">,</span> <span class="n">fresh_sweep</span><span class="o">=</span><span class="n">fresh_sweep</span><span class="p">)</span><span class="o">.</span><span class="n">s</span><span class="p">[:,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span>
+</span><span data-line="412">
+</span><span data-line="413">        <span class="n">ntwk</span> <span class="o">=</span> <span class="n">skrf</span><span class="o">.</span><span class="n">Network</span><span class="p">()</span>
+</span><span data-line="414">        <span class="n">ntwk</span><span class="o">.</span><span class="n">s</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>\
+</span><span data-line="415">                <span class="p">[[</span><span class="n">s11</span><span class="p">,</span><span class="n">s21</span><span class="p">],</span>\
+</span><span data-line="416">                <span class="p">[</span> <span class="n">s12</span><span class="p">,</span> <span class="n">s22</span><span class="p">]]</span>\
+</span><span data-line="417">                <span class="p">)</span><span class="o">.</span><span class="n">transpose</span><span class="p">()</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+</span><span data-line="418">        <span class="n">hz</span> <span class="o">=</span> <span class="n">expected_hz</span> <span class="k">if</span> <span class="n">expected_hz</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">_frequency</span><span class="o">.</span><span class="n">f</span>
+</span><span data-line="419">        <span class="k">assert</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">s11</span><span class="p">)</span><span class="o">==</span><span class="nb">len</span><span class="p">(</span><span class="n">hz</span><span class="p">))</span>
+</span><span data-line="420">        <span class="n">ntwk</span><span class="o">.</span><span class="n">frequency</span><span class="o">=</span> <span class="n">skrf</span><span class="o">.</span><span class="n">Frequency</span><span class="o">.</span><span class="n">from_f</span><span class="p">(</span><span class="n">hz</span><span class="p">,</span><span class="n">unit</span><span class="o">=</span><span class="s1">'hz'</span><span class="p">)</span>
+</span><span data-line="421">
+</span><span data-line="422">        <span class="k">return</span> <span class="n">ntwk</span>
+</span><span data-line="423">
+<div class="viewcode-block" id="HP8510C.two_port">
+<a class="viewcode-back" href="../../../../../api/vi/generated/skrf.vi.vna.hp.HP8510C.two_port.html#skrf.vi.vna.hp.HP8510C.two_port">[docs]</a>
+</span><span data-line="424">    <span class="k">def</span><span class="w"> </span><span class="nf">two_port</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cw</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+</span><span data-line="425"><span class="w">        </span><span class="sd">''' Performs a single sweep OR COMPOUND SWEEP and returns Network data. '''</span>
+</span><span data-line="426">        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">compound_sweep_plan</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+</span><span data-line="427">            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_two_port</span><span class="p">(</span><span class="n">cw</span><span class="o">=</span><span class="n">cw</span><span class="p">)</span>
+</span><span data-line="428">        <span class="n">old_start_hz</span><span class="p">,</span> <span class="n">old_stop_hz</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">freq_start</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">freq_stop</span>
+</span><span data-line="429">        <span class="n">stitched_network</span> <span class="o">=</span> <span class="kc">None</span>
+</span><span data-line="430">        <span class="k">for</span> <span class="n">sweep_chunk</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">compound_sweep_plan</span><span class="o">.</span><span class="n">get_sections</span><span class="p">():</span>
+</span><span data-line="431">            <span class="n">sweep_chunk</span><span class="o">.</span><span class="n">apply_8510</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+</span><span data-line="432">            <span class="n">chunk_net_nomask</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_two_port</span><span class="p">(</span><span class="n">expected_hz</span><span class="o">=</span><span class="n">sweep_chunk</span><span class="o">.</span><span class="n">get_raw_hz</span><span class="p">())</span>
+</span><span data-line="433">            <span class="n">chunk_net</span> <span class="o">=</span> <span class="n">sweep_chunk</span><span class="o">.</span><span class="n">mask_8510</span><span class="p">(</span><span class="n">chunk_net_nomask</span><span class="p">)</span>
+</span><span data-line="434">            <span class="n">stitched_network</span> <span class="o">=</span> <span class="p">(</span><span class="n">chunk_net</span> <span class="k">if</span> <span class="n">stitched_network</span> <span class="ow">is</span> <span class="kc">None</span>
+</span><span data-line="435">                                <span class="k">else</span> <span class="n">skrf</span><span class="o">.</span><span class="n">network</span><span class="o">.</span><span class="n">stitch</span><span class="p">(</span><span class="n">stitched_network</span><span class="p">,</span><span class="n">chunk_net</span><span class="p">))</span>
+</span><span data-line="436">        <span class="bp">self</span><span class="o">.</span><span class="n">freq_start</span> <span class="o">=</span> <span class="n">old_start_hz</span>
+</span><span data-line="437">        <span class="bp">self</span><span class="o">.</span><span class="n">freq_stop</span>  <span class="o">=</span> <span class="n">old_stop_hz</span>
+</span><span data-line="438">        <span class="k">return</span> <span class="n">stitched_network</span></div>
+
+</span><span data-line="439">
+<div class="viewcode-block" id="HP8510C.wait_for_status">
+<a class="viewcode-back" href="../../../../../api/vi/generated/skrf.vi.vna.hp.HP8510C.wait_for_status.html#skrf.vi.vna.hp.HP8510C.wait_for_status">[docs]</a>
+</span><span data-line="440">    <span class="k">def</span><span class="w"> </span><span class="nf">wait_for_status</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">max_wait_seconds</span><span class="o">=</span><span class="mi">30</span><span class="p">):</span>
+</span><span data-line="441"><span class="w">        </span><span class="sd">''' Fetches status bytes respecting max_wait_seconds even if it must tank a few timeouts along the way. '''</span>
+</span><span data-line="442">        <span class="n">t0</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+</span><span data-line="443">        <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+</span><span data-line="444">            <span class="k">try</span><span class="p">:</span>
+</span><span data-line="445">                <span class="n">status_str</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s1">'OUTPSTAT'</span><span class="p">)</span>
+</span><span data-line="446">                <span class="n">s0str</span><span class="p">,</span> <span class="n">s1str</span> <span class="o">=</span> <span class="n">status_str</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">','</span><span class="p">)</span>
+</span><span data-line="447">                <span class="n">s0</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">s0str</span><span class="p">)</span>
+</span><span data-line="448">                <span class="n">s1</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">s1str</span><span class="p">)</span>
+</span><span data-line="449">                <span class="k">break</span>
+</span><span data-line="450">            <span class="k">except</span> <span class="n">pyvisa</span><span class="o">.</span><span class="n">errors</span><span class="o">.</span><span class="n">VisaIOError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+</span><span data-line="451">                <span class="n">waited</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span><span class="o">-</span><span class="n">t0</span>
+</span><span data-line="452">                <span class="k">if</span> <span class="n">waited</span> <span class="o">&gt;</span> <span class="n">max_wait_seconds</span><span class="p">:</span>
+</span><span data-line="453">                    <span class="k">raise</span> <span class="n">e</span>
+</span><span data-line="454">        <span class="k">return</span> <span class="n">s0</span><span class="p">,</span><span class="n">s1</span></div>
+
+</span><span data-line="455">
+<div class="viewcode-block" id="HP8510C.switch_terms">
+<a class="viewcode-back" href="../../../../../api/vi/generated/skrf.vi.vna.hp.HP8510C.switch_terms.html#skrf.vi.vna.hp.HP8510C.switch_terms">[docs]</a>
+</span><span data-line="456">    <span class="k">def</span><span class="w"> </span><span class="nf">switch_terms</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span data-line="457"><span class="w">        </span><span class="sd">'''</span>
+</span><span data-line="458"><span class="sd">        Returns (forward_one_port,reverse_one_port) switch terms.</span>
+</span><span data-line="459"><span class="sd">        The ports short be connected with a half decent THRU before calling.</span>
+</span><span data-line="460"><span class="sd">        These measure how much signal is reflected from the imperfect switched</span>
+</span><span data-line="461"><span class="sd">        termination on the non-stimulated port.</span>
+</span><span data-line="462"><span class="sd">        '''</span>
+</span><span data-line="463">        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">'forward'</span><span class="p">)</span>
+</span><span data-line="464">        <span class="bp">self</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">'USER2;DRIVPORT1;LOCKA1;NUMEB2;DENOA2;CONV1S;'</span><span class="p">)</span>
+</span><span data-line="465">        <span class="n">forward</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">one_port</span><span class="p">()</span>
+</span><span data-line="466">        <span class="n">forward</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">'forward switch term'</span>
+</span><span data-line="467">
+</span><span data-line="468">        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">'reverse'</span><span class="p">)</span>
+</span><span data-line="469">        <span class="bp">self</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">'USER1;DRIVPORT2;LOCKA2;NUMEB1;DENOA1;CONV1S;'</span><span class="p">)</span>
+</span><span data-line="470">        <span class="n">reverse</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">one_port</span><span class="p">()</span>
+</span><span data-line="471">        <span class="n">reverse</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">'reverse switch term'</span>
+</span><span data-line="472">
+</span><span data-line="473">        <span class="k">return</span> <span class="p">(</span><span class="n">forward</span><span class="p">,</span><span class="n">reverse</span><span class="p">)</span></div>
+</div>
+
+</span></pre></div>
+        </article><button class="back-to-top" type="button">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+  </svg>
+  <span>Back to top</span>
+</button><div class="navigation flex print:hidden"></div></div>
+    </div>
+  </main>
+</div>
+<footer class="sy-foot">
+  <div class="sy-foot-inner sy-container mx-auto">
+    <div class="sy-foot-reserved md:flex justify-between items-center">
+      <div class="sy-foot-copyright"><p>2025, scikit-rf team</p>
+  
+  <p>
+    Made with
+    
+    <a href="https://www.sphinx-doc.org/">Sphinx</a> and
+    
+    <a href="https://shibuya.lepture.com">Shibuya theme</a>.
+  </p>
+</div>
+      <div class="sy-foot-socials">
+  <a href="https://github.com/scikit-rf/scikit-rf" aria-label="GitHub">
+    <iconify-icon icon="simple-icons:github"></iconify-icon>
+  </a></div>
+    </div>
+  </div>
+</footer>
+      <script src="../../../../../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../../../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../../../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../../../../_static/copybutton.js?v=34bd459d"></script>
+      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+      <script src="../../../../../_static/shibuya.js?v=50760d75"></script>
+      <script src="https://cdn.jsdelivr.net/npm/@jupyter-widgets/html-manager@^1.0.1/dist/embed-amd.js"></script>
+      <script src="../../../../../_static/skrf.js?v=bdeb9fb0"></script></body>
+</html>

@@ -1,0 +1,6 @@
+﻿skrf.network.fix\_param\_shape
+==============================
+
+.. currentmodule:: skrf.network
+
+.. autofunction:: fix_param_shape

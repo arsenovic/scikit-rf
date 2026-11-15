@@ -1,0 +1,6 @@
+﻿skrf.calibration.calibration.convert\_12term\_2\_8term
+======================================================
+
+.. currentmodule:: skrf.calibration.calibration
+
+.. autofunction:: convert_12term_2_8term

@@ -1,0 +1,6 @@
+skrf.calibration.calibration.TUGMultilineTRL.T\_matrices
+========================================================
+
+.. currentmodule:: skrf.calibration.calibration
+
+.. autoproperty:: TUGMultilineTRL.T_matrices

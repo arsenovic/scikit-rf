@@ -1,0 +1,6 @@
+skrf.network.Network.g\_db
+==========================
+
+.. currentmodule:: skrf.network
+
+.. autoproperty:: Network.g_db

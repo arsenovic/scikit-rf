@@ -1,0 +1,44 @@
+﻿skrf.vi.vna.rohde_schwarz.ZVA
+=============================
+
+.. currentmodule:: skrf.vi.vna.rohde_schwarz
+
+.. autoclass:: ZVA
+  :no-members:
+
+
+
+.. rubric:: Attributes
+
+.. autosummary::
+  :toctree:
+  :nosignatures:
+
+  ~ZVA.active_channel
+  ~ZVA.active_measurement
+  ~ZVA.channels
+  ~ZVA.nports
+  ~ZVA.query_format
+  ~ZVA.timeout
+
+
+
+
+
+.. rubric:: Methods
+
+.. autosummary::
+  :toctree:
+  :nosignatures:
+
+  ~ZVA.__init__
+  ~ZVA.command
+  ~ZVA.create_channel
+  ~ZVA.delete_channel
+  ~ZVA.query
+  ~ZVA.query_values
+  ~ZVA.read
+  ~ZVA.read_values
+  ~ZVA.write
+  ~ZVA.write_values
+

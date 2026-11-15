@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="en" data-accent-color="blue" data-content_root="../../../">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>skrf.media.rectangularWaveguide.RectangularWaveguide - scikit-rf</title><link rel="author" title="About these documents" href="../../../about.html" /><link rel="index" title="Index" href="../../../genindex.html" /><link rel="search" title="Search" href="../../../search.html" /><link rel="next" title="skrf.media.rectangularWaveguide.RectangularWaveguide.Z0" href="skrf.media.rectangularWaveguide.RectangularWaveguide.Z0.html" /><link rel="prev" title="skrf.media.distributedCircuit.DistributedCircuit.write_csv" href="skrf.media.distributedCircuit.DistributedCircuit.write_csv.html" /><script>
+    function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
+    setColorMode(localStorage._theme||"auto");
+  </script><link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=ad592e98" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/shibuya.css?v=2ceb65ce" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-codeautolink.css?v=b2176991" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+    <link media="print" rel="stylesheet" type="text/css" href="../../../_static/print.css?v=20ff2c19" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/skrf.css?v=7e772ba2" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --sy-f-text: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+  --sy-f-heading: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+}
+</style>
+    
+  <meta property="og:type" content="website"/><meta property="og:title" content="skrf.media.rectangularWaveguide.RectangularWaveguide"/>
+    <meta name="twitter:card" content="summary"/>
+  </head>
+<body><div class="sy-head">
+  <div class="sy-head-blur"></div>
+  <div class="sy-head-inner sy-container mx-auto">
+    <a class="sy-head-brand" href="../../../index.html">
+      <img class="light-logo" src="../../../_static/logo.svg" alt="scikit-rf" height="28" loading="lazy" />
+      <img class="dark-logo" src="../../../_static/logo.svg" alt="scikit-rf" height="28" loading="lazy" />
+      <strong>scikit-rf</strong>
+    </a>
+    <div class="sy-head-nav" id="head-nav">
+      <nav class="sy-head-links"><ul><li class="link"><a href="../../../index.html">Home</a></li><li class="link"><a href="../../../tutorials/index.html">Tutorials</a></li><li class="link"><a href="../../../examples/index.html">Examples</a></li><li class="link"><a href="../../index.html">API</a></li><li class="link">
+          <a href="https://github.com/scikit-rf/scikit-rf">
+            <span>GitHub</span><i class="i-lucide external-link"></i></a>
+        </li></ul></nav>
+      <div class="sy-head-extra flex items-center print:hidden"><form class="searchbox flex items-center" action="../../../search.html" method="get">
+  <input type="text" name="q" placeholder="Search" />
+  <kbd>/</kbd>
+</form><div class="sy-head-socials">
+  <a href="https://github.com/scikit-rf/scikit-rf" aria-label="GitHub">
+    <iconify-icon icon="simple-icons:github"></iconify-icon>
+  </a>
+  <a href="https://www.linkedin.com/groups/12462155/" aria-label="LinkedIn">
+    <iconify-icon icon="simple-icons:linkedin"></iconify-icon>
+  </a>
+  <a href="https://app.element.io/#/room/#scikit-rf:matrix.org" aria-label="Matrix">
+    <iconify-icon icon="simple-icons:matrix"></iconify-icon>
+  </a></div></div>
+    </div>
+    <div class="sy-head-actions flex items-center shrink-0 print:hidden"><button class="js-theme theme-switch flex items-center"
+data-aria-auto="Switch to light color mode"
+data-aria-light="Switch to dark color mode"
+data-aria-dark="Switch to auto color mode">
+<i class="i-lucide theme-icon"></i>
+</button><button class="md:hidden flex items-center js-menu" aria-label="Menu" type="button" aria-controls="head-nav" aria-expanded="false">
+        <div class="hamburger">
+          <span class="hamburger_1"></span>
+          <span class="hamburger_2"></span>
+          <span class="hamburger_3"></span>
+        </div>
+      </button>
+    </div>
+  </div>
+</div>
+<div class="sy-page sy-container flex mx-auto">
+  <aside id="lside" class="sy-lside md:w-72 md:shrink-0 print:hidden">
+    <div class="sy-lside-inner md:sticky">
+      <div class="sy-scrollbar p-6">
+        <div class="globaltoc" data-expand-depth="0"><p class="caption" role="heading" aria-level="3"><span class="caption-text">Getting started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../index.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorials/Installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorials/Introduction.html">Introduction</a></li>
+</ul>
+<p class="caption" role="heading" aria-level="3"><span class="caption-text">User guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/index.html">Examples</a></li>
+</ul>
+<p class="caption" role="heading" aria-level="3"><span class="caption-text">Reference</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../index.html">API</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../network.html">network (<code class="xref py py-mod docutils literal notranslate"><span class="pre">skrf.network</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../frequency.html">frequency (<code class="xref py py-mod docutils literal notranslate"><span class="pre">skrf.frequency</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../networkSet.html">networkSet (<code class="xref py py-mod docutils literal notranslate"><span class="pre">skrf.networkSet</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../plotting.html">plotting (<code class="xref py py-mod docutils literal notranslate"><span class="pre">skrf.plotting</span></code>)</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../index.html">Media</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../taper.html">taper (<code class="xref py py-mod docutils literal notranslate"><span class="pre">skrf.taper</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../calibration/index.html">calibration (<code class="xref py py-mod docutils literal notranslate"><span class="pre">skrf.calibration.calibration</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../calibration/deembedding.html">deembedding (<code class="xref py py-mod docutils literal notranslate"><span class="pre">skrf.calibration.deembedding</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../vi/index.html">virtual instruments (<code class="xref py py-mod docutils literal notranslate"><span class="pre">skrf.vi</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../vi/vna.html">vna (<code class="xref py py-mod docutils literal notranslate"><span class="pre">skrf.vi.vna</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../vectorFitting.html">vectorFitting (<code class="xref py py-mod docutils literal notranslate"><span class="pre">skrf.vectorFitting</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../qfactor.html">Qfactor (<code class="xref py py-mod docutils literal notranslate"><span class="pre">skrf.qfactor</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../time.html">time (<code class="xref py py-mod docutils literal notranslate"><span class="pre">skrf.time</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../circuit.html">circuit (<code class="xref py py-mod docutils literal notranslate"><span class="pre">skrf.circuit</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../device.html">device (<code class="xref py py-mod docutils literal notranslate"><span class="pre">skrf.media.device</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../mathFunctions.html">mathFunctions (<code class="xref py py-mod docutils literal notranslate"><span class="pre">skrf.mathFunctions</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../tlineFunctions.html">tlineFunctions (<code class="xref py py-mod docutils literal notranslate"><span class="pre">skrf.tlineFunctions</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../instances.html">instances (<code class="xref py py-mod docutils literal notranslate"><span class="pre">skrf.instances</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../constants.html">constants (<code class="xref py py-mod docutils literal notranslate"><span class="pre">skrf.constants</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../data/index.html">data (<code class="xref py py-mod docutils literal notranslate"><span class="pre">skrf.data</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../util.html">util (<code class="xref py py-mod docutils literal notranslate"><span class="pre">skrf.util</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../io/index.html">IO</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../glossary.html">Glossary</a></li>
+</ul>
+<p class="caption" role="heading" aria-level="3"><span class="caption-text">Project</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing/index.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../citations_ack/acknowledging.html">Citing scikit-rf</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../citations_ack/citations.html">scikit-rf Citations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../about.html">About</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../users.html">Users</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../license.html">License</a></li>
+</ul>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="lside-overlay js-menu" role="button" aria-label="Close left sidebar" aria-controls="lside" aria-expanded="false"></div>
+  <aside id="rside" class="sy-rside pb-3 w-64 shrink-0 order-last">
+    <button class="rside-close js-menu xl:hidden" aria-label="Close Table of Contents" type="button" aria-controls="rside" aria-expanded="false">
+      <i class="i-lucide close"></i>
+    </button>
+    <div class="sy-scrollbar sy-rside-inner px-6 xl:top-16 xl:sticky xl:pl-0 pt-6 pb-4"><div class="localtoc"><h3>On this page</h3><ul>
+<li><a class="reference internal" href="#skrf.media.rectangularWaveguide.RectangularWaveguide"><code class="docutils literal notranslate"><span class="pre">RectangularWaveguide</span></code></a></li>
+</ul>
+</div><div id="ethical-ad-placement" data-ea-publisher="readthedocs"></div></div>
+  </aside>
+  <div class="rside-overlay js-menu" role="button" aria-label="Close Table of Contents" aria-controls="rside" aria-expanded="false"></div>
+  <main class="sy-main w-full max-sm:max-w-full print:pt-6">
+<div class="sy-breadcrumbs" role="navigation">
+  <div class="sy-breadcrumbs-inner flex items-center">
+    <div class="md:hidden mr-3">
+      <button class="js-menu" aria-label="Menu" type="button" aria-controls="lside" aria-expanded="false">
+        <i class="i-lucide menu"></i>
+      </button>
+    </div>
+    <ol class="flex-1" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="../../../index.html"><span itemprop="name">scikit-rf</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="1" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="../../index.html"><span itemprop="name">API</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="2" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="../index.html"><span itemprop="name">Media</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="3" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <strong itemprop="name">skrf.media.rectangularWaveguide.RectangularWaveguide</strong>
+        <meta itemprop="position" content="4" />
+      </li></ol>
+    <div class="xl:hidden ml-1">
+      <button class="js-menu" aria-label="Show table of contents" type="button" aria-controls="rside"
+        aria-expanded="false">
+        <i class="i-lucide outdent"></i>
+      </button>
+    </div>
+  </div>
+</div><div class="flex flex-col break-words justify-between">
+      <div class="relative min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
+  <article class="yue" role="main">
+          <section id="skrf-media-rectangularwaveguide-rectangularwaveguide">
+<h1>skrf.media.rectangularWaveguide.RectangularWaveguide<a class="headerlink" href="#skrf-media-rectangularwaveguide-rectangularwaveguide" title="Link to this heading">#</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="skrf.media.rectangularWaveguide.RectangularWaveguide">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">skrf.media.rectangularWaveguide.</span></span><span class="sig-name descname"><span class="pre">RectangularWaveguide</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">frequency</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z0_port</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z0_override</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z0</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">a</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'te'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">m</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ep_r</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mu_r</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rho</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.724137931034483e-08</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">roughness</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'lomakin'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dielectric</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wall_a</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wall_b</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/skrf/media/rectangularWaveguide.html#RectangularWaveguide"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skrf.media.rectangularWaveguide.RectangularWaveguide" title="Link to this definition">#</a></dt>
+<dd><p>A single mode of a homogeneously filled rectangular waveguide.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>frequency</strong> (<a class="reference internal" href="../../generated/skrf.frequency.Frequency.html#skrf.frequency.Frequency" title="skrf.frequency.Frequency"><code class="xref py py-class docutils literal notranslate"><span class="pre">Frequency</span></code></a> object) – frequency band of this transmission line medium</p></li>
+<li><p><strong>z0_port</strong> (<em>number</em><em>, </em><em>array-like</em><em>, or </em><em>None</em>) – <cite>z0_port</cite> is the port impedance for networks generated by the media.
+If <cite>z0_port</cite> is not None, the networks generated by the media are
+renormalized (or in other words embedded) from the characteristic
+impedance z0 of the media to <cite>z0_port</cite>.
+Else if <cite>z0_port</cite> is None, the networks port impedances will be the raw
+characteristic impedance z0 of the media.
+(Default is None)</p></li>
+<li><p><strong>z0_override</strong> (<em>number</em><em>, </em><em>array-like</em><em>, or </em><em>None</em>) – <cite>z0_override</cite> override the characteristic impedance for the media.
+If <cite>z0_override</cite> is not None, the networks generated by the media have
+their characteristic impedance <cite>z0</cite> overridden by <cite>z0_override</cite>.
+(Default is None)</p></li>
+<li><p><strong>z0</strong> (<em>number</em><em>, </em><em>array-like</em><em>, or </em><em>None</em>) – deprecated parameter, alias to <cite>z0_override</cite> if <cite>z0_override</cite> is None.
+Emit a deprecation warning.</p></li>
+<li><p><strong>a</strong> (<em>number</em><em>, </em><em>optional</em>) – width of waveguide, in meters.
+Default is 1.</p></li>
+<li><p><strong>b</strong> (<em>number</em><em> or </em><em>None</em><em>, </em><em>optional</em>) – height of waveguide, in meters.
+If <cite>None</cite> defaults to a/2.
+Default is None</p></li>
+<li><p><strong>mode_type</strong> (<em>[</em><em>'te'</em><em>,</em><em>'tm'</em><em>]</em>) – mode type, transverse electric (te) or transverse magnetic
+(tm) to-z. where z is direction of propagation</p></li>
+<li><p><strong>m</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><em>int</em></a>) – mode index in ‘a’-direction</p></li>
+<li><p><strong>n</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><em>int</em></a>) – mode index in ‘b’-direction</p></li>
+<li><p><strong>ep_r</strong> (<em>number</em><em>, </em><em>array-like</em><em>,</em>) – filling material’s relative permittivity</p></li>
+<li><p><strong>mu_r</strong> (<em>number</em><em>, </em><em>array-like</em>) – filling material’s relative permeability</p></li>
+<li><p><strong>rho</strong> (<em>number</em><em>, </em><em>array-like</em><em>, </em><em>string</em><em>, or </em><em>None</em>) – resistivity (ohm-m) of the conductor walls. If array-like
+must be same length as frequency. if str, it must be a key in
+<a class="reference internal" href="../../data/generated/skrf.data.materials.html#skrf.data.materials" title="skrf.data.materials"><code class="xref py py-data docutils literal notranslate"><span class="pre">skrf.data.materials</span></code></a>.
+Default is 1/58e6, the resistivity of annealed copper at 20 °C
+(100% IACS). Use 0, or None, for perfectly conducting walls.</p></li>
+<li><p><strong>roughness</strong> (<em>number</em><em>, or </em><em>array-like</em>) – rms roughness of the conductor walls, in meter. It is handed to
+<a class="reference internal" href="../../generated/skrf.tlineFunctions.surface_impedance.html#skrf.tlineFunctions.surface_impedance" title="skrf.tlineFunctions.surface_impedance"><code class="xref py py-func docutils literal notranslate"><span class="pre">surface_impedance()</span></code></a>, and it applies to any wall
+whose material does not carry an <code class="docutils literal notranslate"><span class="pre">'rms_roughness'</span></code> of its own.</p></li>
+<li><p><strong>model</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a><em>, </em><em>optional</em>) – Model of the loss. ‘lomakin’ (default) is the two-wire model of
+<a class="footnote-reference brackets" href="#lomakin" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>, where the loss of the walls shapes the phase constant as well
+as the attenuation (agrees better with EM simulations). ‘marcuvitz’ is the
+power loss method of <a class="footnote-reference brackets" href="#marcuvitz" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a>, which is also given by the IEC 60153-2
+and IEEE 1785.1 standards and discussed in <a class="footnote-reference brackets" href="#skinner" id="id3" role="doc-noteref"><span class="fn-bracket">[</span>3<span class="fn-bracket">]</span></a>; it leaves the phase
+constant at its lossless value.
+A TM mode, or a mode with both indices nonzero, is not covered by ‘lomakin’
+and follows ‘marcuvitz’ instead, which is warned about.</p></li>
+<li><p><strong>dielectric</strong> (<a class="reference internal" href="../../io/generated/skrf.io.csv.AgilentCSV.dict.html#skrf.io.csv.AgilentCSV.dict" title="skrf.io.csv.AgilentCSV.dict"><em>dict</em></a><em> or </em><em>None</em><em>, </em><em>optional</em>) – Material filling the waveguide, as a dict taking the keys <code class="docutils literal notranslate"><span class="pre">'ep_r'</span></code>
+(complex relative permittivity) and <code class="docutils literal notranslate"><span class="pre">'mu_r'</span></code> (complex relative
+permeability), both defaulting to 1. If None (default), the filling is
+described by parameters <cite>ep_r</cite> and <cite>mu_r</cite>.</p></li>
+<li><p><strong>wall_a</strong> (<a class="reference internal" href="../../io/generated/skrf.io.csv.AgilentCSV.dict.html#skrf.io.csv.AgilentCSV.dict" title="skrf.io.csv.AgilentCSV.dict"><em>dict</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.15)"><em>list</em></a><em> of </em><a class="reference internal" href="../../io/generated/skrf.io.csv.AgilentCSV.dict.html#skrf.io.csv.AgilentCSV.dict" title="skrf.io.csv.AgilentCSV.dict"><em>dict</em></a><em>, or </em><em>None</em><em>, </em><em>optional</em>) – Material of the pair of walls of width <cite>a</cite>. It describes both walls of the pair.
+A single dict describes a bulk conductor, a list of dict a stack of coatings ordered
+from the filling inwards, of which the deepest layer is the bulk. Each dict takes
+the keys <code class="docutils literal notranslate"><span class="pre">'sigma'</span></code>, <code class="docutils literal notranslate"><span class="pre">'mu_r'</span></code> and <code class="docutils literal notranslate"><span class="pre">'ep_r'</span></code> of the layer itself, and
+<code class="docutils literal notranslate"><span class="pre">'rms_roughness'</span></code>, <code class="docutils literal notranslate"><span class="pre">'boundary_loc'</span></code> and <code class="docutils literal notranslate"><span class="pre">'distribution'</span></code> of the
+boundary on top of it, which are handed to
+<a class="reference internal" href="../../generated/skrf.tlineFunctions.surface_impedance.html#skrf.tlineFunctions.surface_impedance" title="skrf.tlineFunctions.surface_impedance"><code class="xref py py-func docutils literal notranslate"><span class="pre">surface_impedance()</span></code></a>.
+If None (default), the pair is described by <cite>rho</cite> and <cite>roughness</cite>.</p></li>
+<li><p><strong>wall_b</strong> (<a class="reference internal" href="../../io/generated/skrf.io.csv.AgilentCSV.dict.html#skrf.io.csv.AgilentCSV.dict" title="skrf.io.csv.AgilentCSV.dict"><em>dict</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.15)"><em>list</em></a><em> of </em><a class="reference internal" href="../../io/generated/skrf.io.csv.AgilentCSV.dict.html#skrf.io.csv.AgilentCSV.dict" title="skrf.io.csv.AgilentCSV.dict"><em>dict</em></a><em>, or </em><em>None</em><em>, </em><em>optional</em>) – Material of the pair of walls of width <cite>b</cite>, described in similar way as
+<cite>wall_a</cite>. The two pairs are usually of the same material, but would have
+different effective conductivities, e.g., different roughness due to
+machining or 3D printed waveguides <a class="footnote-reference brackets" href="#zhu" id="id4" role="doc-noteref"><span class="fn-bracket">[</span>4<span class="fn-bracket">]</span></a>, <a class="footnote-reference brackets" href="#lomakin3d" id="id5" role="doc-noteref"><span class="fn-bracket">[</span>5<span class="fn-bracket">]</span></a>.</p></li>
+<li><p><strong>*args</strong> (<em>arguments</em><em>, </em><em>keyword arguments</em>) – passed to <a class="reference internal" href="skrf.media.media.Media.html#skrf.media.media.Media" title="skrf.media.media.Media"><code class="xref py py-class docutils literal notranslate"><span class="pre">Media</span></code></a>’s constructor
+(<a class="reference internal" href="skrf.media.media.Media.__init__.html#skrf.media.media.Media.__init__" title="skrf.media.media.Media.__init__"><code class="xref py py-func docutils literal notranslate"><span class="pre">__init__()</span></code></a></p></li>
+<li><p><strong>**kwargs</strong> (<em>arguments</em><em>, </em><em>keyword arguments</em>) – passed to <a class="reference internal" href="skrf.media.media.Media.html#skrf.media.media.Media" title="skrf.media.media.Media"><code class="xref py py-class docutils literal notranslate"><span class="pre">Media</span></code></a>’s constructor
+(<a class="reference internal" href="skrf.media.media.Media.__init__.html#skrf.media.media.Media.__init__" title="skrf.media.media.Media.__init__"><code class="xref py py-func docutils literal notranslate"><span class="pre">__init__()</span></code></a></p></li>
+</ul>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The two-wire model is derived for the TE10 mode. It carries over to any
+TE_m0 and TE_0n mode. It does not carry over to a mode with both indices nonzero.</p>
+</div>
+<p class="rubric">References</p>
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="lomakin" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a href="#id1" role="doc-backlink">1</a><span class="fn-bracket">]</span></span>
+<p>K. Lomakin, G. Gold and K. Helmreich, “Analytical Waveguide Model
+Precisely Predicting Loss and Delay Including Surface Roughness,” IEEE Trans.
+Microw. Theory Techn., vol. 66, no. 6, pp. 2649-2662, June 2018.
+<a class="reference external" href="https://doi.org/10.1109/TMTT.2018.2827383">https://doi.org/10.1109/TMTT.2018.2827383</a></p>
+</aside>
+<aside class="footnote brackets" id="marcuvitz" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a href="#id2" role="doc-backlink">2</a><span class="fn-bracket">]</span></span>
+<p>N. Marcuvitz, “Transmission-line modes,” in Waveguide Handbook,
+2nd ed. New York: McGraw-Hill, 1951, Chapter 2.</p>
+</aside>
+<aside class="footnote brackets" id="skinner" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a href="#id3" role="doc-backlink">3</a><span class="fn-bracket">]</span></span>
+<p>J. Skinner, D. Koller, H.-U. Nickel, N. M. Ridler and S. Lucyszyn,
+“Derivation of Rectangular Metallic Waveguide Attenuation Constant for
+IEC 60153-2 and IEEE 1785.1 International Standards,” IEEE Trans. THz Sci.
+Technol., vol. 15, no. 4, pp. 734-737, July 2025.
+<a class="reference external" href="https://doi.org/10.1109/TTHZ.2025.3573847">https://doi.org/10.1109/TTHZ.2025.3573847</a></p>
+</aside>
+<aside class="footnote brackets" id="zhu" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a href="#id4" role="doc-backlink">4</a><span class="fn-bracket">]</span></span>
+<p>L. Zhu et al., “3-D Printed THz Waveguide Components,” IEEE Access,
+vol. 11, pp. 79073-79086, 2023.
+<a class="reference external" href="https://doi.org/10.1109/ACCESS.2023.3297271">https://doi.org/10.1109/ACCESS.2023.3297271</a></p>
+</aside>
+<aside class="footnote brackets" id="lomakin3d" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a href="#id5" role="doc-backlink">5</a><span class="fn-bracket">]</span></span>
+<p>K. Lomakin et al., “SLA-Printed 3-D Waveguide Paths for E-Band
+Using Electroless Silver Plating,” IEEE Trans. Compon. Packag. Manuf.
+Technol., vol. 9, no. 12, pp. 2476-2481, Dec. 2019.
+<a class="reference external" href="https://doi.org/10.1109/TCPMT.2019.2927671">https://doi.org/10.1109/TCPMT.2019.2927671</a></p>
+</aside>
+</aside>
+<p class="rubric">Examples</p>
+<p>Most common usage is standard aspect ratio (2:1) dominant
+mode, TE10 mode of wr10 waveguide can be constructed by</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/index.html#module-numpy"><span class="nn">numpy</span></a><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+</span><span data-line="2"><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">skrf</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">rf</span>
+</span><span data-line="3"><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><a class="sphinx-codeautolink-a" href="../../../api/constants.html#module-skrf.constants"><span class="nn">skrf.constants</span></a><span class="w"> </span><span class="kn">import</span> <span class="n">mil</span>
+</span><span data-line="4"><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><a class="sphinx-codeautolink-a" href="../../../api/media/index.html#module-0"><span class="nn">skrf.media</span></a><span class="w"> </span><span class="kn">import</span> <a class="sphinx-codeautolink-a" href="../../../api/media/generated/skrf.media.rectangularWaveguide.RectangularWaveguide.html#skrf.media.rectangularWaveguide.RectangularWaveguide" title="skrf.media.rectangularWaveguide.RectangularWaveguide"><span class="n">RectangularWaveguide</span></a>
+</span><span data-line="5"><span class="gp">&gt;&gt;&gt; </span><a class="sphinx-codeautolink-a" href="../../../api/generated/skrf.frequency.Frequency.html#skrf.frequency.Frequency" title="skrf.frequency.Frequency"><span class="n">freq</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../../api/generated/skrf.frequency.Frequency.html#skrf.frequency.Frequency" title="skrf.frequency.Frequency"><span class="n">rf</span><span class="o">.</span><span class="n">Frequency</span></a><span class="p">(</span><span class="mi">75</span><span class="p">,</span> <span class="mi">110</span><span class="p">,</span> <span class="mi">101</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s1">'ghz'</span><span class="p">)</span>
+</span><span data-line="6"><span class="gp">&gt;&gt;&gt; </span><a class="sphinx-codeautolink-a" href="../../../api/media/generated/skrf.media.rectangularWaveguide.RectangularWaveguide.html#skrf.media.rectangularWaveguide.RectangularWaveguide" title="skrf.media.rectangularWaveguide.RectangularWaveguide"><span class="n">RectangularWaveguide</span></a><span class="p">(</span><a class="sphinx-codeautolink-a" href="../../../api/generated/skrf.frequency.Frequency.html#skrf.frequency.Frequency" title="skrf.frequency.Frequency"><span class="n">freq</span></a><span class="p">,</span> <span class="n">a</span><span class="o">=</span><span class="mi">100</span><span class="o">*</span><span class="n">mil</span><span class="p">)</span>
+</span><span data-line="7"><span class="go">Rectangular Waveguide Media.  75.0-110.0 GHz.  101 points</span>
+</span><span data-line="8"><span class="go"> a= 2.54e-03m, b= 1.27e-03m</span>
+</span></pre></div>
+</div>
+<p>A WR-12 guide of brass, with the <cite>a</cite> walls rougher than the <cite>b</cite> ones,
+and the attenuation of a 100 mm length of it at 90 GHz:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="gp">&gt;&gt;&gt; </span><a class="sphinx-codeautolink-a" href="../../../api/generated/skrf.frequency.Frequency.html#skrf.frequency.Frequency" title="skrf.frequency.Frequency"><span class="n">freq</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../../api/generated/skrf.frequency.Frequency.html#skrf.frequency.Frequency" title="skrf.frequency.Frequency"><span class="n">rf</span><span class="o">.</span><span class="n">Frequency</span></a><span class="p">(</span><span class="mi">60</span><span class="p">,</span> <span class="mi">90</span><span class="p">,</span> <span class="mi">61</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s1">'GHz'</span><span class="p">)</span>
+</span><span data-line="2"><span class="gp">&gt;&gt;&gt; </span><a class="sphinx-codeautolink-a" href="../../../api/media/generated/skrf.media.rectangularWaveguide.RectangularWaveguide.html#skrf.media.rectangularWaveguide.RectangularWaveguide" title="skrf.media.rectangularWaveguide.RectangularWaveguide"><span class="n">wr12</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../../api/media/generated/skrf.media.rectangularWaveguide.RectangularWaveguide.html#skrf.media.rectangularWaveguide.RectangularWaveguide" title="skrf.media.rectangularWaveguide.RectangularWaveguide"><span class="n">RectangularWaveguide</span></a><span class="p">(</span><a class="sphinx-codeautolink-a" href="../../../api/generated/skrf.frequency.Frequency.html#skrf.frequency.Frequency" title="skrf.frequency.Frequency"><span class="n">freq</span></a><span class="p">,</span> <span class="n">a</span><span class="o">=</span><span class="mf">3.0988e-3</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="mf">1.5494e-3</span><span class="p">,</span>
+</span><span data-line="3"><span class="gp">... </span>    <span class="n">wall_a</span><span class="o">=</span><span class="p">{</span><span class="s1">'sigma'</span><span class="p">:</span> <span class="mf">0.28</span><span class="o">*</span><span class="mf">58e6</span><span class="p">,</span> <span class="s1">'rms_roughness'</span><span class="p">:</span> <span class="mf">1e-6</span><span class="p">},</span>
+</span><span data-line="4"><span class="gp">... </span>    <span class="n">wall_b</span><span class="o">=</span><span class="p">{</span><span class="s1">'sigma'</span><span class="p">:</span> <span class="mf">0.28</span><span class="o">*</span><span class="mf">58e6</span><span class="p">,</span> <span class="s1">'rms_roughness'</span><span class="p">:</span> <span class="mf">0.4e-6</span><span class="p">})</span>
+</span><span data-line="5"><span class="gp">&gt;&gt;&gt; </span><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/builtins/functions.html#print"><span class="nb">print</span></a><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><a class="sphinx-codeautolink-a" href="../../../api/media/generated/skrf.media.rectangularWaveguide.RectangularWaveguide.line.html#skrf.media.rectangularWaveguide.RectangularWaveguide.line" title="skrf.media.rectangularWaveguide.RectangularWaveguide.line"><span class="n">wr12</span><span class="o">.</span><span class="n">line</span></a><span class="p">(</span><span class="mi">100</span><span class="p">,</span><span class="w"> </span><span class="s1">'mm'</span><span class="p">)</span><span class="o">.</span><a class="sphinx-codeautolink-a" href="../../../api/generated/skrf.network.Network.s_db.html#skrf.network.Network.s_db" title="skrf.network.Network.s_db"><span class="n">s_db</span></a><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2"> dB"</span><span class="p">)</span>
+</span><span data-line="6"><span class="go">-1.002 dB</span>
+</span></pre></div>
+</div>
+<p>A WR-6.5 waveguide (D-band) whose walls carry an ENIG finish, 0.05 um of gold
+over 4 um of nickel over copper, roughened by 50 nm rms at the outside and by
+0.2 um rms at the copper underneath:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="gp">&gt;&gt;&gt; </span><span class="n">enig</span> <span class="o">=</span> <span class="p">[{</span><span class="s1">'sigma'</span><span class="p">:</span> <span class="mf">41.1e6</span><span class="p">,</span> <span class="s1">'rms_roughness'</span><span class="p">:</span> <span class="mf">50e-9</span><span class="p">,</span> <span class="s1">'boundary_loc'</span><span class="p">:</span> <span class="mi">0</span><span class="p">},</span>
+</span><span data-line="2"><span class="gp">... </span>        <span class="p">{</span><span class="s1">'sigma'</span><span class="p">:</span> <span class="mf">14.5e6</span><span class="p">,</span> <span class="s1">'mu_r'</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span> <span class="s1">'rms_roughness'</span><span class="p">:</span> <span class="mf">50e-9</span><span class="p">,</span> <span class="s1">'boundary_loc'</span><span class="p">:</span> <span class="mf">0.05e-6</span><span class="p">},</span>
+</span><span data-line="3"><span class="gp">... </span>        <span class="p">{</span><span class="s1">'sigma'</span><span class="p">:</span> <span class="mf">58e6</span><span class="p">,</span> <span class="s1">'rms_roughness'</span><span class="p">:</span> <span class="mf">0.2e-6</span><span class="p">,</span> <span class="s1">'boundary_loc'</span><span class="p">:</span> <span class="mf">4.05e-6</span><span class="p">}]</span>
+</span><span data-line="4"><span class="gp">&gt;&gt;&gt; </span><a class="sphinx-codeautolink-a" href="../../../api/generated/skrf.frequency.Frequency.html#skrf.frequency.Frequency" title="skrf.frequency.Frequency"><span class="n">freq</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../../api/generated/skrf.frequency.Frequency.html#skrf.frequency.Frequency" title="skrf.frequency.Frequency"><span class="n">rf</span><span class="o">.</span><span class="n">Frequency</span></a><span class="p">(</span><span class="mi">110</span><span class="p">,</span> <span class="mi">170</span><span class="p">,</span> <span class="mi">61</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s1">'GHz'</span><span class="p">)</span>
+</span><span data-line="5"><span class="gp">&gt;&gt;&gt; </span><a class="sphinx-codeautolink-a" href="../../../api/media/generated/skrf.media.rectangularWaveguide.RectangularWaveguide.html#skrf.media.rectangularWaveguide.RectangularWaveguide" title="skrf.media.rectangularWaveguide.RectangularWaveguide"><span class="n">wr65</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../../api/media/generated/skrf.media.rectangularWaveguide.RectangularWaveguide.html#skrf.media.rectangularWaveguide.RectangularWaveguide" title="skrf.media.rectangularWaveguide.RectangularWaveguide"><span class="n">RectangularWaveguide</span></a><span class="p">(</span><a class="sphinx-codeautolink-a" href="../../../api/generated/skrf.frequency.Frequency.html#skrf.frequency.Frequency" title="skrf.frequency.Frequency"><span class="n">freq</span></a><span class="p">,</span> <span class="n">a</span><span class="o">=</span><span class="mf">1.6510e-3</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="mf">0.8255e-3</span><span class="p">,</span>
+</span><span data-line="6"><span class="gp">... </span>                            <span class="n">wall_a</span><span class="o">=</span><span class="n">enig</span><span class="p">,</span> <span class="n">wall_b</span><span class="o">=</span><span class="n">enig</span><span class="p">)</span>
+</span><span data-line="7"><span class="gp">&gt;&gt;&gt; </span><a class="sphinx-codeautolink-a" href="../../../api/media/generated/skrf.media.rectangularWaveguide.RectangularWaveguide.html#skrf.media.rectangularWaveguide.RectangularWaveguide" title="skrf.media.rectangularWaveguide.RectangularWaveguide"><span class="n">smooth_copper</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../../api/media/generated/skrf.media.rectangularWaveguide.RectangularWaveguide.html#skrf.media.rectangularWaveguide.RectangularWaveguide" title="skrf.media.rectangularWaveguide.RectangularWaveguide"><span class="n">RectangularWaveguide</span></a><span class="p">(</span><a class="sphinx-codeautolink-a" href="../../../api/generated/skrf.frequency.Frequency.html#skrf.frequency.Frequency" title="skrf.frequency.Frequency"><span class="n">freq</span></a><span class="p">,</span> <span class="n">a</span><span class="o">=</span><span class="mf">1.6510e-3</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="mf">0.8255e-3</span><span class="p">,</span> <span class="n">rho</span><span class="o">=</span><span class="mi">1</span><span class="o">/</span><span class="mf">58e6</span><span class="p">)</span>
+</span><span data-line="8"><span class="gp">&gt;&gt;&gt; </span><span class="n">np2db</span> <span class="o">=</span> <span class="mi">20</span><span class="o">*</span><a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/generated/numpy.log10.html#numpy.log10" title="numpy.log10"><span class="n">np</span><span class="o">.</span><span class="n">log10</span></a><span class="p">(</span><a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/constants.html#numpy.e" title="numpy.e"><span class="n">np</span><span class="o">.</span><span class="n">e</span></a><span class="p">)</span>
+</span><span data-line="9"><span class="gp">&gt;&gt;&gt; </span><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/builtins/functions.html#print"><span class="nb">print</span></a><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">np2db</span><span class="o">*</span><a class="sphinx-codeautolink-a" href="../../../api/media/generated/skrf.media.rectangularWaveguide.RectangularWaveguide.gamma.html#skrf.media.rectangularWaveguide.RectangularWaveguide.gamma" title="skrf.media.rectangularWaveguide.RectangularWaveguide.gamma"><span class="n">wr65</span><span class="o">.</span><span class="n">gamma</span></a><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">real</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2"> dB/m, against "</span>
+</span><span data-line="10"><span class="gp">... </span>      <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">np2db</span><span class="o">*</span><a class="sphinx-codeautolink-a" href="../../../api/media/generated/skrf.media.rectangularWaveguide.RectangularWaveguide.gamma.html#skrf.media.rectangularWaveguide.RectangularWaveguide.gamma" title="skrf.media.rectangularWaveguide.RectangularWaveguide.gamma"><span class="n">smooth_copper</span><span class="o">.</span><span class="n">gamma</span></a><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">real</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2"> dB/m for smooth copper"</span><span class="p">)</span>
+</span><span data-line="11"><span class="go">20.3 dB/m, against 4.6 dB/m for smooth copper</span>
+</span></pre></div>
+</div>
+</dd></dl>
+<p class="rubric">Attributes</p>
+<div class="table-wrapper autosummary longtable docutils container">
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="skrf.media.rectangularWaveguide.RectangularWaveguide.Z0.html#skrf.media.rectangularWaveguide.RectangularWaveguide.Z0" title="skrf.media.rectangularWaveguide.RectangularWaveguide.Z0"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Z0</span></code></a></p></td>
+<td><p>Characteristic Impedance</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="skrf.media.rectangularWaveguide.RectangularWaveguide.alpha.html#skrf.media.rectangularWaveguide.RectangularWaveguide.alpha" title="skrf.media.rectangularWaveguide.RectangularWaveguide.alpha"><code class="xref py py-obj docutils literal notranslate"><span class="pre">alpha</span></code></a></p></td>
+<td><p>Real (attenuation) component of gamma.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="skrf.media.rectangularWaveguide.RectangularWaveguide.alpha_c.html#skrf.media.rectangularWaveguide.RectangularWaveguide.alpha_c" title="skrf.media.rectangularWaveguide.RectangularWaveguide.alpha_c"><code class="xref py py-obj docutils literal notranslate"><span class="pre">alpha_c</span></code></a></p></td>
+<td><p>Loss of the walls by the power loss method, in Np/m.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="skrf.media.rectangularWaveguide.RectangularWaveguide.beta.html#skrf.media.rectangularWaveguide.RectangularWaveguide.beta" title="skrf.media.rectangularWaveguide.RectangularWaveguide.beta"><code class="xref py py-obj docutils literal notranslate"><span class="pre">beta</span></code></a></p></td>
+<td><p>Imaginary (propagating) component of gamma.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="skrf.media.rectangularWaveguide.RectangularWaveguide.ep.html#skrf.media.rectangularWaveguide.RectangularWaveguide.ep" title="skrf.media.rectangularWaveguide.RectangularWaveguide.ep"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ep</span></code></a></p></td>
+<td><p>The permittivity of the filling material.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="skrf.media.rectangularWaveguide.RectangularWaveguide.f_cutoff.html#skrf.media.rectangularWaveguide.RectangularWaveguide.f_cutoff" title="skrf.media.rectangularWaveguide.RectangularWaveguide.f_cutoff"><code class="xref py py-obj docutils literal notranslate"><span class="pre">f_cutoff</span></code></a></p></td>
+<td><p>cutoff frequency for this mode.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="skrf.media.rectangularWaveguide.RectangularWaveguide.f_norm.html#skrf.media.rectangularWaveguide.RectangularWaveguide.f_norm" title="skrf.media.rectangularWaveguide.RectangularWaveguide.f_norm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">f_norm</span></code></a></p></td>
+<td><p>Frequency vector normalized to cutoff.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="skrf.media.rectangularWaveguide.RectangularWaveguide.gamma.html#skrf.media.rectangularWaveguide.RectangularWaveguide.gamma" title="skrf.media.rectangularWaveguide.RectangularWaveguide.gamma"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gamma</span></code></a></p></td>
+<td><p>The propagation constant (aka Longitudinal wave number).</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="skrf.media.rectangularWaveguide.RectangularWaveguide.k0.html#skrf.media.rectangularWaveguide.RectangularWaveguide.k0" title="skrf.media.rectangularWaveguide.RectangularWaveguide.k0"><code class="xref py py-obj docutils literal notranslate"><span class="pre">k0</span></code></a></p></td>
+<td><p>Characteristic wave number.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="skrf.media.rectangularWaveguide.RectangularWaveguide.kc.html#skrf.media.rectangularWaveguide.RectangularWaveguide.kc" title="skrf.media.rectangularWaveguide.RectangularWaveguide.kc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">kc</span></code></a></p></td>
+<td><p>Cut-off wave number.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="skrf.media.rectangularWaveguide.RectangularWaveguide.kx.html#skrf.media.rectangularWaveguide.RectangularWaveguide.kx" title="skrf.media.rectangularWaveguide.RectangularWaveguide.kx"><code class="xref py py-obj docutils literal notranslate"><span class="pre">kx</span></code></a></p></td>
+<td><p>Eigenvalue in the 'a' direction.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="skrf.media.rectangularWaveguide.RectangularWaveguide.ky.html#skrf.media.rectangularWaveguide.RectangularWaveguide.ky" title="skrf.media.rectangularWaveguide.RectangularWaveguide.ky"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ky</span></code></a></p></td>
+<td><p>Eigenvalue in the <cite>b</cite> direction.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="skrf.media.rectangularWaveguide.RectangularWaveguide.lambda_cutoff.html#skrf.media.rectangularWaveguide.RectangularWaveguide.lambda_cutoff" title="skrf.media.rectangularWaveguide.RectangularWaveguide.lambda_cutoff"><code class="xref py py-obj docutils literal notranslate"><span class="pre">lambda_cutoff</span></code></a></p></td>
+<td><p>Cutoff wavelength.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="skrf.media.rectangularWaveguide.RectangularWaveguide.lambda_guide.html#skrf.media.rectangularWaveguide.RectangularWaveguide.lambda_guide" title="skrf.media.rectangularWaveguide.RectangularWaveguide.lambda_guide"><code class="xref py py-obj docutils literal notranslate"><span class="pre">lambda_guide</span></code></a></p></td>
+<td><p>Guide wavelength.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="skrf.media.rectangularWaveguide.RectangularWaveguide.mu.html#skrf.media.rectangularWaveguide.RectangularWaveguide.mu" title="skrf.media.rectangularWaveguide.RectangularWaveguide.mu"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mu</span></code></a></p></td>
+<td><p>The permeability of the filling material.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="skrf.media.rectangularWaveguide.RectangularWaveguide.npoints.html#skrf.media.rectangularWaveguide.RectangularWaveguide.npoints" title="skrf.media.rectangularWaveguide.RectangularWaveguide.npoints"><code class="xref py py-obj docutils literal notranslate"><span class="pre">npoints</span></code></a></p></td>
+<td><p>Number of points of the frequency axis.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="skrf.media.rectangularWaveguide.RectangularWaveguide.rho.html#skrf.media.rectangularWaveguide.RectangularWaveguide.rho" title="skrf.media.rectangularWaveguide.RectangularWaveguide.rho"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rho</span></code></a></p></td>
+<td><p>Resistivity of all four walls in ohm*m.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="skrf.media.rectangularWaveguide.RectangularWaveguide.v_g.html#skrf.media.rectangularWaveguide.RectangularWaveguide.v_g" title="skrf.media.rectangularWaveguide.RectangularWaveguide.v_g"><code class="xref py py-obj docutils literal notranslate"><span class="pre">v_g</span></code></a></p></td>
+<td><p>Complex group velocity (in m/s).</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="skrf.media.rectangularWaveguide.RectangularWaveguide.v_p.html#skrf.media.rectangularWaveguide.RectangularWaveguide.v_p" title="skrf.media.rectangularWaveguide.RectangularWaveguide.v_p"><code class="xref py py-obj docutils literal notranslate"><span class="pre">v_p</span></code></a></p></td>
+<td><p>Complex phase velocity (in m/s).</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="skrf.media.rectangularWaveguide.RectangularWaveguide.z0.html#skrf.media.rectangularWaveguide.RectangularWaveguide.z0" title="skrf.media.rectangularWaveguide.RectangularWaveguide.z0"><code class="xref py py-obj docutils literal notranslate"><span class="pre">z0</span></code></a></p></td>
+<td><p>Return Characteristic Impedance <cite>z0_characteristic</cite>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="skrf.media.rectangularWaveguide.RectangularWaveguide.z0_characteristic.html#skrf.media.rectangularWaveguide.RectangularWaveguide.z0_characteristic" title="skrf.media.rectangularWaveguide.RectangularWaveguide.z0_characteristic"><code class="xref py py-obj docutils literal notranslate"><span class="pre">z0_characteristic</span></code></a></p></td>
+<td><p>The characteristic impedance, <span class="math notranslate nohighlight">\(z_0\)</span>.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="skrf.media.rectangularWaveguide.RectangularWaveguide.z0_override.html#skrf.media.rectangularWaveguide.RectangularWaveguide.z0_override" title="skrf.media.rectangularWaveguide.RectangularWaveguide.z0_override"><code class="xref py py-obj docutils literal notranslate"><span class="pre">z0_override</span></code></a></p></td>
+<td><p>Port Impedance.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="skrf.media.rectangularWaveguide.RectangularWaveguide.z0_port.html#skrf.media.rectangularWaveguide.RectangularWaveguide.z0_port" title="skrf.media.rectangularWaveguide.RectangularWaveguide.z0_port"><code class="xref py py-obj docutils literal notranslate"><span class="pre">z0_port</span></code></a></p></td>
+<td><p>Port Impedance.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p class="rubric">Methods</p>
+<div class="table-wrapper autosummary longtable docutils container">
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="skrf.media.rectangularWaveguide.RectangularWaveguide.__init__.html#skrf.media.rectangularWaveguide.RectangularWaveguide.__init__" title="skrf.media.rectangularWaveguide.RectangularWaveguide.__init__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__init__</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="skrf.media.rectangularWaveguide.RectangularWaveguide.attenuator.html#skrf.media.rectangularWaveguide.RectangularWaveguide.attenuator" title="skrf.media.rectangularWaveguide.RectangularWaveguide.attenuator"><code class="xref py py-obj docutils literal notranslate"><span class="pre">attenuator</span></code></a></p></td>
+<td><p>Ideal matched attenuator of a given length.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="skrf.media.rectangularWaveguide.RectangularWaveguide.capacitor.html#skrf.media.rectangularWaveguide.RectangularWaveguide.capacitor" title="skrf.media.rectangularWaveguide.RectangularWaveguide.capacitor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">capacitor</span></code></a></p></td>
+<td><p>Capacitor.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="skrf.media.rectangularWaveguide.RectangularWaveguide.capacitor_q.html#skrf.media.rectangularWaveguide.RectangularWaveguide.capacitor_q" title="skrf.media.rectangularWaveguide.RectangularWaveguide.capacitor_q"><code class="xref py py-obj docutils literal notranslate"><span class="pre">capacitor_q</span></code></a></p></td>
+<td><p>Capacitor with Q factor.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="skrf.media.rectangularWaveguide.RectangularWaveguide.copy.html#skrf.media.rectangularWaveguide.RectangularWaveguide.copy" title="skrf.media.rectangularWaveguide.RectangularWaveguide.copy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">copy</span></code></a></p></td>
+<td><p>Copy of this Media object.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="skrf.media.rectangularWaveguide.RectangularWaveguide.delay_load.html#skrf.media.rectangularWaveguide.RectangularWaveguide.delay_load" title="skrf.media.rectangularWaveguide.RectangularWaveguide.delay_load"><code class="xref py py-obj docutils literal notranslate"><span class="pre">delay_load</span></code></a></p></td>
+<td><p>Delayed load.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="skrf.media.rectangularWaveguide.RectangularWaveguide.delay_open.html#skrf.media.rectangularWaveguide.RectangularWaveguide.delay_open" title="skrf.media.rectangularWaveguide.RectangularWaveguide.delay_open"><code class="xref py py-obj docutils literal notranslate"><span class="pre">delay_open</span></code></a></p></td>
+<td><p>Delayed open transmission line.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="skrf.media.rectangularWaveguide.RectangularWaveguide.delay_short.html#skrf.media.rectangularWaveguide.RectangularWaveguide.delay_short" title="skrf.media.rectangularWaveguide.RectangularWaveguide.delay_short"><code class="xref py py-obj docutils literal notranslate"><span class="pre">delay_short</span></code></a></p></td>
+<td><p>Delayed Short.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="skrf.media.rectangularWaveguide.RectangularWaveguide.electrical_length.html#skrf.media.rectangularWaveguide.RectangularWaveguide.electrical_length" title="skrf.media.rectangularWaveguide.RectangularWaveguide.electrical_length"><code class="xref py py-obj docutils literal notranslate"><span class="pre">electrical_length</span></code></a></p></td>
+<td><p>Calculate the complex electrical length for a given distance.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="skrf.media.rectangularWaveguide.RectangularWaveguide.extract_distance.html#skrf.media.rectangularWaveguide.RectangularWaveguide.extract_distance" title="skrf.media.rectangularWaveguide.RectangularWaveguide.extract_distance"><code class="xref py py-obj docutils literal notranslate"><span class="pre">extract_distance</span></code></a></p></td>
+<td><p>Determines physical distance from a transmission or reflection Network.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="skrf.media.rectangularWaveguide.RectangularWaveguide.from_z0.html#skrf.media.rectangularWaveguide.RectangularWaveguide.from_z0" title="skrf.media.rectangularWaveguide.RectangularWaveguide.from_z0"><code class="xref py py-obj docutils literal notranslate"><span class="pre">from_z0</span></code></a></p></td>
+<td><p>Initialize from specified impedance at a given frequency, assuming the fundamental TE10 mode.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="skrf.media.rectangularWaveguide.RectangularWaveguide.get_array_of.html#skrf.media.rectangularWaveguide.RectangularWaveguide.get_array_of" title="skrf.media.rectangularWaveguide.RectangularWaveguide.get_array_of"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_array_of</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="skrf.media.rectangularWaveguide.RectangularWaveguide.impedance_mismatch.html#skrf.media.rectangularWaveguide.RectangularWaveguide.impedance_mismatch" title="skrf.media.rectangularWaveguide.RectangularWaveguide.impedance_mismatch"><code class="xref py py-obj docutils literal notranslate"><span class="pre">impedance_mismatch</span></code></a></p></td>
+<td><p>Two-port network for an impedance mismatch.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="skrf.media.rectangularWaveguide.RectangularWaveguide.inductor.html#skrf.media.rectangularWaveguide.RectangularWaveguide.inductor" title="skrf.media.rectangularWaveguide.RectangularWaveguide.inductor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">inductor</span></code></a></p></td>
+<td><p>Inductor.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="skrf.media.rectangularWaveguide.RectangularWaveguide.inductor_q.html#skrf.media.rectangularWaveguide.RectangularWaveguide.inductor_q" title="skrf.media.rectangularWaveguide.RectangularWaveguide.inductor_q"><code class="xref py py-obj docutils literal notranslate"><span class="pre">inductor_q</span></code></a></p></td>
+<td><p>Inductor with Q factor.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="skrf.media.rectangularWaveguide.RectangularWaveguide.isolator.html#skrf.media.rectangularWaveguide.RectangularWaveguide.isolator" title="skrf.media.rectangularWaveguide.RectangularWaveguide.isolator"><code class="xref py py-obj docutils literal notranslate"><span class="pre">isolator</span></code></a></p></td>
+<td><p>Two-port isolator.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="skrf.media.rectangularWaveguide.RectangularWaveguide.line.html#skrf.media.rectangularWaveguide.RectangularWaveguide.line" title="skrf.media.rectangularWaveguide.RectangularWaveguide.line"><code class="xref py py-obj docutils literal notranslate"><span class="pre">line</span></code></a></p></td>
+<td><p>Transmission line of a given length and impedance.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="skrf.media.rectangularWaveguide.RectangularWaveguide.line_floating.html#skrf.media.rectangularWaveguide.RectangularWaveguide.line_floating" title="skrf.media.rectangularWaveguide.RectangularWaveguide.line_floating"><code class="xref py py-obj docutils literal notranslate"><span class="pre">line_floating</span></code></a></p></td>
+<td><p>Floating transmission line of a given length and impedance.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="skrf.media.rectangularWaveguide.RectangularWaveguide.load.html#skrf.media.rectangularWaveguide.RectangularWaveguide.load" title="skrf.media.rectangularWaveguide.RectangularWaveguide.load"><code class="xref py py-obj docutils literal notranslate"><span class="pre">load</span></code></a></p></td>
+<td><p>Load of given reflection coefficient.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="skrf.media.rectangularWaveguide.RectangularWaveguide.lossless_mismatch.html#skrf.media.rectangularWaveguide.RectangularWaveguide.lossless_mismatch" title="skrf.media.rectangularWaveguide.RectangularWaveguide.lossless_mismatch"><code class="xref py py-obj docutils literal notranslate"><span class="pre">lossless_mismatch</span></code></a></p></td>
+<td><p>Lossless, symmetric mismatch defined by its return loss.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="skrf.media.rectangularWaveguide.RectangularWaveguide.match.html#skrf.media.rectangularWaveguide.RectangularWaveguide.match" title="skrf.media.rectangularWaveguide.RectangularWaveguide.match"><code class="xref py py-obj docutils literal notranslate"><span class="pre">match</span></code></a></p></td>
+<td><p>Perfect matched load (<span class="math notranslate nohighlight">\(\Gamma_0 = 0\)</span>).</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="skrf.media.rectangularWaveguide.RectangularWaveguide.mode.html#skrf.media.rectangularWaveguide.RectangularWaveguide.mode" title="skrf.media.rectangularWaveguide.RectangularWaveguide.mode"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mode</span></code></a></p></td>
+<td><p>Create another mode in this medium.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="skrf.media.rectangularWaveguide.RectangularWaveguide.open.html#skrf.media.rectangularWaveguide.RectangularWaveguide.open" title="skrf.media.rectangularWaveguide.RectangularWaveguide.open"><code class="xref py py-obj docutils literal notranslate"><span class="pre">open</span></code></a></p></td>
+<td><p>Open (<span class="math notranslate nohighlight">\(\Gamma_0 = 1\)</span>).</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="skrf.media.rectangularWaveguide.RectangularWaveguide.plot.html#skrf.media.rectangularWaveguide.RectangularWaveguide.plot" title="skrf.media.rectangularWaveguide.RectangularWaveguide.plot"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="skrf.media.rectangularWaveguide.RectangularWaveguide.random.html#skrf.media.rectangularWaveguide.RectangularWaveguide.random" title="skrf.media.rectangularWaveguide.RectangularWaveguide.random"><code class="xref py py-obj docutils literal notranslate"><span class="pre">random</span></code></a></p></td>
+<td><p>Complex random network.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="skrf.media.rectangularWaveguide.RectangularWaveguide.resistor.html#skrf.media.rectangularWaveguide.RectangularWaveguide.resistor" title="skrf.media.rectangularWaveguide.RectangularWaveguide.resistor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">resistor</span></code></a></p></td>
+<td><p>Resistor.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="skrf.media.rectangularWaveguide.RectangularWaveguide.short.html#skrf.media.rectangularWaveguide.RectangularWaveguide.short" title="skrf.media.rectangularWaveguide.RectangularWaveguide.short"><code class="xref py py-obj docutils literal notranslate"><span class="pre">short</span></code></a></p></td>
+<td><p>Short (<span class="math notranslate nohighlight">\(\Gamma_0 = -1\)</span>)</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="skrf.media.rectangularWaveguide.RectangularWaveguide.shunt.html#skrf.media.rectangularWaveguide.RectangularWaveguide.shunt" title="skrf.media.rectangularWaveguide.RectangularWaveguide.shunt"><code class="xref py py-obj docutils literal notranslate"><span class="pre">shunt</span></code></a></p></td>
+<td><p>Shunts a <a class="reference internal" href="../../generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><code class="xref py py-class docutils literal notranslate"><span class="pre">Network</span></code></a>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="skrf.media.rectangularWaveguide.RectangularWaveguide.shunt_capacitor.html#skrf.media.rectangularWaveguide.RectangularWaveguide.shunt_capacitor" title="skrf.media.rectangularWaveguide.RectangularWaveguide.shunt_capacitor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">shunt_capacitor</span></code></a></p></td>
+<td><p>Shunted capacitor.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="skrf.media.rectangularWaveguide.RectangularWaveguide.shunt_delay_load.html#skrf.media.rectangularWaveguide.RectangularWaveguide.shunt_delay_load" title="skrf.media.rectangularWaveguide.RectangularWaveguide.shunt_delay_load"><code class="xref py py-obj docutils literal notranslate"><span class="pre">shunt_delay_load</span></code></a></p></td>
+<td><p>Shunted delayed load.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="skrf.media.rectangularWaveguide.RectangularWaveguide.shunt_delay_open.html#skrf.media.rectangularWaveguide.RectangularWaveguide.shunt_delay_open" title="skrf.media.rectangularWaveguide.RectangularWaveguide.shunt_delay_open"><code class="xref py py-obj docutils literal notranslate"><span class="pre">shunt_delay_open</span></code></a></p></td>
+<td><p>Shunted delayed open.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="skrf.media.rectangularWaveguide.RectangularWaveguide.shunt_delay_short.html#skrf.media.rectangularWaveguide.RectangularWaveguide.shunt_delay_short" title="skrf.media.rectangularWaveguide.RectangularWaveguide.shunt_delay_short"><code class="xref py py-obj docutils literal notranslate"><span class="pre">shunt_delay_short</span></code></a></p></td>
+<td><p>Shunted delayed short.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="skrf.media.rectangularWaveguide.RectangularWaveguide.shunt_inductor.html#skrf.media.rectangularWaveguide.RectangularWaveguide.shunt_inductor" title="skrf.media.rectangularWaveguide.RectangularWaveguide.shunt_inductor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">shunt_inductor</span></code></a></p></td>
+<td><p>Shunted inductor.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="skrf.media.rectangularWaveguide.RectangularWaveguide.shunt_resistor.html#skrf.media.rectangularWaveguide.RectangularWaveguide.shunt_resistor" title="skrf.media.rectangularWaveguide.RectangularWaveguide.shunt_resistor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">shunt_resistor</span></code></a></p></td>
+<td><p>Shunted resistor.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="skrf.media.rectangularWaveguide.RectangularWaveguide.splitter.html#skrf.media.rectangularWaveguide.RectangularWaveguide.splitter" title="skrf.media.rectangularWaveguide.RectangularWaveguide.splitter"><code class="xref py py-obj docutils literal notranslate"><span class="pre">splitter</span></code></a></p></td>
+<td><p>Ideal, lossless n-way splitter.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="skrf.media.rectangularWaveguide.RectangularWaveguide.tee.html#skrf.media.rectangularWaveguide.RectangularWaveguide.tee" title="skrf.media.rectangularWaveguide.RectangularWaveguide.tee"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tee</span></code></a></p></td>
+<td><p>Ideal, lossless tee.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="skrf.media.rectangularWaveguide.RectangularWaveguide.theta_2_d.html#skrf.media.rectangularWaveguide.RectangularWaveguide.theta_2_d" title="skrf.media.rectangularWaveguide.RectangularWaveguide.theta_2_d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">theta_2_d</span></code></a></p></td>
+<td><p>Convert electrical length to physical distance.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="skrf.media.rectangularWaveguide.RectangularWaveguide.thru.html#skrf.media.rectangularWaveguide.RectangularWaveguide.thru" title="skrf.media.rectangularWaveguide.RectangularWaveguide.thru"><code class="xref py py-obj docutils literal notranslate"><span class="pre">thru</span></code></a></p></td>
+<td><p>Matched transmission line of length 0.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="skrf.media.rectangularWaveguide.RectangularWaveguide.to_meters.html#skrf.media.rectangularWaveguide.RectangularWaveguide.to_meters" title="skrf.media.rectangularWaveguide.RectangularWaveguide.to_meters"><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_meters</span></code></a></p></td>
+<td><p>Translate various units of distance into meters.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="skrf.media.rectangularWaveguide.RectangularWaveguide.white_gaussian_polar.html#skrf.media.rectangularWaveguide.RectangularWaveguide.white_gaussian_polar" title="skrf.media.rectangularWaveguide.RectangularWaveguide.white_gaussian_polar"><code class="xref py py-obj docutils literal notranslate"><span class="pre">white_gaussian_polar</span></code></a></p></td>
+<td><p>Complex zero-mean gaussian white-noise network.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="skrf.media.rectangularWaveguide.RectangularWaveguide.write_csv.html#skrf.media.rectangularWaveguide.RectangularWaveguide.write_csv" title="skrf.media.rectangularWaveguide.RectangularWaveguide.write_csv"><code class="xref py py-obj docutils literal notranslate"><span class="pre">write_csv</span></code></a></p></td>
+<td><p>write this media's frequency, gamma, Z0, and z0 to a csv file.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+
+        </article><button class="back-to-top" type="button">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+  </svg>
+  <span>Back to top</span>
+</button><div class="navigation flex print:hidden"><div class="navigation-prev">
+    <a href="skrf.media.distributedCircuit.DistributedCircuit.write_csv.html">
+      <i class="i-lucide chevron-left"></i>
+      <div class="page-info">
+        <span>Previous</span><div class="title">skrf.media.distributedCircuit.DistributedCircuit.write_csv</div></div>
+    </a>
+  </div><div class="navigation-next">
+    <a href="skrf.media.rectangularWaveguide.RectangularWaveguide.Z0.html">
+      <div class="page-info">
+        <span>Next</span>
+        <div class="title">skrf.media.rectangularWaveguide.RectangularWaveguide.Z0</div>
+      </div>
+      <i class="i-lucide chevron-right"></i>
+    </a>
+  </div></div></div>
+    </div>
+  </main>
+</div>
+<footer class="sy-foot">
+  <div class="sy-foot-inner sy-container mx-auto">
+    <div class="sy-foot-reserved md:flex justify-between items-center">
+      <div class="sy-foot-copyright"><p>2025, scikit-rf team</p>
+  
+  <p>
+    Made with
+    
+    <a href="https://www.sphinx-doc.org/">Sphinx</a> and
+    
+    <a href="https://shibuya.lepture.com">Shibuya theme</a>.
+  </p>
+</div>
+      <div class="sy-foot-socials">
+  <a href="https://github.com/scikit-rf/scikit-rf" aria-label="GitHub">
+    <iconify-icon icon="simple-icons:github"></iconify-icon>
+  </a></div>
+    </div>
+  </div>
+</footer>
+      <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../../_static/copybutton.js?v=34bd459d"></script>
+      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+      <script src="../../../_static/shibuya.js?v=50760d75"></script>
+      <script src="https://cdn.jsdelivr.net/npm/@jupyter-widgets/html-manager@^1.0.1/dist/embed-amd.js"></script>
+      <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
+      <script src="../../../_static/skrf.js?v=bdeb9fb0"></script></body>
+</html>

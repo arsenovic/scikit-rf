@@ -1,0 +1,6 @@
+﻿skrf.data.open\_2p
+==================
+
+.. currentmodule:: skrf.data
+
+.. autodata:: open_2p

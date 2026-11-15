@@ -1,0 +1,6 @@
+skrf.media.media.Media.capacitor\_q
+===================================
+
+.. currentmodule:: skrf.media.media
+
+.. automethod:: Media.capacitor_q

@@ -1,0 +1,6 @@
+skrf.calibration.calibration.TUGMultilineTRL.lambd
+==================================================
+
+.. currentmodule:: skrf.calibration.calibration
+
+.. autoproperty:: TUGMultilineTRL.lambd

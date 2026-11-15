@@ -1,0 +1,6 @@
+skrf.network.Network.g\_vswr
+============================
+
+.. currentmodule:: skrf.network
+
+.. autoproperty:: Network.g_vswr

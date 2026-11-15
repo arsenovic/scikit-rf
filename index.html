@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en" data-accent-color="blue" data-content_root="./">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>scikit-rf</title><link rel="author" title="About these documents" href="about.html" /><link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Installation" href="tutorials/Installation.html" /><script>
+    function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
+    setColorMode(localStorage._theme||"auto");
+  </script><link rel="stylesheet" type="text/css" href="_static/pygments.css?v=ad592e98" />
+    <link rel="stylesheet" type="text/css" href="_static/shibuya.css?v=2ceb65ce" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-codeautolink.css?v=b2176991" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link media="print" rel="stylesheet" type="text/css" href="_static/print.css?v=20ff2c19" />
+    <link rel="stylesheet" type="text/css" href="_static/nbsphinx-gallery.css?v=26227f6e" />
+    <link rel="stylesheet" type="text/css" href="_static/skrf.css?v=7e772ba2" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --sy-f-text: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+  --sy-f-heading: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+}
+</style>
+    
+  <meta property="og:type" content="website"/><meta property="og:title" content="scikit-rf — Object Oriented RF Engineering"/>
+    <meta name="twitter:card" content="summary"/>
+  </head>
+<body><div class="sy-head">
+  <div class="sy-head-blur"></div>
+  <div class="sy-head-inner sy-container mx-auto">
+    <a class="sy-head-brand" href="#">
+      <img class="light-logo" src="_static/logo.svg" alt="scikit-rf" height="28" loading="lazy" />
+      <img class="dark-logo" src="_static/logo.svg" alt="scikit-rf" height="28" loading="lazy" />
+      <strong>scikit-rf</strong>
+    </a>
+    <div class="sy-head-nav" id="head-nav">
+      <nav class="sy-head-links"><ul><li class="link"><a href="#">Home</a></li><li class="link"><a href="tutorials/index.html">Tutorials</a></li><li class="link"><a href="examples/index.html">Examples</a></li><li class="link"><a href="api/index.html">API</a></li><li class="link">
+          <a href="https://github.com/scikit-rf/scikit-rf">
+            <span>GitHub</span><i class="i-lucide external-link"></i></a>
+        </li></ul></nav>
+      <div class="sy-head-extra flex items-center print:hidden"><form class="searchbox flex items-center" action="search.html" method="get">
+  <input type="text" name="q" placeholder="Search" />
+  <kbd>/</kbd>
+</form><div class="sy-head-socials">
+  <a href="https://github.com/scikit-rf/scikit-rf" aria-label="GitHub">
+    <iconify-icon icon="simple-icons:github"></iconify-icon>
+  </a>
+  <a href="https://www.linkedin.com/groups/12462155/" aria-label="LinkedIn">
+    <iconify-icon icon="simple-icons:linkedin"></iconify-icon>
+  </a>
+  <a href="https://app.element.io/#/room/#scikit-rf:matrix.org" aria-label="Matrix">
+    <iconify-icon icon="simple-icons:matrix"></iconify-icon>
+  </a></div></div>
+    </div>
+    <div class="sy-head-actions flex items-center shrink-0 print:hidden"><button class="js-theme theme-switch flex items-center"
+data-aria-auto="Switch to light color mode"
+data-aria-light="Switch to dark color mode"
+data-aria-dark="Switch to auto color mode">
+<i class="i-lucide theme-icon"></i>
+</button><button class="md:hidden flex items-center js-menu" aria-label="Menu" type="button" aria-controls="head-nav" aria-expanded="false">
+        <div class="hamburger">
+          <span class="hamburger_1"></span>
+          <span class="hamburger_2"></span>
+          <span class="hamburger_3"></span>
+        </div>
+      </button>
+    </div>
+  </div>
+</div>
+<div class="sy-page sy-container flex mx-auto">
+  <aside id="lside" class="sy-lside md:w-72 md:shrink-0 print:hidden">
+    <div class="sy-lside-inner md:sticky">
+      <div class="sy-scrollbar p-6">
+        <div class="globaltoc" data-expand-depth="0"><p class="caption" role="heading" aria-level="3"><span class="caption-text">Getting started</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/Installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/Introduction.html">Introduction</a></li>
+</ul>
+<p class="caption" role="heading" aria-level="3"><span class="caption-text">User guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples/index.html">Examples</a></li>
+</ul>
+<p class="caption" role="heading" aria-level="3"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="api/index.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="glossary.html">Glossary</a></li>
+</ul>
+<p class="caption" role="heading" aria-level="3"><span class="caption-text">Project</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="contributing/index.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="citations_ack/acknowledging.html">Citing scikit-rf</a></li>
+<li class="toctree-l1"><a class="reference internal" href="citations_ack/citations.html">scikit-rf Citations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="about.html">About</a></li>
+<li class="toctree-l1"><a class="reference internal" href="users.html">Users</a></li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
+</ul>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="lside-overlay js-menu" role="button" aria-label="Close left sidebar" aria-controls="lside" aria-expanded="false"></div>
+  <aside id="rside" class="sy-rside pb-3 w-64 shrink-0 order-last">
+    <button class="rside-close js-menu xl:hidden" aria-label="Close Table of Contents" type="button" aria-controls="rside" aria-expanded="false">
+      <i class="i-lucide close"></i>
+    </button>
+    <div class="sy-scrollbar sy-rside-inner px-6 xl:top-16 xl:sticky xl:pl-0 pt-6 pb-4"><div class="localtoc"><h3>On this page</h3><ul>
+<li><a class="reference internal" href="#getting-started">Getting Started</a></li>
+<li><a class="reference internal" href="#some-examples"><span class="xref std std-doc">Some Examples</span></a></li>
+<li><a class="reference internal" href="#features">Features</a></li>
+<li><a class="reference internal" href="#questions-or-comments-ask-the-community">Questions or comments? Ask the Community</a><ul>
+</ul>
+</li>
+</ul>
+</div><div id="ethical-ad-placement" data-ea-publisher="readthedocs"></div></div>
+  </aside>
+  <div class="rside-overlay js-menu" role="button" aria-label="Close Table of Contents" aria-controls="rside" aria-expanded="false"></div>
+  <main class="sy-main w-full max-sm:max-w-full print:pt-6">
+<div class="sy-breadcrumbs" role="navigation">
+  <div class="sy-breadcrumbs-inner flex items-center">
+    <div class="md:hidden mr-3">
+      <button class="js-menu" aria-label="Menu" type="button" aria-controls="lside" aria-expanded="false">
+        <i class="i-lucide menu"></i>
+      </button>
+    </div>
+    <ol class="flex-1" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="#"><span itemprop="name">scikit-rf</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="1" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <strong itemprop="name">scikit-rf <em>— Object Oriented RF Engineering</em></strong>
+        <meta itemprop="position" content="2" />
+      </li></ol>
+    <div class="xl:hidden ml-1">
+      <button class="js-menu" aria-label="Show table of contents" type="button" aria-controls="rside"
+        aria-expanded="false">
+        <i class="i-lucide outdent"></i>
+      </button>
+    </div>
+  </div>
+</div><div class="flex flex-col break-words justify-between">
+      <div class="relative min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
+  <article class="yue" role="main">
+          <section id="scikit-rf-object-oriented-rf-engineering">
+<span id="home"></span><h1>scikit-rf <em>— Object Oriented RF Engineering</em><a class="headerlink" href="#scikit-rf-object-oriented-rf-engineering" title="Link to this heading">#</a></h1>
+<img alt="scikit-rf: Object Oriented RF Engineering" class="sk-title sk-light-only" src="_images/scikit-rf-title-flat.svg"/>
+<img alt="scikit-rf: Object Oriented RF Engineering" class="sk-title sk-dark-only" src="_images/scikit-rf-title-flat_dark.svg"/>
+<p><strong>scikit-rf</strong> (aka <cite>skrf</cite>) is an Open Source, BSD-licensed package for RF/Microwave engineering implemented
+in the Python programming language. It provides a modern, object-oriented library for network analysis and
+calibration which is both flexible and scalable.</p>
+<section id="getting-started">
+<h2>Getting Started<a class="headerlink" href="#getting-started" title="Link to this heading">#</a></h2>
+<div class="sk-side-by-side docutils container">
+<div class="docutils container">
+<p>Plot touchstone data on a smith chart, in <strong>3 lines</strong>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="kn">import</span><span class="w"> </span><span class="nn">skrf</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">rf</span>
+</span><span data-line="2"><a class="sphinx-codeautolink-a" href="api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">ntwk</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">rf</span><span class="o">.</span><span class="n">Network</span></a><span class="p">(</span><span class="s1">'ring slot.s2p'</span><span class="p">)</span>
+</span><span data-line="3"><a class="sphinx-codeautolink-a" href="api/generated/skrf.network.Network.plot_s_smith.html#skrf.network.Network.plot_s_smith" title="skrf.network.Network.plot_s_smith"><span class="n">ntwk</span><span class="o">.</span><span class="n">plot_s_smith</span></a><span class="p">()</span>
+</span></pre></div>
+</div>
+<p>Install it from <a class="reference external" href="https://pypi.org/project/scikit-rf/">pip</a> or <a class="reference external" href="https://anaconda.org/conda-forge/scikit-rf">conda-forge</a>,
+as described in <a class="reference internal" href="tutorials/Installation.html"><span class="doc">Installation</span></a>.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span data-line="1">python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>scikit-rf
+</span><span data-line="2">conda<span class="w"> </span>install<span class="w"> </span>-c<span class="w"> </span>conda-forge<span class="w"> </span>scikit-rf
+</span></pre></div>
+</div>
+</div>
+<img alt="S-parameters of the ring slot on a Smith chart" src="_images/smith_chart.svg"/>
+</div>
+</section>
+<section id="some-examples">
+<h2><a class="reference internal" href="examples/index.html"><span class="doc">Some Examples</span></a><a class="headerlink" href="#some-examples" title="Link to this heading">#</a></h2>
+<div class="toctree-wrapper compound">
+<div class="nbsphinx-gallery">
+<a class="reference internal" href="examples/plotting/Modeling%20RG-58.html">
+<div><img alt="" src="./_images/examples_plotting_Modeling_RG-58_2_5.png"/></div>
+<div>Properties of RG-58</div>
+</a>
+<a class="reference internal" href="examples/metrology/Multiline%20TRL.html">
+<div><img alt="" src="./_images/examples_metrology_Multiline_TRL_42_0.png"/></div>
+<div>Multiline TRL</div>
+</a>
+<a class="reference internal" href="examples/vectorfitting/vectorfitting_ex1_ringslot.html">
+<div><img alt="" src="./_images/examples_vectorfitting_vectorfitting_ex1_ringslot_12_0.png"/></div>
+<div>Ex1: Ring Slot</div>
+</a>
+<a class="reference internal" href="examples/circuit/Wilkinson%20Power%20Splitter.html">
+<div><img alt="" src="./_images/examples_circuit_Wilkinson_Power_Splitter_16_1.png"/></div>
+<div>Wilkinson Power Divider</div>
+</a>
+<a class="reference internal" href="examples/matching/Impedance%20Matching.html">
+<div><img alt="" src="./_images/examples_matching_Impedance_Matching_21_0.png"/></div>
+<div>Impedance Matching</div>
+</a>
+<a class="reference internal" href="examples/networktheory/Time%20Domain.html">
+<div><img alt="" src="./_images/examples_networktheory_Time_Domain_32_0.png"/></div>
+<div>Time Domain and Gating</div>
+</a>
+<a class="reference internal" href="examples/networktheory/Renormalizing%20S-parameters.html">
+<div><img alt="" src="./_images/examples_networktheory_Renormalizing_S-parameters_16_0.png"/></div>
+<div>Renormalizing S-parameters</div>
+</a>
+<a class="reference internal" href="examples/networktheory/Properties%20of%20Rectangular%20Waveguides.html">
+<div><img alt="" src="./_images/examples_networktheory_Properties_of_Rectangular_Waveguides_14_1.png"/></div>
+<div>Properties of Rectangular Waveguide</div>
+</a>
+</div>
+</div>
+</section>
+<section id="features">
+<h2>Features<a class="headerlink" href="#features" title="Link to this heading">#</a></h2>
+<ul class="sk-features simple">
+<li><p>Microwave Network Operations:</p>
+<ul>
+<li><p>Read/Write touchstone (.s2p, s?p) files</p></li>
+<li><p>Arithmetic operations on scattering parameters</p></li>
+<li><p>Cascade/De-embed 2-port networks</p></li>
+<li><p>Frequency and port slicing and concatenation.</p></li>
+<li><p>Connect n-port networks</p></li>
+<li><p>s/z/y/abcd/t - parameter conversion</p></li>
+</ul>
+</li>
+<li><p>Plotting abilities:</p>
+<ul>
+<li><p>Rectangular Plots (dB, mag, Phase, group delay)</p></li>
+<li><p>Smith Chart</p></li>
+<li><p>Automated Uncertainty bounds</p></li>
+</ul>
+</li>
+<li><p>Metrology and Offline Calibration:</p>
+<ul>
+<li><p>One-Port: SOL, Least Squares, SDDL</p></li>
+<li><p>Two-Port: TRL, Multiline TRL, SOLT, Unknown Thru, 8/16-Term</p></li>
+<li><p>Partial : Enhanced Response, One-Port Two-Path</p></li>
+</ul>
+</li>
+<li><p>Sets of Networks:</p>
+<ul>
+<li><p>Statistical properties of NetworkSets</p></li>
+<li><p>Methods to sort and visualize set behavior</p></li>
+</ul>
+</li>
+<li><p>Circuit builder</p></li>
+<li><p>Transmission Line Physics:</p>
+<ul>
+<li><p>Coax, CPW, Freespace, RectangularWaveguide, DistributedCircuit</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="questions-or-comments-ask-the-community">
+<h2>Questions or comments? Ask the Community<a class="headerlink" href="#questions-or-comments-ask-the-community" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://www.linkedin.com/groups/12462155/">LinkedIn scikit-rf Users Group</a>: User group to ask and answer questions and to received scikit-rf announcements.</p></li>
+<li><p>Chat: scikit-rf has a channel on <a class="reference external" href="https://app.element.io/#/room/#scikit-rf:matrix.org">Matrix</a></p></li>
+<li><p><a class="reference external" href="https://docs.google.com/forms/d/e/1FAIpQLSfkSNy8KzoHwdDxYGCmHHiA3GsHgN6zKTFI2NrcUR29U7Xx6A/viewform?usp=sf_link">Suggestion box</a>: if you would like to suggest a feature/topic for consideration (optionally anonymous).</p></li>
+</ul>
+<p>If you use scikit-rf, see <a class="reference internal" href="citations_ack/acknowledging.html"><span class="doc">Acknowledging or Citing scikit-rf</span></a>.</p>
+<div class="toctree-wrapper compound">
+</div>
+<div class="toctree-wrapper compound">
+</div>
+<div class="toctree-wrapper compound">
+</div>
+<div class="toctree-wrapper compound">
+</div>
+</section>
+</section>
+
+        </article><button class="back-to-top" type="button">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+  </svg>
+  <span>Back to top</span>
+</button><div class="navigation flex print:hidden"><div class="navigation-next">
+    <a href="tutorials/Installation.html">
+      <div class="page-info">
+        <span>Next</span>
+        <div class="title">Installation</div>
+      </div>
+      <i class="i-lucide chevron-right"></i>
+    </a>
+  </div></div></div>
+    </div>
+  </main>
+</div>
+<footer class="sy-foot">
+  <div class="sy-foot-inner sy-container mx-auto">
+    <div class="sy-foot-reserved md:flex justify-between items-center">
+      <div class="sy-foot-copyright"><p>2025, scikit-rf team</p>
+  
+  <p>
+    Made with
+    
+    <a href="https://www.sphinx-doc.org/">Sphinx</a> and
+    
+    <a href="https://shibuya.lepture.com">Shibuya theme</a>.
+  </p>
+</div>
+      <div class="sy-foot-socials">
+  <a href="https://github.com/scikit-rf/scikit-rf" aria-label="GitHub">
+    <iconify-icon icon="simple-icons:github"></iconify-icon>
+  </a></div>
+    </div>
+  </div>
+</footer>
+      <script src="_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="_static/copybutton.js?v=34bd459d"></script>
+      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+      <script src="_static/shibuya.js?v=50760d75"></script>
+      <script src="https://cdn.jsdelivr.net/npm/@jupyter-widgets/html-manager@^1.0.1/dist/embed-amd.js"></script>
+      <script src="_static/skrf.js?v=bdeb9fb0"></script></body>
+</html>

@@ -1,0 +1,6 @@
+skrf.vectorFitting.VectorFitting.get\_model\_order
+==================================================
+
+.. currentmodule:: skrf.vectorFitting
+
+.. automethod:: VectorFitting.get_model_order

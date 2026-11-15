@@ -1,0 +1,6 @@
+skrf.calibration.calibration.TUGMultilineTRL.remove\_and\_cal
+=============================================================
+
+.. currentmodule:: skrf.calibration.calibration
+
+.. automethod:: TUGMultilineTRL.remove_and_cal

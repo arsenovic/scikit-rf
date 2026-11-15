@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en" data-accent-color="blue" data-content_root="../../">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>How does the SWR vary along a line? - scikit-rf</title><link rel="author" title="About these documents" href="../../about.html" /><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="Working with Complex Characteristic Impedance" href="Working%20with%20Complex%20Characteristic%20Impedances.html" /><link rel="prev" title="Modeling Transmission Line Properties" href="Transmission%20Line%20Properties%20and%20Manipulations.html" /><script>
+    function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
+    setColorMode(localStorage._theme||"auto");
+  </script><link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=ad592e98" />
+    <link rel="stylesheet" type="text/css" href="../../_static/shibuya.css?v=2ceb65ce" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-codeautolink.css?v=b2176991" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link media="print" rel="stylesheet" type="text/css" href="../../_static/print.css?v=20ff2c19" />
+    <link rel="stylesheet" type="text/css" href="../../_static/nbsphinx-code-cells.css?v=2aa19091" />
+    <link rel="stylesheet" type="text/css" href="../../_static/skrf.css?v=7e772ba2" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --sy-f-text: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+  --sy-f-heading: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+}
+</style>
+    
+  <meta property="og:type" content="website"/><meta property="og:title" content="How does the SWR vary along a line?"/>
+    <meta name="twitter:card" content="summary"/>
+  </head>
+<body><div class="sy-head">
+  <div class="sy-head-blur"></div>
+  <div class="sy-head-inner sy-container mx-auto">
+    <a class="sy-head-brand" href="../../index.html">
+      <img class="light-logo" src="../../_static/logo.svg" alt="scikit-rf" height="28" loading="lazy" />
+      <img class="dark-logo" src="../../_static/logo.svg" alt="scikit-rf" height="28" loading="lazy" />
+      <strong>scikit-rf</strong>
+    </a>
+    <div class="sy-head-nav" id="head-nav">
+      <nav class="sy-head-links"><ul><li class="link"><a href="../../index.html">Home</a></li><li class="link"><a href="../../tutorials/index.html">Tutorials</a></li><li class="link"><a href="../index.html">Examples</a></li><li class="link"><a href="../../api/index.html">API</a></li><li class="link">
+          <a href="https://github.com/scikit-rf/scikit-rf">
+            <span>GitHub</span><i class="i-lucide external-link"></i></a>
+        </li></ul></nav>
+      <div class="sy-head-extra flex items-center print:hidden"><form class="searchbox flex items-center" action="../../search.html" method="get">
+  <input type="text" name="q" placeholder="Search" />
+  <kbd>/</kbd>
+</form><div class="sy-head-socials">
+  <a href="https://github.com/scikit-rf/scikit-rf" aria-label="GitHub">
+    <iconify-icon icon="simple-icons:github"></iconify-icon>
+  </a>
+  <a href="https://www.linkedin.com/groups/12462155/" aria-label="LinkedIn">
+    <iconify-icon icon="simple-icons:linkedin"></iconify-icon>
+  </a>
+  <a href="https://app.element.io/#/room/#scikit-rf:matrix.org" aria-label="Matrix">
+    <iconify-icon icon="simple-icons:matrix"></iconify-icon>
+  </a></div></div>
+    </div>
+    <div class="sy-head-actions flex items-center shrink-0 print:hidden"><button class="js-theme theme-switch flex items-center"
+data-aria-auto="Switch to light color mode"
+data-aria-light="Switch to dark color mode"
+data-aria-dark="Switch to auto color mode">
+<i class="i-lucide theme-icon"></i>
+</button><button class="md:hidden flex items-center js-menu" aria-label="Menu" type="button" aria-controls="head-nav" aria-expanded="false">
+        <div class="hamburger">
+          <span class="hamburger_1"></span>
+          <span class="hamburger_2"></span>
+          <span class="hamburger_3"></span>
+        </div>
+      </button>
+    </div>
+  </div>
+</div>
+<div class="sy-page sy-container flex mx-auto">
+  <aside id="lside" class="sy-lside md:w-72 md:shrink-0 print:hidden">
+    <div class="sy-lside-inner md:sticky">
+      <div class="sy-scrollbar p-6">
+        <div class="globaltoc" data-expand-depth="0"><p class="caption" role="heading" aria-level="3"><span class="caption-text">Getting started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../index.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/Installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/Introduction.html">Introduction</a></li>
+</ul>
+<p class="caption" role="heading" aria-level="3"><span class="caption-text">User guide</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Examples</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Network Theory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../matching/index.html">Matching</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../metrology/index.html">Metrology and Calibration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../networksets/index.html">NetworkSets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../plotting/index.html">Plotting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../circuit/index.html">Circuit</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mixedmodeanalysis/index.html">Mixed Mode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../vectorfitting/index.html">Vector Fitting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../vectorfitting_parametric/index.html">Parametric Vector Fitting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../qfactor/index.html">Q-factor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../taper/index.html">Taper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../instrumentcontrol/index.html">Instrument Control</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../interactive/index.html">Interactive</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading" aria-level="3"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../api/index.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../glossary.html">Glossary</a></li>
+</ul>
+<p class="caption" role="heading" aria-level="3"><span class="caption-text">Project</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing/index.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../citations_ack/acknowledging.html">Citing scikit-rf</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../citations_ack/citations.html">scikit-rf Citations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../about.html">About</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../users.html">Users</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../license.html">License</a></li>
+</ul>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="lside-overlay js-menu" role="button" aria-label="Close left sidebar" aria-controls="lside" aria-expanded="false"></div>
+  <aside id="rside" class="sy-rside pb-3 w-64 shrink-0 order-last">
+    <button class="rside-close js-menu xl:hidden" aria-label="Close Table of Contents" type="button" aria-controls="rside" aria-expanded="false">
+      <i class="i-lucide close"></i>
+    </button>
+    <div class="sy-scrollbar sy-rside-inner px-6 xl:top-16 xl:sticky xl:pl-0 pt-6 pb-4"><div class="localtoc"><h3>On this page</h3><ul>
+<li><a class="reference internal" href="#Lossless-lines">Lossless lines</a></li>
+<li><a class="reference internal" href="#Lossy-Lines">Lossy Lines</a></li>
+</ul>
+</div><div id="ethical-ad-placement" data-ea-publisher="readthedocs"></div></div>
+  </aside>
+  <div class="rside-overlay js-menu" role="button" aria-label="Close Table of Contents" aria-controls="rside" aria-expanded="false"></div>
+  <main class="sy-main w-full max-sm:max-w-full print:pt-6">
+<div class="sy-breadcrumbs" role="navigation">
+  <div class="sy-breadcrumbs-inner flex items-center">
+    <div class="md:hidden mr-3">
+      <button class="js-menu" aria-label="Menu" type="button" aria-controls="lside" aria-expanded="false">
+        <i class="i-lucide menu"></i>
+      </button>
+    </div>
+    <ol class="flex-1" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="../../index.html"><span itemprop="name">scikit-rf</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="1" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="../index.html"><span itemprop="name">Examples</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="2" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="index.html"><span itemprop="name">Network Theory</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="3" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <strong itemprop="name">How does the SWR vary along a line?</strong>
+        <meta itemprop="position" content="4" />
+      </li></ol>
+    <a class="sk-download" href="Transmission%20Lines%20and%20SWR.ipynb" download>Download</a>
+    <div class="xl:hidden ml-1">
+      <button class="js-menu" aria-label="Show table of contents" type="button" aria-controls="rside"
+        aria-expanded="false">
+        <i class="i-lucide outdent"></i>
+      </button>
+    </div>
+  </div>
+</div><div class="flex flex-col break-words justify-between">
+      <div class="relative min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
+  <article class="yue" role="main">
+          <section id="How-does-the-SWR-vary-along-a-line?">
+<h1>How does the SWR vary along a line?<a class="headerlink" href="#How-does-the-SWR-vary-along-a-line?" title="Link to this heading">#</a></h1>
+<p>Let’s assume a 10 MHz source powering an antenna (of load <span class="math notranslate nohighlight">\(Z_L\)</span>) through a transmission line of length <span class="math notranslate nohighlight">\(L\)</span>. Depending on the location of the SWR-meter, what does one would read?</p>
+<p>This notebook is inspired from the reference: <a class="reference external" href="https://www.fars.k6ya.org/docs/Facts-about-SWR-and-Loss.pdf">“Facts About SWR, Reflected Power, and Power Transfer on Real Transmission Lines with Loss”</a> by Steve Stearns given at ARRL Pacificon Antenna Seminar in 2010.</p>
+<p><img alt="6d94364a135e4c4b82f0e5dee15975e5" src="../../_images/Impedance_matching_4.svg"/></p>
+<p>Let solve this question using <code class="docutils literal notranslate"><span class="pre">scikit-rf</span></code>. But first, the traditional Python imports:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[1]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="o">%</span><span class="k">matplotlib</span> inline
+</span></pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[2]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+</span><span data-line="2"><span class="kn">import</span><span class="w"> </span><a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/index.html#module-numpy"><span class="nn">numpy</span></a><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+</span><span data-line="3">
+</span><span data-line="4"><span class="kn">import</span><span class="w"> </span><span class="nn">skrf</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">rf</span>
+</span><span data-line="5"><span class="kn">from</span><span class="w"> </span><a class="sphinx-codeautolink-a" href="../../api/constants.html#module-skrf.constants"><span class="nn">skrf.constants</span></a><span class="w"> </span><span class="kn">import</span> <a class="sphinx-codeautolink-a" href="../../api/constants.html#skrf.constants.c" title="skrf.constants.c"><span class="n">c</span></a>
+</span><span data-line="6"><span class="kn">from</span><span class="w"> </span><a class="sphinx-codeautolink-a" href="../../api/tlineFunctions.html#module-0"><span class="nn">skrf.tlineFunctions</span></a><span class="w"> </span><span class="kn">import</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.tlineFunctions.voltage_current_propagation.html#skrf.tlineFunctions.voltage_current_propagation" title="skrf.tlineFunctions.voltage_current_propagation"><span class="n">voltage_current_propagation</span></a><span class="p">,</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.tlineFunctions.zl_2_swr.html#skrf.tlineFunctions.zl_2_swr" title="skrf.tlineFunctions.zl_2_swr"><span class="n">zl_2_swr</span></a><span class="p">,</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.tlineFunctions.zl_2_zin.html#skrf.tlineFunctions.zl_2_zin" title="skrf.tlineFunctions.zl_2_zin"><span class="n">zl_2_zin</span></a>
+</span><br/></pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[3]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.plotting.stylely.html#skrf.plotting.stylely" title="skrf.plotting.stylely"><span class="n">rf</span><span class="o">.</span><span class="n">stylely</span></a><span class="p">()</span>
+</span></pre></div>
+</div>
+</div>
+<section id="Lossless-lines">
+<h2>Lossless lines<a class="headerlink" href="#Lossless-lines" title="Link to this heading">#</a></h2>
+<p>Let’s start with a lossless line of propagation constant <span class="math notranslate nohighlight">\(\gamma=j\beta\)</span> and characteristic impedance <span class="math notranslate nohighlight">\(z_0=50\Omega\)</span> (real).</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[4]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.frequency.Frequency.html#skrf.frequency.Frequency" title="skrf.frequency.Frequency"><span class="n">freq</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.frequency.Frequency.html#skrf.frequency.Frequency" title="skrf.frequency.Frequency"><span class="n">rf</span><span class="o">.</span><span class="n">Frequency</span></a><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s1">'MHz'</span><span class="p">,</span> <span class="n">npoints</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[5]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="c1"># load and line properties</span>
+</span><span data-line="2"><span class="n">Z_L</span> <span class="o">=</span> <span class="mi">75</span>  <span class="c1"># Ohm</span>
+</span><span data-line="3"><span class="n">Z_0</span> <span class="o">=</span> <span class="mi">50</span>  <span class="c1"># Ohm</span>
+</span><span data-line="4"><span class="n">L</span> <span class="o">=</span> <span class="mi">50</span>  <span class="c1"># m</span>
+</span><span data-line="5">
+</span><span data-line="6"><span class="c1"># propagation constant</span>
+</span><span data-line="7"><span class="n">beta</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.frequency.Frequency.w.html#skrf.frequency.Frequency.w" title="skrf.frequency.Frequency.w"><span class="n">freq</span><span class="o">.</span><span class="n">w</span></a><span class="o">/</span><a class="sphinx-codeautolink-a" href="../../api/constants.html#skrf.constants.c" title="skrf.constants.c"><span class="n">c</span></a>
+</span><span data-line="8"><span class="n">gamma</span> <span class="o">=</span> <span class="mi">1</span><span class="n">j</span><span class="o">*</span><span class="n">beta</span>
+</span></pre></div>
+</div>
+</div>
+<p>Below we calculate the SWR of the line as a function of <span class="math notranslate nohighlight">\(z\)</span> the line length measured from the load (<span class="math notranslate nohighlight">\(z=0\)</span> at the load, <span class="math notranslate nohighlight">\(z=L\)</span> at the source).</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[6]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">z</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/generated/numpy.linspace.html#numpy.linspace" title="numpy.linspace"><span class="n">np</span><span class="o">.</span><span class="n">linspace</span></a><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="n">L</span><span class="p">,</span> <span class="n">stop</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">num</span><span class="o">=</span><span class="mi">301</span><span class="p">)</span>
+</span><span data-line="2"><span class="n">SWRs</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.tlineFunctions.zl_2_swr.html#skrf.tlineFunctions.zl_2_swr" title="skrf.tlineFunctions.zl_2_swr"><span class="n">zl_2_swr</span></a><span class="p">(</span><span class="n">z0</span><span class="o">=</span><span class="n">Z_0</span><span class="p">,</span> <span class="n">zl</span><span class="o">=</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.tlineFunctions.zl_2_zin.html#skrf.tlineFunctions.zl_2_zin" title="skrf.tlineFunctions.zl_2_zin"><span class="n">zl_2_zin</span></a><span class="p">(</span><span class="n">Z_0</span><span class="p">,</span> <span class="n">Z_L</span><span class="p">,</span> <span class="n">gamma</span><span class="o">*</span><span class="n">z</span><span class="p">))</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[7]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+</span><span data-line="2"><span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">z</span><span class="p">,</span> <span class="n">SWRs</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+</span><span data-line="3"><span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">'z [m]'</span><span class="p">)</span>
+</span><span data-line="4"><span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">'SWR'</span><span class="p">)</span>
+</span><span data-line="5"><span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">'SWR along the (lossless) line'</span><span class="p">)</span>
+</span><span data-line="6"><span class="n">ax</span><span class="o">.</span><span class="n">invert_xaxis</span><span class="p">()</span>
+</span><span data-line="7"><span class="n">ax</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">'k'</span><span class="p">)</span>
+</span><span data-line="8"><span class="n">ax</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">L</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">'k'</span><span class="p">)</span>
+</span><span data-line="9"><span class="n">ax</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="s1">'Load'</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">1.55</span><span class="p">),</span> <span class="n">xytext</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mf">1.575</span><span class="p">),</span>
+</span><span data-line="10">            <span class="n">arrowprops</span><span class="o">=</span><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/builtins/stdtypes.html#dict"><span class="nb">dict</span></a><span class="p">(</span><span class="n">facecolor</span><span class="o">=</span><span class="s1">'black'</span><span class="p">,</span> <span class="n">shrink</span><span class="o">=</span><span class="mf">0.05</span><span class="p">),</span>
+</span><span data-line="11">            <span class="p">)</span>
+</span><span data-line="12"><span class="n">ax</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="s1">'Source'</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mf">1.55</span><span class="p">),</span> <span class="n">xytext</span><span class="o">=</span><span class="p">(</span><span class="mi">40</span><span class="p">,</span> <span class="mf">1.575</span><span class="p">),</span>
+</span><span data-line="13">            <span class="n">arrowprops</span><span class="o">=</span><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/builtins/stdtypes.html#dict"><span class="nb">dict</span></a><span class="p">(</span><span class="n">facecolor</span><span class="o">=</span><span class="s1">'black'</span><span class="p">,</span> <span class="n">shrink</span><span class="o">=</span><span class="mf">0.05</span><span class="p">),</span>
+</span><span data-line="14">            <span class="p">)</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[7]:
+</span></pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Text(40, 1.575, 'Source')
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/examples_networktheory_Transmission_Lines_and_SWR_10_1.png" src="../../_images/examples_networktheory_Transmission_Lines_and_SWR_10_1.png"/>
+</div>
+</div>
+<p>As expected, the SWR is the same everywhere along the line as the forward and backward wave amplitudes are also the same along the line.</p>
+</section>
+<section id="Lossy-Lines">
+<h2>Lossy Lines<a class="headerlink" href="#Lossy-Lines" title="Link to this heading">#</a></h2>
+<p>Let’s take the previous example but this time on a lossy line. The line is defined with a propagation constant <span class="math notranslate nohighlight">\(\gamma=\alpha + j\beta\)</span> :</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[8]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.01</span>  <span class="c1"># Np/m. Here a dummy value, just for the sake of the example</span>
+</span><span data-line="2"><span class="n">gamma</span> <span class="o">=</span> <span class="n">alpha</span> <span class="o">+</span> <span class="mi">1</span><span class="n">j</span><span class="o">*</span><span class="n">beta</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[9]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">z</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/generated/numpy.linspace.html#numpy.linspace" title="numpy.linspace"><span class="n">np</span><span class="o">.</span><span class="n">linspace</span></a><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">L</span><span class="p">,</span> <span class="n">num</span><span class="o">=</span><span class="mi">101</span><span class="p">)</span>
+</span><span data-line="2"><span class="n">SWRs</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.tlineFunctions.zl_2_swr.html#skrf.tlineFunctions.zl_2_swr" title="skrf.tlineFunctions.zl_2_swr"><span class="n">zl_2_swr</span></a><span class="p">(</span><span class="n">z0</span><span class="o">=</span><span class="n">Z_0</span><span class="p">,</span> <span class="n">zl</span><span class="o">=</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.tlineFunctions.zl_2_zin.html#skrf.tlineFunctions.zl_2_zin" title="skrf.tlineFunctions.zl_2_zin"><span class="n">zl_2_zin</span></a><span class="p">(</span><span class="n">Z_0</span><span class="p">,</span> <span class="n">Z_L</span><span class="p">,</span> <span class="n">gamma</span><span class="o">*</span><span class="n">z</span><span class="p">))</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[10]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+</span><span data-line="2"><span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">z</span><span class="p">,</span> <span class="n">SWRs</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+</span><span data-line="3"><span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">'z [m]'</span><span class="p">)</span>
+</span><span data-line="4"><span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">'SWR'</span><span class="p">)</span>
+</span><span data-line="5"><span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">'SWR along the (lossy) line'</span><span class="p">)</span>
+</span><span data-line="6"><span class="n">ax</span><span class="o">.</span><span class="n">invert_xaxis</span><span class="p">()</span>
+</span><span data-line="7"><span class="n">ax</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">'k'</span><span class="p">)</span>
+</span><span data-line="8"><span class="n">ax</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">L</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">'k'</span><span class="p">)</span>
+</span><span data-line="9"><span class="n">ax</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="s1">'Load'</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">1.15</span><span class="p">),</span> <span class="n">xytext</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mf">1.2</span><span class="p">),</span>
+</span><span data-line="10">            <span class="n">arrowprops</span><span class="o">=</span><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/builtins/stdtypes.html#dict"><span class="nb">dict</span></a><span class="p">(</span><span class="n">facecolor</span><span class="o">=</span><span class="s1">'black'</span><span class="p">,</span> <span class="n">shrink</span><span class="o">=</span><span class="mf">0.05</span><span class="p">),</span>
+</span><span data-line="11">            <span class="p">)</span>
+</span><span data-line="12"><span class="n">ax</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="s1">'Source'</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mf">1.4</span><span class="p">),</span> <span class="n">xytext</span><span class="o">=</span><span class="p">(</span><span class="mi">40</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">),</span>
+</span><span data-line="13">            <span class="n">arrowprops</span><span class="o">=</span><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/builtins/stdtypes.html#dict"><span class="nb">dict</span></a><span class="p">(</span><span class="n">facecolor</span><span class="o">=</span><span class="s1">'black'</span><span class="p">,</span> <span class="n">shrink</span><span class="o">=</span><span class="mf">0.05</span><span class="p">),</span>
+</span><span data-line="14">            <span class="p">)</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[10]:
+</span></pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Text(40, 1.5, 'Source')
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/examples_networktheory_Transmission_Lines_and_SWR_15_1.png" src="../../_images/examples_networktheory_Transmission_Lines_and_SWR_15_1.png"/>
+</div>
+</div>
+<p>For a lossy line, the SWR is maximum at the load and decreases to be minimum at the source side.</p>
+<p>Let’s see how the impedance varies along the line:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[11]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">Zins</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.tlineFunctions.zl_2_zin.html#skrf.tlineFunctions.zl_2_zin" title="skrf.tlineFunctions.zl_2_zin"><span class="n">zl_2_zin</span></a><span class="p">(</span><span class="n">Z_0</span><span class="p">,</span> <span class="n">Z_L</span><span class="p">,</span> <span class="n">gamma</span><span class="o">*</span><span class="n">z</span><span class="p">)</span>
+</span><span data-line="2">
+</span><span data-line="3"><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+</span><span data-line="4"><span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">z</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">Zins</span><span class="o">/</span><span class="n">Z_0</span><span class="p">),</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">'$Z/z_0$'</span><span class="p">)</span>
+</span><span data-line="5"><span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">z</span><span class="p">,</span> <span class="n">SWRs</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">'--'</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">'$SWR$'</span><span class="p">)</span>
+</span><span data-line="6"><span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">z</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="n">SWRs</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">'--'</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">'$1/SWR$'</span><span class="p">)</span>
+</span><span data-line="7">
+</span><span data-line="8"><span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">'z [m]'</span><span class="p">)</span>
+</span><span data-line="9"><span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">'Z (normalized to $z_0$)'</span><span class="p">)</span>
+</span><span data-line="10"><span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">'Impedance along the line'</span><span class="p">)</span>
+</span><span data-line="11"><span class="n">ax</span><span class="o">.</span><span class="n">invert_xaxis</span><span class="p">()</span>
+</span><span data-line="12"><span class="n">ax</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">'k'</span><span class="p">)</span>
+</span><span data-line="13"><span class="n">ax</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">L</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">'k'</span><span class="p">)</span>
+</span><span data-line="14"><span class="n">ax</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="s1">'Load'</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">1.2</span><span class="p">),</span> <span class="n">xytext</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mf">1.275</span><span class="p">),</span>
+</span><span data-line="15">            <span class="n">arrowprops</span><span class="o">=</span><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/builtins/stdtypes.html#dict"><span class="nb">dict</span></a><span class="p">(</span><span class="n">facecolor</span><span class="o">=</span><span class="s1">'black'</span><span class="p">,</span> <span class="n">shrink</span><span class="o">=</span><span class="mf">0.05</span><span class="p">),</span>
+</span><span data-line="16">            <span class="p">)</span>
+</span><span data-line="17"><span class="n">ax</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="s1">'Source'</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mf">0.6</span><span class="p">),</span> <span class="n">xytext</span><span class="o">=</span><span class="p">(</span><span class="mi">40</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">),</span>
+</span><span data-line="18">            <span class="n">arrowprops</span><span class="o">=</span><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/builtins/stdtypes.html#dict"><span class="nb">dict</span></a><span class="p">(</span><span class="n">facecolor</span><span class="o">=</span><span class="s1">'black'</span><span class="p">,</span> <span class="n">shrink</span><span class="o">=</span><span class="mf">0.05</span><span class="p">),</span>
+</span><span data-line="19">            <span class="p">)</span>
+</span><span data-line="20"><span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[11]:
+</span></pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;matplotlib.legend.Legend at 0x71fe10309c10&gt;
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/examples_networktheory_Transmission_Lines_and_SWR_17_1.png" src="../../_images/examples_networktheory_Transmission_Lines_and_SWR_17_1.png"/>
+</div>
+</div>
+<p>The previous result is due to the fact that voltages and currents vary along the transmission line:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[12]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">V_s</span> <span class="o">=</span> <span class="mi">1</span>
+</span><span data-line="2"><span class="n">Z_in</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.tlineFunctions.zl_2_zin.html#skrf.tlineFunctions.zl_2_zin" title="skrf.tlineFunctions.zl_2_zin"><span class="n">zl_2_zin</span></a><span class="p">(</span><span class="n">Z_0</span><span class="p">,</span> <span class="n">Z_L</span><span class="p">,</span> <span class="n">gamma</span><span class="o">*</span><span class="n">z</span><span class="p">)</span>
+</span><span data-line="3"><span class="c1"># Z_s = Z_0</span>
+</span><span data-line="4"><span class="n">V_in</span> <span class="o">=</span> <span class="n">V_s</span> <span class="o">*</span> <span class="n">Z_in</span><span class="o">/</span><span class="p">(</span><span class="n">Z_0</span> <span class="o">+</span> <span class="n">Z_in</span><span class="p">)</span>
+</span><span data-line="5"><span class="n">I_in</span> <span class="o">=</span> <span class="n">V_in</span><span class="o">/</span><span class="p">(</span><span class="n">Z_0</span> <span class="o">+</span> <span class="n">Z_in</span><span class="p">)</span>
+</span><span data-line="6"><span class="c1"># note that here we are going from source to load</span>
+</span><span data-line="7"><span class="n">V</span><span class="p">,</span> <span class="n">I</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.tlineFunctions.voltage_current_propagation.html#skrf.tlineFunctions.voltage_current_propagation" title="skrf.tlineFunctions.voltage_current_propagation"><span class="n">voltage_current_propagation</span></a><span class="p">(</span><span class="n">V_in</span><span class="p">,</span> <span class="n">I_in</span><span class="p">,</span> <span class="n">Z_0</span><span class="p">,</span> <span class="n">gamma</span><span class="o">*</span><span class="n">z</span><span class="p">)</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[13]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span><span data-line="2"><span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">z</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">V</span><span class="p">),</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+</span><span data-line="3"><span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">z</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">I</span><span class="p">),</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">'C1'</span><span class="p">)</span>
+</span><span data-line="4"><span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">'z [m]'</span><span class="p">)</span>
+</span><span data-line="5"><span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">'|V| (V)'</span><span class="p">)</span>
+</span><span data-line="6"><span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">'|I| (A)'</span><span class="p">)</span>
+</span><span data-line="7"><span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">'Voltage'</span><span class="p">)</span>
+</span><span data-line="8"><span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">'Current'</span><span class="p">)</span>
+</span><span data-line="9"><span class="p">[</span><span class="n">a</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">'k'</span><span class="p">)</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">ax</span><span class="p">]</span>
+</span><span data-line="10"><span class="p">[</span><span class="n">a</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">L</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">'k'</span><span class="p">)</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">ax</span><span class="p">]</span>
+</span><span data-line="11"><span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="s1">'Load'</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mf">0.0075</span><span class="p">),</span> <span class="n">xytext</span><span class="o">=</span><span class="p">(</span><span class="mi">40</span><span class="p">,</span> <span class="mf">0.0075</span><span class="p">),</span>
+</span><span data-line="12">            <span class="n">arrowprops</span><span class="o">=</span><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/builtins/stdtypes.html#dict"><span class="nb">dict</span></a><span class="p">(</span><span class="n">facecolor</span><span class="o">=</span><span class="s1">'black'</span><span class="p">,</span> <span class="n">shrink</span><span class="o">=</span><span class="mf">0.05</span><span class="p">))</span>
+</span><span data-line="13"><span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="s1">'Source'</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.001</span><span class="p">),</span> <span class="n">xytext</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mf">0.001</span><span class="p">),</span>
+</span><span data-line="14">            <span class="n">arrowprops</span><span class="o">=</span><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/builtins/stdtypes.html#dict"><span class="nb">dict</span></a><span class="p">(</span><span class="n">facecolor</span><span class="o">=</span><span class="s1">'black'</span><span class="p">,</span> <span class="n">shrink</span><span class="o">=</span><span class="mf">0.05</span><span class="p">))</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[13]:
+</span></pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Text(10, 0.001, 'Source')
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/examples_networktheory_Transmission_Lines_and_SWR_20_1.png" src="../../_images/examples_networktheory_Transmission_Lines_and_SWR_20_1.png"/>
+</div>
+</div>
+</section>
+</section>
+
+        </article><button class="back-to-top" type="button">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+  </svg>
+  <span>Back to top</span>
+</button><div class="navigation flex print:hidden"><div class="navigation-prev">
+    <a href="Transmission%20Line%20Properties%20and%20Manipulations.html">
+      <i class="i-lucide chevron-left"></i>
+      <div class="page-info">
+        <span>Previous</span><div class="title">Modeling Transmission Line Properties</div></div>
+    </a>
+  </div><div class="navigation-next">
+    <a href="Working%20with%20Complex%20Characteristic%20Impedances.html">
+      <div class="page-info">
+        <span>Next</span>
+        <div class="title">Working with Complex Characteristic Impedance</div>
+      </div>
+      <i class="i-lucide chevron-right"></i>
+    </a>
+  </div></div></div>
+    </div>
+  </main>
+</div>
+<footer class="sy-foot">
+  <div class="sy-foot-inner sy-container mx-auto">
+    <div class="sy-foot-reserved md:flex justify-between items-center">
+      <div class="sy-foot-copyright"><p>2025, scikit-rf team</p>
+  
+  <p>
+    Made with
+    
+    <a href="https://www.sphinx-doc.org/">Sphinx</a> and
+    
+    <a href="https://shibuya.lepture.com">Shibuya theme</a>.
+  </p>
+</div>
+      <div class="sy-foot-socials">
+  <a href="https://github.com/scikit-rf/scikit-rf" aria-label="GitHub">
+    <iconify-icon icon="simple-icons:github"></iconify-icon>
+  </a></div>
+    </div>
+  </div>
+</footer>
+      <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../_static/copybutton.js?v=34bd459d"></script>
+      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+      <script src="../../_static/shibuya.js?v=50760d75"></script>
+      <script src="https://cdn.jsdelivr.net/npm/@jupyter-widgets/html-manager@^1.0.1/dist/embed-amd.js"></script>
+      <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
+      <script src="../../_static/skrf.js?v=bdeb9fb0"></script></body>
+</html>

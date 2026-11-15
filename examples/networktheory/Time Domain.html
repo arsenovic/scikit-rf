@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en" data-accent-color="blue" data-content_root="../../">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Time Domain and Gating - scikit-rf</title><link rel="author" title="About these documents" href="../../about.html" /><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="Time domain reflectometry, measurement vs simulation" href="Time%20domain%20reflectometry%2C%20measurement%20vs%20simulation.html" /><link rel="prev" title="Renormalizing S-parameters" href="Renormalizing%20S-parameters.html" /><script>
+    function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
+    setColorMode(localStorage._theme||"auto");
+  </script><link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=ad592e98" />
+    <link rel="stylesheet" type="text/css" href="../../_static/shibuya.css?v=2ceb65ce" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-codeautolink.css?v=b2176991" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link media="print" rel="stylesheet" type="text/css" href="../../_static/print.css?v=20ff2c19" />
+    <link rel="stylesheet" type="text/css" href="../../_static/nbsphinx-code-cells.css?v=2aa19091" />
+    <link rel="stylesheet" type="text/css" href="../../_static/skrf.css?v=7e772ba2" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --sy-f-text: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+  --sy-f-heading: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+}
+</style>
+    
+  <meta property="og:type" content="website"/><meta property="og:title" content="Time Domain and Gating"/>
+    <meta name="twitter:card" content="summary"/>
+  </head>
+<body><div class="sy-head">
+  <div class="sy-head-blur"></div>
+  <div class="sy-head-inner sy-container mx-auto">
+    <a class="sy-head-brand" href="../../index.html">
+      <img class="light-logo" src="../../_static/logo.svg" alt="scikit-rf" height="28" loading="lazy" />
+      <img class="dark-logo" src="../../_static/logo.svg" alt="scikit-rf" height="28" loading="lazy" />
+      <strong>scikit-rf</strong>
+    </a>
+    <div class="sy-head-nav" id="head-nav">
+      <nav class="sy-head-links"><ul><li class="link"><a href="../../index.html">Home</a></li><li class="link"><a href="../../tutorials/index.html">Tutorials</a></li><li class="link"><a href="../index.html">Examples</a></li><li class="link"><a href="../../api/index.html">API</a></li><li class="link">
+          <a href="https://github.com/scikit-rf/scikit-rf">
+            <span>GitHub</span><i class="i-lucide external-link"></i></a>
+        </li></ul></nav>
+      <div class="sy-head-extra flex items-center print:hidden"><form class="searchbox flex items-center" action="../../search.html" method="get">
+  <input type="text" name="q" placeholder="Search" />
+  <kbd>/</kbd>
+</form><div class="sy-head-socials">
+  <a href="https://github.com/scikit-rf/scikit-rf" aria-label="GitHub">
+    <iconify-icon icon="simple-icons:github"></iconify-icon>
+  </a>
+  <a href="https://www.linkedin.com/groups/12462155/" aria-label="LinkedIn">
+    <iconify-icon icon="simple-icons:linkedin"></iconify-icon>
+  </a>
+  <a href="https://app.element.io/#/room/#scikit-rf:matrix.org" aria-label="Matrix">
+    <iconify-icon icon="simple-icons:matrix"></iconify-icon>
+  </a></div></div>
+    </div>
+    <div class="sy-head-actions flex items-center shrink-0 print:hidden"><button class="js-theme theme-switch flex items-center"
+data-aria-auto="Switch to light color mode"
+data-aria-light="Switch to dark color mode"
+data-aria-dark="Switch to auto color mode">
+<i class="i-lucide theme-icon"></i>
+</button><button class="md:hidden flex items-center js-menu" aria-label="Menu" type="button" aria-controls="head-nav" aria-expanded="false">
+        <div class="hamburger">
+          <span class="hamburger_1"></span>
+          <span class="hamburger_2"></span>
+          <span class="hamburger_3"></span>
+        </div>
+      </button>
+    </div>
+  </div>
+</div>
+<div class="sy-page sy-container flex mx-auto">
+  <aside id="lside" class="sy-lside md:w-72 md:shrink-0 print:hidden">
+    <div class="sy-lside-inner md:sticky">
+      <div class="sy-scrollbar p-6">
+        <div class="globaltoc" data-expand-depth="0"><p class="caption" role="heading" aria-level="3"><span class="caption-text">Getting started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../index.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/Installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/Introduction.html">Introduction</a></li>
+</ul>
+<p class="caption" role="heading" aria-level="3"><span class="caption-text">User guide</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Examples</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Network Theory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../matching/index.html">Matching</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../metrology/index.html">Metrology and Calibration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../networksets/index.html">NetworkSets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../plotting/index.html">Plotting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../circuit/index.html">Circuit</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mixedmodeanalysis/index.html">Mixed Mode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../vectorfitting/index.html">Vector Fitting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../vectorfitting_parametric/index.html">Parametric Vector Fitting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../qfactor/index.html">Q-factor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../taper/index.html">Taper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../instrumentcontrol/index.html">Instrument Control</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../interactive/index.html">Interactive</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading" aria-level="3"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../api/index.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../glossary.html">Glossary</a></li>
+</ul>
+<p class="caption" role="heading" aria-level="3"><span class="caption-text">Project</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing/index.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../citations_ack/acknowledging.html">Citing scikit-rf</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../citations_ack/citations.html">scikit-rf Citations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../about.html">About</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../users.html">Users</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../license.html">License</a></li>
+</ul>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="lside-overlay js-menu" role="button" aria-label="Close left sidebar" aria-controls="lside" aria-expanded="false"></div>
+  <aside id="rside" class="sy-rside pb-3 w-64 shrink-0 order-last">
+    <button class="rside-close js-menu xl:hidden" aria-label="Close Table of Contents" type="button" aria-controls="rside" aria-expanded="false">
+      <i class="i-lucide close"></i>
+    </button>
+    <div class="sy-scrollbar sy-rside-inner px-6 xl:top-16 xl:sticky xl:pl-0 pt-6 pb-4"><div class="localtoc"><h3>On this page</h3><ul>
+<li><a class="reference internal" href="#Intro">Intro</a></li>
+<li><a class="reference internal" href="#Quick-Example">Quick Example</a></li>
+<li><a class="reference internal" href="#Interpreting-Time-Domain">Interpreting Time Domain</a></li>
+<li><a class="reference internal" href="#Gating-The-Reflection-of-Interest">Gating The Reflection of Interest</a><ul>
+<li><a class="reference internal" href="#Auto-gate">Auto-gate</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#Determining-Distance">Determining Distance</a></li>
+<li><a class="reference internal" href="#What-the-hell-is-Windowing?">What the hell is Windowing?</a></li>
+</ul>
+</div><div id="ethical-ad-placement" data-ea-publisher="readthedocs"></div></div>
+  </aside>
+  <div class="rside-overlay js-menu" role="button" aria-label="Close Table of Contents" aria-controls="rside" aria-expanded="false"></div>
+  <main class="sy-main w-full max-sm:max-w-full print:pt-6">
+<div class="sy-breadcrumbs" role="navigation">
+  <div class="sy-breadcrumbs-inner flex items-center">
+    <div class="md:hidden mr-3">
+      <button class="js-menu" aria-label="Menu" type="button" aria-controls="lside" aria-expanded="false">
+        <i class="i-lucide menu"></i>
+      </button>
+    </div>
+    <ol class="flex-1" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="../../index.html"><span itemprop="name">scikit-rf</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="1" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="../index.html"><span itemprop="name">Examples</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="2" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="index.html"><span itemprop="name">Network Theory</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="3" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <strong itemprop="name">Time Domain and Gating</strong>
+        <meta itemprop="position" content="4" />
+      </li></ol>
+    <a class="sk-download" href="Time%20Domain.ipynb" download>Download</a>
+    <div class="xl:hidden ml-1">
+      <button class="js-menu" aria-label="Show table of contents" type="button" aria-controls="rside"
+        aria-expanded="false">
+        <i class="i-lucide outdent"></i>
+      </button>
+    </div>
+  </div>
+</div><div class="flex flex-col break-words justify-between">
+      <div class="relative min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
+  <article class="yue" role="main">
+          <section id="Time-Domain-and-Gating">
+<h1>Time Domain and Gating<a class="headerlink" href="#Time-Domain-and-Gating" title="Link to this heading">#</a></h1>
+<section id="Intro">
+<h2>Intro<a class="headerlink" href="#Intro" title="Link to this heading">#</a></h2>
+<p>This notebooks demonstrates how to use <a class="reference external" href="http://scikit-rf.org">scikit-rf</a> for time-domain analysis and gating. A quick example is given first, followed by a more detailed explanation.</p>
+<p>S-parameters are measured in the frequency domain, but can be analyzed in time domain if you like. In many cases, measurements are not made down to DC. This implies that the time-domain transform is not complete, but it can be very useful nonetheless. A major application of time-domain analysis is to use <em>gating</em> to isolate a single response in space. More information about the details of time domain analysis see [1].</p>
+<p>References</p>
+<ul class="simple">
+<li><p>[1] Keysight - Time Domain Analysis Using a Network Analyzer - Application Note <a class="reference external" href="https://www.keysight.com/us/en/assets/7018-01451/application-notes/5989-5723.pdf">pdf</a></p></li>
+</ul>
+</section>
+<section id="Quick-Example">
+<h2>Quick Example<a class="headerlink" href="#Quick-Example" title="Link to this heading">#</a></h2>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[1]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+</span><span data-line="2">
+</span><span data-line="3"><span class="kn">import</span><span class="w"> </span><span class="nn">skrf</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">rf</span>
+</span><span data-line="4">
+</span><span data-line="5"><span class="o">%</span><span class="k">matplotlib</span> inline
+</span><span data-line="6"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.plotting.stylely.html#skrf.plotting.stylely" title="skrf.plotting.stylely"><span class="n">rf</span><span class="o">.</span><span class="n">stylely</span></a><span class="p">()</span>
+</span><span data-line="7">
+</span><span data-line="8"><span class="c1"># load data for the waveguide to CPW probe</span>
+</span><span data-line="9"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">probe</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">rf</span><span class="o">.</span><span class="n">Network</span></a><span class="p">(</span><span class="s1">'../metrology/oneport_tiered_calibration/probe.s2p'</span><span class="p">)</span>
+</span><span data-line="10">
+</span><span data-line="11"><span class="c1"># we will focus on s11</span>
+</span><span data-line="12"><span class="n">s11</span> <span class="o">=</span> <span class="n">probe</span><span class="o">.</span><span class="n">s11</span>
+</span><span data-line="13">
+</span><span data-line="14"><span class="c1">#  time-gate the first largest reflection</span>
+</span><span data-line="15"><span class="n">s11_gated</span> <span class="o">=</span> <span class="n">s11</span><span class="o">.</span><span class="n">time_gate</span><span class="p">(</span><span class="n">center</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">span</span><span class="o">=</span><span class="mf">.2</span><span class="p">,</span> <span class="n">t_unit</span><span class="o">=</span><span class="s1">'ns'</span><span class="p">)</span>
+</span><span data-line="16"><span class="n">s11_gated</span><span class="o">.</span><span class="n">name</span><span class="o">=</span><span class="s1">'gated probe'</span>
+</span><span data-line="17">
+</span><span data-line="18"><span class="c1"># plot frequency and time-domain s-parameters</span>
+</span><span data-line="19"><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">4</span><span class="p">))</span>
+</span><span data-line="20"><span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">121</span><span class="p">)</span>
+</span><span data-line="21"><span class="n">s11</span><span class="o">.</span><span class="n">plot_s_db</span><span class="p">()</span>
+</span><span data-line="22"><span class="n">s11_gated</span><span class="o">.</span><span class="n">plot_s_db</span><span class="p">()</span>
+</span><span data-line="23"><span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">'Frequency Domain'</span><span class="p">)</span>
+</span><span data-line="24">
+</span><span data-line="25"><span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">122</span><span class="p">)</span>
+</span><span data-line="26"><span class="n">s11</span><span class="o">.</span><span class="n">plot_s_db_time</span><span class="p">()</span>
+</span><span data-line="27"><span class="n">s11_gated</span><span class="o">.</span><span class="n">plot_s_db_time</span><span class="p">()</span>
+</span><span data-line="28"><span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">'Time Domain'</span><span class="p">)</span>
+</span><span data-line="29"><span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/examples_networktheory_Time_Domain_4_0.png" src="../../_images/examples_networktheory_Time_Domain_4_0.png"/>
+</div>
+</div>
+</section>
+<section id="Interpreting-Time-Domain">
+<h2>Interpreting Time Domain<a class="headerlink" href="#Interpreting-Time-Domain" title="Link to this heading">#</a></h2>
+<p>Out DUT in this example is a waveguide-to-CPW probe, that was measured in <a class="reference internal" href="../metrology/One%20Port%20Tiered%20Calibration.html"><span class="doc">this other example</span></a>.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[2]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="c1"># load data for the waveguide to CPW probe</span>
+</span><span data-line="2"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">probe</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">rf</span><span class="o">.</span><span class="n">Network</span></a><span class="p">(</span><span class="s1">'../metrology/oneport_tiered_calibration/probe.s2p'</span><span class="p">)</span>
+</span><span data-line="3"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">probe</span></a>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[2]:
+</span></pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+2-Port Network: 'probe',  500.0-750.0 GHz, 401 pts, z0=[50.+0.j 50.+0.j]
+</pre></div></div>
+</div>
+<p>Note there are two time-domain plotting functions in scikit-rf:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Network.plot_s_db_time()</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Network.plot_s_time_db()</span></code></p></li>
+</ul>
+<p>The difference is that the former, <code class="docutils literal notranslate"><span class="pre">plot_s_db_time()</span></code>, employs windowing before plotting to enhance impulse resolution. Windowing will be discussed in a bit, but for now we just use <code class="docutils literal notranslate"><span class="pre">plot_s_db_time()</span></code>.</p>
+<p>Plotting all four s-parameters of the probe in both frequency and time-domain.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[3]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="c1"># plot frequency and time-domain s-parameters</span>
+</span><span data-line="2"><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">4</span><span class="p">))</span>
+</span><span data-line="3"><span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">121</span><span class="p">)</span>
+</span><span data-line="4"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.plot_s_db.html#skrf.network.Network.plot_s_db" title="skrf.network.Network.plot_s_db"><span class="n">probe</span><span class="o">.</span><span class="n">plot_s_db</span></a><span class="p">()</span>
+</span><span data-line="5"><span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">'Frequency Domain'</span><span class="p">)</span>
+</span><span data-line="6"><span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">122</span><span class="p">)</span>
+</span><span data-line="7"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.plot_s_db_time.html#skrf.network.Network.plot_s_db_time" title="skrf.network.Network.plot_s_db_time"><span class="n">probe</span><span class="o">.</span><span class="n">plot_s_db_time</span></a><span class="p">()</span>
+</span><span data-line="8"><span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">'Time Domain'</span><span class="p">)</span>
+</span><span data-line="9"><span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/examples_networktheory_Time_Domain_9_0.png" src="../../_images/examples_networktheory_Time_Domain_9_0.png"/>
+</div>
+</div>
+<p>Focusing on the reflection coefficient from the waveguide port (s11), you can see there is an interference pattern present.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[4]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.plot_s_db.html#skrf.network.Network.plot_s_db" title="skrf.network.Network.plot_s_db"><span class="n">probe</span><span class="o">.</span><span class="n">plot_s_db</span></a><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+</span><span data-line="2"><span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">'Reflection Coefficient From </span><span class="se">\n</span><span class="s1">Waveguide Port'</span><span class="p">)</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[4]:
+</span></pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Text(0.5, 1.0, 'Reflection Coefficient From \nWaveguide Port')
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/examples_networktheory_Time_Domain_11_1.png" src="../../_images/examples_networktheory_Time_Domain_11_1.png"/>
+</div>
+</div>
+<p>This ripple is evidence of several discrete reflections. Plotting s11 in the time-domain allows us to see where, or <em>when</em>, these reflections occur.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[5]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">probe_s11</span> <span class="o">=</span> <span class="n">probe</span><span class="o">.</span><span class="n">s11</span>
+</span><span data-line="2"><span class="n">probe_s11</span><span class="o">.</span><span class="n">plot_s_db_time</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+</span><span data-line="3"><span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">'Reflection Coefficient From </span><span class="se">\n</span><span class="s1">Waveguide Port, Time Domain'</span><span class="p">)</span>
+</span><span data-line="4"><span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="o">-</span><span class="mi">100</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[5]:
+</span></pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+(-100.0, 0.0)
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/examples_networktheory_Time_Domain_13_1.png" src="../../_images/examples_networktheory_Time_Domain_13_1.png"/>
+</div>
+</div>
+<p>From this plot we can see two dominant reflections;</p>
+<ul class="simple">
+<li><p>one at <span class="math notranslate nohighlight">\(t=0\)</span>ns (the test-port)</p></li>
+<li><p>and another at <span class="math notranslate nohighlight">\(t=.2\)</span> ns (who knows?).</p></li>
+</ul>
+</section>
+<section id="Gating-The-Reflection-of-Interest">
+<h2>Gating The Reflection of Interest<a class="headerlink" href="#Gating-The-Reflection-of-Interest" title="Link to this heading">#</a></h2>
+<p>To isolate the reflection from the waveguide port, we can use time-gating. This can be done by using the method <code class="docutils literal notranslate"><span class="pre">Network.time_gate()</span></code>, and provide it an appropriate center and span (in ns). To see the effects of the gate, both the original and gated response are compared.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[6]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">probe_s11_gated</span> <span class="o">=</span> <span class="n">probe_s11</span><span class="o">.</span><span class="n">time_gate</span><span class="p">(</span><span class="n">center</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">span</span><span class="o">=</span><span class="mf">.2</span><span class="p">,</span> <span class="n">t_unit</span><span class="o">=</span><span class="s1">'ns'</span><span class="p">)</span>
+</span><span data-line="2"><span class="n">probe_s11_gated</span><span class="o">.</span><span class="n">name</span><span class="o">=</span><span class="s1">'gated probe'</span>
+</span><span data-line="3">
+</span><span data-line="4"><span class="n">s11</span><span class="o">.</span><span class="n">plot_s_db_time</span><span class="p">()</span>
+</span><span data-line="5"><span class="n">s11_gated</span><span class="o">.</span><span class="n">plot_s_db_time</span><span class="p">()</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/examples_networktheory_Time_Domain_17_0.png" src="../../_images/examples_networktheory_Time_Domain_17_0.png"/>
+</div>
+</div>
+<p>Next, compare both responses in frequency domain to see the effect of the gate.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[7]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">s11</span><span class="o">.</span><span class="n">plot_s_db</span><span class="p">()</span>
+</span><span data-line="2"><span class="n">s11_gated</span><span class="o">.</span><span class="n">plot_s_db</span><span class="p">()</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/examples_networktheory_Time_Domain_19_0.png" src="../../_images/examples_networktheory_Time_Domain_19_0.png"/>
+</div>
+</div>
+<section id="Auto-gate">
+<h3>Auto-gate<a class="headerlink" href="#Auto-gate" title="Link to this heading">#</a></h3>
+<p>The time-gating method in <code class="docutils literal notranslate"><span class="pre">skrf</span></code> has an auto-gating feature which can also be used to gate the largest reflection. When no gate parameters are provided, <code class="docutils literal notranslate"><span class="pre">time_gate()</span></code> does the following:</p>
+<ol class="arabic simple">
+<li><p>find the two largest peaks</p></li>
+</ol>
+<ul class="simple">
+<li><p>center the gate on the tallest peak</p></li>
+<li><p>set span to distance between two tallest peaks</p></li>
+</ul>
+<p>You may want to plot the gated network in time-domain to see what the determined gate shape looks like.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[8]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">'Waveguide Interface of Probe'</span><span class="p">)</span>
+</span><span data-line="2"><span class="n">s11</span><span class="o">.</span><span class="n">plot_s_db</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s1">'original'</span><span class="p">)</span>
+</span><span data-line="3"><span class="n">s11</span><span class="o">.</span><span class="n">time_gate</span><span class="p">()</span><span class="o">.</span><span class="n">plot_s_db</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s1">'autogated'</span><span class="p">)</span> <span class="c1">#autogate on the fly</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/examples_networktheory_Time_Domain_21_0.png" src="../../_images/examples_networktheory_Time_Domain_21_0.png"/>
+</div>
+</div>
+<p>Might see how the autogate does on the other probe interface,</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[9]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">'Other Interface of Probe'</span><span class="p">)</span>
+</span><span data-line="2"><span class="n">probe</span><span class="o">.</span><span class="n">s22</span><span class="o">.</span><span class="n">plot_s_db</span><span class="p">()</span>
+</span><span data-line="3"><span class="n">probe</span><span class="o">.</span><span class="n">s22</span><span class="o">.</span><span class="n">time_gate</span><span class="p">()</span><span class="o">.</span><span class="n">plot_s_db</span><span class="p">()</span>
+</span><br/></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/examples_networktheory_Time_Domain_23_0.png" src="../../_images/examples_networktheory_Time_Domain_23_0.png"/>
+</div>
+</div>
+</section>
+</section>
+<section id="Determining-Distance">
+<h2>Determining Distance<a class="headerlink" href="#Determining-Distance" title="Link to this heading">#</a></h2>
+<p>To make time-domain useful as a diagnostic tool, one would like to convert the x-axis to distance. This requires knowledge of the propagation velocity in the device. <strong>skrf</strong> provides some transmission-line models in the module <a class="reference internal" href="../../api/media/index.html"><span class="doc">skrf.media</span></a>, which can be used for this.</p>
+<p><strong>However…</strong></p>
+<p>For dispersive media, such as rectangular waveguide, the phase velocity is a function of frequency, and transforming time to distance is not straightforward. As an approximation, you can normalize the x-axis to the speed of light.</p>
+<p>Alternatively, you can simulate the a known device and compare the two time domain responses. This allows you to attribute quantitative meaning to the axes. For example, you could create an ideal delayed load as shown below. Note: the magnitude of a response <em>behind</em> a large impulse doesn not have meaningful units.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[10]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="kn">from</span><span class="w"> </span><a class="sphinx-codeautolink-a" href="../../api/constants.html#module-skrf.constants"><span class="nn">skrf.constants</span></a><span class="w"> </span><span class="kn">import</span> <span class="n">mil</span>
+</span><span data-line="2"><span class="kn">from</span><span class="w"> </span><a class="sphinx-codeautolink-a" href="../../api/media/index.html#module-0"><span class="nn">skrf.media</span></a><span class="w"> </span><span class="kn">import</span> <a class="sphinx-codeautolink-a" href="../../api/media/generated/skrf.media.rectangularWaveguide.RectangularWaveguide.html#skrf.media.rectangularWaveguide.RectangularWaveguide" title="skrf.media.rectangularWaveguide.RectangularWaveguide"><span class="n">RectangularWaveguide</span></a>
+</span><span data-line="3">
+</span><span data-line="4"><span class="c1"># create a rectangular waveguide media to generate a theoretical network</span>
+</span><span data-line="5"><a class="sphinx-codeautolink-a" href="../../api/media/generated/skrf.media.rectangularWaveguide.RectangularWaveguide.html#skrf.media.rectangularWaveguide.RectangularWaveguide" title="skrf.media.rectangularWaveguide.RectangularWaveguide"><span class="n">wr1p5</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/media/generated/skrf.media.rectangularWaveguide.RectangularWaveguide.html#skrf.media.rectangularWaveguide.RectangularWaveguide" title="skrf.media.rectangularWaveguide.RectangularWaveguide"><span class="n">RectangularWaveguide</span></a><span class="p">(</span><span class="n">frequency</span><span class="o">=</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.frequency.html#skrf.network.Network.frequency" title="skrf.network.Network.frequency"><span class="n">probe</span><span class="o">.</span><span class="n">frequency</span></a><span class="p">,</span>
+</span><span data-line="6">                             <span class="n">a</span><span class="o">=</span><span class="mi">15</span><span class="o">*</span><span class="n">mil</span><span class="p">,</span><span class="n">z0_override</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</span><span data-line="7">
+</span><span data-line="8"><span class="c1"># create an ideal delayed load, parameters are adjusted until the</span>
+</span><span data-line="9"><span class="c1"># theoretical response agrees with the measurement</span>
+</span><span data-line="10"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">theory</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/media/generated/skrf.media.rectangularWaveguide.RectangularWaveguide.delay_load.html#skrf.media.rectangularWaveguide.RectangularWaveguide.delay_load" title="skrf.media.rectangularWaveguide.RectangularWaveguide.delay_load"><span class="n">wr1p5</span><span class="o">.</span><span class="n">delay_load</span></a><span class="p">(</span><span class="n">Gamma0</span><span class="o">=</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.mathFunctions.db_2_mag.html#skrf.mathFunctions.db_2_mag" title="skrf.mathFunctions.db_2_mag"><span class="n">rf</span><span class="o">.</span><span class="n">mathFunctions</span><span class="o">.</span><span class="n">db_2_mag</span></a><span class="p">(</span><span class="o">-</span><span class="mi">20</span><span class="p">),</span>
+</span><span data-line="11">                          <span class="n">d</span><span class="o">=</span><span class="mf">2.4</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s1">'cm'</span><span class="p">)</span>
+</span><span data-line="12">
+</span><span data-line="13">
+</span><span data-line="14"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.plot_s_db_time.html#skrf.network.Network.plot_s_db_time" title="skrf.network.Network.plot_s_db_time"><span class="n">probe</span><span class="o">.</span><span class="n">plot_s_db_time</span></a><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="s1">'Measurement'</span><span class="p">)</span>
+</span><span data-line="15"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.plot_s_db_time.html#skrf.network.Network.plot_s_db_time" title="skrf.network.Network.plot_s_db_time"><span class="n">theory</span><span class="o">.</span><span class="n">plot_s_db_time</span></a><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s1">'-20dB @ 2.4cm from test-port'</span><span class="p">)</span>
+</span><span data-line="16"><span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="o">-</span><span class="mi">100</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[10]:
+</span></pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+(-100.0, 0.0)
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/examples_networktheory_Time_Domain_26_1.png" src="../../_images/examples_networktheory_Time_Domain_26_1.png"/>
+</div>
+</div>
+<p>This plot demonstrates a few important points:</p>
+<ul class="simple">
+<li><p>the theoretical delayed load is not a perfect impulse in time. This is due to the dispersion in waveguide.</p></li>
+<li><p>the peak of the magnitude in time domain is not identical to that specified, also due to dispersion (and windowing).</p></li>
+</ul>
+</section>
+<section id="What-the-hell-is-Windowing?">
+<h2>What the hell is Windowing?<a class="headerlink" href="#What-the-hell-is-Windowing?" title="Link to this heading">#</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">'plot_s_db_time()'</span></code> function does a few things.</p>
+<ol class="arabic simple">
+<li><p>windows the s-parameters.</p></li>
+</ol>
+<ul class="simple">
+<li><p>converts to time domain</p></li>
+<li><p>takes magnitude component, convert to dB</p></li>
+<li><p>calculates time-axis s</p></li>
+<li><p>plots</p></li>
+</ul>
+<p>A word about step 1: <strong>windowing</strong>. A FFT represents a signal with a basis of periodic signals (sinusoids). If your frequency response is not periodic, which in general it isn’t, taking a FFT will introduces artifacts in the time-domain results. To minimize these effects, the frequency response is <em>windowed</em>. This makes the frequency response more periodic by tapering off the band-edges.</p>
+<p>Windowing is just applied to improve the plot appearance,d it does not affect the original network.</p>
+<p>In skrf this can be done explicitly using the <code class="docutils literal notranslate"><span class="pre">'windowed()'</span></code> function. By default this function uses the hamming window, but can be adjusted through arguments. The result of windowing is show below.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[11]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">probe_w</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.windowed.html#skrf.network.Network.windowed" title="skrf.network.Network.windowed"><span class="n">probe</span><span class="o">.</span><span class="n">windowed</span></a><span class="p">()</span>
+</span><span data-line="2"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.plot_s_db.html#skrf.network.Network.plot_s_db" title="skrf.network.Network.plot_s_db"><span class="n">probe</span><span class="o">.</span><span class="n">plot_s_db</span></a><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="s1">'Original'</span><span class="p">)</span>
+</span><span data-line="3"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.plot_s_db.html#skrf.network.Network.plot_s_db" title="skrf.network.Network.plot_s_db"><span class="n">probe_w</span><span class="o">.</span><span class="n">plot_s_db</span></a><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="s1">'Windowed'</span><span class="p">)</span>
+</span><br/></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/examples_networktheory_Time_Domain_30_0.png" src="../../_images/examples_networktheory_Time_Domain_30_0.png"/>
+</div>
+</div>
+<p>Comparing the two time-domain plotting functions, we can see the difference between windowed and not.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[12]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.plot_s_time_db.html#skrf.network.Network.plot_s_time_db" title="skrf.network.Network.plot_s_time_db"><span class="n">probe</span><span class="o">.</span><span class="n">plot_s_time_db</span></a><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="s1">'Original'</span><span class="p">)</span>
+</span><span data-line="2"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.plot_s_time_db.html#skrf.network.Network.plot_s_time_db" title="skrf.network.Network.plot_s_time_db"><span class="n">probe_w</span><span class="o">.</span><span class="n">plot_s_time_db</span></a><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="s1">'Windowed'</span><span class="p">)</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/examples_networktheory_Time_Domain_32_0.png" src="../../_images/examples_networktheory_Time_Domain_32_0.png"/>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[ ]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1">
+</span></pre></div>
+</div>
+</div>
+</section>
+</section>
+
+        </article><button class="back-to-top" type="button">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+  </svg>
+  <span>Back to top</span>
+</button><div class="navigation flex print:hidden"><div class="navigation-prev">
+    <a href="Renormalizing%20S-parameters.html">
+      <i class="i-lucide chevron-left"></i>
+      <div class="page-info">
+        <span>Previous</span><div class="title">Renormalizing S-parameters</div></div>
+    </a>
+  </div><div class="navigation-next">
+    <a href="Time%20domain%20reflectometry%2C%20measurement%20vs%20simulation.html">
+      <div class="page-info">
+        <span>Next</span>
+        <div class="title">Time domain reflectometry, measurement vs simulation</div>
+      </div>
+      <i class="i-lucide chevron-right"></i>
+    </a>
+  </div></div></div>
+    </div>
+  </main>
+</div>
+<footer class="sy-foot">
+  <div class="sy-foot-inner sy-container mx-auto">
+    <div class="sy-foot-reserved md:flex justify-between items-center">
+      <div class="sy-foot-copyright"><p>2025, scikit-rf team</p>
+  
+  <p>
+    Made with
+    
+    <a href="https://www.sphinx-doc.org/">Sphinx</a> and
+    
+    <a href="https://shibuya.lepture.com">Shibuya theme</a>.
+  </p>
+</div>
+      <div class="sy-foot-socials">
+  <a href="https://github.com/scikit-rf/scikit-rf" aria-label="GitHub">
+    <iconify-icon icon="simple-icons:github"></iconify-icon>
+  </a></div>
+    </div>
+  </div>
+</footer>
+      <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../_static/copybutton.js?v=34bd459d"></script>
+      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+      <script src="../../_static/shibuya.js?v=50760d75"></script>
+      <script src="https://cdn.jsdelivr.net/npm/@jupyter-widgets/html-manager@^1.0.1/dist/embed-amd.js"></script>
+      <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
+      <script src="../../_static/skrf.js?v=bdeb9fb0"></script></body>
+</html>

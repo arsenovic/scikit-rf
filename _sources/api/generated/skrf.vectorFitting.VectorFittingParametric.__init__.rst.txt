@@ -1,0 +1,6 @@
+skrf.vectorFitting.VectorFittingParametric.\_\_init\_\_
+=======================================================
+
+.. currentmodule:: skrf.vectorFitting
+
+.. automethod:: VectorFittingParametric.__init__

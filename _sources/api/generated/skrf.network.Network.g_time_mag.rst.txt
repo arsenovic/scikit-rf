@@ -1,0 +1,6 @@
+skrf.network.Network.g\_time\_mag
+=================================
+
+.. currentmodule:: skrf.network
+
+.. autoproperty:: Network.g_time_mag

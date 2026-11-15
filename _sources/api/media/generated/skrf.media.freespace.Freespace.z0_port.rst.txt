@@ -1,0 +1,6 @@
+skrf.media.freespace.Freespace.z0\_port
+=======================================
+
+.. currentmodule:: skrf.media.freespace
+
+.. autoproperty:: Freespace.z0_port

@@ -1,0 +1,6 @@
+skrf.vi.vna.keysight.FieldFox.if\_bandwidth
+===========================================
+
+.. currentmodule:: skrf.vi.vna.keysight
+
+.. autoproperty:: FieldFox.if_bandwidth

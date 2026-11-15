@@ -1,0 +1,6 @@
+skrf.vi.vna.hp.HP8510C.write
+============================
+
+.. currentmodule:: skrf.vi.vna.hp
+
+.. automethod:: HP8510C.write

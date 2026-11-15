@@ -1,0 +1,6 @@
+skrf.calibration.deembedding.IEEEP370.shiftNPoints
+==================================================
+
+.. currentmodule:: skrf.calibration.deembedding
+
+.. automethod:: IEEEP370.shiftNPoints

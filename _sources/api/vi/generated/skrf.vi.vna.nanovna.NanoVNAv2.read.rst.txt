@@ -1,0 +1,6 @@
+skrf.vi.vna.nanovna.NanoVNAv2.read
+==================================
+
+.. currentmodule:: skrf.vi.vna.nanovna
+
+.. automethod:: NanoVNAv2.read

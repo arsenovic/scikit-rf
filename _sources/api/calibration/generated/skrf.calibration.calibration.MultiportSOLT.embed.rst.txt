@@ -1,0 +1,6 @@
+skrf.calibration.calibration.MultiportSOLT.embed
+================================================
+
+.. currentmodule:: skrf.calibration.calibration
+
+.. automethod:: MultiportSOLT.embed

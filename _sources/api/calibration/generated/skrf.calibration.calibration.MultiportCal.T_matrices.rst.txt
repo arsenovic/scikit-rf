@@ -1,0 +1,6 @@
+skrf.calibration.calibration.MultiportCal.T\_matrices
+=====================================================
+
+.. currentmodule:: skrf.calibration.calibration
+
+.. automethod:: MultiportCal.T_matrices

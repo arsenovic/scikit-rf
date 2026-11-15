@@ -1,0 +1,6 @@
+skrf.network.Network.port\_modes
+================================
+
+.. currentmodule:: skrf.network
+
+.. autoproperty:: Network.port_modes

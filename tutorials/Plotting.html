@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="en" data-accent-color="blue" data-content_root="../">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Plotting - scikit-rf</title><link rel="author" title="About these documents" href="../about.html" /><link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="NetworkSet" href="NetworkSet.html" /><link rel="prev" title="Connecting Networks" href="Connecting_Networks.html" /><script>
+    function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
+    setColorMode(localStorage._theme||"auto");
+  </script><link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=ad592e98" />
+    <link rel="stylesheet" type="text/css" href="../_static/shibuya.css?v=2ceb65ce" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-codeautolink.css?v=b2176991" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link media="print" rel="stylesheet" type="text/css" href="../_static/print.css?v=20ff2c19" />
+    <link rel="stylesheet" type="text/css" href="../_static/nbsphinx-code-cells.css?v=2aa19091" />
+    <link rel="stylesheet" type="text/css" href="../_static/skrf.css?v=7e772ba2" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --sy-f-text: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+  --sy-f-heading: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+}
+</style>
+    
+  <meta property="og:type" content="website"/><meta property="og:title" content="Plotting"/>
+    <meta name="twitter:card" content="summary"/>
+  </head>
+<body><div class="sy-head">
+  <div class="sy-head-blur"></div>
+  <div class="sy-head-inner sy-container mx-auto">
+    <a class="sy-head-brand" href="../index.html">
+      <img class="light-logo" src="../_static/logo.svg" alt="scikit-rf" height="28" loading="lazy" />
+      <img class="dark-logo" src="../_static/logo.svg" alt="scikit-rf" height="28" loading="lazy" />
+      <strong>scikit-rf</strong>
+    </a>
+    <div class="sy-head-nav" id="head-nav">
+      <nav class="sy-head-links"><ul><li class="link"><a href="../index.html">Home</a></li><li class="link"><a href="index.html">Tutorials</a></li><li class="link"><a href="../examples/index.html">Examples</a></li><li class="link"><a href="../api/index.html">API</a></li><li class="link">
+          <a href="https://github.com/scikit-rf/scikit-rf">
+            <span>GitHub</span><i class="i-lucide external-link"></i></a>
+        </li></ul></nav>
+      <div class="sy-head-extra flex items-center print:hidden"><form class="searchbox flex items-center" action="../search.html" method="get">
+  <input type="text" name="q" placeholder="Search" />
+  <kbd>/</kbd>
+</form><div class="sy-head-socials">
+  <a href="https://github.com/scikit-rf/scikit-rf" aria-label="GitHub">
+    <iconify-icon icon="simple-icons:github"></iconify-icon>
+  </a>
+  <a href="https://www.linkedin.com/groups/12462155/" aria-label="LinkedIn">
+    <iconify-icon icon="simple-icons:linkedin"></iconify-icon>
+  </a>
+  <a href="https://app.element.io/#/room/#scikit-rf:matrix.org" aria-label="Matrix">
+    <iconify-icon icon="simple-icons:matrix"></iconify-icon>
+  </a></div></div>
+    </div>
+    <div class="sy-head-actions flex items-center shrink-0 print:hidden"><button class="js-theme theme-switch flex items-center"
+data-aria-auto="Switch to light color mode"
+data-aria-light="Switch to dark color mode"
+data-aria-dark="Switch to auto color mode">
+<i class="i-lucide theme-icon"></i>
+</button><button class="md:hidden flex items-center js-menu" aria-label="Menu" type="button" aria-controls="head-nav" aria-expanded="false">
+        <div class="hamburger">
+          <span class="hamburger_1"></span>
+          <span class="hamburger_2"></span>
+          <span class="hamburger_3"></span>
+        </div>
+      </button>
+    </div>
+  </div>
+</div>
+<div class="sy-page sy-container flex mx-auto">
+  <aside id="lside" class="sy-lside md:w-72 md:shrink-0 print:hidden">
+    <div class="sy-lside-inner md:sticky">
+      <div class="sy-scrollbar p-6">
+        <div class="globaltoc" data-expand-depth="0"><p class="caption" role="heading" aria-level="3"><span class="caption-text">Getting started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Introduction.html">Introduction</a></li>
+</ul>
+<p class="caption" role="heading" aria-level="3"><span class="caption-text">User guide</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Tutorials</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="Installation.html">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Introduction.html">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Frequency_units.html">Configuring frequency units</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Networks.html">Networks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Connecting_Networks.html">Connecting Networks</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Plotting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="NetworkSet.html">NetworkSet</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Circuit.html">Circuits</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Calibration.html">Calibration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Deembedding.html">De-embedding</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Q-Factor.html">Quality Factors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Media.html">Media</a></li>
+<li class="toctree-l2"><a class="reference internal" href="VectorFitting.html">Vector Fitting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="VectorFittingParametric.html">Parametric Vector Fitting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="VirtualInstruments.html">Virtual Instruments</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/index.html">Examples</a></li>
+</ul>
+<p class="caption" role="heading" aria-level="3"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../api/index.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../glossary.html">Glossary</a></li>
+</ul>
+<p class="caption" role="heading" aria-level="3"><span class="caption-text">Project</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../contributing/index.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../citations_ack/acknowledging.html">Citing scikit-rf</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../citations_ack/citations.html">scikit-rf Citations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../about.html">About</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../users.html">Users</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../license.html">License</a></li>
+</ul>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="lside-overlay js-menu" role="button" aria-label="Close left sidebar" aria-controls="lside" aria-expanded="false"></div>
+  <aside id="rside" class="sy-rside pb-3 w-64 shrink-0 order-last">
+    <button class="rside-close js-menu xl:hidden" aria-label="Close Table of Contents" type="button" aria-controls="rside" aria-expanded="false">
+      <i class="i-lucide close"></i>
+    </button>
+    <div class="sy-scrollbar sy-rside-inner px-6 xl:top-16 xl:sticky xl:pl-0 pt-6 pb-4"><div class="localtoc"><h3>On this page</h3><ul>
+<li><a class="reference internal" href="#Introduction">Introduction</a></li>
+<li><a class="reference internal" href="#Plotting-Methods">Plotting Methods</a></li>
+<li><a class="reference internal" href="#Smith-Chart">Smith Chart</a><ul>
+<li><a class="reference internal" href="#Advanced-Smith-Chart-with-markers">Advanced Smith Chart with markers</a></li>
+<li><a class="reference internal" href="#Advanced-Smith-Chart-with-background">Advanced Smith Chart with background</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#Complex-Plane">Complex Plane</a></li>
+<li><a class="reference internal" href="#Log-Magnitude">Log-Magnitude</a></li>
+<li><a class="reference internal" href="#Phase">Phase</a></li>
+<li><a class="reference internal" href="#Group-Delay">Group Delay</a></li>
+<li><a class="reference internal" href="#Impedance,-Admittance">Impedance, Admittance</a></li>
+<li><a class="reference internal" href="#Customizing-Plots">Customizing Plots</a></li>
+<li><a class="reference internal" href="#Saving-Plots">Saving Plots</a></li>
+<li><a class="reference internal" href="#Adding-Markers-Post-Plot">Adding Markers Post Plot</a></li>
+</ul>
+</div><div id="ethical-ad-placement" data-ea-publisher="readthedocs"></div></div>
+  </aside>
+  <div class="rside-overlay js-menu" role="button" aria-label="Close Table of Contents" aria-controls="rside" aria-expanded="false"></div>
+  <main class="sy-main w-full max-sm:max-w-full print:pt-6">
+<div class="sy-breadcrumbs" role="navigation">
+  <div class="sy-breadcrumbs-inner flex items-center">
+    <div class="md:hidden mr-3">
+      <button class="js-menu" aria-label="Menu" type="button" aria-controls="lside" aria-expanded="false">
+        <i class="i-lucide menu"></i>
+      </button>
+    </div>
+    <ol class="flex-1" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="../index.html"><span itemprop="name">scikit-rf</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="1" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="index.html"><span itemprop="name">Tutorials</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="2" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <strong itemprop="name">Plotting</strong>
+        <meta itemprop="position" content="3" />
+      </li></ol>
+    <a class="sk-download" href="Plotting.ipynb" download>Download</a>
+    <div class="xl:hidden ml-1">
+      <button class="js-menu" aria-label="Show table of contents" type="button" aria-controls="rside"
+        aria-expanded="false">
+        <i class="i-lucide outdent"></i>
+      </button>
+    </div>
+  </div>
+</div><div class="flex flex-col break-words justify-between">
+      <div class="relative min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
+  <article class="yue" role="main">
+          <section id="Plotting">
+<h1>Plotting<a class="headerlink" href="#Plotting" title="Link to this heading">#</a></h1>
+<section id="Introduction">
+<h2>Introduction<a class="headerlink" href="#Introduction" title="Link to this heading">#</a></h2>
+<p>This tutorial describes <strong>skrf’s</strong> plotting features. If you would like to use skrf’s matplotlib interface with skrf styling, start with this</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[1]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="o">%</span><span class="k">matplotlib</span> inline
+</span></pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[2]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>  <span class="c1"># for advanced smith chart only</span>
+</span><span data-line="2">
+</span><span data-line="3"><span class="kn">import</span><span class="w"> </span><span class="nn">skrf</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">rf</span>
+</span></pre></div>
+</div>
+</div>
+</section>
+<section id="Plotting-Methods">
+<h2>Plotting Methods<a class="headerlink" href="#Plotting-Methods" title="Link to this heading">#</a></h2>
+<p>Plotting functions are implemented as methods of the <code class="docutils literal notranslate"><span class="pre">Network</span></code> class.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Network.plot_s_re</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Network.plot_s_im</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Network.plot_s_mag</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Network.plot_s_db</span></code></p></li>
+<li><p>…</p></li>
+</ul>
+<p>Similar methods exist for Impedance (<code class="docutils literal notranslate"><span class="pre">Network.z</span></code>) and Admittance Parameters (<code class="docutils literal notranslate"><span class="pre">Network.y</span></code>),</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Network.plot_z_re</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Network.plot_z_im</span></code></p></li>
+<li><p>…</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Network.plot_y_re</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Network.plot_y_im</span></code></p></li>
+<li><p>…</p></li>
+</ul>
+</section>
+<section id="Smith-Chart">
+<h2>Smith Chart<a class="headerlink" href="#Smith-Chart" title="Link to this heading">#</a></h2>
+<p>As a first example, load a <a class="reference internal" href="../api/network.html"><span class="doc">Network</span></a> and plot all four s-parameters on the Smith chart.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[3]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="kn">from</span><span class="w"> </span><span class="nn">skrf</span><span class="w"> </span><span class="kn">import</span> <a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">Network</span></a>
+</span><span data-line="2">
+</span><span data-line="3"><a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">ring_slot</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">Network</span></a><span class="p">(</span><span class="s1">'data/ring slot.s2p'</span><span class="p">)</span>
+</span><span data-line="4"><a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.Network.plot_s_smith.html#skrf.network.Network.plot_s_smith" title="skrf.network.Network.plot_s_smith"><span class="n">ring_slot</span><span class="o">.</span><span class="n">plot_s_smith</span></a><span class="p">()</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorials_Plotting_5_0.png" src="../_images/tutorials_Plotting_5_0.png"/>
+</div>
+</div>
+<p>scikit-rf includes a convenient command to make nicer figures quick:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[4]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><a class="sphinx-codeautolink-a" href="../api/generated/skrf.plotting.stylely.html#skrf.plotting.stylely" title="skrf.plotting.stylely"><span class="n">rf</span><span class="o">.</span><span class="n">stylely</span></a><span class="p">()</span>  <span class="c1"># nicer looking. Can be configured with different styles</span>
+</span><span data-line="2"><a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.Network.plot_s_smith.html#skrf.network.Network.plot_s_smith" title="skrf.network.Network.plot_s_smith"><span class="n">ring_slot</span><span class="o">.</span><span class="n">plot_s_smith</span></a><span class="p">()</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorials_Plotting_7_0.png" src="../_images/tutorials_Plotting_7_0.png"/>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[5]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.Network.plot_s_smith.html#skrf.network.Network.plot_s_smith" title="skrf.network.Network.plot_s_smith"><span class="n">ring_slot</span><span class="o">.</span><span class="n">plot_s_smith</span></a><span class="p">(</span><span class="n">draw_labels</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorials_Plotting_8_0.png" src="../_images/tutorials_Plotting_8_0.png"/>
+</div>
+</div>
+<p>Another common option is to draw admittance contours, instead of impedance. This is controlled through the <code class="docutils literal notranslate"><span class="pre">chart_type</span></code> argument.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[6]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.Network.plot_s_smith.html#skrf.network.Network.plot_s_smith" title="skrf.network.Network.plot_s_smith"><span class="n">ring_slot</span><span class="o">.</span><span class="n">plot_s_smith</span></a><span class="p">(</span><span class="n">chart_type</span><span class="o">=</span><span class="s1">'y'</span><span class="p">)</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorials_Plotting_10_0.png" src="../_images/tutorials_Plotting_10_0.png"/>
+</div>
+</div>
+<section id="Advanced-Smith-Chart-with-markers">
+<h3>Advanced Smith Chart with markers<a class="headerlink" href="#Advanced-Smith-Chart-with-markers" title="Link to this heading">#</a></h3>
+<p>The Smith Chart is a convenient plot that shows complex numbers with real and imaginary parts from zero to infinity with a zoom on a real reference in the center region. It is, however, not straightforward to figure out what point is related to which frequency because there is no frequency axis. A common workaround is to provide some frequency markers related to a table.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[7]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="c1"># prepare markers</span>
+</span><span data-line="2"><span class="n">lines</span> <span class="o">=</span> <span class="p">[</span>
+</span><span data-line="3">    <span class="p">{</span><span class="s1">'marker_idx'</span><span class="p">:</span> <span class="p">[</span><span class="mi">30</span><span class="p">,</span> <span class="mi">60</span><span class="p">,</span> <span class="mi">90</span><span class="p">],</span> <span class="s1">'color'</span><span class="p">:</span> <span class="s1">'g'</span><span class="p">,</span> <span class="s1">'m'</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">'n'</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">'ntw'</span><span class="p">:</span> <a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">ring_slot</span></a><span class="p">},</span>
+</span><span data-line="4">    <span class="p">{</span><span class="s1">'marker_idx'</span><span class="p">:</span> <span class="p">[</span><span class="mi">15</span><span class="p">,</span> <span class="mi">45</span><span class="p">,</span> <span class="mi">75</span><span class="p">],</span> <span class="s1">'color'</span><span class="p">:</span> <span class="s1">'r'</span><span class="p">,</span> <span class="s1">'m'</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">'n'</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">'ntw'</span><span class="p">:</span> <a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">ring_slot</span></a><span class="p">},</span>
+</span><span data-line="5"><span class="p">]</span>
+</span><span data-line="6">
+</span><span data-line="7"><span class="c1"># prepare figure</span>
+</span><span data-line="8"><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
+</span><span data-line="9">
+</span><span data-line="10"><span class="c1"># impedance smith chart</span>
+</span><span data-line="11"><a class="sphinx-codeautolink-a" href="../api/generated/skrf.plotting.smith.html#skrf.plotting.smith" title="skrf.plotting.smith"><span class="n">rf</span><span class="o">.</span><span class="n">plotting</span><span class="o">.</span><span class="n">smith</span></a><span class="p">(</span><span class="n">ax</span> <span class="o">=</span> <span class="n">ax</span><span class="p">,</span> <span class="n">draw_labels</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">ref_imm</span> <span class="o">=</span> <span class="mf">50.0</span><span class="p">,</span> <span class="n">chart_type</span> <span class="o">=</span> <span class="s1">'z'</span><span class="p">)</span>
+</span><span data-line="12">
+</span><span data-line="13"><span class="c1"># plot data</span>
+</span><span data-line="14"><span class="n">col_labels</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'Frequency'</span><span class="p">,</span> <span class="s1">'Real Imag'</span><span class="p">]</span>
+</span><span data-line="15"><span class="n">row_labels</span> <span class="o">=</span> <span class="p">[]</span>
+</span><span data-line="16"><span class="n">row_colors</span> <span class="o">=</span> <span class="p">[]</span>
+</span><span data-line="17"><span class="n">cell_text</span> <span class="o">=</span> <span class="p">[]</span>
+</span><span data-line="18"><span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">:</span>
+</span><span data-line="19">    <span class="n">m</span> <span class="o">=</span> <span class="n">l</span><span class="p">[</span><span class="s1">'m'</span><span class="p">]</span>
+</span><span data-line="20">    <span class="n">n</span> <span class="o">=</span> <span class="n">l</span><span class="p">[</span><span class="s1">'n'</span><span class="p">]</span>
+</span><span data-line="21">    <span class="n">l</span><span class="p">[</span><span class="s1">'ntw'</span><span class="p">]</span><span class="o">.</span><span class="n">plot_s_smith</span><span class="p">(</span><span class="n">m</span><span class="o">=</span><span class="n">m</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="n">n</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">ax</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">l</span><span class="p">[</span><span class="s1">'color'</span><span class="p">])</span>
+</span><span data-line="22">    <span class="c1">#plot markers</span>
+</span><span data-line="23">    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">k</span> <span class="ow">in</span> <a class="sphinx-codeautolink-a" href="https://docs.python.org/3/builtins/functions.html#enumerate"><span class="nb">enumerate</span></a><span class="p">(</span><span class="n">l</span><span class="p">[</span><span class="s1">'marker_idx'</span><span class="p">]):</span>
+</span><span data-line="24">        <span class="n">x</span> <span class="o">=</span> <span class="n">l</span><span class="p">[</span><span class="s1">'ntw'</span><span class="p">]</span><span class="o">.</span><span class="n">s</span><span class="o">.</span><span class="n">real</span><span class="p">[</span><span class="n">k</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">n</span><span class="p">]</span>
+</span><span data-line="25">        <span class="n">y</span> <span class="o">=</span> <span class="n">l</span><span class="p">[</span><span class="s1">'ntw'</span><span class="p">]</span><span class="o">.</span><span class="n">s</span><span class="o">.</span><span class="n">imag</span><span class="p">[</span><span class="n">k</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">n</span><span class="p">]</span>
+</span><span data-line="26">        <span class="n">z</span> <span class="o">=</span> <span class="n">l</span><span class="p">[</span><span class="s1">'ntw'</span><span class="p">]</span><span class="o">.</span><span class="n">z</span><span class="p">[</span><span class="n">k</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">n</span><span class="p">]</span>
+</span><span data-line="27">        <span class="n">z</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="n">z</span><span class="o">.</span><span class="n">real</span><span class="si">:</span><span class="s1">.4f</span><span class="si">}</span><span class="s1"> + </span><span class="si">{</span><span class="n">z</span><span class="o">.</span><span class="n">imag</span><span class="si">:</span><span class="s1">.4f</span><span class="si">}</span><span class="s1">j ohm'</span>
+</span><span data-line="28">        <span class="n">f</span> <span class="o">=</span> <span class="n">l</span><span class="p">[</span><span class="s1">'ntw'</span><span class="p">]</span><span class="o">.</span><span class="n">frequency</span><span class="o">.</span><span class="n">f_scaled</span><span class="p">[</span><span class="n">k</span><span class="p">]</span>
+</span><span data-line="29">        <span class="n">f_unit</span> <span class="o">=</span> <span class="n">l</span><span class="p">[</span><span class="s1">'ntw'</span><span class="p">]</span><span class="o">.</span><span class="n">frequency</span><span class="o">.</span><span class="n">unit</span>
+</span><span data-line="30">        <span class="n">row_labels</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s1">'M</span><span class="si">{</span><span class="n">i</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="si">}</span><span class="s1">'</span><span class="p">)</span>
+</span><span data-line="31">        <span class="n">row_colors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">l</span><span class="p">[</span><span class="s1">'color'</span><span class="p">])</span>
+</span><span data-line="32">        <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">marker</span> <span class="o">=</span> <span class="s1">'v'</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">l</span><span class="p">[</span><span class="s1">'color'</span><span class="p">])</span>
+</span><span data-line="33">        <span class="n">ax</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="n">row_labels</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="n">xytext</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">7</span><span class="p">,</span> <span class="mi">7</span><span class="p">),</span> <span class="n">textcoords</span><span class="o">=</span><span class="s1">'offset points'</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">l</span><span class="p">[</span><span class="s1">'color'</span><span class="p">])</span>
+</span><span data-line="34">        <span class="n">cell_text</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="n">f</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1"> </span><span class="si">{</span><span class="n">f_unit</span><span class="si">}</span><span class="s1">'</span><span class="p">,</span> <span class="n">z</span><span class="p">])</span>
+</span><span data-line="35"><span class="n">leg1</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">"upper right"</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span> <span class="mi">6</span><span class="p">)</span>
+</span><span data-line="36">
+</span><span data-line="37"><span class="c1"># plot the table</span>
+</span><span data-line="38"><span class="n">the_table</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">table</span><span class="p">(</span><span class="n">cellText</span><span class="o">=</span><span class="n">cell_text</span><span class="p">,</span>
+</span><span data-line="39">                      <span class="n">colWidths</span><span class="o">=</span><span class="p">[</span><span class="mf">0.4</span><span class="p">]</span> <span class="o">*</span> <span class="mi">2</span><span class="p">,</span>
+</span><span data-line="40">                      <span class="n">rowLabels</span><span class="o">=</span><span class="n">row_labels</span><span class="p">,</span>
+</span><span data-line="41">                      <span class="n">colLabels</span><span class="o">=</span><span class="n">col_labels</span><span class="p">,</span>
+</span><span data-line="42">                      <span class="n">rowColours</span><span class="o">=</span><span class="n">row_colors</span><span class="p">,</span>
+</span><span data-line="43">                      <span class="n">loc</span><span class="o">=</span><span class="s1">'bottom'</span><span class="p">)</span>
+</span><span data-line="44"><span class="n">the_table</span><span class="o">.</span><span class="n">auto_set_font_size</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+</span><span data-line="45"><span class="n">the_table</span><span class="o">.</span><span class="n">set_fontsize</span><span class="p">(</span><span class="mi">6</span><span class="p">)</span>
+</span><span data-line="46"><span class="c1">#the_table.scale(1.5, 1.5)</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorials_Plotting_12_0.png" src="../_images/tutorials_Plotting_12_0.png"/>
+</div>
+</div>
+</section>
+<section id="Advanced-Smith-Chart-with-background">
+<h3>Advanced Smith Chart with background<a class="headerlink" href="#Advanced-Smith-Chart-with-background" title="Link to this heading">#</a></h3>
+<p>The Smith Chart can be drawn above a high-resolution Smith Chart background (or another image upon your fantasy).</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[8]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="c1"># prepare figure</span>
+</span><span data-line="2"><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
+</span><span data-line="3"><a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray"><span class="n">background</span></a> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="s1">'figures/smithchart.png'</span><span class="p">)</span>
+</span><span data-line="4">
+</span><span data-line="5"><span class="c1"># tweak background position</span>
+</span><span data-line="6"><span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray"><span class="n">background</span></a><span class="p">,</span> <span class="n">extent</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mf">1.185</span><span class="p">,</span> <span class="mf">1.14</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.13</span><span class="p">,</span> <span class="mf">1.155</span><span class="p">])</span>
+</span><span data-line="7"><a class="sphinx-codeautolink-a" href="../api/generated/skrf.plotting.smith.html#skrf.plotting.smith" title="skrf.plotting.smith"><span class="n">rf</span><span class="o">.</span><span class="n">plotting</span><span class="o">.</span><span class="n">smith</span></a><span class="p">(</span><span class="n">ax</span> <span class="o">=</span> <span class="n">ax</span><span class="p">,</span> <span class="n">draw_labels</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">ref_imm</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">,</span> <span class="n">chart_type</span> <span class="o">=</span> <span class="s1">'z'</span><span class="p">)</span>
+</span><span data-line="8">
+</span><span data-line="9"><a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.Network.plot_s_smith.html#skrf.network.Network.plot_s_smith" title="skrf.network.Network.plot_s_smith"><span class="n">ring_slot</span><span class="o">.</span><span class="n">plot_s_smith</span></a><span class="p">(</span><span class="n">ax</span> <span class="o">=</span> <span class="n">ax</span><span class="p">)</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorials_Plotting_14_0.png" src="../_images/tutorials_Plotting_14_0.png"/>
+</div>
+</div>
+<p>See <code class="docutils literal notranslate"><span class="pre">skrf.plotting.smith()</span></code> for more info on customizing the Smith Chart.</p>
+</section>
+</section>
+<section id="Complex-Plane">
+<h2>Complex Plane<a class="headerlink" href="#Complex-Plane" title="Link to this heading">#</a></h2>
+<p>Network parameters can also be plotted in the complex plane without a Smith Chart through <code class="docutils literal notranslate"><span class="pre">Network.plot_s_complex</span></code>.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[9]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+</span><span data-line="2">
+</span><span data-line="3"><a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.Network.plot_s_complex.html#skrf.network.Network.plot_s_complex" title="skrf.network.Network.plot_s_complex"><span class="n">ring_slot</span><span class="o">.</span><span class="n">plot_s_complex</span></a><span class="p">()</span>
+</span><span data-line="4">
+</span><span data-line="5"><span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">'equal'</span><span class="p">)</span> <span class="c1"># otherwise circles won't be circles</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[9]:
+</span></pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+(np.float64(-0.855165798772),
+ np.float64(0.963732138327),
+ np.float64(-0.8760764348472001),
+ np.float64(0.9024032182652001))
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorials_Plotting_16_1.png" src="../_images/tutorials_Plotting_16_1.png"/>
+</div>
+</div>
+</section>
+<section id="Log-Magnitude">
+<h2>Log-Magnitude<a class="headerlink" href="#Log-Magnitude" title="Link to this heading">#</a></h2>
+<p>Scalar components of the complex network parameters can be plotted vs frequency as well. To plot the log-magnitude of the s-parameters vs. frequency,</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[10]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.Network.plot_s_db.html#skrf.network.Network.plot_s_db" title="skrf.network.Network.plot_s_db"><span class="n">ring_slot</span><span class="o">.</span><span class="n">plot_s_db</span></a><span class="p">()</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorials_Plotting_18_0.png" src="../_images/tutorials_Plotting_18_0.png"/>
+</div>
+</div>
+<p>When no arguments are passed to the plotting methods, all parameters are plotted. Single parameters can be plotted by passing indices <code class="docutils literal notranslate"><span class="pre">m</span></code> and <code class="docutils literal notranslate"><span class="pre">n</span></code> to the plotting commands (indexing start from 0). Comparing the simulated reflection coefficient off the ring slot to a measurement,</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[11]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="kn">from</span><span class="w"> </span><a class="sphinx-codeautolink-a" href="../api/data/index.html#module-skrf.data"><span class="nn">skrf.data</span></a><span class="w"> </span><span class="kn">import</span> <a class="sphinx-codeautolink-a" href="../api/data/generated/skrf.data.ring_slot_meas.html#skrf.data.ring_slot_meas" title="skrf.data.ring_slot_meas"><span class="n">ring_slot_meas</span></a>
+</span><span data-line="2">
+</span><span data-line="3"><a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.Network.plot_s_db.html#skrf.network.Network.plot_s_db" title="skrf.network.Network.plot_s_db"><span class="n">ring_slot</span><span class="o">.</span><span class="n">plot_s_db</span></a><span class="p">(</span><span class="n">m</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">n</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">'Theory'</span><span class="p">)</span>
+</span><span data-line="4"><a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.Network.plot_s_db.html#skrf.network.Network.plot_s_db" title="skrf.network.Network.plot_s_db"><span class="n">ring_slot_meas</span><span class="o">.</span><span class="n">plot_s_db</span></a><span class="p">(</span><span class="n">m</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">n</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">'Measurement'</span><span class="p">)</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorials_Plotting_20_0.png" src="../_images/tutorials_Plotting_20_0.png"/>
+</div>
+</div>
+</section>
+<section id="Phase">
+<h2>Phase<a class="headerlink" href="#Phase" title="Link to this heading">#</a></h2>
+<p>Plot phase,</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[12]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.Network.plot_s_deg.html#skrf.network.Network.plot_s_deg" title="skrf.network.Network.plot_s_deg"><span class="n">ring_slot</span><span class="o">.</span><span class="n">plot_s_deg</span></a><span class="p">()</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorials_Plotting_22_0.png" src="../_images/tutorials_Plotting_22_0.png"/>
+</div>
+</div>
+<p>Or unwrapped phase,</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[13]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.Network.plot_s_deg_unwrap.html#skrf.network.Network.plot_s_deg_unwrap" title="skrf.network.Network.plot_s_deg_unwrap"><span class="n">ring_slot</span><span class="o">.</span><span class="n">plot_s_deg_unwrap</span></a><span class="p">()</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorials_Plotting_24_0.png" src="../_images/tutorials_Plotting_24_0.png"/>
+</div>
+</div>
+<p>Phase is radian (rad) is also available</p>
+</section>
+<section id="Group-Delay">
+<h2>Group Delay<a class="headerlink" href="#Group-Delay" title="Link to this heading">#</a></h2>
+<p>A Network has a <code class="docutils literal notranslate"><span class="pre">plot()</span></code> method which creates a rectangular plot of the argument vs frequency. This can be used to make plots are aren’t ‘canned’. For example group delay</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[14]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">gd</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="https://docs.python.org/3/builtins/functions.html#abs"><span class="nb">abs</span></a><span class="p">(</span><span class="n">ring_slot</span><span class="o">.</span><span class="n">s21</span><span class="o">.</span><span class="n">group_delay</span><span class="p">)</span> <span class="o">*</span><span class="mf">1e9</span> <span class="c1"># in ns</span>
+</span><span data-line="2">
+</span><span data-line="3"><a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.Network.plot.html#skrf.network.Network.plot" title="skrf.network.Network.plot"><span class="n">ring_slot</span><span class="o">.</span><span class="n">plot</span></a><span class="p">(</span><span class="n">gd</span><span class="p">)</span>
+</span><span data-line="4"><span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">'Group Delay (ns)'</span><span class="p">)</span>
+</span><span data-line="5"><span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">'Group Delay of Ring Slot S21'</span><span class="p">)</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[14]:
+</span></pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Text(0.5, 1.0, 'Group Delay of Ring Slot S21')
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorials_Plotting_28_1.png" src="../_images/tutorials_Plotting_28_1.png"/>
+</div>
+</div>
+</section>
+<section id="Impedance,-Admittance">
+<h2>Impedance, Admittance<a class="headerlink" href="#Impedance,-Admittance" title="Link to this heading">#</a></h2>
+<p>The components the Impedance and Admittance parameters can be plotted similarly,</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[15]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.Network.plot_z_im.html#skrf.network.Network.plot_z_im" title="skrf.network.Network.plot_z_im"><span class="n">ring_slot</span><span class="o">.</span><span class="n">plot_z_im</span></a><span class="p">()</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorials_Plotting_30_0.png" src="../_images/tutorials_Plotting_30_0.png"/>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[16]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.Network.plot_y_im.html#skrf.network.Network.plot_y_im" title="skrf.network.Network.plot_y_im"><span class="n">ring_slot</span><span class="o">.</span><span class="n">plot_y_im</span></a><span class="p">()</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorials_Plotting_31_0.png" src="../_images/tutorials_Plotting_31_0.png"/>
+</div>
+</div>
+</section>
+<section id="Customizing-Plots">
+<h2>Customizing Plots<a class="headerlink" href="#Customizing-Plots" title="Link to this heading">#</a></h2>
+<p>The legend entries are automatically filled in with the Network’s <code class="docutils literal notranslate"><span class="pre">Network.name</span></code>. The entry can be overridden by passing the <code class="docutils literal notranslate"><span class="pre">label</span></code> argument to the plot method.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[17]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.Network.plot_s_db.html#skrf.network.Network.plot_s_db" title="skrf.network.Network.plot_s_db"><span class="n">ring_slot</span><span class="o">.</span><span class="n">plot_s_db</span></a><span class="p">(</span><span class="n">m</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">n</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="s1">'Simulation'</span><span class="p">)</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorials_Plotting_33_0.png" src="../_images/tutorials_Plotting_33_0.png"/>
+</div>
+</div>
+<p>The frequency unit used on the x-axis is automatically filled in from the Networks <code class="docutils literal notranslate"><span class="pre">Network.frequency.unit</span></code> attribute. To change the label, change the frequency’s <code class="docutils literal notranslate"><span class="pre">unit</span></code>.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[18]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">ring_slot</span><span class="o">.</span><span class="n">frequency</span><span class="o">.</span><span class="n">unit</span> <span class="o">=</span> <span class="s1">'mhz'</span>
+</span><span data-line="2"><a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.Network.plot_s_db.html#skrf.network.Network.plot_s_db" title="skrf.network.Network.plot_s_db"><span class="n">ring_slot</span><span class="o">.</span><span class="n">plot_s_db</span></a><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorials_Plotting_35_0.png" src="../_images/tutorials_Plotting_35_0.png"/>
+</div>
+</div>
+<p>Other key word arguments given to the plotting methods are passed through to the matplotlib <code class="docutils literal notranslate"><span class="pre">matplotlib.pyplot.plot</span></code> function.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[19]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">ring_slot</span><span class="o">.</span><span class="n">frequency</span><span class="o">.</span><span class="n">unit</span><span class="o">=</span><span class="s1">'ghz'</span>
+</span><span data-line="2"><a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.Network.plot_s_db.html#skrf.network.Network.plot_s_db" title="skrf.network.Network.plot_s_db"><span class="n">ring_slot</span><span class="o">.</span><span class="n">plot_s_db</span></a><span class="p">(</span><span class="n">m</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">n</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">linewidth</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span> <span class="n">linestyle</span> <span class="o">=</span> <span class="s1">'--'</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="s1">'Simulation'</span><span class="p">)</span>
+</span><span data-line="3"><a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.Network.plot_s_db.html#skrf.network.Network.plot_s_db" title="skrf.network.Network.plot_s_db"><span class="n">ring_slot_meas</span><span class="o">.</span><span class="n">plot_s_db</span></a><span class="p">(</span><span class="n">m</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">n</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">marker</span> <span class="o">=</span> <span class="s1">'o'</span><span class="p">,</span> <span class="n">markevery</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span><span class="n">label</span> <span class="o">=</span> <span class="s1">'Measured'</span><span class="p">)</span>
+</span><br/></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorials_Plotting_37_0.png" src="../_images/tutorials_Plotting_37_0.png"/>
+</div>
+</div>
+<p>All components of the plots can be customized through <a class="reference external" href="http://matplotlib.sourceforge.net">matplotlib</a> functions, and <code class="docutils literal notranslate"><span class="pre">styles</span></code> can be used with a context manager.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[20]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+</span><span data-line="2"><span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">style</span>
+</span><span data-line="3">
+</span><span data-line="4"><span class="n">mpl_style</span> <span class="o">=</span> <span class="s2">"seaborn-ticks"</span>
+</span><span data-line="5"><span class="n">mpl_style</span> <span class="o">=</span> <span class="n">mpl_style</span> <span class="k">if</span> <span class="n">mpl_style</span> <span class="ow">in</span> <span class="n">style</span><span class="o">.</span><span class="n">available</span> <span class="k">else</span> <span class="s2">"seaborn-v0_8-ticks"</span>
+</span><span data-line="6">
+</span><span data-line="7"><span class="k">with</span> <span class="n">style</span><span class="o">.</span><span class="n">context</span><span class="p">(</span><span class="n">mpl_style</span><span class="p">):</span>
+</span><span data-line="8">    <a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.Network.plot_s_smith.html#skrf.network.Network.plot_s_smith" title="skrf.network.Network.plot_s_smith"><span class="n">ring_slot</span><span class="o">.</span><span class="n">plot_s_smith</span></a><span class="p">()</span>
+</span><span data-line="9">    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">'Real Part'</span><span class="p">)</span>
+</span><span data-line="10">    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">'Imaginary Part'</span><span class="p">)</span>
+</span><span data-line="11">    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">'Smith Chart With Legend Room'</span><span class="p">)</span>
+</span><span data-line="12">    <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">([</span><span class="o">-</span><span class="mf">1.1</span><span class="p">,</span><span class="mf">2.1</span><span class="p">,</span><span class="o">-</span><span class="mf">1.1</span><span class="p">,</span><span class="mf">1.1</span><span class="p">])</span>
+</span><span data-line="13">    <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+</span><br/></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorials_Plotting_39_0.png" src="../_images/tutorials_Plotting_39_0.png"/>
+</div>
+</div>
+</section>
+<section id="Saving-Plots">
+<h2>Saving Plots<a class="headerlink" href="#Saving-Plots" title="Link to this heading">#</a></h2>
+<p>Plots can be saved in various file formats using the GUI provided by the matplotlib. However, skrf provides a convenience function, called <code class="docutils literal notranslate"><span class="pre">skrf.plotting.save_all_figs</span></code>, that allows all open figures to be saved to disk in multiple file formats, with filenames pulled from each figure’s title,</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[21]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="kn">from</span><span class="w"> </span><a class="sphinx-codeautolink-a" href="../api/plotting.html#module-skrf.plotting"><span class="nn">skrf.plotting</span></a><span class="w"> </span><span class="kn">import</span> <a class="sphinx-codeautolink-a" href="../api/generated/skrf.plotting.save_all_figs.html#skrf.plotting.save_all_figs" title="skrf.plotting.save_all_figs"><span class="n">save_all_figs</span></a>
+</span><span data-line="2">
+</span><span data-line="3"><a class="sphinx-codeautolink-a" href="../api/generated/skrf.plotting.save_all_figs.html#skrf.plotting.save_all_figs" title="skrf.plotting.save_all_figs"><span class="n">save_all_figs</span></a><span class="p">(</span><span class="s1">'data/'</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="p">[</span><span class="s1">'png'</span><span class="p">,</span><span class="s1">'eps'</span><span class="p">,</span><span class="s1">'pdf'</span><span class="p">])</span>
+</span></pre></div>
+</div>
+</div>
+</section>
+<section id="Adding-Markers-Post-Plot">
+<h2>Adding Markers Post Plot<a class="headerlink" href="#Adding-Markers-Post-Plot" title="Link to this heading">#</a></h2>
+<p>A common need is to make a color plot, interpretable in greyscale print. The <code class="docutils literal notranslate"><span class="pre">skrf.plotting.add_markers_to_lines</span></code> adds different markers each line in a plots <em>after</em> the plot has been made, which is usually when you remember to add them.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[22]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="kn">from</span><span class="w"> </span><span class="nn">skrf</span><span class="w"> </span><span class="kn">import</span> <a class="sphinx-codeautolink-a" href="../api/plotting.html#module-skrf.plotting" title="skrf.plotting"><span class="n">plotting</span></a>
+</span><span data-line="2">
+</span><span data-line="3"><span class="k">with</span> <span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">context</span><span class="p">(</span><span class="s1">'grayscale'</span><span class="p">):</span>
+</span><span data-line="4">    <a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.Network.plot_s_deg.html#skrf.network.Network.plot_s_deg" title="skrf.network.Network.plot_s_deg"><span class="n">ring_slot</span><span class="o">.</span><span class="n">plot_s_deg</span></a><span class="p">()</span>
+</span><span data-line="5">    <a class="sphinx-codeautolink-a" href="../api/generated/skrf.plotting.add_markers_to_lines.html#skrf.plotting.add_markers_to_lines" title="skrf.plotting.add_markers_to_lines"><span class="n">plotting</span><span class="o">.</span><span class="n">add_markers_to_lines</span></a><span class="p">()</span>
+</span><span data-line="6">    <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span> <span class="c1"># have to re-generate legend</span>
+</span><br/></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorials_Plotting_43_0.png" src="../_images/tutorials_Plotting_43_0.png"/>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[ ]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1">
+</span></pre></div>
+</div>
+</div>
+</section>
+</section>
+
+        </article><button class="back-to-top" type="button">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+  </svg>
+  <span>Back to top</span>
+</button><div class="navigation flex print:hidden"><div class="navigation-prev">
+    <a href="Connecting_Networks.html">
+      <i class="i-lucide chevron-left"></i>
+      <div class="page-info">
+        <span>Previous</span><div class="title">Connecting Networks</div></div>
+    </a>
+  </div><div class="navigation-next">
+    <a href="NetworkSet.html">
+      <div class="page-info">
+        <span>Next</span>
+        <div class="title">NetworkSet</div>
+      </div>
+      <i class="i-lucide chevron-right"></i>
+    </a>
+  </div></div></div>
+    </div>
+  </main>
+</div>
+<footer class="sy-foot">
+  <div class="sy-foot-inner sy-container mx-auto">
+    <div class="sy-foot-reserved md:flex justify-between items-center">
+      <div class="sy-foot-copyright"><p>2025, scikit-rf team</p>
+  
+  <p>
+    Made with
+    
+    <a href="https://www.sphinx-doc.org/">Sphinx</a> and
+    
+    <a href="https://shibuya.lepture.com">Shibuya theme</a>.
+  </p>
+</div>
+      <div class="sy-foot-socials">
+  <a href="https://github.com/scikit-rf/scikit-rf" aria-label="GitHub">
+    <iconify-icon icon="simple-icons:github"></iconify-icon>
+  </a></div>
+    </div>
+  </div>
+</footer>
+      <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../_static/copybutton.js?v=34bd459d"></script>
+      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+      <script src="../_static/shibuya.js?v=50760d75"></script>
+      <script src="https://cdn.jsdelivr.net/npm/@jupyter-widgets/html-manager@^1.0.1/dist/embed-amd.js"></script>
+      <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
+      <script src="../_static/skrf.js?v=bdeb9fb0"></script></body>
+</html>

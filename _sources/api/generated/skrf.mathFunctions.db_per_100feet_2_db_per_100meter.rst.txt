@@ -1,0 +1,6 @@
+﻿skrf.mathFunctions.db\_per\_100feet\_2\_db\_per\_100meter
+=========================================================
+
+.. currentmodule:: skrf.mathFunctions
+
+.. autofunction:: db_per_100feet_2_db_per_100meter

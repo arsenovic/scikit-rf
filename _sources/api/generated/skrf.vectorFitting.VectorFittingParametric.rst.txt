@@ -1,0 +1,27 @@
+﻿skrf.vectorFitting.VectorFittingParametric
+==========================================
+
+.. currentmodule:: skrf.vectorFitting
+
+.. autoclass:: VectorFittingParametric
+  :no-members:
+
+
+
+
+
+
+
+.. rubric:: Methods
+
+.. autosummary::
+  :toctree:
+  :nosignatures:
+
+  ~VectorFittingParametric.__init__
+  ~VectorFittingParametric.auto_fit
+  ~VectorFittingParametric.get_local_vectorfit
+  ~VectorFittingParametric.get_model_response
+  ~VectorFittingParametric.read_npz
+  ~VectorFittingParametric.write_npz
+

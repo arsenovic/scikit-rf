@@ -1,0 +1,6 @@
+skrf.vectorFitting.VectorFittingParametric.get\_local\_vectorfit
+================================================================
+
+.. currentmodule:: skrf.vectorFitting
+
+.. automethod:: VectorFittingParametric.get_local_vectorfit

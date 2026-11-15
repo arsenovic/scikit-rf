@@ -1,0 +1,6 @@
+skrf.network.Network.from\_string
+=================================
+
+.. currentmodule:: skrf.network
+
+.. automethod:: Network.from_string

@@ -1,0 +1,6 @@
+skrf.media.freespace.Freespace.inductor\_q
+==========================================
+
+.. currentmodule:: skrf.media.freespace
+
+.. automethod:: Freespace.inductor_q

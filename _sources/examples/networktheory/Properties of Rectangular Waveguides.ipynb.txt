@@ -1,0 +1,256 @@
+{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "# Properties of Rectangular Waveguide"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Introduction"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "This example demonstrates how to use [scikit-rf](http://www.scikit-rf.org) to calculate some properties of rectangular waveguide. For more information regarding the theoretical basis for these calculations, see the [References](#References)."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Object Creation"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "This first section imports necessary modules and creates several `RectangularWaveguide` objects for some standard waveguide bands. "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "%matplotlib inline\n",
+    "# imports\n",
+    "import matplotlib.pyplot as plt\n",
+    "import numpy as np\n",
+    "from scipy.constants import c, mil\n",
+    "\n",
+    "import skrf as rf\n",
+    "from skrf.frequency import Frequency\n",
+    "from skrf.mathFunctions import np_2_db\n",
+    "from skrf.media import Freespace, RectangularWaveguide\n",
+    "\n",
+    "rf.stylely()\n",
+    "# plot formatting\n",
+    "plt.rcParams['lines.linewidth'] = 2"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# create frequency objects for standard bands\n",
+    "f_wr5p1  = Frequency(140,220,1001, 'GHz')\n",
+    "f_wr3p4  = Frequency(220,330,1001, 'GHz')\n",
+    "f_wr2p2 = Frequency(330,500,1001, 'GHz')\n",
+    "f_wr1p5 = Frequency(500,750,1001, 'GHz')\n",
+    "f_wr1   = Frequency(750,1100,1001, 'GHz')\n",
+    "\n",
+    "# create rectangular waveguide objects\n",
+    "wr5p1 = RectangularWaveguide(f_wr5p1.copy(), a=51*mil, b=25.5*mil, rho = 'au')\n",
+    "wr3p4 = RectangularWaveguide(f_wr3p4.copy(), a=34*mil, b=17*mil, rho = 'au')\n",
+    "wr2p2 = RectangularWaveguide(f_wr2p2.copy(), a=22*mil, b=11*mil, rho = 'au')\n",
+    "wr1p5 = RectangularWaveguide(f_wr1p5.copy(), a=15*mil, b=7.5*mil, rho = 'au')\n",
+    "wr1   = RectangularWaveguide(f_wr1.copy(), a=10*mil, b=5*mil, rho = 'au')\n",
+    "\n",
+    "# add names to waveguide objects for use in plot legends\n",
+    "wr5p1.name = 'WR-5.1'\n",
+    "wr3p4.name = 'WR-3.4'\n",
+    "wr2p2.name = 'WR-2.2'\n",
+    "wr1p5.name = 'WR-1.5'\n",
+    "wr1.name = 'WR-1.0'\n",
+    "\n",
+    "# create a list to iterate through\n",
+    "wg_list = [wr5p1, wr3p4,wr2p2,wr1p5,wr1]\n",
+    "\n",
+    "# creat a freespace object too\n",
+    "freespace = Freespace(Frequency(125,1100, 1001, 'GHz'))\n",
+    "freespace.name = 'Free Space'"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Conductor Loss"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "fig, ax = plt.subplots()\n",
+    "\n",
+    "for wg in wg_list:\n",
+    "    wg.frequency.plot(np_2_db(wg.alpha), label=wg.name)\n",
+    "\n",
+    "ax.legend()\n",
+    "ax.set_xlabel('Frequency(GHz)')\n",
+    "ax.set_ylabel('Loss (dB/m)')\n",
+    "ax.set_title('Loss in Rectangular Waveguide (Au)');"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "fig, ax = plt.subplots()\n",
+    "resistivity_list = np.linspace(1,10,5)*1e-8 # ohm meter\n",
+    "for rho in resistivity_list:\n",
+    "    wg = RectangularWaveguide(f_wr1.copy(), a=10*mil, b=5*mil,\n",
+    "                              rho = rho)\n",
+    "    wg.frequency.plot(np_2_db(wg.alpha),label=rf'$ \\rho $={rho:e}$ \\Omega m$')\n",
+    "\n",
+    "ax.legend()\n",
+    "ax.set_xlabel('Frequency(GHz)')\n",
+    "ax.set_ylabel('Loss (dB/m)')\n",
+    "ax.set_title('Loss vs. Resistivity in\\nWR-1.0 Rectangular Waveguide');"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Phase and Group Velocity"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "fig, ax = plt.subplots()\n",
+    "for wg in wg_list:\n",
+    "    wg.frequency.plot(100*wg.v_p.real/c, label=wg.name )\n",
+    "\n",
+    "ax.legend()\n",
+    "ax.set_ylim(50,200)\n",
+    "ax.set_xlabel('Frequency(GHz)')\n",
+    "ax.set_ylabel(r'Phase Velocity (\\%c)')\n",
+    "ax.set_title('Phase Velocity in Rectangular Waveguide');"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "fig, ax = plt.subplots()\n",
+    "for wg in wg_list:\n",
+    "    plt.plot(wg.frequency.f_scaled[1:],\n",
+    "             100/c*np.diff(wg.frequency.w)/np.diff(wg.beta),\n",
+    "             label=wg.name )\n",
+    "\n",
+    "ax.legend()\n",
+    "ax.set_ylim(50,100)\n",
+    "ax.set_xlabel('Frequency(GHz)')\n",
+    "ax.set_ylabel(r'Group Velocity (\\%c)')\n",
+    "ax.set_title('Group Velocity in Rectangular Waveguide');"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Propagation Constant"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "fig, ax = plt.subplots()\n",
+    "for wg in wg_list+[freespace]:\n",
+    "    wg.frequency.plot(wg.beta,   label=wg.name)\n",
+    "\n",
+    "ax.legend()\n",
+    "ax.set_xlabel('Frequency(GHz)')\n",
+    "ax.set_ylabel('Propagation Constant (rad/m)')\n",
+    "ax.set_title('Propagation Constant \\nin Rectangular Waveguide')\n",
+    "ax.semilogy()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## References"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "\n",
+    "* [1] https://www.microwaves101.com/encyclopedias/waveguide-mathematics\n",
+    "* [2] http://en.wikipedia.org/wiki/Waveguide_(electromagnetism)\n",
+    "* [3] R. F. Harrington, Time-Harmonic Electromagnetic Fields (IEEE Press Series on Electromagnetic Wave Theory). Wiley-IEEE Press, 2001.\n",
+    "* [4] http://www.ece.rutgers.edu/~orfanidi/ewa (see Chapter 9)\n"
+   ]
+  }
+ ],
+ "metadata": {
+  "anaconda-cloud": {},
+  "kernelspec": {
+   "display_name": "Python 3 (ipykernel)",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.8.10"
+  },
+  "toc": {
+   "nav_menu": {},
+   "number_sections": true,
+   "sideBar": true,
+   "skip_h1_title": false,
+   "toc_cell": false,
+   "toc_position": {},
+   "toc_section_display": "block",
+   "toc_window_display": false
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 1
+}

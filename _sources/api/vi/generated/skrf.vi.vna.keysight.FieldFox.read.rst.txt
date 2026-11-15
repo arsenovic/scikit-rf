@@ -1,0 +1,6 @@
+skrf.vi.vna.keysight.FieldFox.read
+==================================
+
+.. currentmodule:: skrf.vi.vna.keysight
+
+.. automethod:: FieldFox.read

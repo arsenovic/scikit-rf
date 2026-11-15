@@ -1,0 +1,6 @@
+skrf.networkSet.NetworkSet.interpolate\_frequency
+=================================================
+
+.. currentmodule:: skrf.networkSet
+
+.. automethod:: NetworkSet.interpolate_frequency

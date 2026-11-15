@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="en" data-accent-color="blue" data-content_root="../">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Quality Factors - scikit-rf</title><link rel="author" title="About these documents" href="../about.html" /><link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Media" href="Media.html" /><link rel="prev" title="De-embedding" href="Deembedding.html" /><script>
+    function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
+    setColorMode(localStorage._theme||"auto");
+  </script><link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=ad592e98" />
+    <link rel="stylesheet" type="text/css" href="../_static/shibuya.css?v=2ceb65ce" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-codeautolink.css?v=b2176991" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link media="print" rel="stylesheet" type="text/css" href="../_static/print.css?v=20ff2c19" />
+    <link rel="stylesheet" type="text/css" href="../_static/nbsphinx-code-cells.css?v=2aa19091" />
+    <link rel="stylesheet" type="text/css" href="../_static/skrf.css?v=7e772ba2" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --sy-f-text: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+  --sy-f-heading: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+}
+</style>
+    
+  <meta property="og:type" content="website"/><meta property="og:title" content="Quality Factors"/>
+    <meta name="twitter:card" content="summary"/>
+  </head>
+<body><div class="sy-head">
+  <div class="sy-head-blur"></div>
+  <div class="sy-head-inner sy-container mx-auto">
+    <a class="sy-head-brand" href="../index.html">
+      <img class="light-logo" src="../_static/logo.svg" alt="scikit-rf" height="28" loading="lazy" />
+      <img class="dark-logo" src="../_static/logo.svg" alt="scikit-rf" height="28" loading="lazy" />
+      <strong>scikit-rf</strong>
+    </a>
+    <div class="sy-head-nav" id="head-nav">
+      <nav class="sy-head-links"><ul><li class="link"><a href="../index.html">Home</a></li><li class="link"><a href="index.html">Tutorials</a></li><li class="link"><a href="../examples/index.html">Examples</a></li><li class="link"><a href="../api/index.html">API</a></li><li class="link">
+          <a href="https://github.com/scikit-rf/scikit-rf">
+            <span>GitHub</span><i class="i-lucide external-link"></i></a>
+        </li></ul></nav>
+      <div class="sy-head-extra flex items-center print:hidden"><form class="searchbox flex items-center" action="../search.html" method="get">
+  <input type="text" name="q" placeholder="Search" />
+  <kbd>/</kbd>
+</form><div class="sy-head-socials">
+  <a href="https://github.com/scikit-rf/scikit-rf" aria-label="GitHub">
+    <iconify-icon icon="simple-icons:github"></iconify-icon>
+  </a>
+  <a href="https://www.linkedin.com/groups/12462155/" aria-label="LinkedIn">
+    <iconify-icon icon="simple-icons:linkedin"></iconify-icon>
+  </a>
+  <a href="https://app.element.io/#/room/#scikit-rf:matrix.org" aria-label="Matrix">
+    <iconify-icon icon="simple-icons:matrix"></iconify-icon>
+  </a></div></div>
+    </div>
+    <div class="sy-head-actions flex items-center shrink-0 print:hidden"><button class="js-theme theme-switch flex items-center"
+data-aria-auto="Switch to light color mode"
+data-aria-light="Switch to dark color mode"
+data-aria-dark="Switch to auto color mode">
+<i class="i-lucide theme-icon"></i>
+</button><button class="md:hidden flex items-center js-menu" aria-label="Menu" type="button" aria-controls="head-nav" aria-expanded="false">
+        <div class="hamburger">
+          <span class="hamburger_1"></span>
+          <span class="hamburger_2"></span>
+          <span class="hamburger_3"></span>
+        </div>
+      </button>
+    </div>
+  </div>
+</div>
+<div class="sy-page sy-container flex mx-auto">
+  <aside id="lside" class="sy-lside md:w-72 md:shrink-0 print:hidden">
+    <div class="sy-lside-inner md:sticky">
+      <div class="sy-scrollbar p-6">
+        <div class="globaltoc" data-expand-depth="0"><p class="caption" role="heading" aria-level="3"><span class="caption-text">Getting started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Introduction.html">Introduction</a></li>
+</ul>
+<p class="caption" role="heading" aria-level="3"><span class="caption-text">User guide</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Tutorials</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="Installation.html">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Introduction.html">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Frequency_units.html">Configuring frequency units</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Networks.html">Networks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Connecting_Networks.html">Connecting Networks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Plotting.html">Plotting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="NetworkSet.html">NetworkSet</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Circuit.html">Circuits</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Calibration.html">Calibration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Deembedding.html">De-embedding</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Quality Factors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Media.html">Media</a></li>
+<li class="toctree-l2"><a class="reference internal" href="VectorFitting.html">Vector Fitting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="VectorFittingParametric.html">Parametric Vector Fitting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="VirtualInstruments.html">Virtual Instruments</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/index.html">Examples</a></li>
+</ul>
+<p class="caption" role="heading" aria-level="3"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../api/index.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../glossary.html">Glossary</a></li>
+</ul>
+<p class="caption" role="heading" aria-level="3"><span class="caption-text">Project</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../contributing/index.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../citations_ack/acknowledging.html">Citing scikit-rf</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../citations_ack/citations.html">scikit-rf Citations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../about.html">About</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../users.html">Users</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../license.html">License</a></li>
+</ul>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="lside-overlay js-menu" role="button" aria-label="Close left sidebar" aria-controls="lside" aria-expanded="false"></div>
+  <aside id="rside" class="sy-rside pb-3 w-64 shrink-0 order-last">
+    <button class="rside-close js-menu xl:hidden" aria-label="Close Table of Contents" type="button" aria-controls="rside" aria-expanded="false">
+      <i class="i-lucide close"></i>
+    </button>
+    <div class="sy-scrollbar sy-rside-inner px-6 xl:top-16 xl:sticky xl:pl-0 pt-6 pb-4"><div class="localtoc"><h3>On this page</h3><ul>
+<li><a class="reference internal" href="#Resonant-Circuits-and-Q-factor">Resonant Circuits and Q-factor</a></li>
+<li><a class="reference internal" href="#Loaded-of-Unloaded-Q-factors">Loaded of Unloaded Q-factors</a></li>
+<li><a class="reference internal" href="#Example-with-a-Parallel-RLC-Circuit">Example with a Parallel RLC Circuit</a></li>
+<li><a class="reference internal" href="#Q-Circle">Q-Circle</a></li>
+<li><a class="reference internal" href="#Bandwidth">Bandwidth</a></li>
+<li><a class="reference internal" href="#References">References</a></li>
+</ul>
+</div><div id="ethical-ad-placement" data-ea-publisher="readthedocs"></div></div>
+  </aside>
+  <div class="rside-overlay js-menu" role="button" aria-label="Close Table of Contents" aria-controls="rside" aria-expanded="false"></div>
+  <main class="sy-main w-full max-sm:max-w-full print:pt-6">
+<div class="sy-breadcrumbs" role="navigation">
+  <div class="sy-breadcrumbs-inner flex items-center">
+    <div class="md:hidden mr-3">
+      <button class="js-menu" aria-label="Menu" type="button" aria-controls="lside" aria-expanded="false">
+        <i class="i-lucide menu"></i>
+      </button>
+    </div>
+    <ol class="flex-1" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="../index.html"><span itemprop="name">scikit-rf</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="1" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="index.html"><span itemprop="name">Tutorials</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="2" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <strong itemprop="name">Quality Factors</strong>
+        <meta itemprop="position" content="3" />
+      </li></ol>
+    <a class="sk-download" href="Q-Factor.ipynb" download>Download</a>
+    <div class="xl:hidden ml-1">
+      <button class="js-menu" aria-label="Show table of contents" type="button" aria-controls="rside"
+        aria-expanded="false">
+        <i class="i-lucide outdent"></i>
+      </button>
+    </div>
+  </div>
+</div><div class="flex flex-col break-words justify-between">
+      <div class="relative min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
+  <article class="yue" role="main">
+          <section id="Quality-Factors">
+<h1>Quality Factors<a class="headerlink" href="#Quality-Factors" title="Link to this heading">#</a></h1>
+<section id="Resonant-Circuits-and-Q-factor">
+<h2>Resonant Circuits and Q-factor<a class="headerlink" href="#Resonant-Circuits-and-Q-factor" title="Link to this heading">#</a></h2>
+<p>Resonant circuits are used extensively in oscillators, tuned amplifiers, filters, etc. At a particular frequency, <em>a resonant frequency</em> <span class="math notranslate nohighlight">\(f_r\)</span> (or <span class="math notranslate nohighlight">\(\omega_r\)</span>), resonators presents a maximum (or a minimum) impedance (ex: open or short circuit)[1]. The quality factor <span class="math notranslate nohighlight">\(Q\)</span>, or Q-factor, is a unitless figure of merit of the losses of a resonant passive circuit, defined as [2,3]:</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[Q = 2 \pi \left. \frac{\textrm{Average Energy Stored}}{\textrm{Energy Loss per Second}} \right|_{\omega=\omega_r}
+=
+\omega_r \left. \frac{\textrm{Average Energy Stored}}{\textrm{Average Power Loss}} \right|_{\omega=\omega_r}\]</div>
+</div>
+<p>From this definition, lower loss implies a higher <span class="math notranslate nohighlight">\(Q\)</span>. Resonators having higher Q-factors resonate with greater amplitudes (at the resonant frequency) but have a smaller range of frequencies <span class="math notranslate nohighlight">\(BW\)</span> around that frequency for which they resonate.</p>
+</section>
+<section id="Loaded-of-Unloaded-Q-factors">
+<h2>Loaded of Unloaded Q-factors<a class="headerlink" href="#Loaded-of-Unloaded-Q-factors" title="Link to this heading">#</a></h2>
+<p>Actually, there are three Q factors than can be defined depending upon which loss is being considered [2]:</p>
+<ul>
+<li><p>Unloaded Q:</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[Q_0 = \omega_r \left. \frac{\textrm{Energy Stored in the Resonant Circuit}}{\textrm{Power Loss in the Resonant Circuit}} \right|_{\omega=\omega_r}\]</div>
+</div>
+</li>
+<li><p>External Q:</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[Q_e = \omega_r \left. \frac{\textrm{Energy Stored in the Resonant Circuit}}{\textrm{Power Loss in the External Circuit}} \right|_{\omega=\omega_r}\]</div>
+</div>
+</li>
+<li><p>Loaded Q:</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[Q_L = \omega_r \left. \frac{\textrm{Energy Stored in the Resonant Circuit}}{\textrm{Total Power Loss}} \right|_{\omega=\omega_r}\]</div>
+</div>
+</li>
+</ul>
+<p>The <em>loaded</em> Q-factor <span class="math notranslate nohighlight">\(Q_L\)</span>, describes energy dissipation within the entire resonant system comprising of the resonator itself and the instrument used for observing resonances [3]. The term <em>loading</em> refers to the effect that the external circuit has on measured quantities. Any loss mechanisms due to the external circuitry will have the effect of lowering the <span class="math notranslate nohighlight">\(Q\)</span>.</p>
+<p>The <em>unloaded</em> Q-factor <span class="math notranslate nohighlight">\(Q_0\)</span> is a characteristic of the resonator itself, in the absence of any loading effects caused by external circuitry (uncoupled). For most applications, the quantity that is desired is the unloaded Q-factor <span class="math notranslate nohighlight">\(Q_0\)</span> which is determined by energy dissipation associated with the resonator only and therefore gives the best description of the resonant mode. Direct measurement of the unloaded Q of a resonator is generally not possible because of the loading effect of
+the measurement system. However, it is possible to estimate <span class="math notranslate nohighlight">\(Q_0\)</span> from measurements of the frequency response of the loaded resonator.</p>
+<p>The energy dissipation in the external circuit is characterized by the <em>external</em> Q-factor <span class="math notranslate nohighlight">\(Q_e\)</span> and these three Q-factors are related by the relationship (deduced from the three expressions above):</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[\frac{1}{Q_L} = \frac{1}{Q_e} + \frac{1}{Q_0}\]</div>
+</div>
+<p>If one defines the <em>coupling factor</em> <span class="math notranslate nohighlight">\(\beta=Q_0/Q_e\)</span> then:</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[Q_0 = (1 + \beta) Q_L\]</div>
+</div>
+<p>Three cases can be distinguished:</p>
+<ol class="arabic simple">
+<li><p><span class="math notranslate nohighlight">\(\beta&lt;1\)</span>: The resonator is said to be <em>undercoupled</em> to the feeding circuitry</p></li>
+<li><p><span class="math notranslate nohighlight">\(\beta=1\)</span>: The resonator is said to be <em>critically coupled</em></p></li>
+<li><p><span class="math notranslate nohighlight">\(\beta&gt;1\)</span>: The resonator is said to be <em>overcoupled</em></p></li>
+</ol>
+<p>While the measurements of the loaded Quality factor <span class="math notranslate nohighlight">\(Q_L\)</span> is straightforward, obtaining uncertainty below 1% (which is considered to be low for Q-factor measurement) requires attention to several aspects of the experimental procedure. In addition, finding the unloaded <span class="math notranslate nohighlight">\(Q_0\)</span> from measured S-parameters consists in first finding the coupling factor <span class="math notranslate nohighlight">\(\beta\)</span>, then measure <span class="math notranslate nohighlight">\(Q_L\)</span> from the 3dB bandwidth and using the relationships above.</p>
+<p>Fortunately, <code class="docutils literal notranslate"><span class="pre">scikit-rf</span></code> implements automatic methods for determining <em>loaded</em> and <em>unloaded</em> Q-factors from frequency-domain S-parameters. The implemented methods are described in detail in [4], and can be applied to measurements of transmission or reflection.</p>
+</section>
+<section id="Example-with-a-Parallel-RLC-Circuit">
+<h2>Example with a Parallel RLC Circuit<a class="headerlink" href="#Example-with-a-Parallel-RLC-Circuit" title="Link to this heading">#</a></h2>
+<p>To illustrate the usage of the <code class="docutils literal notranslate"><span class="pre">Qfactor</span></code> class of <code class="docutils literal notranslate"><span class="pre">scikit-rf</span></code>, a parallel RLC circuit as illustrated above is used as an canonical example for which analytical formulas are available for benchmarking.</p>
+<p><img alt="2b619469c51b4f2d85606caccbc6ec95" class="no-scaled-link" src="../_images/Parallel_RLC_resonator.svg" width="300"/></p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[1]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+</span><span data-line="2"><span class="kn">import</span><span class="w"> </span><a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/index.html#module-numpy"><span class="nn">numpy</span></a><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+</span><span data-line="3">
+</span><span data-line="4"><span class="kn">import</span><span class="w"> </span><span class="nn">skrf</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">rf</span>
+</span><span data-line="5">
+</span><span data-line="6"><a class="sphinx-codeautolink-a" href="../api/generated/skrf.plotting.stylely.html#skrf.plotting.stylely" title="skrf.plotting.stylely"><span class="n">rf</span><span class="o">.</span><span class="n">stylely</span></a><span class="p">()</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[2]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">C</span> <span class="o">=</span> <span class="mf">1e-6</span>  <span class="c1"># F</span>
+</span><span data-line="2"><span class="n">L</span> <span class="o">=</span> <span class="mf">1e-9</span>  <span class="c1"># H</span>
+</span><span data-line="3"><span class="n">R</span> <span class="o">=</span> <span class="mi">30</span>  <span class="c1"># Ohm</span>
+</span><span data-line="4"><span class="n">Z0</span> <span class="o">=</span> <span class="mi">50</span>  <span class="c1"># Ohm</span>
+</span><span data-line="5">
+</span><span data-line="6"><a class="sphinx-codeautolink-a" href="../api/generated/skrf.frequency.Frequency.html#skrf.frequency.Frequency" title="skrf.frequency.Frequency"><span class="n">freq</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../api/generated/skrf.frequency.Frequency.html#skrf.frequency.Frequency" title="skrf.frequency.Frequency"><span class="n">rf</span><span class="o">.</span><span class="n">Frequency</span></a><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mf">5.2</span><span class="p">,</span> <span class="n">npoints</span><span class="o">=</span><span class="mi">501</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s1">'MHz'</span><span class="p">)</span>
+</span><span data-line="7"><a class="sphinx-codeautolink-a" href="../api/media/generated/skrf.media.media.DefinedGammaZ0.html#skrf.media.media.DefinedGammaZ0" title="skrf.media.media.DefinedGammaZ0"><span class="n">media</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../api/media/generated/skrf.media.media.DefinedGammaZ0.html#skrf.media.media.DefinedGammaZ0" title="skrf.media.media.DefinedGammaZ0"><span class="n">rf</span><span class="o">.</span><span class="n">media</span><span class="o">.</span><span class="n">DefinedGammaZ0</span></a><span class="p">(</span><span class="n">frequency</span><span class="o">=</span><a class="sphinx-codeautolink-a" href="../api/generated/skrf.frequency.Frequency.html#skrf.frequency.Frequency" title="skrf.frequency.Frequency"><span class="n">freq</span></a><span class="p">,</span> <span class="n">z0</span><span class="o">=</span><span class="n">Z0</span><span class="p">)</span>  <span class="c1"># ideal line (no loss)</span>
+</span><span data-line="8"><span class="n">rng</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/random/generator.html#numpy.random.default_rng" title="numpy.random.default_rng"><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span></a><span class="p">()</span>
+</span><span data-line="9"><span class="n">random_d</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="o">-</span><a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/constants.html#numpy.pi" title="numpy.pi"><span class="n">np</span><span class="o">.</span><span class="n">pi</span></a><span class="p">,</span> <a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/constants.html#numpy.pi" title="numpy.pi"><span class="n">np</span><span class="o">.</span><span class="n">pi</span></a><span class="p">)</span>  <span class="c1"># a random length for the sake of the example</span>
+</span><span data-line="10">
+</span><span data-line="11"><span class="n">resonator</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../api/media/generated/skrf.media.media.DefinedGammaZ0.line.html#skrf.media.media.DefinedGammaZ0.line" title="skrf.media.media.DefinedGammaZ0.line"><span class="n">media</span><span class="o">.</span><span class="n">line</span></a><span class="p">(</span><span class="n">d</span><span class="o">=</span><span class="n">random_d</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s1">'rad'</span><span class="p">)</span> \
+</span><span data-line="12">                <span class="o">**</span><a class="sphinx-codeautolink-a" href="../api/media/generated/skrf.media.media.DefinedGammaZ0.shunt_inductor.html#skrf.media.media.DefinedGammaZ0.shunt_inductor" title="skrf.media.media.DefinedGammaZ0.shunt_inductor"><span class="n">media</span><span class="o">.</span><span class="n">shunt_inductor</span></a><span class="p">(</span><span class="n">L</span><span class="p">)</span> <span class="o">**</span> <a class="sphinx-codeautolink-a" href="../api/media/generated/skrf.media.media.DefinedGammaZ0.shunt_capacitor.html#skrf.media.media.DefinedGammaZ0.shunt_capacitor" title="skrf.media.media.DefinedGammaZ0.shunt_capacitor"><span class="n">media</span><span class="o">.</span><span class="n">shunt_capacitor</span></a><span class="p">(</span><span class="n">C</span><span class="p">)</span> \
+</span><span data-line="13">                <span class="o">**</span> <a class="sphinx-codeautolink-a" href="../api/media/generated/skrf.media.media.DefinedGammaZ0.shunt.html#skrf.media.media.DefinedGammaZ0.shunt" title="skrf.media.media.DefinedGammaZ0.shunt"><span class="n">media</span><span class="o">.</span><span class="n">shunt</span></a><span class="p">(</span><a class="sphinx-codeautolink-a" href="../api/media/generated/skrf.media.media.DefinedGammaZ0.resistor.html#skrf.media.media.DefinedGammaZ0.resistor" title="skrf.media.media.DefinedGammaZ0.resistor"><span class="n">media</span><span class="o">.</span><span class="n">resistor</span></a><span class="p">(</span><span class="n">R</span><span class="p">)</span><span class="o">**</span><a class="sphinx-codeautolink-a" href="../api/media/generated/skrf.media.media.DefinedGammaZ0.short.html#skrf.media.media.DefinedGammaZ0.short" title="skrf.media.media.DefinedGammaZ0.short"><span class="n">media</span><span class="o">.</span><span class="n">short</span></a><span class="p">())</span> <span class="o">**</span> <a class="sphinx-codeautolink-a" href="../api/media/generated/skrf.media.media.DefinedGammaZ0.open.html#skrf.media.media.DefinedGammaZ0.open" title="skrf.media.media.DefinedGammaZ0.open"><span class="n">media</span><span class="o">.</span><span class="n">open</span></a><span class="p">()</span>
+</span><span data-line="14">
+</span><span data-line="15"><span class="n">resonator</span><span class="o">.</span><span class="n">plot_s_db</span><span class="p">()</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorials_Q-Factor_3_0.png" src="../_images/tutorials_Q-Factor_3_0.png"/>
+</div>
+</div>
+<p>Analytical formulas for this case are available and given by [2,3]:</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[f_{\mathrm{res}} = \frac{1}{2\pi \sqrt{L C}}\]</div>
+</div>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[Q = \omega_r R C = \frac{R C}{\sqrt{L C}}\]</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[3]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="k">def</span><span class="w"> </span><span class="nf">f_res_RLC</span><span class="p">(</span><span class="n">L</span><span class="p">,</span> <span class="n">C</span><span class="p">):</span>
+</span><span data-line="2">    <span class="k">return</span> <span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/constants.html#numpy.pi" title="numpy.pi"><span class="n">np</span><span class="o">.</span><span class="n">pi</span></a><span class="o">*</span><a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/generated/numpy.sqrt.html#numpy.sqrt" title="numpy.sqrt"><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span></a><span class="p">(</span><span class="n">L</span><span class="o">*</span><span class="n">C</span><span class="p">))</span>
+</span><span data-line="3">
+</span><span data-line="4"><span class="k">def</span><span class="w"> </span><span class="nf">Q_RLC</span><span class="p">(</span><span class="n">R</span><span class="p">,</span> <span class="n">L</span><span class="p">,</span> <span class="n">C</span><span class="p">):</span>
+</span><span data-line="5">    <span class="k">return</span> <span class="n">R</span> <span class="o">*</span> <span class="n">C</span> <span class="o">/</span> <a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/generated/numpy.sqrt.html#numpy.sqrt" title="numpy.sqrt"><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span></a><span class="p">(</span><span class="n">L</span><span class="o">*</span><span class="n">C</span><span class="p">)</span>
+</span></pre></div>
+</div>
+</div>
+<p>The unloaded Q-factor <span class="math notranslate nohighlight">\(Q_0\)</span> is a characteristic of the resonator itself, in the absence of any loading effects caused by the external circuitry. In practice, of course, the resonator is connected and coupled to this circuitry which have the effect to lower the Q-factor of the loaded circuit <span class="math notranslate nohighlight">\(Q_L\)</span>.</p>
+<p>Hence, when the resonator is connected to the transmission line, it is loaded with the port impedance <span class="math notranslate nohighlight">\(Z_0\)</span> (assuming no loss in the transmission line), which is connected in parallel to the intrinsic resonator resistor. The equivalent resonator load is therefore <span class="math notranslate nohighlight">\(R \parallel Z_0 = (R Z_0) / (R+Z_0)\)</span>:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[4]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/builtins/functions.html#print"><span class="nb">print</span></a><span class="p">(</span><span class="sa">f</span><span class="s1">'Theoretical Resonant Frequency: </span><span class="si">{</span><span class="n">f_res_RLC</span><span class="p">(</span><span class="n">L</span><span class="p">,</span><span class="w"> </span><span class="n">C</span><span class="p">)</span><span class="o">/</span><span class="mf">1e6</span><span class="si">}</span><span class="s1"> MHz'</span><span class="p">)</span>
+</span><span data-line="2"><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/builtins/functions.html#print"><span class="nb">print</span></a><span class="p">(</span><span class="sa">f</span><span class="s1">'Theoretical Loaded Q: Q_L = </span><span class="si">{</span><span class="n">Q_RLC</span><span class="p">((</span><span class="n">R</span><span class="o">*</span><span class="n">Z0</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">R</span><span class="o">+</span><span class="n">Z0</span><span class="p">),</span><span class="w"> </span><span class="n">L</span><span class="p">,</span><span class="w"> </span><span class="n">C</span><span class="p">)</span><span class="si">}</span><span class="s1">'</span><span class="p">)</span>  <span class="c1"># Req = R//Z0</span>
+</span><span data-line="3"><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/builtins/functions.html#print"><span class="nb">print</span></a><span class="p">(</span><span class="sa">f</span><span class="s1">'Theoretical Unloaded Q: Q_0 = </span><span class="si">{</span><span class="n">Q_RLC</span><span class="p">(</span><span class="n">R</span><span class="p">,</span><span class="w"> </span><span class="n">L</span><span class="p">,</span><span class="w"> </span><span class="n">C</span><span class="p">)</span><span class="si">}</span><span class="s1">'</span><span class="p">)</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Theoretical Resonant Frequency: 5.032921210448704 MHz
+Theoretical Loaded Q: Q_L = 592.9270612815711
+Theoretical Unloaded Q: Q_0 = 948.6832980505137
+</pre></div></div>
+</div>
+<p>First, let’s create a <code class="docutils literal notranslate"><span class="pre">Qfactor</span></code> object, passing the resonator Network and the type of resonator we are dealing with:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[5]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><a class="sphinx-codeautolink-a" href="../api/generated/skrf.qfactor.Qfactor.html#skrf.qfactor.Qfactor" title="skrf.qfactor.Qfactor"><span class="n">Q</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../api/generated/skrf.qfactor.Qfactor.html#skrf.qfactor.Qfactor" title="skrf.qfactor.Qfactor"><span class="n">rf</span><span class="o">.</span><span class="n">qfactor</span><span class="o">.</span><span class="n">Qfactor</span></a><span class="p">(</span><span class="n">resonator</span><span class="p">,</span> <span class="n">res_type</span><span class="o">=</span><span class="s1">'reflection'</span><span class="p">)</span>
+</span></pre></div>
+</div>
+</div>
+<p>Note that in case of multiple resonances (<a class="reference internal" href="../examples/qfactor/Finding_Dk_Df_from_resonance_fitting.html"><span class="doc">like in this example</span></a>), it is recommended to also pass the estimated resonance frequency and eventually the estimated (order of magnitude) Q-factor.</p>
+<p>Then, we use the <code class="docutils literal notranslate"><span class="pre">fit</span></code> method to fit the loaded Q-factor <span class="math notranslate nohighlight">\(Q_L\)</span> and resonant frequency. The returned results will be useful to deduce the unloaded Q-factor.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[6]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">res</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../api/generated/skrf.qfactor.Qfactor.fit.html#skrf.qfactor.Qfactor.fit" title="skrf.qfactor.Qfactor.fit"><span class="n">Q</span><span class="o">.</span><span class="n">fit</span></a><span class="p">()</span>
+</span><span data-line="2"><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/builtins/functions.html#print"><span class="nb">print</span></a><span class="p">(</span><span class="sa">f</span><span class="s1">'Fitted Resonant Frequency: f_L = </span><span class="si">{</span><span class="n">Q</span><span class="o">.</span><span class="n">f_L</span><span class="o">/</span><span class="mf">1e6</span><span class="si">}</span><span class="s1"> MHz'</span><span class="p">)</span>
+</span><span data-line="3"><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/builtins/functions.html#print"><span class="nb">print</span></a><span class="p">(</span><span class="sa">f</span><span class="s1">'Fitted Loaded Q-factor: Q_L = </span><span class="si">{</span><span class="n">Q</span><span class="o">.</span><span class="n">Q_L</span><span class="si">}</span><span class="s1">'</span><span class="p">)</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Fitted Resonant Frequency: f_L = 5.032919422706801 MHz
+Fitted Loaded Q-factor: Q_L = 592.9272284660681
+</pre></div></div>
+</div>
+<p>Note that these results are also shown if you print the <code class="docutils literal notranslate"><span class="pre">Qfactor</span></code> object:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[7]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><a class="sphinx-codeautolink-a" href="../api/generated/skrf.qfactor.Qfactor.html#skrf.qfactor.Qfactor" title="skrf.qfactor.Qfactor"><span class="n">Q</span></a>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[7]:
+</span></pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Q-factor of Network None. (fitted: f_L=5.033MHz, Q_L=592.927)
+</pre></div></div>
+</div>
+<p>Finally, the unloaded Q-factor is deduced from the fitting properties:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[8]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/builtins/functions.html#float" title="float"><span class="n">Q0</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../api/generated/skrf.qfactor.Qfactor.Q_unloaded.html#skrf.qfactor.Qfactor.Q_unloaded" title="skrf.qfactor.Qfactor.Q_unloaded"><span class="n">Q</span><span class="o">.</span><span class="n">Q_unloaded</span></a><span class="p">(</span><span class="n">res</span><span class="p">)</span>
+</span><span data-line="2"><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/builtins/functions.html#print"><span class="nb">print</span></a><span class="p">(</span><span class="sa">f</span><span class="s1">'Fitted Unloaded Q-factor: Q_0 = </span><span class="si">{</span><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/builtins/functions.html#float" title="float"><span class="n">Q0</span></a><span class="si">}</span><span class="s1">'</span><span class="p">)</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Fitted Unloaded Q-factor: Q_0 = 948.6836129994118
+</pre></div></div>
+</div>
+<p>Note that passing the result is optional. Calling the <code class="docutils literal notranslate"><span class="pre">.fit()</span></code> method will store internally the optimized results and use it if a specific optimized result is not passed:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[9]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/builtins/functions.html#float" title="float"><span class="n">Q0</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../api/generated/skrf.qfactor.Qfactor.Q_unloaded.html#skrf.qfactor.Qfactor.Q_unloaded" title="skrf.qfactor.Qfactor.Q_unloaded"><span class="n">Q</span><span class="o">.</span><span class="n">Q_unloaded</span></a><span class="p">()</span>  <span class="c1"># will use the latest optimized results performed with .fit()</span>
+</span><span data-line="2"><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/builtins/functions.html#print"><span class="nb">print</span></a><span class="p">(</span><span class="sa">f</span><span class="s1">'Fitted Unloaded Q-factor: Q_0 = </span><span class="si">{</span><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/builtins/functions.html#float" title="float"><span class="n">Q0</span></a><span class="si">}</span><span class="s1">'</span><span class="p">)</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Fitted Unloaded Q-factor: Q_0 = 948.6836129994118
+</pre></div></div>
+</div>
+<p>Note that the analytical results and the fitted ones match well, the relative error is small:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[10]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/builtins/functions.html#print"><span class="nb">print</span></a><span class="p">(</span><span class="s1">'Relative Error on Q_0:'</span><span class="p">,</span> <span class="p">(</span><span class="n">Q_RLC</span><span class="p">(</span><span class="n">R</span><span class="p">,</span> <span class="n">L</span><span class="p">,</span> <span class="n">C</span><span class="p">)</span> <span class="o">-</span> <a class="sphinx-codeautolink-a" href="https://docs.python.org/3/builtins/functions.html#float" title="float"><span class="n">Q0</span></a><span class="p">)</span><span class="o">/</span><span class="n">Q_RLC</span><span class="p">(</span><span class="n">R</span><span class="p">,</span> <span class="n">L</span><span class="p">,</span> <span class="n">C</span><span class="p">))</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Relative Error on Q_0: -3.3198528819387325e-07
+</pre></div></div>
+</div>
+<p>It is also possible to generate a Network from the fitted results. For example, we can compare the fitted resonator model for more frequency points to the initial RLC resonator:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[11]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><a class="sphinx-codeautolink-a" href="../api/generated/skrf.frequency.Frequency.html#skrf.frequency.Frequency" title="skrf.frequency.Frequency"><span class="n">new_freq</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../api/generated/skrf.frequency.Frequency.html#skrf.frequency.Frequency" title="skrf.frequency.Frequency"><span class="n">rf</span><span class="o">.</span><span class="n">Frequency</span></a><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mf">5.2</span><span class="p">,</span> <span class="n">npoints</span><span class="o">=</span><span class="mi">5001</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s1">'MHz'</span><span class="p">)</span>
+</span><span data-line="2"><a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">fitted_network</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../api/generated/skrf.qfactor.Qfactor.fitted_network.html#skrf.qfactor.Qfactor.fitted_network" title="skrf.qfactor.Qfactor.fitted_network"><span class="n">Q</span><span class="o">.</span><span class="n">fitted_network</span></a><span class="p">(</span><span class="n">res</span><span class="p">,</span> <span class="n">frequency</span><span class="o">=</span><a class="sphinx-codeautolink-a" href="../api/generated/skrf.frequency.Frequency.html#skrf.frequency.Frequency" title="skrf.frequency.Frequency"><span class="n">new_freq</span></a><span class="p">)</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[12]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">resonator</span><span class="o">.</span><span class="n">plot_s_mag</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s1">'Parallel RLC '</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+</span><span data-line="2"><a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.Network.plot_s_mag.html#skrf.network.Network.plot_s_mag" title="skrf.network.Network.plot_s_mag"><span class="n">fitted_network</span><span class="o">.</span><span class="n">plot_s_mag</span></a><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s1">'Fitted Model'</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">'--'</span><span class="p">)</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorials_Q-Factor_22_0.png" src="../_images/tutorials_Q-Factor_22_0.png"/>
+</div>
+</div>
+</section>
+<section id="Q-Circle">
+<h2>Q-Circle<a class="headerlink" href="#Q-Circle" title="Link to this heading">#</a></h2>
+<p>Close to a resonance, a resonator can be represented by an equivalent circuit model [1,4].</p>
+<p>The Scattering-parameters (reflection or transmission) of RF circuits including resonator(s) have the form of circles in the complex plane <span class="math notranslate nohighlight">\((\Re(s), \Im(s))\)</span>. S-parameters can be expressed as a function of the frequency <span class="math notranslate nohighlight">\(f\)</span>, the loaded quality factor <span class="math notranslate nohighlight">\(Q_L\)</span> [1,4]:</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[S(f) = S_D + d \frac{e^{-2 j \delta}}{1 + j Q_L \mathcal{F}}\]</div>
+</div>
+<p>where :</p>
+<ul>
+<li><p><span class="math notranslate nohighlight">\(S_D\)</span> is the detuned S-parameter measured at frequencies far above or below the resonance</p></li>
+<li><p><span class="math notranslate nohighlight">\(Q_L\)</span> is the loaded Q-factor</p></li>
+<li><p><span class="math notranslate nohighlight">\(f_L\)</span> is the loaded resonant frequency</p></li>
+<li><p><span class="math notranslate nohighlight">\(f_0\)</span> is the unloaded resonant frequency</p></li>
+<li><p><span class="math notranslate nohighlight">\(d\)</span> is the diameter of the Q-circle</p></li>
+<li><p><span class="math notranslate nohighlight">\(\delta\)</span> is a real valued constant that defines the orientation of the Q-circle</p></li>
+<li><p><span class="math notranslate nohighlight">\(\mathcal{F}\)</span> is the fractional offset frequency given by:</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[\mathcal{F} = \frac{f}{f_L} - \frac{f_L}{f}\]</div>
+</div>
+</li>
+</ul>
+<p>The fractional frequency <span class="math notranslate nohighlight">\(\mathcal{F}\)</span> is a convenient way to express the frequency when dealing with resonant circuits: <span class="math notranslate nohighlight">\(\mathcal{F}=0\)</span> at the resonant frequency and when <span class="math notranslate nohighlight">\(f&lt;f_L\)</span>, <span class="math notranslate nohighlight">\(\mathcal{F}\)</span> is negative, while it is positive when <span class="math notranslate nohighlight">\(f&gt;f_L\)</span>. If <span class="math notranslate nohighlight">\(\Delta f = f - f_L\)</span> is the frequency deviation from the resonance, then close to the resonance:</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[\mathcal{F} \approx 2 \frac{\Delta f}{f_L}\]</div>
+</div>
+<p>For example, if the source frequency is 10% below the resonant frequency (<span class="math notranslate nohighlight">\(0.9 f/f_L\)</span>), then <span class="math notranslate nohighlight">\(\mathcal{F}\approx -0.2\)</span>.</p>
+<p>The parameters (diameters and tuned and off-tuned S-parameters) of the Q-circle can eventually be obtained from:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[13]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">diam</span><span class="p">,</span> <span class="n">S_V</span><span class="p">,</span> <span class="n">S_T</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../api/generated/skrf.qfactor.Qfactor.Q_circle.html#skrf.qfactor.Qfactor.Q_circle" title="skrf.qfactor.Qfactor.Q_circle"><span class="n">Q</span><span class="o">.</span><span class="n">Q_circle</span></a><span class="p">()</span>
+</span></pre></div>
+</div>
+</div>
+<p>Use a polar plane to check the results:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[14]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">subplot_kw</span><span class="o">=</span><span class="p">{</span><span class="s1">'projection'</span><span class="p">:</span> <span class="s1">'polar'</span><span class="p">})</span>
+</span><span data-line="2"><span class="n">resonator</span><span class="o">.</span><span class="n">plot_s_polar</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"RLC Resonator"</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">''</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">'x'</span><span class="p">,</span> <span class="n">ms</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+</span><span data-line="3"><a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.Network.plot_s_polar.html#skrf.network.Network.plot_s_polar" title="skrf.network.Network.plot_s_polar"><span class="n">fitted_network</span><span class="o">.</span><span class="n">plot_s_polar</span></a><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"Fitted Model"</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+</span><span data-line="4"><span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/generated/numpy.angle.html#numpy.angle" title="numpy.angle"><span class="n">np</span><span class="o">.</span><span class="n">angle</span></a><span class="p">(</span><span class="n">S_V</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">S_V</span><span class="p">),</span> <span class="s1">'ko'</span><span class="p">)</span>
+</span><span data-line="5"><span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/generated/numpy.angle.html#numpy.angle" title="numpy.angle"><span class="n">np</span><span class="o">.</span><span class="n">angle</span></a><span class="p">(</span><span class="n">S_T</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">S_T</span><span class="p">),</span> <span class="s1">'ko'</span><span class="p">)</span>
+</span><span data-line="6"><span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/generated/numpy.angle.html#numpy.angle" title="numpy.angle"><span class="n">np</span><span class="o">.</span><span class="n">angle</span></a><span class="p">(</span><span class="n">S_T</span><span class="p">),</span> <span class="mf">0.8</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">S_T</span><span class="p">),</span> <span class="s1">'$S_T$'</span><span class="p">)</span>
+</span><span data-line="7"><span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/generated/numpy.angle.html#numpy.angle" title="numpy.angle"><span class="n">np</span><span class="o">.</span><span class="n">angle</span></a><span class="p">(</span><span class="n">S_V</span><span class="p">),</span> <span class="mf">1.1</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">S_V</span><span class="p">),</span> <span class="s1">'$S_V$'</span><span class="p">)</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[14]:
+</span></pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Text(2.6565127384322524, 1.1, '$S_V$')
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorials_Q-Factor_27_1.png" src="../_images/tutorials_Q-Factor_27_1.png"/>
+</div>
+</div>
+</section>
+<section id="Bandwidth">
+<h2>Bandwidth<a class="headerlink" href="#Bandwidth" title="Link to this heading">#</a></h2>
+<p>Another definition of the Q-factor is the frequency-to-bandwidth ratio of a transmission resonator [6]:</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[Q_L = \frac{\omega_r}{\Delta \omega} = \frac{f_r}{\Delta f}\]</div>
+</div>
+<p>where <span class="math notranslate nohighlight">\(f_r\)</span> is the resonant frequency, <span class="math notranslate nohighlight">\(\Delta f=BW\)</span> is the resonance width or <em>fractional bandwidth</em> BW. Note that this definition is only an approximation, which can be not accurate when there is significant leakage (see [4] for more information). The definition of the bandwidth also depends on the resonator type:</p>
+<ul class="simple">
+<li><p>transmission: bandwidth, also known as <em>full width at half maximum</em> (FWHM), is the bandwidth over which the dissipated power is half the maximum value at the resonant frequency (3 dB below the max value).</p></li>
+<li><p>reflection: while it is possible to define the bandwidth as the 3-dB points below the max reflection coefficient [6], a more proper definition of the bandwidth consists in measuring the difference between frequencies <span class="math notranslate nohighlight">\(f_1\)</span> and <span class="math notranslate nohighlight">\(f_2\)</span>, which belong to the two points inclined by 45 degrees on each side of the centerline from <span class="math notranslate nohighlight">\(S_T\)</span> to the origin (see [4,8] for additional details).</p></li>
+</ul>
+<p>Using the previous relation, the bandwidth BW can also be obtained from the <code class="docutils literal notranslate"><span class="pre">Qfactor</span></code> class via the <code class="docutils literal notranslate"><span class="pre">.BW</span></code> parameter.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[15]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><a class="sphinx-codeautolink-a" href="../api/generated/skrf.qfactor.Qfactor.BW.html#skrf.qfactor.Qfactor.BW" title="skrf.qfactor.Qfactor.BW"><span class="n">BW</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../api/generated/skrf.qfactor.Qfactor.BW.html#skrf.qfactor.Qfactor.BW" title="skrf.qfactor.Qfactor.BW"><span class="n">Q</span><span class="o">.</span><span class="n">BW</span></a>
+</span><span data-line="2"><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/builtins/functions.html#print"><span class="nb">print</span></a><span class="p">(</span><span class="sa">f</span><span class="s1">'Bandwidth: </span><span class="si">{</span><a class="sphinx-codeautolink-a" href="../api/generated/skrf.qfactor.Qfactor.BW.html#skrf.qfactor.Qfactor.BW" title="skrf.qfactor.Qfactor.BW"><span class="n">BW</span></a><span class="si">}</span><span class="s1"> Hz'</span><span class="p">)</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Bandwidth: 8488.258223065941 Hz
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[16]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+</span><span data-line="2"><span class="n">resonator</span><span class="o">.</span><span class="n">plot_s_db</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s1">'Parallel RLC '</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+</span><span data-line="3"><span class="n">ax</span><span class="o">.</span><span class="n">axvspan</span><span class="p">(</span><span class="n">xmin</span><span class="o">=</span><span class="n">Q</span><span class="o">.</span><span class="n">f_L</span><span class="o">-</span><a class="sphinx-codeautolink-a" href="../api/generated/skrf.qfactor.Qfactor.BW.html#skrf.qfactor.Qfactor.BW" title="skrf.qfactor.Qfactor.BW"><span class="n">Q</span><span class="o">.</span><span class="n">BW</span></a><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">xmax</span><span class="o">=</span><span class="n">Q</span><span class="o">.</span><span class="n">f_L</span><span class="o">+</span><a class="sphinx-codeautolink-a" href="../api/generated/skrf.qfactor.Qfactor.BW.html#skrf.qfactor.Qfactor.BW" title="skrf.qfactor.Qfactor.BW"><span class="n">Q</span><span class="o">.</span><span class="n">BW</span></a><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">'Bandwidth'</span><span class="p">)</span>
+</span><span data-line="4"><span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[16]:
+</span></pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;matplotlib.legend.Legend at 0x71d448183980&gt;
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorials_Q-Factor_30_1.png" src="../_images/tutorials_Q-Factor_30_1.png"/>
+</div>
+</div>
+</section>
+<section id="References">
+<h2>References<a class="headerlink" href="#References" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>[1] B. A. Galwas, “Scattering Matrix Description of Microwave Resonators,” in IEEE Transactions on Microwave Theory and Techniques, vol. 31, no. 8, pp. 669-671, Aug. 1983, doi: 10.1109/TMTT.1983.1131566.</p></li>
+<li><p>[2] Peter A. Rizzi, “Microwave Engineering: Passive Circuits”, Prentice-Hall, 1988</p></li>
+<li><p>[3] David M. Pozar, “Microwave Engineering”, 4th Edition, Éditeur Wiley, 2011</p></li>
+<li><p>[4] A. P. Gregory, “Q-factor Measurement by using a Vector Network Analyser”, National Physical Laboratory Report MAT 58 (2021), <a class="reference external" href="https://eprintspublications.npl.co.uk/9304/">https://eprintspublications.npl.co.uk/9304/</a></p></li>
+<li><p>[5] Microwaves101, “Resonance of RLC Circuits”, <a class="reference external" href="https://www.microwaves101.com/encyclopedias/resonance-of-rlc-circuits">https://www.microwaves101.com/encyclopedias/resonance-of-rlc-circuits</a></p></li>
+<li><p>[6] Green, Estill I. (October 1955). “The Story of Q”, American Scientist. 43: 584–594. <a class="reference external" href="http://www.collinsaudio.com/Prosound_Workshop/The_story_of_Q.pdf">http://www.collinsaudio.com/Prosound_Workshop/The_story_of_Q.pdf</a></p></li>
+<li><p>[7] R. S. Kwok and J.-F. Liang, ‘Characterization of high-Q resonators for microwave filter applications’, IEEE Transactions on Microwave Theory and Techniques, vol. 47, no. 1, pp. 111–114, Jan. 1999, doi: 10.1109/22.740093.</p></li>
+<li><p>[8] Darko Kajfez, “Q factor measurements, analog and digital”, <a class="reference external" href="https://people.engineering.olemiss.edu/darko-kajfez/assets/rfqmeas2b.pdf">https://people.engineering.olemiss.edu/darko-kajfez/assets/rfqmeas2b.pdf</a></p></li>
+</ul>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[ ]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1">
+</span></pre></div>
+</div>
+</div>
+</section>
+</section>
+
+        </article><button class="back-to-top" type="button">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+  </svg>
+  <span>Back to top</span>
+</button><div class="navigation flex print:hidden"><div class="navigation-prev">
+    <a href="Deembedding.html">
+      <i class="i-lucide chevron-left"></i>
+      <div class="page-info">
+        <span>Previous</span><div class="title">De-embedding</div></div>
+    </a>
+  </div><div class="navigation-next">
+    <a href="Media.html">
+      <div class="page-info">
+        <span>Next</span>
+        <div class="title">Media</div>
+      </div>
+      <i class="i-lucide chevron-right"></i>
+    </a>
+  </div></div></div>
+    </div>
+  </main>
+</div>
+<footer class="sy-foot">
+  <div class="sy-foot-inner sy-container mx-auto">
+    <div class="sy-foot-reserved md:flex justify-between items-center">
+      <div class="sy-foot-copyright"><p>2025, scikit-rf team</p>
+  
+  <p>
+    Made with
+    
+    <a href="https://www.sphinx-doc.org/">Sphinx</a> and
+    
+    <a href="https://shibuya.lepture.com">Shibuya theme</a>.
+  </p>
+</div>
+      <div class="sy-foot-socials">
+  <a href="https://github.com/scikit-rf/scikit-rf" aria-label="GitHub">
+    <iconify-icon icon="simple-icons:github"></iconify-icon>
+  </a></div>
+    </div>
+  </div>
+</footer>
+      <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../_static/copybutton.js?v=34bd459d"></script>
+      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+      <script src="../_static/shibuya.js?v=50760d75"></script>
+      <script src="https://cdn.jsdelivr.net/npm/@jupyter-widgets/html-manager@^1.0.1/dist/embed-amd.js"></script>
+      <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
+      <script src="../_static/skrf.js?v=bdeb9fb0"></script></body>
+</html>

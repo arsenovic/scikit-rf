@@ -1,0 +1,6 @@
+skrf.vi.vna.keysight.FieldFox.window\_configuration
+===================================================
+
+.. currentmodule:: skrf.vi.vna.keysight
+
+.. autoproperty:: FieldFox.window_configuration

@@ -1,0 +1,6 @@
+skrf.vi.vna.nanovna.NanoVNAv2.query\_values
+===========================================
+
+.. currentmodule:: skrf.vi.vna.nanovna
+
+.. automethod:: NanoVNAv2.query_values

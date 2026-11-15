@@ -1,0 +1,73 @@
+﻿skrf.circuit.Circuit
+====================
+
+.. currentmodule:: skrf.circuit
+
+.. autoclass:: Circuit
+  :no-members:
+
+
+
+.. rubric:: Attributes
+
+.. autosummary::
+  :toctree:
+  :nosignatures:
+
+  ~Circuit.C
+  ~Circuit.CACHEDPROPERTIES
+  ~Circuit.C_F
+  ~Circuit.G
+  ~Circuit.T
+  ~Circuit.X
+  ~Circuit.X_F
+  ~Circuit.connections
+  ~Circuit.connections_list
+  ~Circuit.connections_nb
+  ~Circuit.connections_pair
+  ~Circuit.dim
+  ~Circuit.edge_labels
+  ~Circuit.edges
+  ~Circuit.intersections_dict
+  ~Circuit.network
+  ~Circuit.networks_nb
+  ~Circuit.nodes_nb
+  ~Circuit.port_indexes
+  ~Circuit.port_names
+  ~Circuit.port_z0
+  ~Circuit.s
+  ~Circuit.s_external
+  ~Circuit.z0
+
+
+
+
+
+.. rubric:: Methods
+
+.. autosummary::
+  :toctree:
+  :nosignatures:
+
+  ~Circuit.Ground
+  ~Circuit.Open
+  ~Circuit.Port
+  ~Circuit.SeriesImpedance
+  ~Circuit.ShuntAdmittance
+  ~Circuit.__init__
+  ~Circuit.check_duplicate_names
+  ~Circuit.currents
+  ~Circuit.currents_external
+  ~Circuit.graph
+  ~Circuit.is_connected
+  ~Circuit.networks_dict
+  ~Circuit.networks_list
+  ~Circuit.plot_graph
+  ~Circuit.s_active
+  ~Circuit.update_networks
+  ~Circuit.voltages
+  ~Circuit.voltages_external
+  ~Circuit.vswr_active
+  ~Circuit.y_active
+  ~Circuit.z_active
+

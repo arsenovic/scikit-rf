@@ -1,0 +1,6 @@
+skrf.media.circularWaveguide.CircularWaveguide.z0\_port
+=======================================================
+
+.. currentmodule:: skrf.media.circularWaveguide
+
+.. autoproperty:: CircularWaveguide.z0_port

@@ -1,0 +1,6 @@
+skrf.vi.vna.hp.HP8510C.\_\_init\_\_
+===================================
+
+.. currentmodule:: skrf.vi.vna.hp
+
+.. automethod:: HP8510C.__init__

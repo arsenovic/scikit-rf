@@ -1,0 +1,6 @@
+skrf.vi.validators.FloatValidator.check\_bounds
+===============================================
+
+.. currentmodule:: skrf.vi.validators
+
+.. automethod:: FloatValidator.check_bounds

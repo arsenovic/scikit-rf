@@ -1,0 +1,6 @@
+﻿skrf.tlineFunctions.surface\_impedance
+======================================
+
+.. currentmodule:: skrf.tlineFunctions
+
+.. autofunction:: surface_impedance

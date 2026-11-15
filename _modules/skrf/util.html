@@ -1,0 +1,1110 @@
+<!DOCTYPE html>
+<html lang="en" data-accent-color="blue" data-content_root="../../">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>skrf.util - scikit-rf</title><link rel="author" title="About these documents" href="../../about.html" /><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><script>
+    function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
+    setColorMode(localStorage._theme||"auto");
+  </script><link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=ad592e98" />
+    <link rel="stylesheet" type="text/css" href="../../_static/shibuya.css?v=2ceb65ce" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-codeautolink.css?v=b2176991" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link media="print" rel="stylesheet" type="text/css" href="../../_static/print.css?v=20ff2c19" />
+    <link rel="stylesheet" type="text/css" href="../../_static/skrf.css?v=7e772ba2" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --sy-f-text: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+  --sy-f-heading: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+}
+</style>
+    
+  <meta property="og:type" content="website"/><meta property="og:title" content="skrf.util"/>
+    <meta name="twitter:card" content="summary"/>
+  </head>
+<body><div class="sy-head">
+  <div class="sy-head-blur"></div>
+  <div class="sy-head-inner sy-container mx-auto">
+    <a class="sy-head-brand" href="../../index.html">
+      <img class="light-logo" src="../../_static/logo.svg" alt="scikit-rf" height="28" loading="lazy" />
+      <img class="dark-logo" src="../../_static/logo.svg" alt="scikit-rf" height="28" loading="lazy" />
+      <strong>scikit-rf</strong>
+    </a>
+    <div class="sy-head-nav" id="head-nav">
+      <nav class="sy-head-links"><ul><li class="link"><a href="../../index.html">Home</a></li><li class="link"><a href="../../tutorials/index.html">Tutorials</a></li><li class="link"><a href="../../examples/index.html">Examples</a></li><li class="link"><a href="../../api/index.html">API</a></li><li class="link">
+          <a href="https://github.com/scikit-rf/scikit-rf">
+            <span>GitHub</span><i class="i-lucide external-link"></i></a>
+        </li></ul></nav>
+      <div class="sy-head-extra flex items-center print:hidden"><form class="searchbox flex items-center" action="../../search.html" method="get">
+  <input type="text" name="q" placeholder="Search" />
+  <kbd>/</kbd>
+</form><div class="sy-head-socials">
+  <a href="https://github.com/scikit-rf/scikit-rf" aria-label="GitHub">
+    <iconify-icon icon="simple-icons:github"></iconify-icon>
+  </a>
+  <a href="https://www.linkedin.com/groups/12462155/" aria-label="LinkedIn">
+    <iconify-icon icon="simple-icons:linkedin"></iconify-icon>
+  </a>
+  <a href="https://app.element.io/#/room/#scikit-rf:matrix.org" aria-label="Matrix">
+    <iconify-icon icon="simple-icons:matrix"></iconify-icon>
+  </a></div></div>
+    </div>
+    <div class="sy-head-actions flex items-center shrink-0 print:hidden"><button class="js-theme theme-switch flex items-center"
+data-aria-auto="Switch to light color mode"
+data-aria-light="Switch to dark color mode"
+data-aria-dark="Switch to auto color mode">
+<i class="i-lucide theme-icon"></i>
+</button><button class="md:hidden flex items-center js-menu" aria-label="Menu" type="button" aria-controls="head-nav" aria-expanded="false">
+        <div class="hamburger">
+          <span class="hamburger_1"></span>
+          <span class="hamburger_2"></span>
+          <span class="hamburger_3"></span>
+        </div>
+      </button>
+    </div>
+  </div>
+</div>
+<div class="sy-page sy-container flex mx-auto">
+  <aside id="lside" class="sy-lside md:w-72 md:shrink-0 print:hidden">
+    <div class="sy-lside-inner md:sticky">
+      <div class="sy-scrollbar p-6">
+        <div class="globaltoc" data-expand-depth="0"><p class="caption" role="heading" aria-level="3"><span class="caption-text">Getting started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../index.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/Installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/Introduction.html">Introduction</a></li>
+</ul>
+<p class="caption" role="heading" aria-level="3"><span class="caption-text">User guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../examples/index.html">Examples</a></li>
+</ul>
+<p class="caption" role="heading" aria-level="3"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../api/index.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../glossary.html">Glossary</a></li>
+</ul>
+<p class="caption" role="heading" aria-level="3"><span class="caption-text">Project</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing/index.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../citations_ack/acknowledging.html">Citing scikit-rf</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../citations_ack/citations.html">scikit-rf Citations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../about.html">About</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../users.html">Users</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../license.html">License</a></li>
+</ul>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="lside-overlay js-menu" role="button" aria-label="Close left sidebar" aria-controls="lside" aria-expanded="false"></div>
+  <aside id="rside" class="sy-rside pb-3 w-64 shrink-0 order-last">
+    <button class="rside-close js-menu xl:hidden" aria-label="Close Table of Contents" type="button" aria-controls="rside" aria-expanded="false">
+      <i class="i-lucide close"></i>
+    </button>
+    <div class="sy-scrollbar sy-rside-inner px-6 xl:top-16 xl:sticky xl:pl-0 pt-6 pb-4"><div id="ethical-ad-placement" data-ea-publisher="readthedocs"></div></div>
+  </aside>
+  <div class="rside-overlay js-menu" role="button" aria-label="Close Table of Contents" aria-controls="rside" aria-expanded="false"></div>
+  <main class="sy-main w-full max-sm:max-w-full print:pt-6">
+<div class="sy-breadcrumbs" role="navigation">
+  <div class="sy-breadcrumbs-inner flex items-center">
+    <div class="md:hidden mr-3">
+      <button class="js-menu" aria-label="Menu" type="button" aria-controls="lside" aria-expanded="false">
+        <i class="i-lucide menu"></i>
+      </button>
+    </div>
+    <ol class="flex-1" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="../../index.html"><span itemprop="name">scikit-rf</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="1" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="../index.html"><span itemprop="name">Module code</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="2" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <strong itemprop="name">skrf.util</strong>
+        <meta itemprop="position" content="3" />
+      </li></ol>
+    <div class="xl:hidden ml-1">
+      <button class="js-menu" aria-label="Show table of contents" type="button" aria-controls="rside"
+        aria-expanded="false">
+        <i class="i-lucide outdent"></i>
+      </button>
+    </div>
+  </div>
+</div><div class="flex flex-col break-words justify-between">
+      <div class="relative min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
+  <article class="yue" role="main">
+          <h1>Source code for skrf.util</h1><div class="highlight"><pre>
+<span></span><span data-line="1"><span class="sd">"""</span>
+</span><span data-line="2">
+</span><span data-line="3"><span class="sd">.. currentmodule:: skrf.util</span>
+</span><span data-line="4"><span class="sd">========================================</span>
+</span><span data-line="5"><span class="sd">util (:mod:`skrf.util`)</span>
+</span><span data-line="6"><span class="sd">========================================</span>
+</span><span data-line="7">
+</span><span data-line="8"><span class="sd">Holds utilities that are general conveniences.</span>
+</span><span data-line="9">
+</span><span data-line="10">
+</span><span data-line="11"><span class="sd">Time-related utilities</span>
+</span><span data-line="12"><span class="sd">----------------------</span>
+</span><span data-line="13"><span class="sd">.. autosummary::</span>
+</span><span data-line="14"><span class="sd">   :toctree: generated/</span>
+</span><span data-line="15">
+</span><span data-line="16"><span class="sd">   now_string</span>
+</span><span data-line="17"><span class="sd">   now_string_2_dt</span>
+</span><span data-line="18">
+</span><span data-line="19"><span class="sd">   ProgressBar</span>
+</span><span data-line="20">
+</span><span data-line="21"><span class="sd">Array-related functions</span>
+</span><span data-line="22"><span class="sd">-----------------------</span>
+</span><span data-line="23"><span class="sd">.. autosummary::</span>
+</span><span data-line="24"><span class="sd">   :toctree: generated/</span>
+</span><span data-line="25">
+</span><span data-line="26"><span class="sd">   find_nearest</span>
+</span><span data-line="27"><span class="sd">   find_nearest_index</span>
+</span><span data-line="28"><span class="sd">   has_duplicate_value</span>
+</span><span data-line="29"><span class="sd">   smooth</span>
+</span><span data-line="30">
+</span><span data-line="31"><span class="sd">File-related functions</span>
+</span><span data-line="32"><span class="sd">----------------------</span>
+</span><span data-line="33"><span class="sd">.. autosummary::</span>
+</span><span data-line="34"><span class="sd">   :toctree: generated/</span>
+</span><span data-line="35">
+</span><span data-line="36"><span class="sd">   get_fid</span>
+</span><span data-line="37"><span class="sd">   get_extn</span>
+</span><span data-line="38"><span class="sd">   basename_noext</span>
+</span><span data-line="39"><span class="sd">   git_version</span>
+</span><span data-line="40"><span class="sd">   unique_name</span>
+</span><span data-line="41"><span class="sd">   findReplace</span>
+</span><span data-line="42"><span class="sd">   dict_2_recarray</span>
+</span><span data-line="43">
+</span><span data-line="44"><span class="sd">General Purpose Objects</span>
+</span><span data-line="45"><span class="sd">-----------------------</span>
+</span><span data-line="46"><span class="sd">.. autosummary::</span>
+</span><span data-line="47"><span class="sd">   :toctree: generated/</span>
+</span><span data-line="48">
+</span><span data-line="49"><span class="sd">    HomoList</span>
+</span><span data-line="50"><span class="sd">    HomoDict</span>
+</span><span data-line="51">
+</span><span data-line="52"><span class="sd">"""</span>
+</span><span data-line="53"><span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
+</span><span data-line="54">
+</span><span data-line="55"><span class="kn">import</span><span class="w"> </span><span class="nn">collections</span>
+</span><span data-line="56"><span class="kn">import</span><span class="w"> </span><span class="nn">contextlib</span>
+</span><span data-line="57"><span class="kn">import</span><span class="w"> </span><span class="nn">fnmatch</span>
+</span><span data-line="58"><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+</span><span data-line="59"><span class="kn">import</span><span class="w"> </span><span class="nn">pprint</span>
+</span><span data-line="60"><span class="kn">import</span><span class="w"> </span><span class="nn">re</span>
+</span><span data-line="61"><span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
+</span><span data-line="62"><span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
+</span><span data-line="63"><span class="kn">from</span><span class="w"> </span><span class="nn">collections.abc</span><span class="w"> </span><span class="kn">import</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Iterable</span>
+</span><span data-line="64"><span class="kn">from</span><span class="w"> </span><span class="nn">datetime</span><span class="w"> </span><span class="kn">import</span> <span class="n">datetime</span>
+</span><span data-line="65"><span class="kn">from</span><span class="w"> </span><span class="nn">functools</span><span class="w"> </span><span class="kn">import</span> <span class="n">wraps</span>
+</span><span data-line="66"><span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+</span><span data-line="67"><span class="kn">from</span><span class="w"> </span><span class="nn">subprocess</span><span class="w"> </span><span class="kn">import</span> <span class="n">PIPE</span><span class="p">,</span> <span class="n">Popen</span>
+</span><span data-line="68"><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">TYPE_CHECKING</span><span class="p">,</span> <span class="n">Any</span>
+</span><span data-line="69">
+</span><span data-line="70"><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+</span><span data-line="71">
+</span><span data-line="72"><span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
+</span><span data-line="73">    <span class="kn">from</span><span class="w"> </span><span class="nn">.constants</span><span class="w"> </span><span class="kn">import</span> <span class="n">Number</span>
+</span><span data-line="74">
+</span><span data-line="75">
+</span><span data-line="76"><span class="k">def</span><span class="w"> </span><span class="nf">partial_with_docs</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="o">*</span><span class="n">args1</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs1</span><span class="p">):</span>
+</span><span data-line="77">    <span class="nd">@wraps</span><span class="p">(</span><span class="n">func</span><span class="p">)</span>
+</span><span data-line="78">    <span class="k">def</span><span class="w"> </span><span class="nf">method</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args2</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs2</span><span class="p">):</span>
+</span><span data-line="79">        <span class="k">return</span> <span class="n">func</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args1</span><span class="p">,</span> <span class="o">*</span><span class="n">args2</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs1</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs2</span><span class="p">)</span>
+</span><span data-line="80">    <span class="k">return</span> <span class="n">method</span>
+</span><span data-line="81">
+</span><span data-line="82">
+</span><span data-line="83"><span class="k">def</span><span class="w"> </span><span class="nf">copy_doc</span><span class="p">(</span><span class="n">copy_func</span><span class="p">:</span> <span class="n">Callable</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">:</span>
+</span><span data-line="84"><span class="w">    </span><span class="sd">"""Use Example: copy_doc(self.copy_func)(self.func) or used as deco"""</span>
+</span><span data-line="85">    <span class="k">def</span><span class="w"> </span><span class="nf">wrapper</span><span class="p">(</span><span class="n">func</span><span class="p">:</span> <span class="n">Callable</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">:</span>
+</span><span data-line="86">        <span class="n">func</span><span class="o">.</span><span class="vm">__doc__</span> <span class="o">=</span> <span class="n">copy_func</span><span class="o">.</span><span class="vm">__doc__</span>
+</span><span data-line="87">        <span class="k">return</span> <span class="n">func</span>
+</span><span data-line="88">    <span class="k">return</span> <span class="n">wrapper</span>
+</span><span data-line="89">
+</span><span data-line="90">
+<div class="viewcode-block" id="now_string">
+<a class="viewcode-back" href="../../api/generated/skrf.util.now_string.html#skrf.util.now_string">[docs]</a>
+</span><span data-line="91"><span class="k">def</span><span class="w"> </span><span class="nf">now_string</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+</span><span data-line="92"><span class="w">    </span><span class="sd">"""</span>
+</span><span data-line="93"><span class="sd">    Return a unique sortable string, representing the current time.</span>
+</span><span data-line="94">
+</span><span data-line="95"><span class="sd">    Nice for generating date-time stamps to be used in file-names,</span>
+</span><span data-line="96"><span class="sd">    the companion function :func:`now_string_2_dt` can be used</span>
+</span><span data-line="97"><span class="sd">    to read these string back into datetime objects.</span>
+</span><span data-line="98">
+</span><span data-line="99"><span class="sd">    Returns</span>
+</span><span data-line="100"><span class="sd">    -------</span>
+</span><span data-line="101"><span class="sd">    now : string</span>
+</span><span data-line="102"><span class="sd">        current date-time stamps.</span>
+</span><span data-line="103">
+</span><span data-line="104"><span class="sd">    See Also</span>
+</span><span data-line="105"><span class="sd">    --------</span>
+</span><span data-line="106"><span class="sd">    now_string_2_dt</span>
+</span><span data-line="107">
+</span><span data-line="108"><span class="sd">    """</span>
+</span><span data-line="109">    <span class="k">return</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="fm">__str__</span><span class="p">()</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">'-'</span><span class="p">,</span><span class="s1">'.'</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">':'</span><span class="p">,</span><span class="s1">'.'</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">' '</span><span class="p">,</span><span class="s1">'.'</span><span class="p">)</span></div>
+
+</span><span data-line="110">
+</span><span data-line="111">
+<div class="viewcode-block" id="now_string_2_dt">
+<a class="viewcode-back" href="../../api/generated/skrf.util.now_string_2_dt.html#skrf.util.now_string_2_dt">[docs]</a>
+</span><span data-line="112"><span class="k">def</span><span class="w"> </span><span class="nf">now_string_2_dt</span><span class="p">(</span><span class="n">s</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">datetime</span><span class="p">:</span>
+</span><span data-line="113"><span class="w">    </span><span class="sd">"""</span>
+</span><span data-line="114"><span class="sd">    Converts the output of :func:`now_string` to a datetime object.</span>
+</span><span data-line="115">
+</span><span data-line="116"><span class="sd">    Parameters</span>
+</span><span data-line="117"><span class="sd">    ----------</span>
+</span><span data-line="118"><span class="sd">    s : str</span>
+</span><span data-line="119"><span class="sd">        date-time stamps string as generated by :func:`now_string`</span>
+</span><span data-line="120">
+</span><span data-line="121"><span class="sd">    Returns</span>
+</span><span data-line="122"><span class="sd">    -------</span>
+</span><span data-line="123"><span class="sd">    dt : datetime</span>
+</span><span data-line="124"><span class="sd">        date-time stamps</span>
+</span><span data-line="125">
+</span><span data-line="126"><span class="sd">    See Also</span>
+</span><span data-line="127"><span class="sd">    --------</span>
+</span><span data-line="128"><span class="sd">    now_string</span>
+</span><span data-line="129">
+</span><span data-line="130"><span class="sd">    """</span>
+</span><span data-line="131">    <span class="k">return</span> <span class="n">datetime</span><span class="p">(</span><span class="o">*</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">k</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">s</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">'.'</span><span class="p">)])</span></div>
+
+</span><span data-line="132">
+</span><span data-line="133">
+<div class="viewcode-block" id="find_nearest">
+<a class="viewcode-back" href="../../api/generated/skrf.util.find_nearest.html#skrf.util.find_nearest">[docs]</a>
+</span><span data-line="134"><span class="k">def</span><span class="w"> </span><span class="nf">find_nearest</span><span class="p">(</span><span class="n">array</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Number</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Number</span><span class="p">:</span>
+</span><span data-line="135"><span class="w">    </span><span class="sd">"""</span>
+</span><span data-line="136"><span class="sd">    Find the nearest value in array.</span>
+</span><span data-line="137">
+</span><span data-line="138"><span class="sd">    Parameters</span>
+</span><span data-line="139"><span class="sd">    ----------</span>
+</span><span data-line="140"><span class="sd">    array :  np.ndarray</span>
+</span><span data-line="141"><span class="sd">        array we are searching for a value in</span>
+</span><span data-line="142"><span class="sd">    value : element of the array</span>
+</span><span data-line="143"><span class="sd">        value to search for</span>
+</span><span data-line="144">
+</span><span data-line="145"><span class="sd">    Returns</span>
+</span><span data-line="146"><span class="sd">    --------</span>
+</span><span data-line="147"><span class="sd">    found_value : an element of the array</span>
+</span><span data-line="148"><span class="sd">        the value that is numerically closest to `value`</span>
+</span><span data-line="149">
+</span><span data-line="150"><span class="sd">    """</span>
+</span><span data-line="151">    <span class="n">idx</span> <span class="o">=</span> <span class="n">find_nearest_index</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+</span><span data-line="152">    <span class="k">return</span> <span class="n">array</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span></div>
+
+</span><span data-line="153">
+</span><span data-line="154">
+<div class="viewcode-block" id="find_nearest_index">
+<a class="viewcode-back" href="../../api/generated/skrf.util.find_nearest_index.html#skrf.util.find_nearest_index">[docs]</a>
+</span><span data-line="155"><span class="k">def</span><span class="w"> </span><span class="nf">find_nearest_index</span><span class="p">(</span><span class="n">array</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Number</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+</span><span data-line="156"><span class="w">    </span><span class="sd">"""</span>
+</span><span data-line="157"><span class="sd">    Find the nearest index for a value in array.</span>
+</span><span data-line="158">
+</span><span data-line="159"><span class="sd">    Parameters</span>
+</span><span data-line="160"><span class="sd">    ----------</span>
+</span><span data-line="161"><span class="sd">    array :  np.ndarray</span>
+</span><span data-line="162"><span class="sd">        array we are searching for a value in</span>
+</span><span data-line="163"><span class="sd">    value : element of the array</span>
+</span><span data-line="164"><span class="sd">        value to search for</span>
+</span><span data-line="165">
+</span><span data-line="166"><span class="sd">    Returns</span>
+</span><span data-line="167"><span class="sd">    --------</span>
+</span><span data-line="168"><span class="sd">    found_index : int</span>
+</span><span data-line="169"><span class="sd">        the index at which the  numerically closest element to `value`</span>
+</span><span data-line="170"><span class="sd">        was found at</span>
+</span><span data-line="171">
+</span><span data-line="172"><span class="sd">    References</span>
+</span><span data-line="173"><span class="sd">    ----------</span>
+</span><span data-line="174"><span class="sd">    taken from  http://stackoverflow.com/questions/2566412/find-nearest-value-in-numpy-array</span>
+</span><span data-line="175">
+</span><span data-line="176"><span class="sd">    """</span>
+</span><span data-line="177">    <span class="k">return</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">array</span><span class="o">-</span><span class="n">value</span><span class="p">))</span><span class="o">.</span><span class="n">argmin</span><span class="p">()</span></div>
+
+</span><span data-line="178">
+</span><span data-line="179">
+</span><span data-line="180"><span class="k">def</span><span class="w"> </span><span class="nf">slice_domain</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">domain</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">):</span>
+</span><span data-line="181"><span class="w">    </span><span class="sd">"""</span>
+</span><span data-line="182"><span class="sd">    Returns a slice object closest to the `domain` of `x`</span>
+</span><span data-line="183">
+</span><span data-line="184"><span class="sd">    domain = x[slice_domain(x, (start, stop))]</span>
+</span><span data-line="185">
+</span><span data-line="186"><span class="sd">    Parameters</span>
+</span><span data-line="187"><span class="sd">    ----------</span>
+</span><span data-line="188"><span class="sd">    vector : np.ndarray</span>
+</span><span data-line="189"><span class="sd">        an array of values</span>
+</span><span data-line="190"><span class="sd">    domain : tuple</span>
+</span><span data-line="191"><span class="sd">        tuple of (start,stop) values defining the domain over</span>
+</span><span data-line="192"><span class="sd">        which to slice</span>
+</span><span data-line="193">
+</span><span data-line="194"><span class="sd">    Examples</span>
+</span><span data-line="195"><span class="sd">    --------</span>
+</span><span data-line="196"><span class="sd">    &gt;&gt;&gt; x = linspace(0,10,101)</span>
+</span><span data-line="197"><span class="sd">    &gt;&gt;&gt; idx = slice_domain(x, (2,6))</span>
+</span><span data-line="198"><span class="sd">    &gt;&gt;&gt; x[idx]</span>
+</span><span data-line="199">
+</span><span data-line="200"><span class="sd">    """</span>
+</span><span data-line="201">    <span class="n">start</span> <span class="o">=</span> <span class="n">find_nearest_index</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">domain</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</span><span data-line="202">    <span class="n">stop</span> <span class="o">=</span> <span class="n">find_nearest_index</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">domain</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+</span><span data-line="203">    <span class="k">return</span> <span class="nb">slice</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">stop</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+</span><span data-line="204">
+</span><span data-line="205"><span class="c1"># file IO</span>
+</span><span data-line="206">
+</span><span data-line="207">
+<div class="viewcode-block" id="get_fid">
+<a class="viewcode-back" href="../../api/generated/skrf.util.get_fid.html#skrf.util.get_fid">[docs]</a>
+</span><span data-line="208"><span class="k">def</span><span class="w"> </span><span class="nf">get_fid</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+</span><span data-line="209"><span class="w">    </span><span class="sa">r</span><span class="sd">"""</span>
+</span><span data-line="210"><span class="sd">    Return a file object, given a filename or file object.</span>
+</span><span data-line="211">
+</span><span data-line="212"><span class="sd">    Useful when you want to allow the arguments of a function to</span>
+</span><span data-line="213"><span class="sd">    be either files or filenames</span>
+</span><span data-line="214">
+</span><span data-line="215"><span class="sd">    Parameters</span>
+</span><span data-line="216"><span class="sd">    ----------</span>
+</span><span data-line="217"><span class="sd">    file : str/unicode, Path, or file-object</span>
+</span><span data-line="218"><span class="sd">        file to open</span>
+</span><span data-line="219"><span class="sd">    \*args, \*\*kwargs : arguments and keyword arguments to `open()`</span>
+</span><span data-line="220">
+</span><span data-line="221"><span class="sd">    Returns</span>
+</span><span data-line="222"><span class="sd">    -------</span>
+</span><span data-line="223"><span class="sd">    fid : file object</span>
+</span><span data-line="224">
+</span><span data-line="225"><span class="sd">    """</span>
+</span><span data-line="226">    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Path</span><span class="p">):</span>
+</span><span data-line="227">        <span class="k">return</span> <span class="nb">open</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+</span><span data-line="228">    <span class="k">else</span><span class="p">:</span>
+</span><span data-line="229">        <span class="k">return</span> <span class="n">file</span></div>
+
+</span><span data-line="230">
+</span><span data-line="231">
+<div class="viewcode-block" id="get_extn">
+<a class="viewcode-back" href="../../api/generated/skrf.util.get_extn.html#skrf.util.get_extn">[docs]</a>
+</span><span data-line="232"><span class="k">def</span><span class="w"> </span><span class="nf">get_extn</span><span class="p">(</span><span class="n">filename</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+</span><span data-line="233"><span class="w">    </span><span class="sd">"""</span>
+</span><span data-line="234"><span class="sd">    Get the extension from a filename.</span>
+</span><span data-line="235">
+</span><span data-line="236"><span class="sd">    The extension is defined as everything passed the last '.'.</span>
+</span><span data-line="237"><span class="sd">    Returns None if it ain't got one</span>
+</span><span data-line="238">
+</span><span data-line="239"><span class="sd">    Parameters</span>
+</span><span data-line="240"><span class="sd">    ----------</span>
+</span><span data-line="241"><span class="sd">    filename : string or Path</span>
+</span><span data-line="242"><span class="sd">        the filename</span>
+</span><span data-line="243">
+</span><span data-line="244"><span class="sd">    Returns</span>
+</span><span data-line="245"><span class="sd">    -------</span>
+</span><span data-line="246"><span class="sd">    ext : string, None</span>
+</span><span data-line="247"><span class="sd">        either the extension (not including '.') or None if there</span>
+</span><span data-line="248"><span class="sd">        isn't one</span>
+</span><span data-line="249">
+</span><span data-line="250"><span class="sd">    """</span>
+</span><span data-line="251">
+</span><span data-line="252">    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">Path</span><span class="p">):</span>
+</span><span data-line="253">        <span class="k">return</span> <span class="n">filename</span><span class="o">.</span><span class="n">suffix</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s1">'.'</span><span class="p">)</span> <span class="ow">or</span> <span class="kc">None</span>
+</span><span data-line="254">
+</span><span data-line="255">    <span class="n">ext</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">filename</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+</span><span data-line="256">    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">ext</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+</span><span data-line="257">        <span class="k">return</span> <span class="kc">None</span>
+</span><span data-line="258">    <span class="k">else</span><span class="p">:</span>
+</span><span data-line="259">        <span class="k">return</span> <span class="n">ext</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span></div>
+
+</span><span data-line="260">
+</span><span data-line="261">
+<div class="viewcode-block" id="basename_noext">
+<a class="viewcode-back" href="../../api/generated/skrf.util.basename_noext.html#skrf.util.basename_noext">[docs]</a>
+</span><span data-line="262"><span class="k">def</span><span class="w"> </span><span class="nf">basename_noext</span><span class="p">(</span><span class="n">filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+</span><span data-line="263"><span class="w">    </span><span class="sd">"""</span>
+</span><span data-line="264"><span class="sd">    Get the basename and strips extension.</span>
+</span><span data-line="265">
+</span><span data-line="266"><span class="sd">    Parameters</span>
+</span><span data-line="267"><span class="sd">    ----------</span>
+</span><span data-line="268"><span class="sd">    filename : string</span>
+</span><span data-line="269"><span class="sd">        the filename</span>
+</span><span data-line="270">
+</span><span data-line="271"><span class="sd">    Returns</span>
+</span><span data-line="272"><span class="sd">    -------</span>
+</span><span data-line="273"><span class="sd">    basename : str</span>
+</span><span data-line="274"><span class="sd">        file basename (ie. without extension)</span>
+</span><span data-line="275">
+</span><span data-line="276"><span class="sd">    """</span>
+</span><span data-line="277">    <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">filename</span><span class="p">))[</span><span class="mi">0</span><span class="p">]</span></div>
+
+</span><span data-line="278">
+</span><span data-line="279">
+</span><span data-line="280"><span class="c1"># git</span>
+<div class="viewcode-block" id="git_version">
+<a class="viewcode-back" href="../../api/generated/skrf.util.git_version.html#skrf.util.git_version">[docs]</a>
+</span><span data-line="281"><span class="k">def</span><span class="w"> </span><span class="nf">git_version</span><span class="p">(</span><span class="n">modname</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+</span><span data-line="282"><span class="w">    </span><span class="sd">"""</span>
+</span><span data-line="283"><span class="sd">    Return output 'git describe', executed in a module's root directory.</span>
+</span><span data-line="284">
+</span><span data-line="285"><span class="sd">    Parameters</span>
+</span><span data-line="286"><span class="sd">    ----------</span>
+</span><span data-line="287"><span class="sd">    modname : str</span>
+</span><span data-line="288"><span class="sd">        module name</span>
+</span><span data-line="289">
+</span><span data-line="290"><span class="sd">    Returns</span>
+</span><span data-line="291"><span class="sd">    -------</span>
+</span><span data-line="292"><span class="sd">    out : str</span>
+</span><span data-line="293"><span class="sd">        output of 'git describe'</span>
+</span><span data-line="294">
+</span><span data-line="295"><span class="sd">    """</span>
+</span><span data-line="296">    <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">"git_version is deprecated and will be removed in a future version."</span><span class="p">,</span> <span class="ne">FutureWarning</span><span class="p">,</span> <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+</span><span data-line="297">    <span class="n">mod</span> <span class="o">=</span> <span class="nb">__import__</span><span class="p">(</span><span class="n">modname</span><span class="p">)</span>
+</span><span data-line="298">    <span class="n">mod_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">mod</span><span class="o">.</span><span class="vm">__file__</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+</span><span data-line="299">    <span class="n">p</span> <span class="o">=</span> <span class="n">Popen</span><span class="p">([</span><span class="s1">'git'</span><span class="p">,</span> <span class="s1">'describe'</span><span class="p">],</span> <span class="n">stdout</span><span class="o">=</span><span class="n">PIPE</span><span class="p">,</span> <span class="n">stderr</span><span class="o">=</span><span class="n">PIPE</span><span class="p">,</span> <span class="n">cwd</span><span class="o">=</span><span class="n">mod_dir</span><span class="p">)</span>
+</span><span data-line="300">
+</span><span data-line="301">    <span class="k">try</span><span class="p">:</span>
+</span><span data-line="302">        <span class="n">out</span><span class="p">,</span> <span class="n">er</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">communicate</span><span class="p">()</span>
+</span><span data-line="303">    <span class="k">except</span><span class="p">(</span><span class="ne">OSError</span><span class="p">):</span>
+</span><span data-line="304">        <span class="k">return</span> <span class="kc">None</span>
+</span><span data-line="305">
+</span><span data-line="306">    <span class="n">out</span> <span class="o">=</span> <span class="n">out</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s1">'</span><span class="se">\n</span><span class="s1">'</span><span class="p">)</span>
+</span><span data-line="307">    <span class="k">if</span> <span class="n">out</span> <span class="o">==</span> <span class="s1">''</span><span class="p">:</span>
+</span><span data-line="308">        <span class="k">return</span> <span class="kc">None</span>
+</span><span data-line="309">    <span class="k">return</span> <span class="n">out</span></div>
+
+</span><span data-line="310">
+</span><span data-line="311">
+<div class="viewcode-block" id="dict_2_recarray">
+<a class="viewcode-back" href="../../api/generated/skrf.util.dict_2_recarray.html#skrf.util.dict_2_recarray">[docs]</a>
+</span><span data-line="312"><span class="k">def</span><span class="w"> </span><span class="nf">dict_2_recarray</span><span class="p">(</span><span class="n">d</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">delim</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">dtype</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">tuple</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+</span><span data-line="313"><span class="w">    </span><span class="sd">"""</span>
+</span><span data-line="314"><span class="sd">    Turn a dictionary of structured keys to a record array of objects.</span>
+</span><span data-line="315">
+</span><span data-line="316"><span class="sd">    This is useful if you save data-base like meta-data in the form</span>
+</span><span data-line="317"><span class="sd">    or file-naming conventions, aka 'the poor-mans database'</span>
+</span><span data-line="318">
+</span><span data-line="319"><span class="sd">    Parameters</span>
+</span><span data-line="320"><span class="sd">    ----------</span>
+</span><span data-line="321"><span class="sd">    d : dict</span>
+</span><span data-line="322"><span class="sd">        dictionary of structured keys</span>
+</span><span data-line="323"><span class="sd">    delim : str</span>
+</span><span data-line="324"><span class="sd">        delimiter string</span>
+</span><span data-line="325"><span class="sd">    dtype : list of tuple</span>
+</span><span data-line="326"><span class="sd">        list of type, where a type is tuple like ('type_name', type)</span>
+</span><span data-line="327">
+</span><span data-line="328"><span class="sd">    Returns</span>
+</span><span data-line="329"><span class="sd">    -------</span>
+</span><span data-line="330"><span class="sd">    ra : numpy.array</span>
+</span><span data-line="331">
+</span><span data-line="332"><span class="sd">    Examples</span>
+</span><span data-line="333"><span class="sd">    --------</span>
+</span><span data-line="334"><span class="sd">    Given a directory of networks like:</span>
+</span><span data-line="335">
+</span><span data-line="336"><span class="sd">    &gt;&gt;&gt; ls</span>
+</span><span data-line="337"><span class="sd">    a1,0.0,0.0.s1p    a1,3.0,3.0.s1p    a2,3.0,-3.0.s1p   b1,-3.0,3.0.s1p</span>
+</span><span data-line="338"><span class="sd">    ...</span>
+</span><span data-line="339">
+</span><span data-line="340"><span class="sd">    you can sort based on the values or each field, after defining their</span>
+</span><span data-line="341"><span class="sd">    type with `dtype`. The `values` field accesses the objects.</span>
+</span><span data-line="342">
+</span><span data-line="343"><span class="sd">    &gt;&gt;&gt; d = rf.read_all_networks('/tmp/')</span>
+</span><span data-line="344"><span class="sd">    &gt;&gt;&gt; delim = ','</span>
+</span><span data-line="345"><span class="sd">    &gt;&gt;&gt; dtype = [('name', object), ('voltage', float), ('current', float)]</span>
+</span><span data-line="346"><span class="sd">    &gt;&gt;&gt; ra = dict_2_recarray(d=rf.ran(dir), delim=delim, dtype =dtype)</span>
+</span><span data-line="347">
+</span><span data-line="348"><span class="sd">    then you can sift like you do with numpy arrays</span>
+</span><span data-line="349">
+</span><span data-line="350"><span class="sd">    &gt;&gt;&gt; ra[ra['voltage'] &lt; 3]['values']</span>
+</span><span data-line="351"><span class="sd">    array([1-Port Network: 'a2,0.0,-3.0',  450-800 GHz, 101 pts, z0=[ 50.+0.j],</span>
+</span><span data-line="352"><span class="sd">           1-Port Network: 'b1,0.0,3.0',  450-800 GHz, 101 pts, z0=[ 50.+0.j],</span>
+</span><span data-line="353"><span class="sd">           1-Port Network: 'a1,0.0,-3.0',  450-800 GHz, 101 pts, z0=[ 50.+0.j],</span>
+</span><span data-line="354"><span class="sd">    """</span>
+</span><span data-line="355">    <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">"dict_2_recarray is deprecated and will be removed in a future version."</span><span class="p">,</span> <span class="ne">FutureWarning</span><span class="p">,</span> <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+</span><span data-line="356">    <span class="n">split_keys</span> <span class="o">=</span> <span class="p">[</span><span class="nb">tuple</span><span class="p">(</span><span class="n">k</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">delim</span><span class="p">)</span><span class="o">+</span><span class="p">[</span><span class="n">d</span><span class="p">[</span><span class="n">k</span><span class="p">]])</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">d</span><span class="o">.</span><span class="n">keys</span><span class="p">()]</span>
+</span><span data-line="357">    <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">split_keys</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="o">+</span><span class="p">[(</span><span class="s1">'values'</span><span class="p">,</span><span class="nb">object</span><span class="p">)])</span>
+</span><span data-line="358">    <span class="k">return</span> <span class="n">x</span></div>
+
+</span><span data-line="359">
+</span><span data-line="360">
+<div class="viewcode-block" id="findReplace">
+<a class="viewcode-back" href="../../api/generated/skrf.util.findReplace.html#skrf.util.findReplace">[docs]</a>
+</span><span data-line="361"><span class="k">def</span><span class="w"> </span><span class="nf">findReplace</span><span class="p">(</span><span class="n">directory</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">find</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">replace</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">file_pattern</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+</span><span data-line="362"><span class="w">    </span><span class="sa">r</span><span class="sd">"""</span>
+</span><span data-line="363"><span class="sd">    Find/replace some txt in all files in a directory, recursively.</span>
+</span><span data-line="364">
+</span><span data-line="365"><span class="sd">    This was found in [1]_ .</span>
+</span><span data-line="366">
+</span><span data-line="367"><span class="sd">    Parameters</span>
+</span><span data-line="368"><span class="sd">    ----------</span>
+</span><span data-line="369"><span class="sd">    directory : str</span>
+</span><span data-line="370"><span class="sd">        path of a directory</span>
+</span><span data-line="371"><span class="sd">    find : str</span>
+</span><span data-line="372"><span class="sd">        pattern to search for</span>
+</span><span data-line="373"><span class="sd">    replace : str</span>
+</span><span data-line="374"><span class="sd">        string to replace with</span>
+</span><span data-line="375"><span class="sd">    file_pattern : str</span>
+</span><span data-line="376"><span class="sd">        file pattern for filtering. Ex: '\*.txt'.</span>
+</span><span data-line="377">
+</span><span data-line="378"><span class="sd">    Examples</span>
+</span><span data-line="379"><span class="sd">    --------</span>
+</span><span data-line="380"><span class="sd">    &gt;&gt;&gt; rf.findReplace('some_dir', 'find this', 'replace with this', '*.txt')</span>
+</span><span data-line="381">
+</span><span data-line="382"><span class="sd">    References</span>
+</span><span data-line="383"><span class="sd">    ----------</span>
+</span><span data-line="384"><span class="sd">    .. [1] http://stackoverflow.com/questions/4205854/python-way-to-recursively-find-and-replace-string-in-text-files</span>
+</span><span data-line="385"><span class="sd">    """</span>
+</span><span data-line="386">    <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">"findReplace is deprecated and will be removed in a future version."</span><span class="p">,</span> <span class="ne">FutureWarning</span><span class="p">,</span> <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+</span><span data-line="387">    <span class="k">for</span> <span class="n">path</span><span class="p">,</span> <span class="n">_dirs</span><span class="p">,</span> <span class="n">files</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">walk</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">directory</span><span class="p">)):</span>
+</span><span data-line="388">        <span class="k">for</span> <span class="n">filename</span> <span class="ow">in</span> <span class="n">fnmatch</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">files</span><span class="p">,</span> <span class="n">file_pattern</span><span class="p">):</span>
+</span><span data-line="389">            <span class="n">filepath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">filename</span><span class="p">)</span>
+</span><span data-line="390">            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filepath</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+</span><span data-line="391">                <span class="n">s</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+</span><span data-line="392">            <span class="n">s</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">find</span><span class="p">,</span> <span class="n">replace</span><span class="p">)</span>
+</span><span data-line="393">            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filepath</span><span class="p">,</span> <span class="s2">"w"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+</span><span data-line="394">                <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">s</span><span class="p">)</span></div>
+
+</span><span data-line="395">
+</span><span data-line="396">
+</span><span data-line="397"><span class="c1"># general purpose objects</span>
+</span><span data-line="398">
+<div class="viewcode-block" id="HomoList">
+<a class="viewcode-back" href="../../api/generated/skrf.util.HomoList.html#skrf.util.HomoList">[docs]</a>
+</span><span data-line="399"><span class="k">class</span><span class="w"> </span><span class="nc">HomoList</span><span class="p">(</span><span class="n">collections</span><span class="o">.</span><span class="n">abc</span><span class="o">.</span><span class="n">Sequence</span><span class="p">):</span>
+</span><span data-line="400"><span class="w">    </span><span class="sd">"""</span>
+</span><span data-line="401"><span class="sd">    A Homogeneous Sequence.</span>
+</span><span data-line="402">
+</span><span data-line="403"><span class="sd">    Provides a class for a list-like object which contains</span>
+</span><span data-line="404"><span class="sd">    homogeneous values. Attributes of the values can be accessed through</span>
+</span><span data-line="405"><span class="sd">    the attributes of HomoList. Searching is done like numpy arrays.</span>
+</span><span data-line="406">
+</span><span data-line="407"><span class="sd">    Initialized from a list  of all the same type</span>
+</span><span data-line="408">
+</span><span data-line="409"><span class="sd">    &gt;&gt;&gt; h = HomoDict([Foo(...), Foo(...)])</span>
+</span><span data-line="410">
+</span><span data-line="411"><span class="sd">    The individual values of `h` can be access in identical fashion to</span>
+</span><span data-line="412"><span class="sd">    Lists.</span>
+</span><span data-line="413">
+</span><span data-line="414"><span class="sd">    &gt;&gt;&gt; h[0]</span>
+</span><span data-line="415">
+</span><span data-line="416"><span class="sd">    Assuming that `Foo` has property `prop` and function `func` ...</span>
+</span><span data-line="417">
+</span><span data-line="418"><span class="sd">    Access elements' properties:</span>
+</span><span data-line="419">
+</span><span data-line="420"><span class="sd">    &gt;&gt;&gt; h.prop</span>
+</span><span data-line="421">
+</span><span data-line="422"><span class="sd">    Access elements' functions:</span>
+</span><span data-line="423">
+</span><span data-line="424"><span class="sd">    &gt;&gt;&gt; h.func()</span>
+</span><span data-line="425">
+</span><span data-line="426"><span class="sd">    Searching:</span>
+</span><span data-line="427">
+</span><span data-line="428"><span class="sd">    &gt;&gt;&gt; h[h.prop == value]</span>
+</span><span data-line="429"><span class="sd">    &gt;&gt;&gt; h[h.prop &lt; value]</span>
+</span><span data-line="430">
+</span><span data-line="431"><span class="sd">    Multiple search:</span>
+</span><span data-line="432">
+</span><span data-line="433"><span class="sd">    &gt;&gt;&gt; h[set(h.prop==value1) &amp; set( h.prop2==value2)]</span>
+</span><span data-line="434">
+</span><span data-line="435"><span class="sd">    Combos:</span>
+</span><span data-line="436">
+</span><span data-line="437"><span class="sd">    &gt;&gt;&gt; h[h.prop==value].func()</span>
+</span><span data-line="438"><span class="sd">    """</span>
+</span><span data-line="439">
+</span><span data-line="440">
+<div class="viewcode-block" id="HomoList.__init__">
+<a class="viewcode-back" href="../../api/generated/skrf.util.HomoList.__init__.html#skrf.util.HomoList.__init__">[docs]</a>
+</span><span data-line="441">    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">list_</span><span class="p">):</span>
+</span><span data-line="442">        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">"HomoList is deprecated and will be removed in a future version."</span><span class="p">,</span> <span class="ne">FutureWarning</span><span class="p">,</span> <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+</span><span data-line="443">        <span class="bp">self</span><span class="o">.</span><span class="n">store</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">list_</span><span class="p">)</span></div>
+
+</span><span data-line="444">
+</span><span data-line="445">    <span class="k">def</span><span class="w"> </span><span class="fm">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+</span><span data-line="446">        <span class="k">return</span> <span class="p">[</span><span class="n">k</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">store</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">==</span> <span class="n">value</span> <span class="p">]</span>
+</span><span data-line="447">
+</span><span data-line="448">    <span class="k">def</span><span class="w"> </span><span class="fm">__ne__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+</span><span data-line="449">        <span class="k">return</span> <span class="p">[</span><span class="n">k</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">store</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">!=</span> <span class="n">value</span> <span class="p">]</span>
+</span><span data-line="450">
+</span><span data-line="451">    <span class="k">def</span><span class="w"> </span><span class="fm">__gt__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+</span><span data-line="452">        <span class="k">return</span> <span class="p">[</span><span class="n">k</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">store</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">value</span> <span class="p">]</span>
+</span><span data-line="453">
+</span><span data-line="454">    <span class="k">def</span><span class="w"> </span><span class="fm">__ge__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+</span><span data-line="455">        <span class="k">return</span> <span class="p">[</span><span class="n">k</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">store</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">value</span> <span class="p">]</span>
+</span><span data-line="456">
+</span><span data-line="457">    <span class="k">def</span><span class="w"> </span><span class="fm">__lt__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+</span><span data-line="458">        <span class="k">return</span> <span class="p">[</span><span class="n">k</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">store</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">value</span> <span class="p">]</span>
+</span><span data-line="459">
+</span><span data-line="460">    <span class="k">def</span><span class="w"> </span><span class="fm">__le__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+</span><span data-line="461">        <span class="k">return</span> <span class="p">[</span><span class="n">k</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">store</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">value</span> <span class="p">]</span>
+</span><span data-line="462">
+</span><span data-line="463">    <span class="k">def</span><span class="w"> </span><span class="fm">__getattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+</span><span data-line="464">        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span>
+</span><span data-line="465">            <span class="p">[</span><span class="n">k</span><span class="o">.</span><span class="fm">__getattribute__</span><span class="p">(</span><span class="n">name</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">store</span><span class="p">])</span>
+</span><span data-line="466">
+</span><span data-line="467">    <span class="k">def</span><span class="w"> </span><span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">idx</span><span class="p">):</span>
+</span><span data-line="468">        <span class="k">try</span><span class="p">:</span>
+</span><span data-line="469">            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">store</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
+</span><span data-line="470">        <span class="k">except</span><span class="p">(</span><span class="ne">TypeError</span><span class="p">):</span>
+</span><span data-line="471">            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">store</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">idx</span><span class="p">])</span>
+</span><span data-line="472">
+</span><span data-line="473">
+</span><span data-line="474">    <span class="k">def</span><span class="w"> </span><span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+</span><span data-line="475">        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span>
+</span><span data-line="476">            <span class="p">[</span><span class="n">k</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">store</span><span class="p">])</span>
+</span><span data-line="477">
+</span><span data-line="478">    <span class="k">def</span><span class="w"> </span><span class="fm">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">idx</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+</span><span data-line="479">        <span class="bp">self</span><span class="o">.</span><span class="n">store</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+</span><span data-line="480">
+</span><span data-line="481">    <span class="k">def</span><span class="w"> </span><span class="fm">__delitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">idx</span><span class="p">):</span>
+</span><span data-line="482">        <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">store</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
+</span><span data-line="483">
+</span><span data-line="484">    <span class="k">def</span><span class="w"> </span><span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span data-line="485">        <span class="k">return</span> <span class="nb">iter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">store</span><span class="p">)</span>
+</span><span data-line="486">
+</span><span data-line="487">    <span class="k">def</span><span class="w"> </span><span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span data-line="488">        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">store</span><span class="p">)</span>
+</span><span data-line="489">
+</span><span data-line="490">    <span class="k">def</span><span class="w"> </span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span data-line="491">        <span class="k">return</span> <span class="n">pprint</span><span class="o">.</span><span class="n">pformat</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">store</span><span class="p">)</span>
+</span><span data-line="492">
+</span><span data-line="493">    <span class="k">def</span><span class="w"> </span><span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span data-line="494">        <span class="k">return</span> <span class="n">pprint</span><span class="o">.</span><span class="n">pformat</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">store</span><span class="p">)</span></div>
+
+</span><span data-line="495">
+</span><span data-line="496">
+<div class="viewcode-block" id="HomoDict">
+<a class="viewcode-back" href="../../api/generated/skrf.util.HomoDict.html#skrf.util.HomoDict">[docs]</a>
+</span><span data-line="497"><span class="k">class</span><span class="w"> </span><span class="nc">HomoDict</span><span class="p">(</span><span class="n">collections</span><span class="o">.</span><span class="n">abc</span><span class="o">.</span><span class="n">MutableMapping</span><span class="p">):</span>
+</span><span data-line="498"><span class="w">    </span><span class="sd">"""</span>
+</span><span data-line="499"><span class="sd">    A Homogeneous Mutable Mapping.</span>
+</span><span data-line="500">
+</span><span data-line="501"><span class="sd">    Provides a class for a dictionary-like object which contains</span>
+</span><span data-line="502"><span class="sd">    homogeneous values. Attributes of the values can be accessed through</span>
+</span><span data-line="503"><span class="sd">    the attributes of HomoDict. Searching is done like numpy arrays.</span>
+</span><span data-line="504">
+</span><span data-line="505"><span class="sd">    Initialized from a dictionary containing values of all the same type</span>
+</span><span data-line="506">
+</span><span data-line="507"><span class="sd">    &gt;&gt;&gt; h = HomoDict({'a':Foo(...),'b': Foo(...), 'c':Foo(..)})</span>
+</span><span data-line="508">
+</span><span data-line="509"><span class="sd">    The individual values of `h` can be access in identical fashion to</span>
+</span><span data-line="510"><span class="sd">    Dictionaries.</span>
+</span><span data-line="511">
+</span><span data-line="512"><span class="sd">    &gt;&gt;&gt; h['key']</span>
+</span><span data-line="513">
+</span><span data-line="514"><span class="sd">    Assuming that `Foo` has property `prop`  and function `func` ...</span>
+</span><span data-line="515">
+</span><span data-line="516"><span class="sd">    Access elements' properties:</span>
+</span><span data-line="517">
+</span><span data-line="518"><span class="sd">    &gt;&gt;&gt; h.prop</span>
+</span><span data-line="519">
+</span><span data-line="520"><span class="sd">    Access elements' functions:</span>
+</span><span data-line="521">
+</span><span data-line="522"><span class="sd">    &gt;&gt;&gt; h.func()</span>
+</span><span data-line="523">
+</span><span data-line="524"><span class="sd">    Searching:</span>
+</span><span data-line="525">
+</span><span data-line="526"><span class="sd">    &gt;&gt;&gt; h[h.prop == value]</span>
+</span><span data-line="527"><span class="sd">    &gt;&gt;&gt; h[h.prop &lt; value]</span>
+</span><span data-line="528">
+</span><span data-line="529"><span class="sd">    Multiple search:</span>
+</span><span data-line="530">
+</span><span data-line="531"><span class="sd">    &gt;&gt;&gt; h[set(h.prop==value1) &amp; set( h.prop2==value2)]</span>
+</span><span data-line="532">
+</span><span data-line="533"><span class="sd">    Combos:</span>
+</span><span data-line="534">
+</span><span data-line="535"><span class="sd">    &gt;&gt;&gt; h[h.prop==value].func()</span>
+</span><span data-line="536"><span class="sd">    """</span>
+<div class="viewcode-block" id="HomoDict.__init__">
+<a class="viewcode-back" href="../../api/generated/skrf.util.HomoDict.__init__.html#skrf.util.HomoDict.__init__">[docs]</a>
+</span><span data-line="537">    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dict_</span><span class="p">):</span>
+</span><span data-line="538">        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">"HomoDict is deprecated and will be removed in a future version."</span><span class="p">,</span> <span class="ne">FutureWarning</span><span class="p">,</span> <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+</span><span data-line="539">        <span class="bp">self</span><span class="o">.</span><span class="n">store</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">dict_</span><span class="p">)</span></div>
+
+</span><span data-line="540">
+</span><span data-line="541">    <span class="k">def</span><span class="w"> </span><span class="fm">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+</span><span data-line="542">        <span class="k">return</span> <span class="p">[</span><span class="n">k</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">store</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">store</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">==</span> <span class="n">value</span> <span class="p">]</span>
+</span><span data-line="543">
+</span><span data-line="544">    <span class="k">def</span><span class="w"> </span><span class="fm">__ne__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+</span><span data-line="545">        <span class="k">return</span> <span class="p">[</span><span class="n">k</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">store</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">store</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">!=</span> <span class="n">value</span> <span class="p">]</span>
+</span><span data-line="546">
+</span><span data-line="547">    <span class="k">def</span><span class="w"> </span><span class="fm">__gt__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+</span><span data-line="548">        <span class="k">return</span> <span class="p">[</span><span class="n">k</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">store</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">store</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">value</span> <span class="p">]</span>
+</span><span data-line="549">
+</span><span data-line="550">    <span class="k">def</span><span class="w"> </span><span class="fm">__ge__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+</span><span data-line="551">        <span class="k">return</span> <span class="p">[</span><span class="n">k</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">store</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">store</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">value</span> <span class="p">]</span>
+</span><span data-line="552">
+</span><span data-line="553">    <span class="k">def</span><span class="w"> </span><span class="fm">__lt__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+</span><span data-line="554">        <span class="k">return</span> <span class="p">[</span><span class="n">k</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">store</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">store</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">value</span> <span class="p">]</span>
+</span><span data-line="555">
+</span><span data-line="556">    <span class="k">def</span><span class="w"> </span><span class="fm">__le__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+</span><span data-line="557">        <span class="k">return</span> <span class="p">[</span><span class="n">k</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">store</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">store</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">value</span> <span class="p">]</span>
+</span><span data-line="558">
+</span><span data-line="559">    <span class="k">def</span><span class="w"> </span><span class="fm">__getattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+</span><span data-line="560">        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span>
+</span><span data-line="561">            <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">store</span><span class="p">[</span><span class="n">k</span><span class="p">],</span><span class="n">name</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">store</span><span class="p">})</span>
+</span><span data-line="562">
+</span><span data-line="563">    <span class="k">def</span><span class="w"> </span><span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+</span><span data-line="564">        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+</span><span data-line="565">            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">store</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+</span><span data-line="566">        <span class="k">else</span><span class="p">:</span>
+</span><span data-line="567">            <span class="n">c</span> <span class="o">=</span>   <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">({</span><span class="n">k</span><span class="p">:</span><span class="bp">self</span><span class="o">.</span><span class="n">store</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">key</span><span class="p">})</span>
+</span><span data-line="568">        <span class="k">return</span> <span class="n">c</span>
+</span><span data-line="569">        <span class="c1">#if len(c) == 1:</span>
+</span><span data-line="570">        <span class="c1">#    return c.store.values()[0]</span>
+</span><span data-line="571">        <span class="c1">#else:</span>
+</span><span data-line="572">        <span class="c1">#    return c</span>
+</span><span data-line="573">
+</span><span data-line="574">    <span class="k">def</span><span class="w"> </span><span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+</span><span data-line="575">        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span>
+</span><span data-line="576">            <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">store</span><span class="p">[</span><span class="n">k</span><span class="p">](</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">store</span><span class="p">})</span>
+</span><span data-line="577">
+</span><span data-line="578">    <span class="k">def</span><span class="w"> </span><span class="fm">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+</span><span data-line="579">        <span class="bp">self</span><span class="o">.</span><span class="n">store</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+</span><span data-line="580">
+</span><span data-line="581">    <span class="k">def</span><span class="w"> </span><span class="fm">__delitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+</span><span data-line="582">        <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">store</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+</span><span data-line="583">
+</span><span data-line="584">    <span class="k">def</span><span class="w"> </span><span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span data-line="585">        <span class="k">return</span> <span class="nb">iter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">store</span><span class="p">)</span>
+</span><span data-line="586">
+</span><span data-line="587">    <span class="k">def</span><span class="w"> </span><span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span data-line="588">        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">store</span><span class="p">)</span>
+</span><span data-line="589">
+</span><span data-line="590">    <span class="k">def</span><span class="w"> </span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span data-line="591">        <span class="k">return</span> <span class="n">pprint</span><span class="o">.</span><span class="n">pformat</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">store</span><span class="p">)</span>
+</span><span data-line="592">
+</span><span data-line="593">    <span class="k">def</span><span class="w"> </span><span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span data-line="594">        <span class="k">return</span> <span class="n">pprint</span><span class="o">.</span><span class="n">pformat</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">store</span><span class="p">)</span>
+</span><span data-line="595">
+</span><span data-line="596">
+<div class="viewcode-block" id="HomoDict.copy">
+<a class="viewcode-back" href="../../api/generated/skrf.util.HomoDict.copy.html#skrf.util.HomoDict.copy">[docs]</a>
+</span><span data-line="597">    <span class="k">def</span><span class="w"> </span><span class="nf">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span data-line="598">        <span class="k">return</span> <span class="n">HomoDict</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">store</span><span class="p">)</span></div>
+
+</span><span data-line="599">
+</span><span data-line="600">
+<div class="viewcode-block" id="HomoDict.filter_nones">
+<a class="viewcode-back" href="../../api/generated/skrf.util.HomoDict.filter_nones.html#skrf.util.HomoDict.filter_nones">[docs]</a>
+</span><span data-line="601">    <span class="k">def</span><span class="w"> </span><span class="nf">filter_nones</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span data-line="602">        <span class="bp">self</span><span class="o">.</span><span class="n">store</span> <span class="o">=</span>  <span class="p">{</span><span class="n">k</span><span class="p">:</span><span class="bp">self</span><span class="o">.</span><span class="n">store</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">store</span> \
+</span><span data-line="603">                        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">store</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">}</span></div>
+
+</span><span data-line="604">
+<div class="viewcode-block" id="HomoDict.filter">
+<a class="viewcode-back" href="../../api/generated/skrf.util.HomoDict.filter.html#skrf.util.HomoDict.filter">[docs]</a>
+</span><span data-line="605">    <span class="k">def</span><span class="w"> </span><span class="nf">filter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+</span><span data-line="606"><span class="w">        </span><span class="sd">"""</span>
+</span><span data-line="607"><span class="sd">        Filter self based on kwargs</span>
+</span><span data-line="608">
+</span><span data-line="609"><span class="sd">        This is equivalent to:</span>
+</span><span data-line="610">
+</span><span data-line="611"><span class="sd">        &gt;&gt;&gt; h = HomoDict(...)</span>
+</span><span data-line="612"><span class="sd">        &gt;&gt;&gt; for k in kwargs:</span>
+</span><span data-line="613"><span class="sd">        &gt;&gt;&gt;     h = h[k ==kwargs[k]]</span>
+</span><span data-line="614"><span class="sd">        &gt;&gt;&gt; return h</span>
+</span><span data-line="615">
+</span><span data-line="616"><span class="sd">        prefixing the kwarg value with a '!' causes a not equal test (!=)</span>
+</span><span data-line="617">
+</span><span data-line="618"><span class="sd">        Examples</span>
+</span><span data-line="619"><span class="sd">        ----------</span>
+</span><span data-line="620"><span class="sd">        &gt;&gt;&gt; h = HomoDict(...)</span>
+</span><span data-line="621"><span class="sd">        &gt;&gt;&gt; h.filter(name='jean', age = '18', gender ='!female')</span>
+</span><span data-line="622">
+</span><span data-line="623"><span class="sd">        """</span>
+</span><span data-line="624">        <span class="n">a</span> <span class="o">=</span> <span class="bp">self</span>
+</span><span data-line="625">        <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+</span><span data-line="626">            <span class="k">if</span> <span class="n">kwargs</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s1">'!'</span><span class="p">:</span>
+</span><span data-line="627">                <span class="n">a</span> <span class="o">=</span> <span class="n">a</span><span class="p">[</span><span class="n">a</span><span class="o">.</span><span class="fm">__getattr__</span><span class="p">(</span><span class="n">k</span><span class="p">)</span> <span class="o">!=</span> <span class="n">kwargs</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="mi">1</span><span class="p">:]]</span>
+</span><span data-line="628">            <span class="k">else</span><span class="p">:</span>
+</span><span data-line="629">                <span class="n">a</span> <span class="o">=</span> <span class="n">a</span><span class="p">[</span><span class="n">a</span><span class="o">.</span><span class="fm">__getattr__</span><span class="p">(</span><span class="n">k</span><span class="p">)</span> <span class="o">==</span> <span class="n">kwargs</span><span class="p">[</span><span class="n">k</span><span class="p">]]</span>
+</span><span data-line="630">        <span class="k">return</span> <span class="n">a</span></div>
+</div>
+
+</span><span data-line="631">
+</span><span data-line="632">
+<div class="viewcode-block" id="has_duplicate_value">
+<a class="viewcode-back" href="../../api/generated/skrf.util.has_duplicate_value.html#skrf.util.has_duplicate_value">[docs]</a>
+</span><span data-line="633"><span class="k">def</span><span class="w"> </span><span class="nf">has_duplicate_value</span><span class="p">(</span><span class="n">value</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">values</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span> <span class="o">|</span> <span class="nb">int</span><span class="p">:</span>
+</span><span data-line="634"><span class="w">    </span><span class="sd">"""</span>
+</span><span data-line="635"><span class="sd">    Check if there is another value of the current index in the list.</span>
+</span><span data-line="636">
+</span><span data-line="637"><span class="sd">    Parameters</span>
+</span><span data-line="638"><span class="sd">    ----------</span>
+</span><span data-line="639"><span class="sd">    value : Any</span>
+</span><span data-line="640"><span class="sd">        any value in a list</span>
+</span><span data-line="641"><span class="sd">    values : Iterable</span>
+</span><span data-line="642"><span class="sd">        the iterable containing the values</span>
+</span><span data-line="643"><span class="sd">    index : int</span>
+</span><span data-line="644"><span class="sd">        the index of the current item we are checking for.</span>
+</span><span data-line="645">
+</span><span data-line="646"><span class="sd">    Returns</span>
+</span><span data-line="647"><span class="sd">    -------</span>
+</span><span data-line="648"><span class="sd">    index : bool or int</span>
+</span><span data-line="649"><span class="sd">        returns None if no duplicate found, or the index of the first found duplicate</span>
+</span><span data-line="650">
+</span><span data-line="651"><span class="sd">    Examples</span>
+</span><span data-line="652"><span class="sd">    --------</span>
+</span><span data-line="653"><span class="sd">    &gt;&gt;&gt; rf.has_duplicate_value(0, [1, 2, 0, 3, 0], -1)  # -&gt; 2</span>
+</span><span data-line="654"><span class="sd">    &gt;&gt;&gt; rf.has_duplicate_value(0, [1, 2, 0, 3, 0], 2)  # -&gt; 4</span>
+</span><span data-line="655"><span class="sd">    &gt;&gt;&gt; rf.has_duplicate_value(3, [1, 2, 0, 3, 0], 0)  # -&gt; 3</span>
+</span><span data-line="656"><span class="sd">    &gt;&gt;&gt; rf.has_duplicate_value(3, [1, 2, 0, 3, 0], 3)  # -&gt; False</span>
+</span><span data-line="657"><span class="sd">    """</span>
+</span><span data-line="658">    <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">"has_duplicate_value is deprecated and will be removed in a future version."</span><span class="p">,</span>
+</span><span data-line="659">                  <span class="ne">FutureWarning</span><span class="p">,</span> <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+</span><span data-line="660">
+</span><span data-line="661">    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">values</span><span class="p">):</span>
+</span><span data-line="662">        <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="n">index</span><span class="p">:</span>
+</span><span data-line="663">            <span class="k">continue</span>
+</span><span data-line="664">        <span class="k">if</span> <span class="n">value</span> <span class="o">==</span> <span class="n">val</span><span class="p">:</span>
+</span><span data-line="665">            <span class="k">return</span> <span class="n">i</span>
+</span><span data-line="666">    <span class="k">return</span> <span class="kc">False</span></div>
+
+</span><span data-line="667">
+</span><span data-line="668">
+<div class="viewcode-block" id="unique_name">
+<a class="viewcode-back" href="../../api/generated/skrf.util.unique_name.html#skrf.util.unique_name">[docs]</a>
+</span><span data-line="669"><span class="k">def</span><span class="w"> </span><span class="nf">unique_name</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">names</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span> <span class="n">exclude</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+</span><span data-line="670"><span class="w">    </span><span class="sd">"""</span>
+</span><span data-line="671"><span class="sd">    Pass in a name and a list of names, and increment with _## as necessary to ensure a unique name.</span>
+</span><span data-line="672">
+</span><span data-line="673"><span class="sd">    Parameters</span>
+</span><span data-line="674"><span class="sd">    ----------</span>
+</span><span data-line="675"><span class="sd">    name : str</span>
+</span><span data-line="676"><span class="sd">        the chosen name, to be modified if necessary</span>
+</span><span data-line="677"><span class="sd">    names : list</span>
+</span><span data-line="678"><span class="sd">        list of names (str)</span>
+</span><span data-line="679"><span class="sd">    exclude : int, optional</span>
+</span><span data-line="680"><span class="sd">        the index of an item to be excluded from the search. Default is -1.</span>
+</span><span data-line="681">
+</span><span data-line="682"><span class="sd">    Returns</span>
+</span><span data-line="683"><span class="sd">    -------</span>
+</span><span data-line="684"><span class="sd">    unique_name : str</span>
+</span><span data-line="685">
+</span><span data-line="686"><span class="sd">    """</span>
+</span><span data-line="687">    <span class="k">if</span> <span class="ow">not</span> <span class="n">has_duplicate_value</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">names</span><span class="p">,</span> <span class="n">exclude</span><span class="p">):</span>
+</span><span data-line="688">        <span class="k">return</span> <span class="n">name</span>
+</span><span data-line="689">    <span class="k">else</span><span class="p">:</span>
+</span><span data-line="690">        <span class="k">if</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="sa">r</span><span class="s2">"_\d\d"</span><span class="p">,</span> <span class="n">name</span><span class="p">[</span><span class="o">-</span><span class="mi">3</span><span class="p">:]):</span>
+</span><span data-line="691">            <span class="n">name_base</span> <span class="o">=</span> <span class="n">name</span><span class="p">[:</span><span class="o">-</span><span class="mi">3</span><span class="p">]</span>
+</span><span data-line="692">            <span class="n">suffix</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">name</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">:])</span>
+</span><span data-line="693">        <span class="k">else</span><span class="p">:</span>
+</span><span data-line="694">            <span class="n">name_base</span> <span class="o">=</span> <span class="n">name</span>
+</span><span data-line="695">            <span class="n">suffix</span> <span class="o">=</span> <span class="mi">1</span>
+</span><span data-line="696">
+</span><span data-line="697">        <span class="k">for</span> <span class="n">num</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">suffix</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">1</span><span class="p">):</span>
+</span><span data-line="698">            <span class="n">name</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">name_base</span><span class="si">:</span><span class="s2">s</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">num</span><span class="si">:</span><span class="s2">02d</span><span class="si">}</span><span class="s2">"</span>
+</span><span data-line="699">            <span class="k">if</span> <span class="ow">not</span> <span class="n">has_duplicate_value</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">names</span><span class="p">,</span> <span class="n">exclude</span><span class="p">):</span>
+</span><span data-line="700">                <span class="k">break</span>
+</span><span data-line="701">    <span class="k">return</span> <span class="n">name</span></div>
+
+</span><span data-line="702">
+</span><span data-line="703">
+<div class="viewcode-block" id="smooth">
+<a class="viewcode-back" href="../../api/generated/skrf.util.smooth.html#skrf.util.smooth">[docs]</a>
+</span><span data-line="704"><span class="k">def</span><span class="w"> </span><span class="nf">smooth</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">window_len</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">11</span><span class="p">,</span> <span class="n">window</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">'flat'</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+</span><span data-line="705"><span class="w">    </span><span class="sd">"""</span>
+</span><span data-line="706"><span class="sd">    Smooth the data using a window with requested size.</span>
+</span><span data-line="707">
+</span><span data-line="708"><span class="sd">    Based on the function from the scipy cookbook [#]_</span>
+</span><span data-line="709">
+</span><span data-line="710"><span class="sd">    This method is based on the convolution of a scaled window with the signal.</span>
+</span><span data-line="711"><span class="sd">    The signal is prepared by introducing reflected copies of the signal</span>
+</span><span data-line="712"><span class="sd">    (with the window size) in both ends so that transient parts are minimized</span>
+</span><span data-line="713"><span class="sd">    in the beginning and end part of the output signal.</span>
+</span><span data-line="714">
+</span><span data-line="715"><span class="sd">    Parameters</span>
+</span><span data-line="716"><span class="sd">    ----------</span>
+</span><span data-line="717"><span class="sd">    x : numpy.array</span>
+</span><span data-line="718"><span class="sd">        the input signal</span>
+</span><span data-line="719"><span class="sd">    window_len : int, optional</span>
+</span><span data-line="720"><span class="sd">        the dimension of the smoothing window; should be an odd integer.</span>
+</span><span data-line="721"><span class="sd">        Default is 11.</span>
+</span><span data-line="722"><span class="sd">    window : str, optional</span>
+</span><span data-line="723"><span class="sd">        the type of window from 'flat', 'hanning', 'hamming', 'bartlett', 'blackman'</span>
+</span><span data-line="724"><span class="sd">        flat window will produce a moving average smoothing. Default is 'flat'</span>
+</span><span data-line="725">
+</span><span data-line="726"><span class="sd">    Returns</span>
+</span><span data-line="727"><span class="sd">    -------</span>
+</span><span data-line="728"><span class="sd">    y : numpy.array</span>
+</span><span data-line="729"><span class="sd">        The smoothed signal</span>
+</span><span data-line="730">
+</span><span data-line="731"><span class="sd">    Examples</span>
+</span><span data-line="732"><span class="sd">    --------</span>
+</span><span data-line="733"><span class="sd">    &gt;&gt;&gt; t = linspace(-2, 2, 0.1)</span>
+</span><span data-line="734"><span class="sd">    &gt;&gt;&gt; x = sin(t) + randn(len(t))*0.1</span>
+</span><span data-line="735"><span class="sd">    &gt;&gt;&gt; y = smooth(x)</span>
+</span><span data-line="736">
+</span><span data-line="737"><span class="sd">    See Also</span>
+</span><span data-line="738"><span class="sd">    --------</span>
+</span><span data-line="739"><span class="sd">    numpy.hanning, numpy.hamming, numpy.bartlett, numpy.blackman, numpy.convolve</span>
+</span><span data-line="740"><span class="sd">    scipy.signal.lfilter</span>
+</span><span data-line="741">
+</span><span data-line="742"><span class="sd">    Note</span>
+</span><span data-line="743"><span class="sd">    ----</span>
+</span><span data-line="744"><span class="sd">    `length(output) != length(input)`.</span>
+</span><span data-line="745"><span class="sd">    To correct this: `return y[(window_len/2-1):-(window_len/2)]` instead of just `y`.</span>
+</span><span data-line="746">
+</span><span data-line="747"><span class="sd">    References</span>
+</span><span data-line="748"><span class="sd">    ----------</span>
+</span><span data-line="749"><span class="sd">    .. [#] http://scipy-cookbook.readthedocs.io/items/SignalSmooth.html</span>
+</span><span data-line="750">
+</span><span data-line="751"><span class="sd">    """</span>
+</span><span data-line="752">
+</span><span data-line="753">    <span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">ndim</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">:</span>
+</span><span data-line="754">        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"smooth only accepts 1 dimension arrays."</span><span class="p">)</span>
+</span><span data-line="755">
+</span><span data-line="756">    <span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">size</span> <span class="o">&lt;</span> <span class="n">window_len</span><span class="p">:</span>
+</span><span data-line="757">        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Input vector needs to be bigger than window size."</span><span class="p">)</span>
+</span><span data-line="758">
+</span><span data-line="759">    <span class="k">if</span> <span class="n">window_len</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">:</span>
+</span><span data-line="760">        <span class="k">return</span> <span class="n">x</span>
+</span><span data-line="761">
+</span><span data-line="762">    <span class="k">if</span> <span class="n">window</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">'flat'</span><span class="p">,</span> <span class="s1">'hanning'</span><span class="p">,</span> <span class="s1">'hamming'</span><span class="p">,</span> <span class="s1">'bartlett'</span><span class="p">,</span> <span class="s1">'blackman'</span><span class="p">]:</span>
+</span><span data-line="763">        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Window is one of 'flat', 'hanning', 'hamming', 'bartlett', 'blackman'"</span><span class="p">)</span>
+</span><span data-line="764">
+</span><span data-line="765">    <span class="n">s</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">r_</span><span class="p">[</span><span class="n">x</span><span class="p">[</span><span class="n">window_len</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:</span><span class="mi">0</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">x</span><span class="p">,</span> <span class="n">x</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">:</span><span class="o">-</span><span class="n">window_len</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]]</span>
+</span><span data-line="766">    <span class="k">if</span> <span class="n">window</span> <span class="o">==</span> <span class="s1">'flat'</span><span class="p">:</span>  <span class="c1"># moving average</span>
+</span><span data-line="767">        <span class="n">w</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">window_len</span><span class="p">,</span> <span class="s1">'d'</span><span class="p">)</span>
+</span><span data-line="768">    <span class="k">else</span><span class="p">:</span>
+</span><span data-line="769">        <span class="n">w</span> <span class="o">=</span> <span class="nb">eval</span><span class="p">(</span><span class="s1">'np.'</span> <span class="o">+</span> <span class="n">window</span> <span class="o">+</span> <span class="s1">'(window_len)'</span><span class="p">)</span>
+</span><span data-line="770">    <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">convolve</span><span class="p">(</span><span class="n">w</span> <span class="o">/</span> <span class="n">w</span><span class="o">.</span><span class="n">sum</span><span class="p">(),</span> <span class="n">s</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">'same'</span><span class="p">)</span>
+</span><span data-line="771">    <span class="k">return</span> <span class="n">y</span><span class="p">[</span><span class="n">window_len</span><span class="o">-</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="p">(</span><span class="n">window_len</span><span class="o">-</span><span class="mi">1</span><span class="p">)]</span></div>
+
+</span><span data-line="772">
+</span><span data-line="773">
+<div class="viewcode-block" id="ProgressBar">
+<a class="viewcode-back" href="../../api/generated/skrf.util.ProgressBar.html#skrf.util.ProgressBar">[docs]</a>
+</span><span data-line="774"><span class="k">class</span><span class="w"> </span><span class="nc">ProgressBar</span><span class="p">:</span>
+</span><span data-line="775"><span class="w">    </span><span class="sd">"""</span>
+</span><span data-line="776"><span class="sd">    A progress bar based off of the notebook/ipython progress bar from PyMC.</span>
+</span><span data-line="777">
+</span><span data-line="778"><span class="sd">    Useful when waiting for long operations such as taking a large number</span>
+</span><span data-line="779"><span class="sd">    of VNA measurements that may take a few minutes.</span>
+</span><span data-line="780">
+</span><span data-line="781"><span class="sd">    Examples</span>
+</span><span data-line="782"><span class="sd">    --------</span>
+</span><span data-line="783"><span class="sd">    &gt;&gt;&gt; from time import sleep</span>
+</span><span data-line="784"><span class="sd">    &gt;&gt;&gt; pb = rf.ProgressBar(10)</span>
+</span><span data-line="785"><span class="sd">    &gt;&gt;&gt; for idx in range(10):</span>
+</span><span data-line="786"><span class="sd">    &gt;&gt;&gt;     sleep(1)</span>
+</span><span data-line="787"><span class="sd">    &gt;&gt;&gt;     pb.animate(idx)</span>
+</span><span data-line="788">
+</span><span data-line="789"><span class="sd">    """</span>
+<div class="viewcode-block" id="ProgressBar.__init__">
+<a class="viewcode-back" href="../../api/generated/skrf.util.ProgressBar.__init__.html#skrf.util.ProgressBar.__init__">[docs]</a>
+</span><span data-line="790">    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">iterations</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">label</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"iterations"</span><span class="p">):</span>
+</span><span data-line="791"><span class="w">        </span><span class="sd">"""</span>
+</span><span data-line="792"><span class="sd">        Progress bar constructor.</span>
+</span><span data-line="793">
+</span><span data-line="794"><span class="sd">        Parameters</span>
+</span><span data-line="795"><span class="sd">        ----------</span>
+</span><span data-line="796"><span class="sd">        iterations : int</span>
+</span><span data-line="797"><span class="sd">            Number of expected iterations</span>
+</span><span data-line="798"><span class="sd">        label : str, optional</span>
+</span><span data-line="799"><span class="sd">            Progress bar label, by default "iterations"</span>
+</span><span data-line="800"><span class="sd">        """</span>
+</span><span data-line="801">
+</span><span data-line="802">        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">"ProgressBar is deprecated and will be removed in a future version."</span><span class="p">,</span> <span class="ne">FutureWarning</span><span class="p">,</span> <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+</span><span data-line="803">        <span class="bp">self</span><span class="o">.</span><span class="n">iterations</span> <span class="o">=</span> <span class="n">iterations</span>
+</span><span data-line="804">        <span class="bp">self</span><span class="o">.</span><span class="n">label</span> <span class="o">=</span> <span class="n">label</span>
+</span><span data-line="805">        <span class="bp">self</span><span class="o">.</span><span class="n">prog_bar</span> <span class="o">=</span> <span class="s1">'[]'</span>
+</span><span data-line="806">        <span class="bp">self</span><span class="o">.</span><span class="n">fill_char</span> <span class="o">=</span> <span class="s1">'*'</span>
+</span><span data-line="807">        <span class="bp">self</span><span class="o">.</span><span class="n">width</span> <span class="o">=</span> <span class="mi">50</span>
+</span><span data-line="808">        <span class="bp">self</span><span class="o">.</span><span class="n">__update_amount</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span></div>
+
+</span><span data-line="809">
+<div class="viewcode-block" id="ProgressBar.animate">
+<a class="viewcode-back" href="../../api/generated/skrf.util.ProgressBar.animate.html#skrf.util.ProgressBar.animate">[docs]</a>
+</span><span data-line="810">    <span class="k">def</span><span class="w"> </span><span class="nf">animate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">iteration</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+</span><span data-line="811"><span class="w">        </span><span class="sd">"""</span>
+</span><span data-line="812"><span class="sd">        Animate the progress bar.</span>
+</span><span data-line="813">
+</span><span data-line="814"><span class="sd">        Parameters</span>
+</span><span data-line="815"><span class="sd">        ----------</span>
+</span><span data-line="816"><span class="sd">        iteration : int</span>
+</span><span data-line="817"><span class="sd">            current iteration</span>
+</span><span data-line="818"><span class="sd">        """</span>
+</span><span data-line="819">        <span class="nb">print</span><span class="p">(</span><span class="s1">'</span><span class="se">\r</span><span class="s1">'</span><span class="p">,</span> <span class="bp">self</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">''</span><span class="p">)</span>  <span class="c1"># noqa: T201</span>
+</span><span data-line="820">        <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
+</span><span data-line="821">        <span class="bp">self</span><span class="o">.</span><span class="n">update_iteration</span><span class="p">(</span><span class="n">iteration</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span></div>
+
+</span><span data-line="822">
+<div class="viewcode-block" id="ProgressBar.update_iteration">
+<a class="viewcode-back" href="../../api/generated/skrf.util.ProgressBar.update_iteration.html#skrf.util.ProgressBar.update_iteration">[docs]</a>
+</span><span data-line="823">    <span class="k">def</span><span class="w"> </span><span class="nf">update_iteration</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">elapsed_iter</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+</span><span data-line="824">        <span class="bp">self</span><span class="o">.</span><span class="n">__update_amount</span><span class="p">((</span><span class="n">elapsed_iter</span> <span class="o">/</span> <span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">iterations</span><span class="p">))</span> <span class="o">*</span> <span class="mf">100.0</span><span class="p">)</span>
+</span><span data-line="825">        <span class="bp">self</span><span class="o">.</span><span class="n">prog_bar</span> <span class="o">+=</span> <span class="s1">'  </span><span class="si">%d</span><span class="s1"> of </span><span class="si">%s</span><span class="s1"> </span><span class="si">%s</span><span class="s1"> complete'</span> <span class="o">%</span> <span class="p">(</span><span class="n">elapsed_iter</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">iterations</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">label</span><span class="p">)</span></div>
+
+</span><span data-line="826">
+</span><span data-line="827">    <span class="k">def</span><span class="w"> </span><span class="nf">__update_amount</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_amount</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+</span><span data-line="828">        <span class="n">percent_done</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">round</span><span class="p">((</span><span class="n">new_amount</span> <span class="o">/</span> <span class="mf">100.0</span><span class="p">)</span> <span class="o">*</span> <span class="mf">100.0</span><span class="p">))</span>
+</span><span data-line="829">        <span class="n">all_full</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">width</span> <span class="o">-</span> <span class="mi">2</span>
+</span><span data-line="830">        <span class="n">num_hashes</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">round</span><span class="p">((</span><span class="n">percent_done</span> <span class="o">/</span> <span class="mf">100.0</span><span class="p">)</span> <span class="o">*</span> <span class="n">all_full</span><span class="p">))</span>
+</span><span data-line="831">        <span class="bp">self</span><span class="o">.</span><span class="n">prog_bar</span> <span class="o">=</span> <span class="s1">'['</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">fill_char</span> <span class="o">*</span> <span class="n">num_hashes</span> <span class="o">+</span> <span class="s1">' '</span> <span class="o">*</span> <span class="p">(</span><span class="n">all_full</span> <span class="o">-</span> <span class="n">num_hashes</span><span class="p">)</span> <span class="o">+</span> <span class="s1">']'</span>
+</span><span data-line="832">        <span class="n">pct_place</span> <span class="o">=</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">prog_bar</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span><span class="p">)</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">percent_done</span><span class="p">))</span>
+</span><span data-line="833">        <span class="n">pct_string</span> <span class="o">=</span> <span class="s1">'</span><span class="si">%d%%</span><span class="s1">'</span> <span class="o">%</span> <span class="n">percent_done</span>
+</span><span data-line="834">        <span class="bp">self</span><span class="o">.</span><span class="n">prog_bar</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">prog_bar</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">pct_place</span><span class="p">]</span> <span class="o">+</span> \
+</span><span data-line="835">            <span class="p">(</span><span class="n">pct_string</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">prog_bar</span><span class="p">[</span><span class="n">pct_place</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">pct_string</span><span class="p">):])</span>
+</span><span data-line="836">
+</span><span data-line="837">    <span class="k">def</span><span class="w"> </span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span data-line="838">        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">prog_bar</span><span class="p">)</span></div>
+
+</span><span data-line="839">
+</span><span data-line="840">
+</span><span data-line="841"><span class="nd">@contextlib</span><span class="o">.</span><span class="n">contextmanager</span>
+</span><span data-line="842"><span class="k">def</span><span class="w"> </span><span class="nf">suppress_numpy_warnings</span><span class="p">(</span><span class="o">**</span><span class="n">kw</span><span class="p">):</span>
+</span><span data-line="843">    <span class="n">olderr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">seterr</span><span class="p">(</span><span class="o">**</span><span class="n">kw</span><span class="p">)</span>
+</span><span data-line="844">    <span class="k">yield</span>
+</span><span data-line="845">    <span class="n">np</span><span class="o">.</span><span class="n">seterr</span><span class="p">(</span><span class="o">**</span><span class="n">olderr</span><span class="p">)</span>
+</span><span data-line="846">
+</span><span data-line="847">
+</span><span data-line="848"><span class="k">def</span><span class="w"> </span><span class="nf">suppress_warning_decorator</span><span class="p">(</span><span class="n">msg</span><span class="p">):</span>
+</span><span data-line="849">    <span class="k">def</span><span class="w"> </span><span class="nf">suppress_warnings_decorated</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
+</span><span data-line="850">        <span class="nd">@wraps</span><span class="p">(</span><span class="n">func</span><span class="p">)</span>
+</span><span data-line="851">        <span class="k">def</span><span class="w"> </span><span class="nf">suppressed_func</span><span class="p">(</span><span class="o">*</span><span class="n">k</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">):</span>
+</span><span data-line="852">            <span class="k">with</span> <span class="n">warnings</span><span class="o">.</span><span class="n">catch_warnings</span><span class="p">():</span>
+</span><span data-line="853">                <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">"ignore"</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">msg</span><span class="si">}</span><span class="s2">.*"</span><span class="p">)</span>
+</span><span data-line="854">                <span class="n">res</span> <span class="o">=</span> <span class="n">func</span><span class="p">(</span><span class="o">*</span><span class="n">k</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">)</span>
+</span><span data-line="855">            <span class="k">return</span> <span class="n">res</span>
+</span><span data-line="856">        <span class="k">return</span> <span class="n">suppressed_func</span>
+</span><span data-line="857">    <span class="k">return</span> <span class="n">suppress_warnings_decorated</span>
+</span></pre></div>
+        </article><button class="back-to-top" type="button">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+  </svg>
+  <span>Back to top</span>
+</button><div class="navigation flex print:hidden"></div></div>
+    </div>
+  </main>
+</div>
+<footer class="sy-foot">
+  <div class="sy-foot-inner sy-container mx-auto">
+    <div class="sy-foot-reserved md:flex justify-between items-center">
+      <div class="sy-foot-copyright"><p>2025, scikit-rf team</p>
+  
+  <p>
+    Made with
+    
+    <a href="https://www.sphinx-doc.org/">Sphinx</a> and
+    
+    <a href="https://shibuya.lepture.com">Shibuya theme</a>.
+  </p>
+</div>
+      <div class="sy-foot-socials">
+  <a href="https://github.com/scikit-rf/scikit-rf" aria-label="GitHub">
+    <iconify-icon icon="simple-icons:github"></iconify-icon>
+  </a></div>
+    </div>
+  </div>
+</footer>
+      <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../_static/copybutton.js?v=34bd459d"></script>
+      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+      <script src="../../_static/shibuya.js?v=50760d75"></script>
+      <script src="https://cdn.jsdelivr.net/npm/@jupyter-widgets/html-manager@^1.0.1/dist/embed-amd.js"></script>
+      <script src="../../_static/skrf.js?v=bdeb9fb0"></script></body>
+</html>

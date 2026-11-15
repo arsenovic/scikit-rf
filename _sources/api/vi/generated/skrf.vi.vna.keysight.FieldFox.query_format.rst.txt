@@ -1,0 +1,6 @@
+skrf.vi.vna.keysight.FieldFox.query\_format
+===========================================
+
+.. currentmodule:: skrf.vi.vna.keysight
+
+.. autoproperty:: FieldFox.query_format

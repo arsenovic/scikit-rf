@@ -1,0 +1,6 @@
+skrf.vi.vna.hp.HP8510C.frequency
+================================
+
+.. currentmodule:: skrf.vi.vna.hp
+
+.. autoproperty:: HP8510C.frequency

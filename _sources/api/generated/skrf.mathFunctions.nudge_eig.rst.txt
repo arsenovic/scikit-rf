@@ -1,0 +1,6 @@
+﻿skrf.mathFunctions.nudge\_eig
+=============================
+
+.. currentmodule:: skrf.mathFunctions
+
+.. autofunction:: nudge_eig

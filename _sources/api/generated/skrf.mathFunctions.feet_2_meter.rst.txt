@@ -1,0 +1,6 @@
+﻿skrf.mathFunctions.feet\_2\_meter
+=================================
+
+.. currentmodule:: skrf.mathFunctions
+
+.. autofunction:: feet_2_meter

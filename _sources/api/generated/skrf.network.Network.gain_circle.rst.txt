@@ -1,0 +1,6 @@
+skrf.network.Network.gain\_circle
+=================================
+
+.. currentmodule:: skrf.network
+
+.. automethod:: Network.gain_circle

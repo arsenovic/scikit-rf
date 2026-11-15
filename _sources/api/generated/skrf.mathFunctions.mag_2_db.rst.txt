@@ -1,0 +1,6 @@
+﻿skrf.mathFunctions.mag\_2\_db
+=============================
+
+.. currentmodule:: skrf.mathFunctions
+
+.. autofunction:: mag_2_db

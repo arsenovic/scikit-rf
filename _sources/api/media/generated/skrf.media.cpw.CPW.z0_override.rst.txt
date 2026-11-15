@@ -1,0 +1,6 @@
+skrf.media.cpw.CPW.z0\_override
+===============================
+
+.. currentmodule:: skrf.media.cpw
+
+.. autoproperty:: CPW.z0_override

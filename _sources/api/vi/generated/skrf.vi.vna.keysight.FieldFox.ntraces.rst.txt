@@ -1,0 +1,6 @@
+skrf.vi.vna.keysight.FieldFox.ntraces
+=====================================
+
+.. currentmodule:: skrf.vi.vna.keysight
+
+.. autoproperty:: FieldFox.ntraces

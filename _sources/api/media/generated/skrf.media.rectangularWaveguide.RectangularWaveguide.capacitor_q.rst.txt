@@ -1,0 +1,6 @@
+skrf.media.rectangularWaveguide.RectangularWaveguide.capacitor\_q
+=================================================================
+
+.. currentmodule:: skrf.media.rectangularWaveguide
+
+.. automethod:: RectangularWaveguide.capacitor_q

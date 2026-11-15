@@ -1,0 +1,6 @@
+skrf.calibration.deembedding.IEEEP370.extrapolate\_to\_dc
+=========================================================
+
+.. currentmodule:: skrf.calibration.deembedding
+
+.. automethod:: IEEEP370.extrapolate_to_dc

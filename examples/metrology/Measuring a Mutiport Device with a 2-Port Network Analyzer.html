@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="en" data-accent-color="blue" data-content_root="../../">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Measuring a Multiport Device with a 2-Port Network Analyzer - scikit-rf</title><link rel="author" title="About these documents" href="../../about.html" /><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="Multi-port calibration" href="Multi-port%20Calibration.html" /><link rel="prev" title="LRRM" href="LRRM.html" /><script>
+    function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
+    setColorMode(localStorage._theme||"auto");
+  </script><link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=ad592e98" />
+    <link rel="stylesheet" type="text/css" href="../../_static/shibuya.css?v=2ceb65ce" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-codeautolink.css?v=b2176991" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link media="print" rel="stylesheet" type="text/css" href="../../_static/print.css?v=20ff2c19" />
+    <link rel="stylesheet" type="text/css" href="../../_static/nbsphinx-code-cells.css?v=2aa19091" />
+    <link rel="stylesheet" type="text/css" href="../../_static/skrf.css?v=7e772ba2" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --sy-f-text: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+  --sy-f-heading: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+}
+</style>
+    
+  <meta property="og:type" content="website"/><meta property="og:title" content="Measuring a Multiport Device with a 2-Port Network Analyzer"/>
+    <meta name="twitter:card" content="summary"/>
+  </head>
+<body><div class="sy-head">
+  <div class="sy-head-blur"></div>
+  <div class="sy-head-inner sy-container mx-auto">
+    <a class="sy-head-brand" href="../../index.html">
+      <img class="light-logo" src="../../_static/logo.svg" alt="scikit-rf" height="28" loading="lazy" />
+      <img class="dark-logo" src="../../_static/logo.svg" alt="scikit-rf" height="28" loading="lazy" />
+      <strong>scikit-rf</strong>
+    </a>
+    <div class="sy-head-nav" id="head-nav">
+      <nav class="sy-head-links"><ul><li class="link"><a href="../../index.html">Home</a></li><li class="link"><a href="../../tutorials/index.html">Tutorials</a></li><li class="link"><a href="../index.html">Examples</a></li><li class="link"><a href="../../api/index.html">API</a></li><li class="link">
+          <a href="https://github.com/scikit-rf/scikit-rf">
+            <span>GitHub</span><i class="i-lucide external-link"></i></a>
+        </li></ul></nav>
+      <div class="sy-head-extra flex items-center print:hidden"><form class="searchbox flex items-center" action="../../search.html" method="get">
+  <input type="text" name="q" placeholder="Search" />
+  <kbd>/</kbd>
+</form><div class="sy-head-socials">
+  <a href="https://github.com/scikit-rf/scikit-rf" aria-label="GitHub">
+    <iconify-icon icon="simple-icons:github"></iconify-icon>
+  </a>
+  <a href="https://www.linkedin.com/groups/12462155/" aria-label="LinkedIn">
+    <iconify-icon icon="simple-icons:linkedin"></iconify-icon>
+  </a>
+  <a href="https://app.element.io/#/room/#scikit-rf:matrix.org" aria-label="Matrix">
+    <iconify-icon icon="simple-icons:matrix"></iconify-icon>
+  </a></div></div>
+    </div>
+    <div class="sy-head-actions flex items-center shrink-0 print:hidden"><button class="js-theme theme-switch flex items-center"
+data-aria-auto="Switch to light color mode"
+data-aria-light="Switch to dark color mode"
+data-aria-dark="Switch to auto color mode">
+<i class="i-lucide theme-icon"></i>
+</button><button class="md:hidden flex items-center js-menu" aria-label="Menu" type="button" aria-controls="head-nav" aria-expanded="false">
+        <div class="hamburger">
+          <span class="hamburger_1"></span>
+          <span class="hamburger_2"></span>
+          <span class="hamburger_3"></span>
+        </div>
+      </button>
+    </div>
+  </div>
+</div>
+<div class="sy-page sy-container flex mx-auto">
+  <aside id="lside" class="sy-lside md:w-72 md:shrink-0 print:hidden">
+    <div class="sy-lside-inner md:sticky">
+      <div class="sy-scrollbar p-6">
+        <div class="globaltoc" data-expand-depth="0"><p class="caption" role="heading" aria-level="3"><span class="caption-text">Getting started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../index.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/Installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/Introduction.html">Introduction</a></li>
+</ul>
+<p class="caption" role="heading" aria-level="3"><span class="caption-text">User guide</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Examples</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../networktheory/index.html">Network Theory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../matching/index.html">Matching</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Metrology and Calibration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../networksets/index.html">NetworkSets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../plotting/index.html">Plotting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../circuit/index.html">Circuit</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mixedmodeanalysis/index.html">Mixed Mode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../vectorfitting/index.html">Vector Fitting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../vectorfitting_parametric/index.html">Parametric Vector Fitting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../qfactor/index.html">Q-factor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../taper/index.html">Taper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../instrumentcontrol/index.html">Instrument Control</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../interactive/index.html">Interactive</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading" aria-level="3"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../api/index.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../glossary.html">Glossary</a></li>
+</ul>
+<p class="caption" role="heading" aria-level="3"><span class="caption-text">Project</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing/index.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../citations_ack/acknowledging.html">Citing scikit-rf</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../citations_ack/citations.html">scikit-rf Citations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../about.html">About</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../users.html">Users</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../license.html">License</a></li>
+</ul>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="lside-overlay js-menu" role="button" aria-label="Close left sidebar" aria-controls="lside" aria-expanded="false"></div>
+  <aside id="rside" class="sy-rside pb-3 w-64 shrink-0 order-last">
+    <button class="rside-close js-menu xl:hidden" aria-label="Close Table of Contents" type="button" aria-controls="rside" aria-expanded="false">
+      <i class="i-lucide close"></i>
+    </button>
+    <div class="sy-scrollbar sy-rside-inner px-6 xl:top-16 xl:sticky xl:pl-0 pt-6 pb-4"><div class="localtoc"><h3>On this page</h3><ul>
+<li><a class="reference internal" href="#Introduction">Introduction</a></li>
+<li><a class="reference internal" href="#Matched-Ports">Matched Ports</a></li>
+<li><a class="reference internal" href="#Tippet's-Technique">Tippet&#8217;s Technique</a></li>
+<li><a class="reference internal" href="#Outline-of-Tippet's-Technique">Outline of Tippet&#8217;s Technique</a></li>
+<li><a class="reference internal" href="#Implementation">Implementation</a></li>
+<li><a class="reference internal" href="#Results">Results</a><ul>
+<li><a class="reference internal" href="#Self-Consistency">Self-Consistency</a></li>
+<li><a class="reference internal" href="#Test-For-Accuracy">Test For Accuracy</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#Practical-Application">Practical Application</a></li>
+<li><a class="reference internal" href="#More-Complex-Simulations">More Complex Simulations</a></li>
+</ul>
+</div><div id="ethical-ad-placement" data-ea-publisher="readthedocs"></div></div>
+  </aside>
+  <div class="rside-overlay js-menu" role="button" aria-label="Close Table of Contents" aria-controls="rside" aria-expanded="false"></div>
+  <main class="sy-main w-full max-sm:max-w-full print:pt-6">
+<div class="sy-breadcrumbs" role="navigation">
+  <div class="sy-breadcrumbs-inner flex items-center">
+    <div class="md:hidden mr-3">
+      <button class="js-menu" aria-label="Menu" type="button" aria-controls="lside" aria-expanded="false">
+        <i class="i-lucide menu"></i>
+      </button>
+    </div>
+    <ol class="flex-1" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="../../index.html"><span itemprop="name">scikit-rf</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="1" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="../index.html"><span itemprop="name">Examples</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="2" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="index.html"><span itemprop="name">Metrology and Calibration</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="3" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <strong itemprop="name">Measuring a Multiport Device with a 2-Port Network Analyzer</strong>
+        <meta itemprop="position" content="4" />
+      </li></ol>
+    <a class="sk-download" href="Measuring%20a%20Mutiport%20Device%20with%20a%202-Port%20Network%20Analyzer.ipynb" download>Download</a>
+    <div class="xl:hidden ml-1">
+      <button class="js-menu" aria-label="Show table of contents" type="button" aria-controls="rside"
+        aria-expanded="false">
+        <i class="i-lucide outdent"></i>
+      </button>
+    </div>
+  </div>
+</div><div class="flex flex-col break-words justify-between">
+      <div class="relative min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
+  <article class="yue" role="main">
+          <section id="Measuring-a-Multiport-Device-with-a-2-Port-Network-Analyzer">
+<h1>Measuring a Multiport Device with a 2-Port Network Analyzer<a class="headerlink" href="#Measuring-a-Multiport-Device-with-a-2-Port-Network-Analyzer" title="Link to this heading">#</a></h1>
+<section id="Introduction">
+<h2>Introduction<a class="headerlink" href="#Introduction" title="Link to this heading">#</a></h2>
+<p>In microwave measurements, one commonly needs to measure a n-port device with a m-port network analyzer (<span class="math notranslate nohighlight">\(m&lt;n\)</span> of course).</p>
+<p><img alt="6e5569a240ae4601a91263383aee05ff" src="../../_images/nports_with_2ports.svg"/></p>
+<p>This can be done by terminating each non-measured port with a matched load, and assuming the reflected power is negligible. With multiple measurements, it is then possible to reconstitute the original n-port. The first section of this example illustrates this method.</p>
+<p>However, in some cases this may not provide the most accurate results, or even be possible in all measurement environments. Or, sometime it is not possible to have matched loads for all ports. The second part of this example presents an elegant solution to this problem, using impedance renormalization. We’ll call it <em>Tippet’s technique</em>, because it has a good ring to it.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[1]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="kn">from</span><span class="w"> </span><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/library/itertools.html#module-itertools"><span class="nn">itertools</span></a><span class="w"> </span><span class="kn">import</span> <a class="sphinx-codeautolink-a" href="https://docs.python.org/3/library/itertools.html#itertools.combinations" title="itertools.combinations"><span class="n">combinations</span></a>
+</span><span data-line="2">
+</span><span data-line="3"><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+</span><span data-line="4"><span class="kn">import</span><span class="w"> </span><a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/index.html#module-numpy"><span class="nn">numpy</span></a><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+</span><span data-line="5">
+</span><span data-line="6"><span class="kn">import</span><span class="w"> </span><span class="nn">skrf</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">rf</span>
+</span><span data-line="7"><span class="kn">from</span><span class="w"> </span><a class="sphinx-codeautolink-a" href="../../api/network.html#module-0"><span class="nn">skrf.network</span></a><span class="w"> </span><span class="kn">import</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.connect.html#skrf.network.connect" title="skrf.network.connect"><span class="n">connect</span></a><span class="p">,</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.subnetwork.html#skrf.network.subnetwork" title="skrf.network.subnetwork"><span class="n">subnetwork</span></a>
+</span><span data-line="8">
+</span><span data-line="9"><span class="o">%</span><span class="k">matplotlib</span> inline
+</span><span data-line="10">
+</span><span data-line="11"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.plotting.stylely.html#skrf.plotting.stylely" title="skrf.plotting.stylely"><span class="n">rf</span><span class="o">.</span><span class="n">stylely</span></a><span class="p">()</span>
+</span></pre></div>
+</div>
+</div>
+</section>
+<section id="Matched-Ports">
+<h2>Matched Ports<a class="headerlink" href="#Matched-Ports" title="Link to this heading">#</a></h2>
+<p>Let’s assume that you have a 2-ports VNA. In order to measure a n-port network, you will need at least <span class="math notranslate nohighlight">\(p=n(n-1)/2\)</span> measurements between the different pair of ports (total number of unique pairs of a set of n).</p>
+<p>For example, let’s assume we wants to measure a 3-ports network with a 2-ports VNA. One needs to perform at least 3 measurements: between ports 1 &amp; 2, between ports 2 &amp; 3 and between ports 1 &amp; 3. We will assume these measurements are then converted into three 2-ports <code class="docutils literal notranslate"><span class="pre">Network</span></code>. To build the full 3-ports <code class="docutils literal notranslate"><span class="pre">Network</span></code>, one needs to provide a list of these 3 (sub)networks to the scikit-rf builtin function <code class="docutils literal notranslate"><span class="pre">n_twoports_2_nport</span></code>. While the order of the measurements in the list is not important, pay
+attention to define the <code class="docutils literal notranslate"><span class="pre">Network.name</span></code> properties of these subnetworks to contain the port index, for example <code class="docutils literal notranslate"><span class="pre">p12</span></code> for the measurement between ports 1&amp;2 or <code class="docutils literal notranslate"><span class="pre">p23</span></code> between 2&amp;3, etc.</p>
+<p>Let’s suppose we want to measure a tee:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[2]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><a class="sphinx-codeautolink-a" href="../../api/data/generated/skrf.data.tee.html#skrf.data.tee" title="skrf.data.tee"><span class="n">tee</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/data/generated/skrf.data.tee.html#skrf.data.tee" title="skrf.data.tee"><span class="n">rf</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">tee</span></a>
+</span><span data-line="2"><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/builtins/functions.html#print"><span class="nb">print</span></a><span class="p">(</span><a class="sphinx-codeautolink-a" href="../../api/data/generated/skrf.data.tee.html#skrf.data.tee" title="skrf.data.tee"><span class="n">tee</span></a><span class="p">)</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+3-Port Network: 'tee',  330.0-500.0 GHz, 201 pts, z0=[50.+0.j 50.+0.j 50.+0.j]
+</pre></div></div>
+</div>
+<p>For the sake of the demonstration, we will “fake” the 3 distinct measurements by extracting 3 subsets of the original Network, i.e., 3 subnetworks:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[3]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="c1"># 2 port Networks as if one measures the tee with a 2 ports VNA</span>
+</span><span data-line="2"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">tee12</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.subnetwork.html#skrf.network.subnetwork" title="skrf.network.subnetwork"><span class="n">subnetwork</span></a><span class="p">(</span><a class="sphinx-codeautolink-a" href="../../api/data/generated/skrf.data.tee.html#skrf.data.tee" title="skrf.data.tee"><span class="n">tee</span></a><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>  <span class="c1"># 2 port Network btw ports 1 &amp; 2, port 3 being matched</span>
+</span><span data-line="3"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">tee23</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.subnetwork.html#skrf.network.subnetwork" title="skrf.network.subnetwork"><span class="n">subnetwork</span></a><span class="p">(</span><a class="sphinx-codeautolink-a" href="../../api/data/generated/skrf.data.tee.html#skrf.data.tee" title="skrf.data.tee"><span class="n">tee</span></a><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>  <span class="c1"># 2 port Network btw ports 2 &amp; 3, port 1 being matched</span>
+</span><span data-line="4"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">tee13</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.subnetwork.html#skrf.network.subnetwork" title="skrf.network.subnetwork"><span class="n">subnetwork</span></a><span class="p">(</span><a class="sphinx-codeautolink-a" href="../../api/data/generated/skrf.data.tee.html#skrf.data.tee" title="skrf.data.tee"><span class="n">tee</span></a><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>  <span class="c1"># 2 port Network btw ports 1 &amp; 3, port 2 being matched</span>
+</span></pre></div>
+</div>
+</div>
+<p>In reality of course, these three Networks comes from three measurements with distinct pair of ports, the non-used port being properly matched.</p>
+<p>Before using the <code class="docutils literal notranslate"><span class="pre">n_twoports_2_nport</span></code> function, one must define the name of these subsets by setting the <code class="docutils literal notranslate"><span class="pre">Network.name</span></code> property, in order the function to know which corresponds to what:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[4]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">tee12</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">'tee12'</span>
+</span><span data-line="2"><span class="n">tee23</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">'tee23'</span>
+</span><span data-line="3"><span class="n">tee13</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">'tee13'</span>
+</span></pre></div>
+</div>
+</div>
+<p>Now we can build the 3-ports Network from these three 2-port subnetworks:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[5]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">ntw_list</span> <span class="o">=</span> <span class="p">[</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">tee12</span></a><span class="p">,</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">tee23</span></a><span class="p">,</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">tee13</span></a><span class="p">]</span>
+</span><span data-line="2"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">tee_rebuilt</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.n_twoports_2_nport.html#skrf.network.n_twoports_2_nport" title="skrf.network.n_twoports_2_nport"><span class="n">rf</span><span class="o">.</span><span class="n">network</span><span class="o">.</span><span class="n">n_twoports_2_nport</span></a><span class="p">(</span><span class="n">ntw_list</span><span class="p">,</span> <span class="n">nports</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+</span><span data-line="3"><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/builtins/functions.html#print"><span class="nb">print</span></a><span class="p">(</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">tee_rebuilt</span></a><span class="p">)</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+3-Port Network: '',  330.0-500.0 GHz, 201 pts, z0=[50.+0.j 50.+0.j 50.+0.j]
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[6]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="c1"># this is an ideal example, both Network are thus identical</span>
+</span><span data-line="2"><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/builtins/functions.html#print"><span class="nb">print</span></a><span class="p">(</span><a class="sphinx-codeautolink-a" href="../../api/data/generated/skrf.data.tee.html#skrf.data.tee" title="skrf.data.tee"><span class="n">tee</span></a> <span class="o">==</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">tee_rebuilt</span></a><span class="p">)</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+True
+</pre></div></div>
+</div>
+</section>
+<section id="Tippet's-Technique">
+<h2>Tippet’s Technique<a class="headerlink" href="#Tippet's-Technique" title="Link to this heading">#</a></h2>
+<p>This example demonstrates a numerical test of the technique described in “<em>A Rigorous Technique for Measuring the Scattering Matrix of a Multiport Device with a 2-Port Network Analyzer</em>” [1].</p>
+<p>In <em>Tippets technique</em>, several sub-networks are measured in a similar way as before, but the port terminations are not assumed to be matched. Instead, the terminations just have to be known and no more than one can be completely reflective. So, in general <span class="math notranslate nohighlight">\(|\Gamma| \ne 1\)</span>.</p>
+<p>During measurements, each port is terminated with a consistent termination. So port 1 is always terminated with <span class="math notranslate nohighlight">\(Z_1\)</span> when not being measured. Once measured, each sub-network is re-normalized to these port impedances. Think about that. Finally, the composite network is constructed, and may then be re-normalized to the desired system impedance, say <span class="math notranslate nohighlight">\(50\)</span> ohm.</p>
+<ul class="simple">
+<li><p>[1] J. C. Tippet and R. A. Speciale, “A Rigorous Technique for Measuring the Scattering Matrix of a Multiport Device with a 2-Port Network Analyzer,” IEEE Transactions on Microwave Theory and Techniques, vol. 30, no. 5, pp. 661–666, May 1982.</p></li>
+</ul>
+</section>
+<section id="Outline-of-Tippet's-Technique">
+<h2>Outline of Tippet’s Technique<a class="headerlink" href="#Outline-of-Tippet's-Technique" title="Link to this heading">#</a></h2>
+<p>Following the example given in [1], measuring a 4-port network with a 2-port network analyzer.</p>
+<p>An outline of the technique:</p>
+<ol class="arabic simple">
+<li><p>Calibrate 2-port network analyzer</p></li>
+<li><p>Get four known terminations (<span class="math notranslate nohighlight">\(Z_1, Z_2, Z_3,Z_4\)</span>). No more than one can have <span class="math notranslate nohighlight">\(|\Gamma| = 1\)</span></p></li>
+<li><p>Measure all combinations of 2-port subnetworks (there are 6). Each port not currently being measured must be terminated with its corresponding load.</p></li>
+<li><p>Renormalize each subnetwork to the impedances of the loads used to terminate it when note being measured.</p></li>
+<li><p>Build composite 4-port, renormalize to VNA impedance.</p></li>
+</ol>
+</section>
+<section id="Implementation">
+<h2>Implementation<a class="headerlink" href="#Implementation" title="Link to this heading">#</a></h2>
+<p>First, we create a Media object, which is used to generate networks for testing. We will use WR-10 Rectangular waveguide.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[7]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">wg</span> <span class="o">=</span> <span class="n">rf</span><span class="o">.</span><span class="n">instances</span><span class="o">.</span><span class="n">wr10</span>
+</span></pre></div>
+</div>
+</div>
+<p>Next, lets generate a random 4-port network which will be the DUT, that we are trying to measure with out 2-port network analyzer.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[8]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">dut</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/media/generated/skrf.media.rectangularWaveguide.RectangularWaveguide.random.html#skrf.media.rectangularWaveguide.RectangularWaveguide.random" title="skrf.media.rectangularWaveguide.RectangularWaveguide.random"><span class="n">wg</span><span class="o">.</span><span class="n">random</span></a><span class="p">(</span><span class="n">n_ports</span>  <span class="o">=</span> <span class="mi">4</span><span class="p">,</span><span class="n">name</span><span class="o">=</span> <span class="s1">'dut'</span><span class="p">)</span>
+</span><span data-line="2"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">dut</span></a>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[8]:
+</span></pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+4-Port Network: 'dut',  75.0-110.0 GHz, 1001 pts, z0=[50.+0.j 50.+0.j 50.+0.j 50.+0.j]
+</pre></div></div>
+</div>
+<p>Now, we need to define the loads used to terminate each port when it is not being measured, note as described in [1] not more than one can be have full reflection, <span class="math notranslate nohighlight">\(|\Gamma| = 1\)</span></p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[9]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">loads</span> <span class="o">=</span> <span class="p">[</span><a class="sphinx-codeautolink-a" href="../../api/media/generated/skrf.media.rectangularWaveguide.RectangularWaveguide.load.html#skrf.media.rectangularWaveguide.RectangularWaveguide.load" title="skrf.media.rectangularWaveguide.RectangularWaveguide.load"><span class="n">wg</span><span class="o">.</span><span class="n">load</span></a><span class="p">(</span><span class="mf">.1</span><span class="o">+</span><span class="mf">.1</span><span class="n">j</span><span class="p">),</span>
+</span><span data-line="2">         <a class="sphinx-codeautolink-a" href="../../api/media/generated/skrf.media.rectangularWaveguide.RectangularWaveguide.load.html#skrf.media.rectangularWaveguide.RectangularWaveguide.load" title="skrf.media.rectangularWaveguide.RectangularWaveguide.load"><span class="n">wg</span><span class="o">.</span><span class="n">load</span></a><span class="p">(</span><span class="mf">.2</span><span class="o">-</span><span class="mf">.2</span><span class="n">j</span><span class="p">),</span>
+</span><span data-line="3">         <a class="sphinx-codeautolink-a" href="../../api/media/generated/skrf.media.rectangularWaveguide.RectangularWaveguide.load.html#skrf.media.rectangularWaveguide.RectangularWaveguide.load" title="skrf.media.rectangularWaveguide.RectangularWaveguide.load"><span class="n">wg</span><span class="o">.</span><span class="n">load</span></a><span class="p">(</span><span class="mf">.3</span><span class="o">+</span><span class="mf">.3</span><span class="n">j</span><span class="p">),</span>
+</span><span data-line="4">         <a class="sphinx-codeautolink-a" href="../../api/media/generated/skrf.media.rectangularWaveguide.RectangularWaveguide.load.html#skrf.media.rectangularWaveguide.RectangularWaveguide.load" title="skrf.media.rectangularWaveguide.RectangularWaveguide.load"><span class="n">wg</span><span class="o">.</span><span class="n">load</span></a><span class="p">(</span><span class="mf">.5</span><span class="p">),</span>
+</span><span data-line="5">         <span class="p">]</span>
+</span><span data-line="6"><span class="c1"># construct the impedance array, of shape FXN</span>
+</span><span data-line="7"><span class="n">z_loads</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/generated/numpy.array.html#numpy.array" title="numpy.array"><span class="n">np</span><span class="o">.</span><span class="n">array</span></a><span class="p">([</span><span class="n">k</span><span class="o">.</span><span class="n">z</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">loads</span><span class="p">])</span><span class="o">.</span><span class="n">T</span>
+</span><br/></pre></div>
+</div>
+</div>
+<p>Create required measurement port combinations. There are 6 different measurements required to measure a 4-port with a 2-port VNA. In general, #measurements = <span class="math notranslate nohighlight">\(n\choose 2\)</span>, for n-port DUT on a 2-port VNA.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[10]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">ports</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/generated/numpy.arange.html#numpy.arange" title="numpy.arange"><span class="n">np</span><span class="o">.</span><span class="n">arange</span></a><span class="p">(</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.nports.html#skrf.network.Network.nports" title="skrf.network.Network.nports"><span class="n">dut</span><span class="o">.</span><span class="n">nports</span></a><span class="p">)</span>
+</span><span data-line="2"><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="list"><span class="n">port_combos</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="https://docs.python.org/3/builtins/stdtypes.html#list"><span class="nb">list</span></a><span class="p">(</span><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/library/itertools.html#itertools.combinations" title="itertools.combinations"><span class="n">combinations</span></a><span class="p">(</span><span class="n">ports</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+</span><span data-line="3"><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="list"><span class="n">port_combos</span></a>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[10]:
+</span></pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[(np.int64(0), np.int64(1)),
+ (np.int64(0), np.int64(2)),
+ (np.int64(0), np.int64(3)),
+ (np.int64(1), np.int64(2)),
+ (np.int64(1), np.int64(3)),
+ (np.int64(2), np.int64(3))]
+</pre></div></div>
+</div>
+<p>Now to do it. Ok we loop over the port combo’s and connect the loads to the right places, simulating actual measurements. Each raw subnetwork measurement is saved, along with the renormalized subnetwork. Finally, we stuff the result into the 4-port composite network.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[11]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">composite</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/media/generated/skrf.media.rectangularWaveguide.RectangularWaveguide.match.html#skrf.media.rectangularWaveguide.RectangularWaveguide.match" title="skrf.media.rectangularWaveguide.RectangularWaveguide.match"><span class="n">wg</span><span class="o">.</span><span class="n">match</span></a><span class="p">(</span><span class="n">nports</span> <span class="o">=</span> <span class="mi">4</span><span class="p">)</span>  <span class="c1"># composite network, to be filled.</span>
+</span><span data-line="2"><span class="n">measured</span><span class="p">,</span><span class="n">measured_renorm</span> <span class="o">=</span> <span class="p">{},{}</span>  <span class="c1"># measured subnetworks and renormalized sub-networks</span>
+</span><span data-line="3">
+</span><span data-line="4"><span class="c1"># ports  `a` and `b` are the ports we will connect the VNA too</span>
+</span><span data-line="5"><span class="k">for</span> <span class="n">a</span><span class="p">,</span><span class="n">b</span> <span class="ow">in</span> <a class="sphinx-codeautolink-a" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="list"><span class="n">port_combos</span></a><span class="p">:</span>
+</span><span data-line="6">    <span class="c1"># port `c` and `d` are the ports which we will connect the loads too</span>
+</span><span data-line="7">    <span class="n">c</span><span class="p">,</span><span class="n">d</span> <span class="o">=</span><span class="n">ports</span><span class="p">[(</span><span class="n">ports</span><span class="o">!=</span><span class="n">a</span><span class="p">)</span><span class="o">&amp;</span> <span class="p">(</span><span class="n">ports</span><span class="o">!=</span><span class="n">b</span><span class="p">)]</span>
+</span><span data-line="8">
+</span><span data-line="9">    <span class="c1"># determine where `d` will be on four_port, after its reduced to a three_port</span>
+</span><span data-line="10">    <span class="n">e</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/generated/numpy.where.html#numpy.where" title="numpy.where"><span class="n">np</span><span class="o">.</span><span class="n">where</span></a><span class="p">(</span><span class="n">ports</span><span class="p">[</span><span class="n">ports</span><span class="o">!=</span><span class="n">c</span><span class="p">]</span><span class="o">==</span><span class="n">d</span><span class="p">)[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+</span><span data-line="11">
+</span><span data-line="12">    <span class="c1"># connect loads</span>
+</span><span data-line="13">    <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">three_port</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.connect.html#skrf.network.connect" title="skrf.network.connect"><span class="n">connect</span></a><span class="p">(</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">dut</span></a><span class="p">,</span><span class="n">c</span><span class="p">,</span> <span class="n">loads</span><span class="p">[</span><span class="n">c</span><span class="p">],</span><span class="mi">0</span><span class="p">)</span>
+</span><span data-line="14">    <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">two_port</span></a> <span class="o">=</span>  <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.connect.html#skrf.network.connect" title="skrf.network.connect"><span class="n">connect</span></a><span class="p">(</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">three_port</span></a><span class="p">,</span><span class="n">e</span><span class="p">,</span> <span class="n">loads</span><span class="p">[</span><span class="n">d</span><span class="p">],</span><span class="mi">0</span><span class="p">)</span>
+</span><span data-line="15">
+</span><span data-line="16">    <span class="c1"># save raw and renormalized 2-port subnetworks</span>
+</span><span data-line="17">    <span class="n">measured</span><span class="p">[</span><span class="s1">'</span><span class="si">%i%i</span><span class="s1">'</span><span class="o">%</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">)]</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.copy.html#skrf.network.Network.copy" title="skrf.network.Network.copy"><span class="n">two_port</span><span class="o">.</span><span class="n">copy</span></a><span class="p">()</span>
+</span><span data-line="18">    <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.renormalize.html#skrf.network.Network.renormalize" title="skrf.network.Network.renormalize"><span class="n">two_port</span><span class="o">.</span><span class="n">renormalize</span></a><span class="p">(</span><a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/generated/numpy.c_.html#numpy.c_" title="numpy.c_"><span class="n">np</span><span class="o">.</span><span class="n">c_</span></a><span class="p">[</span><span class="n">z_loads</span><span class="p">[:,</span><span class="n">a</span><span class="p">],</span><span class="n">z_loads</span><span class="p">[:,</span><span class="n">b</span><span class="p">]])</span>
+</span><span data-line="19">    <span class="n">measured_renorm</span><span class="p">[</span><span class="s1">'</span><span class="si">%i%i</span><span class="s1">'</span><span class="o">%</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">)]</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.copy.html#skrf.network.Network.copy" title="skrf.network.Network.copy"><span class="n">two_port</span><span class="o">.</span><span class="n">copy</span></a><span class="p">()</span>
+</span><span data-line="20">
+</span><span data-line="21">    <span class="c1"># stuff this 2-port into the composite 4-port</span>
+</span><span data-line="22">    <span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">m</span> <span class="ow">in</span> <a class="sphinx-codeautolink-a" href="https://docs.python.org/3/builtins/functions.html#enumerate"><span class="nb">enumerate</span></a><span class="p">([</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">]):</span>
+</span><span data-line="23">        <span class="k">for</span> <span class="n">j</span><span class="p">,</span><span class="n">n</span> <span class="ow">in</span> <a class="sphinx-codeautolink-a" href="https://docs.python.org/3/builtins/functions.html#enumerate"><span class="nb">enumerate</span></a><span class="p">([</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">]):</span>
+</span><span data-line="24">            <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.s.html#skrf.network.Network.s" title="skrf.network.Network.s"><span class="n">composite</span><span class="o">.</span><span class="n">s</span></a><span class="p">[:,</span><span class="n">m</span><span class="p">,</span><span class="n">n</span><span class="p">]</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.s.html#skrf.network.Network.s" title="skrf.network.Network.s"><span class="n">two_port</span><span class="o">.</span><span class="n">s</span></a><span class="p">[:,</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">]</span>
+</span><span data-line="25">
+</span><span data-line="26">    <span class="c1"># properly copy the port impedances</span>
+</span><span data-line="27">    <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.z0.html#skrf.network.Network.z0" title="skrf.network.Network.z0"><span class="n">composite</span><span class="o">.</span><span class="n">z0</span></a><span class="p">[:,</span><span class="n">a</span><span class="p">]</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.z0.html#skrf.network.Network.z0" title="skrf.network.Network.z0"><span class="n">two_port</span><span class="o">.</span><span class="n">z0</span></a><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span>
+</span><span data-line="28">    <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.z0.html#skrf.network.Network.z0" title="skrf.network.Network.z0"><span class="n">composite</span><span class="o">.</span><span class="n">z0</span></a><span class="p">[:,</span><span class="n">b</span><span class="p">]</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.z0.html#skrf.network.Network.z0" title="skrf.network.Network.z0"><span class="n">two_port</span><span class="o">.</span><span class="n">z0</span></a><span class="p">[:,</span><span class="mi">1</span><span class="p">]</span>
+</span><span data-line="29">
+</span><span data-line="30"><span class="c1"># finally renormalize from load z0 to 50 ohms</span>
+</span><span data-line="31"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.renormalize.html#skrf.network.Network.renormalize" title="skrf.network.Network.renormalize"><span class="n">composite</span><span class="o">.</span><span class="n">renormalize</span></a><span class="p">(</span><span class="mi">50</span><span class="p">)</span>
+</span></pre></div>
+</div>
+</div>
+</section>
+<section id="Results">
+<h2>Results<a class="headerlink" href="#Results" title="Link to this heading">#</a></h2>
+<section id="Self-Consistency">
+<h3>Self-Consistency<a class="headerlink" href="#Self-Consistency" title="Link to this heading">#</a></h3>
+<p>Note that 6-measurements of 2-port subnetworks works out to 24 s-parameters, and we only need 16. This is because each reflect, s-parameter is measured three-times. As, in [1], we will use this redundant measurement as a check of our accuracy.</p>
+<p>The renormalized networks are stored in a dictionary with names based on their port indices, from this you can see that each have been renormalized to the appropriate z0.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[12]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">measured_renorm</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[12]:
+</span></pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+{'01': 2-Port Network: 'dut',  75.0-110.0 GHz, 1001 pts, z0=[59.75609756+12.19512195j 67.64705882-29.41176471j],
+ '02': 2-Port Network: 'dut',  75.0-110.0 GHz, 1001 pts, z0=[59.75609756+12.19512195j 70.68965517+51.72413793j],
+ '03': 2-Port Network: 'dut',  75.0-110.0 GHz, 1001 pts, z0=[ 59.75609756+12.19512195j 150.         +0.j        ],
+ '12': 2-Port Network: 'dut',  75.0-110.0 GHz, 1001 pts, z0=[67.64705882-29.41176471j 70.68965517+51.72413793j],
+ '13': 2-Port Network: 'dut',  75.0-110.0 GHz, 1001 pts, z0=[ 67.64705882-29.41176471j 150.         +0.j        ],
+ '23': 2-Port Network: 'dut',  75.0-110.0 GHz, 1001 pts, z0=[ 70.68965517+51.72413793j 150.         +0.j        ]}
+</pre></div></div>
+</div>
+<p>Plotting all three raw measurements of <span class="math notranslate nohighlight">\(S_{11}\)</span>, we can see that they are not in agreement. These plots answer to plots 5 and 7 of [1]</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[13]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.networkSet.NetworkSet.html#skrf.networkSet.NetworkSet" title="skrf.networkSet.NetworkSet"><span class="n">s11_set</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.networkSet.NetworkSet.html#skrf.networkSet.NetworkSet" title="skrf.networkSet.NetworkSet"><span class="n">rf</span><span class="o">.</span><span class="n">networkSet</span><span class="o">.</span><span class="n">NetworkSet</span></a><span class="p">([</span><span class="n">measured</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">measured</span> <span class="k">if</span> <span class="n">k</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">==</span><span class="s1">'0'</span><span class="p">])</span>
+</span><span data-line="2">
+</span><span data-line="3"><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">4</span><span class="p">))</span>
+</span><span data-line="4"><span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">121</span><span class="p">)</span>
+</span><span data-line="5"><span class="n">s11_set</span> <span class="o">.</span><span class="n">plot_s_db</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+</span><span data-line="6"><span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">122</span><span class="p">)</span>
+</span><span data-line="7"><span class="n">s11_set</span> <span class="o">.</span><span class="n">plot_s_deg</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+</span><span data-line="8"><span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/examples_metrology_Measuring_a_Mutiport_Device_with_a_2-Port_Network_Analyzer_32_0.png" src="../../_images/examples_metrology_Measuring_a_Mutiport_Device_with_a_2-Port_Network_Analyzer_32_0.png"/>
+</div>
+</div>
+<p>However, the renormalized measurements agree perfectly. These plots answer to plots 6 and 8 of [1]</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[14]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.networkSet.NetworkSet.html#skrf.networkSet.NetworkSet" title="skrf.networkSet.NetworkSet"><span class="n">s11_set</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.networkSet.NetworkSet.html#skrf.networkSet.NetworkSet" title="skrf.networkSet.NetworkSet"><span class="n">rf</span><span class="o">.</span><span class="n">networkSet</span><span class="o">.</span><span class="n">NetworkSet</span></a><span class="p">([</span><span class="n">measured_renorm</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">measured_renorm</span> <span class="k">if</span> <span class="n">k</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">==</span><span class="s1">'0'</span><span class="p">])</span>
+</span><span data-line="2">
+</span><span data-line="3"><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">4</span><span class="p">))</span>
+</span><span data-line="4"><span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">121</span><span class="p">)</span>
+</span><span data-line="5"><span class="n">s11_set</span> <span class="o">.</span><span class="n">plot_s_db</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+</span><span data-line="6"><span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">122</span><span class="p">)</span>
+</span><span data-line="7"><span class="n">s11_set</span> <span class="o">.</span><span class="n">plot_s_deg</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+</span><span data-line="8"><span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/examples_metrology_Measuring_a_Mutiport_Device_with_a_2-Port_Network_Analyzer_34_0.png" src="../../_images/examples_metrology_Measuring_a_Mutiport_Device_with_a_2-Port_Network_Analyzer_34_0.png"/>
+</div>
+</div>
+</section>
+<section id="Test-For-Accuracy">
+<h3>Test For Accuracy<a class="headerlink" href="#Test-For-Accuracy" title="Link to this heading">#</a></h3>
+<p>Making sure our composite network is the same as our DUT</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[15]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">composite</span></a> <span class="o">==</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">dut</span></a>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[15]:
+</span></pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+True
+</pre></div></div>
+</div>
+<p>Nice!. How close ?</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[16]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/builtins/functions.html#sum"><span class="nb">sum</span></a><span class="p">((</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">composite</span></a> <span class="o">-</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">dut</span></a><span class="p">)</span><span class="o">.</span><span class="n">s_mag</span><span class="p">)</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[16]:
+</span></pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+array([[5.75432710e-13, 5.57038022e-13, 5.47595937e-13, 5.22862112e-13],
+       [5.68207409e-13, 5.77168444e-13, 5.27149308e-13, 5.15842564e-13],
+       [5.41462741e-13, 5.65757524e-13, 5.24828522e-13, 5.02727003e-13],
+       [5.41858521e-13, 5.36122502e-13, 5.21681944e-13, 5.44314183e-13]])
+</pre></div></div>
+</div>
+<p>Dang!</p>
+</section>
+</section>
+<section id="Practical-Application">
+<h2>Practical Application<a class="headerlink" href="#Practical-Application" title="Link to this heading">#</a></h2>
+<p>This could be used in many ways. In waveguide, one could just make a measurement of a radiating open after a standard two-port calibration (like TRL). Then using <em>Tippets technique</em>, you can leave each port wide open while not being measured. This way you dont have to buy a bunch of loads. How sweet would that be?</p>
+</section>
+<section id="More-Complex-Simulations">
+<h2>More Complex Simulations<a class="headerlink" href="#More-Complex-Simulations" title="Link to this heading">#</a></h2>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[17]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="k">def</span><span class="w"> </span><span class="nf">tippits</span><span class="p">(</span><span class="n">dut</span><span class="p">,</span> <span class="n">gamma</span><span class="p">,</span> <span class="n">noise</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+</span><span data-line="2"><span class="w">    </span><span class="sd">"""simulate tippits technique on a 4-port dut.</span>
+</span><span data-line="3"><span class="sd">    """</span>
+</span><span data-line="4">    <span class="n">ports</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/generated/numpy.arange.html#numpy.arange" title="numpy.arange"><span class="n">np</span><span class="o">.</span><span class="n">arange</span></a><span class="p">(</span><span class="n">dut</span><span class="o">.</span><span class="n">nports</span><span class="p">)</span>
+</span><span data-line="5">    <a class="sphinx-codeautolink-a" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="list"><span class="n">port_combos</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="https://docs.python.org/3/builtins/stdtypes.html#list"><span class="nb">list</span></a><span class="p">(</span><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/library/itertools.html#itertools.combinations" title="itertools.combinations"><span class="n">combinations</span></a><span class="p">(</span><span class="n">ports</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+</span><span data-line="6">
+</span><span data-line="7">    <span class="n">loads</span> <span class="o">=</span> <span class="p">[</span><a class="sphinx-codeautolink-a" href="../../api/media/generated/skrf.media.rectangularWaveguide.RectangularWaveguide.load.html#skrf.media.rectangularWaveguide.RectangularWaveguide.load" title="skrf.media.rectangularWaveguide.RectangularWaveguide.load"><span class="n">wg</span><span class="o">.</span><span class="n">load</span></a><span class="p">(</span><span class="n">gamma</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">ports</span><span class="p">]</span>
+</span><span data-line="8">
+</span><span data-line="9">    <span class="c1"># construct the impedance array, of shape FXN</span>
+</span><span data-line="10">    <span class="n">z_loads</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/generated/numpy.array.html#numpy.array" title="numpy.array"><span class="n">np</span><span class="o">.</span><span class="n">array</span></a><span class="p">([</span><span class="n">k</span><span class="o">.</span><span class="n">z</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">loads</span><span class="p">])</span><span class="o">.</span><span class="n">T</span>
+</span><span data-line="11">    <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">composite</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/media/generated/skrf.media.rectangularWaveguide.RectangularWaveguide.match.html#skrf.media.rectangularWaveguide.RectangularWaveguide.match" title="skrf.media.rectangularWaveguide.RectangularWaveguide.match"><span class="n">wg</span><span class="o">.</span><span class="n">match</span></a><span class="p">(</span><span class="n">nports</span> <span class="o">=</span> <span class="n">dut</span><span class="o">.</span><span class="n">nports</span><span class="p">)</span>  <span class="c1"># composite network, to be filled.</span>
+</span><span data-line="12">
+</span><span data-line="13">    <span class="c1"># ports  `a` and `b` are the ports we will connect the VNA too</span>
+</span><span data-line="14">    <span class="k">for</span> <span class="n">a</span><span class="p">,</span><span class="n">b</span> <span class="ow">in</span> <a class="sphinx-codeautolink-a" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="list"><span class="n">port_combos</span></a><span class="p">:</span>
+</span><span data-line="15">        <span class="c1"># port `c` and `d` are the ports which we will connect the loads too</span>
+</span><span data-line="16">        <span class="n">c</span><span class="p">,</span><span class="n">d</span> <span class="o">=</span><span class="n">ports</span><span class="p">[(</span><span class="n">ports</span><span class="o">!=</span><span class="n">a</span><span class="p">)</span><span class="o">&amp;</span> <span class="p">(</span><span class="n">ports</span><span class="o">!=</span><span class="n">b</span><span class="p">)]</span>
+</span><span data-line="17">
+</span><span data-line="18">        <span class="c1"># determine where `d` will be on four_port, after its reduced to a three_port</span>
+</span><span data-line="19">        <span class="n">e</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/generated/numpy.where.html#numpy.where" title="numpy.where"><span class="n">np</span><span class="o">.</span><span class="n">where</span></a><span class="p">(</span><span class="n">ports</span><span class="p">[</span><span class="n">ports</span><span class="o">!=</span><span class="n">c</span><span class="p">]</span><span class="o">==</span><span class="n">d</span><span class="p">)[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+</span><span data-line="20">
+</span><span data-line="21">        <span class="c1"># connect loads</span>
+</span><span data-line="22">        <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">three_port</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.connect.html#skrf.network.connect" title="skrf.network.connect"><span class="n">connect</span></a><span class="p">(</span><span class="n">dut</span><span class="p">,</span><span class="n">c</span><span class="p">,</span> <span class="n">loads</span><span class="p">[</span><span class="n">c</span><span class="p">],</span><span class="mi">0</span><span class="p">)</span>
+</span><span data-line="23">        <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">two_port</span></a> <span class="o">=</span>  <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.connect.html#skrf.network.connect" title="skrf.network.connect"><span class="n">connect</span></a><span class="p">(</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">three_port</span></a><span class="p">,</span><span class="n">e</span><span class="p">,</span> <span class="n">loads</span><span class="p">[</span><span class="n">d</span><span class="p">],</span><span class="mi">0</span><span class="p">)</span>
+</span><span data-line="24">
+</span><span data-line="25">        <span class="k">if</span> <span class="n">noise</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+</span><span data-line="26">            <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.add_noise_polar.html#skrf.network.Network.add_noise_polar" title="skrf.network.Network.add_noise_polar"><span class="n">two_port</span><span class="o">.</span><span class="n">add_noise_polar</span></a><span class="p">(</span><span class="o">*</span><span class="n">noise</span><span class="p">)</span>
+</span><span data-line="27">        <span class="c1"># save raw and renormalized 2-port subnetworks</span>
+</span><span data-line="28">        <span class="n">measured</span><span class="p">[</span><span class="s1">'</span><span class="si">%i%i</span><span class="s1">'</span><span class="o">%</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">)]</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.copy.html#skrf.network.Network.copy" title="skrf.network.Network.copy"><span class="n">two_port</span><span class="o">.</span><span class="n">copy</span></a><span class="p">()</span>
+</span><span data-line="29">        <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.renormalize.html#skrf.network.Network.renormalize" title="skrf.network.Network.renormalize"><span class="n">two_port</span><span class="o">.</span><span class="n">renormalize</span></a><span class="p">(</span><a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/generated/numpy.c_.html#numpy.c_" title="numpy.c_"><span class="n">np</span><span class="o">.</span><span class="n">c_</span></a><span class="p">[</span><span class="n">z_loads</span><span class="p">[:,</span><span class="n">a</span><span class="p">],</span><span class="n">z_loads</span><span class="p">[:,</span><span class="n">b</span><span class="p">]])</span>
+</span><span data-line="30">        <span class="n">measured_renorm</span><span class="p">[</span><span class="s1">'</span><span class="si">%i%i</span><span class="s1">'</span><span class="o">%</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">)]</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.copy.html#skrf.network.Network.copy" title="skrf.network.Network.copy"><span class="n">two_port</span><span class="o">.</span><span class="n">copy</span></a><span class="p">()</span>
+</span><span data-line="31">
+</span><span data-line="32">        <span class="c1"># stuff this 2-port into the composite 4-port</span>
+</span><span data-line="33">        <span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">m</span> <span class="ow">in</span> <a class="sphinx-codeautolink-a" href="https://docs.python.org/3/builtins/functions.html#enumerate"><span class="nb">enumerate</span></a><span class="p">([</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">]):</span>
+</span><span data-line="34">            <span class="k">for</span> <span class="n">j</span><span class="p">,</span><span class="n">n</span> <span class="ow">in</span> <a class="sphinx-codeautolink-a" href="https://docs.python.org/3/builtins/functions.html#enumerate"><span class="nb">enumerate</span></a><span class="p">([</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">]):</span>
+</span><span data-line="35">                <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.s.html#skrf.network.Network.s" title="skrf.network.Network.s"><span class="n">composite</span><span class="o">.</span><span class="n">s</span></a><span class="p">[:,</span><span class="n">m</span><span class="p">,</span><span class="n">n</span><span class="p">]</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.s.html#skrf.network.Network.s" title="skrf.network.Network.s"><span class="n">two_port</span><span class="o">.</span><span class="n">s</span></a><span class="p">[:,</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">]</span>
+</span><span data-line="36">
+</span><span data-line="37">        <span class="c1"># properly copy the port impedances</span>
+</span><span data-line="38">        <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.z0.html#skrf.network.Network.z0" title="skrf.network.Network.z0"><span class="n">composite</span><span class="o">.</span><span class="n">z0</span></a><span class="p">[:,</span><span class="n">a</span><span class="p">]</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.z0.html#skrf.network.Network.z0" title="skrf.network.Network.z0"><span class="n">two_port</span><span class="o">.</span><span class="n">z0</span></a><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span>
+</span><span data-line="39">        <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.z0.html#skrf.network.Network.z0" title="skrf.network.Network.z0"><span class="n">composite</span><span class="o">.</span><span class="n">z0</span></a><span class="p">[:,</span><span class="n">b</span><span class="p">]</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.z0.html#skrf.network.Network.z0" title="skrf.network.Network.z0"><span class="n">two_port</span><span class="o">.</span><span class="n">z0</span></a><span class="p">[:,</span><span class="mi">1</span><span class="p">]</span>
+</span><span data-line="40">
+</span><span data-line="41">    <span class="c1"># finally renormalize from load z0 to 50 ohms</span>
+</span><span data-line="42">    <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.renormalize.html#skrf.network.Network.renormalize" title="skrf.network.Network.renormalize"><span class="n">composite</span><span class="o">.</span><span class="n">renormalize</span></a><span class="p">(</span><span class="mi">50</span><span class="p">)</span>
+</span><span data-line="43">
+</span><span data-line="44">    <span class="k">return</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">composite</span></a>
+</span></pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[18]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">dut</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/media/generated/skrf.media.rectangularWaveguide.RectangularWaveguide.random.html#skrf.media.rectangularWaveguide.RectangularWaveguide.random" title="skrf.media.rectangularWaveguide.RectangularWaveguide.random"><span class="n">wg</span><span class="o">.</span><span class="n">random</span></a><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+</span><span data-line="2">
+</span><span data-line="3"><span class="k">def</span><span class="w"> </span><span class="nf">er</span><span class="p">(</span><span class="n">gamma</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+</span><span data-line="4">    <span class="k">return</span> <a class="sphinx-codeautolink-a" href="https://docs.python.org/3/builtins/functions.html#max"><span class="nb">max</span></a><span class="p">(</span><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/builtins/functions.html#abs"><span class="nb">abs</span></a><span class="p">(</span><span class="n">tippits</span><span class="p">(</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">dut</span></a><span class="p">,</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.mathFunctions.db_2_mag.html#skrf.mathFunctions.db_2_mag" title="skrf.mathFunctions.db_2_mag"><span class="n">rf</span><span class="o">.</span><span class="n">mathFunctions</span><span class="o">.</span><span class="n">db_2_mag</span></a><span class="p">(</span><span class="n">gamma</span><span class="p">),</span><span class="o">*</span><span class="n">args</span><span class="p">)</span><span class="o">.</span><span class="n">s_db</span><span class="o">-</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.s_db.html#skrf.network.Network.s_db" title="skrf.network.Network.s_db"><span class="n">dut</span><span class="o">.</span><span class="n">s_db</span></a><span class="p">)</span><span class="o">.</span><span class="n">flatten</span><span class="p">())</span>
+</span><span data-line="5">
+</span><span data-line="6"><span class="n">gammas</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/generated/numpy.linspace.html#numpy.linspace" title="numpy.linspace"><span class="n">np</span><span class="o">.</span><span class="n">linspace</span></a><span class="p">(</span><span class="o">-</span><span class="mi">40</span><span class="p">,</span><span class="o">-</span><span class="mf">0.1</span><span class="p">,</span><span class="mi">11</span><span class="p">)</span>
+</span><span data-line="7">
+</span><span data-line="8"><span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">r</span><span class="s1">'Error vs $|\Gamma|$'</span><span class="p">)</span>
+</span><span data-line="9"><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">gammas</span><span class="p">,</span> <span class="p">[</span><span class="n">er</span><span class="p">(</span><span class="n">k</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">gammas</span><span class="p">])</span>
+</span><span data-line="10"><span class="n">plt</span><span class="o">.</span><span class="n">semilogy</span><span class="p">()</span>
+</span><span data-line="11"><span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">'$|\Gamma|$ of Loads (dB)'</span><span class="p">)</span>
+</span><span data-line="12"><span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">'Max Error in DUT</span><span class="se">\'</span><span class="s1">s dB(S)'</span><span class="p">)</span>
+</span><span data-line="13">
+</span><span data-line="14"><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+</span><span data-line="15"><span class="n">noise</span> <span class="o">=</span> <span class="p">(</span><span class="mf">1e-5</span><span class="p">,</span><span class="mf">.1</span><span class="p">)</span>
+</span><span data-line="16"><span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">r</span><span class="s1">'Error vs $|\Gamma|$ with reasonable noise'</span><span class="p">)</span>
+</span><span data-line="17"><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">gammas</span><span class="p">,</span> <span class="p">[</span><span class="n">er</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">noise</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">gammas</span><span class="p">])</span>
+</span><span data-line="18"><span class="n">plt</span><span class="o">.</span><span class="n">semilogy</span><span class="p">()</span>
+</span><span data-line="19"><span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">'$|\Gamma|$ of Loads (dB)'</span><span class="p">)</span>
+</span><span data-line="20">
+</span><span data-line="21"><span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">'Max Error in DUT</span><span class="se">\'</span><span class="s1">s dB(S)'</span><span class="p">)</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[18]:
+</span></pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Text(0, 0.5, "Max Error in DUT's dB(S)")
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/examples_metrology_Measuring_a_Mutiport_Device_with_a_2-Port_Network_Analyzer_45_1.png" src="../../_images/examples_metrology_Measuring_a_Mutiport_Device_with_a_2-Port_Network_Analyzer_45_1.png"/>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/examples_metrology_Measuring_a_Mutiport_Device_with_a_2-Port_Network_Analyzer_45_2.png" src="../../_images/examples_metrology_Measuring_a_Mutiport_Device_with_a_2-Port_Network_Analyzer_45_2.png"/>
+</div>
+</div>
+</section>
+</section>
+
+        </article><button class="back-to-top" type="button">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+  </svg>
+  <span>Back to top</span>
+</button><div class="navigation flex print:hidden"><div class="navigation-prev">
+    <a href="LRRM.html">
+      <i class="i-lucide chevron-left"></i>
+      <div class="page-info">
+        <span>Previous</span><div class="title">LRRM</div></div>
+    </a>
+  </div><div class="navigation-next">
+    <a href="Multi-port%20Calibration.html">
+      <div class="page-info">
+        <span>Next</span>
+        <div class="title">Multi-port calibration</div>
+      </div>
+      <i class="i-lucide chevron-right"></i>
+    </a>
+  </div></div></div>
+    </div>
+  </main>
+</div>
+<footer class="sy-foot">
+  <div class="sy-foot-inner sy-container mx-auto">
+    <div class="sy-foot-reserved md:flex justify-between items-center">
+      <div class="sy-foot-copyright"><p>2025, scikit-rf team</p>
+  
+  <p>
+    Made with
+    
+    <a href="https://www.sphinx-doc.org/">Sphinx</a> and
+    
+    <a href="https://shibuya.lepture.com">Shibuya theme</a>.
+  </p>
+</div>
+      <div class="sy-foot-socials">
+  <a href="https://github.com/scikit-rf/scikit-rf" aria-label="GitHub">
+    <iconify-icon icon="simple-icons:github"></iconify-icon>
+  </a></div>
+    </div>
+  </div>
+</footer>
+      <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../_static/copybutton.js?v=34bd459d"></script>
+      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+      <script src="../../_static/shibuya.js?v=50760d75"></script>
+      <script src="https://cdn.jsdelivr.net/npm/@jupyter-widgets/html-manager@^1.0.1/dist/embed-amd.js"></script>
+      <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
+      <script src="../../_static/skrf.js?v=bdeb9fb0"></script></body>
+</html>

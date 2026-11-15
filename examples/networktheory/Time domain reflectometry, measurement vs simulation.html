@@ -1,0 +1,1042 @@
+<!DOCTYPE html>
+<html lang="en" data-accent-color="blue" data-content_root="../../">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Time domain reflectometry, measurement vs simulation - scikit-rf</title><link rel="author" title="About these documents" href="../../about.html" /><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="Transmission Line Losses on a Loaded Lossy Line" href="Transmission%20Line%20Losses.html" /><link rel="prev" title="Time Domain and Gating" href="Time%20Domain.html" /><script>
+    function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
+    setColorMode(localStorage._theme||"auto");
+  </script><link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=ad592e98" />
+    <link rel="stylesheet" type="text/css" href="../../_static/shibuya.css?v=2ceb65ce" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-codeautolink.css?v=b2176991" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link media="print" rel="stylesheet" type="text/css" href="../../_static/print.css?v=20ff2c19" />
+    <link rel="stylesheet" type="text/css" href="../../_static/nbsphinx-code-cells.css?v=2aa19091" />
+    <link rel="stylesheet" type="text/css" href="../../_static/skrf.css?v=7e772ba2" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --sy-f-text: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+  --sy-f-heading: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+}
+</style>
+    
+  <meta property="og:type" content="website"/><meta property="og:title" content="Time domain reflectometry, measurement vs simulation"/>
+    <meta name="twitter:card" content="summary"/>
+  </head>
+<body><div class="sy-head">
+  <div class="sy-head-blur"></div>
+  <div class="sy-head-inner sy-container mx-auto">
+    <a class="sy-head-brand" href="../../index.html">
+      <img class="light-logo" src="../../_static/logo.svg" alt="scikit-rf" height="28" loading="lazy" />
+      <img class="dark-logo" src="../../_static/logo.svg" alt="scikit-rf" height="28" loading="lazy" />
+      <strong>scikit-rf</strong>
+    </a>
+    <div class="sy-head-nav" id="head-nav">
+      <nav class="sy-head-links"><ul><li class="link"><a href="../../index.html">Home</a></li><li class="link"><a href="../../tutorials/index.html">Tutorials</a></li><li class="link"><a href="../index.html">Examples</a></li><li class="link"><a href="../../api/index.html">API</a></li><li class="link">
+          <a href="https://github.com/scikit-rf/scikit-rf">
+            <span>GitHub</span><i class="i-lucide external-link"></i></a>
+        </li></ul></nav>
+      <div class="sy-head-extra flex items-center print:hidden"><form class="searchbox flex items-center" action="../../search.html" method="get">
+  <input type="text" name="q" placeholder="Search" />
+  <kbd>/</kbd>
+</form><div class="sy-head-socials">
+  <a href="https://github.com/scikit-rf/scikit-rf" aria-label="GitHub">
+    <iconify-icon icon="simple-icons:github"></iconify-icon>
+  </a>
+  <a href="https://www.linkedin.com/groups/12462155/" aria-label="LinkedIn">
+    <iconify-icon icon="simple-icons:linkedin"></iconify-icon>
+  </a>
+  <a href="https://app.element.io/#/room/#scikit-rf:matrix.org" aria-label="Matrix">
+    <iconify-icon icon="simple-icons:matrix"></iconify-icon>
+  </a></div></div>
+    </div>
+    <div class="sy-head-actions flex items-center shrink-0 print:hidden"><button class="js-theme theme-switch flex items-center"
+data-aria-auto="Switch to light color mode"
+data-aria-light="Switch to dark color mode"
+data-aria-dark="Switch to auto color mode">
+<i class="i-lucide theme-icon"></i>
+</button><button class="md:hidden flex items-center js-menu" aria-label="Menu" type="button" aria-controls="head-nav" aria-expanded="false">
+        <div class="hamburger">
+          <span class="hamburger_1"></span>
+          <span class="hamburger_2"></span>
+          <span class="hamburger_3"></span>
+        </div>
+      </button>
+    </div>
+  </div>
+</div>
+<div class="sy-page sy-container flex mx-auto">
+  <aside id="lside" class="sy-lside md:w-72 md:shrink-0 print:hidden">
+    <div class="sy-lside-inner md:sticky">
+      <div class="sy-scrollbar p-6">
+        <div class="globaltoc" data-expand-depth="0"><p class="caption" role="heading" aria-level="3"><span class="caption-text">Getting started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../index.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/Installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/Introduction.html">Introduction</a></li>
+</ul>
+<p class="caption" role="heading" aria-level="3"><span class="caption-text">User guide</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Examples</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Network Theory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../matching/index.html">Matching</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../metrology/index.html">Metrology and Calibration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../networksets/index.html">NetworkSets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../plotting/index.html">Plotting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../circuit/index.html">Circuit</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mixedmodeanalysis/index.html">Mixed Mode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../vectorfitting/index.html">Vector Fitting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../vectorfitting_parametric/index.html">Parametric Vector Fitting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../qfactor/index.html">Q-factor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../taper/index.html">Taper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../instrumentcontrol/index.html">Instrument Control</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../interactive/index.html">Interactive</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading" aria-level="3"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../api/index.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../glossary.html">Glossary</a></li>
+</ul>
+<p class="caption" role="heading" aria-level="3"><span class="caption-text">Project</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing/index.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../citations_ack/acknowledging.html">Citing scikit-rf</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../citations_ack/citations.html">scikit-rf Citations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../about.html">About</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../users.html">Users</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../license.html">License</a></li>
+</ul>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="lside-overlay js-menu" role="button" aria-label="Close left sidebar" aria-controls="lside" aria-expanded="false"></div>
+  <aside id="rside" class="sy-rside pb-3 w-64 shrink-0 order-last">
+    <button class="rside-close js-menu xl:hidden" aria-label="Close Table of Contents" type="button" aria-controls="rside" aria-expanded="false">
+      <i class="i-lucide close"></i>
+    </button>
+    <div class="sy-scrollbar sy-rside-inner px-6 xl:top-16 xl:sticky xl:pl-0 pt-6 pb-4"><div class="localtoc"><h3>On this page</h3><ul>
+<li><a class="reference internal" href="#Data-preparation">Data preparation</a><ul>
+<li><a class="reference internal" href="#Setup">Setup</a></li>
+<li><a class="reference internal" href="#Load-data-into-skrf">Load data into skrf</a></li>
+<li><a class="reference internal" href="#DC-point-extrapolation">DC point extrapolation</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#Microstripline">Microstripline</a><ul>
+<li><a class="reference internal" href="#Measurement-vs-simulation-comparison">Measurement vs simulation comparison</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#Stepped-impedance-microstripline">Stepped impedance microstripline</a><ul>
+<li><a class="reference internal" href="#id1">Measurement vs simulation comparison</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#Parameters-optimization">Parameters optimization</a><ul>
+<li><a class="reference internal" href="#Dielectric-effective-relative-permittivity-and-loss-tangent-characterisation-based-on-multiline-method">Dielectric effective relative permittivity and loss tangent characterisation based on multiline method</a><ul>
+<li><a class="reference internal" href="#Perform-NISTMultilineTRL-algorithm">Perform NISTMultilineTRL algorithm</a></li>
+<li><a class="reference internal" href="#Relative-dielectric-permittivity-and-loss-tangent">Relative dielectric permittivity and loss tangent</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#Connector-effect-characterization">Connector effect characterization</a><ul>
+<li><a class="reference internal" href="#Delay-and-attenuation">Delay and attenuation</a></li>
+<li><a class="reference internal" href="#Characteristic-impedance">Characteristic impedance</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#Simulation">Simulation</a><ul>
+<li><a class="reference internal" href="#Frequency-axis">Frequency axis</a></li>
+<li><a class="reference internal" href="#Media-sections-with-different-geometries">Media sections with different geometries</a></li>
+<li><a class="reference internal" href="#Simulated-devices-under-test">Simulated devices under test</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#Notes">Notes</a><ul>
+<li><a class="reference internal" href="#Time-resolution">Time resolution</a></li>
+<li><a class="reference internal" href="#Measurement-range-limitation-to-avoid-alias-response">Measurement range limitation to avoid alias response</a></li>
+</ul>
+</li>
+</ul>
+</div><div id="ethical-ad-placement" data-ea-publisher="readthedocs"></div></div>
+  </aside>
+  <div class="rside-overlay js-menu" role="button" aria-label="Close Table of Contents" aria-controls="rside" aria-expanded="false"></div>
+  <main class="sy-main w-full max-sm:max-w-full print:pt-6">
+<div class="sy-breadcrumbs" role="navigation">
+  <div class="sy-breadcrumbs-inner flex items-center">
+    <div class="md:hidden mr-3">
+      <button class="js-menu" aria-label="Menu" type="button" aria-controls="lside" aria-expanded="false">
+        <i class="i-lucide menu"></i>
+      </button>
+    </div>
+    <ol class="flex-1" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="../../index.html"><span itemprop="name">scikit-rf</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="1" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="../index.html"><span itemprop="name">Examples</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="2" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="index.html"><span itemprop="name">Network Theory</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="3" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <strong itemprop="name">Time domain reflectometry, measurement vs simulation</strong>
+        <meta itemprop="position" content="4" />
+      </li></ol>
+    <a class="sk-download" href="Time%20domain%20reflectometry%2C%20measurement%20vs%20simulation.ipynb" download>Download</a>
+    <div class="xl:hidden ml-1">
+      <button class="js-menu" aria-label="Show table of contents" type="button" aria-controls="rside"
+        aria-expanded="false">
+        <i class="i-lucide outdent"></i>
+      </button>
+    </div>
+  </div>
+</div><div class="flex flex-col break-words justify-between">
+      <div class="relative min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
+  <article class="yue" role="main">
+          <section id="Time-domain-reflectometry,-measurement-vs-simulation">
+<h1>Time domain reflectometry, measurement vs simulation<a class="headerlink" href="#Time-domain-reflectometry,-measurement-vs-simulation" title="Link to this heading">#</a></h1>
+<p>This example demonstrate the use of frequency to time domain transformation by comparing measurements and simulations of a <a class="reference internal" href="#Microstripline"><span class="std std-ref">microstripline</span></a> and a <a class="reference internal" href="#Stepped-impedance-microstripline"><span class="std std-ref">microstripline with stepped impedance sections</span></a>.</p>
+<p>The simulation data is generated by <code class="docutils literal notranslate"><span class="pre">skrf</span></code> using a simple transmission line model for connectors and each impedance section. To achieve a reasonable agreement between measured and simulated data, the dielectric permittivity as well as the connector impedance and delay are extracted by optimization. The code for the <a class="reference internal" href="#Simulation"><span class="std std-ref">simulation</span></a> and <a class="reference internal" href="#Parameters-optimization"><span class="std std-ref">parameters optimization</span></a> is given at the end of the example.</p>
+<section id="Data-preparation">
+<h2>Data preparation<a class="headerlink" href="#Data-preparation" title="Link to this heading">#</a></h2>
+<section id="Setup">
+<h3>Setup<a class="headerlink" href="#Setup" title="Link to this heading">#</a></h3>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[1]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="o">%</span><span class="k">matplotlib</span> inline
+</span><span data-line="2"><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+</span><span data-line="3"><span class="kn">import</span><span class="w"> </span><a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/index.html#module-numpy"><span class="nn">numpy</span></a><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+</span><span data-line="4"><span class="kn">from</span><span class="w"> </span><span class="nn">IPython.display</span><span class="w"> </span><span class="kn">import</span> <span class="n">Image</span>
+</span><span data-line="5"><span class="kn">from</span><span class="w"> </span><a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/index.html#module-numpy"><span class="nn">numpy</span></a><span class="w"> </span><span class="kn">import</span> <a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/generated/numpy.absolute.html#numpy.absolute" title="numpy.absolute"><span class="n">absolute</span></a><span class="p">,</span> <a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/generated/numpy.log.html#numpy.log" title="numpy.log"><span class="n">log</span></a><span class="p">,</span> <a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/generated/numpy.sum.html#numpy.sum" title="numpy.sum"><span class="nb">sum</span></a>
+</span><span data-line="6"><span class="kn">from</span><span class="w"> </span><a class="sphinx-codeautolink-a" href="https://docs.scipy.org/doc/scipy/reference/optimize.html#module-scipy.optimize"><span class="nn">scipy.optimize</span></a><span class="w"> </span><span class="kn">import</span> <a class="sphinx-codeautolink-a" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.minimize.html#scipy.optimize.minimize" title="scipy.optimize.minimize"><span class="n">minimize</span></a>
+</span><span data-line="7">
+</span><span data-line="8"><span class="kn">import</span><span class="w"> </span><span class="nn">skrf</span>
+</span><span data-line="9"><span class="kn">from</span><span class="w"> </span><a class="sphinx-codeautolink-a" href="../../api/io/index.html#module-1"><span class="nn">skrf.io.general</span></a><span class="w"> </span><span class="kn">import</span> <a class="sphinx-codeautolink-a" href="../../api/io/generated/skrf.io.general.read_all_networks.html#skrf.io.general.read_all_networks" title="skrf.io.general.read_all_networks"><span class="n">read_all_networks</span></a>
+</span><span data-line="10"><span class="kn">from</span><span class="w"> </span><a class="sphinx-codeautolink-a" href="../../api/media/index.html#module-0"><span class="nn">skrf.media</span></a><span class="w"> </span><span class="kn">import</span> <a class="sphinx-codeautolink-a" href="../../api/media/generated/skrf.media.definedAEpTandZ0.DefinedAEpTandZ0.html#skrf.media.definedAEpTandZ0.DefinedAEpTandZ0" title="skrf.media.definedAEpTandZ0.DefinedAEpTandZ0"><span class="n">DefinedAEpTandZ0</span></a><span class="p">,</span> <a class="sphinx-codeautolink-a" href="../../api/media/generated/skrf.media.mline.MLine.html#skrf.media.mline.MLine" title="skrf.media.mline.MLine"><span class="n">MLine</span></a>
+</span><span data-line="11">
+</span><span data-line="12"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.plotting.stylely.html#skrf.plotting.stylely" title="skrf.plotting.stylely"><span class="n">skrf</span><span class="o">.</span><span class="n">stylely</span></a><span class="p">()</span>
+</span></pre></div>
+</div>
+</div>
+</section>
+<section id="Load-data-into-skrf">
+<h3>Load data into skrf<a class="headerlink" href="#Load-data-into-skrf" title="Link to this heading">#</a></h3>
+<p>The measurement was performed the 19th February 2018 on an Anritsu MS46524B 20GHz Vector Network Analyser. The setup is a linear frequency sweep from 1MHz to 10GHz with 1MHz step, 10000 points. If bandwidth 1kHz, 0dBm output power, no smoothing, no averaging. Full two-port calibration with eCal kit.</p>
+<p>Considerations about <a class="reference internal" href="#Time-resolution"><span class="std std-ref">time resolution</span></a> and <a class="reference internal" href="#Measurement-range-limitation-to-avoid-alias-response"><span class="std std-ref">range limitation to avoid alias response</span></a> are at the end of this document.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[2]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="c1">#load all measurement and simulation data into a dictionary</span>
+</span><span data-line="2"><span class="n">meas</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/io/generated/skrf.io.general.read_all_networks.html#skrf.io.general.read_all_networks" title="skrf.io.general.read_all_networks"><span class="n">read_all_networks</span></a><span class="p">(</span><span class="s1">'tdr_measurement_vs_simulation/measurement/'</span><span class="p">)</span>
+</span><span data-line="3"><span class="n">simu</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/io/generated/skrf.io.general.read_all_networks.html#skrf.io.general.read_all_networks" title="skrf.io.general.read_all_networks"><span class="n">read_all_networks</span></a><span class="p">(</span><span class="s1">'tdr_measurement_vs_simulation/simulation/'</span><span class="p">)</span>
+</span></pre></div>
+</div>
+</div>
+</section>
+<section id="DC-point-extrapolation">
+<h3>DC point extrapolation<a class="headerlink" href="#DC-point-extrapolation" title="Link to this heading">#</a></h3>
+<p>The measured and simulated data are available from 1 Mhz to 10 GHz with 1 MHz step (harmonic sweep), thus we need to extrapolate the dc point.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[3]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'P1-MSL_Stepped_140-P2'</span><span class="p">,</span>
+</span><span data-line="2">         <span class="s1">'P1-MSL_Thru_100-P2'</span><span class="p">]</span>
+</span><span data-line="3">
+</span><span data-line="4"><span class="n">meas_dc_ext</span> <span class="o">=</span> <span class="n">meas</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+</span><span data-line="5"><span class="n">simu_dc_ext</span> <span class="o">=</span> <span class="n">simu</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+</span><span data-line="6"><span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">names</span><span class="p">:</span>
+</span><span data-line="7">    <span class="n">meas_dc_ext</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="o">=</span> <span class="n">meas_dc_ext</span><span class="p">[</span><span class="n">n</span><span class="p">]</span><span class="o">.</span><span class="n">extrapolate_to_dc</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">'linear'</span><span class="p">)</span>
+</span><span data-line="8">    <span class="n">simu_dc_ext</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="o">=</span> <span class="n">simu_dc_ext</span><span class="p">[</span><span class="n">n</span><span class="p">]</span><span class="o">.</span><span class="n">extrapolate_to_dc</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">'linear'</span><span class="p">)</span>
+</span><br/></pre></div>
+</div>
+</div>
+</section>
+</section>
+<section id="Microstripline">
+<h2>Microstripline<a class="headerlink" href="#Microstripline" title="Link to this heading">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">MSL_Thru_100</span></code> is a <span class="math notranslate nohighlight">\(L1\)</span> long, <span class="math notranslate nohighlight">\(W1\)</span> wide, <span class="math notranslate nohighlight">\(T\)</span> thick copper microstripline on a <span class="math notranslate nohighlight">\(H\)</span> height substrate with bottom ground plane.</p>
+<div class="table-wrapper docutils container">
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Parameter</p></th>
+<th class="head"><p>Value</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(L1\)</span></p></td>
+<td><p>100mm</p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(W1\)</span></p></td>
+<td><p>3.0mm</p></td>
+</tr>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(T\)</span></p></td>
+<td><p>50umm</p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(H\)</span></p></td>
+<td><p>1.5mm</p></td>
+</tr>
+<tr class="row-even"><td><p>Connector</p></td>
+<td><p>Cinch, 142-0701-851</p></td>
+</tr>
+<tr class="row-odd"><td><p>Substrate</p></td>
+<td><p>FR-4</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[4]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">Image</span><span class="p">(</span><span class="s1">'tdr_measurement_vs_simulation/figures/MSL_100.jpg'</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="s1">'50%'</span><span class="p">)</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[4]:
+</span></pre></div>
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/examples_networktheory_Time_domain_reflectometry%2C_measurement_vs_simulation_13_0.jpg" class="no-scaled-link" src="../../_images/examples_networktheory_Time_domain_reflectometry%2C_measurement_vs_simulation_13_0.jpg" style="width: 50%;"/>
+</div>
+</div>
+<section id="Measurement-vs-simulation-comparison">
+<h3>Measurement vs simulation comparison<a class="headerlink" href="#Measurement-vs-simulation-comparison" title="Link to this heading">#</a></h3>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[5]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+</span><span data-line="2"><span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+</span><span data-line="3"><span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">'Time'</span><span class="p">)</span>
+</span><span data-line="4"><span class="n">meas_dc_ext</span><span class="p">[</span><span class="s1">'P1-MSL_Thru_100-P2'</span><span class="p">]</span><span class="o">.</span><span class="n">plot_z_time_step</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">'meas'</span><span class="p">)</span>
+</span><span data-line="5"><span class="n">simu_dc_ext</span><span class="p">[</span><span class="s1">'P1-MSL_Thru_100-P2'</span><span class="p">]</span><span class="o">.</span><span class="n">plot_z_time_step</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">'simu'</span><span class="p">)</span>
+</span><span data-line="6"><span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">((</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+</span><span data-line="7">
+</span><span data-line="8"><span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+</span><span data-line="9"><span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">'Frequency'</span><span class="p">)</span>
+</span><span data-line="10"><span class="n">meas_dc_ext</span><span class="p">[</span><span class="s1">'P1-MSL_Thru_100-P2'</span><span class="p">]</span><span class="o">.</span><span class="n">plot_s_db</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">'meas'</span><span class="p">)</span>
+</span><span data-line="11"><span class="n">simu_dc_ext</span><span class="p">[</span><span class="s1">'P1-MSL_Thru_100-P2'</span><span class="p">]</span><span class="o">.</span><span class="n">plot_s_db</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">'simu'</span><span class="p">)</span>
+</span><span data-line="12">
+</span><span data-line="13"><span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>
+</span><span data-line="14"><span class="n">z0</span> <span class="o">=</span> <span class="mi">50</span>
+</span><span data-line="15"><span class="n">t</span><span class="p">,</span> <span class="n">ymea</span> <span class="o">=</span> <span class="n">meas_dc_ext</span><span class="p">[</span><span class="s1">'P1-MSL_Thru_100-P2'</span><span class="p">]</span><span class="o">.</span><span class="n">s11</span><span class="o">.</span><span class="n">step_response</span><span class="p">(</span><span class="n">window</span><span class="o">=</span><span class="s1">'hamming'</span><span class="p">,</span> <span class="n">pad</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</span><span data-line="16"><span class="n">ymea</span><span class="p">[</span><span class="n">ymea</span> <span class="o">==</span>  <span class="mf">1.</span><span class="p">]</span> <span class="o">=</span>  <span class="mf">1.</span> <span class="o">+</span> <span class="mf">1e-12</span>  <span class="c1"># solve numerical singularity</span>
+</span><span data-line="17"><span class="n">ymea</span><span class="p">[</span><span class="n">ymea</span> <span class="o">==</span> <span class="o">-</span><span class="mf">1.</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mf">1.</span> <span class="o">+</span> <span class="mf">1e-12</span>  <span class="c1"># solve numerical singularity</span>
+</span><span data-line="18"><span class="n">ymea</span> <span class="o">=</span> <span class="n">z0</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">ymea</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">ymea</span><span class="p">)</span>
+</span><span data-line="19"><span class="n">t</span><span class="p">,</span> <span class="n">ysim</span> <span class="o">=</span> <span class="n">simu_dc_ext</span><span class="p">[</span><span class="s1">'P1-MSL_Thru_100-P2'</span><span class="p">]</span><span class="o">.</span><span class="n">s11</span><span class="o">.</span><span class="n">step_response</span><span class="p">(</span><span class="n">window</span><span class="o">=</span><span class="s1">'hamming'</span><span class="p">,</span> <span class="n">pad</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</span><span data-line="20"><span class="n">ysim</span><span class="p">[</span><span class="n">ysim</span> <span class="o">==</span>  <span class="mf">1.</span><span class="p">]</span> <span class="o">=</span>  <span class="mf">1.</span> <span class="o">+</span> <span class="mf">1e-12</span>  <span class="c1"># solve numerical singularity</span>
+</span><span data-line="21"><span class="n">ysim</span><span class="p">[</span><span class="n">ysim</span> <span class="o">==</span> <span class="o">-</span><span class="mf">1.</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mf">1.</span> <span class="o">+</span> <span class="mf">1e-12</span>  <span class="c1"># solve numerical singularity</span>
+</span><span data-line="22"><span class="n">ysim</span> <span class="o">=</span> <span class="n">z0</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">ysim</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">ysim</span><span class="p">)</span>
+</span><span data-line="23"><span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">'Time (ns)'</span><span class="p">)</span>
+</span><span data-line="24"><span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">'Relative error (%)'</span><span class="p">)</span>
+</span><span data-line="25"><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="o">*</span><span class="mf">1e9</span><span class="p">,</span> <span class="mi">100</span><span class="o">*</span><span class="p">(</span><span class="n">ysim</span><span class="o">-</span><span class="n">ymea</span><span class="p">)</span><span class="o">/</span><span class="n">ymea</span><span class="p">)</span>
+</span><span data-line="26"><span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">((</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+</span><span data-line="27">
+</span><span data-line="28"><span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span>
+</span><span data-line="29"><span class="n">delta</span> <span class="o">=</span> <span class="n">simu_dc_ext</span><span class="p">[</span><span class="s1">'P1-MSL_Thru_100-P2'</span><span class="p">]</span><span class="o">.</span><span class="n">s_db</span><span class="p">[:,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">meas_dc_ext</span><span class="p">[</span><span class="s1">'P1-MSL_Thru_100-P2'</span><span class="p">]</span><span class="o">.</span><span class="n">s_db</span><span class="p">[:,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span>
+</span><span data-line="30"><span class="n">f</span> <span class="o">=</span> <span class="n">simu_dc_ext</span><span class="p">[</span><span class="s1">'P1-MSL_Thru_100-P2'</span><span class="p">]</span><span class="o">.</span><span class="n">f</span> <span class="o">*</span> <span class="mf">1e-9</span>
+</span><span data-line="31"><span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">'Frequency (GHz)'</span><span class="p">)</span>
+</span><span data-line="32"><span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">'Delta (dB)'</span><span class="p">)</span>
+</span><span data-line="33"><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">delta</span><span class="p">)</span>
+</span><span data-line="34"><span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">((</span><span class="o">-</span><span class="mi">20</span><span class="p">,</span><span class="mi">20</span><span class="p">))</span>
+</span><span data-line="35">
+</span><span data-line="36"><span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</span><span data-line="37"><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/examples_networktheory_Time_domain_reflectometry%2C_measurement_vs_simulation_15_0.png" src="../../_images/examples_networktheory_Time_domain_reflectometry%2C_measurement_vs_simulation_15_0.png"/>
+</div>
+</div>
+<p>Surprisingly, the time domain results shows a very good agreement, within ±2%, while the frequency domain results exhibit a reasonable agreement only on the lower half of the frequencies.</p>
+<p>This is because the time domain base shape is mostly impacted by the low frequency data.</p>
+<p>There is a small offset between the time domain data, sign that the DC point is a bit different. The inductive peaks caused by the connector-to-microstripline transition are clearly visible and their simulation model agree well with measurements.</p>
+<p>To go further, it would be possible to measure up to a bigger frequency span, thus increasing the resolution and build the dut on a more frequency stable substrate, but this would be more costly. A cross section of the transmission line could also improve the knowledge of the actual geometry, including manufacturing tolerances.</p>
+</section>
+</section>
+<section id="Stepped-impedance-microstripline">
+<h2>Stepped impedance microstripline<a class="headerlink" href="#Stepped-impedance-microstripline" title="Link to this heading">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">MSL_Stepped_100</span></code> is a stepped microstripline made of <span class="math notranslate nohighlight">\(T\)</span> thick copper on a <span class="math notranslate nohighlight">\(H\)</span> height substrate with bottom ground plane. The section 1, 2, 3 and 4 from the left to the right, are described with length <span class="math notranslate nohighlight">\(Lx\)</span> and width <span class="math notranslate nohighlight">\(Wx\)</span>, where <span class="math notranslate nohighlight">\(x\)</span> is the section number.</p>
+<div class="table-wrapper docutils container">
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Parameter</p></th>
+<th class="head"><p>Value</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(L1\)</span></p></td>
+<td><p>50mm</p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(W1\)</span></p></td>
+<td><p>3.0mm</p></td>
+</tr>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(L2\)</span></p></td>
+<td><p>20mm</p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(W2\)</span></p></td>
+<td><p>8.0mm (capacitive)</p></td>
+</tr>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(L3\)</span></p></td>
+<td><p>20mm</p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(W3\)</span></p></td>
+<td><p>1.0mm (inductive)</p></td>
+</tr>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(L4\)</span></p></td>
+<td><p>50mm</p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(W4\)</span></p></td>
+<td><p>3.0mm</p></td>
+</tr>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(T\)</span></p></td>
+<td><p>50umm</p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(H\)</span></p></td>
+<td><p>1.5mm</p></td>
+</tr>
+<tr class="row-even"><td><p>Connector</p></td>
+<td><p>Cinch, 142-0701-851</p></td>
+</tr>
+<tr class="row-odd"><td><p>Substrate</p></td>
+<td><p>FR-4</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[6]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">Image</span><span class="p">(</span><span class="s1">'tdr_measurement_vs_simulation/figures/MSL_Stepped_140.jpg'</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="s1">'75%'</span><span class="p">)</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[6]:
+</span></pre></div>
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/examples_networktheory_Time_domain_reflectometry%2C_measurement_vs_simulation_19_0.jpg" class="no-scaled-link" src="../../_images/examples_networktheory_Time_domain_reflectometry%2C_measurement_vs_simulation_19_0.jpg" style="width: 75%;"/>
+</div>
+</div>
+<section id="id1">
+<h3>Measurement vs simulation comparison<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[7]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+</span><span data-line="2"><span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+</span><span data-line="3"><span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">'Time'</span><span class="p">)</span>
+</span><span data-line="4"><span class="n">meas_dc_ext</span><span class="p">[</span><span class="s1">'P1-MSL_Stepped_140-P2'</span><span class="p">]</span><span class="o">.</span><span class="n">plot_z_time_step</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">'measurement'</span><span class="p">)</span>
+</span><span data-line="5"><span class="n">simu_dc_ext</span><span class="p">[</span><span class="s1">'P1-MSL_Stepped_140-P2'</span><span class="p">]</span><span class="o">.</span><span class="n">plot_z_time_step</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">'simulation'</span><span class="p">)</span>
+</span><span data-line="6"><span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">((</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+</span><span data-line="7">
+</span><span data-line="8"><span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+</span><span data-line="9"><span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">'Frequency'</span><span class="p">)</span>
+</span><span data-line="10"><span class="n">meas_dc_ext</span><span class="p">[</span><span class="s1">'P1-MSL_Stepped_140-P2'</span><span class="p">]</span><span class="o">.</span><span class="n">plot_s_db</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">'measurement'</span><span class="p">)</span>
+</span><span data-line="11"><span class="n">simu_dc_ext</span><span class="p">[</span><span class="s1">'P1-MSL_Stepped_140-P2'</span><span class="p">]</span><span class="o">.</span><span class="n">plot_s_db</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">'simulation'</span><span class="p">)</span>
+</span><span data-line="12">
+</span><span data-line="13"><span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>
+</span><span data-line="14"><span class="n">z0</span> <span class="o">=</span> <span class="mi">50</span>
+</span><span data-line="15"><span class="n">t</span><span class="p">,</span> <span class="n">ymea</span> <span class="o">=</span> <span class="n">meas_dc_ext</span><span class="p">[</span><span class="s1">'P1-MSL_Stepped_140-P2'</span><span class="p">]</span><span class="o">.</span><span class="n">s11</span><span class="o">.</span><span class="n">step_response</span><span class="p">(</span><span class="n">window</span><span class="o">=</span><span class="s1">'hamming'</span><span class="p">,</span> <span class="n">pad</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</span><span data-line="16"><span class="n">ymea</span><span class="p">[</span><span class="n">ymea</span> <span class="o">==</span>  <span class="mf">1.</span><span class="p">]</span> <span class="o">=</span>  <span class="mf">1.</span> <span class="o">+</span> <span class="mf">1e-12</span>  <span class="c1"># solve numerical singularity</span>
+</span><span data-line="17"><span class="n">ymea</span><span class="p">[</span><span class="n">ymea</span> <span class="o">==</span> <span class="o">-</span><span class="mf">1.</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mf">1.</span> <span class="o">+</span> <span class="mf">1e-12</span>  <span class="c1"># solve numerical singularity</span>
+</span><span data-line="18"><span class="n">ymea</span> <span class="o">=</span> <span class="n">z0</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">ymea</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">ymea</span><span class="p">)</span>
+</span><span data-line="19"><span class="n">t</span><span class="p">,</span> <span class="n">ysim</span> <span class="o">=</span> <span class="n">simu_dc_ext</span><span class="p">[</span><span class="s1">'P1-MSL_Stepped_140-P2'</span><span class="p">]</span><span class="o">.</span><span class="n">s11</span><span class="o">.</span><span class="n">step_response</span><span class="p">(</span><span class="n">window</span><span class="o">=</span><span class="s1">'hamming'</span><span class="p">,</span> <span class="n">pad</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</span><span data-line="20"><span class="n">ysim</span><span class="p">[</span><span class="n">ysim</span> <span class="o">==</span>  <span class="mf">1.</span><span class="p">]</span> <span class="o">=</span>  <span class="mf">1.</span> <span class="o">+</span> <span class="mf">1e-12</span>  <span class="c1"># solve numerical singularity</span>
+</span><span data-line="21"><span class="n">ysim</span><span class="p">[</span><span class="n">ysim</span> <span class="o">==</span> <span class="o">-</span><span class="mf">1.</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mf">1.</span> <span class="o">+</span> <span class="mf">1e-12</span>  <span class="c1"># solve numerical singularity</span>
+</span><span data-line="22"><span class="n">ysim</span> <span class="o">=</span> <span class="n">z0</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">ysim</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">ysim</span><span class="p">)</span>
+</span><span data-line="23"><span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">'Time (ns)'</span><span class="p">)</span>
+</span><span data-line="24"><span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">'Relative error (%)'</span><span class="p">)</span>
+</span><span data-line="25"><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="o">*</span><span class="mf">1e9</span><span class="p">,</span> <span class="mi">100</span><span class="o">*</span><span class="p">(</span><span class="n">ysim</span><span class="o">-</span><span class="n">ymea</span><span class="p">)</span><span class="o">/</span><span class="n">ymea</span><span class="p">)</span>
+</span><span data-line="26"><span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">((</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+</span><span data-line="27">
+</span><span data-line="28"><span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span>
+</span><span data-line="29"><span class="n">delta</span> <span class="o">=</span> <span class="n">simu_dc_ext</span><span class="p">[</span><span class="s1">'P1-MSL_Stepped_140-P2'</span><span class="p">]</span><span class="o">.</span><span class="n">s_db</span><span class="p">[:,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">meas_dc_ext</span><span class="p">[</span><span class="s1">'P1-MSL_Stepped_140-P2'</span><span class="p">]</span><span class="o">.</span><span class="n">s_db</span><span class="p">[:,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span>
+</span><span data-line="30"><span class="n">f</span> <span class="o">=</span> <span class="n">simu_dc_ext</span><span class="p">[</span><span class="s1">'P1-MSL_Stepped_140-P2'</span><span class="p">]</span><span class="o">.</span><span class="n">f</span> <span class="o">*</span> <span class="mf">1e-9</span>
+</span><span data-line="31"><span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">'Frequency (GHz)'</span><span class="p">)</span>
+</span><span data-line="32"><span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">'Delta (dB)'</span><span class="p">)</span>
+</span><span data-line="33"><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">delta</span><span class="p">)</span>
+</span><span data-line="34"><span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">((</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span>
+</span><span data-line="35">
+</span><span data-line="36"><span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</span><span data-line="37"><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/examples_networktheory_Time_domain_reflectometry%2C_measurement_vs_simulation_21_0.png" src="../../_images/examples_networktheory_Time_domain_reflectometry%2C_measurement_vs_simulation_21_0.png"/>
+</div>
+</div>
+<p>Both time domain and the frequency domain results shows a reasonable agreement, within ±5% for time domain. The frequency domain results exhibit a good agreement, within ±dB only on the lower half of the frequencies, and the upper frequencies shows better agreement than in the previous <a class="reference internal" href="#Microstripline"><span class="std std-ref">microstripline</span></a> case.</p>
+<p>An explanation to the better frequency domain agreement is that the impedance steps induce such a discontinuities that more energi is reflected back, leading to a shorter effective length and an increased accuracy (more signal).</p>
+<p>The capacitive and inductive section of the stepped line are clearly visible and their simulation model agree well with measurements. The first connector effect is hidden by the plot scale, while the second is masked by the reflexions.</p>
+<p>To go further, it would again be possible to measure up to a bigger frequency span, thus increasing the resolution and build the dut on a more frequency stable substrate, but this would be more costly. A cross section of the transmission line could also improve the knowledge of the actual geometry, including manufacturing tolerances.</p>
+<p>Eventually, the stepped discontinuities could be made smaller, to produce a smaller effect on the overall measurement (each discontinuity has an influence on the following time domain signal shape).</p>
+</section>
+</section>
+<section id="Parameters-optimization">
+<h2>Parameters optimization<a class="headerlink" href="#Parameters-optimization" title="Link to this heading">#</a></h2>
+<section id="Dielectric-effective-relative-permittivity-and-loss-tangent-characterisation-based-on-multiline-method">
+<h3>Dielectric effective relative permittivity and loss tangent characterisation based on multiline method<a class="headerlink" href="#Dielectric-effective-relative-permittivity-and-loss-tangent-characterisation-based-on-multiline-method" title="Link to this heading">#</a></h3>
+<p>Only two lines with different lengths are required for dielectric permittivity and loss tangent characterisation. Since we have measured the reflects too, we will use them instead of fake reflects. We don’t have the switch terms either, but as we only extract the dielectric permittivity and loss tangent rather that doing a real calibration, there is no problem with that.</p>
+<p>Multiline calibration algorithm get rid of connectors effects by using multiple lengths of lines. The docstring explain that <em>At every frequency point there should be at least one line pair that has a phase difference that is not 0 degree or a multiple of 180 degree otherwise calibration equations are singular and accuracy is very poor.</em> These conditions will not be met with the chosen lines combination, but we will still be able to get a decent estimation of the dielectric permittivity and loss
+tangent.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[8]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">Image</span><span class="p">(</span><span class="s1">'tdr_measurement_vs_simulation/figures/MSL_100.jpg'</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="s1">'50%'</span><span class="p">)</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[8]:
+</span></pre></div>
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/examples_networktheory_Time_domain_reflectometry%2C_measurement_vs_simulation_26_0.jpg" class="no-scaled-link" src="../../_images/examples_networktheory_Time_domain_reflectometry%2C_measurement_vs_simulation_26_0.jpg" style="width: 50%;"/>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[9]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">Image</span><span class="p">(</span><span class="s1">'tdr_measurement_vs_simulation/figures/MSL_200.jpg'</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="s1">'100%'</span><span class="p">)</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[9]:
+</span></pre></div>
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/examples_networktheory_Time_domain_reflectometry%2C_measurement_vs_simulation_27_0.jpg" class="no-scaled-link" src="../../_images/examples_networktheory_Time_domain_reflectometry%2C_measurement_vs_simulation_27_0.jpg" style="width: 100%;"/>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[10]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">Image</span><span class="p">(</span><span class="s1">'tdr_measurement_vs_simulation/figures/MSL_Short_50.jpg'</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="s1">'25%'</span><span class="p">)</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[10]:
+</span></pre></div>
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/examples_networktheory_Time_domain_reflectometry%2C_measurement_vs_simulation_28_0.jpg" class="no-scaled-link" src="../../_images/examples_networktheory_Time_domain_reflectometry%2C_measurement_vs_simulation_28_0.jpg" style="width: 25%;"/>
+</div>
+</div>
+<section id="Perform-NISTMultilineTRL-algorithm">
+<h4>Perform NISTMultilineTRL algorithm<a class="headerlink" href="#Perform-NISTMultilineTRL-algorithm" title="Link to this heading">#</a></h4>
+<p>Discard the <em>No switch term provided</em> warning.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[11]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="c1"># Perform NISTMultilineTRL algorithm</span>
+</span><span data-line="2"><span class="n">line100mm</span> <span class="o">=</span> <span class="n">meas</span><span class="p">[</span><span class="s1">'P1-MSL_Thru_100-P2'</span><span class="p">]</span>
+</span><span data-line="3"><span class="n">line200mm</span> <span class="o">=</span> <span class="n">meas</span><span class="p">[</span><span class="s1">'P1-MSL_Thru_200-P2'</span><span class="p">]</span>
+</span><span data-line="4"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">short50mm</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.two_port_reflect.html#skrf.network.two_port_reflect"><span class="n">skrf</span><span class="o">.</span><span class="n">network</span><span class="o">.</span><span class="n">two_port_reflect</span></a><span class="p">(</span><span class="n">meas</span><span class="p">[</span><span class="s1">'P1-MSL_Short_50'</span><span class="p">],</span> <span class="n">meas</span><span class="p">[</span><span class="s1">'P2-MSL_Short_50'</span><span class="p">])</span>
+</span><span data-line="5"><span class="n">measured</span>  <span class="o">=</span> <span class="p">[</span><span class="n">line100mm</span><span class="p">,</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">short50mm</span></a><span class="p">,</span> <span class="n">line200mm</span><span class="p">]</span>
+</span><span data-line="6"><span class="n">Grefls</span>    <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+</span><span data-line="7"><span class="n">lengths</span>   <span class="o">=</span> <span class="p">[</span><span class="mf">100e-3</span><span class="p">,</span> <span class="mf">200e-3</span><span class="p">]</span> <span class="c1"># in meter</span>
+</span><span data-line="8"><span class="n">offset</span>    <span class="o">=</span> <span class="p">[</span><span class="mf">50e-3</span><span class="p">]</span> <span class="c1"># in meter</span>
+</span><span data-line="9"><a class="sphinx-codeautolink-a" href="../../api/calibration/generated/skrf.calibration.calibration.NISTMultilineTRL.html#skrf.calibration.calibration.NISTMultilineTRL" title="skrf.calibration.calibration.NISTMultilineTRL"><span class="n">cal</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/calibration/generated/skrf.calibration.calibration.NISTMultilineTRL.html#skrf.calibration.calibration.NISTMultilineTRL" title="skrf.calibration.calibration.NISTMultilineTRL"><span class="n">skrf</span><span class="o">.</span><span class="n">calibration</span><span class="o">.</span><span class="n">NISTMultilineTRL</span></a><span class="p">(</span><span class="n">measured</span><span class="p">,</span> <span class="n">Grefls</span><span class="p">,</span> <span class="n">lengths</span><span class="p">,</span> <span class="n">er_est</span><span class="o">=</span><span class="mf">4.5</span><span class="p">,</span> <span class="n">refl_offset</span><span class="o">=</span><span class="n">offset</span><span class="p">)</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+/home/alex/code/scikit-rf-docs/skrf/calibration/calibration.py:2948: UserWarning: No switch terms provided
+  EightTerm.__init__(self,
+</pre></div></div>
+</div>
+</section>
+<section id="Relative-dielectric-permittivity-and-loss-tangent">
+<h4>Relative dielectric permittivity and loss tangent<a class="headerlink" href="#Relative-dielectric-permittivity-and-loss-tangent" title="Link to this heading">#</a></h4>
+<p>The <code class="docutils literal notranslate"><span class="pre">NISTMultilineTRL</span></code> calibration give the frequency-dependent effective relative dielectric of the geometry, which is a mix between air and substrate relative permittivity.</p>
+<p>Unfortunately, a single value of relative dielectric permittivity of the substrate at a given frequency is required for the microstripline media simulation, instead of the frequency-dependent effective value of the geometry we get from the calibration.</p>
+<p>To overcome this difficult situation, the microstripline model which will be used is fitted by optimization on the calibration results in such a way the difference between the frequency-dependent effective relative dielectric permittivity of both dataset is minimised.</p>
+<p>Additionally, a weighted contribution of the dielectric loss tangent is inserted in the optimization to minimise the difference between the measured modelled attenuation.</p>
+<p>The optimization results are dielectric <span class="math notranslate nohighlight">\(\epsilon_r\)</span> and <span class="math notranslate nohighlight">\(\tan{\delta}\)</span> at 1 GHz and will be used in the dielectric dispersion model.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[12]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="c1"># frequency axis</span>
+</span><span data-line="2"><span class="n">freq</span>  <span class="o">=</span> <span class="n">line100mm</span><span class="o">.</span><span class="n">frequency</span>
+</span><span data-line="3"><span class="n">f</span>     <span class="o">=</span> <span class="n">line100mm</span><span class="o">.</span><span class="n">frequency</span><span class="o">.</span><span class="n">f</span>
+</span><span data-line="4"><span class="n">f_ghz</span> <span class="o">=</span> <span class="n">line100mm</span><span class="o">.</span><span class="n">frequency</span><span class="o">.</span><span class="n">f</span><span class="o">/</span><span class="mf">1e9</span>
+</span><span data-line="5">
+</span><span data-line="6"><span class="c1"># the physical dimensions of the lines are known by design (neglecting manufacturing tolerances)</span>
+</span><span data-line="7"><span class="n">W</span>   <span class="o">=</span> <span class="mf">3.00e-3</span>
+</span><span data-line="8"><span class="n">H</span>   <span class="o">=</span> <span class="mf">1.55e-3</span>
+</span><span data-line="9"><span class="n">T</span>   <span class="o">=</span> <span class="mf">50e-6</span>
+</span><span data-line="10"><span class="n">L</span>     <span class="o">=</span> <span class="mf">0.1</span>
+</span><span data-line="11">
+</span><span data-line="12"><span class="c1"># calibration results to compare against</span>
+</span><span data-line="13"><span class="n">ep_r_mea</span> <span class="o">=</span> <span class="n">cal</span><span class="o">.</span><span class="n">er_eff</span><span class="o">.</span><span class="n">real</span>
+</span><span data-line="14"><span class="n">A_mea</span>    <span class="o">=</span> <span class="mi">20</span><span class="o">/</span><a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/generated/numpy.log.html#numpy.log" title="numpy.log"><span class="n">log</span></a><span class="p">(</span><span class="mi">10</span><span class="p">)</span><span class="o">*</span><span class="n">cal</span><span class="o">.</span><span class="n">gamma</span><span class="o">.</span><span class="n">real</span>
+</span><span data-line="15">
+</span><span data-line="16"><span class="c1"># starting values for the optimizer</span>
+</span><span data-line="17"><span class="n">A</span>     <span class="o">=</span> <span class="mf">0.0</span>
+</span><span data-line="18"><span class="n">f_A</span>   <span class="o">=</span> <span class="mf">1e9</span>
+</span><span data-line="19"><span class="n">ep_r0</span> <span class="o">=</span> <span class="mf">4.5</span>
+</span><span data-line="20"><span class="n">tanD0</span> <span class="o">=</span> <span class="mf">0.02</span>
+</span><span data-line="21"><span class="n">f_epr_tand</span>  <span class="o">=</span> <span class="mf">1e9</span>
+</span><span data-line="22"><span class="n">x0</span> <span class="o">=</span> <span class="p">[</span><span class="n">ep_r0</span><span class="p">,</span> <span class="n">tanD0</span><span class="p">]</span>
+</span><span data-line="23">
+</span><span data-line="24"><span class="c1"># function to be minimised</span>
+</span><span data-line="25"><span class="k">def</span><span class="w"> </span><span class="nf">model</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">freq</span><span class="p">,</span> <span class="n">ep_r_mea</span><span class="p">,</span> <span class="n">A_mea</span><span class="p">,</span> <span class="n">f_ep</span><span class="p">):</span>
+</span><span data-line="26">    <span class="n">ep_r</span><span class="p">,</span> <span class="n">tanD</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+</span><span data-line="27">    <a class="sphinx-codeautolink-a" href="../../api/media/generated/skrf.media.mline.MLine.html#skrf.media.mline.MLine" title="skrf.media.mline.MLine"><span class="n">m</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/media/generated/skrf.media.mline.MLine.html#skrf.media.mline.MLine" title="skrf.media.mline.MLine"><span class="n">MLine</span></a><span class="p">(</span><span class="n">frequency</span><span class="o">=</span><span class="n">freq</span><span class="p">,</span> <span class="n">Z0</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">w</span><span class="o">=</span><span class="n">W</span><span class="p">,</span> <span class="n">h</span><span class="o">=</span><span class="n">H</span><span class="p">,</span> <span class="n">t</span><span class="o">=</span><span class="n">T</span><span class="p">,</span>
+</span><span data-line="28">            <span class="n">ep_r</span><span class="o">=</span><span class="n">ep_r</span><span class="p">,</span> <span class="n">mu_r</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">rho</span><span class="o">=</span><span class="mf">1.712e-8</span><span class="p">,</span> <span class="n">tand</span><span class="o">=</span><span class="n">tanD</span><span class="p">,</span> <span class="n">rough</span><span class="o">=</span><span class="mf">0.15e-6</span><span class="p">,</span>
+</span><span data-line="29">             <span class="n">f_low</span><span class="o">=</span><span class="mf">1e3</span><span class="p">,</span> <span class="n">f_high</span><span class="o">=</span><span class="mf">1e12</span><span class="p">,</span> <span class="n">f_epr_tand</span><span class="o">=</span><span class="n">f_ep</span><span class="p">,</span>
+</span><span data-line="30">             <span class="n">diel</span><span class="o">=</span><span class="s1">'djordjevicsvensson'</span><span class="p">,</span> <span class="n">disp</span><span class="o">=</span><span class="s1">'kirschningjansen'</span><span class="p">)</span>
+</span><span data-line="31">    <span class="n">ep_r_mod</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">ep_reff_f</span><span class="o">.</span><span class="n">real</span>
+</span><span data-line="32">    <span class="n">A_mod</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/media/generated/skrf.media.mline.MLine.alpha.html#skrf.media.mline.MLine.alpha" title="skrf.media.mline.MLine.alpha"><span class="n">m</span><span class="o">.</span><span class="n">alpha</span></a> <span class="o">*</span> <span class="mi">20</span><span class="o">/</span><a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/generated/numpy.log.html#numpy.log" title="numpy.log"><span class="n">log</span></a><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+</span><span data-line="33">    <span class="k">return</span> <a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/generated/numpy.sum.html#numpy.sum" title="numpy.sum"><span class="nb">sum</span></a><span class="p">((</span><span class="n">ep_r_mod</span> <span class="o">-</span> <span class="n">ep_r_mea</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>  <span class="o">+</span> <span class="mf">0.1</span><span class="o">*</span><a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/generated/numpy.sum.html#numpy.sum" title="numpy.sum"><span class="nb">sum</span></a><span class="p">((</span><span class="n">A_mod</span> <span class="o">-</span> <span class="n">A_mea</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+</span><span data-line="34">
+</span><span data-line="35"><span class="c1"># run optimizer</span>
+</span><span data-line="36"><span class="n">res</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.minimize.html#scipy.optimize.minimize" title="scipy.optimize.minimize"><span class="n">minimize</span></a><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">x0</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">freq</span><span class="p">,</span> <span class="n">ep_r_mea</span><span class="p">,</span> <span class="n">A_mea</span><span class="p">,</span> <span class="n">f_epr_tand</span><span class="p">),</span>
+</span><span data-line="37">               <span class="n">bounds</span><span class="o">=</span><span class="p">[(</span><span class="mf">4.0</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">),</span> <span class="p">(</span><span class="mf">0.001</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">)])</span>
+</span><span data-line="38">
+</span><span data-line="39"><span class="c1"># get the results and print the results</span>
+</span><span data-line="40"><span class="n">ep_r</span><span class="p">,</span> <span class="n">tanD</span> <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">res</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+</span><span data-line="41"><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/builtins/functions.html#print"><span class="nb">print</span></a><span class="p">(</span><span class="sa">f</span><span class="s1">'epr=</span><span class="si">{</span><span class="n">ep_r</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">, tand=</span><span class="si">{</span><span class="n">tanD</span><span class="si">:</span><span class="s1">.4f</span><span class="si">}</span><span class="s1"> at </span><span class="si">{</span><span class="n">f_epr_tand</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">1e-9</span><span class="si">:</span><span class="s1">.1f</span><span class="si">}</span><span class="s1"> GHz.'</span><span class="p">)</span>
+</span><span data-line="42">
+</span><span data-line="43"><span class="c1"># build the corresponding media</span>
+</span><span data-line="44"><a class="sphinx-codeautolink-a" href="../../api/media/generated/skrf.media.mline.MLine.html#skrf.media.mline.MLine" title="skrf.media.mline.MLine"><span class="n">m</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/media/generated/skrf.media.mline.MLine.html#skrf.media.mline.MLine" title="skrf.media.mline.MLine"><span class="n">MLine</span></a><span class="p">(</span><span class="n">frequency</span><span class="o">=</span><span class="n">freq</span><span class="p">,</span> <span class="n">Z0</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">w</span><span class="o">=</span><span class="n">W</span><span class="p">,</span> <span class="n">h</span><span class="o">=</span><span class="n">H</span><span class="p">,</span> <span class="n">t</span><span class="o">=</span><span class="n">T</span><span class="p">,</span>
+</span><span data-line="45">         <span class="n">ep_r</span><span class="o">=</span><span class="n">ep_r</span><span class="p">,</span> <span class="n">mu_r</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">rho</span><span class="o">=</span><span class="mf">1.712e-8</span><span class="p">,</span> <span class="n">tand</span><span class="o">=</span><span class="n">tanD</span><span class="p">,</span> <span class="n">rough</span><span class="o">=</span><span class="mf">0.15e-6</span><span class="p">,</span>
+</span><span data-line="46">         <span class="n">f_low</span><span class="o">=</span><span class="mf">1e3</span><span class="p">,</span> <span class="n">f_high</span><span class="o">=</span><span class="mf">1e12</span><span class="p">,</span> <span class="n">f_epr_tand</span><span class="o">=</span><span class="n">f_epr_tand</span><span class="p">,</span>
+</span><span data-line="47">         <span class="n">diel</span><span class="o">=</span><span class="s1">'djordjevicsvensson'</span><span class="p">,</span> <span class="n">disp</span><span class="o">=</span><span class="s1">'kirschningjansen'</span><span class="p">)</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+/home/alex/code/scikit-rf-docs/skrf/media/mline.py:276: RuntimeWarning: Conductor loss calculation invalid for lineheight t (5e-05)  &lt; 3 * skin depth (6.585246130908566e-05)
+  self.alpha_conductor, self.alpha_dielectric = self.analyse_loss(
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+epr=4.450, tand=0.0174 at 1.0 GHz.
+</pre></div></div>
+</div>
+<p>Calibration based values are plotted against modelled value as a sanity check.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[13]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+</span><span data-line="2"><span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+</span><span data-line="3"><span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">'Frequency [GHz]'</span><span class="p">)</span>
+</span><span data-line="4"><span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">'$\epsilon_{r,eff}$'</span><span class="p">)</span>
+</span><span data-line="5"><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">f_ghz</span><span class="p">,</span> <span class="n">ep_r_mea</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">'measured'</span><span class="p">)</span>
+</span><span data-line="6"><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">f_ghz</span><span class="p">,</span> <span class="n">m</span><span class="o">.</span><span class="n">ep_reff_f</span><span class="o">.</span><span class="n">real</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">'model'</span><span class="p">)</span>
+</span><span data-line="7"><span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+</span><span data-line="8">
+</span><span data-line="9"><span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+</span><span data-line="10"><span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">'Frequency [GHz]'</span><span class="p">)</span>
+</span><span data-line="11"><span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">'A (dB/m)'</span><span class="p">)</span>
+</span><span data-line="12"><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">f_ghz</span><span class="p">,</span> <span class="n">A_mea</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">'measured'</span><span class="p">)</span>
+</span><span data-line="13"><span class="n">A_mod</span> <span class="o">=</span> <span class="mi">20</span><span class="o">/</span><a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/generated/numpy.log.html#numpy.log" title="numpy.log"><span class="n">log</span></a><span class="p">(</span><span class="mi">10</span><span class="p">)</span><span class="o">*</span><a class="sphinx-codeautolink-a" href="../../api/media/generated/skrf.media.mline.MLine.alpha.html#skrf.media.mline.MLine.alpha" title="skrf.media.mline.MLine.alpha"><span class="n">m</span><span class="o">.</span><span class="n">alpha</span></a>
+</span><span data-line="14"><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">f_ghz</span><span class="p">,</span> <span class="n">A_mod</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">'model'</span><span class="p">)</span>
+</span><span data-line="15"><span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+</span><span data-line="16">
+</span><span data-line="17"><span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>
+</span><span data-line="18"><span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">'Frequency [GHz]'</span><span class="p">)</span>
+</span><span data-line="19"><span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">'$\epsilon_{r,eff}$ error [%]'</span><span class="p">)</span>
+</span><span data-line="20"><span class="n">rel_err</span> <span class="o">=</span> <span class="mi">100</span> <span class="o">*</span> <span class="p">((</span><span class="n">ep_r_mea</span> <span class="o">-</span> <span class="n">m</span><span class="o">.</span><span class="n">ep_reff_f</span><span class="o">.</span><span class="n">real</span><span class="p">)</span><span class="o">/</span><span class="n">ep_r_mea</span><span class="p">)</span>
+</span><span data-line="21"><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">f_ghz</span><span class="p">,</span> <span class="n">rel_err</span><span class="p">)</span>
+</span><span data-line="22"><span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">((</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">))</span>
+</span><span data-line="23">
+</span><span data-line="24"><span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span>
+</span><span data-line="25"><span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">'Frequency [GHz]'</span><span class="p">)</span>
+</span><span data-line="26"><span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">'$A$ error [%]'</span><span class="p">)</span>
+</span><span data-line="27"><span class="n">rel_err</span> <span class="o">=</span> <span class="mi">100</span> <span class="o">*</span> <span class="p">((</span><span class="n">A_mea</span> <span class="o">-</span> <span class="n">A_mod</span><span class="p">)</span><span class="o">/</span><span class="n">A_mea</span><span class="p">)</span>
+</span><span data-line="28"><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">f_ghz</span><span class="p">,</span> <span class="n">rel_err</span><span class="p">)</span>
+</span><span data-line="29"><span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">((</span><span class="o">-</span><span class="mi">20</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span>
+</span><span data-line="30">
+</span><span data-line="31"><span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</span><span data-line="32"><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/examples_networktheory_Time_domain_reflectometry%2C_measurement_vs_simulation_36_0.png" src="../../_images/examples_networktheory_Time_domain_reflectometry%2C_measurement_vs_simulation_36_0.png"/>
+</div>
+</div>
+<p>The agreement between measurements and the model seems very reasonable. Relative error of <span class="math notranslate nohighlight">\(\epsilon_{r,eff}\)</span> stay within ±1% outside very low frequencies and relative error of <span class="math notranslate nohighlight">\(A\)</span> is kept between ±10% on most of the range. Considering the shape of <span class="math notranslate nohighlight">\(A\)</span>, it is not possible to do much better with this model.</p>
+</section>
+</section>
+<section id="Connector-effect-characterization">
+<h3>Connector effect characterization<a class="headerlink" href="#Connector-effect-characterization" title="Link to this heading">#</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">NISTMultilineTRL</span></code> calibration coefficients contain information about the connector characteristics, which is corrected by the calibration.</p>
+<p>These coefficients can be used to fit a connector model based on a transmission line section.</p>
+<section id="Delay-and-attenuation">
+<h4>Delay and attenuation<a class="headerlink" href="#Delay-and-attenuation" title="Link to this heading">#</a></h4>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[14]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="c1"># extract connector characteristic from port 1 error coefficients</span>
+</span><span data-line="2"><span class="n">conn</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/calibration/generated/skrf.calibration.calibration.error_dict_2_network.html#skrf.calibration.calibration.error_dict_2_network" title="skrf.calibration.calibration.error_dict_2_network"><span class="n">skrf</span><span class="o">.</span><span class="n">calibration</span><span class="o">.</span><span class="n">error_dict_2_network</span></a><span class="p">(</span><a class="sphinx-codeautolink-a" href="../../api/calibration/generated/skrf.calibration.calibration.NISTMultilineTRL.coefs.html#skrf.calibration.calibration.NISTMultilineTRL.coefs" title="skrf.calibration.calibration.NISTMultilineTRL.coefs"><span class="n">cal</span><span class="o">.</span><span class="n">coefs</span></a><span class="p">,</span> <a class="sphinx-codeautolink-a" href="../../api/calibration/generated/skrf.calibration.calibration.NISTMultilineTRL.frequency.html#skrf.calibration.calibration.NISTMultilineTRL.frequency" title="skrf.calibration.calibration.NISTMultilineTRL.frequency"><span class="n">cal</span><span class="o">.</span><span class="n">frequency</span></a><span class="p">,</span> <span class="n">is_reciprocal</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+</span></pre></div>
+</div>
+</div>
+<p>Estimate connector delay with linear regression on unwrapped phase.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[15]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="c1"># connector delay estimation by linear regression on the unwrapped phase</span>
+</span><span data-line="2"><span class="n">xlim</span> <span class="o">=</span> <span class="mi">9000</span> <span class="c1"># used to avoid phase jump if any</span>
+</span><span data-line="3"><span class="n">phi_conn</span> <span class="o">=</span> <span class="p">(</span><a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/generated/numpy.angle.html#numpy.angle" title="numpy.angle"><span class="n">np</span><span class="o">.</span><span class="n">angle</span></a><span class="p">(</span><span class="n">conn</span><span class="o">.</span><span class="n">s</span><span class="p">[:</span><span class="n">xlim</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">]))</span>
+</span><span data-line="4"><span class="n">z</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/generated/numpy.polyfit.html#numpy.polyfit" title="numpy.polyfit"><span class="n">np</span><span class="o">.</span><span class="n">polyfit</span></a><span class="p">(</span><span class="n">f</span><span class="p">[:</span><span class="n">xlim</span><span class="p">],</span> <span class="n">phi_conn</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+</span><span data-line="5"><a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/generated/numpy.poly1d.html#numpy.poly1d" title="numpy.poly1d"><span class="n">p</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/generated/numpy.poly1d.html#numpy.poly1d" title="numpy.poly1d"><span class="n">np</span><span class="o">.</span><span class="n">poly1d</span></a><span class="p">(</span><span class="n">z</span><span class="p">)</span>
+</span><span data-line="6"><span class="n">delay_conn</span> <span class="o">=</span> <span class="o">-</span><span class="n">z</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">/</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/constants.html#numpy.pi" title="numpy.pi"><span class="n">np</span><span class="o">.</span><span class="n">pi</span></a><span class="p">)</span>
+</span><span data-line="7"><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/builtins/functions.html#print"><span class="nb">print</span></a><span class="p">(</span><span class="sa">f</span><span class="s1">'Connector delay: </span><span class="si">{</span><span class="n">delay_conn</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">1e12</span><span class="si">:</span><span class="s1">.1f</span><span class="si">}</span><span class="s1"> ps'</span><span class="p">)</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Connector delay: 41.6 ps
+</pre></div></div>
+</div>
+<p>Build connector model and compare it against calibration extracted data.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[16]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><a class="sphinx-codeautolink-a" href="../../api/media/generated/skrf.media.definedAEpTandZ0.DefinedAEpTandZ0.html#skrf.media.definedAEpTandZ0.DefinedAEpTandZ0" title="skrf.media.definedAEpTandZ0.DefinedAEpTandZ0"><span class="n">mc</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/media/generated/skrf.media.definedAEpTandZ0.DefinedAEpTandZ0.html#skrf.media.definedAEpTandZ0.DefinedAEpTandZ0" title="skrf.media.definedAEpTandZ0.DefinedAEpTandZ0"><span class="n">DefinedAEpTandZ0</span></a><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">frequency</span><span class="p">,</span> <span class="n">ep_r</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">tanD</span><span class="o">=</span><span class="mf">0.02</span><span class="p">,</span> <span class="n">Z0</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span>
+</span><span data-line="2">                              <span class="n">f_low</span><span class="o">=</span><span class="mf">1e3</span><span class="p">,</span> <span class="n">f_high</span><span class="o">=</span><span class="mf">1e18</span><span class="p">,</span> <span class="n">f_ep</span><span class="o">=</span><span class="n">f_epr_tand</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="s1">'frequencyinvariant'</span><span class="p">)</span>
+</span><span data-line="3">
+</span><span data-line="4"><span class="n">Z0_conn</span> <span class="o">=</span> <span class="mf">50.0</span> <span class="c1"># the actual connector characteristic impedance will be tuned later</span>
+</span><span data-line="5"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">left</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/media/generated/skrf.media.definedAEpTandZ0.DefinedAEpTandZ0.line.html#skrf.media.definedAEpTandZ0.DefinedAEpTandZ0.line" title="skrf.media.definedAEpTandZ0.DefinedAEpTandZ0.line"><span class="n">mc</span><span class="o">.</span><span class="n">line</span></a><span class="p">(</span><span class="n">delay_conn</span><span class="p">,</span> <span class="s1">'s'</span><span class="p">,</span> <span class="n">z0</span><span class="o">=</span><span class="n">Z0_conn</span><span class="p">)</span>
+</span><span data-line="6"><span class="n">check</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/media/generated/skrf.media.definedAEpTandZ0.DefinedAEpTandZ0.thru.html#skrf.media.definedAEpTandZ0.DefinedAEpTandZ0.thru" title="skrf.media.definedAEpTandZ0.DefinedAEpTandZ0.thru"><span class="n">mc</span><span class="o">.</span><span class="n">thru</span></a><span class="p">()</span> <span class="o">**</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">left</span></a> <span class="o">**</span> <a class="sphinx-codeautolink-a" href="../../api/media/generated/skrf.media.definedAEpTandZ0.DefinedAEpTandZ0.thru.html#skrf.media.definedAEpTandZ0.DefinedAEpTandZ0.thru" title="skrf.media.definedAEpTandZ0.DefinedAEpTandZ0.thru"><span class="n">mc</span><span class="o">.</span><span class="n">thru</span></a><span class="p">()</span>
+</span><span data-line="7">
+</span><span data-line="8"><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+</span><span data-line="9"><span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+</span><span data-line="10"><span class="n">conn</span><span class="o">.</span><span class="n">plot_s_deg</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">'measured'</span><span class="p">)</span>
+</span><span data-line="11"><span class="n">check</span><span class="o">.</span><span class="n">plot_s_deg</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">'model'</span><span class="p">)</span>
+</span><span data-line="12"><span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">'phase (rad)'</span><span class="p">)</span>
+</span><span data-line="13"><span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+</span><span data-line="14">
+</span><span data-line="15"><span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+</span><span data-line="16"><span class="n">conn</span><span class="o">.</span><span class="n">plot_s_db</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">'Measured'</span><span class="p">)</span>
+</span><span data-line="17"><span class="n">check</span><span class="o">.</span><span class="n">plot_s_db</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">'Model'</span><span class="p">)</span>
+</span><span data-line="18"><span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">'Frequency (GHz)'</span><span class="p">)</span>
+</span><span data-line="19"><span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">'Insertion Loss (dB)'</span><span class="p">)</span>
+</span><span data-line="20"><span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+</span><span data-line="21">
+</span><span data-line="22"><span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</span><span data-line="23"><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+/tmp/ipykernel_783545/1413003635.py:1: DeprecationWarning: Use of `Z0` in DefinedAEpTandZ0 initialization is deprecated.
+`Z0` has no effect. Use `z0` instead
+`Z0` will be removed in version 1.0
+  mc = DefinedAEpTandZ0(m.frequency, ep_r=1, tanD=0.02, Z0=50,
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/examples_networktheory_Time_domain_reflectometry%2C_measurement_vs_simulation_45_1.png" src="../../_images/examples_networktheory_Time_domain_reflectometry%2C_measurement_vs_simulation_45_1.png"/>
+</div>
+</div>
+<p>Comparison of connector model characteristics against calibration results shows a reasonable agreement. Calibration results exhibit some glitches that do not correspond to the expected physical behavior. They are caused by the calibration being close to singular due to the thru and line phase being a multiple of 180 degrees. Accuracy could be enhanced by feeding more distinct lines to the algorithm, but these are not manufactured yet.</p>
+</section>
+<section id="Characteristic-impedance">
+<h4>Characteristic impedance<a class="headerlink" href="#Characteristic-impedance" title="Link to this heading">#</a></h4>
+<p>We now have estimated connector delay and attenuation, but what about the characteristic impedance? This value is required to properly parametrize the transmission line section model.</p>
+<p>Optimization is used to find the characteristic impedance that minimize the difference between modelled and measured return loss.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[17]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">s11_ref</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">s</span><span class="p">[:,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span>
+</span><span data-line="2"><span class="n">x0</span> <span class="o">=</span> <span class="p">[</span><span class="n">Z0_conn</span><span class="p">]</span>
+</span><span data-line="3">
+</span><span data-line="4"><span class="c1"># function to be minimised</span>
+</span><span data-line="5"><span class="k">def</span><span class="w"> </span><span class="nf">model2</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">mc</span><span class="p">,</span> <span class="n">delay_conn</span><span class="p">,</span> <span class="n">s11_ref</span><span class="p">):</span>
+</span><span data-line="6">    <span class="n">Z0_mod</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</span><span data-line="7">    <span class="n">conn_mod</span> <span class="o">=</span> <span class="n">mc</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="n">delay_conn</span><span class="p">,</span> <span class="s1">'s'</span><span class="p">,</span> <span class="n">z0</span><span class="o">=</span><span class="n">Z0_mod</span><span class="p">)</span>
+</span><span data-line="8">    <span class="n">check</span> <span class="o">=</span> <span class="n">mc</span><span class="o">.</span><span class="n">thru</span><span class="p">(</span><span class="n">z0</span> <span class="o">=</span> <span class="mf">50.</span><span class="p">)</span> <span class="o">**</span> <span class="n">conn_mod</span> <span class="o">**</span> <span class="n">mc</span><span class="o">.</span><span class="n">thru</span><span class="p">(</span><span class="n">z0</span> <span class="o">=</span> <span class="mf">50.</span><span class="p">)</span>
+</span><span data-line="9">    <span class="n">s11_mod</span> <span class="o">=</span> <span class="n">check</span><span class="o">.</span><span class="n">s</span><span class="p">[:,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span>
+</span><span data-line="10">
+</span><span data-line="11">    <span class="k">return</span> <a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/generated/numpy.sum.html#numpy.sum" title="numpy.sum"><span class="nb">sum</span></a><span class="p">(</span><a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/generated/numpy.absolute.html#numpy.absolute" title="numpy.absolute"><span class="n">absolute</span></a><span class="p">(</span><span class="n">s11_ref</span><span class="o">-</span><span class="n">s11_mod</span><span class="p">))</span>
+</span><span data-line="12">
+</span><span data-line="13"><span class="c1"># run optimizer</span>
+</span><span data-line="14"><span class="n">res</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.minimize.html#scipy.optimize.minimize" title="scipy.optimize.minimize"><span class="n">minimize</span></a><span class="p">(</span><span class="n">model2</span><span class="p">,</span> <span class="n">x0</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><a class="sphinx-codeautolink-a" href="../../api/media/generated/skrf.media.definedAEpTandZ0.DefinedAEpTandZ0.html#skrf.media.definedAEpTandZ0.DefinedAEpTandZ0" title="skrf.media.definedAEpTandZ0.DefinedAEpTandZ0"><span class="n">mc</span></a><span class="p">,</span> <span class="n">delay_conn</span><span class="p">,</span> <span class="n">s11_ref</span><span class="p">),</span>
+</span><span data-line="15">               <span class="n">bounds</span><span class="o">=</span><span class="p">[(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">100</span><span class="p">)])</span>
+</span><span data-line="16">
+</span><span data-line="17"><span class="c1"># get the results and print the results</span>
+</span><span data-line="18"><span class="n">Z0_conn</span> <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</span><span data-line="19"><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/builtins/functions.html#print"><span class="nb">print</span></a><span class="p">(</span><span class="sa">f</span><span class="s1">'Z0_conn=</span><span class="si">{</span><span class="n">Z0_conn</span><span class="si">:</span><span class="s1">.1f</span><span class="si">}</span><span class="s1"> ohm.'</span><span class="p">)</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Z0_conn=52.9 ohm.
+</pre></div></div>
+</div>
+<p>The modelled results are plotted against the calibration data, as a sanity check.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[18]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">conn_mod</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/media/generated/skrf.media.definedAEpTandZ0.DefinedAEpTandZ0.line.html#skrf.media.definedAEpTandZ0.DefinedAEpTandZ0.line" title="skrf.media.definedAEpTandZ0.DefinedAEpTandZ0.line"><span class="n">mc</span><span class="o">.</span><span class="n">line</span></a><span class="p">(</span><span class="n">delay_conn</span><span class="p">,</span> <span class="s1">'s'</span><span class="p">,</span> <span class="n">z0</span><span class="o">=</span><span class="n">Z0_conn</span><span class="p">)</span>
+</span><span data-line="2"><span class="n">check</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/media/generated/skrf.media.definedAEpTandZ0.DefinedAEpTandZ0.thru.html#skrf.media.definedAEpTandZ0.DefinedAEpTandZ0.thru" title="skrf.media.definedAEpTandZ0.DefinedAEpTandZ0.thru"><span class="n">mc</span><span class="o">.</span><span class="n">thru</span></a><span class="p">(</span><span class="n">z0</span> <span class="o">=</span> <span class="mf">50.</span><span class="p">)</span> <span class="o">**</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">conn_mod</span></a> <span class="o">**</span> <a class="sphinx-codeautolink-a" href="../../api/media/generated/skrf.media.definedAEpTandZ0.DefinedAEpTandZ0.thru.html#skrf.media.definedAEpTandZ0.DefinedAEpTandZ0.thru" title="skrf.media.definedAEpTandZ0.DefinedAEpTandZ0.thru"><span class="n">mc</span><span class="o">.</span><span class="n">thru</span></a><span class="p">(</span><span class="n">z0</span> <span class="o">=</span> <span class="mf">50.</span><span class="p">)</span>
+</span><span data-line="3">
+</span><span data-line="4"><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+</span><span data-line="5"><span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+</span><span data-line="6"><span class="n">conn</span><span class="o">.</span><span class="n">plot_s_db</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="s1">'measured'</span><span class="p">)</span>
+</span><span data-line="7"><span class="n">check</span><span class="o">.</span><span class="n">plot_s_db</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="s1">'model'</span><span class="p">)</span>
+</span><span data-line="8">
+</span><span data-line="9">
+</span><span data-line="10"><span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+</span><span data-line="11"><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">check</span><span class="o">.</span><span class="n">f</span><span class="o">*</span><span class="mf">1e-9</span><span class="p">,</span> <span class="p">(</span><span class="n">check</span><span class="o">.</span><span class="n">s_db</span><span class="p">[:,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span><span class="o">-</span><span class="n">conn</span><span class="o">.</span><span class="n">s_db</span><span class="p">[:,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]))</span>
+</span><span data-line="12"><span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">'Delta (dB)'</span><span class="p">)</span>
+</span><span data-line="13"><span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">'Frequency (GHz)'</span><span class="p">)</span>
+</span><span data-line="14">
+</span><span data-line="15"><span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</span><span data-line="16"><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/examples_networktheory_Time_domain_reflectometry%2C_measurement_vs_simulation_51_0.png" src="../../_images/examples_networktheory_Time_domain_reflectometry%2C_measurement_vs_simulation_51_0.png"/>
+</div>
+</div>
+<p>The delta in dB is quite big in low and high frequencies, but we will see when comparing measurement and simulation that the time domain reflectometry results are very decent with this value. The connector effects inductive peaks are well rendered in the case of the <a class="reference internal" href="#Microstripline"><span class="std std-ref">microstripline</span></a>.</p>
+</section>
+</section>
+</section>
+<section id="Simulation">
+<h2>Simulation<a class="headerlink" href="#Simulation" title="Link to this heading">#</a></h2>
+<section id="Frequency-axis">
+<h3>Frequency axis<a class="headerlink" href="#Frequency-axis" title="Link to this heading">#</a></h3>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[19]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.frequency.Frequency.html#skrf.frequency.Frequency" title="skrf.frequency.Frequency"><span class="n">freq</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.frequency.Frequency.html#skrf.frequency.Frequency" title="skrf.frequency.Frequency"><span class="n">skrf</span><span class="o">.</span><span class="n">Frequency</span></a><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mf">10e3</span><span class="p">,</span><span class="mi">10000</span><span class="p">,</span> <span class="s1">'mhz'</span><span class="p">)</span>
+</span></pre></div>
+</div>
+</div>
+</section>
+<section id="Media-sections-with-different-geometries">
+<h3>Media sections with different geometries<a class="headerlink" href="#Media-sections-with-different-geometries" title="Link to this heading">#</a></h3>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[20]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="c1"># 50 ohm segment</span>
+</span><span data-line="2"><a class="sphinx-codeautolink-a" href="../../api/media/generated/skrf.media.mline.MLine.html#skrf.media.mline.MLine" title="skrf.media.mline.MLine"><span class="n">MSL1</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/media/generated/skrf.media.mline.MLine.html#skrf.media.mline.MLine" title="skrf.media.mline.MLine"><span class="n">MLine</span></a><span class="p">(</span><span class="n">frequency</span><span class="o">=</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.frequency.Frequency.html#skrf.frequency.Frequency" title="skrf.frequency.Frequency"><span class="n">freq</span></a><span class="p">,</span> <span class="n">z0_port</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">w</span><span class="o">=</span><span class="n">W</span><span class="p">,</span> <span class="n">h</span><span class="o">=</span><span class="n">H</span><span class="p">,</span> <span class="n">t</span><span class="o">=</span><span class="n">T</span><span class="p">,</span>
+</span><span data-line="3">        <span class="n">ep_r</span><span class="o">=</span><span class="n">ep_r</span><span class="p">,</span> <span class="n">mu_r</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">rho</span><span class="o">=</span><span class="mf">1.712e-8</span><span class="p">,</span> <span class="n">tand</span><span class="o">=</span><span class="n">tanD</span><span class="p">,</span> <span class="n">rough</span><span class="o">=</span><span class="mf">0.15e-6</span><span class="p">,</span>
+</span><span data-line="4">        <span class="n">f_low</span><span class="o">=</span><span class="mf">1e3</span><span class="p">,</span> <span class="n">f_high</span><span class="o">=</span><span class="mf">1e12</span><span class="p">,</span> <span class="n">f_epr_tand</span><span class="o">=</span><span class="n">f_epr_tand</span><span class="p">,</span>
+</span><span data-line="5">        <span class="n">diel</span><span class="o">=</span><span class="s1">'djordjevicsvensson'</span><span class="p">,</span> <span class="n">disp</span><span class="o">=</span><span class="s1">'kirschningjansen'</span><span class="p">)</span>
+</span><span data-line="6">
+</span><span data-line="7"><span class="c1"># Capacitive segment</span>
+</span><span data-line="8"><a class="sphinx-codeautolink-a" href="../../api/media/generated/skrf.media.mline.MLine.html#skrf.media.mline.MLine" title="skrf.media.mline.MLine"><span class="n">MSL2</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/media/generated/skrf.media.mline.MLine.html#skrf.media.mline.MLine" title="skrf.media.mline.MLine"><span class="n">MLine</span></a><span class="p">(</span><span class="n">frequency</span><span class="o">=</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.frequency.Frequency.html#skrf.frequency.Frequency" title="skrf.frequency.Frequency"><span class="n">freq</span></a><span class="p">,</span> <span class="n">z0_port</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">w</span><span class="o">=</span><span class="mf">8.0e-3</span><span class="p">,</span> <span class="n">h</span><span class="o">=</span><span class="n">H</span><span class="p">,</span> <span class="n">t</span><span class="o">=</span><span class="n">T</span><span class="p">,</span>
+</span><span data-line="9">        <span class="n">ep_r</span><span class="o">=</span><span class="n">ep_r</span><span class="p">,</span> <span class="n">mu_r</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">rho</span><span class="o">=</span><span class="mf">1.712e-8</span><span class="p">,</span> <span class="n">tand</span><span class="o">=</span><span class="n">tanD</span><span class="p">,</span> <span class="n">rough</span><span class="o">=</span><span class="mf">0.15e-6</span><span class="p">,</span>
+</span><span data-line="10">        <span class="n">f_low</span><span class="o">=</span><span class="mf">1e3</span><span class="p">,</span> <span class="n">f_high</span><span class="o">=</span><span class="mf">1e12</span><span class="p">,</span> <span class="n">f_epr_tand</span><span class="o">=</span><span class="n">f_epr_tand</span><span class="p">,</span>
+</span><span data-line="11">        <span class="n">diel</span><span class="o">=</span><span class="s1">'djordjevicsvensson'</span><span class="p">,</span> <span class="n">disp</span><span class="o">=</span><span class="s1">'kirschningjansen'</span><span class="p">)</span>
+</span><span data-line="12">
+</span><span data-line="13"><span class="c1"># Inductive segment</span>
+</span><span data-line="14"><a class="sphinx-codeautolink-a" href="../../api/media/generated/skrf.media.mline.MLine.html#skrf.media.mline.MLine" title="skrf.media.mline.MLine"><span class="n">MSL3</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/media/generated/skrf.media.mline.MLine.html#skrf.media.mline.MLine" title="skrf.media.mline.MLine"><span class="n">MLine</span></a><span class="p">(</span><span class="n">frequency</span><span class="o">=</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.frequency.Frequency.html#skrf.frequency.Frequency" title="skrf.frequency.Frequency"><span class="n">freq</span></a><span class="p">,</span> <span class="n">z0_port</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">w</span><span class="o">=</span><span class="mf">1.0e-3</span><span class="p">,</span> <span class="n">h</span><span class="o">=</span><span class="n">H</span><span class="p">,</span> <span class="n">t</span><span class="o">=</span><span class="n">T</span><span class="p">,</span>
+</span><span data-line="15">        <span class="n">ep_r</span><span class="o">=</span><span class="n">ep_r</span><span class="p">,</span> <span class="n">mu_r</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">rho</span><span class="o">=</span><span class="mf">1.712e-8</span><span class="p">,</span> <span class="n">tand</span><span class="o">=</span><span class="n">tanD</span><span class="p">,</span> <span class="n">rough</span><span class="o">=</span><span class="mf">0.15e-6</span><span class="p">,</span>
+</span><span data-line="16">        <span class="n">f_low</span><span class="o">=</span><span class="mf">1e3</span><span class="p">,</span> <span class="n">f_high</span><span class="o">=</span><span class="mf">1e12</span><span class="p">,</span> <span class="n">f_epr_tand</span><span class="o">=</span><span class="n">f_epr_tand</span><span class="p">,</span>
+</span><span data-line="17">        <span class="n">diel</span><span class="o">=</span><span class="s1">'djordjevicsvensson'</span><span class="p">,</span> <span class="n">disp</span><span class="o">=</span><span class="s1">'kirschningjansen'</span><span class="p">)</span>
+</span><span data-line="18">
+</span><span data-line="19"><span class="c1"># Connector transmission line media with guessed loss</span>
+</span><span data-line="20"><a class="sphinx-codeautolink-a" href="../../api/media/generated/skrf.media.definedAEpTandZ0.DefinedAEpTandZ0.html#skrf.media.definedAEpTandZ0.DefinedAEpTandZ0" title="skrf.media.definedAEpTandZ0.DefinedAEpTandZ0"><span class="n">MCON</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/media/generated/skrf.media.definedAEpTandZ0.DefinedAEpTandZ0.html#skrf.media.definedAEpTandZ0.DefinedAEpTandZ0" title="skrf.media.definedAEpTandZ0.DefinedAEpTandZ0"><span class="n">DefinedAEpTandZ0</span></a><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">frequency</span><span class="p">,</span> <span class="n">z0_port</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">ep_r</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">tanD</span><span class="o">=</span><span class="mf">0.025</span><span class="p">,</span> <span class="n">z0</span><span class="o">=</span><span class="n">Z0_conn</span><span class="p">,</span>
+</span><span data-line="21">        <span class="n">f_low</span><span class="o">=</span><span class="mf">1e3</span><span class="p">,</span> <span class="n">f_high</span><span class="o">=</span><span class="mf">1e18</span><span class="p">,</span> <span class="n">f_ep</span><span class="o">=</span><span class="n">f_epr_tand</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="s1">'frequencyinvariant'</span><span class="p">)</span>
+</span></pre></div>
+</div>
+</div>
+</section>
+<section id="Simulated-devices-under-test">
+<h3>Simulated devices under test<a class="headerlink" href="#Simulated-devices-under-test" title="Link to this heading">#</a></h3>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[21]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="c1"># SMA connector</span>
+</span><span data-line="2"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">conn_sma</span></a>  <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/media/generated/skrf.media.definedAEpTandZ0.DefinedAEpTandZ0.line.html#skrf.media.definedAEpTandZ0.DefinedAEpTandZ0.line" title="skrf.media.definedAEpTandZ0.DefinedAEpTandZ0.line"><span class="n">MCON</span><span class="o">.</span><span class="n">line</span></a><span class="p">(</span><span class="n">delay_conn</span><span class="p">,</span> <span class="s1">'s'</span><span class="p">)</span>
+</span><span data-line="3">
+</span><span data-line="4">
+</span><span data-line="5"><span class="c1"># microstripline</span>
+</span><span data-line="6"><span class="n">thru_simu</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">conn_sma</span></a> <span class="o">**</span> <a class="sphinx-codeautolink-a" href="../../api/media/generated/skrf.media.mline.MLine.line.html#skrf.media.mline.MLine.line" title="skrf.media.mline.MLine.line"><span class="n">MSL1</span><span class="o">.</span><span class="n">line</span></a><span class="p">(</span><span class="mf">100e-3</span><span class="p">,</span> <span class="s1">'m'</span><span class="p">)</span> <span class="o">**</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">conn_sma</span></a>
+</span><span data-line="7"><span class="n">thru_simu</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">'P1-MSL_Thru_100-P2'</span>
+</span><span data-line="8">
+</span><span data-line="9"><span class="c1"># stepped impedance microstripline</span>
+</span><span data-line="10"><span class="n">step_simu</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">conn_sma</span></a> \
+</span><span data-line="11">           <span class="o">**</span> <a class="sphinx-codeautolink-a" href="../../api/media/generated/skrf.media.mline.MLine.line.html#skrf.media.mline.MLine.line" title="skrf.media.mline.MLine.line"><span class="n">MSL1</span><span class="o">.</span><span class="n">line</span></a><span class="p">(</span><span class="mf">50e-3</span><span class="p">,</span> <span class="s1">'m'</span><span class="p">)</span> \
+</span><span data-line="12">           <span class="o">**</span> <a class="sphinx-codeautolink-a" href="../../api/media/generated/skrf.media.mline.MLine.line.html#skrf.media.mline.MLine.line" title="skrf.media.mline.MLine.line"><span class="n">MSL2</span><span class="o">.</span><span class="n">line</span></a><span class="p">(</span><span class="mf">20e-3</span><span class="p">,</span> <span class="s1">'m'</span><span class="p">)</span> \
+</span><span data-line="13">           <span class="o">**</span> <a class="sphinx-codeautolink-a" href="../../api/media/generated/skrf.media.mline.MLine.line.html#skrf.media.mline.MLine.line" title="skrf.media.mline.MLine.line"><span class="n">MSL3</span><span class="o">.</span><span class="n">line</span></a><span class="p">(</span><span class="mf">20e-3</span><span class="p">,</span> <span class="s1">'m'</span><span class="p">)</span> \
+</span><span data-line="14">           <span class="o">**</span> <a class="sphinx-codeautolink-a" href="../../api/media/generated/skrf.media.mline.MLine.line.html#skrf.media.mline.MLine.line" title="skrf.media.mline.MLine.line"><span class="n">MSL1</span><span class="o">.</span><span class="n">line</span></a><span class="p">(</span><span class="mf">50e-3</span><span class="p">,</span> <span class="s1">'m'</span><span class="p">)</span> \
+</span><span data-line="15">           <span class="o">**</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">conn_sma</span></a>
+</span><span data-line="16"><span class="n">step_simu</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">'P1-MSL_Stepped_140-P2'</span>
+</span><span data-line="17">
+</span><span data-line="18"><span class="c1"># write simulated data to .snp files</span>
+</span><span data-line="19"><span class="n">write_data</span> <span class="o">=</span> <span class="kc">False</span>
+</span><span data-line="20"><span class="k">if</span> <span class="n">write_data</span><span class="p">:</span>
+</span><span data-line="21">    <span class="n">step_simu</span><span class="o">.</span><span class="n">write_touchstone</span><span class="p">(</span><span class="nb">dir</span><span class="o">=</span><span class="s1">'tdr_measurement_vs_simulation/simulation/'</span><span class="p">)</span>
+</span><span data-line="22">    <span class="n">thru_simu</span><span class="o">.</span><span class="n">write_touchstone</span><span class="p">(</span><span class="nb">dir</span><span class="o">=</span><span class="s1">'tdr_measurement_vs_simulation/simulation/'</span><span class="p">)</span>
+</span></pre></div>
+</div>
+</div>
+</section>
+</section>
+<section id="Notes">
+<h2>Notes<a class="headerlink" href="#Notes" title="Link to this heading">#</a></h2>
+<section id="Time-resolution">
+<h3>Time resolution<a class="headerlink" href="#Time-resolution" title="Link to this heading">#</a></h3>
+<p>After DC point extrapolation, and neglecting the effect of windowing, the time resolution of measurement is <span class="math">\begin{equation*}
+Resolution = \frac{1}{f_{span}}
+\end{equation*}</span></p>
+<p>where <span class="math notranslate nohighlight">\(Resolution\)</span> is the resolution in s and <span class="math notranslate nohighlight">\(f_{span}\)</span> is the frequency span in Hz.</p>
+<p>In our case, with <span class="math notranslate nohighlight">\(f_{span} = 10 \mskip3mu\mathrm{[GHz]}\)</span> <span class="math">\begin{equation*}
+Resolution \approx \frac{1}{10^{10}} \approx 100 \quad \mathrm{[ps]}
+\end{equation*}</span></p>
+<p>With an effective relative dielectric permittivity of about 3.5, this give following physical resolution: <span class="math">\begin{equation*}
+Resolution_{meter} = \frac{Resolution \dot{} c_0}{\sqrt{\epsilon{}_r}} \approx \frac{10^{-10} \dot{} 3\dot{}10^8}{\sqrt{3.5} } \approx 16 \quad \mathrm{[mm]}
+\end{equation*}</span></p>
+<p>We will use reflexion measurement, so the actual range is divided by two, because the signal goes back and forth. Thus, the approximate distance resolution on our device under test will be 8mm. The discontinuities on the stepped impedance microstripline and the connector effects shall be well visible.</p>
+</section>
+<section id="Measurement-range-limitation-to-avoid-alias-response">
+<h3>Measurement range limitation to avoid alias response<a class="headerlink" href="#Measurement-range-limitation-to-avoid-alias-response" title="Link to this heading">#</a></h3>
+<p>The measurement range should be set in such a way the true response of the device is seen without repetitions (alias).</p>
+<p><span class="math">\begin{equation*}
+Range = \frac{c_0}{\sqrt{\epsilon{}_r} \dot{} \Delta{}_f}
+\end{equation*}</span></p>
+<p>Where <span class="math notranslate nohighlight">\(Range\)</span> is the range in m, <span class="math notranslate nohighlight">\(c_0\)</span> the speed of light in m/s, <span class="math notranslate nohighlight">\(\Delta{}_f\)</span> the frequency step in Hz and <span class="math notranslate nohighlight">\(\epsilon{}_r\)</span> is the effective relative permittivity constant of the device under test.</p>
+<p>With the given measurement setup and considering <span class="math notranslate nohighlight">\(\Delta{}_f = 1 \mskip3mu\mathrm{[MHz]}\)</span>, worst case <span class="math notranslate nohighlight">\(\epsilon{}_r \approx 5.0\)</span>, the range is <span class="math">\begin{equation*}
+Range \approx \frac{3\dot{}10^8}{\sqrt{5} \dot{} 10^6} \approx 134 \quad \mathrm{[m]}
+\end{equation*}</span> Relative dielectric permittivity for FR-4 is approximately 5.0, the effective <span class="math notranslate nohighlight">\(\epsilon{}_r\)</span> of microstripline geometry will be smaller because of the air on top, which give a safety margin, the range being underevaluated.</p>
+<p>We will use reflexion measurement, so the actual range is divided by two, because the signal goes back and forth. However, our longest device being 200mm long, we can just quietly forget aliasing.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[ ]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1">
+</span></pre></div>
+</div>
+</div>
+</section>
+</section>
+</section>
+
+        </article><button class="back-to-top" type="button">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+  </svg>
+  <span>Back to top</span>
+</button><div class="navigation flex print:hidden"><div class="navigation-prev">
+    <a href="Time%20Domain.html">
+      <i class="i-lucide chevron-left"></i>
+      <div class="page-info">
+        <span>Previous</span><div class="title">Time Domain and Gating</div></div>
+    </a>
+  </div><div class="navigation-next">
+    <a href="Transmission%20Line%20Losses.html">
+      <div class="page-info">
+        <span>Next</span>
+        <div class="title">Transmission Line Losses on a Loaded Lossy Line</div>
+      </div>
+      <i class="i-lucide chevron-right"></i>
+    </a>
+  </div></div></div>
+    </div>
+  </main>
+</div>
+<footer class="sy-foot">
+  <div class="sy-foot-inner sy-container mx-auto">
+    <div class="sy-foot-reserved md:flex justify-between items-center">
+      <div class="sy-foot-copyright"><p>2025, scikit-rf team</p>
+  
+  <p>
+    Made with
+    
+    <a href="https://www.sphinx-doc.org/">Sphinx</a> and
+    
+    <a href="https://shibuya.lepture.com">Shibuya theme</a>.
+  </p>
+</div>
+      <div class="sy-foot-socials">
+  <a href="https://github.com/scikit-rf/scikit-rf" aria-label="GitHub">
+    <iconify-icon icon="simple-icons:github"></iconify-icon>
+  </a></div>
+    </div>
+  </div>
+</footer>
+      <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../_static/copybutton.js?v=34bd459d"></script>
+      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+      <script src="../../_static/shibuya.js?v=50760d75"></script>
+      <script src="https://cdn.jsdelivr.net/npm/@jupyter-widgets/html-manager@^1.0.1/dist/embed-amd.js"></script>
+      <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
+      <script src="../../_static/skrf.js?v=bdeb9fb0"></script></body>
+</html>

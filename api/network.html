@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en" data-accent-color="blue" data-content_root="../">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>network (skrf.network) - scikit-rf</title><link rel="author" title="About these documents" href="../about.html" /><link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="skrf.network.Network" href="generated/skrf.network.Network.html" /><link rel="prev" title="API" href="index.html" /><script>
+    function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
+    setColorMode(localStorage._theme||"auto");
+  </script><link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=ad592e98" />
+    <link rel="stylesheet" type="text/css" href="../_static/shibuya.css?v=2ceb65ce" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-codeautolink.css?v=b2176991" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link media="print" rel="stylesheet" type="text/css" href="../_static/print.css?v=20ff2c19" />
+    <link rel="stylesheet" type="text/css" href="../_static/skrf.css?v=7e772ba2" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --sy-f-text: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+  --sy-f-heading: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+}
+</style>
+    
+  <meta property="og:type" content="website"/><meta property="og:title" content="network (skrf.network)"/>
+    <meta name="twitter:card" content="summary"/>
+  </head>
+<body><div class="sy-head">
+  <div class="sy-head-blur"></div>
+  <div class="sy-head-inner sy-container mx-auto">
+    <a class="sy-head-brand" href="../index.html">
+      <img class="light-logo" src="../_static/logo.svg" alt="scikit-rf" height="28" loading="lazy" />
+      <img class="dark-logo" src="../_static/logo.svg" alt="scikit-rf" height="28" loading="lazy" />
+      <strong>scikit-rf</strong>
+    </a>
+    <div class="sy-head-nav" id="head-nav">
+      <nav class="sy-head-links"><ul><li class="link"><a href="../index.html">Home</a></li><li class="link"><a href="../tutorials/index.html">Tutorials</a></li><li class="link"><a href="../examples/index.html">Examples</a></li><li class="link"><a href="index.html">API</a></li><li class="link">
+          <a href="https://github.com/scikit-rf/scikit-rf">
+            <span>GitHub</span><i class="i-lucide external-link"></i></a>
+        </li></ul></nav>
+      <div class="sy-head-extra flex items-center print:hidden"><form class="searchbox flex items-center" action="../search.html" method="get">
+  <input type="text" name="q" placeholder="Search" />
+  <kbd>/</kbd>
+</form><div class="sy-head-socials">
+  <a href="https://github.com/scikit-rf/scikit-rf" aria-label="GitHub">
+    <iconify-icon icon="simple-icons:github"></iconify-icon>
+  </a>
+  <a href="https://www.linkedin.com/groups/12462155/" aria-label="LinkedIn">
+    <iconify-icon icon="simple-icons:linkedin"></iconify-icon>
+  </a>
+  <a href="https://app.element.io/#/room/#scikit-rf:matrix.org" aria-label="Matrix">
+    <iconify-icon icon="simple-icons:matrix"></iconify-icon>
+  </a></div></div>
+    </div>
+    <div class="sy-head-actions flex items-center shrink-0 print:hidden"><button class="js-theme theme-switch flex items-center"
+data-aria-auto="Switch to light color mode"
+data-aria-light="Switch to dark color mode"
+data-aria-dark="Switch to auto color mode">
+<i class="i-lucide theme-icon"></i>
+</button><button class="md:hidden flex items-center js-menu" aria-label="Menu" type="button" aria-controls="head-nav" aria-expanded="false">
+        <div class="hamburger">
+          <span class="hamburger_1"></span>
+          <span class="hamburger_2"></span>
+          <span class="hamburger_3"></span>
+        </div>
+      </button>
+    </div>
+  </div>
+</div>
+<div class="sy-page sy-container flex mx-auto">
+  <aside id="lside" class="sy-lside md:w-72 md:shrink-0 print:hidden">
+    <div class="sy-lside-inner md:sticky">
+      <div class="sy-scrollbar p-6">
+        <div class="globaltoc" data-expand-depth="0"><p class="caption" role="heading" aria-level="3"><span class="caption-text">Getting started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/Installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/Introduction.html">Introduction</a></li>
+</ul>
+<p class="caption" role="heading" aria-level="3"><span class="caption-text">User guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/index.html">Examples</a></li>
+</ul>
+<p class="caption" role="heading" aria-level="3"><span class="caption-text">Reference</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">API</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">network (<code class="xref py py-mod docutils literal notranslate"><span class="pre">skrf.network</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="frequency.html">frequency (<code class="xref py py-mod docutils literal notranslate"><span class="pre">skrf.frequency</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="networkSet.html">networkSet (<code class="xref py py-mod docutils literal notranslate"><span class="pre">skrf.networkSet</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plotting.html">plotting (<code class="xref py py-mod docutils literal notranslate"><span class="pre">skrf.plotting</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="media/index.html">Media</a></li>
+<li class="toctree-l2"><a class="reference internal" href="taper.html">taper (<code class="xref py py-mod docutils literal notranslate"><span class="pre">skrf.taper</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="calibration/index.html">calibration (<code class="xref py py-mod docutils literal notranslate"><span class="pre">skrf.calibration.calibration</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="calibration/deembedding.html">deembedding (<code class="xref py py-mod docutils literal notranslate"><span class="pre">skrf.calibration.deembedding</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="vi/index.html">virtual instruments (<code class="xref py py-mod docutils literal notranslate"><span class="pre">skrf.vi</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="vi/vna.html">vna (<code class="xref py py-mod docutils literal notranslate"><span class="pre">skrf.vi.vna</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="vectorFitting.html">vectorFitting (<code class="xref py py-mod docutils literal notranslate"><span class="pre">skrf.vectorFitting</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfactor.html">Qfactor (<code class="xref py py-mod docutils literal notranslate"><span class="pre">skrf.qfactor</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="time.html">time (<code class="xref py py-mod docutils literal notranslate"><span class="pre">skrf.time</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="circuit.html">circuit (<code class="xref py py-mod docutils literal notranslate"><span class="pre">skrf.circuit</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="media/device.html">device (<code class="xref py py-mod docutils literal notranslate"><span class="pre">skrf.media.device</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mathFunctions.html">mathFunctions (<code class="xref py py-mod docutils literal notranslate"><span class="pre">skrf.mathFunctions</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tlineFunctions.html">tlineFunctions (<code class="xref py py-mod docutils literal notranslate"><span class="pre">skrf.tlineFunctions</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="instances.html">instances (<code class="xref py py-mod docutils literal notranslate"><span class="pre">skrf.instances</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="constants.html">constants (<code class="xref py py-mod docutils literal notranslate"><span class="pre">skrf.constants</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="data/index.html">data (<code class="xref py py-mod docutils literal notranslate"><span class="pre">skrf.data</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="util.html">util (<code class="xref py py-mod docutils literal notranslate"><span class="pre">skrf.util</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="io/index.html">IO</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../glossary.html">Glossary</a></li>
+</ul>
+<p class="caption" role="heading" aria-level="3"><span class="caption-text">Project</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../contributing/index.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../citations_ack/acknowledging.html">Citing scikit-rf</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../citations_ack/citations.html">scikit-rf Citations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../about.html">About</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../users.html">Users</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../license.html">License</a></li>
+</ul>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="lside-overlay js-menu" role="button" aria-label="Close left sidebar" aria-controls="lside" aria-expanded="false"></div>
+  <aside id="rside" class="sy-rside pb-3 w-64 shrink-0 order-last">
+    <button class="rside-close js-menu xl:hidden" aria-label="Close Table of Contents" type="button" aria-controls="rside" aria-expanded="false">
+      <i class="i-lucide close"></i>
+    </button>
+    <div class="sy-scrollbar sy-rside-inner px-6 xl:top-16 xl:sticky xl:pl-0 pt-6 pb-4"><div class="localtoc"><h3>On this page</h3><ul>
+<li><a class="reference internal" href="#network-class">Network Class</a><ul>
+<li><a class="reference internal" href="#building-network">Building Network</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#network-representations">Network Representations</a></li>
+<li><a class="reference internal" href="#connecting-networks">Connecting Networks</a></li>
+<li><a class="reference internal" href="#interpolation-and-concatenation-along-frequency-axis">Interpolation and Concatenation Along Frequency Axis</a></li>
+<li><a class="reference internal" href="#combining-and-splitting-networks">Combining and Splitting Networks</a></li>
+<li><a class="reference internal" href="#io">IO</a></li>
+<li><a class="reference internal" href="#noise">Noise</a></li>
+<li><a class="reference internal" href="#supporting-functions">Supporting Functions</a></li>
+<li><a class="reference internal" href="#misc-functions">Misc Functions</a></li>
+<li><a class="reference internal" href="#network-utilities">Network utilities</a></li>
+</ul>
+</div><div id="ethical-ad-placement" data-ea-publisher="readthedocs"></div></div>
+  </aside>
+  <div class="rside-overlay js-menu" role="button" aria-label="Close Table of Contents" aria-controls="rside" aria-expanded="false"></div>
+  <main class="sy-main w-full max-sm:max-w-full print:pt-6">
+<div class="sy-breadcrumbs" role="navigation">
+  <div class="sy-breadcrumbs-inner flex items-center">
+    <div class="md:hidden mr-3">
+      <button class="js-menu" aria-label="Menu" type="button" aria-controls="lside" aria-expanded="false">
+        <i class="i-lucide menu"></i>
+      </button>
+    </div>
+    <ol class="flex-1" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="../index.html"><span itemprop="name">scikit-rf</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="1" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="index.html"><span itemprop="name">API</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="2" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <strong itemprop="name">network (<code class="xref py py-mod docutils literal notranslate"><span class="pre">skrf.network</span></code>)</strong>
+        <meta itemprop="position" content="3" />
+      </li></ol>
+    <div class="xl:hidden ml-1">
+      <button class="js-menu" aria-label="Show table of contents" type="button" aria-controls="rside"
+        aria-expanded="false">
+        <i class="i-lucide outdent"></i>
+      </button>
+    </div>
+  </div>
+</div><div class="flex flex-col break-words justify-between">
+      <div class="relative min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
+  <article class="yue" role="main">
+          <section id="network-skrf-network">
+<span id="module-skrf.network"></span><span id="module-0"></span><h1>network (<a class="reference internal" href="#module-0" title="skrf.network"><code class="xref py py-mod docutils literal notranslate"><span class="pre">skrf.network</span></code></a>)<a class="headerlink" href="#network-skrf-network" title="Link to this heading">#</a></h1>
+<p>Provide an n-port network class and associated functions.</p>
+<p>Much of the functionality in this module is provided as methods and
+properties of the <a class="reference internal" href="generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><code class="xref py py-class docutils literal notranslate"><span class="pre">Network</span></code></a> Class.</p>
+<section id="network-class">
+<h2>Network Class<a class="headerlink" href="#network-class" title="Link to this heading">#</a></h2>
+<div class="table-wrapper autosummary longtable docutils container">
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Network</span></code></a>([file, name, params, comments, ...])</p></td>
+<td><p>An n-port electrical network.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<section id="building-network">
+<h3>Building Network<a class="headerlink" href="#building-network" title="Link to this heading">#</a></h3>
+<div class="table-wrapper autosummary longtable docutils container">
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/skrf.network.Network.from_z.html#skrf.network.Network.from_z" title="skrf.network.Network.from_z"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Network.from_z</span></code></a>(z, *args, **kw)</p></td>
+<td><p>Create a Network from its Z-parameters.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</section>
+<section id="network-representations">
+<h2>Network Representations<a class="headerlink" href="#network-representations" title="Link to this heading">#</a></h2>
+<div class="table-wrapper autosummary longtable docutils container">
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/skrf.network.Network.s.html#skrf.network.Network.s" title="skrf.network.Network.s"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Network.s</span></code></a></p></td>
+<td><p>Scattering parameter matrix.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/skrf.network.Network.z.html#skrf.network.Network.z" title="skrf.network.Network.z"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Network.z</span></code></a></p></td>
+<td><p>Impedance parameter matrix.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/skrf.network.Network.y.html#skrf.network.Network.y" title="skrf.network.Network.y"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Network.y</span></code></a></p></td>
+<td><p>Admittance parameter matrix.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/skrf.network.Network.a.html#skrf.network.Network.a" title="skrf.network.Network.a"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Network.a</span></code></a></p></td>
+<td><p>abcd parameter matrix.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/skrf.network.Network.t.html#skrf.network.Network.t" title="skrf.network.Network.t"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Network.t</span></code></a></p></td>
+<td><p>Scattering transfer parameter matrix.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="connecting-networks">
+<h2>Connecting Networks<a class="headerlink" href="#connecting-networks" title="Link to this heading">#</a></h2>
+<div class="table-wrapper autosummary longtable docutils container">
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/skrf.network.connect.html#skrf.network.connect" title="skrf.network.connect"><code class="xref py py-obj docutils literal notranslate"><span class="pre">connect</span></code></a>(ntwkA, k, ntwkB, l[, num])</p></td>
+<td><p>Connect two n-port networks together.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/skrf.network.innerconnect.html#skrf.network.innerconnect" title="skrf.network.innerconnect"><code class="xref py py-obj docutils literal notranslate"><span class="pre">innerconnect</span></code></a>(ntwkA, k, l[, num])</p></td>
+<td><p>Connect ports of a single n-port network.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/skrf.network.cascade.html#skrf.network.cascade" title="skrf.network.cascade"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cascade</span></code></a>(ntwkA, ntwkB)</p></td>
+<td><p>Cascade two 2, 2N-ports Networks together.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/skrf.network.cascade_list.html#skrf.network.cascade_list" title="skrf.network.cascade_list"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cascade_list</span></code></a>(l)</p></td>
+<td><p>Cascade a list of 2N-port networks.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/skrf.network.de_embed.html#skrf.network.de_embed" title="skrf.network.de_embed"><code class="xref py py-obj docutils literal notranslate"><span class="pre">de_embed</span></code></a>(ntwkA, ntwkB)</p></td>
+<td><p>De-embed <cite>ntwkA</cite> from <cite>ntwkB</cite>.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/skrf.network.flip.html#skrf.network.flip" title="skrf.network.flip"><code class="xref py py-obj docutils literal notranslate"><span class="pre">flip</span></code></a>(a)</p></td>
+<td><p>Invert the ports of a networks s-matrix, 'flipping' it over left and right.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/skrf.network.inv.html#skrf.network.inv" title="skrf.network.inv"><code class="xref py py-obj docutils literal notranslate"><span class="pre">inv</span></code></a>(s)</p></td>
+<td><p>Calculate 'inverse' s-parameter matrix, used for de-embedding.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/skrf.network.parallelconnect.html#skrf.network.parallelconnect" title="skrf.network.parallelconnect"><code class="xref py py-obj docutils literal notranslate"><span class="pre">parallelconnect</span></code></a>(ntwks, ports[, name])</p></td>
+<td><p>Connects a series of multi-port networks in parallel, ensuring that the specified port indices share the concatenated intersection.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="interpolation-and-concatenation-along-frequency-axis">
+<h2>Interpolation and Concatenation Along Frequency Axis<a class="headerlink" href="#interpolation-and-concatenation-along-frequency-axis" title="Link to this heading">#</a></h2>
+<div class="table-wrapper autosummary longtable docutils container">
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/skrf.network.stitch.html#skrf.network.stitch" title="skrf.network.stitch"><code class="xref py py-obj docutils literal notranslate"><span class="pre">stitch</span></code></a>(ntwkA, ntwkB, **kwargs)</p></td>
+<td><p>Stitch ntwkA and ntwkB together.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/skrf.network.overlap.html#skrf.network.overlap" title="skrf.network.overlap"><code class="xref py py-obj docutils literal notranslate"><span class="pre">overlap</span></code></a>(ntwkA, ntwkB)</p></td>
+<td><p>Return the overlapping parts of two Networks, interpolating if needed.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/skrf.network.overlap_multi.html#skrf.network.overlap_multi" title="skrf.network.overlap_multi"><code class="xref py py-obj docutils literal notranslate"><span class="pre">overlap_multi</span></code></a>(ntwk_list)</p></td>
+<td><p>Return the overlapping parts of multiple Networks, interpolating if needed.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/skrf.network.Network.resample.html#skrf.network.Network.resample" title="skrf.network.Network.resample"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Network.resample</span></code></a>(freq_or_n, **kwargs)</p></td>
+<td><p>Interpolate the current Network along frequency axis (inplace).</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/skrf.network.Network.interpolate.html#skrf.network.Network.interpolate" title="skrf.network.Network.interpolate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Network.interpolate</span></code></a>(freq_or_n[, basis, ...])</p></td>
+<td><p>Interpolate a Network along frequency axis.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/skrf.network.Network.interpolate_self.html#skrf.network.Network.interpolate_self" title="skrf.network.Network.interpolate_self"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Network.interpolate_self</span></code></a>(freq_or_n, **kwargs)</p></td>
+<td><p>Interpolate the current Network along frequency axis (inplace).</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="combining-and-splitting-networks">
+<h2>Combining and Splitting Networks<a class="headerlink" href="#combining-and-splitting-networks" title="Link to this heading">#</a></h2>
+<div class="table-wrapper autosummary longtable docutils container">
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/skrf.network.subnetwork.html#skrf.network.subnetwork" title="skrf.network.subnetwork"><code class="xref py py-obj docutils literal notranslate"><span class="pre">subnetwork</span></code></a>(ntwk, ports[, offby])</p></td>
+<td><p>Return a subnetwork of a given Network from a list of port numbers.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/skrf.network.one_port_2_two_port.html#skrf.network.one_port_2_two_port" title="skrf.network.one_port_2_two_port"><code class="xref py py-obj docutils literal notranslate"><span class="pre">one_port_2_two_port</span></code></a>(ntwk)</p></td>
+<td><p>Calculate the 2-port network given a symmetric, reciprocal and lossless 1-port network.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/skrf.network.twoport_to_nport.html#skrf.network.twoport_to_nport" title="skrf.network.twoport_to_nport"><code class="xref py py-obj docutils literal notranslate"><span class="pre">twoport_to_nport</span></code></a>(ntwk, port1, port2, nports, ...)</p></td>
+<td><p>Add ports to two-port.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/skrf.network.four_oneports_2_twoport.html#skrf.network.four_oneports_2_twoport" title="skrf.network.four_oneports_2_twoport"><code class="xref py py-obj docutils literal notranslate"><span class="pre">four_oneports_2_twoport</span></code></a>(s11, s12, s21, s22, ...)</p></td>
+<td><p>Build a 2-port Network from list of four 1-ports.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/skrf.network.n_oneports_2_nport.html#skrf.network.n_oneports_2_nport" title="skrf.network.n_oneports_2_nport"><code class="xref py py-obj docutils literal notranslate"><span class="pre">n_oneports_2_nport</span></code></a>(ntwk_list, *args, **kwargs)</p></td>
+<td><p>Build an N-port Network from list of N one-ports.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/skrf.network.n_twoports_2_nport.html#skrf.network.n_twoports_2_nport" title="skrf.network.n_twoports_2_nport"><code class="xref py py-obj docutils literal notranslate"><span class="pre">n_twoports_2_nport</span></code></a>(ntwk_list, nports[, ...])</p></td>
+<td><p>Build an N-port Network from list of two-ports.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/skrf.network.concat_ports.html#skrf.network.concat_ports" title="skrf.network.concat_ports"><code class="xref py py-obj docutils literal notranslate"><span class="pre">concat_ports</span></code></a>(ntwk_list[, port_order])</p></td>
+<td><p>Concatenate networks along the port axis.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="io">
+<h2>IO<a class="headerlink" href="#io" title="Link to this heading">#</a></h2>
+<div class="table-wrapper autosummary longtable docutils container">
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="io/generated/skrf.io.general.read.html#skrf.io.general.read" title="skrf.io.general.read"><code class="xref py py-obj docutils literal notranslate"><span class="pre">skrf.io.general.read</span></code></a>(file, *args, **kwargs)</p></td>
+<td><p>Read  skrf object[s] from a pickle file.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="io/generated/skrf.io.general.write.html#skrf.io.general.write" title="skrf.io.general.write"><code class="xref py py-obj docutils literal notranslate"><span class="pre">skrf.io.general.write</span></code></a>(file, obj[, overwrite])</p></td>
+<td><p>Write skrf object[s] to a file.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="io/generated/skrf.io.general.network_2_spreadsheet.html#skrf.io.general.network_2_spreadsheet" title="skrf.io.general.network_2_spreadsheet"><code class="xref py py-obj docutils literal notranslate"><span class="pre">skrf.io.general.network_2_spreadsheet</span></code></a>(ntwk)</p></td>
+<td><p>Write a Network object to a spreadsheet, for your boss.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/skrf.network.Network.write.html#skrf.network.Network.write" title="skrf.network.Network.write"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Network.write</span></code></a>([file])</p></td>
+<td><p>Write the Network to disk using the <a class="reference external" href="https://docs.python.org/3/library/pickle.html#module-pickle" title="(in Python v3.15)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">pickle</span></code></a> module.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/skrf.network.Network.write_touchstone.html#skrf.network.Network.write_touchstone" title="skrf.network.Network.write_touchstone"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Network.write_touchstone</span></code></a>([filename, dir, ...])</p></td>
+<td><p>Write a contents of the <a class="reference internal" href="generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><code class="xref py py-class docutils literal notranslate"><span class="pre">Network</span></code></a> to a touchstone file.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/skrf.network.Network.read.html#skrf.network.Network.read" title="skrf.network.Network.read"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Network.read</span></code></a>(*args, **kwargs)</p></td>
+<td><p>Read a Network from a 'ntwk' file.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/skrf.network.Network.write_spreadsheet.html#skrf.network.Network.write_spreadsheet" title="skrf.network.Network.write_spreadsheet"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Network.write_spreadsheet</span></code></a>(*args, **kwargs)</p></td>
+<td><p>Write contents of network to a spreadsheet, for your boss to use.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="noise">
+<h2>Noise<a class="headerlink" href="#noise" title="Link to this heading">#</a></h2>
+<div class="table-wrapper autosummary longtable docutils container">
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/skrf.network.Network.add_noise_polar.html#skrf.network.Network.add_noise_polar" title="skrf.network.Network.add_noise_polar"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Network.add_noise_polar</span></code></a>(mag_dev, phase_dev, ...)</p></td>
+<td><p>Adds a complex zero-mean gaussian white-noise.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/skrf.network.Network.add_noise_polar_flatband.html#skrf.network.Network.add_noise_polar_flatband" title="skrf.network.Network.add_noise_polar_flatband"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Network.add_noise_polar_flatband</span></code></a>(mag_dev, ...)</p></td>
+<td><p>Add a flatband complex zero-mean gaussian white-noise signal of given standard deviations for magnitude and phase.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/skrf.network.Network.multiply_noise.html#skrf.network.Network.multiply_noise" title="skrf.network.Network.multiply_noise"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Network.multiply_noise</span></code></a>(mag_dev, phase_dev, ...)</p></td>
+<td><p>Multiply a complex bivariate gaussian white-noise signal of given standard deviations for magnitude and phase.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="supporting-functions">
+<h2>Supporting Functions<a class="headerlink" href="#supporting-functions" title="Link to this heading">#</a></h2>
+<div class="table-wrapper autosummary longtable docutils container">
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/skrf.network.inv.html#skrf.network.inv" title="skrf.network.inv"><code class="xref py py-obj docutils literal notranslate"><span class="pre">inv</span></code></a>(s)</p></td>
+<td><p>Calculate 'inverse' s-parameter matrix, used for de-embedding.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/skrf.network.connect_s.html#skrf.network.connect_s" title="skrf.network.connect_s"><code class="xref py py-obj docutils literal notranslate"><span class="pre">connect_s</span></code></a>(A, k, B, l[, num])</p></td>
+<td><p>Connect two n-port networks' s-matrices together.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/skrf.network.innerconnect_s.html#skrf.network.innerconnect_s" title="skrf.network.innerconnect_s"><code class="xref py py-obj docutils literal notranslate"><span class="pre">innerconnect_s</span></code></a>(A, k, l)</p></td>
+<td><p>Connect two ports of a single n-port network's s-matrix.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/skrf.network.innerconnect_s_lstsq.html#skrf.network.innerconnect_s_lstsq" title="skrf.network.innerconnect_s_lstsq"><code class="xref py py-obj docutils literal notranslate"><span class="pre">innerconnect_s_lstsq</span></code></a>(A, k, l)</p></td>
+<td><p>Connect two ports of a single n-port network's s-matrix using a least-squares solution.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/skrf.network.s2s.html#skrf.network.s2s" title="skrf.network.s2s"><code class="xref py py-obj docutils literal notranslate"><span class="pre">s2s</span></code></a>(s, z0, s_def_new, s_def_old)</p></td>
+<td><p>Convert scattering parameters to scattering parameters with different definition.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/skrf.network.s2z.html#skrf.network.s2z" title="skrf.network.s2z"><code class="xref py py-obj docutils literal notranslate"><span class="pre">s2z</span></code></a>(s[, z0, s_def])</p></td>
+<td><p>Convert scattering parameters <a href="#id22"><span class="problematic" id="id23"><span id="id1"></span>[#]_</span></a> to impedance parameters <a href="#id22"><span class="problematic" id="id24"><span id="id2"></span>[#]_</span></a>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/skrf.network.s2y.html#skrf.network.s2y" title="skrf.network.s2y"><code class="xref py py-obj docutils literal notranslate"><span class="pre">s2y</span></code></a>(s[, z0, s_def])</p></td>
+<td><p>Convert scattering parameters <a href="#id22"><span class="problematic" id="id25"><span id="id3"></span>[#]_</span></a> to admittance parameters <a href="#id22"><span class="problematic" id="id26"><span id="id4"></span>[#]_</span></a>.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/skrf.network.s2t.html#skrf.network.s2t" title="skrf.network.s2t"><code class="xref py py-obj docutils literal notranslate"><span class="pre">s2t</span></code></a>(s)</p></td>
+<td><p>Convert scattering parameters <a href="#id22"><span class="problematic" id="id27"><span id="id5"></span>[#]_</span></a> to scattering transfer parameters <a href="#id22"><span class="problematic" id="id28"><span id="id6"></span>[#]_</span></a>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/skrf.network.s2a.html#skrf.network.s2a" title="skrf.network.s2a"><code class="xref py py-obj docutils literal notranslate"><span class="pre">s2a</span></code></a>(s[, z0, s_def])</p></td>
+<td><p>Convert scattering parameters to abcd parameters <a href="#id22"><span class="problematic" id="id29"><span id="id7"></span>[#]_</span></a>.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/skrf.network.s2g.html#skrf.network.s2g" title="skrf.network.s2g"><code class="xref py py-obj docutils literal notranslate"><span class="pre">s2g</span></code></a>(s[, z0, s_def])</p></td>
+<td><p>Convert scattering parameters to inverse hybrid parameters.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/skrf.network.s2h.html#skrf.network.s2h" title="skrf.network.s2h"><code class="xref py py-obj docutils literal notranslate"><span class="pre">s2h</span></code></a>(s[, z0, s_def])</p></td>
+<td><p>Convert scattering parameters <a href="#id22"><span class="problematic" id="id30"><span id="id8"></span>[#]_</span></a> to hybrid parameters <a href="#id22"><span class="problematic" id="id31"><span id="id9"></span>[#]_</span></a>.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/skrf.network.z2s.html#skrf.network.z2s" title="skrf.network.z2s"><code class="xref py py-obj docutils literal notranslate"><span class="pre">z2s</span></code></a>(z[, z0, s_def])</p></td>
+<td><p>Convert impedance parameters <a href="#id22"><span class="problematic" id="id32"><span id="id10"></span>[#]_</span></a> to scattering parameters <a href="#id22"><span class="problematic" id="id33"><span id="id11"></span>[#]_</span></a>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/skrf.network.z2y.html#skrf.network.z2y" title="skrf.network.z2y"><code class="xref py py-obj docutils literal notranslate"><span class="pre">z2y</span></code></a>(z)</p></td>
+<td><p>Convert impedance parameters <a href="#id22"><span class="problematic" id="id34"><span id="id12"></span>[#]_</span></a> to admittance parameters <a href="#id22"><span class="problematic" id="id35"><span id="id13"></span>[#]_</span></a>.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/skrf.network.z2t.html#skrf.network.z2t" title="skrf.network.z2t"><code class="xref py py-obj docutils literal notranslate"><span class="pre">z2t</span></code></a>(z)</p></td>
+<td><p>Not Implemented yet.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/skrf.network.z2a.html#skrf.network.z2a" title="skrf.network.z2a"><code class="xref py py-obj docutils literal notranslate"><span class="pre">z2a</span></code></a>(z)</p></td>
+<td><p>Converts impedance parameters to abcd  parameters <a href="#id22"><span class="problematic" id="id36"><span id="id14"></span>[#]_</span></a>.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/skrf.network.y2s.html#skrf.network.y2s" title="skrf.network.y2s"><code class="xref py py-obj docutils literal notranslate"><span class="pre">y2s</span></code></a>(y[, z0, s_def])</p></td>
+<td><p>Convert admittance parameters <a href="#id22"><span class="problematic" id="id37"><span id="id15"></span>[#]_</span></a> to scattering parameters <a href="#id22"><span class="problematic" id="id38"><span id="id16"></span>[#]_</span></a>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/skrf.network.y2z.html#skrf.network.y2z" title="skrf.network.y2z"><code class="xref py py-obj docutils literal notranslate"><span class="pre">y2z</span></code></a>(y)</p></td>
+<td><p>Convert admittance parameters <a href="#id22"><span class="problematic" id="id39"><span id="id17"></span>[#]_</span></a> to impedance parameters <a href="#id22"><span class="problematic" id="id40"><span id="id18"></span>[#]_</span></a>.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/skrf.network.y2t.html#skrf.network.y2t" title="skrf.network.y2t"><code class="xref py py-obj docutils literal notranslate"><span class="pre">y2t</span></code></a>(y)</p></td>
+<td><p>Not Implemented Yet.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/skrf.network.t2s.html#skrf.network.t2s" title="skrf.network.t2s"><code class="xref py py-obj docutils literal notranslate"><span class="pre">t2s</span></code></a>(t)</p></td>
+<td><p>Converts scattering transfer parameters <a href="#id42"><span class="problematic" id="id19">[1]_</span></a> to scattering parameters <a href="#id43"><span class="problematic" id="id20">[2]_</span></a>.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/skrf.network.t2z.html#skrf.network.t2z" title="skrf.network.t2z"><code class="xref py py-obj docutils literal notranslate"><span class="pre">t2z</span></code></a>(t)</p></td>
+<td><p>Not Implemented Yet.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/skrf.network.t2y.html#skrf.network.t2y" title="skrf.network.t2y"><code class="xref py py-obj docutils literal notranslate"><span class="pre">t2y</span></code></a>(t)</p></td>
+<td><p>Not Implemented Yet.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/skrf.network.h2s.html#skrf.network.h2s" title="skrf.network.h2s"><code class="xref py py-obj docutils literal notranslate"><span class="pre">h2s</span></code></a>(h[, z0, s_def])</p></td>
+<td><p>Convert hybrid parameters to s parameters.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/skrf.network.h2z.html#skrf.network.h2z" title="skrf.network.h2z"><code class="xref py py-obj docutils literal notranslate"><span class="pre">h2z</span></code></a>(h)</p></td>
+<td><p>Convert hybrid parameters to z parameters <a href="#id22"><span class="problematic" id="id41"><span id="id21"></span>[#]_</span></a>.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/skrf.network.s2s_active.html#skrf.network.s2s_active" title="skrf.network.s2s_active"><code class="xref py py-obj docutils literal notranslate"><span class="pre">s2s_active</span></code></a>(s, a)</p></td>
+<td><p>Return active s-parameters for a defined wave excitation a.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/skrf.network.s2z_active.html#skrf.network.s2z_active" title="skrf.network.s2z_active"><code class="xref py py-obj docutils literal notranslate"><span class="pre">s2z_active</span></code></a>(s, z0, a)</p></td>
+<td><p>Return the active Z-parameters for a defined wave excitation a.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/skrf.network.s2y_active.html#skrf.network.s2y_active" title="skrf.network.s2y_active"><code class="xref py py-obj docutils literal notranslate"><span class="pre">s2y_active</span></code></a>(s, z0, a)</p></td>
+<td><p>Return the active Y-parameters for a defined wave excitation a.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/skrf.network.s2vswr_active.html#skrf.network.s2vswr_active" title="skrf.network.s2vswr_active"><code class="xref py py-obj docutils literal notranslate"><span class="pre">s2vswr_active</span></code></a>(s, a)</p></td>
+<td><p>Return the active VSWR for a defined wave excitation a..</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/skrf.network.fix_z0_shape.html#skrf.network.fix_z0_shape" title="skrf.network.fix_z0_shape"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fix_z0_shape</span></code></a>(z0, nfreqs, nports)</p></td>
+<td><p>Make a port impedance of correct shape for a given network's matrix.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/skrf.network.renormalize_s.html#skrf.network.renormalize_s" title="skrf.network.renormalize_s"><code class="xref py py-obj docutils literal notranslate"><span class="pre">renormalize_s</span></code></a>(s, z_old, z_new[, s_def, ...])</p></td>
+<td><p>Renormalize a s-parameter matrix given old and new port impedances.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/skrf.network.passivity.html#skrf.network.passivity" title="skrf.network.passivity"><code class="xref py py-obj docutils literal notranslate"><span class="pre">passivity</span></code></a>(s)</p></td>
+<td><p>Passivity metric for a network.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/skrf.network.reciprocity.html#skrf.network.reciprocity" title="skrf.network.reciprocity"><code class="xref py py-obj docutils literal notranslate"><span class="pre">reciprocity</span></code></a>(s)</p></td>
+<td><p>Reciprocity metric for a multi-port network.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="misc-functions">
+<h2>Misc Functions<a class="headerlink" href="#misc-functions" title="Link to this heading">#</a></h2>
+<div class="table-wrapper autosummary longtable docutils container">
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/skrf.network.average.html#skrf.network.average" title="skrf.network.average"><code class="xref py py-obj docutils literal notranslate"><span class="pre">average</span></code></a>(list_of_networks[, polar])</p></td>
+<td><p>Calculate the average network from a list of Networks.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/skrf.network.stdev.html#skrf.network.stdev" title="skrf.network.stdev"><code class="xref py py-obj docutils literal notranslate"><span class="pre">stdev</span></code></a>(list_of_networks[, attr])</p></td>
+<td><p>Calculate the standard deviation of a network attribute from a list of Networks.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/skrf.network.s_error.html#skrf.network.s_error" title="skrf.network.s_error"><code class="xref py py-obj docutils literal notranslate"><span class="pre">s_error</span></code></a>(ntwkA, ntwkB[, error_function])</p></td>
+<td><p>Compute the error between s-parameters of ntwkA and ntwkB.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/skrf.network.impedance_mismatch.html#skrf.network.impedance_mismatch" title="skrf.network.impedance_mismatch"><code class="xref py py-obj docutils literal notranslate"><span class="pre">impedance_mismatch</span></code></a>(z1, z2[, s_def])</p></td>
+<td><p>Create a two-port s-matrix for a impedance mismatch.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/skrf.network.two_port_reflect.html#skrf.network.two_port_reflect" title="skrf.network.two_port_reflect"><code class="xref py py-obj docutils literal notranslate"><span class="pre">two_port_reflect</span></code></a>(ntwk1[, ntwk2, name])</p></td>
+<td><p>Generate a two-port reflective two-port, from two one-ports.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/skrf.network.chopinhalf.html#skrf.network.chopinhalf" title="skrf.network.chopinhalf"><code class="xref py py-obj docutils literal notranslate"><span class="pre">chopinhalf</span></code></a>(ntwk, *args, **kwargs)</p></td>
+<td><p>Chop a sandwich of identical, reciprocal 2-ports in half.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/skrf.network.Network.nudge.html#skrf.network.Network.nudge" title="skrf.network.Network.nudge"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Network.nudge</span></code></a>([amount])</p></td>
+<td><p>Perturb s-parameters by small amount.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/skrf.network.Network.renormalize.html#skrf.network.Network.renormalize" title="skrf.network.Network.renormalize"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Network.renormalize</span></code></a>(z_new[, s_def])</p></td>
+<td><p>Renormalize s-parameter matrix given a new port impedances.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/skrf.network.Network.drop_non_monotonic_increasing.html#skrf.network.Network.drop_non_monotonic_increasing" title="skrf.network.Network.drop_non_monotonic_increasing"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Network.drop_non_monotonic_increasing</span></code></a>()</p></td>
+<td><p>Drop invalid values based on duplicate and non increasing frequency values.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/skrf.network.evenodd2delta.html#skrf.network.evenodd2delta" title="skrf.network.evenodd2delta"><code class="xref py py-obj docutils literal notranslate"><span class="pre">evenodd2delta</span></code></a>(n[, z0, renormalize, doublehalf])</p></td>
+<td><p>Convert ntwk's s-matrix from even/odd mode into a delta (normal) s-matrix.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="network-utilities">
+<h2>Network utilities<a class="headerlink" href="#network-utilities" title="Link to this heading">#</a></h2>
+<div class="table-wrapper autosummary longtable docutils container">
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/skrf.network.fix_param_shape.html#skrf.network.fix_param_shape" title="skrf.network.fix_param_shape"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fix_param_shape</span></code></a>(p)</p></td>
+<td><p>Attempt to broadcast p to satisfy.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/skrf.network.fix_z0_shape.html#skrf.network.fix_z0_shape" title="skrf.network.fix_z0_shape"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fix_z0_shape</span></code></a>(z0, nfreqs, nports)</p></td>
+<td><p>Make a port impedance of correct shape for a given network's matrix.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/skrf.network.check_frequency_exist.html#skrf.network.check_frequency_exist" title="skrf.network.check_frequency_exist"><code class="xref py py-obj docutils literal notranslate"><span class="pre">check_frequency_exist</span></code></a>(ntwk)</p></td>
+<td><p>Check if a Network has a non-zero Frequency.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/skrf.network.check_nports_equal.html#skrf.network.check_nports_equal" title="skrf.network.check_nports_equal"><code class="xref py py-obj docutils literal notranslate"><span class="pre">check_nports_equal</span></code></a>(ntwkA, ntwkB)</p></td>
+<td><p>Check if two Networks have same number of ports.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/skrf.network.check_frequency_equal.html#skrf.network.check_frequency_equal" title="skrf.network.check_frequency_equal"><code class="xref py py-obj docutils literal notranslate"><span class="pre">check_frequency_equal</span></code></a>(ntwkA, ntwkB)</p></td>
+<td><p>Check if two Networks have same frequency.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/skrf.network.check_z0_equal.html#skrf.network.check_z0_equal" title="skrf.network.check_z0_equal"><code class="xref py py-obj docutils literal notranslate"><span class="pre">check_z0_equal</span></code></a>(ntwkA, ntwkB)</p></td>
+<td><p>Check if two Networks have same port impedances.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/skrf.network.assert_frequency_equal.html#skrf.network.assert_frequency_equal" title="skrf.network.assert_frequency_equal"><code class="xref py py-obj docutils literal notranslate"><span class="pre">assert_frequency_equal</span></code></a>(ntwkA, ntwkB)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/skrf.network.assert_nports_equal.html#skrf.network.assert_nports_equal" title="skrf.network.assert_nports_equal"><code class="xref py py-obj docutils literal notranslate"><span class="pre">assert_nports_equal</span></code></a>(ntwkA, ntwkB)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/skrf.network.assert_frequency_exist.html#skrf.network.assert_frequency_exist" title="skrf.network.assert_frequency_exist"><code class="xref py py-obj docutils literal notranslate"><span class="pre">assert_frequency_exist</span></code></a>(ntwk)</p></td>
+<td><p>Test if the Network Frequency is defined.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/skrf.network.assert_z0_equal.html#skrf.network.assert_z0_equal" title="skrf.network.assert_z0_equal"><code class="xref py py-obj docutils literal notranslate"><span class="pre">assert_z0_equal</span></code></a>(ntwkA, ntwkB)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/skrf.network.assert_z0_at_ports_equal.html#skrf.network.assert_z0_at_ports_equal" title="skrf.network.assert_z0_at_ports_equal"><code class="xref py py-obj docutils literal notranslate"><span class="pre">assert_z0_at_ports_equal</span></code></a>(ntwkA, k, ntwkB, l)</p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</section>
+
+        </article><button class="back-to-top" type="button">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+  </svg>
+  <span>Back to top</span>
+</button><div class="navigation flex print:hidden"><div class="navigation-prev">
+    <a href="index.html">
+      <i class="i-lucide chevron-left"></i>
+      <div class="page-info">
+        <span>Previous</span><div class="title">API</div></div>
+    </a>
+  </div><div class="navigation-next">
+    <a href="generated/skrf.network.Network.html">
+      <div class="page-info">
+        <span>Next</span>
+        <div class="title">skrf.network.Network</div>
+      </div>
+      <i class="i-lucide chevron-right"></i>
+    </a>
+  </div></div></div>
+    </div>
+  </main>
+</div>
+<footer class="sy-foot">
+  <div class="sy-foot-inner sy-container mx-auto">
+    <div class="sy-foot-reserved md:flex justify-between items-center">
+      <div class="sy-foot-copyright"><p>2025, scikit-rf team</p>
+  
+  <p>
+    Made with
+    
+    <a href="https://www.sphinx-doc.org/">Sphinx</a> and
+    
+    <a href="https://shibuya.lepture.com">Shibuya theme</a>.
+  </p>
+</div>
+      <div class="sy-foot-socials">
+  <a href="https://github.com/scikit-rf/scikit-rf" aria-label="GitHub">
+    <iconify-icon icon="simple-icons:github"></iconify-icon>
+  </a></div>
+    </div>
+  </div>
+</footer>
+      <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../_static/copybutton.js?v=34bd459d"></script>
+      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+      <script src="../_static/shibuya.js?v=50760d75"></script>
+      <script src="https://cdn.jsdelivr.net/npm/@jupyter-widgets/html-manager@^1.0.1/dist/embed-amd.js"></script>
+      <script src="../_static/skrf.js?v=bdeb9fb0"></script></body>
+</html>

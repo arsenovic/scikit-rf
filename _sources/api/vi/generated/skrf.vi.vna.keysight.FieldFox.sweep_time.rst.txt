@@ -1,0 +1,6 @@
+skrf.vi.vna.keysight.FieldFox.sweep\_time
+=========================================
+
+.. currentmodule:: skrf.vi.vna.keysight
+
+.. autoproperty:: FieldFox.sweep_time

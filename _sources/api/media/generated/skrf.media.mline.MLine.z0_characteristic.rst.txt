@@ -1,0 +1,6 @@
+skrf.media.mline.MLine.z0\_characteristic
+=========================================
+
+.. currentmodule:: skrf.media.mline
+
+.. autoproperty:: MLine.z0_characteristic

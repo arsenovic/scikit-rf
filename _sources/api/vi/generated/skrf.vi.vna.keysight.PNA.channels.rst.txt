@@ -1,0 +1,6 @@
+skrf.vi.vna.keysight.PNA.channels
+=================================
+
+.. currentmodule:: skrf.vi.vna.keysight
+
+.. autoproperty:: PNA.channels

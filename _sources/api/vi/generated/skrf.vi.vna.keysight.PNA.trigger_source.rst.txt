@@ -1,0 +1,6 @@
+skrf.vi.vna.keysight.PNA.trigger\_source
+========================================
+
+.. currentmodule:: skrf.vi.vna.keysight
+
+.. autoproperty:: PNA.trigger_source

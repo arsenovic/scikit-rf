@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en" data-accent-color="blue" data-content_root="../">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Configuring frequency units - scikit-rf</title><link rel="author" title="About these documents" href="../about.html" /><link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Networks" href="Networks.html" /><link rel="prev" title="Tutorials" href="index.html" /><script>
+    function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
+    setColorMode(localStorage._theme||"auto");
+  </script><link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=ad592e98" />
+    <link rel="stylesheet" type="text/css" href="../_static/shibuya.css?v=2ceb65ce" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-codeautolink.css?v=b2176991" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link media="print" rel="stylesheet" type="text/css" href="../_static/print.css?v=20ff2c19" />
+    <link rel="stylesheet" type="text/css" href="../_static/nbsphinx-code-cells.css?v=2aa19091" />
+    <link rel="stylesheet" type="text/css" href="../_static/skrf.css?v=7e772ba2" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --sy-f-text: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+  --sy-f-heading: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+}
+</style>
+    
+  <meta property="og:type" content="website"/><meta property="og:title" content="Configuring frequency units"/>
+    <meta name="twitter:card" content="summary"/>
+  </head>
+<body><div class="sy-head">
+  <div class="sy-head-blur"></div>
+  <div class="sy-head-inner sy-container mx-auto">
+    <a class="sy-head-brand" href="../index.html">
+      <img class="light-logo" src="../_static/logo.svg" alt="scikit-rf" height="28" loading="lazy" />
+      <img class="dark-logo" src="../_static/logo.svg" alt="scikit-rf" height="28" loading="lazy" />
+      <strong>scikit-rf</strong>
+    </a>
+    <div class="sy-head-nav" id="head-nav">
+      <nav class="sy-head-links"><ul><li class="link"><a href="../index.html">Home</a></li><li class="link"><a href="index.html">Tutorials</a></li><li class="link"><a href="../examples/index.html">Examples</a></li><li class="link"><a href="../api/index.html">API</a></li><li class="link">
+          <a href="https://github.com/scikit-rf/scikit-rf">
+            <span>GitHub</span><i class="i-lucide external-link"></i></a>
+        </li></ul></nav>
+      <div class="sy-head-extra flex items-center print:hidden"><form class="searchbox flex items-center" action="../search.html" method="get">
+  <input type="text" name="q" placeholder="Search" />
+  <kbd>/</kbd>
+</form><div class="sy-head-socials">
+  <a href="https://github.com/scikit-rf/scikit-rf" aria-label="GitHub">
+    <iconify-icon icon="simple-icons:github"></iconify-icon>
+  </a>
+  <a href="https://www.linkedin.com/groups/12462155/" aria-label="LinkedIn">
+    <iconify-icon icon="simple-icons:linkedin"></iconify-icon>
+  </a>
+  <a href="https://app.element.io/#/room/#scikit-rf:matrix.org" aria-label="Matrix">
+    <iconify-icon icon="simple-icons:matrix"></iconify-icon>
+  </a></div></div>
+    </div>
+    <div class="sy-head-actions flex items-center shrink-0 print:hidden"><button class="js-theme theme-switch flex items-center"
+data-aria-auto="Switch to light color mode"
+data-aria-light="Switch to dark color mode"
+data-aria-dark="Switch to auto color mode">
+<i class="i-lucide theme-icon"></i>
+</button><button class="md:hidden flex items-center js-menu" aria-label="Menu" type="button" aria-controls="head-nav" aria-expanded="false">
+        <div class="hamburger">
+          <span class="hamburger_1"></span>
+          <span class="hamburger_2"></span>
+          <span class="hamburger_3"></span>
+        </div>
+      </button>
+    </div>
+  </div>
+</div>
+<div class="sy-page sy-container flex mx-auto">
+  <aside id="lside" class="sy-lside md:w-72 md:shrink-0 print:hidden">
+    <div class="sy-lside-inner md:sticky">
+      <div class="sy-scrollbar p-6">
+        <div class="globaltoc" data-expand-depth="0"><p class="caption" role="heading" aria-level="3"><span class="caption-text">Getting started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Introduction.html">Introduction</a></li>
+</ul>
+<p class="caption" role="heading" aria-level="3"><span class="caption-text">User guide</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Tutorials</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="Installation.html">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Introduction.html">Introduction</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Configuring frequency units</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Networks.html">Networks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Connecting_Networks.html">Connecting Networks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Plotting.html">Plotting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="NetworkSet.html">NetworkSet</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Circuit.html">Circuits</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Calibration.html">Calibration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Deembedding.html">De-embedding</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Q-Factor.html">Quality Factors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Media.html">Media</a></li>
+<li class="toctree-l2"><a class="reference internal" href="VectorFitting.html">Vector Fitting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="VectorFittingParametric.html">Parametric Vector Fitting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="VirtualInstruments.html">Virtual Instruments</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/index.html">Examples</a></li>
+</ul>
+<p class="caption" role="heading" aria-level="3"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../api/index.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../glossary.html">Glossary</a></li>
+</ul>
+<p class="caption" role="heading" aria-level="3"><span class="caption-text">Project</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../contributing/index.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../citations_ack/acknowledging.html">Citing scikit-rf</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../citations_ack/citations.html">scikit-rf Citations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../about.html">About</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../users.html">Users</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../license.html">License</a></li>
+</ul>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="lside-overlay js-menu" role="button" aria-label="Close left sidebar" aria-controls="lside" aria-expanded="false"></div>
+  <aside id="rside" class="sy-rside pb-3 w-64 shrink-0 order-last">
+    <button class="rside-close js-menu xl:hidden" aria-label="Close Table of Contents" type="button" aria-controls="rside" aria-expanded="false">
+      <i class="i-lucide close"></i>
+    </button>
+    <div class="sy-scrollbar sy-rside-inner px-6 xl:top-16 xl:sticky xl:pl-0 pt-6 pb-4"><div class="localtoc"><h3>On this page</h3><ul>
+<li><a class="reference internal" href="#Keeping-input-units">Keeping input units</a></li>
+<li><a class="reference internal" href="#Choosing-a-common-unit">Choosing a common unit</a></li>
+<li><a class="reference internal" href="#Reading-Touchstone-data">Reading Touchstone data</a></li>
+<li><a class="reference internal" href="#Supplying-raw-frequencies-to-a-Network">Supplying raw frequencies to a Network</a></li>
+<li><a class="reference internal" href="#Existing-objects-and-copies">Existing objects and copies</a></li>
+<li><a class="reference internal" href="#Restoring-the-previous-setting">Restoring the previous setting</a></li>
+</ul>
+</div><div id="ethical-ad-placement" data-ea-publisher="readthedocs"></div></div>
+  </aside>
+  <div class="rside-overlay js-menu" role="button" aria-label="Close Table of Contents" aria-controls="rside" aria-expanded="false"></div>
+  <main class="sy-main w-full max-sm:max-w-full print:pt-6">
+<div class="sy-breadcrumbs" role="navigation">
+  <div class="sy-breadcrumbs-inner flex items-center">
+    <div class="md:hidden mr-3">
+      <button class="js-menu" aria-label="Menu" type="button" aria-controls="lside" aria-expanded="false">
+        <i class="i-lucide menu"></i>
+      </button>
+    </div>
+    <ol class="flex-1" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="../index.html"><span itemprop="name">scikit-rf</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="1" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="index.html"><span itemprop="name">Tutorials</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="2" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <strong itemprop="name">Configuring frequency units</strong>
+        <meta itemprop="position" content="3" />
+      </li></ol>
+    <a class="sk-download" href="Frequency_units.ipynb" download>Download</a>
+    <div class="xl:hidden ml-1">
+      <button class="js-menu" aria-label="Show table of contents" type="button" aria-controls="rside"
+        aria-expanded="false">
+        <i class="i-lucide outdent"></i>
+      </button>
+    </div>
+  </div>
+</div><div class="flex flex-col break-words justify-between">
+      <div class="relative min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
+  <article class="yue" role="main">
+          <span class="target" id="frequency-units"></span><section id="Configuring-frequency-units">
+<h1>Configuring frequency units<a class="headerlink" href="#Configuring-frequency-units" title="Link to this heading">#</a></h1>
+<p>A frequency’s input unit tells scikit-rf what the supplied numbers mean. Its display unit controls how those frequencies are represented. Internally, <code class="docutils literal notranslate"><span class="pre">Frequency.f</span></code> always stores values in Hz; <code class="docutils literal notranslate"><span class="pre">Frequency.f_scaled</span></code> expresses the same frequencies in <code class="docutils literal notranslate"><span class="pre">Frequency.unit</span></code>.</p>
+<p>Set <code class="docutils literal notranslate"><span class="pre">rf.constants.FREQ_UNIT_DEFAULT</span></code> to choose a default unit for newly created frequency objects and networks, including networks read from Touchstone files. An explicit <code class="docutils literal notranslate"><span class="pre">Network(...,</span> <span class="pre">f_unit=...)</span></code> overrides this default for that network. This setting applies to the current Python process and needs no configuration file. The examples below save the current setting and restore it at the end.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[1]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="kn">from</span><span class="w"> </span><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/library/io.html#module-io"><span class="nn">io</span></a><span class="w"> </span><span class="kn">import</span> <span class="n">StringIO</span>
+</span><span data-line="2">
+</span><span data-line="3"><span class="kn">import</span><span class="w"> </span><a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/index.html#module-numpy"><span class="nn">numpy</span></a><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+</span><span data-line="4">
+</span><span data-line="5"><span class="kn">import</span><span class="w"> </span><span class="nn">skrf</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">rf</span>
+</span><span data-line="6">
+</span><span data-line="7"><span class="n">original_unit</span> <span class="o">=</span> <span class="n">rf</span><span class="o">.</span><span class="n">constants</span><span class="o">.</span><span class="n">FREQ_UNIT_DEFAULT</span>
+</span></pre></div>
+</div>
+</div>
+<section id="Keeping-input-units">
+<h2>Keeping input units<a class="headerlink" href="#Keeping-input-units" title="Link to this heading">#</a></h2>
+<p>The factory setting is <code class="docutils literal notranslate"><span class="pre">None</span></code>. It preserves explicit constructor units and file units. When <code class="docutils literal notranslate"><span class="pre">unit</span></code> is omitted from <code class="docutils literal notranslate"><span class="pre">Frequency</span></code> or <code class="docutils literal notranslate"><span class="pre">Frequency.from_f</span></code>, the input is interpreted in Hz.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[2]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">rf</span><span class="o">.</span><span class="n">constants</span><span class="o">.</span><span class="n">FREQ_UNIT_DEFAULT</span> <span class="o">=</span> <span class="kc">None</span>
+</span><span data-line="2">
+</span><span data-line="3"><a class="sphinx-codeautolink-a" href="../api/generated/skrf.frequency.Frequency.html#skrf.frequency.Frequency" title="skrf.frequency.Frequency"><span class="n">omitted</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../api/generated/skrf.frequency.Frequency.html#skrf.frequency.Frequency" title="skrf.frequency.Frequency"><span class="n">rf</span><span class="o">.</span><span class="n">Frequency</span></a><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+</span><span data-line="4"><a class="sphinx-codeautolink-a" href="../api/generated/skrf.frequency.Frequency.html#skrf.frequency.Frequency" title="skrf.frequency.Frequency"><span class="n">original</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../api/generated/skrf.frequency.Frequency.html#skrf.frequency.Frequency" title="skrf.frequency.Frequency"><span class="n">rf</span><span class="o">.</span><span class="n">Frequency</span></a><span class="p">(</span><span class="mi">1000</span><span class="p">,</span> <span class="mi">2000</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s2">"MHz"</span><span class="p">)</span>
+</span><span data-line="5">
+</span><span data-line="6"><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/builtins/functions.html#print"><span class="nb">print</span></a><span class="p">(</span><span class="s2">"Omitted unit:"</span><span class="p">,</span> <a class="sphinx-codeautolink-a" href="../api/generated/skrf.frequency.Frequency.unit.html#skrf.frequency.Frequency.unit" title="skrf.frequency.Frequency.unit"><span class="n">omitted</span><span class="o">.</span><span class="n">unit</span></a><span class="p">,</span> <a class="sphinx-codeautolink-a" href="../api/generated/skrf.frequency.Frequency.f_scaled.html#skrf.frequency.Frequency.f_scaled" title="skrf.frequency.Frequency.f_scaled"><span class="n">omitted</span><span class="o">.</span><span class="n">f_scaled</span></a><span class="p">)</span>
+</span><span data-line="7"><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/builtins/functions.html#print"><span class="nb">print</span></a><span class="p">(</span><span class="s2">"Explicit unit:"</span><span class="p">,</span> <a class="sphinx-codeautolink-a" href="../api/generated/skrf.frequency.Frequency.unit.html#skrf.frequency.Frequency.unit" title="skrf.frequency.Frequency.unit"><span class="n">original</span><span class="o">.</span><span class="n">unit</span></a><span class="p">,</span> <a class="sphinx-codeautolink-a" href="../api/generated/skrf.frequency.Frequency.f_scaled.html#skrf.frequency.Frequency.f_scaled" title="skrf.frequency.Frequency.f_scaled"><span class="n">original</span><span class="o">.</span><span class="n">f_scaled</span></a><span class="p">)</span>
+</span><span data-line="8"><span class="k">assert</span> <a class="sphinx-codeautolink-a" href="../api/generated/skrf.frequency.Frequency.unit.html#skrf.frequency.Frequency.unit" title="skrf.frequency.Frequency.unit"><span class="n">omitted</span><span class="o">.</span><span class="n">unit</span></a> <span class="o">==</span> <span class="s2">"Hz"</span>
+</span><span data-line="9"><span class="k">assert</span> <a class="sphinx-codeautolink-a" href="../api/generated/skrf.frequency.Frequency.unit.html#skrf.frequency.Frequency.unit" title="skrf.frequency.Frequency.unit"><span class="n">original</span><span class="o">.</span><span class="n">unit</span></a> <span class="o">==</span> <span class="s2">"MHz"</span>
+</span><span data-line="10"><a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/generated/numpy.testing.assert_allclose.html#numpy.testing.assert_allclose" title="numpy.testing.assert_allclose"><span class="n">np</span><span class="o">.</span><span class="n">testing</span><span class="o">.</span><span class="n">assert_allclose</span></a><span class="p">(</span><a class="sphinx-codeautolink-a" href="../api/generated/skrf.frequency.Frequency.f.html#skrf.frequency.Frequency.f" title="skrf.frequency.Frequency.f"><span class="n">omitted</span><span class="o">.</span><span class="n">f</span></a><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
+</span><span data-line="11"><a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/generated/numpy.testing.assert_allclose.html#numpy.testing.assert_allclose" title="numpy.testing.assert_allclose"><span class="n">np</span><span class="o">.</span><span class="n">testing</span><span class="o">.</span><span class="n">assert_allclose</span></a><span class="p">(</span><a class="sphinx-codeautolink-a" href="../api/generated/skrf.frequency.Frequency.f.html#skrf.frequency.Frequency.f" title="skrf.frequency.Frequency.f"><span class="n">original</span><span class="o">.</span><span class="n">f</span></a><span class="p">,</span> <span class="p">[</span><span class="mf">1e9</span><span class="p">,</span> <span class="mf">2e9</span><span class="p">])</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Omitted unit: Hz [1. 2.]
+Explicit unit: MHz [1000. 2000.]
+</pre></div></div>
+</div>
+</section>
+<section id="Choosing-a-common-unit">
+<h2>Choosing a common unit<a class="headerlink" href="#Choosing-a-common-unit" title="Link to this heading">#</a></h2>
+<p>With a global unit of GHz, omitted Frequency input units are interpreted as GHz. An explicit input unit still determines the meaning of the input values, but the resulting object uses GHz for its representation.</p>
+<p>All three constructions below describe the same 1-2 GHz band. For each object, <code class="docutils literal notranslate"><span class="pre">f</span></code> is <code class="docutils literal notranslate"><span class="pre">[1e9,</span> <span class="pre">2e9]</span></code>, <code class="docutils literal notranslate"><span class="pre">unit</span></code> is <code class="docutils literal notranslate"><span class="pre">"GHz"</span></code>, and <code class="docutils literal notranslate"><span class="pre">f_scaled</span></code> is <code class="docutils literal notranslate"><span class="pre">[1,</span> <span class="pre">2]</span></code>.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[3]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">rf</span><span class="o">.</span><span class="n">constants</span><span class="o">.</span><span class="n">FREQ_UNIT_DEFAULT</span> <span class="o">=</span> <span class="s2">"GHz"</span>
+</span><span data-line="2">
+</span><span data-line="3"><a class="sphinx-codeautolink-a" href="../api/generated/skrf.frequency.Frequency.html#skrf.frequency.Frequency" title="skrf.frequency.Frequency"><span class="n">implicit</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../api/generated/skrf.frequency.Frequency.html#skrf.frequency.Frequency" title="skrf.frequency.Frequency"><span class="n">rf</span><span class="o">.</span><span class="n">Frequency</span></a><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+</span><span data-line="4"><a class="sphinx-codeautolink-a" href="../api/generated/skrf.frequency.Frequency.html#skrf.frequency.Frequency" title="skrf.frequency.Frequency"><span class="n">explicit</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../api/generated/skrf.frequency.Frequency.html#skrf.frequency.Frequency" title="skrf.frequency.Frequency"><span class="n">rf</span><span class="o">.</span><span class="n">Frequency</span></a><span class="p">(</span><span class="mi">1000</span><span class="p">,</span> <span class="mi">2000</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s2">"MHz"</span><span class="p">)</span>
+</span><span data-line="5"><a class="sphinx-codeautolink-a" href="../api/generated/skrf.frequency.Frequency.html#skrf.frequency.Frequency" title="skrf.frequency.Frequency"><span class="n">from_values</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../api/generated/skrf.frequency.Frequency.from_f.html#skrf.frequency.Frequency.from_f" title="skrf.frequency.Frequency.from_f"><span class="n">rf</span><span class="o">.</span><span class="n">Frequency</span><span class="o">.</span><span class="n">from_f</span></a><span class="p">([</span><span class="mi">1000</span><span class="p">,</span> <span class="mi">2000</span><span class="p">],</span> <span class="n">unit</span><span class="o">=</span><span class="s2">"MHz"</span><span class="p">)</span>
+</span><span data-line="6">
+</span><span data-line="7"><span class="k">for</span> <span class="n">frequency</span> <span class="ow">in</span> <span class="p">(</span><a class="sphinx-codeautolink-a" href="../api/generated/skrf.frequency.Frequency.html#skrf.frequency.Frequency" title="skrf.frequency.Frequency"><span class="n">implicit</span></a><span class="p">,</span> <a class="sphinx-codeautolink-a" href="../api/generated/skrf.frequency.Frequency.html#skrf.frequency.Frequency" title="skrf.frequency.Frequency"><span class="n">explicit</span></a><span class="p">,</span> <a class="sphinx-codeautolink-a" href="../api/generated/skrf.frequency.Frequency.html#skrf.frequency.Frequency" title="skrf.frequency.Frequency"><span class="n">from_values</span></a><span class="p">):</span>
+</span><span data-line="8">    <a class="sphinx-codeautolink-a" href="https://docs.python.org/3/builtins/functions.html#print"><span class="nb">print</span></a><span class="p">(</span><span class="n">frequency</span><span class="o">.</span><span class="n">f</span><span class="p">,</span> <span class="s2">"Hz -&gt;"</span><span class="p">,</span> <span class="n">frequency</span><span class="o">.</span><span class="n">f_scaled</span><span class="p">,</span> <span class="n">frequency</span><span class="o">.</span><span class="n">unit</span><span class="p">)</span>
+</span><span data-line="9">    <span class="k">assert</span> <span class="n">frequency</span><span class="o">.</span><span class="n">unit</span> <span class="o">==</span> <span class="s2">"GHz"</span>
+</span><span data-line="10">    <a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/generated/numpy.testing.assert_allclose.html#numpy.testing.assert_allclose" title="numpy.testing.assert_allclose"><span class="n">np</span><span class="o">.</span><span class="n">testing</span><span class="o">.</span><span class="n">assert_allclose</span></a><span class="p">(</span><span class="n">frequency</span><span class="o">.</span><span class="n">f</span><span class="p">,</span> <span class="p">[</span><span class="mf">1e9</span><span class="p">,</span> <span class="mf">2e9</span><span class="p">])</span>
+</span><span data-line="11">    <a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/generated/numpy.testing.assert_allclose.html#numpy.testing.assert_allclose" title="numpy.testing.assert_allclose"><span class="n">np</span><span class="o">.</span><span class="n">testing</span><span class="o">.</span><span class="n">assert_allclose</span></a><span class="p">(</span><span class="n">frequency</span><span class="o">.</span><span class="n">f_scaled</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[1.e+09 2.e+09] Hz -&gt; [1. 2.] GHz
+[1.e+09 2.e+09] Hz -&gt; [1. 2.] GHz
+[1.e+09 2.e+09] Hz -&gt; [1. 2.] GHz
+</pre></div></div>
+</div>
+</section>
+<section id="Reading-Touchstone-data">
+<h2>Reading Touchstone data<a class="headerlink" href="#Reading-Touchstone-data" title="Link to this heading">#</a></h2>
+<p>A Touchstone header defines the unit of the file’s frequency values. scikit-rf uses that unit to read the data. An explicit <code class="docutils literal notranslate"><span class="pre">f_unit</span></code> chooses the resulting network’s display unit, overriding the global default. If <code class="docutils literal notranslate"><span class="pre">f_unit</span></code> is omitted, the global default applies; when it is <code class="docutils literal notranslate"><span class="pre">None</span></code>, the file unit is retained. The absolute frequencies, scattering parameters and impedances are unchanged. For files containing noise data, the noise frequency axis uses the same selected display unit.</p>
+<p>This small Touchstone example contains two frequencies, 1000 and 2000 MHz. We use an in-memory file so the notebook needs no downloads or data files. For a file on disk, use <code class="docutils literal notranslate"><span class="pre">rf.Network("example.s1p")</span></code> in the same way.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[4]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">touchstone_data</span> <span class="o">=</span> <span class="s2">"# MHz S RI R 50</span><span class="se">\n</span><span class="s2">1000 0.1 0</span><span class="se">\n</span><span class="s2">2000 0.2 0</span><span class="se">\n</span><span class="s2">"</span>
+</span><span data-line="2">
+</span><span data-line="3"><span class="k">with</span> <span class="n">StringIO</span><span class="p">(</span><span class="n">touchstone_data</span><span class="p">)</span> <span class="k">as</span> <span class="n">stream</span><span class="p">:</span>
+</span><span data-line="4">    <span class="n">stream</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s2">"example.s1p"</span>
+</span><span data-line="5">    <span class="n">rf</span><span class="o">.</span><span class="n">constants</span><span class="o">.</span><span class="n">FREQ_UNIT_DEFAULT</span> <span class="o">=</span> <span class="kc">None</span>
+</span><span data-line="6">    <a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">file_units</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">rf</span><span class="o">.</span><span class="n">Network</span></a><span class="p">(</span><span class="n">stream</span><span class="p">)</span>
+</span><span data-line="7">
+</span><span data-line="8"><span class="k">with</span> <span class="n">StringIO</span><span class="p">(</span><span class="n">touchstone_data</span><span class="p">)</span> <span class="k">as</span> <span class="n">stream</span><span class="p">:</span>
+</span><span data-line="9">    <span class="n">stream</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s2">"example.s1p"</span>
+</span><span data-line="10">    <span class="n">rf</span><span class="o">.</span><span class="n">constants</span><span class="o">.</span><span class="n">FREQ_UNIT_DEFAULT</span> <span class="o">=</span> <span class="s2">"GHz"</span>
+</span><span data-line="11">    <a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">configured</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">rf</span><span class="o">.</span><span class="n">Network</span></a><span class="p">(</span><span class="n">stream</span><span class="p">)</span>
+</span><span data-line="12">
+</span><span data-line="13"><span class="k">with</span> <span class="n">StringIO</span><span class="p">(</span><span class="n">touchstone_data</span><span class="p">)</span> <span class="k">as</span> <span class="n">stream</span><span class="p">:</span>
+</span><span data-line="14">    <span class="n">stream</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s2">"example.s1p"</span>
+</span><span data-line="15">    <a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">overridden</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">rf</span><span class="o">.</span><span class="n">Network</span></a><span class="p">(</span><span class="n">stream</span><span class="p">,</span> <span class="n">f_unit</span><span class="o">=</span><span class="s2">"Hz"</span><span class="p">)</span>
+</span><span data-line="16">
+</span><span data-line="17"><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/builtins/functions.html#print"><span class="nb">print</span></a><span class="p">(</span><span class="s2">"File units:"</span><span class="p">,</span> <span class="n">file_units</span><span class="o">.</span><span class="n">frequency</span><span class="o">.</span><span class="n">f_scaled</span><span class="p">,</span> <span class="n">file_units</span><span class="o">.</span><span class="n">frequency</span><span class="o">.</span><span class="n">unit</span><span class="p">)</span>
+</span><span data-line="18"><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/builtins/functions.html#print"><span class="nb">print</span></a><span class="p">(</span><span class="s2">"Configured units:"</span><span class="p">,</span> <span class="n">configured</span><span class="o">.</span><span class="n">frequency</span><span class="o">.</span><span class="n">f_scaled</span><span class="p">,</span> <span class="n">configured</span><span class="o">.</span><span class="n">frequency</span><span class="o">.</span><span class="n">unit</span><span class="p">)</span>
+</span><span data-line="19"><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/builtins/functions.html#print"><span class="nb">print</span></a><span class="p">(</span><span class="s2">"Explicit override:"</span><span class="p">,</span> <span class="n">overridden</span><span class="o">.</span><span class="n">frequency</span><span class="o">.</span><span class="n">f_scaled</span><span class="p">,</span> <span class="n">overridden</span><span class="o">.</span><span class="n">frequency</span><span class="o">.</span><span class="n">unit</span><span class="p">)</span>
+</span><span data-line="20"><span class="k">assert</span> <span class="n">file_units</span><span class="o">.</span><span class="n">frequency</span><span class="o">.</span><span class="n">unit</span> <span class="o">==</span> <span class="s2">"MHz"</span>
+</span><span data-line="21"><span class="k">assert</span> <span class="n">configured</span><span class="o">.</span><span class="n">frequency</span><span class="o">.</span><span class="n">unit</span> <span class="o">==</span> <span class="s2">"GHz"</span>
+</span><span data-line="22"><span class="k">assert</span> <span class="n">overridden</span><span class="o">.</span><span class="n">frequency</span><span class="o">.</span><span class="n">unit</span> <span class="o">==</span> <span class="s2">"Hz"</span>
+</span><span data-line="23"><a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/generated/numpy.testing.assert_allclose.html#numpy.testing.assert_allclose" title="numpy.testing.assert_allclose"><span class="n">np</span><span class="o">.</span><span class="n">testing</span><span class="o">.</span><span class="n">assert_allclose</span></a><span class="p">(</span><span class="n">configured</span><span class="o">.</span><span class="n">frequency</span><span class="o">.</span><span class="n">f_scaled</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
+</span><span data-line="24"><a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/generated/numpy.testing.assert_allclose.html#numpy.testing.assert_allclose" title="numpy.testing.assert_allclose"><span class="n">np</span><span class="o">.</span><span class="n">testing</span><span class="o">.</span><span class="n">assert_allclose</span></a><span class="p">(</span><span class="n">overridden</span><span class="o">.</span><span class="n">frequency</span><span class="o">.</span><span class="n">f_scaled</span><span class="p">,</span> <span class="p">[</span><span class="mf">1e9</span><span class="p">,</span> <span class="mf">2e9</span><span class="p">])</span>
+</span><span data-line="25"><span class="k">for</span> <span class="n">network</span> <span class="ow">in</span> <span class="p">(</span><a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">configured</span></a><span class="p">,</span> <a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">overridden</span></a><span class="p">):</span>
+</span><span data-line="26">    <a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/generated/numpy.testing.assert_allclose.html#numpy.testing.assert_allclose" title="numpy.testing.assert_allclose"><span class="n">np</span><span class="o">.</span><span class="n">testing</span><span class="o">.</span><span class="n">assert_allclose</span></a><span class="p">(</span><span class="n">network</span><span class="o">.</span><span class="n">f</span><span class="p">,</span> <span class="p">[</span><span class="mf">1e9</span><span class="p">,</span> <span class="mf">2e9</span><span class="p">])</span>
+</span><span data-line="27">    <a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/generated/numpy.testing.assert_array_equal.html#numpy.testing.assert_array_equal" title="numpy.testing.assert_array_equal"><span class="n">np</span><span class="o">.</span><span class="n">testing</span><span class="o">.</span><span class="n">assert_array_equal</span></a><span class="p">(</span><span class="n">network</span><span class="o">.</span><span class="n">f</span><span class="p">,</span> <a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.Network.f.html#skrf.network.Network.f" title="skrf.network.Network.f"><span class="n">file_units</span><span class="o">.</span><span class="n">f</span></a><span class="p">)</span>
+</span><span data-line="28">    <a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/generated/numpy.testing.assert_array_equal.html#numpy.testing.assert_array_equal" title="numpy.testing.assert_array_equal"><span class="n">np</span><span class="o">.</span><span class="n">testing</span><span class="o">.</span><span class="n">assert_array_equal</span></a><span class="p">(</span><span class="n">network</span><span class="o">.</span><span class="n">s</span><span class="p">,</span> <a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.Network.s.html#skrf.network.Network.s" title="skrf.network.Network.s"><span class="n">file_units</span><span class="o">.</span><span class="n">s</span></a><span class="p">)</span>
+</span><span data-line="29">    <a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/generated/numpy.testing.assert_array_equal.html#numpy.testing.assert_array_equal" title="numpy.testing.assert_array_equal"><span class="n">np</span><span class="o">.</span><span class="n">testing</span><span class="o">.</span><span class="n">assert_array_equal</span></a><span class="p">(</span><span class="n">network</span><span class="o">.</span><span class="n">z0</span><span class="p">,</span> <a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.Network.z0.html#skrf.network.Network.z0" title="skrf.network.Network.z0"><span class="n">file_units</span><span class="o">.</span><span class="n">z0</span></a><span class="p">)</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+File units: [1000. 2000.] MHz
+Configured units: [1. 2.] GHz
+Explicit override: [1.e+09 2.e+09] Hz
+</pre></div></div>
+</div>
+</section>
+<section id="Supplying-raw-frequencies-to-a-Network">
+<h2>Supplying raw frequencies to a Network<a class="headerlink" href="#Supplying-raw-frequencies-to-a-Network" title="Link to this heading">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">Network(f=...)</span></code> keeps its existing input convention: raw numbers are in Hz unless <code class="docutils literal notranslate"><span class="pre">f_unit</span></code> specifies another input unit. This differs from omitting <code class="docutils literal notranslate"><span class="pre">unit</span></code> in a Frequency constructor, which uses the configured unit for input. An explicit <code class="docutils literal notranslate"><span class="pre">f_unit</span></code> also sets the resulting Network’s display unit. When it is omitted, the display unit follows the global setting, or Hz if it is <code class="docutils literal notranslate"><span class="pre">None</span></code>.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[5]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">raw_hz</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">rf</span><span class="o">.</span><span class="n">Network</span></a><span class="p">(</span><span class="n">f</span><span class="o">=</span><span class="p">[</span><span class="mf">1e9</span><span class="p">,</span> <span class="mf">2e9</span><span class="p">],</span> <span class="n">s</span><span class="o">=</span><span class="p">[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">])</span>
+</span><span data-line="2"><a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">raw_mhz</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">rf</span><span class="o">.</span><span class="n">Network</span></a><span class="p">(</span><span class="n">f</span><span class="o">=</span><span class="p">[</span><span class="mi">1000</span><span class="p">,</span> <span class="mi">2000</span><span class="p">],</span> <span class="n">f_unit</span><span class="o">=</span><span class="s2">"MHz"</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="p">[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">])</span>
+</span><span data-line="3">
+</span><span data-line="4"><span class="k">assert</span> <span class="n">raw_hz</span><span class="o">.</span><span class="n">frequency</span><span class="o">.</span><span class="n">unit</span> <span class="o">==</span> <span class="s2">"GHz"</span>
+</span><span data-line="5"><span class="k">assert</span> <span class="n">raw_mhz</span><span class="o">.</span><span class="n">frequency</span><span class="o">.</span><span class="n">unit</span> <span class="o">==</span> <span class="s2">"MHz"</span>
+</span><span data-line="6"><a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/generated/numpy.testing.assert_allclose.html#numpy.testing.assert_allclose" title="numpy.testing.assert_allclose"><span class="n">np</span><span class="o">.</span><span class="n">testing</span><span class="o">.</span><span class="n">assert_allclose</span></a><span class="p">(</span><span class="n">raw_hz</span><span class="o">.</span><span class="n">frequency</span><span class="o">.</span><span class="n">f_scaled</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
+</span><span data-line="7"><a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/generated/numpy.testing.assert_allclose.html#numpy.testing.assert_allclose" title="numpy.testing.assert_allclose"><span class="n">np</span><span class="o">.</span><span class="n">testing</span><span class="o">.</span><span class="n">assert_allclose</span></a><span class="p">(</span><span class="n">raw_mhz</span><span class="o">.</span><span class="n">frequency</span><span class="o">.</span><span class="n">f_scaled</span><span class="p">,</span> <span class="p">[</span><span class="mi">1000</span><span class="p">,</span> <span class="mi">2000</span><span class="p">])</span>
+</span><span data-line="8"><span class="k">for</span> <span class="n">network</span> <span class="ow">in</span> <span class="p">(</span><a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">raw_hz</span></a><span class="p">,</span> <a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">raw_mhz</span></a><span class="p">):</span>
+</span><span data-line="9">    <a class="sphinx-codeautolink-a" href="https://docs.python.org/3/builtins/functions.html#print"><span class="nb">print</span></a><span class="p">(</span><span class="n">network</span><span class="o">.</span><span class="n">frequency</span><span class="o">.</span><span class="n">f_scaled</span><span class="p">,</span> <span class="n">network</span><span class="o">.</span><span class="n">frequency</span><span class="o">.</span><span class="n">unit</span><span class="p">)</span>
+</span><span data-line="10">    <a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/generated/numpy.testing.assert_allclose.html#numpy.testing.assert_allclose" title="numpy.testing.assert_allclose"><span class="n">np</span><span class="o">.</span><span class="n">testing</span><span class="o">.</span><span class="n">assert_allclose</span></a><span class="p">(</span><span class="n">network</span><span class="o">.</span><span class="n">f</span><span class="p">,</span> <span class="p">[</span><span class="mf">1e9</span><span class="p">,</span> <span class="mf">2e9</span><span class="p">])</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[1. 2.] GHz
+[1000. 2000.] MHz
+</pre></div></div>
+</div>
+</section>
+<section id="Existing-objects-and-copies">
+<h2>Existing objects and copies<a class="headerlink" href="#Existing-objects-and-copies" title="Link to this heading">#</a></h2>
+<p>Changing the global setting does not change existing objects. The <code class="docutils literal notranslate"><span class="pre">original</span></code> frequency created earlier still uses MHz, and its copies and slices retain that unit. You can explicitly assign <code class="docutils literal notranslate"><span class="pre">.unit</span></code> to change an individual object’s representation without changing its absolute frequencies.</p>
+<p>Constructing a new Network from an existing Frequency applies an explicit <code class="docutils literal notranslate"><span class="pre">f_unit</span></code> to the network’s copy. When <code class="docutils literal notranslate"><span class="pre">f_unit</span></code> is omitted, the global setting applies, or the source unit is retained if the setting is <code class="docutils literal notranslate"><span class="pre">None</span></code>. The source object is unchanged.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[6]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><a class="sphinx-codeautolink-a" href="../api/generated/skrf.frequency.Frequency.html#skrf.frequency.Frequency" title="skrf.frequency.Frequency"><span class="n">copied</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../api/generated/skrf.frequency.Frequency.copy.html#skrf.frequency.Frequency.copy" title="skrf.frequency.Frequency.copy"><span class="n">original</span><span class="o">.</span><span class="n">copy</span></a><span class="p">()</span>
+</span><span data-line="2"><span class="n">sliced</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../api/generated/skrf.frequency.Frequency.html#skrf.frequency.Frequency" title="skrf.frequency.Frequency"><span class="n">original</span></a><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+</span><span data-line="3"><a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">network</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">rf</span><span class="o">.</span><span class="n">Network</span></a><span class="p">(</span><span class="n">frequency</span><span class="o">=</span><a class="sphinx-codeautolink-a" href="../api/generated/skrf.frequency.Frequency.html#skrf.frequency.Frequency" title="skrf.frequency.Frequency"><span class="n">original</span></a><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="p">[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">])</span>
+</span><span data-line="4">
+</span><span data-line="5"><span class="k">assert</span> <a class="sphinx-codeautolink-a" href="../api/generated/skrf.frequency.Frequency.unit.html#skrf.frequency.Frequency.unit" title="skrf.frequency.Frequency.unit"><span class="n">original</span><span class="o">.</span><span class="n">unit</span></a> <span class="o">==</span> <a class="sphinx-codeautolink-a" href="../api/generated/skrf.frequency.Frequency.unit.html#skrf.frequency.Frequency.unit" title="skrf.frequency.Frequency.unit"><span class="n">copied</span><span class="o">.</span><span class="n">unit</span></a> <span class="o">==</span> <span class="n">sliced</span><span class="o">.</span><span class="n">unit</span> <span class="o">==</span> <span class="s2">"MHz"</span>
+</span><span data-line="6"><span class="k">assert</span> <span class="n">network</span><span class="o">.</span><span class="n">frequency</span><span class="o">.</span><span class="n">unit</span> <span class="o">==</span> <span class="s2">"GHz"</span>
+</span><span data-line="7"><a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/generated/numpy.testing.assert_array_equal.html#numpy.testing.assert_array_equal" title="numpy.testing.assert_array_equal"><span class="n">np</span><span class="o">.</span><span class="n">testing</span><span class="o">.</span><span class="n">assert_array_equal</span></a><span class="p">(</span><a class="sphinx-codeautolink-a" href="../api/generated/skrf.network.Network.f.html#skrf.network.Network.f" title="skrf.network.Network.f"><span class="n">network</span><span class="o">.</span><span class="n">f</span></a><span class="p">,</span> <a class="sphinx-codeautolink-a" href="../api/generated/skrf.frequency.Frequency.f.html#skrf.frequency.Frequency.f" title="skrf.frequency.Frequency.f"><span class="n">original</span><span class="o">.</span><span class="n">f</span></a><span class="p">)</span>
+</span><span data-line="8">
+</span><span data-line="9"><a class="sphinx-codeautolink-a" href="../api/generated/skrf.frequency.Frequency.unit.html#skrf.frequency.Frequency.unit" title="skrf.frequency.Frequency.unit"><span class="n">copied</span><span class="o">.</span><span class="n">unit</span></a> <span class="o">=</span> <span class="s2">"kHz"</span>
+</span><span data-line="10"><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/builtins/functions.html#print"><span class="nb">print</span></a><span class="p">(</span><span class="s2">"Original:"</span><span class="p">,</span> <a class="sphinx-codeautolink-a" href="../api/generated/skrf.frequency.Frequency.f_scaled.html#skrf.frequency.Frequency.f_scaled" title="skrf.frequency.Frequency.f_scaled"><span class="n">original</span><span class="o">.</span><span class="n">f_scaled</span></a><span class="p">,</span> <a class="sphinx-codeautolink-a" href="../api/generated/skrf.frequency.Frequency.unit.html#skrf.frequency.Frequency.unit" title="skrf.frequency.Frequency.unit"><span class="n">original</span><span class="o">.</span><span class="n">unit</span></a><span class="p">)</span>
+</span><span data-line="11"><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/builtins/functions.html#print"><span class="nb">print</span></a><span class="p">(</span><span class="s2">"Modified copy:"</span><span class="p">,</span> <a class="sphinx-codeautolink-a" href="../api/generated/skrf.frequency.Frequency.f_scaled.html#skrf.frequency.Frequency.f_scaled" title="skrf.frequency.Frequency.f_scaled"><span class="n">copied</span><span class="o">.</span><span class="n">f_scaled</span></a><span class="p">,</span> <a class="sphinx-codeautolink-a" href="../api/generated/skrf.frequency.Frequency.unit.html#skrf.frequency.Frequency.unit" title="skrf.frequency.Frequency.unit"><span class="n">copied</span><span class="o">.</span><span class="n">unit</span></a><span class="p">)</span>
+</span><span data-line="12"><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/builtins/functions.html#print"><span class="nb">print</span></a><span class="p">(</span><span class="s2">"New network:"</span><span class="p">,</span> <span class="n">network</span><span class="o">.</span><span class="n">frequency</span><span class="o">.</span><span class="n">f_scaled</span><span class="p">,</span> <span class="n">network</span><span class="o">.</span><span class="n">frequency</span><span class="o">.</span><span class="n">unit</span><span class="p">)</span>
+</span><span data-line="13"><span class="k">assert</span> <a class="sphinx-codeautolink-a" href="../api/generated/skrf.frequency.Frequency.unit.html#skrf.frequency.Frequency.unit" title="skrf.frequency.Frequency.unit"><span class="n">original</span><span class="o">.</span><span class="n">unit</span></a> <span class="o">==</span> <span class="s2">"MHz"</span>
+</span><span data-line="14"><a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/generated/numpy.testing.assert_array_equal.html#numpy.testing.assert_array_equal" title="numpy.testing.assert_array_equal"><span class="n">np</span><span class="o">.</span><span class="n">testing</span><span class="o">.</span><span class="n">assert_array_equal</span></a><span class="p">(</span><a class="sphinx-codeautolink-a" href="../api/generated/skrf.frequency.Frequency.f.html#skrf.frequency.Frequency.f" title="skrf.frequency.Frequency.f"><span class="n">copied</span><span class="o">.</span><span class="n">f</span></a><span class="p">,</span> <a class="sphinx-codeautolink-a" href="../api/generated/skrf.frequency.Frequency.f.html#skrf.frequency.Frequency.f" title="skrf.frequency.Frequency.f"><span class="n">original</span><span class="o">.</span><span class="n">f</span></a><span class="p">)</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Original: [1000. 2000.] MHz
+Modified copy: [1000000. 2000000.] kHz
+New network: [1. 2.] GHz
+</pre></div></div>
+</div>
+</section>
+<section id="Restoring-the-previous-setting">
+<h2>Restoring the previous setting<a class="headerlink" href="#Restoring-the-previous-setting" title="Link to this heading">#</a></h2>
+<p>Restore the setting saved at the start so that later work in this kernel uses the same configuration as before the tutorial. The objects already created above keep their units.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[7]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">rf</span><span class="o">.</span><span class="n">constants</span><span class="o">.</span><span class="n">FREQ_UNIT_DEFAULT</span> <span class="o">=</span> <span class="n">original_unit</span>
+</span></pre></div>
+</div>
+</div>
+</section>
+</section>
+
+        </article><button class="back-to-top" type="button">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+  </svg>
+  <span>Back to top</span>
+</button><div class="navigation flex print:hidden"><div class="navigation-prev">
+    <a href="index.html">
+      <i class="i-lucide chevron-left"></i>
+      <div class="page-info">
+        <span>Previous</span><div class="title">Tutorials</div></div>
+    </a>
+  </div><div class="navigation-next">
+    <a href="Networks.html">
+      <div class="page-info">
+        <span>Next</span>
+        <div class="title">Networks</div>
+      </div>
+      <i class="i-lucide chevron-right"></i>
+    </a>
+  </div></div></div>
+    </div>
+  </main>
+</div>
+<footer class="sy-foot">
+  <div class="sy-foot-inner sy-container mx-auto">
+    <div class="sy-foot-reserved md:flex justify-between items-center">
+      <div class="sy-foot-copyright"><p>2025, scikit-rf team</p>
+  
+  <p>
+    Made with
+    
+    <a href="https://www.sphinx-doc.org/">Sphinx</a> and
+    
+    <a href="https://shibuya.lepture.com">Shibuya theme</a>.
+  </p>
+</div>
+      <div class="sy-foot-socials">
+  <a href="https://github.com/scikit-rf/scikit-rf" aria-label="GitHub">
+    <iconify-icon icon="simple-icons:github"></iconify-icon>
+  </a></div>
+    </div>
+  </div>
+</footer>
+      <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../_static/copybutton.js?v=34bd459d"></script>
+      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+      <script src="../_static/shibuya.js?v=50760d75"></script>
+      <script src="https://cdn.jsdelivr.net/npm/@jupyter-widgets/html-manager@^1.0.1/dist/embed-amd.js"></script>
+      <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
+      <script src="../_static/skrf.js?v=bdeb9fb0"></script></body>
+</html>

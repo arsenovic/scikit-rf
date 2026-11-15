@@ -1,0 +1,6 @@
+﻿skrf.time.get\_window
+=====================
+
+.. currentmodule:: skrf.time
+
+.. autofunction:: get_window

@@ -1,0 +1,1282 @@
+{
+ "cells": [
+  {
+   "cell_type": "raw",
+   "metadata": {
+    "raw_mimetype": "text/restructuredtext"
+   },
+   "source": [
+    ".. _networks::"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "# Networks"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Introduction "
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "This tutorial gives an overview of the microwave network analysis \n",
+    "features of **skrf**.  For this tutorial, and the rest of the scikit-rf documentation, it is  assumed that **skrf** has been imported as `rf`. Whether or not you follow this convention in your own code is up to you."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "import numpy as np\n",
+    "\n",
+    "import skrf as rf"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "If this produces an import error, please see [Installation ](Installation.ipynb)."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Creating Networks\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "**skrf** provides an object for a N-port microwave [Network](../api/network.rst). A [Network](../api/network.rst) can be created in a number of ways:\n",
+    " - from a Touchstone file\n",
+    " - from S-parameters\n",
+    " - from Z-parameters\n",
+    " - from other RF parameters (Y, ABCD, T, etc.) \n",
+    " \n",
+    "Some examples for each situation is given below."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Creating Network from Touchstone file\n",
+    "[Touchstone file](https://en.wikipedia.org/wiki/Touchstone_file) (`.sNp` files, with `N` being the number of ports) is a _de facto_ standard to export N-port network parameter data and noise data of linear active devices, passive filters, passive devices, or interconnect networks. Creating a Network from a Touchstone file is simple:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "from skrf import Frequency, Network\n",
+    "\n",
+    "ring_slot = Network('data/ring slot.s2p')"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Note that some software, such as ANSYS HFSS, add additional information to the Touchstone standard, such as comments, simulation parameters, Port Impedance or Gamma (wavenumber). These data are also imported if detected. "
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "\t\n",
+    "A short description of the network will be printed out if entered onto the command line\n",
+    "\t"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "ring_slot"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Creating Network from s-parameters\n",
+    "Networks can also be created by directly passing values for the `frequency`, `s`-parameters  (and optionally the port impedance `z0`). \n",
+    "\n",
+    "The scattering matrix of a N-port Network is expected to be a Numpy array of shape `(nb_f, N, N)`, where `nb_f` is the number of frequency points and `N` the number of ports of the network.\n",
+    "\n",
+    "<img src=\"figures/arrays_s_vs_f.svg\" width=\"300\">"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# dummy 2-port network from Frequency and s-parameters\n",
+    "freq = Frequency(1, 10, 101, 'ghz')\n",
+    "rng = np.random.default_rng()\n",
+    "s = rng.uniform(size=(101, 2, 2)) + 1j*rng.uniform(size=(101, 2, 2))  # random complex numbers\n",
+    "# if not passed, will assume z0=50. name is optional but it's a good practice.\n",
+    "ntwk = Network(frequency=freq, s=s, name='random values 2-port')\n",
+    "ntwk"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "ntwk.plot_s_db()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Often, s-parameters are stored in separate arrays. In such case, one needs to forge the s-matrix:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# let's assume we have separate arrays for the frequency and s-parameters\n",
+    "f = np.array([1, 2, 3, 4]) # in GHz\n",
+    "S11 = rng.uniform(size=4)\n",
+    "S12 = rng.uniform(size=4)\n",
+    "S21 = rng.uniform(size=4)\n",
+    "S22 = rng.uniform(size=4)\n",
+    "\n",
+    "# Before creating the scikit-rf Network object, one must forge the Frequency and S-matrix:\n",
+    "freq2 = rf.Frequency.from_f(f, unit='GHz')\n",
+    "\n",
+    "# forging S-matrix as shape (nb_f, 2, 2)\n",
+    "# there is probably smarter way, but less explicit for the purpose of this example:\n",
+    "s = np.zeros((len(f), 2, 2), dtype=complex)\n",
+    "s[:,0,0] = S11\n",
+    "s[:,0,1] = S12\n",
+    "s[:,1,0] = S21\n",
+    "s[:,1,1] = S22\n",
+    "\n",
+    "# constructing Network object\n",
+    "ntw = rf.Network(frequency=freq2, s=s)\n",
+    "\n",
+    "print(ntw)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "If necessary, the characteristic impedance can be passed as a scalar (same for all frequencies), as a list or an array:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "ntw2 = rf.Network(frequency=freq, s=s, z0=25, name='same z0 for all ports')\n",
+    "print(ntw2)\n",
+    "ntw3 = rf.Network(frequency=freq, s=s, z0=[20, 30], name='different z0 for each port')\n",
+    "print(ntw3)\n",
+    "ntw4 = rf.Network(frequency=freq, s=s, z0=rng.uniform(size=(4,2)), name='different z0 for each frequencies and ports')\n",
+    "print(ntw4)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### From z-parameters "
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "As networks are also defined from their Z-parameters, there is `from_z()` method of the Network:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# 1-port network example\n",
+    "z = np.full((len(freq), 1, 1), 10j)  # replicate z=10j for all frequencies\n",
+    "\n",
+    "ntw = rf.Network(frequency=freq, z=z)\n",
+    "print(ntw)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### From other network parameters: Y, ABCD, H, T\n",
+    "It is also possible to generate Networks from other kind of RF parameters: [Y](https://en.wikipedia.org/wiki/Two-port_network#Admittance_parameters_(y-parameters)), [ABCD](https://en.wikipedia.org/wiki/Two-port_network#ABCD-parameters), [H](https://en.wikipedia.org/wiki/Two-port_network#Hybrid_parameters_(h-parameters)) or [T](https://en.wikipedia.org/wiki/Two-port_network#Scattering_transfer_parameters_(T-parameters)) using the `y=`, `a=`, `h=` or `t=` parameters respectively when creating a `Network`.\n",
+    "\n",
+    "For example, the [ABCD parameters](https://en.wikipedia.org/wiki/Two-port_network#ABCD-parameters) of a series-impedance is:\n",
+    "$$\n",
+    "\\left[\n",
+    "\\begin{array}{cc}\n",
+    "1 & Z \\\\\n",
+    "0 & 1\n",
+    "\\end{array}\n",
+    "\\right]\n",
+    "$$\n",
+    "so the associated Network can be created like:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "z = 20\n",
+    "abcd = np.array([[1, z],\n",
+    "              [0, 1]])\n",
+    "\n",
+    "a = np.tile(abcd, (len(freq),1,1))\n",
+    "ntw = Network(frequency=freq, a=a)\n",
+    "print(ntw)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Note that convenience functions are also available for converting some parameters into another if required:\n",
+    "\n",
+    "| from\\to |   S   |   Z   |   Y   |  ABCD |   T   |   H   |\n",
+    "|:-------:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|\n",
+    "|    S    |       | `s2z` | `s2y` | `s2a` | `s2t` | `s2h` |\n",
+    "|    Z    | `z2s` |       | `z2y` | `z2a` | `z2t` | `z2h` |\n",
+    "|    Y    | `y2s` | `y2z` |       |       | `y2t` |       |\n",
+    "|   ABCD  | `a2s` | `a2z` |       |       |       |       |\n",
+    "|    T    | `t2s` | `t2z` | `t2y` |       |       |       |\n",
+    "|    H    | `h2s` | `h2z` |       |       |       |       |\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# example: converting a -> s\n",
+    "s = rf.network.a2s(a)\n",
+    "# checking that these S-params are the same\n",
+    "np.all(ntw.s == s)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Basic Properties\n",
+    "\t\n",
+    "The basic attributes of a microwave [Network](../api/network.rst) are provided by the following properties :\n",
+    "\n",
+    "* `Network.s` : Scattering Parameter matrix. \n",
+    "* `Network.z0`  : Port Characteristic Impedance matrix.\n",
+    "* `Network.frequency`  : Frequency Object.\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "The [Network](../api/network.rst) object has numerous other properties and methods. If you are using IPython, then these properties and methods can be 'tabbed' out on the command line. "
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "\n",
+    "\tIn [1]: ring_slot.s<TAB>\n",
+    "\tring_slot.line.s              ring_slot.s_arcl         ring_slot.s_im\n",
+    "\tring_slot.line.s11            ring_slot.s_arcl_unwrap  ring_slot.s_mag\n",
+    "\t..."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "All of the network parameters are represented internally as complex `numpy.ndarray`. The s-parameters are of shape `(nfreq, nport, nport)`:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "np.shape(ring_slot.s)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Slicing"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "You can  slice the `Network.s` attribute any way you want."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "ring_slot.s[:11,1,0]  # get first 10 values of S21"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Slicing by frequency can also be done directly on Network objects like so "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "ring_slot[0:10] #  Network for the first 10 frequency points"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "or  with a human friendly string,"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "ring_slot['80-90ghz']"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Notice that slicing directly on a Network **returns a Network**.  So, a nice way to express slicing in both dimensions is "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "ring_slot.s11['80-90ghz']"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Plotting "
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Amongst other things, the methods of the [Network](../api/network.rst) class provide convenient ways to plot components of the network parameters, \n",
+    "\n",
+    "* `Network.plot_s_db` : plot magnitude of s-parameters in log scale\n",
+    "* `Network.plot_s_deg` : plot phase of s-parameters in degrees\n",
+    "* `Network.plot_s_smith` : plot complex s-parameters on Smith Chart\n",
+    "* ...\n",
+    "\n",
+    "If you would like to use skrf's plot styling,"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "%matplotlib inline\n",
+    "rf.stylely()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "\t\n",
+    "To plot all four s-parameters of the `ring_slot` on the Smith Chart."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "ring_slot.plot_s_smith()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Combining this with the slicing features, "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "from matplotlib import pyplot as plt\n",
+    "\n",
+    "plt.title('Ring Slot $S_{21}$')\n",
+    "\n",
+    "ring_slot.s11.plot_s_db(label='Full Band Response')\n",
+    "ring_slot.s11['82-90ghz'].plot_s_db(lw=3,label='Band of Interest')"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "For more detailed information about plotting see [Plotting](Plotting.ipynb).   "
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Arithmetic Operations \n",
+    "\t\n",
+    "Element-wise mathematical operations on the scattering parameter matrices are accessible through overloaded operators. To illustrate their usage, load a couple  Networks stored in the `data` module. "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "from skrf.data import wr2p2_delayshort as delayshort\n",
+    "from skrf.data import wr2p2_short as short\n",
+    "\n",
+    "short - delayshort\n",
+    "short + delayshort\n",
+    "short * delayshort\n",
+    "short / delayshort\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "All of these operations return [Network](../api/network.rst) types.  For example, to plot the complex difference  between  `short` and `delay_short`,"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "difference = (short - delayshort)\n",
+    "difference.plot_s_mag(label='Mag of difference')"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Another common application is calculating the phase difference using the division operator,"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "(delayshort/short).plot_s_deg(label='Detrended Phase')"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Linear operators can also be used with scalars or an `numpy.ndarray`  that have the same length as the [Network](../api/network.rst). "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "hopen = (short*-1)\n",
+    "hopen.s[:3,...]"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "rando =  hopen *rng.uniform(size=len(hopen))\n",
+    "rando.s[:3,...]"
+   ]
+  },
+  {
+   "cell_type": "raw",
+   "metadata": {
+    "raw_mimetype": "text/restructuredtext"
+   },
+   "source": [
+    ".. notice :: \t\n",
+    "    \n",
+    "    Note that if you multiply a Network by an `numpy.ndarray`  be sure to place the array on right side."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Comparison of Network\n",
+    "Comparison operators also work with networks:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "short == delayshort"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "short != delayshort"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Cascading and De-embedding\n",
+    "\n",
+    "Cascading and de-embeding 2-port Networks can also be done through operators. The `cascade` function can be called through the power operator,  `**`. To calculate a new network which is the cascaded connection of the two individual Networks `line` and `short`, "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "short = rf.data.wr2p2_short\n",
+    "line = rf.data.wr2p2_line\n",
+    "delayshort = line ** short"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "De-embedding  can be accomplished by cascading the *inverse* of a network. The inverse of a network is accessed through the property `Network.inv`. To de-embed the `short` from `delay_short`,"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "short_2 = line.inv ** delayshort\n",
+    "\n",
+    "short_2 == short"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "The cascading operator also works for to 2N-port Networks. This is illustrated in [this example on balanced Networks](../examples/networktheory/Balanced%20Network%20De-embedding.ipynb). For example, assuming you want to cascade three 4-port Network `ntw1`, `ntw2` and `ntw3`, you can use:\n",
+    "`resulting_ntw = ntw1 ** ntw2 ** ntw3`. Note that the port scheme assumed by the `**` cascading operator with 4-port networks is:"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "raw_mimetype": "text/markdown"
+   },
+   "source": [
+    "```\n",
+    "   ntw1    ntw2    ntw3\n",
+    "  +----+  +----+  +----+\n",
+    "0-|0  2|--|0  2|--|0  2|-2\n",
+    "1-|1  3|--|1  3|--|1  3|-3\n",
+    "  +----+  +----+  +----+\n",
+    "```"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "More documentation on Connecting Network is available here: [Connecting Networks](./Connecting_Networks.ipynb)."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Connecting Multi-ports \n",
+    "\n",
+    "**skrf** supports the connection of arbitrary ports of N-port networks. It accomplishes this using an algorithm called sub-network growth[[1]](#References),  available through the function `connect()`. \n",
+    "\n",
+    "As an example, terminating one port of an ideal 3-way splitter can be done like so,"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "tee = rf.data.tee\n",
+    "tee"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "To connect port `1` of the tee, to port `0` of the delay short,"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "terminated_tee = rf.network.connect(tee, 1, delayshort, 0)\n",
+    "terminated_tee"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Note that this function takes into account port impedances. If two connected ports have different port impedances,  an appropriate impedance mismatch is inserted. \n",
+    "\n",
+    "More information on connecting Networks is available here: [connecting Networks](./Connecting_Networks.ipynb).\n",
+    "\n",
+    "For advanced connections between many arbitrary N-port Networks, the `Circuit` object is more relevant since it allows defining explicitly the connections between ports and Networks. For more information, please refer to the [Circuit documentation](Circuit.ipynb). "
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Port names\n",
+    "\n",
+    "The ports of a [Network](../api/network.rst) can be given names with `Network.port_names`. A named port can then be used anywhere a port index is accepted, and the names follow the ports they describe through operations which reorder, drop or combine ports.\n",
+    "\n",
+    "<div class=\"alert alert-info\">\n",
+    "    Version note\n",
+    "\n",
+    "    Port names can only be used this way in versions after 2.0.1. In\n",
+    "    version 2.0.1 and earlier, Network.port_names is a plain attribute\n",
+    "    which most operations do not keep up to date, and it cannot be used to\n",
+    "    address a port.\n",
+    "</div>\n",
+    "\n",
+    "Names are given either when the [Network](../api/network.rst) is created, or by assigning to the property afterwards. There has to be a name for every port."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "freq = rf.Frequency(1, 10, 11, unit='GHz')\n",
+    "media = rf.media.DefinedGammaZ0(frequency=freq, z0_port=50)\n",
+    "\n",
+    "amp = media.attenuator(-10, name='amp')\n",
+    "amp.port_names = ['in', 'out']\n",
+    "amp.port_names"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "s = np.zeros((freq.npoints, 2, 2), dtype=complex)\n",
+    "s[:, 0, 1] = s[:, 1, 0] = 10 ** (-3 / 20)\n",
+    "\n",
+    "pad = rf.Network(frequency=freq, s=s, name='pad', port_names=['rf_in', 'rf_out'])\n",
+    "pad.port_names"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "A [Network](../api/network.rst) without named ports has `port_names` set to `None`."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "print(media.attenuator(-3).port_names)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Connecting by name\n",
+    "\n",
+    "`connect()` takes a port name in place of a port index and the output `Network` keeps the names of the ports which are left over."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "cascade = rf.network.connect(amp, 'out', pad, 'rf_in')\n",
+    "cascade.port_names"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "This is the same connection as the one made by indices, names are just another way of selecting a port."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "cascade == rf.network.connect(amp, 1, pad, 0)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "`innerconnect()`, `parallelconnect()`, `subnetwork()` and `renumber()` accept names the same way."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "tee = rf.data.tee.copy()\n",
+    "tee.port_names = ['sum', 'a', 'b']\n",
+    "\n",
+    "tee.subnetwork(['a', 'sum']).port_names"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "In `renumber()` a name refers to the port which currently carries it, so the call below swaps the ports named `sum` and `b`."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "tee.renumbered(['sum', 'b'], ['b', 'sum']).port_names"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Names follow the ports\n",
+    "\n",
+    "A one-port taken out of a network is either a reflection coefficient, which is one of the ports and keeps its name, or a transmission coefficient, which is not any single port of the network and therefore has no name."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "print(amp.s11.port_names) # port 'in'\n",
+    "print(amp.s22.port_names) # port 'out'\n",
+    "print(amp.s21.port_names) # neither port"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "The same one-ports can be picked out by name instead of by number."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "amp['in', 'in'].port_names"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Mixed mode\n",
+    "\n",
+    "`se2gmm()` replaces pairs of single ended ports with a differential and a common mode port. Each new port is named after the pair it is made of, so the names stay unique and say where the port came from."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "line_p = media.line(50, 'deg', name='p')\n",
+    "line_n = media.line(70, 'deg', name='n')\n",
+    "\n",
+    "pair = rf.network.concat_ports([line_p, line_n], port_order='second')\n",
+    "pair.port_names = ['in+', 'in-', 'out+', 'out-']\n",
+    "pair.port_names"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "mm = pair.copy()\n",
+    "mm.se2gmm(p=2)\n",
+    "mm.port_names"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "The differential insertion loss is then addressable by name."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "mm['d(in+,in-)', 'd(out+,out-)'].s_db[:, 0, 0]"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "`gmm2se()` reverses the conversion and restores the single ended names."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "mm.gmm2se(p=2)\n",
+    "mm.port_names"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Duplicate names\n",
+    "\n",
+    "Several ports may share a name, which happens for instance when a Touchstone file names them that way, or when `connect()` joins two networks which both have a port called `in`. Such a name cannot be used to address a port, since it does not identify one, and those ports have to be given by index instead."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "amp2 = amp.copy()\n",
+    "amp2.name = 'amp2'\n",
+    "\n",
+    "# the two ports named 'out' are the ones consumed, both 'in' ports are left\n",
+    "back_to_back = rf.network.connect(amp, 'out', amp2, 'out')\n",
+    "back_to_back.port_names"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Asking for a port by an ambiguous name raises rather than silently returning the first match."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "try:\n",
+    "    back_to_back['in', 'in']\n",
+    "except ValueError as err:\n",
+    "    print(err)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "\t\n",
+    "## Interpolation and Concatenation\n",
+    "\n",
+    "A common need is to change the number of frequency points of a [Network](../api/network.rst). To use the operators and cascading functions the networks involved must have matching frequencies, for instance. If two networks have different frequency information, then an error will be raised, "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "from skrf.data import wr2p2_line1 as line1\n",
+    "\n",
+    "line1"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "    line1+line\n",
+    "    \n",
+    "    ---------------------------------------------------------------------------\n",
+    "    IndexError                                Traceback (most recent call last)\n",
+    "    <ipython-input-49-82040f7eab08> in <module>()\n",
+    "    ----> 1 line1+line\n",
+    "\n",
+    "    /home/alex/code/scikit-rf/skrf/network.py in __add__(self, other)\n",
+    "        500 \n",
+    "        501         if isinstance(other, Network):\n",
+    "    --> 502             self.__compatible_for_scalar_operation_test(other)\n",
+    "        503             result.s = self.s + other.s\n",
+    "        504         else:\n",
+    "\n",
+    "    /home/alex/code/scikit-rf/skrf/network.py in __compatible_for_scalar_operation_test(self, other)\n",
+    "        701         '''\n",
+    "        702         if other.frequency  != self.frequency:\n",
+    "    --> 703             raise IndexError('Networks must have same frequency. See `Network.interpolate`')\n",
+    "        704 \n",
+    "        705         if other.s.shape != self.s.shape:\n",
+    "\n",
+    "    IndexError: Networks must have same frequency. See `Network.interpolate`\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "\t\n",
+    "This problem can be solved by interpolating one of Networks along the frequency axis using `Network.resample`. "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "line1.resample(201)\n",
+    "line1"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "And now we can do things"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "line1 + line"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "You can also interpolate from a `Frequency` object. For example, "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "line.interpolate(line1.frequency)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "A related application is the need to combine Networks which cover different frequency ranges. Two  Networks can be concatenated (aka stitched) together using `stitch`, which  concatenates networks along their frequency axis. To combine a WR-2.2 Network with a WR-1.5 Network, \n",
+    " "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "from skrf.data import wr1p5_line, wr2p2_line\n",
+    "\n",
+    "big_line = rf.network.stitch(wr2p2_line, wr1p5_line)\n",
+    "big_line"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Reading and Writing \n",
+    "\n",
+    "\n",
+    "For long term data storage, **skrf** has support for reading and partial support for writing  [touchstone file format](http://en.wikipedia.org/wiki/Touchstone_file). Reading is accomplished with the Network initializer as shown above,  and writing with the method  `Network.write_touchstone()`.\n",
+    "\n",
+    "For **temporary** data storage, **skrf** object can be [pickled](http://docs.python.org/2/library/pickle.html) with  the functions `skrf.io.general.read` and `skrf.io.general.write`.  The reason to use temporary pickles over touchstones is that they store all attributes of a network, while touchstone files only store partial information. "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "rf.io.write('data/myline.ntwk',line) # write out Network using pickle"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "ntwk = Network('data/myline.ntwk') # read Network using pickle"
+   ]
+  },
+  {
+   "cell_type": "raw",
+   "metadata": {
+    "raw_mimetype": "text/restructuredtext"
+   },
+   "source": [
+    ".. warning:: \n",
+    "\t\n",
+    "\tPickling methods can't support long term data storage because they require the structure of the object being written to remain unchanged. something that cannot be guaranteed in future versions of skrf.  (see http://docs.python.org/2/library/pickle.html) \n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Frequently there is an entire directory of files that need to be analyzed. `rf.read_all`  creates Networks from all files in a directory quickly.  To load all **skrf** files in the `data/` directory which contain the string `'wr2p2'`."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "dict_o_ntwks = rf.io.read_all(rf.data.pwd, contains = 'wr2p2')\n",
+    "dict_o_ntwks"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Other times you know the list of files that need to be analyzed. `rf.read_all`  also accepts a files parameter. This example file list contains only files within the same directory, but you can store files however your application would benefit from."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "import os\n",
+    "\n",
+    "dict_o_ntwks_files = rf.io.read_all(\n",
+    "    files=[os.path.join(rf.data.pwd, test_file) for test_file in ['ntwk1.s2p', 'ntwk2.s2p']]\n",
+    ")\n",
+    "dict_o_ntwks_files"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Other Parameters\t\n",
+    "\n",
+    "This tutorial focuses on s-parameters, but other network representations are available as well. Impedance and Admittance Parameters can be accessed through the parameters `Network.z` and `Network.y`, respectively. Scalar components of complex parameters, such as  `Network.z_re`, `Network.z_im` and plotting methods are available as well.\n",
+    "\n",
+    "Other parameters are only available for 2-port networks, such as wave cascading parameters (`Network.t`), and  ABCD-parameters (`Network.a`) or Hybrid parameters (`Network.h`)."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "ring_slot.z[:3,...]"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "ring_slot.plot_z_im(m=1,n=0)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## References\n",
+    "\n",
+    "\n",
+    "[1] Compton, R.C.; , \"Perspectives in microwave circuit analysis,\" Circuits and Systems, 1989., Proceedings of the 32nd Midwest Symposium on , vol., no., pp.716-718 vol.2, 14-16 Aug 1989. URL: http://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=101955&isnumber=3167\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  }
+ ],
+ "metadata": {
+  "anaconda-cloud": {},
+  "celltoolbar": "Raw Cell Format",
+  "kernelspec": {
+   "display_name": "Python 3 (ipykernel)",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.10.12"
+  },
+  "vscode": {
+   "interpreter": {
+    "hash": "637c323cf467337602e9974a89cb4d3fc95fac3ef875a73e62754f8e768d8de7"
+   }
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 4
+}

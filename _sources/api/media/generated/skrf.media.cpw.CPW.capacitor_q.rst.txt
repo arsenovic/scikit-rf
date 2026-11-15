@@ -1,0 +1,6 @@
+skrf.media.cpw.CPW.capacitor\_q
+===============================
+
+.. currentmodule:: skrf.media.cpw
+
+.. automethod:: CPW.capacitor_q

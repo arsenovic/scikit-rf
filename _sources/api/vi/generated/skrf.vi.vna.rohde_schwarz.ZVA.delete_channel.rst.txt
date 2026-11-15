@@ -1,0 +1,6 @@
+skrf.vi.vna.rohde\_schwarz.ZVA.delete\_channel
+==============================================
+
+.. currentmodule:: skrf.vi.vna.rohde_schwarz
+
+.. automethod:: ZVA.delete_channel

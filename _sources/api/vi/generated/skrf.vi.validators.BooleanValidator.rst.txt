@@ -1,0 +1,33 @@
+﻿skrf.vi.validators.BooleanValidator
+===================================
+
+.. currentmodule:: skrf.vi.validators
+
+.. autoclass:: BooleanValidator
+  :no-members:
+
+
+
+.. rubric:: Attributes
+
+.. autosummary::
+  :toctree:
+  :nosignatures:
+
+  ~BooleanValidator.falsey
+  ~BooleanValidator.truthy
+
+
+
+
+
+.. rubric:: Methods
+
+.. autosummary::
+  :toctree:
+  :nosignatures:
+
+  ~BooleanValidator.__init__
+  ~BooleanValidator.validate_input
+  ~BooleanValidator.validate_output
+

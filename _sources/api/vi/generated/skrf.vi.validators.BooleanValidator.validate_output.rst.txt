@@ -1,0 +1,6 @@
+skrf.vi.validators.BooleanValidator.validate\_output
+====================================================
+
+.. currentmodule:: skrf.vi.validators
+
+.. automethod:: BooleanValidator.validate_output

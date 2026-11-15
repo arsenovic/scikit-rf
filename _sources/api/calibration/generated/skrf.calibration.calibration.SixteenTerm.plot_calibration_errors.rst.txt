@@ -1,0 +1,6 @@
+skrf.calibration.calibration.SixteenTerm.plot\_calibration\_errors
+==================================================================
+
+.. currentmodule:: skrf.calibration.calibration
+
+.. automethod:: SixteenTerm.plot_calibration_errors

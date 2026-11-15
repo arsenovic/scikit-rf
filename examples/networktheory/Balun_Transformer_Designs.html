@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en" data-accent-color="blue" data-content_root="../../">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Balun &amp; Transformer Designs - scikit-rf</title><link rel="author" title="About these documents" href="../../about.html" /><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="CPW media example" href="CPW%20media%20example.html" /><link rel="prev" title="Balanced Network De-embedding" href="Balanced%20Network%20De-embedding.html" /><script>
+    function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
+    setColorMode(localStorage._theme||"auto");
+  </script><link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=ad592e98" />
+    <link rel="stylesheet" type="text/css" href="../../_static/shibuya.css?v=2ceb65ce" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-codeautolink.css?v=b2176991" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link media="print" rel="stylesheet" type="text/css" href="../../_static/print.css?v=20ff2c19" />
+    <link rel="stylesheet" type="text/css" href="../../_static/nbsphinx-code-cells.css?v=2aa19091" />
+    <link rel="stylesheet" type="text/css" href="../../_static/skrf.css?v=7e772ba2" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --sy-f-text: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+  --sy-f-heading: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+}
+</style>
+    
+  <meta property="og:type" content="website"/><meta property="og:title" content="Balun &amp; Transformer Designs"/>
+    <meta name="twitter:card" content="summary"/>
+  </head>
+<body><div class="sy-head">
+  <div class="sy-head-blur"></div>
+  <div class="sy-head-inner sy-container mx-auto">
+    <a class="sy-head-brand" href="../../index.html">
+      <img class="light-logo" src="../../_static/logo.svg" alt="scikit-rf" height="28" loading="lazy" />
+      <img class="dark-logo" src="../../_static/logo.svg" alt="scikit-rf" height="28" loading="lazy" />
+      <strong>scikit-rf</strong>
+    </a>
+    <div class="sy-head-nav" id="head-nav">
+      <nav class="sy-head-links"><ul><li class="link"><a href="../../index.html">Home</a></li><li class="link"><a href="../../tutorials/index.html">Tutorials</a></li><li class="link"><a href="../index.html">Examples</a></li><li class="link"><a href="../../api/index.html">API</a></li><li class="link">
+          <a href="https://github.com/scikit-rf/scikit-rf">
+            <span>GitHub</span><i class="i-lucide external-link"></i></a>
+        </li></ul></nav>
+      <div class="sy-head-extra flex items-center print:hidden"><form class="searchbox flex items-center" action="../../search.html" method="get">
+  <input type="text" name="q" placeholder="Search" />
+  <kbd>/</kbd>
+</form><div class="sy-head-socials">
+  <a href="https://github.com/scikit-rf/scikit-rf" aria-label="GitHub">
+    <iconify-icon icon="simple-icons:github"></iconify-icon>
+  </a>
+  <a href="https://www.linkedin.com/groups/12462155/" aria-label="LinkedIn">
+    <iconify-icon icon="simple-icons:linkedin"></iconify-icon>
+  </a>
+  <a href="https://app.element.io/#/room/#scikit-rf:matrix.org" aria-label="Matrix">
+    <iconify-icon icon="simple-icons:matrix"></iconify-icon>
+  </a></div></div>
+    </div>
+    <div class="sy-head-actions flex items-center shrink-0 print:hidden"><button class="js-theme theme-switch flex items-center"
+data-aria-auto="Switch to light color mode"
+data-aria-light="Switch to dark color mode"
+data-aria-dark="Switch to auto color mode">
+<i class="i-lucide theme-icon"></i>
+</button><button class="md:hidden flex items-center js-menu" aria-label="Menu" type="button" aria-controls="head-nav" aria-expanded="false">
+        <div class="hamburger">
+          <span class="hamburger_1"></span>
+          <span class="hamburger_2"></span>
+          <span class="hamburger_3"></span>
+        </div>
+      </button>
+    </div>
+  </div>
+</div>
+<div class="sy-page sy-container flex mx-auto">
+  <aside id="lside" class="sy-lside md:w-72 md:shrink-0 print:hidden">
+    <div class="sy-lside-inner md:sticky">
+      <div class="sy-scrollbar p-6">
+        <div class="globaltoc" data-expand-depth="0"><p class="caption" role="heading" aria-level="3"><span class="caption-text">Getting started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../index.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/Installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/Introduction.html">Introduction</a></li>
+</ul>
+<p class="caption" role="heading" aria-level="3"><span class="caption-text">User guide</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Examples</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Network Theory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../matching/index.html">Matching</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../metrology/index.html">Metrology and Calibration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../networksets/index.html">NetworkSets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../plotting/index.html">Plotting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../circuit/index.html">Circuit</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mixedmodeanalysis/index.html">Mixed Mode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../vectorfitting/index.html">Vector Fitting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../vectorfitting_parametric/index.html">Parametric Vector Fitting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../qfactor/index.html">Q-factor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../taper/index.html">Taper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../instrumentcontrol/index.html">Instrument Control</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../interactive/index.html">Interactive</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading" aria-level="3"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../api/index.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../glossary.html">Glossary</a></li>
+</ul>
+<p class="caption" role="heading" aria-level="3"><span class="caption-text">Project</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing/index.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../citations_ack/acknowledging.html">Citing scikit-rf</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../citations_ack/citations.html">scikit-rf Citations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../about.html">About</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../users.html">Users</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../license.html">License</a></li>
+</ul>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="lside-overlay js-menu" role="button" aria-label="Close left sidebar" aria-controls="lside" aria-expanded="false"></div>
+  <aside id="rside" class="sy-rside pb-3 w-64 shrink-0 order-last">
+    <button class="rside-close js-menu xl:hidden" aria-label="Close Table of Contents" type="button" aria-controls="rside" aria-expanded="false">
+      <i class="i-lucide close"></i>
+    </button>
+    <div class="sy-scrollbar sy-rside-inner px-6 xl:top-16 xl:sticky xl:pl-0 pt-6 pb-4"><div class="localtoc"><h3>On this page</h3><ul>
+<li><a class="reference internal" href="#Balun">Balun</a></li>
+<li><a class="reference internal" href="#Guanella-transformer">Guanella transformer</a></li>
+<li><a class="reference internal" href="#Marchand-balun">Marchand balun</a></li>
+</ul>
+</div><div id="ethical-ad-placement" data-ea-publisher="readthedocs"></div></div>
+  </aside>
+  <div class="rside-overlay js-menu" role="button" aria-label="Close Table of Contents" aria-controls="rside" aria-expanded="false"></div>
+  <main class="sy-main w-full max-sm:max-w-full print:pt-6">
+<div class="sy-breadcrumbs" role="navigation">
+  <div class="sy-breadcrumbs-inner flex items-center">
+    <div class="md:hidden mr-3">
+      <button class="js-menu" aria-label="Menu" type="button" aria-controls="lside" aria-expanded="false">
+        <i class="i-lucide menu"></i>
+      </button>
+    </div>
+    <ol class="flex-1" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="../../index.html"><span itemprop="name">scikit-rf</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="1" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="../index.html"><span itemprop="name">Examples</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="2" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="index.html"><span itemprop="name">Network Theory</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="3" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <strong itemprop="name">Balun &amp; Transformer Designs</strong>
+        <meta itemprop="position" content="4" />
+      </li></ol>
+    <a class="sk-download" href="Balun_Transformer_Designs.ipynb" download>Download</a>
+    <div class="xl:hidden ml-1">
+      <button class="js-menu" aria-label="Show table of contents" type="button" aria-controls="rside"
+        aria-expanded="false">
+        <i class="i-lucide outdent"></i>
+      </button>
+    </div>
+  </div>
+</div><div class="flex flex-col break-words justify-between">
+      <div class="relative min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
+  <article class="yue" role="main">
+          <section id="Balun-&amp;-Transformer-Designs">
+<h1>Balun &amp; Transformer Designs<a class="headerlink" href="#Balun-&amp;-Transformer-Designs" title="Link to this heading">#</a></h1>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[1]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+</span><span data-line="2">
+</span><span data-line="3"><span class="kn">import</span><span class="w"> </span><span class="nn">skrf</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">rf</span>
+</span><span data-line="4"><span class="kn">from</span><span class="w"> </span><a class="sphinx-codeautolink-a" href="../../api/circuit.html#module-skrf.circuit"><span class="nn">skrf.circuit</span></a><span class="w"> </span><span class="kn">import</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.circuit.Circuit.html#skrf.circuit.Circuit" title="skrf.circuit.Circuit"><span class="n">Circuit</span></a>
+</span><span data-line="5"><span class="kn">from</span><span class="w"> </span><a class="sphinx-codeautolink-a" href="../../api/constants.html#module-skrf.constants"><span class="nn">skrf.constants</span></a><span class="w"> </span><span class="kn">import</span> <a class="sphinx-codeautolink-a" href="../../api/constants.html#skrf.constants.c" title="skrf.constants.c"><span class="n">c</span></a>
+</span><span data-line="6">
+</span><span data-line="7"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.plotting.stylely.html#skrf.plotting.stylely" title="skrf.plotting.stylely"><span class="n">rf</span><span class="o">.</span><span class="n">stylely</span></a><span class="p">()</span>
+</span></pre></div>
+</div>
+</div>
+<p>This tutorial explains a few passive RF circuits, such as ferrite-loaded baluns &amp; transformers using transmission lines, within the scikit-rf environment. We tested these circuits in Windows Anaconda, Android Pydroid 3 and iOS Juno.</p>
+<section id="Balun">
+<h2>Balun<a class="headerlink" href="#Balun" title="Link to this heading">#</a></h2>
+<p>Baluns are balanced-to-unbalanced circuits. In other words, baluns convert differential to single-ended circuits, and vice versa.</p>
+<p>Transformers, as the name indicates, transform one RF impedance to another.</p>
+<p>Both baluns and transformers can be built using transmission lines or lumped elements. Baluns and transformers are used extensively, but not exclusively, in RF matching circuits, combiners, dividers, amplifiers, mixers. At times, baluns and transformers are used in antenna designs, antenna emulators and/or antenna tuners (aka couplers).</p>
+<p><img alt="320a4362c3f54b88b2ef7f1ba01919eb" src="../../_images/Simple_Balun2.png"/></p>
+<p>Fig.1 Ideal Schematic of a Coax Balun</p>
+<p>In Fig.1 above, a coaxial balun is depicted and is comprised of a 4-port (outer conductor floating) coax and a resistor. In this circuit, the resistor is employed to model the effect of a ferrite sleeve (or bead) around the coax. The resistor acts to discourage current flow on the outside surface of the outer conductor, which makes the coax behave exactly like a twisted pair of wires over a bandwidth of interest. In some cases, a lumped inductor can replace the resistor to model the
+frequency-dependent behavior of the ferrite material of the sleeve. The actual value of the resistor, or the inductor, is a function of the frequency range of the design and the characteristics of the ferrite material. Often, the value of the resistor, or inductor, is derived from experimental measurements in the lab. We use 333-Ohms here as a reasonable value to demonstrate the usage of scikit-rf only.</p>
+<p>In reality, a 4-port transmission line is implemented in scikit-rf exactly as shown in the nodal diagram of figure below:</p>
+<p><img alt="83cda48e906c489da3e8dfc04729bf88" src="../../_images/Nodal_Connections_Simple_Balun.png"/></p>
+<p>Fig.2 Nodal Connections</p>
+<p>Using Fig.2 as a guide, we can create a transmission-line balun as follows. First, we add some insertion loss to the trandmission lines in the firm of a 0.1-Ohm resistor. Then we connect all the elements (transformer, two 25-Ohms lines and the ferrite resistor) together to create the balun. The sum port is 50-Ohms single-ended. The differential output ports are 25-Ohms each.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[2]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="c1"># need this ideal s4p file to create a coax with a floating outer conductor</span>
+</span><span data-line="2"><span class="n">xformer</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">"Balun_Transformer_Designs/Ideal_4port_xformer_hi_res.s4p"</span>
+</span><span data-line="3"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">xformer_ntwk</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">rf</span><span class="o">.</span><span class="n">Network</span></a><span class="p">(</span><span class="n">xformer</span><span class="p">)</span>
+</span><span data-line="4"><span class="n">xformer_ntwk1</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">xformer_ntwk</span></a><span class="p">[</span><span class="s2">"0.001-2ghz"</span><span class="p">]</span>  <span class="c1"># band center is thus 1 GHz</span>
+</span><span data-line="5">
+</span><span data-line="6"><span class="n">freq</span> <span class="o">=</span> <span class="n">xformer_ntwk1</span><span class="o">.</span><span class="n">frequency</span>
+</span><span data-line="7"><span class="n">z0_ports</span> <span class="o">=</span> <span class="mi">25</span>
+</span><span data-line="8">
+</span><span data-line="9"><span class="n">beta</span> <span class="o">=</span> <span class="n">freq</span><span class="o">.</span><span class="n">w</span> <span class="o">/</span> <a class="sphinx-codeautolink-a" href="../../api/constants.html#skrf.constants.c" title="skrf.constants.c"><span class="n">c</span></a>
+</span><span data-line="10"><a class="sphinx-codeautolink-a" href="../../api/media/generated/skrf.media.media.DefinedGammaZ0.html#skrf.media.media.DefinedGammaZ0" title="skrf.media.media.DefinedGammaZ0"><span class="n">line_branch</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/media/generated/skrf.media.media.DefinedGammaZ0.html#skrf.media.media.DefinedGammaZ0" title="skrf.media.media.DefinedGammaZ0"><span class="n">rf</span><span class="o">.</span><span class="n">media</span><span class="o">.</span><span class="n">DefinedGammaZ0</span></a><span class="p">(</span><span class="n">frequency</span><span class="o">=</span><span class="n">freq</span><span class="p">,</span> <span class="n">z0</span><span class="o">=</span><span class="n">z0_ports</span><span class="p">,</span> <span class="n">gamma</span><span class="o">=</span><span class="mi">0</span><span class="o">+</span><span class="n">beta</span><span class="o">*</span><span class="mi">1</span><span class="n">j</span><span class="p">)</span>
+</span><span data-line="11">
+</span><span data-line="12"><span class="c1"># d is 75 mm in length, which is quarterwave at 1 GHz in air</span>
+</span><span data-line="13"><span class="c1">#d = line_branch.theta_2_d(90, deg=True, bc=True)</span>
+</span><span data-line="14"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">branch1</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/media/generated/skrf.media.media.DefinedGammaZ0.line.html#skrf.media.media.DefinedGammaZ0.line" title="skrf.media.media.DefinedGammaZ0.line"><span class="n">line_branch</span><span class="o">.</span><span class="n">line</span></a><span class="p">(</span><span class="mi">90</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s2">"deg"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"branch1"</span><span class="p">)</span>
+</span><span data-line="15">
+</span><span data-line="16"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">lossy_line</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/media/generated/skrf.media.media.DefinedGammaZ0.resistor.html#skrf.media.media.DefinedGammaZ0.resistor" title="skrf.media.media.DefinedGammaZ0.resistor"><span class="n">line_branch</span><span class="o">.</span><span class="n">resistor</span></a><span class="p">(</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"res"</span><span class="p">)</span>
+</span></pre></div>
+</div>
+</div>
+<p>The RF circuit is build using the scikit-rf <a class="reference external" href="https://scikit-rf.readthedocs.io/en/latest/tutorials/Circuit.html">Circuit</a> capabilities:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[3]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">port1</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.circuit.Circuit.Port.html#skrf.circuit.Circuit.Port" title="skrf.circuit.Circuit.Port"><span class="n">Circuit</span><span class="o">.</span><span class="n">Port</span></a><span class="p">(</span><span class="n">freq</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"port1"</span><span class="p">,</span> <span class="n">z0</span><span class="o">=</span><span class="mi">25</span><span class="p">)</span>
+</span><span data-line="2"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">port2</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.circuit.Circuit.Port.html#skrf.circuit.Circuit.Port" title="skrf.circuit.Circuit.Port"><span class="n">Circuit</span><span class="o">.</span><span class="n">Port</span></a><span class="p">(</span><span class="n">freq</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"port2"</span><span class="p">,</span> <span class="n">z0</span><span class="o">=</span><span class="mi">25</span><span class="p">)</span>
+</span><span data-line="3">
+</span><span data-line="4"><span class="c1"># creating a 25-Ohm 2-port transmission line, with realistic insertion loss</span>
+</span><span data-line="5"><span class="c1"># insertion loss is equivalent to a 0.1-Ohm series resistor</span>
+</span><span data-line="6"><span class="n">connections</span> <span class="o">=</span> <span class="p">[</span>
+</span><span data-line="7">    <span class="p">[(</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">port1</span></a><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">lossy_line</span></a><span class="p">,</span> <span class="mi">0</span><span class="p">)],</span>
+</span><span data-line="8">    <span class="p">[(</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">lossy_line</span></a><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">branch1</span></a><span class="p">,</span> <span class="mi">0</span><span class="p">)],</span>
+</span><span data-line="9">    <span class="p">[(</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">branch1</span></a><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">port2</span></a><span class="p">,</span> <span class="mi">0</span><span class="p">)],</span>
+</span><span data-line="10"><span class="p">]</span>
+</span><span data-line="11">
+</span><span data-line="12"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.circuit.Circuit.html#skrf.circuit.Circuit" title="skrf.circuit.Circuit"><span class="n">C</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.circuit.Circuit.html#skrf.circuit.Circuit" title="skrf.circuit.Circuit"><span class="n">Circuit</span></a><span class="p">(</span><span class="n">connections</span><span class="p">)</span>
+</span><span data-line="13">
+</span><span data-line="14"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.circuit.Circuit.network.html#skrf.circuit.Circuit.network" title="skrf.circuit.Circuit.network"><span class="n">line1</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.circuit.Circuit.network.html#skrf.circuit.Circuit.network" title="skrf.circuit.Circuit.network"><span class="n">C</span><span class="o">.</span><span class="n">network</span></a>
+</span><span data-line="15"><span class="n">line1</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s2">"top line"</span>
+</span><span data-line="16"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.circuit.Circuit.network.html#skrf.circuit.Circuit.network" title="skrf.circuit.Circuit.network"><span class="n">line2</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.circuit.Circuit.network.html#skrf.circuit.Circuit.network" title="skrf.circuit.Circuit.network"><span class="n">C</span><span class="o">.</span><span class="n">network</span></a>
+</span><span data-line="17"><span class="n">line2</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s2">"bottom line"</span>
+</span><span data-line="18">
+</span><span data-line="19"><a class="sphinx-codeautolink-a" href="../../api/media/generated/skrf.media.media.DefinedGammaZ0.html#skrf.media.media.DefinedGammaZ0" title="skrf.media.media.DefinedGammaZ0"><span class="n">line</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/media/generated/skrf.media.media.DefinedGammaZ0.html#skrf.media.media.DefinedGammaZ0" title="skrf.media.media.DefinedGammaZ0"><span class="n">rf</span><span class="o">.</span><span class="n">media</span><span class="o">.</span><span class="n">DefinedGammaZ0</span></a><span class="p">(</span><span class="n">frequency</span><span class="o">=</span><span class="n">freq</span><span class="p">,</span> <span class="n">z0</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+</span><span data-line="20"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">ferrite_resistor</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/media/generated/skrf.media.media.DefinedGammaZ0.resistor.html#skrf.media.media.DefinedGammaZ0.resistor" title="skrf.media.media.DefinedGammaZ0.resistor"><span class="n">line</span><span class="o">.</span><span class="n">resistor</span></a><span class="p">(</span><span class="mi">333</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"res"</span><span class="p">)</span>
+</span><span data-line="21">
+</span><span data-line="22"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">port1a</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.circuit.Circuit.Port.html#skrf.circuit.Circuit.Port" title="skrf.circuit.Circuit.Port"><span class="n">Circuit</span><span class="o">.</span><span class="n">Port</span></a><span class="p">(</span><span class="n">frequency</span><span class="o">=</span><span class="n">freq</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"port1a"</span><span class="p">,</span> <span class="n">z0</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+</span><span data-line="23"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">port2a</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.circuit.Circuit.Port.html#skrf.circuit.Circuit.Port" title="skrf.circuit.Circuit.Port"><span class="n">Circuit</span><span class="o">.</span><span class="n">Port</span></a><span class="p">(</span><span class="n">frequency</span><span class="o">=</span><span class="n">freq</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"port2a"</span><span class="p">,</span> <span class="n">z0</span><span class="o">=</span><span class="mi">25</span><span class="p">)</span>
+</span><span data-line="24"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">port3a</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.circuit.Circuit.Port.html#skrf.circuit.Circuit.Port" title="skrf.circuit.Circuit.Port"><span class="n">Circuit</span><span class="o">.</span><span class="n">Port</span></a><span class="p">(</span><span class="n">frequency</span><span class="o">=</span><span class="n">freq</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"port3a"</span><span class="p">,</span> <span class="n">z0</span><span class="o">=</span><span class="mi">25</span><span class="p">)</span>
+</span><span data-line="25"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">ground</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.circuit.Circuit.Ground.html#skrf.circuit.Circuit.Ground" title="skrf.circuit.Circuit.Ground"><span class="n">Circuit</span><span class="o">.</span><span class="n">Ground</span></a><span class="p">(</span><span class="n">frequency</span><span class="o">=</span><span class="n">freq</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"ground"</span><span class="p">,</span> <span class="n">z0</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+</span><span data-line="26">
+</span><span data-line="27"><span class="c1"># creating a 4-port floating coax by feeding two 25-Ohm lines (twisted pair of wires)</span>
+</span><span data-line="28"><span class="c1"># with an ideal transformer, to ensure the differential nature of the twisted pair, as per Fig.2</span>
+</span><span data-line="29"><span class="c1"># the 333-Ohm resistor models the loading of the ferrite sleeve,</span>
+</span><span data-line="30"><span class="c1"># upon the outer conductor of the 4-port coax line</span>
+</span><span data-line="31"><span class="n">conn</span> <span class="o">=</span> <span class="p">[</span>
+</span><span data-line="32">    <span class="p">[(</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">port1a</span></a><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="n">xformer_ntwk1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)],</span>
+</span><span data-line="33">    <span class="p">[(</span><span class="n">xformer_ntwk1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.circuit.Circuit.network.html#skrf.circuit.Circuit.network" title="skrf.circuit.Circuit.network"><span class="n">line1</span></a><span class="p">,</span> <span class="mi">0</span><span class="p">)],</span>
+</span><span data-line="34">    <span class="p">[(</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.circuit.Circuit.network.html#skrf.circuit.Circuit.network" title="skrf.circuit.Circuit.network"><span class="n">line1</span></a><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">port2a</span></a><span class="p">,</span> <span class="mi">0</span><span class="p">)],</span>
+</span><span data-line="35">    <span class="p">[(</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">ground</span></a><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="n">xformer_ntwk1</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">ferrite_resistor</span></a><span class="p">,</span> <span class="mi">0</span><span class="p">)],</span>
+</span><span data-line="36">    <span class="p">[(</span><span class="n">xformer_ntwk1</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="p">(</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.circuit.Circuit.network.html#skrf.circuit.Circuit.network" title="skrf.circuit.Circuit.network"><span class="n">line2</span></a><span class="p">,</span> <span class="mi">0</span><span class="p">)],</span>
+</span><span data-line="37">    <span class="p">[(</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.circuit.Circuit.network.html#skrf.circuit.Circuit.network" title="skrf.circuit.Circuit.network"><span class="n">line2</span></a><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">ferrite_resistor</span></a><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">port3a</span></a><span class="p">,</span> <span class="mi">0</span><span class="p">)],</span>
+</span><span data-line="38"><span class="p">]</span>
+</span><span data-line="39">
+</span><span data-line="40"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.circuit.Circuit.html#skrf.circuit.Circuit" title="skrf.circuit.Circuit"><span class="n">C1</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.circuit.Circuit.html#skrf.circuit.Circuit" title="skrf.circuit.Circuit"><span class="n">Circuit</span></a><span class="p">(</span><span class="n">conn</span><span class="p">)</span>
+</span><span data-line="41"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.circuit.Circuit.network.html#skrf.circuit.Circuit.network" title="skrf.circuit.Circuit.network"><span class="n">balun</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.circuit.Circuit.network.html#skrf.circuit.Circuit.network" title="skrf.circuit.Circuit.network"><span class="n">C1</span><span class="o">.</span><span class="n">network</span></a>
+</span><span data-line="42"><span class="n">balun</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s2">"ideal balun"</span>
+</span></pre></div>
+</div>
+</div>
+<p>Let’s have a look the the S-parameters of this ideal balun:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[4]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">fig</span><span class="p">,</span> <span class="p">(</span><span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">)</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span><span data-line="2">
+</span><span data-line="3"><span class="n">balun</span><span class="o">.</span><span class="n">plot_s_db</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax1</span><span class="p">,</span> <span class="n">m</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>  <span class="c1"># S11</span>
+</span><span data-line="4"><span class="n">balun</span><span class="o">.</span><span class="n">plot_s_db</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax1</span><span class="p">,</span> <span class="n">m</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>  <span class="c1"># S22</span>
+</span><span data-line="5"><span class="n">ax1</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="o">-</span><span class="mi">60</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+</span><span data-line="6">
+</span><span data-line="7"><span class="n">balun</span><span class="o">.</span><span class="n">plot_s_db</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax2</span><span class="p">,</span> <span class="n">m</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>  <span class="c1"># S21</span>
+</span><span data-line="8"><span class="n">ax2</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+</span><span data-line="9">
+</span><span data-line="10"><span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s2">"Ideal 50-Ohm balun"</span><span class="p">)</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[4]:
+</span></pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Text(0.5, 0.98, 'Ideal 50-Ohm balun')
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/examples_networktheory_Balun_Transformer_Designs_9_1.png" src="../../_images/examples_networktheory_Balun_Transformer_Designs_9_1.png"/>
+</div>
+</div>
+<p>As can be seen from graph above, the sum port return loss S11 (blue trace, upper graph) is -35dB. The S22 (red trace, upper graph) is -6dB, indicating the typical return loss of a terminal within a differential pair. The S21 (blue trace, lower graph) is -3dB, as expected, to show that the energy entering the sum port splits evenly between the two differential ports.</p>
+<p>The above example of a balun design was implemented in scikit-rf version 1.3 (also compatible with earlier versions). For scikit-rf version 1.4, the script below employs a newly created Media element, called <a class="reference external" href="https://scikit-rf.readthedocs.io/en/latest/api/media/generated/skrf.media.Media.line_floating.html#skrf.media.Media.line_floating">line_floating</a>, to simplify the circuit.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[5]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.frequency.Frequency.html#skrf.frequency.Frequency" title="skrf.frequency.Frequency"><span class="n">freq1</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.frequency.Frequency.html#skrf.frequency.Frequency" title="skrf.frequency.Frequency"><span class="n">rf</span><span class="o">.</span><span class="n">Frequency</span></a><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">stop</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="p">(</span><span class="s1">'GHz'</span><span class="p">),</span> <span class="n">npoints</span><span class="o">=</span><span class="mi">2001</span><span class="p">)</span>
+</span><span data-line="2"><span class="n">beta</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.frequency.Frequency.w.html#skrf.frequency.Frequency.w" title="skrf.frequency.Frequency.w"><span class="n">freq1</span><span class="o">.</span><span class="n">w</span></a> <span class="o">/</span> <a class="sphinx-codeautolink-a" href="../../api/constants.html#skrf.constants.c" title="skrf.constants.c"><span class="n">c</span></a>
+</span><span data-line="3">
+</span><span data-line="4"><a class="sphinx-codeautolink-a" href="../../api/media/generated/skrf.media.media.DefinedGammaZ0.html#skrf.media.media.DefinedGammaZ0" title="skrf.media.media.DefinedGammaZ0"><span class="n">line1</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/media/generated/skrf.media.media.DefinedGammaZ0.html#skrf.media.media.DefinedGammaZ0" title="skrf.media.media.DefinedGammaZ0"><span class="n">rf</span><span class="o">.</span><span class="n">media</span><span class="o">.</span><span class="n">DefinedGammaZ0</span></a><span class="p">(</span><span class="n">frequency</span><span class="o">=</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.frequency.Frequency.html#skrf.frequency.Frequency" title="skrf.frequency.Frequency"><span class="n">freq1</span></a><span class="p">,</span> <span class="n">z0</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">gamma</span><span class="o">=</span><span class="mi">0</span><span class="o">+</span><span class="n">beta</span><span class="o">*</span><span class="mi">1</span><span class="n">j</span><span class="p">)</span>
+</span><span data-line="5">
+</span><span data-line="6"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">ferrite_resistor</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/media/generated/skrf.media.media.DefinedGammaZ0.resistor.html#skrf.media.media.DefinedGammaZ0.resistor" title="skrf.media.media.DefinedGammaZ0.resistor"><span class="n">line1</span><span class="o">.</span><span class="n">resistor</span></a><span class="p">(</span><span class="mi">333</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'res'</span><span class="p">)</span> <span class="c1"># model ferrite sleeve as a parallel 333 Ohm resistor</span>
+</span><span data-line="7"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">Rp_circuit</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">ferrite_resistor</span></a>
+</span><span data-line="8">
+</span><span data-line="9"><span class="c1"># define a floating 4-port transmission line, using a new element in ver 1.4 of Scikit-rf</span>
+</span><span data-line="10"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">line4p</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/media/generated/skrf.media.media.DefinedGammaZ0.line_floating.html#skrf.media.media.DefinedGammaZ0.line_floating" title="skrf.media.media.DefinedGammaZ0.line_floating"><span class="n">line1</span><span class="o">.</span><span class="n">line_floating</span></a><span class="p">(</span><span class="mi">90</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s1">'deg'</span><span class="p">,</span> <span class="n">z0</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'line4p'</span><span class="p">)</span>
+</span><span data-line="11"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">port1</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.circuit.Circuit.Port.html#skrf.circuit.Circuit.Port" title="skrf.circuit.Circuit.Port"><span class="n">Circuit</span><span class="o">.</span><span class="n">Port</span></a><span class="p">(</span><span class="n">frequency</span><span class="o">=</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.frequency.Frequency.html#skrf.frequency.Frequency" title="skrf.frequency.Frequency"><span class="n">freq1</span></a><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'port1'</span><span class="p">,</span> <span class="n">z0</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+</span><span data-line="12"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">port2</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.circuit.Circuit.Port.html#skrf.circuit.Circuit.Port" title="skrf.circuit.Circuit.Port"><span class="n">Circuit</span><span class="o">.</span><span class="n">Port</span></a><span class="p">(</span><span class="n">frequency</span><span class="o">=</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.frequency.Frequency.html#skrf.frequency.Frequency" title="skrf.frequency.Frequency"><span class="n">freq1</span></a><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'port2'</span><span class="p">,</span> <span class="n">z0</span><span class="o">=</span><span class="mi">25</span><span class="p">)</span>
+</span><span data-line="13"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">port3</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.circuit.Circuit.Port.html#skrf.circuit.Circuit.Port" title="skrf.circuit.Circuit.Port"><span class="n">Circuit</span><span class="o">.</span><span class="n">Port</span></a><span class="p">(</span><span class="n">frequency</span><span class="o">=</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.frequency.Frequency.html#skrf.frequency.Frequency" title="skrf.frequency.Frequency"><span class="n">freq1</span></a><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'port3'</span><span class="p">,</span> <span class="n">z0</span><span class="o">=</span><span class="mi">25</span><span class="p">)</span>
+</span><span data-line="14"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">ground</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.circuit.Circuit.Ground.html#skrf.circuit.Circuit.Ground" title="skrf.circuit.Circuit.Ground"><span class="n">Circuit</span><span class="o">.</span><span class="n">Ground</span></a><span class="p">(</span><span class="n">frequency</span><span class="o">=</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.frequency.Frequency.html#skrf.frequency.Frequency" title="skrf.frequency.Frequency"><span class="n">freq1</span></a><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'ground'</span><span class="p">,</span> <span class="n">z0</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+</span><span data-line="15">
+</span><span data-line="16"><span class="n">connections</span> <span class="o">=</span> <span class="p">[[(</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">port1</span></a><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">line4p</span></a><span class="p">,</span> <span class="mi">0</span><span class="p">)],</span>
+</span><span data-line="17">    <span class="p">[(</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">port2</span></a><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">line4p</span></a><span class="p">,</span> <span class="mi">1</span><span class="p">)],</span>
+</span><span data-line="18">    <span class="p">[(</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">port3</span></a><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">line4p</span></a><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="p">(</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">Rp_circuit</span></a><span class="p">,</span> <span class="mi">0</span><span class="p">)],</span>
+</span><span data-line="19">    <span class="p">[(</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">line4p</span></a><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">Rp_circuit</span></a><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">ground</span></a><span class="p">,</span> <span class="mi">0</span><span class="p">)]]</span>
+</span><span data-line="20">
+</span><span data-line="21"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.circuit.Circuit.html#skrf.circuit.Circuit" title="skrf.circuit.Circuit"><span class="n">circuit</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.circuit.Circuit.html#skrf.circuit.Circuit" title="skrf.circuit.Circuit"><span class="n">Circuit</span></a><span class="p">(</span><span class="n">connections</span><span class="p">)</span>
+</span><span data-line="22"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.circuit.Circuit.network.html#skrf.circuit.Circuit.network" title="skrf.circuit.Circuit.network"><span class="n">balun_circuit</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.circuit.Circuit.network.html#skrf.circuit.Circuit.network" title="skrf.circuit.Circuit.network"><span class="n">circuit</span><span class="o">.</span><span class="n">network</span></a>
+</span><span data-line="23"><span class="n">balun_circuit</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">'ideal balun circuit'</span>
+</span><span data-line="24">
+</span><span data-line="25"><span class="n">fig</span><span class="p">,</span> <span class="p">(</span><span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">)</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span><span data-line="26">
+</span><span data-line="27"><span class="n">balun_circuit</span><span class="o">.</span><span class="n">plot_s_db</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax1</span><span class="p">,</span> <span class="n">m</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>  <span class="c1"># S11</span>
+</span><span data-line="28"><span class="n">balun_circuit</span><span class="o">.</span><span class="n">plot_s_db</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax1</span><span class="p">,</span> <span class="n">m</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>  <span class="c1"># S22</span>
+</span><span data-line="29"><span class="n">ax1</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="o">-</span><span class="mi">60</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+</span><span data-line="30">
+</span><span data-line="31"><span class="n">balun_circuit</span><span class="o">.</span><span class="n">plot_s_db</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax2</span><span class="p">,</span> <span class="n">m</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>  <span class="c1"># S21</span>
+</span><span data-line="32"><span class="n">ax2</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+</span><span data-line="33">
+</span><span data-line="34"><span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s2">"Ideal 50-Ohm balun"</span><span class="p">)</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[5]:
+</span></pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Text(0.5, 0.98, 'Ideal 50-Ohm balun')
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/examples_networktheory_Balun_Transformer_Designs_11_1.png" src="../../_images/examples_networktheory_Balun_Transformer_Designs_11_1.png"/>
+</div>
+</div>
+</section>
+<section id="Guanella-transformer">
+<h2>Guanella transformer<a class="headerlink" href="#Guanella-transformer" title="Link to this heading">#</a></h2>
+<p>The next circuit to be explored is a Guanella transformer, which is a 4-to-1 impedance transformer. In this example, a 100-Ohms impedance is transformed to 25-Ohms using two 50-Ohms transmission lines. This example is implemented in scikit-rf version 1.4. <img alt="64e5bb5a69784b76a59982e20d89653d" src="../../_images/Guanella_transformer_1.png"/></p>
+<p>Fig.3 Ideal Guanella Transformer</p>
+<p>Using Fig.3 as a nodal guide, a Guanella transformer can be created. Note that on the left-hand side of the circuit, the two transmission lines are connected in RF series to form the 100-Ohms port. On the opposite end, the right-hand side is connected in parallel to form the 25-Ohms port. Also, the ferrite sleeve is modeled as an inductor in this example.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[6]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.frequency.Frequency.html#skrf.frequency.Frequency" title="skrf.frequency.Frequency"><span class="n">freq</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.frequency.Frequency.html#skrf.frequency.Frequency" title="skrf.frequency.Frequency"><span class="n">rf</span><span class="o">.</span><span class="n">Frequency</span></a><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">stop</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="p">(</span><span class="s1">'GHz'</span><span class="p">),</span> <span class="n">npoints</span><span class="o">=</span><span class="mi">2001</span><span class="p">)</span>
+</span><span data-line="2"><span class="n">beta</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.frequency.Frequency.w.html#skrf.frequency.Frequency.w" title="skrf.frequency.Frequency.w"><span class="n">freq</span><span class="o">.</span><span class="n">w</span></a><span class="o">/</span><a class="sphinx-codeautolink-a" href="../../api/constants.html#skrf.constants.c" title="skrf.constants.c"><span class="n">c</span></a>
+</span><span data-line="3">
+</span><span data-line="4"><a class="sphinx-codeautolink-a" href="../../api/media/generated/skrf.media.media.DefinedGammaZ0.html#skrf.media.media.DefinedGammaZ0" title="skrf.media.media.DefinedGammaZ0"><span class="n">line</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/media/generated/skrf.media.media.DefinedGammaZ0.html#skrf.media.media.DefinedGammaZ0" title="skrf.media.media.DefinedGammaZ0"><span class="n">rf</span><span class="o">.</span><span class="n">media</span><span class="o">.</span><span class="n">DefinedGammaZ0</span></a><span class="p">(</span><span class="n">frequency</span><span class="o">=</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.frequency.Frequency.html#skrf.frequency.Frequency" title="skrf.frequency.Frequency"><span class="n">freq</span></a><span class="p">,</span> <span class="n">z0</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">gamma</span><span class="o">=</span><span class="mi">0</span><span class="o">+</span><span class="n">beta</span><span class="o">*</span><span class="mi">1</span><span class="n">j</span><span class="p">)</span>
+</span><span data-line="5"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">ferrite_inductor</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/media/generated/skrf.media.media.DefinedGammaZ0.inductor.html#skrf.media.media.DefinedGammaZ0.inductor" title="skrf.media.media.DefinedGammaZ0.inductor"><span class="n">line</span><span class="o">.</span><span class="n">inductor</span></a><span class="p">(</span><span class="mf">100e-9</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'ind'</span><span class="p">)</span> <span class="c1"># model ferrite sleeve as a parallel 100 nH inductor</span>
+</span><span data-line="6">
+</span><span data-line="7"><span class="c1"># define a floating 4-port transmission line</span>
+</span><span data-line="8"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">line4p_a</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/media/generated/skrf.media.media.DefinedGammaZ0.line_floating.html#skrf.media.media.DefinedGammaZ0.line_floating" title="skrf.media.media.DefinedGammaZ0.line_floating"><span class="n">line</span><span class="o">.</span><span class="n">line_floating</span></a><span class="p">(</span><span class="mi">90</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s1">'deg'</span><span class="p">,</span> <span class="n">z0</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'line4p_a'</span><span class="p">)</span>
+</span><span data-line="9"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">line4p_b</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/media/generated/skrf.media.media.DefinedGammaZ0.line_floating.html#skrf.media.media.DefinedGammaZ0.line_floating" title="skrf.media.media.DefinedGammaZ0.line_floating"><span class="n">line</span><span class="o">.</span><span class="n">line_floating</span></a><span class="p">(</span><span class="mi">90</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s1">'deg'</span><span class="p">,</span> <span class="n">z0</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'line4p_b'</span><span class="p">)</span>
+</span><span data-line="10">
+</span><span data-line="11"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">port1</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.circuit.Circuit.Port.html#skrf.circuit.Circuit.Port" title="skrf.circuit.Circuit.Port"><span class="n">Circuit</span><span class="o">.</span><span class="n">Port</span></a><span class="p">(</span><span class="n">frequency</span><span class="o">=</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.frequency.Frequency.html#skrf.frequency.Frequency" title="skrf.frequency.Frequency"><span class="n">freq</span></a><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'port1'</span><span class="p">,</span> <span class="n">z0</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+</span><span data-line="12"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">port2</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.circuit.Circuit.Port.html#skrf.circuit.Circuit.Port" title="skrf.circuit.Circuit.Port"><span class="n">Circuit</span><span class="o">.</span><span class="n">Port</span></a><span class="p">(</span><span class="n">frequency</span><span class="o">=</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.frequency.Frequency.html#skrf.frequency.Frequency" title="skrf.frequency.Frequency"><span class="n">freq</span></a><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'port2'</span><span class="p">,</span> <span class="n">z0</span><span class="o">=</span><span class="mi">25</span><span class="p">)</span>
+</span><span data-line="13"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">ground1</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.circuit.Circuit.Ground.html#skrf.circuit.Circuit.Ground" title="skrf.circuit.Circuit.Ground"><span class="n">Circuit</span><span class="o">.</span><span class="n">Ground</span></a><span class="p">(</span><span class="n">frequency</span><span class="o">=</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.frequency.Frequency.html#skrf.frequency.Frequency" title="skrf.frequency.Frequency"><span class="n">freq</span></a><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'ground1'</span><span class="p">,</span> <span class="n">z0</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+</span><span data-line="14"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">ground2</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.circuit.Circuit.Ground.html#skrf.circuit.Circuit.Ground" title="skrf.circuit.Circuit.Ground"><span class="n">Circuit</span><span class="o">.</span><span class="n">Ground</span></a><span class="p">(</span><span class="n">frequency</span><span class="o">=</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.frequency.Frequency.html#skrf.frequency.Frequency" title="skrf.frequency.Frequency"><span class="n">freq</span></a><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'ground2'</span><span class="p">,</span> <span class="n">z0</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+</span><span data-line="15">
+</span><span data-line="16"><span class="n">connections</span> <span class="o">=</span> <span class="p">[[(</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">port1</span></a><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">line4p_a</span></a><span class="p">,</span> <span class="mi">0</span><span class="p">)],</span>
+</span><span data-line="17">    <span class="p">[(</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">port2</span></a><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">line4p_a</span></a><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">line4p_b</span></a><span class="p">,</span> <span class="mi">1</span><span class="p">)],</span>
+</span><span data-line="18">    <span class="p">[(</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">line4p_a</span></a><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">line4p_b</span></a><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">ferrite_inductor</span></a><span class="p">,</span> <span class="mi">0</span><span class="p">)],</span>
+</span><span data-line="19">    <span class="p">[(</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">line4p_a</span></a><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="p">(</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">ferrite_inductor</span></a><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">ground1</span></a><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">line4p_b</span></a><span class="p">,</span> <span class="mi">3</span><span class="p">)],</span>
+</span><span data-line="20">    <span class="p">[(</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">line4p_b</span></a><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">ground2</span></a><span class="p">,</span> <span class="mi">0</span><span class="p">)]]</span>
+</span><span data-line="21">
+</span><span data-line="22"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.circuit.Circuit.html#skrf.circuit.Circuit" title="skrf.circuit.Circuit"><span class="n">circuit</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.circuit.Circuit.html#skrf.circuit.Circuit" title="skrf.circuit.Circuit"><span class="n">Circuit</span></a><span class="p">(</span><span class="n">connections</span><span class="p">)</span>
+</span><span data-line="23"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.circuit.Circuit.network.html#skrf.circuit.Circuit.network" title="skrf.circuit.Circuit.network"><span class="n">transf_circuit</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.circuit.Circuit.network.html#skrf.circuit.Circuit.network" title="skrf.circuit.Circuit.network"><span class="n">circuit</span><span class="o">.</span><span class="n">network</span></a>
+</span><span data-line="24"><span class="n">transf_circuit</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">'ideal Guanella transformer circuit'</span>
+</span><span data-line="25">
+</span><span data-line="26"><span class="n">transf_circuit</span><span class="o">.</span><span class="n">plot_s_db</span><span class="p">(</span><span class="n">m</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+</span><span data-line="27"><span class="n">transf_circuit</span><span class="o">.</span><span class="n">plot_s_db</span><span class="p">(</span><span class="n">m</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+</span><span data-line="28"><span class="n">transf_circuit</span><span class="o">.</span><span class="n">plot_s_db</span><span class="p">(</span><span class="n">m</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+</span><span data-line="29">
+</span><span data-line="30"><span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="o">-</span><span class="mi">50</span><span class="p">,</span><span class="mi">10</span><span class="p">)</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[6]:
+</span></pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+(-50.0, 10.0)
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/examples_networktheory_Balun_Transformer_Designs_14_1.png" src="../../_images/examples_networktheory_Balun_Transformer_Designs_14_1.png"/>
+</div>
+</div>
+<p>In this Guanella transformer example, the ferrite sleeve is modeled as an inductor shunting across the outer conductor of the upper coax. As can be seen in the S-parameter plot immediately above, the transformer works well between 200 and 1000 MHz. Below 200 MHz, the ferrite-sleeve inductor does not provide enough impedance to “choke” to coax line properly. At 1000 MHz, this circuit has a sharp resonance which constrains the upper frequency limit to 1 GHz.</p>
+</section>
+<section id="Marchand-balun">
+<h2>Marchand balun<a class="headerlink" href="#Marchand-balun" title="Link to this heading">#</a></h2>
+<p>The final circuit that we discuss here is the triax <a class="reference external" href="https://www.microwaves101.com/encyclopedias/marchand-balun">Marchand balun</a>, which does not employ any ferrite material. In this circuit, two triax sections are cascaded and the balanced output is taken from the middle. Fig.4 shows a sketch of a Marchand balun, as per the description in the original Marchand’s paper.</p>
+<p><img alt="77a7d9376bb54c1dbec95d0f6d6c792d" src="../../_images/Annotated_Marchand.png"/></p>
+<p>Fig.4 Original Marchand Balun Drawing</p>
+<p>As can be seen in Fig.4, the triax cross section has an inner conductor that is shielded by an intermediate circular outer conductor. In turn, the circular outermost outer conductor envelopes the intermediate conductor.</p>
+<p>Fig.5 Shows an electrical circuit which models the triax Marchand balun. Two nested coax lines are employed to emulate one triax structure.</p>
+<p><img alt="d792517596af4d4b97c82c7e028e495a" src="../../_images/Marchand_Balun.png"/></p>
+<p>Fig.5 Ideal Marchand Balun Circuit</p>
+<p>As seen in Fig.5, coax CX1 and CX2 form the first triax. The inner most coax impedance CX1 is 50-Ohms. The outer conductor of CX1 becomes the inner conductor of the 120-Ohms CX2.</p>
+<p>The second triax is formed by the 10-Ohms CX3 and the 120-Ohms CX4. Similar to the previous triax, the outer conductor of CX3 becomes the inner conductor of CX4.</p>
+<p>The ideal transformer in Fig.5 is needed to show that the output of the Marchand balun is indeed differential.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[7]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="c1"># ideal transformer to convert differential ports to 50-Ohms single-ended</span>
+</span><span data-line="2"><span class="n">xformer</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">"Balun_Transformer_Designs/Ideal_4port_xformer_hi_res.s4p"</span>
+</span><span data-line="3"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">xformer_ntwk</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">rf</span><span class="o">.</span><span class="n">Network</span></a><span class="p">(</span><span class="n">xformer</span><span class="p">)</span>
+</span><span data-line="4"><span class="n">xformer_ntwk1a</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">xformer_ntwk</span></a><span class="p">[</span><span class="s2">"0.001-2ghz"</span><span class="p">]</span>
+</span><span data-line="5">
+</span><span data-line="6"><span class="n">freq</span> <span class="o">=</span> <span class="n">xformer_ntwk1a</span><span class="o">.</span><span class="n">frequency</span>
+</span><span data-line="7"><span class="n">beta</span> <span class="o">=</span> <span class="n">freq</span><span class="o">.</span><span class="n">w</span><span class="o">/</span><a class="sphinx-codeautolink-a" href="../../api/constants.html#skrf.constants.c" title="skrf.constants.c"><span class="n">c</span></a>
+</span><span data-line="8">
+</span><span data-line="9"><a class="sphinx-codeautolink-a" href="../../api/media/generated/skrf.media.media.DefinedGammaZ0.html#skrf.media.media.DefinedGammaZ0" title="skrf.media.media.DefinedGammaZ0"><span class="n">line</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/media/generated/skrf.media.media.DefinedGammaZ0.html#skrf.media.media.DefinedGammaZ0" title="skrf.media.media.DefinedGammaZ0"><span class="n">rf</span><span class="o">.</span><span class="n">media</span><span class="o">.</span><span class="n">DefinedGammaZ0</span></a><span class="p">(</span><span class="n">frequency</span><span class="o">=</span><span class="n">freq</span><span class="p">,</span> <span class="n">z0</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">gamma</span><span class="o">=</span><span class="mi">0</span><span class="o">+</span><span class="n">beta</span><span class="o">*</span><span class="mi">1</span><span class="n">j</span><span class="p">)</span>
+</span><span data-line="10"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">C1</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/media/generated/skrf.media.media.DefinedGammaZ0.capacitor.html#skrf.media.media.DefinedGammaZ0.capacitor" title="skrf.media.media.DefinedGammaZ0.capacitor"><span class="n">line</span><span class="o">.</span><span class="n">capacitor</span></a><span class="p">(</span><span class="mf">0.106e-12</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'cap'</span><span class="p">)</span>
+</span><span data-line="11">
+</span><span data-line="12"><span class="c1"># define a floating 4-port transmission line</span>
+</span><span data-line="13"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">line4p_a1</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/media/generated/skrf.media.media.DefinedGammaZ0.line_floating.html#skrf.media.media.DefinedGammaZ0.line_floating" title="skrf.media.media.DefinedGammaZ0.line_floating"><span class="n">line</span><span class="o">.</span><span class="n">line_floating</span></a><span class="p">(</span><span class="mi">90</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s1">'deg'</span><span class="p">,</span> <span class="n">z0</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'line4p_a1'</span><span class="p">)</span>
+</span><span data-line="14"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">line4p_b1</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/media/generated/skrf.media.media.DefinedGammaZ0.line_floating.html#skrf.media.media.DefinedGammaZ0.line_floating" title="skrf.media.media.DefinedGammaZ0.line_floating"><span class="n">line</span><span class="o">.</span><span class="n">line_floating</span></a><span class="p">(</span><span class="mi">90</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s1">'deg'</span><span class="p">,</span> <span class="n">z0</span><span class="o">=</span><span class="mi">120</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'line4p_b1'</span><span class="p">)</span>
+</span><span data-line="15"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">line4p_c1</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/media/generated/skrf.media.media.DefinedGammaZ0.line_floating.html#skrf.media.media.DefinedGammaZ0.line_floating" title="skrf.media.media.DefinedGammaZ0.line_floating"><span class="n">line</span><span class="o">.</span><span class="n">line_floating</span></a><span class="p">(</span><span class="mi">90</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s1">'deg'</span><span class="p">,</span> <span class="n">z0</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'line4p_c1'</span><span class="p">)</span>
+</span><span data-line="16"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">line4p_d1</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/media/generated/skrf.media.media.DefinedGammaZ0.line_floating.html#skrf.media.media.DefinedGammaZ0.line_floating" title="skrf.media.media.DefinedGammaZ0.line_floating"><span class="n">line</span><span class="o">.</span><span class="n">line_floating</span></a><span class="p">(</span><span class="mi">90</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s1">'deg'</span><span class="p">,</span> <span class="n">z0</span><span class="o">=</span><span class="mi">120</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'line4p_d1'</span><span class="p">)</span>
+</span><span data-line="17">
+</span><span data-line="18"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">port1a</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.circuit.Circuit.Port.html#skrf.circuit.Circuit.Port" title="skrf.circuit.Circuit.Port"><span class="n">Circuit</span><span class="o">.</span><span class="n">Port</span></a><span class="p">(</span><span class="n">frequency</span><span class="o">=</span><span class="n">freq</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'port1'</span><span class="p">,</span> <span class="n">z0</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+</span><span data-line="19"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">port2a</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.circuit.Circuit.Port.html#skrf.circuit.Circuit.Port" title="skrf.circuit.Circuit.Port"><span class="n">Circuit</span><span class="o">.</span><span class="n">Port</span></a><span class="p">(</span><span class="n">frequency</span><span class="o">=</span><span class="n">freq</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'port2'</span><span class="p">,</span> <span class="n">z0</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+</span><span data-line="20"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">ground1a</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.circuit.Circuit.Ground.html#skrf.circuit.Circuit.Ground" title="skrf.circuit.Circuit.Ground"><span class="n">Circuit</span><span class="o">.</span><span class="n">Ground</span></a><span class="p">(</span><span class="n">frequency</span><span class="o">=</span><span class="n">freq</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'ground1'</span><span class="p">,</span> <span class="n">z0</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+</span><span data-line="21"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">ground2a</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.circuit.Circuit.Ground.html#skrf.circuit.Circuit.Ground" title="skrf.circuit.Circuit.Ground"><span class="n">Circuit</span><span class="o">.</span><span class="n">Ground</span></a><span class="p">(</span><span class="n">frequency</span><span class="o">=</span><span class="n">freq</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'ground2'</span><span class="p">,</span> <span class="n">z0</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+</span><span data-line="22">
+</span><span data-line="23"><span class="n">connections</span> <span class="o">=</span> <span class="p">[[(</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">port1a</span></a><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">line4p_a1</span></a><span class="p">,</span> <span class="mi">0</span><span class="p">)],</span>
+</span><span data-line="24">    <span class="p">[(</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">ground1a</span></a><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">line4p_a1</span></a><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">line4p_b1</span></a><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">line4p_b1</span></a><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">line4p_b1</span></a><span class="p">,</span> <span class="mi">3</span><span class="p">)],</span>
+</span><span data-line="25">    <span class="p">[(</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">line4p_a1</span></a><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">line4p_c1</span></a><span class="p">,</span> <span class="mi">0</span><span class="p">)],</span>
+</span><span data-line="26">    <span class="p">[(</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">line4p_a1</span></a><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="p">(</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">line4p_b1</span></a><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="n">xformer_ntwk1a</span><span class="p">,</span> <span class="mi">0</span><span class="p">)],</span>
+</span><span data-line="27">    <span class="p">[(</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">line4p_c1</span></a><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="n">xformer_ntwk1a</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">line4p_d1</span></a><span class="p">,</span> <span class="mi">0</span><span class="p">)],</span>
+</span><span data-line="28">    <span class="p">[(</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">line4p_d1</span></a><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">line4p_c1</span></a><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="p">(</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">line4p_d1</span></a><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">line4p_d1</span></a><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="p">(</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">C1</span></a><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="n">xformer_ntwk1a</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="p">(</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">ground2a</span></a><span class="p">,</span> <span class="mi">0</span><span class="p">)],</span>
+</span><span data-line="29">    <span class="p">[(</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">line4p_c1</span></a><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">C1</span></a><span class="p">,</span> <span class="mi">0</span><span class="p">)],</span>
+</span><span data-line="30">    <span class="p">[(</span><span class="n">xformer_ntwk1a</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">port2a</span></a><span class="p">,</span> <span class="mi">0</span><span class="p">)]]</span>
+</span><span data-line="31">
+</span><span data-line="32"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.circuit.Circuit.html#skrf.circuit.Circuit" title="skrf.circuit.Circuit"><span class="n">circuit1</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.circuit.Circuit.html#skrf.circuit.Circuit" title="skrf.circuit.Circuit"><span class="n">Circuit</span></a><span class="p">(</span><span class="n">connections</span><span class="p">)</span>
+</span><span data-line="33"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.circuit.Circuit.network.html#skrf.circuit.Circuit.network" title="skrf.circuit.Circuit.network"><span class="n">Marchand_circuit</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.circuit.Circuit.network.html#skrf.circuit.Circuit.network" title="skrf.circuit.Circuit.network"><span class="n">circuit1</span><span class="o">.</span><span class="n">network</span></a>
+</span><span data-line="34"><span class="n">Marchand_circuit</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">'Marchand circuit'</span>
+</span><span data-line="35">
+</span><span data-line="36"><span class="n">Marchand_circuit</span><span class="o">.</span><span class="n">plot_s_db</span><span class="p">(</span><span class="n">m</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+</span><span data-line="37"><span class="n">Marchand_circuit</span><span class="o">.</span><span class="n">plot_s_db</span><span class="p">(</span><span class="n">m</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+</span><span data-line="38"><span class="n">Marchand_circuit</span><span class="o">.</span><span class="n">plot_s_db</span><span class="p">(</span><span class="n">m</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+</span><span data-line="39">
+</span><span data-line="40"><span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="o">-</span><span class="mi">50</span><span class="p">,</span><span class="mi">10</span><span class="p">)</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[7]:
+</span></pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+(-50.0, 10.0)
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/examples_networktheory_Balun_Transformer_Designs_19_1.png" src="../../_images/examples_networktheory_Balun_Transformer_Designs_19_1.png"/>
+</div>
+</div>
+<p>In the S-parameter plot of the Marchand balun above, the bandwidth of this circuit is from 250 to 1600 MHz (-20dB return-loss bandwidth). This multi-octave performance is achieved without the use of any ferrite sleeve. The compromise here is the complexity of the balun’s construction.</p>
+<p>Using these three simple examples, one can build many other interesting transmission-line circuits in scikit-rf. Furthermore, these circuits can be built on an iphone (Juno), or an Android tablet (Pydroid 3), or a laptop (Anaconda). Such ease of access allows design ideas to be quickly &amp; accurately captured and tested where or whenever they are conceived. The possibilities and potentials are endless.</p>
+</section>
+</section>
+
+        </article><button class="back-to-top" type="button">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+  </svg>
+  <span>Back to top</span>
+</button><div class="navigation flex print:hidden"><div class="navigation-prev">
+    <a href="Balanced%20Network%20De-embedding.html">
+      <i class="i-lucide chevron-left"></i>
+      <div class="page-info">
+        <span>Previous</span><div class="title">Balanced Network De-embedding</div></div>
+    </a>
+  </div><div class="navigation-next">
+    <a href="CPW%20media%20example.html">
+      <div class="page-info">
+        <span>Next</span>
+        <div class="title">CPW media example</div>
+      </div>
+      <i class="i-lucide chevron-right"></i>
+    </a>
+  </div></div></div>
+    </div>
+  </main>
+</div>
+<footer class="sy-foot">
+  <div class="sy-foot-inner sy-container mx-auto">
+    <div class="sy-foot-reserved md:flex justify-between items-center">
+      <div class="sy-foot-copyright"><p>2025, scikit-rf team</p>
+  
+  <p>
+    Made with
+    
+    <a href="https://www.sphinx-doc.org/">Sphinx</a> and
+    
+    <a href="https://shibuya.lepture.com">Shibuya theme</a>.
+  </p>
+</div>
+      <div class="sy-foot-socials">
+  <a href="https://github.com/scikit-rf/scikit-rf" aria-label="GitHub">
+    <iconify-icon icon="simple-icons:github"></iconify-icon>
+  </a></div>
+    </div>
+  </div>
+</footer>
+      <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../_static/copybutton.js?v=34bd459d"></script>
+      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+      <script src="../../_static/shibuya.js?v=50760d75"></script>
+      <script src="https://cdn.jsdelivr.net/npm/@jupyter-widgets/html-manager@^1.0.1/dist/embed-amd.js"></script>
+      <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
+      <script src="../../_static/skrf.js?v=bdeb9fb0"></script></body>
+</html>

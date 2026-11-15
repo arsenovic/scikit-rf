@@ -1,0 +1,6 @@
+skrf.vi.vna.keysight.FieldFox.active\_trace
+===========================================
+
+.. currentmodule:: skrf.vi.vna.keysight
+
+.. autoproperty:: FieldFox.active_trace

@@ -1,0 +1,6 @@
+skrf.calibration.calibration.TUGMultilineTRL.er\_eff
+====================================================
+
+.. currentmodule:: skrf.calibration.calibration
+
+.. autoproperty:: TUGMultilineTRL.er_eff

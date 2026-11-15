@@ -1,0 +1,6 @@
+﻿skrf.network.check\_frequency\_exist
+====================================
+
+.. currentmodule:: skrf.network
+
+.. autofunction:: check_frequency_exist

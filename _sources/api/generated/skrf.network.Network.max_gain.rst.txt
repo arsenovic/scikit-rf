@@ -1,0 +1,6 @@
+skrf.network.Network.max\_gain
+==============================
+
+.. currentmodule:: skrf.network
+
+.. autoproperty:: Network.max_gain

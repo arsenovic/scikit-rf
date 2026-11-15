@@ -1,0 +1,6 @@
+skrf.calibration.calibration.MultiportSOLT.dut\_termination
+===========================================================
+
+.. currentmodule:: skrf.calibration.calibration
+
+.. automethod:: MultiportSOLT.dut_termination

@@ -1,0 +1,6 @@
+skrf.media.rectangularWaveguide.RectangularWaveguide.z0\_characteristic
+=======================================================================
+
+.. currentmodule:: skrf.media.rectangularWaveguide
+
+.. autoproperty:: RectangularWaveguide.z0_characteristic

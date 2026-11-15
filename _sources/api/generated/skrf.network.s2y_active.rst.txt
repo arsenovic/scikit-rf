@@ -1,0 +1,6 @@
+﻿skrf.network.s2y\_active
+========================
+
+.. currentmodule:: skrf.network
+
+.. autofunction:: s2y_active

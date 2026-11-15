@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en" data-accent-color="blue" data-content_root="../../">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Lumped Elements Circuits - scikit-rf</title><link rel="author" title="About these documents" href="../../about.html" /><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="Voltages and Currents in Circuits" href="Voltages%20and%20Currents%20in%20Circuits.html" /><link rel="prev" title="Circuit" href="index.html" /><script>
+    function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
+    setColorMode(localStorage._theme||"auto");
+  </script><link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=ad592e98" />
+    <link rel="stylesheet" type="text/css" href="../../_static/shibuya.css?v=2ceb65ce" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-codeautolink.css?v=b2176991" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link media="print" rel="stylesheet" type="text/css" href="../../_static/print.css?v=20ff2c19" />
+    <link rel="stylesheet" type="text/css" href="../../_static/nbsphinx-code-cells.css?v=2aa19091" />
+    <link rel="stylesheet" type="text/css" href="../../_static/skrf.css?v=7e772ba2" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --sy-f-text: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+  --sy-f-heading: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+}
+</style>
+    
+  <meta property="og:type" content="website"/><meta property="og:title" content="Lumped Elements Circuits"/>
+    <meta name="twitter:card" content="summary"/>
+  </head>
+<body><div class="sy-head">
+  <div class="sy-head-blur"></div>
+  <div class="sy-head-inner sy-container mx-auto">
+    <a class="sy-head-brand" href="../../index.html">
+      <img class="light-logo" src="../../_static/logo.svg" alt="scikit-rf" height="28" loading="lazy" />
+      <img class="dark-logo" src="../../_static/logo.svg" alt="scikit-rf" height="28" loading="lazy" />
+      <strong>scikit-rf</strong>
+    </a>
+    <div class="sy-head-nav" id="head-nav">
+      <nav class="sy-head-links"><ul><li class="link"><a href="../../index.html">Home</a></li><li class="link"><a href="../../tutorials/index.html">Tutorials</a></li><li class="link"><a href="../index.html">Examples</a></li><li class="link"><a href="../../api/index.html">API</a></li><li class="link">
+          <a href="https://github.com/scikit-rf/scikit-rf">
+            <span>GitHub</span><i class="i-lucide external-link"></i></a>
+        </li></ul></nav>
+      <div class="sy-head-extra flex items-center print:hidden"><form class="searchbox flex items-center" action="../../search.html" method="get">
+  <input type="text" name="q" placeholder="Search" />
+  <kbd>/</kbd>
+</form><div class="sy-head-socials">
+  <a href="https://github.com/scikit-rf/scikit-rf" aria-label="GitHub">
+    <iconify-icon icon="simple-icons:github"></iconify-icon>
+  </a>
+  <a href="https://www.linkedin.com/groups/12462155/" aria-label="LinkedIn">
+    <iconify-icon icon="simple-icons:linkedin"></iconify-icon>
+  </a>
+  <a href="https://app.element.io/#/room/#scikit-rf:matrix.org" aria-label="Matrix">
+    <iconify-icon icon="simple-icons:matrix"></iconify-icon>
+  </a></div></div>
+    </div>
+    <div class="sy-head-actions flex items-center shrink-0 print:hidden"><button class="js-theme theme-switch flex items-center"
+data-aria-auto="Switch to light color mode"
+data-aria-light="Switch to dark color mode"
+data-aria-dark="Switch to auto color mode">
+<i class="i-lucide theme-icon"></i>
+</button><button class="md:hidden flex items-center js-menu" aria-label="Menu" type="button" aria-controls="head-nav" aria-expanded="false">
+        <div class="hamburger">
+          <span class="hamburger_1"></span>
+          <span class="hamburger_2"></span>
+          <span class="hamburger_3"></span>
+        </div>
+      </button>
+    </div>
+  </div>
+</div>
+<div class="sy-page sy-container flex mx-auto">
+  <aside id="lside" class="sy-lside md:w-72 md:shrink-0 print:hidden">
+    <div class="sy-lside-inner md:sticky">
+      <div class="sy-scrollbar p-6">
+        <div class="globaltoc" data-expand-depth="0"><p class="caption" role="heading" aria-level="3"><span class="caption-text">Getting started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../index.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/Installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/Introduction.html">Introduction</a></li>
+</ul>
+<p class="caption" role="heading" aria-level="3"><span class="caption-text">User guide</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Examples</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../networktheory/index.html">Network Theory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../matching/index.html">Matching</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../metrology/index.html">Metrology and Calibration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../networksets/index.html">NetworkSets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../plotting/index.html">Plotting</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Circuit</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mixedmodeanalysis/index.html">Mixed Mode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../vectorfitting/index.html">Vector Fitting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../vectorfitting_parametric/index.html">Parametric Vector Fitting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../qfactor/index.html">Q-factor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../taper/index.html">Taper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../instrumentcontrol/index.html">Instrument Control</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../interactive/index.html">Interactive</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading" aria-level="3"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../api/index.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../glossary.html">Glossary</a></li>
+</ul>
+<p class="caption" role="heading" aria-level="3"><span class="caption-text">Project</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing/index.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../citations_ack/acknowledging.html">Citing scikit-rf</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../citations_ack/citations.html">scikit-rf Citations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../about.html">About</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../users.html">Users</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../license.html">License</a></li>
+</ul>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="lside-overlay js-menu" role="button" aria-label="Close left sidebar" aria-controls="lside" aria-expanded="false"></div>
+  <aside id="rside" class="sy-rside pb-3 w-64 shrink-0 order-last">
+    <button class="rside-close js-menu xl:hidden" aria-label="Close Table of Contents" type="button" aria-controls="rside" aria-expanded="false">
+      <i class="i-lucide close"></i>
+    </button>
+    <div class="sy-scrollbar sy-rside-inner px-6 xl:top-16 xl:sticky xl:pl-0 pt-6 pb-4"><div class="localtoc"><h3>On this page</h3><ul>
+<li><a class="reference internal" href="#LC-Series-Circuit">LC Series Circuit</a></li>
+<li><a class="reference internal" href="#A-More-Advanced-Equivalent-Model">A More Advanced Equivalent Model</a></li>
+<li><a class="reference internal" href="#Pass-band-filter">Pass band filter</a></li>
+</ul>
+</div><div id="ethical-ad-placement" data-ea-publisher="readthedocs"></div></div>
+  </aside>
+  <div class="rside-overlay js-menu" role="button" aria-label="Close Table of Contents" aria-controls="rside" aria-expanded="false"></div>
+  <main class="sy-main w-full max-sm:max-w-full print:pt-6">
+<div class="sy-breadcrumbs" role="navigation">
+  <div class="sy-breadcrumbs-inner flex items-center">
+    <div class="md:hidden mr-3">
+      <button class="js-menu" aria-label="Menu" type="button" aria-controls="lside" aria-expanded="false">
+        <i class="i-lucide menu"></i>
+      </button>
+    </div>
+    <ol class="flex-1" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="../../index.html"><span itemprop="name">scikit-rf</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="1" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="../index.html"><span itemprop="name">Examples</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="2" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="index.html"><span itemprop="name">Circuit</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="3" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <strong itemprop="name">Lumped Elements Circuits</strong>
+        <meta itemprop="position" content="4" />
+      </li></ol>
+    <a class="sk-download" href="Lumped%20Element%20Circuits.ipynb" download>Download</a>
+    <div class="xl:hidden ml-1">
+      <button class="js-menu" aria-label="Show table of contents" type="button" aria-controls="rside"
+        aria-expanded="false">
+        <i class="i-lucide outdent"></i>
+      </button>
+    </div>
+  </div>
+</div><div class="flex flex-col break-words justify-between">
+      <div class="relative min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
+  <article class="yue" role="main">
+          <section id="Lumped-Elements-Circuits">
+<h1>Lumped Elements Circuits<a class="headerlink" href="#Lumped-Elements-Circuits" title="Link to this heading">#</a></h1>
+<p>In this notebook, we construct various network from basic lumped elements (resistor, capacitor, inductor), with the ‘classic’ and the <code class="docutils literal notranslate"><span class="pre">Circuit</span></code> approach. Generally the <code class="docutils literal notranslate"><span class="pre">Circuit</span></code> approach is more verbose than the ‘classic’ way for building a circuit. However, as the circuit complexity increases, in particular when components are connected in parallel, the <code class="docutils literal notranslate"><span class="pre">Circuit</span></code> approach is interesting as it increases the readability of the code. Moreover, <code class="docutils literal notranslate"><span class="pre">Circuit</span></code> object can be plotted using its
+<code class="docutils literal notranslate"><span class="pre">plot_graph()</span></code> method, which is useful to rapidly control if the circuit is built as expected.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[1]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="kn">import</span><span class="w"> </span><a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/index.html#module-numpy"><span class="nn">numpy</span></a><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>  <span class="c1"># for np.allclose() to check that S-params are similar</span>
+</span><span data-line="2">
+</span><span data-line="3"><span class="kn">import</span><span class="w"> </span><span class="nn">skrf</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">rf</span>
+</span><span data-line="4"><span class="kn">from</span><span class="w"> </span><a class="sphinx-codeautolink-a" href="../../api/circuit.html#module-skrf.circuit"><span class="nn">skrf.circuit</span></a><span class="w"> </span><span class="kn">import</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.circuit.Circuit.html#skrf.circuit.Circuit" title="skrf.circuit.Circuit"><span class="n">Circuit</span></a>
+</span><span data-line="5"><span class="kn">from</span><span class="w"> </span><a class="sphinx-codeautolink-a" href="../../api/network.html#module-0"><span class="nn">skrf.network</span></a><span class="w"> </span><span class="kn">import</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.connect.html#skrf.network.connect" title="skrf.network.connect"><span class="n">connect</span></a><span class="p">,</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.innerconnect.html#skrf.network.innerconnect" title="skrf.network.innerconnect"><span class="n">innerconnect</span></a>
+</span><span data-line="6">
+</span><span data-line="7"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.plotting.stylely.html#skrf.plotting.stylely" title="skrf.plotting.stylely"><span class="n">rf</span><span class="o">.</span><span class="n">stylely</span></a><span class="p">()</span>
+</span></pre></div>
+</div>
+</div>
+<section id="LC-Series-Circuit">
+<h2>LC Series Circuit<a class="headerlink" href="#LC-Series-Circuit" title="Link to this heading">#</a></h2>
+<p>In this section we reproduce a simple equivalent model of a capacitor <span class="math notranslate nohighlight">\(C\)</span>, as illustrated by the figure below:</p>
+<p><img alt="c72fb1436d484b65b8244a1d4ed428b8" class="no-scaled-link" src="../../_images/designer_capacitor_simple.png" width="700"/></p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[2]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="c1"># reference LC circuit made in Designer</span>
+</span><span data-line="2"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">LC_designer</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">rf</span><span class="o">.</span><span class="n">Network</span></a><span class="p">(</span><span class="s1">'designer_capacitor_30_80MHz_simple.s2p'</span><span class="p">)</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[3]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="c1"># scikit-rf: manually connecting networks</span>
+</span><span data-line="2"><a class="sphinx-codeautolink-a" href="../../api/media/generated/skrf.media.media.DefinedGammaZ0.html#skrf.media.media.DefinedGammaZ0" title="skrf.media.media.DefinedGammaZ0"><span class="n">line</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/media/generated/skrf.media.media.DefinedGammaZ0.html#skrf.media.media.DefinedGammaZ0" title="skrf.media.media.DefinedGammaZ0"><span class="n">rf</span><span class="o">.</span><span class="n">media</span><span class="o">.</span><span class="n">DefinedGammaZ0</span></a><span class="p">(</span><span class="n">frequency</span><span class="o">=</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.frequency.html#skrf.network.Network.frequency" title="skrf.network.Network.frequency"><span class="n">LC_designer</span><span class="o">.</span><span class="n">frequency</span></a><span class="p">,</span> <span class="n">z0</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+</span><span data-line="3"><span class="n">LC_manual</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/media/generated/skrf.media.media.DefinedGammaZ0.inductor.html#skrf.media.media.DefinedGammaZ0.inductor" title="skrf.media.media.DefinedGammaZ0.inductor"><span class="n">line</span><span class="o">.</span><span class="n">inductor</span></a><span class="p">(</span><span class="mf">24e-9</span><span class="p">)</span> <span class="o">**</span> <a class="sphinx-codeautolink-a" href="../../api/media/generated/skrf.media.media.DefinedGammaZ0.capacitor.html#skrf.media.media.DefinedGammaZ0.capacitor" title="skrf.media.media.DefinedGammaZ0.capacitor"><span class="n">line</span><span class="o">.</span><span class="n">capacitor</span></a><span class="p">(</span><span class="mf">70e-12</span><span class="p">)</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[4]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="c1"># scikit-rf: using Circuit builder</span>
+</span><span data-line="2"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">port1</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.circuit.Circuit.Port.html#skrf.circuit.Circuit.Port" title="skrf.circuit.Circuit.Port"><span class="n">Circuit</span><span class="o">.</span><span class="n">Port</span></a><span class="p">(</span><span class="n">frequency</span><span class="o">=</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.frequency.html#skrf.network.Network.frequency" title="skrf.network.Network.frequency"><span class="n">LC_designer</span><span class="o">.</span><span class="n">frequency</span></a><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'port1'</span><span class="p">,</span> <span class="n">z0</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+</span><span data-line="3"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">port2</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.circuit.Circuit.Port.html#skrf.circuit.Circuit.Port" title="skrf.circuit.Circuit.Port"><span class="n">Circuit</span><span class="o">.</span><span class="n">Port</span></a><span class="p">(</span><span class="n">frequency</span><span class="o">=</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.frequency.html#skrf.network.Network.frequency" title="skrf.network.Network.frequency"><span class="n">LC_designer</span><span class="o">.</span><span class="n">frequency</span></a><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'port2'</span><span class="p">,</span> <span class="n">z0</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+</span><span data-line="4"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">cap</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.circuit.Circuit.SeriesImpedance.html#skrf.circuit.Circuit.SeriesImpedance" title="skrf.circuit.Circuit.SeriesImpedance"><span class="n">Circuit</span><span class="o">.</span><span class="n">SeriesImpedance</span></a><span class="p">(</span><span class="n">frequency</span><span class="o">=</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.frequency.html#skrf.network.Network.frequency" title="skrf.network.Network.frequency"><span class="n">LC_designer</span><span class="o">.</span><span class="n">frequency</span></a><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'cap'</span><span class="p">,</span> <span class="n">z0</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span>
+</span><span data-line="5">                                 <span class="n">Z</span><span class="o">=</span><span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="n">j</span><span class="o">*</span><span class="n">LC_designer</span><span class="o">.</span><span class="n">frequency</span><span class="o">.</span><span class="n">w</span><span class="o">*</span><span class="mf">70e-12</span><span class="p">))</span>
+</span><span data-line="6"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">ind</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.circuit.Circuit.SeriesImpedance.html#skrf.circuit.Circuit.SeriesImpedance" title="skrf.circuit.Circuit.SeriesImpedance"><span class="n">Circuit</span><span class="o">.</span><span class="n">SeriesImpedance</span></a><span class="p">(</span><span class="n">frequency</span><span class="o">=</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.frequency.html#skrf.network.Network.frequency" title="skrf.network.Network.frequency"><span class="n">LC_designer</span><span class="o">.</span><span class="n">frequency</span></a><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'ind'</span><span class="p">,</span> <span class="n">z0</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span>
+</span><span data-line="7">                                 <span class="n">Z</span><span class="o">=</span><span class="mi">1</span><span class="n">j</span><span class="o">*</span><span class="n">LC_designer</span><span class="o">.</span><span class="n">frequency</span><span class="o">.</span><span class="n">w</span><span class="o">*</span><span class="mf">24e-9</span><span class="p">)</span>
+</span><span data-line="8">
+</span><span data-line="9"><span class="c1"># NB: it is also possible to create 2-port lumped elements like:</span>
+</span><span data-line="10"><span class="c1"># line = rf.media.DefinedGammaZ0(frequency=LC_designer.frequency, z0=50)</span>
+</span><span data-line="11"><span class="c1"># cap = line.capacitor(70e-12, name='cap')</span>
+</span><span data-line="12"><span class="c1"># ind = line.inductor(24e-9, name='ind')</span>
+</span><span data-line="13">
+</span><span data-line="14"><span class="n">connections</span> <span class="o">=</span> <span class="p">[</span>
+</span><span data-line="15">    <span class="p">[(</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">port1</span></a><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">cap</span></a><span class="p">,</span> <span class="mi">0</span><span class="p">)],</span>
+</span><span data-line="16">    <span class="p">[(</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">cap</span></a><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">ind</span></a><span class="p">,</span> <span class="mi">0</span><span class="p">)],</span>
+</span><span data-line="17">    <span class="p">[(</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">ind</span></a><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">port2</span></a><span class="p">,</span> <span class="mi">0</span><span class="p">)]</span>
+</span><span data-line="18"><span class="p">]</span>
+</span><span data-line="19"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.circuit.Circuit.html#skrf.circuit.Circuit" title="skrf.circuit.Circuit"><span class="n">circuit</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.circuit.Circuit.html#skrf.circuit.Circuit" title="skrf.circuit.Circuit"><span class="n">Circuit</span></a><span class="p">(</span><span class="n">connections</span><span class="p">)</span>
+</span><span data-line="20"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.circuit.Circuit.network.html#skrf.circuit.Circuit.network" title="skrf.circuit.Circuit.network"><span class="n">LC_from_circuit</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.circuit.Circuit.network.html#skrf.circuit.Circuit.network" title="skrf.circuit.Circuit.network"><span class="n">circuit</span><span class="o">.</span><span class="n">network</span></a>
+</span></pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[5]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="c1"># testing the equivalence of the results</span>
+</span><span data-line="2"><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/builtins/functions.html#print"><span class="nb">print</span></a><span class="p">(</span><a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/generated/numpy.allclose.html#numpy.allclose" title="numpy.allclose"><span class="n">np</span><span class="o">.</span><span class="n">allclose</span></a><span class="p">(</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.s.html#skrf.network.Network.s" title="skrf.network.Network.s"><span class="n">LC_designer</span><span class="o">.</span><span class="n">s</span></a><span class="p">,</span> <span class="n">LC_manual</span><span class="o">.</span><span class="n">s</span><span class="p">))</span>
+</span><span data-line="3"><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/builtins/functions.html#print"><span class="nb">print</span></a><span class="p">(</span><a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/generated/numpy.allclose.html#numpy.allclose" title="numpy.allclose"><span class="n">np</span><span class="o">.</span><span class="n">allclose</span></a><span class="p">(</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.s.html#skrf.network.Network.s" title="skrf.network.Network.s"><span class="n">LC_designer</span><span class="o">.</span><span class="n">s</span></a><span class="p">,</span> <span class="n">LC_from_circuit</span><span class="o">.</span><span class="n">s</span><span class="p">))</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+True
+True
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[6]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.circuit.Circuit.plot_graph.html#skrf.circuit.Circuit.plot_graph" title="skrf.circuit.Circuit.plot_graph"><span class="n">circuit</span><span class="o">.</span><span class="n">plot_graph</span></a><span class="p">(</span><span class="n">network_labels</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">edge_labels</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">port_labels</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/examples_circuit_Lumped_Element_Circuits_9_0.png" src="../../_images/examples_circuit_Lumped_Element_Circuits_9_0.png"/>
+</div>
+</div>
+</section>
+<section id="A-More-Advanced-Equivalent-Model">
+<h2>A More Advanced Equivalent Model<a class="headerlink" href="#A-More-Advanced-Equivalent-Model" title="Link to this heading">#</a></h2>
+<p>In this section we reproduce an equivalent model of a capacitor <span class="math notranslate nohighlight">\(C\)</span>, as illustrated by the figure below:</p>
+<p><img alt="61b46259b09148ad8a572491dbf1dc7d" class="no-scaled-link" src="../../_images/designer_capacitor_adv.png" width="800"/></p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[7]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="c1"># Reference results from ANSYS Designer</span>
+</span><span data-line="2"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">LCC_designer</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">rf</span><span class="o">.</span><span class="n">Network</span></a><span class="p">(</span><span class="s1">'designer_capacitor_30_80MHz_adv.s2p'</span><span class="p">)</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[8]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="c1"># scikit-rf: usual way, but this time this is more tedious to deal with connection and port number</span>
+</span><span data-line="2"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.frequency.html#skrf.network.Network.frequency" title="skrf.network.Network.frequency"><span class="n">freq</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.frequency.html#skrf.network.Network.frequency" title="skrf.network.Network.frequency"><span class="n">LCC_designer</span><span class="o">.</span><span class="n">frequency</span></a>
+</span><span data-line="3"><a class="sphinx-codeautolink-a" href="../../api/media/generated/skrf.media.media.DefinedGammaZ0.html#skrf.media.media.DefinedGammaZ0" title="skrf.media.media.DefinedGammaZ0"><span class="n">line</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/media/generated/skrf.media.media.DefinedGammaZ0.html#skrf.media.media.DefinedGammaZ0" title="skrf.media.media.DefinedGammaZ0"><span class="n">rf</span><span class="o">.</span><span class="n">media</span><span class="o">.</span><span class="n">DefinedGammaZ0</span></a><span class="p">(</span><span class="n">frequency</span><span class="o">=</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.frequency.html#skrf.network.Network.frequency" title="skrf.network.Network.frequency"><span class="n">freq</span></a><span class="p">,</span> <span class="n">z0</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+</span><span data-line="4"><span class="n">elements1</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/media/generated/skrf.media.media.DefinedGammaZ0.resistor.html#skrf.media.media.DefinedGammaZ0.resistor" title="skrf.media.media.DefinedGammaZ0.resistor"><span class="n">line</span><span class="o">.</span><span class="n">resistor</span></a><span class="p">(</span><span class="mf">1e-2</span><span class="p">)</span> <span class="o">**</span> <a class="sphinx-codeautolink-a" href="../../api/media/generated/skrf.media.media.DefinedGammaZ0.inductor.html#skrf.media.media.DefinedGammaZ0.inductor" title="skrf.media.media.DefinedGammaZ0.inductor"><span class="n">line</span><span class="o">.</span><span class="n">inductor</span></a><span class="p">(</span><span class="mf">24e-9</span><span class="p">)</span> <span class="o">**</span> <a class="sphinx-codeautolink-a" href="../../api/media/generated/skrf.media.media.DefinedGammaZ0.capacitor.html#skrf.media.media.DefinedGammaZ0.capacitor" title="skrf.media.media.DefinedGammaZ0.capacitor"><span class="n">line</span><span class="o">.</span><span class="n">capacitor</span></a><span class="p">(</span><span class="mf">70e-12</span><span class="p">)</span>
+</span><span data-line="5"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">elements2</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/media/generated/skrf.media.media.DefinedGammaZ0.resistor.html#skrf.media.media.DefinedGammaZ0.resistor" title="skrf.media.media.DefinedGammaZ0.resistor"><span class="n">line</span><span class="o">.</span><span class="n">resistor</span></a><span class="p">(</span><span class="mf">20e6</span><span class="p">)</span>
+</span><span data-line="6"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">T_in</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/media/generated/skrf.media.media.DefinedGammaZ0.tee.html#skrf.media.media.DefinedGammaZ0.tee" title="skrf.media.media.DefinedGammaZ0.tee"><span class="n">line</span><span class="o">.</span><span class="n">tee</span></a><span class="p">()</span>
+</span><span data-line="7"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">T_out</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/media/generated/skrf.media.media.DefinedGammaZ0.tee.html#skrf.media.media.DefinedGammaZ0.tee" title="skrf.media.media.DefinedGammaZ0.tee"><span class="n">line</span><span class="o">.</span><span class="n">tee</span></a><span class="p">()</span>
+</span><span data-line="8"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">ntw</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.connect.html#skrf.network.connect" title="skrf.network.connect"><span class="n">connect</span></a><span class="p">(</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">T_in</span></a><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">elements1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+</span><span data-line="9"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">ntw</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.connect.html#skrf.network.connect" title="skrf.network.connect"><span class="n">connect</span></a><span class="p">(</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">ntw</span></a><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">elements2</span></a><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+</span><span data-line="10"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">ntw</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.connect.html#skrf.network.connect" title="skrf.network.connect"><span class="n">connect</span></a><span class="p">(</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">ntw</span></a><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">T_out</span></a><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+</span><span data-line="11"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">ntw</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.innerconnect.html#skrf.network.innerconnect" title="skrf.network.innerconnect"><span class="n">innerconnect</span></a><span class="p">(</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">ntw</span></a><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+</span><span data-line="12"><span class="n">LCC_manual</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">ntw</span></a> <span class="o">**</span> <a class="sphinx-codeautolink-a" href="../../api/media/generated/skrf.media.media.DefinedGammaZ0.shunt_capacitor.html#skrf.media.media.DefinedGammaZ0.shunt_capacitor" title="skrf.media.media.DefinedGammaZ0.shunt_capacitor"><span class="n">line</span><span class="o">.</span><span class="n">shunt_capacitor</span></a><span class="p">(</span><span class="mf">50e-12</span><span class="p">)</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[9]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="c1"># scikit-rf: using Circuit builder</span>
+</span><span data-line="2"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.frequency.html#skrf.network.Network.frequency" title="skrf.network.Network.frequency"><span class="n">freq</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.frequency.html#skrf.network.Network.frequency" title="skrf.network.Network.frequency"><span class="n">LCC_designer</span><span class="o">.</span><span class="n">frequency</span></a>
+</span><span data-line="3"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">port1</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.circuit.Circuit.Port.html#skrf.circuit.Circuit.Port" title="skrf.circuit.Circuit.Port"><span class="n">Circuit</span><span class="o">.</span><span class="n">Port</span></a><span class="p">(</span><span class="n">frequency</span><span class="o">=</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.frequency.html#skrf.network.Network.frequency" title="skrf.network.Network.frequency"><span class="n">freq</span></a><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'port1'</span><span class="p">,</span> <span class="n">z0</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+</span><span data-line="4"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">port2</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.circuit.Circuit.Port.html#skrf.circuit.Circuit.Port" title="skrf.circuit.Circuit.Port"><span class="n">Circuit</span><span class="o">.</span><span class="n">Port</span></a><span class="p">(</span><span class="n">frequency</span><span class="o">=</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.frequency.html#skrf.network.Network.frequency" title="skrf.network.Network.frequency"><span class="n">freq</span></a><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'port2'</span><span class="p">,</span> <span class="n">z0</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+</span><span data-line="5"><a class="sphinx-codeautolink-a" href="../../api/media/generated/skrf.media.media.DefinedGammaZ0.html#skrf.media.media.DefinedGammaZ0" title="skrf.media.media.DefinedGammaZ0"><span class="n">line</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/media/generated/skrf.media.media.DefinedGammaZ0.html#skrf.media.media.DefinedGammaZ0" title="skrf.media.media.DefinedGammaZ0"><span class="n">rf</span><span class="o">.</span><span class="n">media</span><span class="o">.</span><span class="n">DefinedGammaZ0</span></a><span class="p">(</span><span class="n">frequency</span><span class="o">=</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.frequency.html#skrf.network.Network.frequency" title="skrf.network.Network.frequency"><span class="n">freq</span></a><span class="p">,</span> <span class="n">z0</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+</span><span data-line="6"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">cap</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/media/generated/skrf.media.media.DefinedGammaZ0.capacitor.html#skrf.media.media.DefinedGammaZ0.capacitor" title="skrf.media.media.DefinedGammaZ0.capacitor"><span class="n">line</span><span class="o">.</span><span class="n">capacitor</span></a><span class="p">(</span><span class="mf">70e-12</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'cap'</span><span class="p">)</span>
+</span><span data-line="7"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">ind</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/media/generated/skrf.media.media.DefinedGammaZ0.inductor.html#skrf.media.media.DefinedGammaZ0.inductor" title="skrf.media.media.DefinedGammaZ0.inductor"><span class="n">line</span><span class="o">.</span><span class="n">inductor</span></a><span class="p">(</span><span class="mf">24e-9</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'ind'</span><span class="p">)</span>
+</span><span data-line="8"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">res_series</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/media/generated/skrf.media.media.DefinedGammaZ0.resistor.html#skrf.media.media.DefinedGammaZ0.resistor" title="skrf.media.media.DefinedGammaZ0.resistor"><span class="n">line</span><span class="o">.</span><span class="n">resistor</span></a><span class="p">(</span><span class="mf">1e-2</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'res_series'</span><span class="p">)</span>
+</span><span data-line="9"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">res_parallel</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/media/generated/skrf.media.media.DefinedGammaZ0.resistor.html#skrf.media.media.DefinedGammaZ0.resistor" title="skrf.media.media.DefinedGammaZ0.resistor"><span class="n">line</span><span class="o">.</span><span class="n">resistor</span></a><span class="p">(</span><span class="mf">20e6</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'res_parallel'</span><span class="p">)</span>
+</span><span data-line="10"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">cap_shunt</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/media/generated/skrf.media.media.DefinedGammaZ0.capacitor.html#skrf.media.media.DefinedGammaZ0.capacitor" title="skrf.media.media.DefinedGammaZ0.capacitor"><span class="n">line</span><span class="o">.</span><span class="n">capacitor</span></a><span class="p">(</span><span class="mf">50e-12</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'cap_shunt'</span><span class="p">)</span>
+</span><span data-line="11"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">ground</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.circuit.Circuit.Ground.html#skrf.circuit.Circuit.Ground" title="skrf.circuit.Circuit.Ground"><span class="n">Circuit</span><span class="o">.</span><span class="n">Ground</span></a><span class="p">(</span><span class="n">frequency</span><span class="o">=</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.frequency.html#skrf.network.Network.frequency" title="skrf.network.Network.frequency"><span class="n">freq</span></a><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'ground'</span><span class="p">,</span> <span class="n">z0</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+</span><span data-line="12">
+</span><span data-line="13"><span class="n">connections</span> <span class="o">=</span> <span class="p">[</span>
+</span><span data-line="14">    <span class="p">[(</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">port1</span></a><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">res_series</span></a><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">res_parallel</span></a><span class="p">,</span> <span class="mi">0</span><span class="p">)],</span>
+</span><span data-line="15">    <span class="p">[(</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">res_series</span></a><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">cap</span></a><span class="p">,</span> <span class="mi">0</span><span class="p">)],</span>
+</span><span data-line="16">    <span class="p">[(</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">cap</span></a><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">ind</span></a><span class="p">,</span> <span class="mi">0</span><span class="p">)],</span>
+</span><span data-line="17">    <span class="p">[(</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">ind</span></a><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">cap_shunt</span></a><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">res_parallel</span></a><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">port2</span></a><span class="p">,</span> <span class="mi">0</span><span class="p">)],</span>
+</span><span data-line="18">    <span class="p">[(</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">cap_shunt</span></a><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">ground</span></a><span class="p">,</span> <span class="mi">0</span><span class="p">)],</span>
+</span><span data-line="19"><span class="p">]</span>
+</span><span data-line="20"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.circuit.Circuit.html#skrf.circuit.Circuit" title="skrf.circuit.Circuit"><span class="n">circuit</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.circuit.Circuit.html#skrf.circuit.Circuit" title="skrf.circuit.Circuit"><span class="n">Circuit</span></a><span class="p">(</span><span class="n">connections</span><span class="p">)</span>
+</span><span data-line="21"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.circuit.Circuit.network.html#skrf.circuit.Circuit.network" title="skrf.circuit.Circuit.network"><span class="n">LCC_from_circuit</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.circuit.Circuit.network.html#skrf.circuit.Circuit.network" title="skrf.circuit.Circuit.network"><span class="n">circuit</span><span class="o">.</span><span class="n">network</span></a>
+</span></pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[10]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="c1"># testing the equivalence of the results</span>
+</span><span data-line="2"><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/builtins/functions.html#print"><span class="nb">print</span></a><span class="p">(</span><a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/generated/numpy.allclose.html#numpy.allclose" title="numpy.allclose"><span class="n">np</span><span class="o">.</span><span class="n">allclose</span></a><span class="p">(</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.s.html#skrf.network.Network.s" title="skrf.network.Network.s"><span class="n">LCC_designer</span><span class="o">.</span><span class="n">s</span></a><span class="p">,</span> <span class="n">LCC_manual</span><span class="o">.</span><span class="n">s</span><span class="p">))</span>
+</span><span data-line="3"><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/builtins/functions.html#print"><span class="nb">print</span></a><span class="p">(</span><a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/generated/numpy.allclose.html#numpy.allclose" title="numpy.allclose"><span class="n">np</span><span class="o">.</span><span class="n">allclose</span></a><span class="p">(</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.s.html#skrf.network.Network.s" title="skrf.network.Network.s"><span class="n">LCC_designer</span><span class="o">.</span><span class="n">s</span></a><span class="p">,</span> <span class="n">LCC_from_circuit</span><span class="o">.</span><span class="n">s</span><span class="p">))</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+True
+True
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[11]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.circuit.Circuit.plot_graph.html#skrf.circuit.Circuit.plot_graph" title="skrf.circuit.Circuit.plot_graph"><span class="n">circuit</span><span class="o">.</span><span class="n">plot_graph</span></a><span class="p">(</span><span class="n">network_labels</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">edge_labels</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">port_labels</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/examples_circuit_Lumped_Element_Circuits_16_0.png" src="../../_images/examples_circuit_Lumped_Element_Circuits_16_0.png"/>
+</div>
+</div>
+</section>
+<section id="Pass-band-filter">
+<h2>Pass band filter<a class="headerlink" href="#Pass-band-filter" title="Link to this heading">#</a></h2>
+<p>Below we construct a pass-band filter, from an example given in <a class="reference external" href="https://www.microwaves101.com/encyclopedias/lumped-element-filter-calculator">Microwaves101</a>:</p>
+<p><img alt="f24a53bf51484cb1be5cb2a6ac660524" class="no-scaled-link" src="../../_images/designer_bandpass_filter_450_550MHz.png" width="800"/></p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[12]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="c1"># Reference result calculated from Designer</span>
+</span><span data-line="2"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">passband_designer</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">rf</span><span class="o">.</span><span class="n">Network</span></a><span class="p">(</span><span class="s1">'designer_bandpass_filter_450_550MHz.s2p'</span><span class="p">)</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[13]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="c1"># scikit-rf: the filter by cascading all lumped-elements</span>
+</span><span data-line="2"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.frequency.html#skrf.network.Network.frequency" title="skrf.network.Network.frequency"><span class="n">freq</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.frequency.html#skrf.network.Network.frequency" title="skrf.network.Network.frequency"><span class="n">passband_designer</span><span class="o">.</span><span class="n">frequency</span></a>
+</span><span data-line="3"><span class="n">passband_manual</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/media/generated/skrf.media.media.DefinedGammaZ0.shunt_capacitor.html#skrf.media.media.DefinedGammaZ0.shunt_capacitor" title="skrf.media.media.DefinedGammaZ0.shunt_capacitor"><span class="n">line</span><span class="o">.</span><span class="n">shunt_capacitor</span></a><span class="p">(</span><span class="mf">25.406e-12</span><span class="p">)</span> <span class="o">**</span> <a class="sphinx-codeautolink-a" href="../../api/media/generated/skrf.media.media.DefinedGammaZ0.shunt_inductor.html#skrf.media.media.DefinedGammaZ0.shunt_inductor" title="skrf.media.media.DefinedGammaZ0.shunt_inductor"><span class="n">line</span><span class="o">.</span><span class="n">shunt_inductor</span></a><span class="p">(</span><span class="mf">4.154e-9</span><span class="p">)</span> <span class="o">**</span> \
+</span><span data-line="4">                  <a class="sphinx-codeautolink-a" href="../../api/media/generated/skrf.media.media.DefinedGammaZ0.capacitor.html#skrf.media.media.DefinedGammaZ0.capacitor" title="skrf.media.media.DefinedGammaZ0.capacitor"><span class="n">line</span><span class="o">.</span><span class="n">capacitor</span></a><span class="p">(</span><span class="mf">2.419e-12</span><span class="p">)</span> <span class="o">**</span> <a class="sphinx-codeautolink-a" href="../../api/media/generated/skrf.media.media.DefinedGammaZ0.inductor.html#skrf.media.media.DefinedGammaZ0.inductor" title="skrf.media.media.DefinedGammaZ0.inductor"><span class="n">line</span><span class="o">.</span><span class="n">inductor</span></a><span class="p">(</span><span class="mf">43.636e-9</span><span class="p">)</span> <span class="o">**</span> \
+</span><span data-line="5">                  <a class="sphinx-codeautolink-a" href="../../api/media/generated/skrf.media.media.DefinedGammaZ0.shunt_capacitor.html#skrf.media.media.DefinedGammaZ0.shunt_capacitor" title="skrf.media.media.DefinedGammaZ0.shunt_capacitor"><span class="n">line</span><span class="o">.</span><span class="n">shunt_capacitor</span></a><span class="p">(</span><span class="mf">25.406e-12</span><span class="p">)</span> <span class="o">**</span> <a class="sphinx-codeautolink-a" href="../../api/media/generated/skrf.media.media.DefinedGammaZ0.shunt_inductor.html#skrf.media.media.DefinedGammaZ0.shunt_inductor" title="skrf.media.media.DefinedGammaZ0.shunt_inductor"><span class="n">line</span><span class="o">.</span><span class="n">shunt_inductor</span></a><span class="p">(</span><span class="mf">4.154e-9</span><span class="p">)</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[14]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="c1"># scikit-rf: the filter with the Circuit builder</span>
+</span><span data-line="2"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.frequency.html#skrf.network.Network.frequency" title="skrf.network.Network.frequency"><span class="n">freq</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.frequency.html#skrf.network.Network.frequency" title="skrf.network.Network.frequency"><span class="n">passband_designer</span><span class="o">.</span><span class="n">frequency</span></a>
+</span><span data-line="3"><a class="sphinx-codeautolink-a" href="../../api/media/generated/skrf.media.media.DefinedGammaZ0.html#skrf.media.media.DefinedGammaZ0" title="skrf.media.media.DefinedGammaZ0"><span class="n">line</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/media/generated/skrf.media.media.DefinedGammaZ0.html#skrf.media.media.DefinedGammaZ0" title="skrf.media.media.DefinedGammaZ0"><span class="n">rf</span><span class="o">.</span><span class="n">media</span><span class="o">.</span><span class="n">DefinedGammaZ0</span></a><span class="p">(</span><span class="n">frequency</span><span class="o">=</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.frequency.html#skrf.network.Network.frequency" title="skrf.network.Network.frequency"><span class="n">freq</span></a><span class="p">)</span>
+</span><span data-line="4"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">C1</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/media/generated/skrf.media.media.DefinedGammaZ0.capacitor.html#skrf.media.media.DefinedGammaZ0.capacitor" title="skrf.media.media.DefinedGammaZ0.capacitor"><span class="n">line</span><span class="o">.</span><span class="n">capacitor</span></a><span class="p">(</span><span class="mf">25.406e-12</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'C1'</span><span class="p">)</span>
+</span><span data-line="5"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">C2</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/media/generated/skrf.media.media.DefinedGammaZ0.capacitor.html#skrf.media.media.DefinedGammaZ0.capacitor" title="skrf.media.media.DefinedGammaZ0.capacitor"><span class="n">line</span><span class="o">.</span><span class="n">capacitor</span></a><span class="p">(</span><span class="mf">2.419e-12</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'C2'</span><span class="p">)</span>
+</span><span data-line="6"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">C3</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/media/generated/skrf.media.media.DefinedGammaZ0.capacitor.html#skrf.media.media.DefinedGammaZ0.capacitor" title="skrf.media.media.DefinedGammaZ0.capacitor"><span class="n">line</span><span class="o">.</span><span class="n">capacitor</span></a><span class="p">(</span><span class="mf">25.406e-12</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'C3'</span><span class="p">)</span>
+</span><span data-line="7"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">L1</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/media/generated/skrf.media.media.DefinedGammaZ0.inductor.html#skrf.media.media.DefinedGammaZ0.inductor" title="skrf.media.media.DefinedGammaZ0.inductor"><span class="n">line</span><span class="o">.</span><span class="n">inductor</span></a><span class="p">(</span><span class="mf">4.154e-9</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'L1'</span><span class="p">)</span>
+</span><span data-line="8"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">L2</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/media/generated/skrf.media.media.DefinedGammaZ0.inductor.html#skrf.media.media.DefinedGammaZ0.inductor" title="skrf.media.media.DefinedGammaZ0.inductor"><span class="n">line</span><span class="o">.</span><span class="n">inductor</span></a><span class="p">(</span><span class="mf">43.636e-9</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'L2'</span><span class="p">)</span>
+</span><span data-line="9"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">L3</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/media/generated/skrf.media.media.DefinedGammaZ0.inductor.html#skrf.media.media.DefinedGammaZ0.inductor" title="skrf.media.media.DefinedGammaZ0.inductor"><span class="n">line</span><span class="o">.</span><span class="n">inductor</span></a><span class="p">(</span><span class="mf">4.154e-9</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'L3'</span><span class="p">)</span>
+</span><span data-line="10"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">port1</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.circuit.Circuit.Port.html#skrf.circuit.Circuit.Port" title="skrf.circuit.Circuit.Port"><span class="n">Circuit</span><span class="o">.</span><span class="n">Port</span></a><span class="p">(</span><span class="n">frequency</span><span class="o">=</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.frequency.html#skrf.network.Network.frequency" title="skrf.network.Network.frequency"><span class="n">freq</span></a><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'port1'</span><span class="p">,</span> <span class="n">z0</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+</span><span data-line="11"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">port2</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.circuit.Circuit.Port.html#skrf.circuit.Circuit.Port" title="skrf.circuit.Circuit.Port"><span class="n">Circuit</span><span class="o">.</span><span class="n">Port</span></a><span class="p">(</span><span class="n">frequency</span><span class="o">=</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.frequency.html#skrf.network.Network.frequency" title="skrf.network.Network.frequency"><span class="n">freq</span></a><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'port2'</span><span class="p">,</span> <span class="n">z0</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+</span><span data-line="12"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">ground</span></a> <span class="o">=</span>  <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.circuit.Circuit.Ground.html#skrf.circuit.Circuit.Ground" title="skrf.circuit.Circuit.Ground"><span class="n">Circuit</span><span class="o">.</span><span class="n">Ground</span></a><span class="p">(</span><span class="n">frequency</span><span class="o">=</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.frequency.html#skrf.network.Network.frequency" title="skrf.network.Network.frequency"><span class="n">freq</span></a><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'ground'</span><span class="p">,</span> <span class="n">z0</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+</span><span data-line="13">
+</span><span data-line="14"><span class="n">connections</span> <span class="o">=</span> <span class="p">[</span>
+</span><span data-line="15">    <span class="p">[(</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">port1</span></a><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">C1</span></a><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">L1</span></a><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">C2</span></a><span class="p">,</span> <span class="mi">0</span><span class="p">)],</span>
+</span><span data-line="16">    <span class="p">[(</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">C2</span></a><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">L2</span></a><span class="p">,</span> <span class="mi">0</span><span class="p">)],</span>
+</span><span data-line="17">    <span class="p">[(</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">L2</span></a><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">C3</span></a><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">L3</span></a><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">port2</span></a><span class="p">,</span> <span class="mi">0</span><span class="p">)],</span>
+</span><span data-line="18">    <span class="p">[(</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">C1</span></a><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">C3</span></a><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">L1</span></a><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">L3</span></a><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">ground</span></a><span class="p">,</span> <span class="mi">0</span><span class="p">)],</span>
+</span><span data-line="19"><span class="p">]</span>
+</span><span data-line="20">
+</span><span data-line="21"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.circuit.Circuit.html#skrf.circuit.Circuit" title="skrf.circuit.Circuit"><span class="n">circuit</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.circuit.Circuit.html#skrf.circuit.Circuit" title="skrf.circuit.Circuit"><span class="n">Circuit</span></a><span class="p">(</span><span class="n">connections</span><span class="p">)</span>
+</span><span data-line="22"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.circuit.Circuit.network.html#skrf.circuit.Circuit.network" title="skrf.circuit.Circuit.network"><span class="n">passband_circuit</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.circuit.Circuit.network.html#skrf.circuit.Circuit.network" title="skrf.circuit.Circuit.network"><span class="n">circuit</span><span class="o">.</span><span class="n">network</span></a>
+</span><span data-line="23"><span class="n">passband_circuit</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">'Pass-band circuit'</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[15]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">passband_circuit</span><span class="o">.</span><span class="n">plot_s_db</span><span class="p">(</span><span class="n">m</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+</span><span data-line="2"><span class="n">passband_circuit</span><span class="o">.</span><span class="n">plot_s_db</span><span class="p">(</span><span class="n">m</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+</span><span data-line="3"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.plot_s_db.html#skrf.network.Network.plot_s_db" title="skrf.network.Network.plot_s_db"><span class="n">passband_designer</span><span class="o">.</span><span class="n">plot_s_db</span></a><span class="p">(</span><span class="n">m</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">'-.'</span><span class="p">)</span>
+</span><span data-line="4"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.plot_s_db.html#skrf.network.Network.plot_s_db" title="skrf.network.Network.plot_s_db"><span class="n">passband_designer</span><span class="o">.</span><span class="n">plot_s_db</span></a><span class="p">(</span><span class="n">m</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">'-.'</span><span class="p">)</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/examples_circuit_Lumped_Element_Circuits_23_0.png" src="../../_images/examples_circuit_Lumped_Element_Circuits_23_0.png"/>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[16]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.circuit.Circuit.plot_graph.html#skrf.circuit.Circuit.plot_graph" title="skrf.circuit.Circuit.plot_graph"><span class="n">circuit</span><span class="o">.</span><span class="n">plot_graph</span></a><span class="p">(</span><span class="n">network_labels</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">port_labels</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">edge_labels</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/examples_circuit_Lumped_Element_Circuits_24_0.png" src="../../_images/examples_circuit_Lumped_Element_Circuits_24_0.png"/>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[ ]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1">
+</span></pre></div>
+</div>
+</div>
+</section>
+</section>
+
+        </article><button class="back-to-top" type="button">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+  </svg>
+  <span>Back to top</span>
+</button><div class="navigation flex print:hidden"><div class="navigation-prev">
+    <a href="index.html">
+      <i class="i-lucide chevron-left"></i>
+      <div class="page-info">
+        <span>Previous</span><div class="title">Circuit</div></div>
+    </a>
+  </div><div class="navigation-next">
+    <a href="Voltages%20and%20Currents%20in%20Circuits.html">
+      <div class="page-info">
+        <span>Next</span>
+        <div class="title">Voltages and Currents in Circuits</div>
+      </div>
+      <i class="i-lucide chevron-right"></i>
+    </a>
+  </div></div></div>
+    </div>
+  </main>
+</div>
+<footer class="sy-foot">
+  <div class="sy-foot-inner sy-container mx-auto">
+    <div class="sy-foot-reserved md:flex justify-between items-center">
+      <div class="sy-foot-copyright"><p>2025, scikit-rf team</p>
+  
+  <p>
+    Made with
+    
+    <a href="https://www.sphinx-doc.org/">Sphinx</a> and
+    
+    <a href="https://shibuya.lepture.com">Shibuya theme</a>.
+  </p>
+</div>
+      <div class="sy-foot-socials">
+  <a href="https://github.com/scikit-rf/scikit-rf" aria-label="GitHub">
+    <iconify-icon icon="simple-icons:github"></iconify-icon>
+  </a></div>
+    </div>
+  </div>
+</footer>
+      <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../_static/copybutton.js?v=34bd459d"></script>
+      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+      <script src="../../_static/shibuya.js?v=50760d75"></script>
+      <script src="https://cdn.jsdelivr.net/npm/@jupyter-widgets/html-manager@^1.0.1/dist/embed-amd.js"></script>
+      <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
+      <script src="../../_static/skrf.js?v=bdeb9fb0"></script></body>
+</html>

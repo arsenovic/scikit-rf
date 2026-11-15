@@ -1,0 +1,6 @@
+﻿skrf.network.check\_z0\_equal
+=============================
+
+.. currentmodule:: skrf.network
+
+.. autofunction:: check_z0_equal

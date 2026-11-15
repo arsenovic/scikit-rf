@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en" data-accent-color="blue" data-content_root="../../">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>One Port Tiered Calibration - scikit-rf</title><link rel="author" title="About these documents" href="../../about.html" /><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="SOLT" href="SOLT.html" /><link rel="prev" title="Measuring a 4-Port With The 1.5-Port NanoVNA V2" href="NanoVNA_V2_4port-splitter.html" /><script>
+    function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
+    setColorMode(localStorage._theme||"auto");
+  </script><link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=ad592e98" />
+    <link rel="stylesheet" type="text/css" href="../../_static/shibuya.css?v=2ceb65ce" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-codeautolink.css?v=b2176991" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link media="print" rel="stylesheet" type="text/css" href="../../_static/print.css?v=20ff2c19" />
+    <link rel="stylesheet" type="text/css" href="../../_static/nbsphinx-code-cells.css?v=2aa19091" />
+    <link rel="stylesheet" type="text/css" href="../../_static/skrf.css?v=7e772ba2" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --sy-f-text: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+  --sy-f-heading: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+}
+</style>
+    
+  <meta property="og:type" content="website"/><meta property="og:title" content="One Port Tiered Calibration"/>
+    <meta name="twitter:card" content="summary"/>
+  </head>
+<body><div class="sy-head">
+  <div class="sy-head-blur"></div>
+  <div class="sy-head-inner sy-container mx-auto">
+    <a class="sy-head-brand" href="../../index.html">
+      <img class="light-logo" src="../../_static/logo.svg" alt="scikit-rf" height="28" loading="lazy" />
+      <img class="dark-logo" src="../../_static/logo.svg" alt="scikit-rf" height="28" loading="lazy" />
+      <strong>scikit-rf</strong>
+    </a>
+    <div class="sy-head-nav" id="head-nav">
+      <nav class="sy-head-links"><ul><li class="link"><a href="../../index.html">Home</a></li><li class="link"><a href="../../tutorials/index.html">Tutorials</a></li><li class="link"><a href="../index.html">Examples</a></li><li class="link"><a href="../../api/index.html">API</a></li><li class="link">
+          <a href="https://github.com/scikit-rf/scikit-rf">
+            <span>GitHub</span><i class="i-lucide external-link"></i></a>
+        </li></ul></nav>
+      <div class="sy-head-extra flex items-center print:hidden"><form class="searchbox flex items-center" action="../../search.html" method="get">
+  <input type="text" name="q" placeholder="Search" />
+  <kbd>/</kbd>
+</form><div class="sy-head-socials">
+  <a href="https://github.com/scikit-rf/scikit-rf" aria-label="GitHub">
+    <iconify-icon icon="simple-icons:github"></iconify-icon>
+  </a>
+  <a href="https://www.linkedin.com/groups/12462155/" aria-label="LinkedIn">
+    <iconify-icon icon="simple-icons:linkedin"></iconify-icon>
+  </a>
+  <a href="https://app.element.io/#/room/#scikit-rf:matrix.org" aria-label="Matrix">
+    <iconify-icon icon="simple-icons:matrix"></iconify-icon>
+  </a></div></div>
+    </div>
+    <div class="sy-head-actions flex items-center shrink-0 print:hidden"><button class="js-theme theme-switch flex items-center"
+data-aria-auto="Switch to light color mode"
+data-aria-light="Switch to dark color mode"
+data-aria-dark="Switch to auto color mode">
+<i class="i-lucide theme-icon"></i>
+</button><button class="md:hidden flex items-center js-menu" aria-label="Menu" type="button" aria-controls="head-nav" aria-expanded="false">
+        <div class="hamburger">
+          <span class="hamburger_1"></span>
+          <span class="hamburger_2"></span>
+          <span class="hamburger_3"></span>
+        </div>
+      </button>
+    </div>
+  </div>
+</div>
+<div class="sy-page sy-container flex mx-auto">
+  <aside id="lside" class="sy-lside md:w-72 md:shrink-0 print:hidden">
+    <div class="sy-lside-inner md:sticky">
+      <div class="sy-scrollbar p-6">
+        <div class="globaltoc" data-expand-depth="0"><p class="caption" role="heading" aria-level="3"><span class="caption-text">Getting started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../index.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/Installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/Introduction.html">Introduction</a></li>
+</ul>
+<p class="caption" role="heading" aria-level="3"><span class="caption-text">User guide</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Examples</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../networktheory/index.html">Network Theory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../matching/index.html">Matching</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Metrology and Calibration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../networksets/index.html">NetworkSets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../plotting/index.html">Plotting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../circuit/index.html">Circuit</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mixedmodeanalysis/index.html">Mixed Mode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../vectorfitting/index.html">Vector Fitting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../vectorfitting_parametric/index.html">Parametric Vector Fitting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../qfactor/index.html">Q-factor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../taper/index.html">Taper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../instrumentcontrol/index.html">Instrument Control</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../interactive/index.html">Interactive</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading" aria-level="3"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../api/index.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../glossary.html">Glossary</a></li>
+</ul>
+<p class="caption" role="heading" aria-level="3"><span class="caption-text">Project</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing/index.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../citations_ack/acknowledging.html">Citing scikit-rf</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../citations_ack/citations.html">scikit-rf Citations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../about.html">About</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../users.html">Users</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../license.html">License</a></li>
+</ul>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="lside-overlay js-menu" role="button" aria-label="Close left sidebar" aria-controls="lside" aria-expanded="false"></div>
+  <aside id="rside" class="sy-rside pb-3 w-64 shrink-0 order-last">
+    <button class="rside-close js-menu xl:hidden" aria-label="Close Table of Contents" type="button" aria-controls="rside" aria-expanded="false">
+      <i class="i-lucide close"></i>
+    </button>
+    <div class="sy-scrollbar sy-rside-inner px-6 xl:top-16 xl:sticky xl:pl-0 pt-6 pb-4"><div class="localtoc"><h3>On this page</h3><ul>
+<li><a class="reference internal" href="#Intro">Intro</a></li>
+<li><a class="reference internal" href="#Some-Data">Some Data</a></li>
+<li><a class="reference internal" href="#Creating-Calibrations">Creating Calibrations</a><ul>
+<li><a class="reference internal" href="#Tier-1">Tier 1</a></li>
+<li><a class="reference internal" href="#Tier-2">Tier 2</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#Error-Networks">Error Networks</a></li>
+<li><a class="reference internal" href="#De-embedding-the-DUT">De-embedding the DUT</a></li>
+</ul>
+</div><div id="ethical-ad-placement" data-ea-publisher="readthedocs"></div></div>
+  </aside>
+  <div class="rside-overlay js-menu" role="button" aria-label="Close Table of Contents" aria-controls="rside" aria-expanded="false"></div>
+  <main class="sy-main w-full max-sm:max-w-full print:pt-6">
+<div class="sy-breadcrumbs" role="navigation">
+  <div class="sy-breadcrumbs-inner flex items-center">
+    <div class="md:hidden mr-3">
+      <button class="js-menu" aria-label="Menu" type="button" aria-controls="lside" aria-expanded="false">
+        <i class="i-lucide menu"></i>
+      </button>
+    </div>
+    <ol class="flex-1" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="../../index.html"><span itemprop="name">scikit-rf</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="1" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="../index.html"><span itemprop="name">Examples</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="2" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="index.html"><span itemprop="name">Metrology and Calibration</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="3" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <strong itemprop="name">One Port Tiered Calibration</strong>
+        <meta itemprop="position" content="4" />
+      </li></ol>
+    <a class="sk-download" href="One%20Port%20Tiered%20Calibration.ipynb" download>Download</a>
+    <div class="xl:hidden ml-1">
+      <button class="js-menu" aria-label="Show table of contents" type="button" aria-controls="rside"
+        aria-expanded="false">
+        <i class="i-lucide outdent"></i>
+      </button>
+    </div>
+  </div>
+</div><div class="flex flex-col break-words justify-between">
+      <div class="relative min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
+  <article class="yue" role="main">
+          <section id="One-Port-Tiered-Calibration">
+<h1>One Port Tiered Calibration<a class="headerlink" href="#One-Port-Tiered-Calibration" title="Link to this heading">#</a></h1>
+<section id="Intro">
+<h2>Intro<a class="headerlink" href="#Intro" title="Link to this heading">#</a></h2>
+<p>A one-port network analyzer can be used to measure a two-port device, provided that the device is reciprocal. This is accomplished by performing two calibrations, which is why its called a <em>tiered</em> calibration.</p>
+<p>First, the VNA is calibrated at the test-port like normal. This is called the <em>first tier</em>. Next, the device is connected to the test-port, and a calibration is performed at the far end of the device, the <em>second tier</em>. A diagram is shown below,</p>
+<p><img alt="box diagram" src="../../_images/boxDiagram.svg"/></p>
+<p>This notebook will demonstrate how to use <a class="reference external" href="http://scikit-rf.org">skrf</a> to do a two-tiered one-port calibration. We’ll use data that was taken to characterize a waveguide-to-CPW probe. So, for this specific example the diagram above looks like:</p>
+<p><img alt="probe diagram" src="../../_images/probe.svg"/></p>
+</section>
+<section id="Some-Data">
+<h2>Some Data<a class="headerlink" href="#Some-Data" title="Link to this heading">#</a></h2>
+<p>The data available is the folders <code class="docutils literal notranslate"><span class="pre">'tier1/'</span></code> and <code class="docutils literal notranslate"><span class="pre">'tier2/'</span></code>.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[1]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="o">!</span>ls<span class="w"> </span><span class="o">{</span><span class="s2">"oneport_tiered_calibration/"</span><span class="o">}</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+images  probe.s2p  tier1  tier2
+</pre></div></div>
+</div>
+<p>(if you dont have the git repo for these examples, the data for this notebook can be found <a class="reference external" href="https://github.com/scikit-rf/scikit-rf/tree/master/doc/source/examples/metrology/oneport_tiered_calibration">here</a>)</p>
+<p>In each folder you will find the two sub-folders, called <code class="docutils literal notranslate"><span class="pre">'ideals/'</span></code> and <code class="docutils literal notranslate"><span class="pre">'measured/'</span></code>. These contain touchstone files of the calibration standards ideal and measured responses, respectively.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[2]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="o">!</span>ls<span class="w"> </span><span class="o">{</span><span class="s2">"oneport_tiered_calibration/tier1/"</span><span class="o">}</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+ideals  measured
+</pre></div></div>
+</div>
+<p>The first tier is at waveguide interface, and consisted of the following set of standards</p>
+<ul class="simple">
+<li><p>short</p></li>
+<li><p>delay short</p></li>
+<li><p>load</p></li>
+<li><p>radiating open (literally an open waveguide)</p></li>
+</ul>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[3]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="o">!</span>ls<span class="w"> </span><span class="o">{</span><span class="s2">"oneport_tiered_calibration/tier1/measured/"</span><span class="o">}</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+ds.s1p  load.s1p  ro.s1p  short.s1p
+</pre></div></div>
+</div>
+</section>
+<section id="Creating-Calibrations">
+<h2>Creating Calibrations<a class="headerlink" href="#Creating-Calibrations" title="Link to this heading">#</a></h2>
+<section id="Tier-1">
+<h3>Tier 1<a class="headerlink" href="#Tier-1" title="Link to this heading">#</a></h3>
+<p>First defining the calibration for <em>Tier 1</em></p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[4]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+</span><span data-line="2">
+</span><span data-line="3"><span class="kn">import</span><span class="w"> </span><span class="nn">skrf</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">rf</span>
+</span><span data-line="4"><span class="kn">from</span><span class="w"> </span><span class="nn">skrf.calibration</span><span class="w"> </span><span class="kn">import</span> <a class="sphinx-codeautolink-a" href="../../api/calibration/generated/skrf.calibration.calibration.OnePort.html#skrf.calibration.calibration.OnePort" title="skrf.calibration.calibration.OnePort"><span class="n">OnePort</span></a>
+</span><span data-line="5"><span class="kn">from</span><span class="w"> </span><a class="sphinx-codeautolink-a" href="../../api/io/index.html#module-1"><span class="nn">skrf.io.general</span></a><span class="w"> </span><span class="kn">import</span> <a class="sphinx-codeautolink-a" href="../../api/io/generated/skrf.io.general.read_all_networks.html#skrf.io.general.read_all_networks" title="skrf.io.general.read_all_networks"><span class="n">read_all_networks</span></a>
+</span><span data-line="6">
+</span><span data-line="7"><span class="o">%</span><span class="k">matplotlib</span> inline
+</span><span data-line="8">
+</span><span data-line="9"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.plotting.stylely.html#skrf.plotting.stylely" title="skrf.plotting.stylely"><span class="n">rf</span><span class="o">.</span><span class="n">stylely</span></a><span class="p">()</span>
+</span><span data-line="10">
+</span><span data-line="11">
+</span><span data-line="12"><span class="n">tier1_ideals</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/io/generated/skrf.io.general.read_all_networks.html#skrf.io.general.read_all_networks" title="skrf.io.general.read_all_networks"><span class="n">read_all_networks</span></a><span class="p">(</span><span class="s1">'oneport_tiered_calibration/tier1/ideals/'</span><span class="p">)</span>
+</span><span data-line="13"><span class="n">tier1_measured</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/io/generated/skrf.io.general.read_all_networks.html#skrf.io.general.read_all_networks" title="skrf.io.general.read_all_networks"><span class="n">read_all_networks</span></a><span class="p">(</span><span class="s1">'oneport_tiered_calibration/tier1/measured/'</span><span class="p">)</span>
+</span><span data-line="14">
+</span><span data-line="15">
+</span><span data-line="16"><a class="sphinx-codeautolink-a" href="../../api/calibration/generated/skrf.calibration.calibration.OnePort.html#skrf.calibration.calibration.OnePort" title="skrf.calibration.calibration.OnePort"><span class="n">tier1</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/calibration/generated/skrf.calibration.calibration.OnePort.html#skrf.calibration.calibration.OnePort" title="skrf.calibration.calibration.OnePort"><span class="n">OnePort</span></a><span class="p">(</span><span class="n">measured</span> <span class="o">=</span> <span class="n">tier1_measured</span><span class="p">,</span>
+</span><span data-line="17">                <span class="n">ideals</span> <span class="o">=</span> <span class="n">tier1_ideals</span><span class="p">,</span>
+</span><span data-line="18">                <span class="n">name</span> <span class="o">=</span> <span class="s1">'tier1'</span><span class="p">,</span>
+</span><span data-line="19">                <span class="n">sloppy_input</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span><span data-line="20"><a class="sphinx-codeautolink-a" href="../../api/calibration/generated/skrf.calibration.calibration.OnePort.html#skrf.calibration.calibration.OnePort" title="skrf.calibration.calibration.OnePort"><span class="n">tier1</span></a>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[4]:
+</span></pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+OnePort Calibration: 'tier1', 500.0-750.0 GHz, 401 pts, 4-standards
+</pre></div></div>
+</div>
+<p>Because we saved corresponding <em>ideal</em> and <em>measured</em> standards with identical names, the Calibration will automatically align our standards upon initialization. (More info on creating Calibration objects this can be found in <a class="reference internal" href="../../tutorials/Calibration.html"><span class="doc">the docs</span></a>.)</p>
+<p>Similarly for the second tier 2,</p>
+</section>
+<section id="Tier-2">
+<h3>Tier 2<a class="headerlink" href="#Tier-2" title="Link to this heading">#</a></h3>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[5]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">tier2_ideals</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/io/generated/skrf.io.general.read_all_networks.html#skrf.io.general.read_all_networks" title="skrf.io.general.read_all_networks"><span class="n">read_all_networks</span></a><span class="p">(</span><span class="s1">'oneport_tiered_calibration/tier2/ideals/'</span><span class="p">)</span>
+</span><span data-line="2"><span class="n">tier2_measured</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/io/generated/skrf.io.general.read_all_networks.html#skrf.io.general.read_all_networks" title="skrf.io.general.read_all_networks"><span class="n">read_all_networks</span></a><span class="p">(</span><span class="s1">'oneport_tiered_calibration/tier2/measured/'</span><span class="p">)</span>
+</span><span data-line="3">
+</span><span data-line="4">
+</span><span data-line="5"><a class="sphinx-codeautolink-a" href="../../api/calibration/generated/skrf.calibration.calibration.OnePort.html#skrf.calibration.calibration.OnePort" title="skrf.calibration.calibration.OnePort"><span class="n">tier2</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/calibration/generated/skrf.calibration.calibration.OnePort.html#skrf.calibration.calibration.OnePort" title="skrf.calibration.calibration.OnePort"><span class="n">OnePort</span></a><span class="p">(</span><span class="n">measured</span> <span class="o">=</span> <span class="n">tier2_measured</span><span class="p">,</span>
+</span><span data-line="6">                <span class="n">ideals</span> <span class="o">=</span> <span class="n">tier2_ideals</span><span class="p">,</span>
+</span><span data-line="7">                <span class="n">name</span> <span class="o">=</span> <span class="s1">'tier2'</span><span class="p">,</span>
+</span><span data-line="8">                <span class="n">sloppy_input</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span><span data-line="9"><a class="sphinx-codeautolink-a" href="../../api/calibration/generated/skrf.calibration.calibration.OnePort.html#skrf.calibration.calibration.OnePort" title="skrf.calibration.calibration.OnePort"><span class="n">tier2</span></a>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[5]:
+</span></pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+OnePort Calibration: 'tier2', 500.0-750.0 GHz, 401 pts, 5-standards
+</pre></div></div>
+</div>
+</section>
+</section>
+<section id="Error-Networks">
+<h2>Error Networks<a class="headerlink" href="#Error-Networks" title="Link to this heading">#</a></h2>
+<p>Each one-port Calibration contains a two-port error network, that is determined from the calculated error coefficients. The error network for <em>tier1</em> models the VNA, while the error network for <em>tier2</em> represents the VNA <strong>and</strong> the DUT. These can be visualized through the parameter <code class="docutils literal notranslate"><span class="pre">'error_ntwk'</span></code>.</p>
+<p>For tier 1,</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[6]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">tier1</span><span class="o">.</span><span class="n">error_ntwk</span><span class="o">.</span><span class="n">plot_s_db</span><span class="p">()</span>
+</span><span data-line="2"><span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">'Tier 1 Error Network'</span><span class="p">)</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[6]:
+</span></pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Text(0.5, 1.0, 'Tier 1 Error Network')
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/examples_metrology_One_Port_Tiered_Calibration_20_1.png" src="../../_images/examples_metrology_One_Port_Tiered_Calibration_20_1.png"/>
+</div>
+</div>
+<p>Similarly for tier 2,</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[7]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">tier2</span><span class="o">.</span><span class="n">error_ntwk</span><span class="o">.</span><span class="n">plot_s_db</span><span class="p">()</span>
+</span><span data-line="2"><span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">'Tier 2 Error Network'</span><span class="p">)</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[7]:
+</span></pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Text(0.5, 1.0, 'Tier 2 Error Network')
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/examples_metrology_One_Port_Tiered_Calibration_22_1.png" src="../../_images/examples_metrology_One_Port_Tiered_Calibration_22_1.png"/>
+</div>
+</div>
+</section>
+<section id="De-embedding-the-DUT">
+<h2>De-embedding the DUT<a class="headerlink" href="#De-embedding-the-DUT" title="Link to this heading">#</a></h2>
+<p>As previously stated, the error network for <em>tier1</em> models the VNA, and the error network for <em>tier2</em> represents the VNA+DUT. So to determine the DUT’s response, we cascade the inverse S-parameters of the VNA with the VNA+DUT.</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[DUT = VNA^{-1}\cdot (VNA \cdot DUT)\]</div>
+</div>
+<p>In skrf, this is done as follows</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[8]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">dut</span> <span class="o">=</span> <span class="n">tier1</span><span class="o">.</span><span class="n">error_ntwk</span><span class="o">.</span><span class="n">inv</span> <span class="o">**</span> <a class="sphinx-codeautolink-a" href="../../api/calibration/generated/skrf.calibration.calibration.OnePort.error_ntwk.html#skrf.calibration.calibration.OnePort.error_ntwk" title="skrf.calibration.calibration.OnePort.error_ntwk"><span class="n">tier2</span><span class="o">.</span><span class="n">error_ntwk</span></a>
+</span><span data-line="2"><span class="n">dut</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">'probe'</span>
+</span><span data-line="3"><span class="n">dut</span><span class="o">.</span><span class="n">plot_s_db</span><span class="p">()</span>
+</span><span data-line="4"><span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">'Probe S-parameters'</span><span class="p">)</span>
+</span><span data-line="5"><span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="o">-</span><span class="mi">60</span><span class="p">,</span><span class="mi">10</span><span class="p">)</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[8]:
+</span></pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+(-60.0, 10.0)
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/examples_metrology_One_Port_Tiered_Calibration_25_1.png" src="../../_images/examples_metrology_One_Port_Tiered_Calibration_25_1.png"/>
+</div>
+</div>
+<p>You may want to save this to disk, for future use,</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">dut.write_touchstone()
+</span></pre></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[9]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="o">!</span>ls<span class="w"> </span><span class="o">{</span><span class="s2">"probe*"</span><span class="o">}</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+probe.s2p
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[ ]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1">
+</span></pre></div>
+</div>
+</div>
+</section>
+</section>
+
+        </article><button class="back-to-top" type="button">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+  </svg>
+  <span>Back to top</span>
+</button><div class="navigation flex print:hidden"><div class="navigation-prev">
+    <a href="NanoVNA_V2_4port-splitter.html">
+      <i class="i-lucide chevron-left"></i>
+      <div class="page-info">
+        <span>Previous</span><div class="title">Measuring a 4-Port With The 1.5-Port NanoVNA V2</div></div>
+    </a>
+  </div><div class="navigation-next">
+    <a href="SOLT.html">
+      <div class="page-info">
+        <span>Next</span>
+        <div class="title">SOLT</div>
+      </div>
+      <i class="i-lucide chevron-right"></i>
+    </a>
+  </div></div></div>
+    </div>
+  </main>
+</div>
+<footer class="sy-foot">
+  <div class="sy-foot-inner sy-container mx-auto">
+    <div class="sy-foot-reserved md:flex justify-between items-center">
+      <div class="sy-foot-copyright"><p>2025, scikit-rf team</p>
+  
+  <p>
+    Made with
+    
+    <a href="https://www.sphinx-doc.org/">Sphinx</a> and
+    
+    <a href="https://shibuya.lepture.com">Shibuya theme</a>.
+  </p>
+</div>
+      <div class="sy-foot-socials">
+  <a href="https://github.com/scikit-rf/scikit-rf" aria-label="GitHub">
+    <iconify-icon icon="simple-icons:github"></iconify-icon>
+  </a></div>
+    </div>
+  </div>
+</footer>
+      <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../_static/copybutton.js?v=34bd459d"></script>
+      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+      <script src="../../_static/shibuya.js?v=50760d75"></script>
+      <script src="https://cdn.jsdelivr.net/npm/@jupyter-widgets/html-manager@^1.0.1/dist/embed-amd.js"></script>
+      <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
+      <script src="../../_static/skrf.js?v=bdeb9fb0"></script></body>
+</html>

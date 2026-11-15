@@ -1,0 +1,6 @@
+skrf.media.coaxial.Coaxial.line\_floating
+=========================================
+
+.. currentmodule:: skrf.media.coaxial
+
+.. automethod:: Coaxial.line_floating

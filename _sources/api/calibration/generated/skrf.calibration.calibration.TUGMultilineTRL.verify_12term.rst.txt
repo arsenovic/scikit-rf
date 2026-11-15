@@ -1,0 +1,6 @@
+skrf.calibration.calibration.TUGMultilineTRL.verify\_12term
+===========================================================
+
+.. currentmodule:: skrf.calibration.calibration
+
+.. autoproperty:: TUGMultilineTRL.verify_12term

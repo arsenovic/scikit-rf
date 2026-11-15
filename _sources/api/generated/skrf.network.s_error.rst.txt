@@ -1,0 +1,6 @@
+﻿skrf.network.s\_error
+=====================
+
+.. currentmodule:: skrf.network
+
+.. autofunction:: s_error

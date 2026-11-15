@@ -1,0 +1,6 @@
+skrf.media.coaxial.Coaxial.capacitor\_q
+=======================================
+
+.. currentmodule:: skrf.media.coaxial
+
+.. automethod:: Coaxial.capacitor_q

@@ -1,0 +1,6 @@
+skrf.io.touchstone.Touchstone.sparameters
+=========================================
+
+.. currentmodule:: skrf.io.touchstone
+
+.. autoproperty:: Touchstone.sparameters

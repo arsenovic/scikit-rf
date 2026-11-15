@@ -1,0 +1,6 @@
+skrf.network.Network.plot\_prop\_complex
+========================================
+
+.. currentmodule:: skrf.network
+
+.. automethod:: Network.plot_prop_complex

@@ -1,0 +1,47 @@
+﻿skrf.vi.vna.keysight.PNA
+========================
+
+.. currentmodule:: skrf.vi.vna.keysight
+
+.. autoclass:: PNA
+  :no-members:
+
+
+
+.. rubric:: Attributes
+
+.. autosummary::
+  :toctree:
+  :nosignatures:
+
+  ~PNA.active_channel
+  ~PNA.active_measurement
+  ~PNA.channel_numbers
+  ~PNA.channels
+  ~PNA.nerrors
+  ~PNA.nports
+  ~PNA.query_format
+  ~PNA.timeout
+  ~PNA.trigger_source
+
+
+
+
+
+.. rubric:: Methods
+
+.. autosummary::
+  :toctree:
+  :nosignatures:
+
+  ~PNA.__init__
+  ~PNA.command
+  ~PNA.create_channel
+  ~PNA.delete_channel
+  ~PNA.query
+  ~PNA.query_values
+  ~PNA.read
+  ~PNA.read_values
+  ~PNA.write
+  ~PNA.write_values
+

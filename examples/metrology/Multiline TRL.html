@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html lang="en" data-accent-color="blue" data-content_root="../../">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Multiline TRL - scikit-rf</title><link rel="author" title="About these documents" href="../../about.html" /><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="Measuring a 4-Port With The 1.5-Port NanoVNA V2" href="NanoVNA_V2_4port-splitter.html" /><link rel="prev" title="Multi-port calibration" href="Multi-port%20Calibration.html" /><script>
+    function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
+    setColorMode(localStorage._theme||"auto");
+  </script><link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=ad592e98" />
+    <link rel="stylesheet" type="text/css" href="../../_static/shibuya.css?v=2ceb65ce" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-codeautolink.css?v=b2176991" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link media="print" rel="stylesheet" type="text/css" href="../../_static/print.css?v=20ff2c19" />
+    <link rel="stylesheet" type="text/css" href="../../_static/nbsphinx-code-cells.css?v=2aa19091" />
+    <link rel="stylesheet" type="text/css" href="../../_static/skrf.css?v=7e772ba2" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --sy-f-text: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+  --sy-f-heading: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+}
+</style>
+    
+  <meta property="og:type" content="website"/><meta property="og:title" content="Multiline TRL"/>
+    <meta name="twitter:card" content="summary"/>
+  </head>
+<body><div class="sy-head">
+  <div class="sy-head-blur"></div>
+  <div class="sy-head-inner sy-container mx-auto">
+    <a class="sy-head-brand" href="../../index.html">
+      <img class="light-logo" src="../../_static/logo.svg" alt="scikit-rf" height="28" loading="lazy" />
+      <img class="dark-logo" src="../../_static/logo.svg" alt="scikit-rf" height="28" loading="lazy" />
+      <strong>scikit-rf</strong>
+    </a>
+    <div class="sy-head-nav" id="head-nav">
+      <nav class="sy-head-links"><ul><li class="link"><a href="../../index.html">Home</a></li><li class="link"><a href="../../tutorials/index.html">Tutorials</a></li><li class="link"><a href="../index.html">Examples</a></li><li class="link"><a href="../../api/index.html">API</a></li><li class="link">
+          <a href="https://github.com/scikit-rf/scikit-rf">
+            <span>GitHub</span><i class="i-lucide external-link"></i></a>
+        </li></ul></nav>
+      <div class="sy-head-extra flex items-center print:hidden"><form class="searchbox flex items-center" action="../../search.html" method="get">
+  <input type="text" name="q" placeholder="Search" />
+  <kbd>/</kbd>
+</form><div class="sy-head-socials">
+  <a href="https://github.com/scikit-rf/scikit-rf" aria-label="GitHub">
+    <iconify-icon icon="simple-icons:github"></iconify-icon>
+  </a>
+  <a href="https://www.linkedin.com/groups/12462155/" aria-label="LinkedIn">
+    <iconify-icon icon="simple-icons:linkedin"></iconify-icon>
+  </a>
+  <a href="https://app.element.io/#/room/#scikit-rf:matrix.org" aria-label="Matrix">
+    <iconify-icon icon="simple-icons:matrix"></iconify-icon>
+  </a></div></div>
+    </div>
+    <div class="sy-head-actions flex items-center shrink-0 print:hidden"><button class="js-theme theme-switch flex items-center"
+data-aria-auto="Switch to light color mode"
+data-aria-light="Switch to dark color mode"
+data-aria-dark="Switch to auto color mode">
+<i class="i-lucide theme-icon"></i>
+</button><button class="md:hidden flex items-center js-menu" aria-label="Menu" type="button" aria-controls="head-nav" aria-expanded="false">
+        <div class="hamburger">
+          <span class="hamburger_1"></span>
+          <span class="hamburger_2"></span>
+          <span class="hamburger_3"></span>
+        </div>
+      </button>
+    </div>
+  </div>
+</div>
+<div class="sy-page sy-container flex mx-auto">
+  <aside id="lside" class="sy-lside md:w-72 md:shrink-0 print:hidden">
+    <div class="sy-lside-inner md:sticky">
+      <div class="sy-scrollbar p-6">
+        <div class="globaltoc" data-expand-depth="0"><p class="caption" role="heading" aria-level="3"><span class="caption-text">Getting started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../index.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/Installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/Introduction.html">Introduction</a></li>
+</ul>
+<p class="caption" role="heading" aria-level="3"><span class="caption-text">User guide</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Examples</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../networktheory/index.html">Network Theory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../matching/index.html">Matching</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Metrology and Calibration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../networksets/index.html">NetworkSets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../plotting/index.html">Plotting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../circuit/index.html">Circuit</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mixedmodeanalysis/index.html">Mixed Mode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../vectorfitting/index.html">Vector Fitting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../vectorfitting_parametric/index.html">Parametric Vector Fitting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../qfactor/index.html">Q-factor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../taper/index.html">Taper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../instrumentcontrol/index.html">Instrument Control</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../interactive/index.html">Interactive</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading" aria-level="3"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../api/index.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../glossary.html">Glossary</a></li>
+</ul>
+<p class="caption" role="heading" aria-level="3"><span class="caption-text">Project</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing/index.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../citations_ack/acknowledging.html">Citing scikit-rf</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../citations_ack/citations.html">scikit-rf Citations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../about.html">About</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../users.html">Users</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../license.html">License</a></li>
+</ul>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="lside-overlay js-menu" role="button" aria-label="Close left sidebar" aria-controls="lside" aria-expanded="false"></div>
+  <aside id="rside" class="sy-rside pb-3 w-64 shrink-0 order-last">
+    <button class="rside-close js-menu xl:hidden" aria-label="Close Table of Contents" type="button" aria-controls="rside" aria-expanded="false">
+      <i class="i-lucide close"></i>
+    </button>
+    <div class="sy-scrollbar sy-rside-inner px-6 xl:top-16 xl:sticky xl:pl-0 pt-6 pb-4"><div class="localtoc"><h3>On this page</h3><ul>
+<li><a class="reference internal" href="#Setup">Setup</a></li>
+<li><a class="reference internal" href="#Simulation-to-generate-the-input-data">Simulation to generate the input data</a><ul>
+<li><a class="reference internal" href="#Create-frequency-and-Media">Create frequency and Media</a></li>
+<li><a class="reference internal" href="#Make-realistic-looking-error-networks.">Make realistic looking error networks.</a></li>
+<li><a class="reference internal" href="#Generate-Fictitious-measurements">Generate Fictitious measurements</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#Simple-Multiline-TRL">Simple Multiline TRL</a></li>
+<li><a class="reference internal" href="#Compare-calibrations-with-different-combinations-of-lines">Compare calibrations with different combinations of lines</a><ul>
+<li><a class="reference internal" href="#Transmission-of-the-corrected-DUT">Transmission of the corrected DUT</a></li>
+<li><a class="reference internal" href="#S11-of-corrected-DUT-with-different-amount-of-calibration-lines">S11 of corrected DUT with different amount of calibration lines</a></li>
+<li><a class="reference internal" href="#Normalized-standard-deviation-of-different-calibrations">Normalized standard deviation of different calibrations</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#Calculate-effective-complex-relative-permittivity-of-transmission-lines-used-in-the-calibration">Calculate effective complex relative permittivity of transmission lines used in the calibration</a></li>
+<li><a class="reference internal" href="#Plot-the-phase-of-the-solved-reflection-coefficient">Plot the phase of the solved reflection coefficient</a></li>
+<li><a class="reference internal" href="#Reference-plane-shift">Reference plane shift</a></li>
+<li><a class="reference internal" href="#Calibration-reference-impedance-renormalization">Calibration reference impedance renormalization</a><ul>
+<li><a class="reference internal" href="#Calibration-without-reflect-measurement">Calibration without reflect measurement</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#Monte-Carlo-analysis---NIST-vs-TUG">Monte Carlo analysis - NIST vs TUG</a></li>
+</ul>
+</div><div id="ethical-ad-placement" data-ea-publisher="readthedocs"></div></div>
+  </aside>
+  <div class="rside-overlay js-menu" role="button" aria-label="Close Table of Contents" aria-controls="rside" aria-expanded="false"></div>
+  <main class="sy-main w-full max-sm:max-w-full print:pt-6">
+<div class="sy-breadcrumbs" role="navigation">
+  <div class="sy-breadcrumbs-inner flex items-center">
+    <div class="md:hidden mr-3">
+      <button class="js-menu" aria-label="Menu" type="button" aria-controls="lside" aria-expanded="false">
+        <i class="i-lucide menu"></i>
+      </button>
+    </div>
+    <ol class="flex-1" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="../../index.html"><span itemprop="name">scikit-rf</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="1" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="../index.html"><span itemprop="name">Examples</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="2" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="index.html"><span itemprop="name">Metrology and Calibration</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="3" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <strong itemprop="name">Multiline TRL</strong>
+        <meta itemprop="position" content="4" />
+      </li></ol>
+    <a class="sk-download" href="Multiline%20TRL.ipynb" download>Download</a>
+    <div class="xl:hidden ml-1">
+      <button class="js-menu" aria-label="Show table of contents" type="button" aria-controls="rside"
+        aria-expanded="false">
+        <i class="i-lucide outdent"></i>
+      </button>
+    </div>
+  </div>
+</div><div class="flex flex-col break-words justify-between">
+      <div class="relative min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
+  <article class="yue" role="main">
+          <section id="Multiline-TRL">
+<h1>Multiline TRL<a class="headerlink" href="#Multiline-TRL" title="Link to this heading">#</a></h1>
+<p>Multiline TRL is a two-port VNA calibration utilizing at least two transmission lines with different physical lengths and at least one reflective standard that is identical on both ports. The electrical parameters of the lines don’t need to be known, but the transmission lines should have identical construction (same propagation constant and characteristic impedance). The reflect standard reflection coefficient doesn’t need to be known exactly, phase needs to be known with 90 degree accuracy.</p>
+<p>If the measured phase differences of the lines is a multiple of 180 degrees the calibration is singular. The calibration accuracy is worse the closer the line measurement phases are to the singularities, the best accuracy is obtained in the two lines case when the phase difference is 90 degrees. Multiple lines can be used to extend the frequency range where the calibration is accurate.</p>
+<p>skrf has two implementations: the NIST-style multiline calibration (<code class="docutils literal notranslate"><span class="pre">NISTMultilineTRL</span></code>) and the TUG multiline calibration (<code class="docutils literal notranslate"><span class="pre">TUGMultilineTRL</span></code>). They use the same standards and give the same answer (most of the time), they differ in how the measurement noise impact the result, so this example runs the two side by side.</p>
+<p>All data used in this example is generated with skrf, and the code for it is given at the start. The notebook then demonstrates how to use both methods and compares different combinations of lines to show how the calibration accuracy improves with the number of lines. Lastly, a Monte Carlo analysis compares the two methods.</p>
+<section id="Setup">
+<h2>Setup<a class="headerlink" href="#Setup" title="Link to this heading">#</a></h2>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[1]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="o">%</span><span class="k">matplotlib</span> inline
+</span><span data-line="2"><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+</span><span data-line="3"><span class="kn">import</span><span class="w"> </span><a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/index.html#module-numpy"><span class="nn">numpy</span></a><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+</span><span data-line="4">
+</span><span data-line="5"><span class="kn">import</span><span class="w"> </span><span class="nn">skrf</span>
+</span><span data-line="6"><span class="kn">from</span><span class="w"> </span><span class="nn">skrf.calibration</span><span class="w"> </span><span class="kn">import</span> <a class="sphinx-codeautolink-a" href="../../api/calibration/generated/skrf.calibration.calibration.NISTMultilineTRL.html#skrf.calibration.calibration.NISTMultilineTRL" title="skrf.calibration.calibration.NISTMultilineTRL"><span class="n">NISTMultilineTRL</span></a><span class="p">,</span> <a class="sphinx-codeautolink-a" href="../../api/calibration/generated/skrf.calibration.calibration.TUGMultilineTRL.html#skrf.calibration.calibration.TUGMultilineTRL" title="skrf.calibration.calibration.TUGMultilineTRL"><span class="n">TUGMultilineTRL</span></a><span class="p">,</span> <a class="sphinx-codeautolink-a" href="../../api/calibration/generated/skrf.calibration.calibration.terminate.html#skrf.calibration.calibration.terminate" title="skrf.calibration.calibration.terminate"><span class="n">terminate</span></a>
+</span><span data-line="7"><span class="kn">from</span><span class="w"> </span><a class="sphinx-codeautolink-a" href="../../api/media/index.html#module-0"><span class="nn">skrf.media</span></a><span class="w"> </span><span class="kn">import</span> <a class="sphinx-codeautolink-a" href="../../api/media/generated/skrf.media.cpw.CPW.html#skrf.media.cpw.CPW" title="skrf.media.cpw.CPW"><span class="n">CPW</span></a><span class="p">,</span> <a class="sphinx-codeautolink-a" href="../../api/media/generated/skrf.media.coaxial.Coaxial.html#skrf.media.coaxial.Coaxial" title="skrf.media.coaxial.Coaxial"><span class="n">Coaxial</span></a>
+</span><span data-line="8"><span class="kn">from</span><span class="w"> </span><a class="sphinx-codeautolink-a" href="../../api/network.html#module-0"><span class="nn">skrf.network</span></a><span class="w"> </span><span class="kn">import</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.two_port_reflect.html#skrf.network.two_port_reflect" title="skrf.network.two_port_reflect"><span class="n">two_port_reflect</span></a>
+</span><span data-line="9">
+</span><span data-line="10"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.plotting.stylely.html#skrf.plotting.stylely" title="skrf.plotting.stylely"><span class="n">skrf</span><span class="o">.</span><span class="n">stylely</span></a><span class="p">()</span>
+</span></pre></div>
+</div>
+</div>
+</section>
+<section id="Simulation-to-generate-the-input-data">
+<h2>Simulation to generate the input data<a class="headerlink" href="#Simulation-to-generate-the-input-data" title="Link to this heading">#</a></h2>
+<p>Here is how we make the data used in the rest of the example.</p>
+<section id="Create-frequency-and-Media">
+<h3>Create frequency and Media<a class="headerlink" href="#Create-frequency-and-Media" title="Link to this heading">#</a></h3>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[2]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.frequency.Frequency.html#skrf.frequency.Frequency" title="skrf.frequency.Frequency"><span class="n">freq</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.frequency.Frequency.html#skrf.frequency.Frequency" title="skrf.frequency.Frequency"><span class="n">skrf</span><span class="o">.</span><span class="n">Frequency</span></a><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">125</span><span class="p">,</span> <span class="mi">249</span><span class="p">,</span> <span class="s1">'GHz'</span><span class="p">)</span>
+</span><span data-line="2">
+</span><span data-line="3"><span class="c1"># CPW media used for DUT and the calibration standards</span>
+</span><span data-line="4"><a class="sphinx-codeautolink-a" href="../../api/media/generated/skrf.media.cpw.CPW.html#skrf.media.cpw.CPW" title="skrf.media.cpw.CPW"><span class="n">cpw</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/media/generated/skrf.media.cpw.CPW.html#skrf.media.cpw.CPW" title="skrf.media.cpw.CPW"><span class="n">CPW</span></a><span class="p">(</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.frequency.Frequency.html#skrf.frequency.Frequency" title="skrf.frequency.Frequency"><span class="n">freq</span></a><span class="p">,</span> <span class="n">w</span><span class="o">=</span><span class="mf">49.1e-6</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mf">25.5e-6</span><span class="p">,</span> <span class="n">ep_r</span><span class="o">=</span><span class="mf">9.9</span><span class="p">,</span>
+</span><span data-line="5">                     <span class="n">t</span><span class="o">=</span><span class="mf">4.9e-6</span><span class="p">,</span> <span class="n">rho</span><span class="o">=</span><span class="mi">1</span><span class="o">/</span><span class="mf">4.11e7</span><span class="p">)</span>
+</span><span data-line="6"><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/builtins/functions.html#print"><span class="nb">print</span></a><span class="p">(</span><a class="sphinx-codeautolink-a" href="../../api/media/generated/skrf.media.cpw.CPW.z0.html#skrf.media.cpw.CPW.z0" title="skrf.media.cpw.CPW.z0"><span class="n">cpw</span><span class="o">.</span><span class="n">z0</span></a><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</span><span data-line="7">
+</span><span data-line="8"><span class="c1"># 1.0 mm coaxial media for calibration error boxes</span>
+</span><span data-line="9"><a class="sphinx-codeautolink-a" href="../../api/media/generated/skrf.media.coaxial.Coaxial.html#skrf.media.coaxial.Coaxial" title="skrf.media.coaxial.Coaxial"><span class="n">coax1mm</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/media/generated/skrf.media.coaxial.Coaxial.html#skrf.media.coaxial.Coaxial" title="skrf.media.coaxial.Coaxial"><span class="n">Coaxial</span></a><span class="p">(</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.frequency.Frequency.html#skrf.frequency.Frequency" title="skrf.frequency.Frequency"><span class="n">freq</span></a><span class="p">,</span> <span class="n">z0_port</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">Dint</span><span class="o">=</span><span class="mf">0.434e-3</span><span class="p">,</span> <span class="n">Dout</span><span class="o">=</span><span class="mf">1.0e-3</span><span class="p">,</span> <span class="n">sigma</span><span class="o">=</span><span class="mf">1e8</span><span class="p">)</span>
+</span><span data-line="10"><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/builtins/functions.html#print"><span class="nb">print</span></a><span class="p">(</span><a class="sphinx-codeautolink-a" href="../../api/media/generated/skrf.media.coaxial.Coaxial.z0.html#skrf.media.coaxial.Coaxial.z0" title="skrf.media.coaxial.Coaxial.z0"><span class="n">coax1mm</span><span class="o">.</span><span class="n">z0</span></a><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</span><span data-line="11">
+</span><span data-line="12"><span class="n">f_ghz</span> <span class="o">=</span> <span class="n">cpw</span><span class="o">.</span><span class="n">frequency</span><span class="o">.</span><span class="n">f</span><span class="o">*</span><span class="mf">1e-9</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+(45.65554776395502+0j)
+(50.20564772916889-0.15748463048337036j)
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+/home/alex/code/scikit-rf-docs/skrf/media/cpw.py:240: RuntimeWarning: Conductor loss calculation invalid for lineheight t (4.9e-06)  &lt; 3 * skin depth (2.4825569540602707e-06)
+  self.alpha_conductor, self.alpha_dielectric = self.analyse_loss(
+</pre></div></div>
+</div>
+</section>
+<section id="Make-realistic-looking-error-networks.">
+<h3>Make realistic looking error networks.<a class="headerlink" href="#Make-realistic-looking-error-networks." title="Link to this heading">#</a></h3>
+<p>Propagation constant determination is iterative and doesn’t work as well when the error networks are randomly generated</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[3]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">X</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/media/generated/skrf.media.coaxial.Coaxial.line.html#skrf.media.coaxial.Coaxial.line" title="skrf.media.coaxial.Coaxial.line"><span class="n">coax1mm</span><span class="o">.</span><span class="n">line</span></a><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s1">'m'</span><span class="p">,</span> <span class="n">z0</span><span class="o">=</span><span class="mi">58</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'X'</span><span class="p">)</span>
+</span><span data-line="2"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">Y</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/media/generated/skrf.media.coaxial.Coaxial.line.html#skrf.media.coaxial.Coaxial.line" title="skrf.media.coaxial.Coaxial.line"><span class="n">coax1mm</span><span class="o">.</span><span class="n">line</span></a><span class="p">(</span><span class="mf">1.1</span><span class="p">,</span> <span class="s1">'m'</span><span class="p">,</span> <span class="n">z0</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'Y'</span><span class="p">)</span>
+</span><span data-line="3">
+</span><span data-line="4"><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+</span><span data-line="5"><span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">'Error networks'</span><span class="p">)</span>
+</span><span data-line="6"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.plot_s_db.html#skrf.network.Network.plot_s_db" title="skrf.network.Network.plot_s_db"><span class="n">X</span><span class="o">.</span><span class="n">plot_s_db</span></a><span class="p">()</span>
+</span><span data-line="7"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.plot_s_db.html#skrf.network.Network.plot_s_db" title="skrf.network.Network.plot_s_db"><span class="n">Y</span><span class="o">.</span><span class="n">plot_s_db</span></a><span class="p">()</span>
+</span><span data-line="8">
+</span><span data-line="9"><span class="c1"># Realistic looking switch terms</span>
+</span><span data-line="10"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">gamma_f</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/media/generated/skrf.media.coaxial.Coaxial.delay_load.html#skrf.media.coaxial.Coaxial.delay_load" title="skrf.media.coaxial.Coaxial.delay_load"><span class="n">coax1mm</span><span class="o">.</span><span class="n">delay_load</span></a><span class="p">(</span><span class="mf">0.2</span><span class="p">,</span> <span class="mf">21e-3</span><span class="p">,</span> <span class="s1">'m'</span><span class="p">,</span> <span class="n">z0</span><span class="o">=</span><span class="mi">60</span><span class="p">)</span>
+</span><span data-line="11"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">gamma_r</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/media/generated/skrf.media.coaxial.Coaxial.delay_load.html#skrf.media.coaxial.Coaxial.delay_load" title="skrf.media.coaxial.Coaxial.delay_load"><span class="n">coax1mm</span><span class="o">.</span><span class="n">delay_load</span></a><span class="p">(</span><span class="mf">0.25</span><span class="p">,</span> <span class="mf">16e-3</span><span class="p">,</span> <span class="s1">'m'</span><span class="p">,</span> <span class="n">z0</span><span class="o">=</span><span class="mi">56</span><span class="p">)</span>
+</span><span data-line="12">
+</span><span data-line="13"><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+</span><span data-line="14"><span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">'Switch terms'</span><span class="p">)</span>
+</span><span data-line="15"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.plot_s_db.html#skrf.network.Network.plot_s_db" title="skrf.network.Network.plot_s_db"><span class="n">gamma_f</span><span class="o">.</span><span class="n">plot_s_db</span></a><span class="p">()</span>
+</span><span data-line="16"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.plot_s_db.html#skrf.network.Network.plot_s_db" title="skrf.network.Network.plot_s_db"><span class="n">gamma_r</span><span class="o">.</span><span class="n">plot_s_db</span></a><span class="p">()</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/examples_metrology_Multiline_TRL_10_0.png" src="../../_images/examples_metrology_Multiline_TRL_10_0.png"/>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/examples_metrology_Multiline_TRL_10_1.png" src="../../_images/examples_metrology_Multiline_TRL_10_1.png"/>
+</div>
+</div>
+</section>
+<section id="Generate-Fictitious-measurements">
+<h3>Generate Fictitious measurements<a class="headerlink" href="#Generate-Fictitious-measurements" title="Link to this heading">#</a></h3>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[4]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="c1"># Lengths of the lines used in the calibration, units are in meters</span>
+</span><span data-line="2"><span class="n">line_len</span> <span class="o">=</span> <span class="p">[</span><span class="mf">300e-6</span><span class="p">,</span> <span class="mf">1200e-6</span><span class="p">,</span> <span class="mf">2950e-6</span><span class="p">,</span> <span class="mf">3550e-6</span><span class="p">,</span> <span class="mf">5050e-6</span><span class="p">]</span>
+</span><span data-line="3"><span class="n">lines</span> <span class="o">=</span> <span class="p">[</span><a class="sphinx-codeautolink-a" href="../../api/media/generated/skrf.media.cpw.CPW.line.html#skrf.media.cpw.CPW.line" title="skrf.media.cpw.CPW.line"><span class="n">cpw</span><span class="o">.</span><span class="n">line</span></a><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="s1">'m'</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">line_len</span><span class="p">]</span>
+</span><span data-line="4">
+</span><span data-line="5"><span class="c1"># Attenuator with mismatched feed lines</span>
+</span><span data-line="6"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">dut_feed</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/media/generated/skrf.media.cpw.CPW.line.html#skrf.media.cpw.CPW.line" title="skrf.media.cpw.CPW.line"><span class="n">cpw</span><span class="o">.</span><span class="n">line</span></a><span class="p">(</span><span class="mf">1.5e-3</span><span class="p">,</span> <span class="s1">'m'</span><span class="p">,</span> <span class="n">z0</span><span class="o">=</span><span class="mi">60</span><span class="p">)</span>
+</span><span data-line="7"><span class="n">dut</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">dut_feed</span></a><span class="o">**</span><a class="sphinx-codeautolink-a" href="../../api/media/generated/skrf.media.cpw.CPW.attenuator.html#skrf.media.cpw.CPW.attenuator" title="skrf.media.cpw.CPW.attenuator"><span class="n">cpw</span><span class="o">.</span><span class="n">attenuator</span></a><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">)</span><span class="o">**</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">dut_feed</span></a>
+</span><span data-line="8">
+</span><span data-line="9"><span class="n">res_50ohm</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/media/generated/skrf.media.cpw.CPW.resistor.html#skrf.media.cpw.CPW.resistor" title="skrf.media.cpw.CPW.resistor"><span class="n">cpw</span><span class="o">.</span><span class="n">resistor</span></a><span class="p">(</span><span class="mi">50</span><span class="p">)</span> <span class="o">**</span> <a class="sphinx-codeautolink-a" href="../../api/media/generated/skrf.media.cpw.CPW.short.html#skrf.media.cpw.CPW.short" title="skrf.media.cpw.CPW.short"><span class="n">cpw</span><span class="o">.</span><span class="n">short</span></a><span class="p">(</span><span class="n">nports</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span> <span class="o">**</span> <a class="sphinx-codeautolink-a" href="../../api/media/generated/skrf.media.cpw.CPW.resistor.html#skrf.media.cpw.CPW.resistor" title="skrf.media.cpw.CPW.resistor"><span class="n">cpw</span><span class="o">.</span><span class="n">resistor</span></a><span class="p">(</span><span class="mi">50</span><span class="p">)</span>
+</span><span data-line="10">
+</span><span data-line="11"><span class="c1"># Through and non-ideal short, 75 um behind the middle of the thru.</span>
+</span><span data-line="12"><span class="c1"># Real reflection coefficient is solved during the calibration</span>
+</span><span data-line="13">
+</span><span data-line="14"><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">short</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/media/generated/skrf.media.cpw.CPW.delay_short.html#skrf.media.cpw.CPW.delay_short" title="skrf.media.cpw.CPW.delay_short"><span class="n">cpw</span><span class="o">.</span><span class="n">delay_short</span></a><span class="p">(</span><span class="mf">75e-6</span><span class="p">,</span> <span class="s1">'m'</span><span class="p">)</span>
+</span><span data-line="15">
+</span><span data-line="16"><span class="n">actuals</span> <span class="o">=</span> <span class="p">[</span>
+</span><span data-line="17">    <a class="sphinx-codeautolink-a" href="../../api/media/generated/skrf.media.cpw.CPW.thru.html#skrf.media.cpw.CPW.thru" title="skrf.media.cpw.CPW.thru"><span class="n">cpw</span><span class="o">.</span><span class="n">thru</span></a><span class="p">(),</span>
+</span><span data-line="18">    <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.two_port_reflect.html#skrf.network.two_port_reflect" title="skrf.network.two_port_reflect"><span class="n">two_port_reflect</span></a><span class="p">(</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">short</span></a><span class="p">,</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">short</span></a><span class="p">),</span>
+</span><span data-line="19">    <span class="p">]</span>
+</span><span data-line="20">
+</span><span data-line="21"><span class="n">actuals</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">lines</span><span class="p">)</span>
+</span><span data-line="22">
+</span><span data-line="23"><span class="c1"># Measured</span>
+</span><span data-line="24"><span class="n">measured</span> <span class="o">=</span> <span class="p">[</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">X</span></a><span class="o">**</span><span class="n">k</span><span class="o">**</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">Y</span></a> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">actuals</span><span class="p">]</span>
+</span><span data-line="25">
+</span><span data-line="26"><span class="c1"># Switch termination</span>
+</span><span data-line="27"><span class="n">measured</span> <span class="o">=</span> <span class="p">[</span><a class="sphinx-codeautolink-a" href="../../api/calibration/generated/skrf.calibration.calibration.terminate.html#skrf.calibration.calibration.terminate" title="skrf.calibration.calibration.terminate"><span class="n">terminate</span></a><span class="p">(</span><span class="n">m</span><span class="p">,</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">gamma_f</span></a><span class="p">,</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">gamma_r</span></a><span class="p">)</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">measured</span><span class="p">]</span>
+</span><span data-line="28">
+</span><span data-line="29"><span class="c1"># Add little noise to the measurements</span>
+</span><span data-line="30"><span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">measured</span><span class="p">:</span>
+</span><span data-line="31">    <span class="n">m</span><span class="o">.</span><span class="n">add_noise_polar</span><span class="p">(</span><span class="mf">0.001</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">)</span>
+</span><span data-line="32">
+</span><span data-line="33"><span class="n">names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'thru'</span><span class="p">,</span> <span class="s1">'reflect'</span><span class="p">,</span> <span class="s1">'line300um'</span><span class="p">,</span> <span class="s1">'line1200um'</span><span class="p">,</span> <span class="s1">'line2950um'</span><span class="p">,</span>
+</span><span data-line="34">         <span class="s1">'line3550um'</span><span class="p">,</span> <span class="s1">'line5050um'</span><span class="p">]</span>
+</span><span data-line="35"><span class="k">for</span> <span class="n">k</span><span class="p">,</span><span class="n">name</span> <span class="ow">in</span> <a class="sphinx-codeautolink-a" href="https://docs.python.org/3/builtins/functions.html#enumerate"><span class="nb">enumerate</span></a><span class="p">(</span><span class="n">names</span><span class="p">):</span>
+</span><span data-line="36">    <span class="n">measured</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">.</span><span class="n">name</span><span class="o">=</span><span class="n">name</span>
+</span><span data-line="37">
+</span><span data-line="38">
+</span><span data-line="39"><span class="c1"># Noiseless DUT so that all the noise will be from the calibration</span>
+</span><span data-line="40"><span class="n">dut_meas</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/calibration/generated/skrf.calibration.calibration.terminate.html#skrf.calibration.calibration.terminate" title="skrf.calibration.calibration.terminate"><span class="n">terminate</span></a><span class="p">(</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">X</span></a><span class="o">**</span><span class="n">dut</span><span class="o">**</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">Y</span></a><span class="p">,</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">gamma_f</span></a><span class="p">,</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">gamma_r</span></a><span class="p">)</span>
+</span><span data-line="41"><span class="n">dut_meas</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">'DUT'</span>
+</span><span data-line="42">
+</span><span data-line="43"><span class="n">res_50ohm_meas</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/calibration/generated/skrf.calibration.calibration.terminate.html#skrf.calibration.calibration.terminate" title="skrf.calibration.calibration.terminate"><span class="n">terminate</span></a><span class="p">(</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">X</span></a><span class="o">**</span><span class="n">res_50ohm</span><span class="o">**</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">Y</span></a><span class="p">,</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">gamma_f</span></a><span class="p">,</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">gamma_r</span></a><span class="p">)</span>
+</span><span data-line="44"><span class="n">res_50ohm_meas</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">'res_50ohm'</span>
+</span></pre></div>
+</div>
+</div>
+</section>
+</section>
+<section id="Simple-Multiline-TRL">
+<h2>Simple Multiline TRL<a class="headerlink" href="#Simple-Multiline-TRL" title="Link to this heading">#</a></h2>
+<p>The two classes take the same information, but they group it differently. <code class="docutils literal notranslate"><span class="pre">NISTMultilineTRL</span></code> takes one flat list of <code class="docutils literal notranslate"><span class="pre">measured</span></code> standards, thru first, then the reflects, then the lines. <code class="docutils literal notranslate"><span class="pre">TUGMultilineTRL</span></code> keeps the lines and the reflects in separate arguments, and the first line is taken as the thru.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[5]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="c1"># define the line lengths in meters (including thru)</span>
+</span><span data-line="2"><span class="n">l</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">300e-6</span><span class="p">,</span> <span class="mf">1200e-6</span><span class="p">,</span> <span class="mf">2950e-6</span><span class="p">,</span> <span class="mf">3550e-6</span><span class="p">,</span> <span class="mf">5050e-6</span><span class="p">]</span>
+</span><span data-line="3">
+</span><span data-line="4"><span class="c1"># Do the calibration</span>
+</span><span data-line="5"><a class="sphinx-codeautolink-a" href="../../api/calibration/generated/skrf.calibration.calibration.NISTMultilineTRL.html#skrf.calibration.calibration.NISTMultilineTRL" title="skrf.calibration.calibration.NISTMultilineTRL"><span class="n">cal</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/calibration/generated/skrf.calibration.calibration.NISTMultilineTRL.html#skrf.calibration.calibration.NISTMultilineTRL" title="skrf.calibration.calibration.NISTMultilineTRL"><span class="n">NISTMultilineTRL</span></a><span class="p">(</span>
+</span><span data-line="6">    <span class="n">measured</span> <span class="o">=</span> <span class="n">measured</span><span class="p">,</span>  <span class="c1"># Measured standards</span>
+</span><span data-line="7">    <span class="n">Grefls</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="c1"># Reflection coefficient of the reflect, -1 for short</span>
+</span><span data-line="8">    <span class="n">l</span> <span class="o">=</span> <span class="n">l</span><span class="p">,</span>         <span class="c1"># Lengths of the lines</span>
+</span><span data-line="9">    <span class="n">refl_offset</span> <span class="o">=</span> <span class="mf">75e-6</span><span class="p">,</span> <span class="c1"># Reflect offset from the reference plane</span>
+</span><span data-line="10">    <span class="n">er_est</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span>    <span class="c1"># Estimate of transmission line effective permittivity</span>
+</span><span data-line="11">    <span class="n">switch_terms</span> <span class="o">=</span> <span class="p">(</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">gamma_f</span></a><span class="p">,</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">gamma_r</span></a><span class="p">)</span> <span class="c1"># Switch terms</span>
+</span><span data-line="12">    <span class="p">)</span>
+</span><span data-line="13">
+</span><span data-line="14"><span class="c1"># The same calibration with the TUG method</span>
+</span><span data-line="15"><a class="sphinx-codeautolink-a" href="../../api/calibration/generated/skrf.calibration.calibration.TUGMultilineTRL.html#skrf.calibration.calibration.TUGMultilineTRL" title="skrf.calibration.calibration.TUGMultilineTRL"><span class="n">cal_tug</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/calibration/generated/skrf.calibration.calibration.TUGMultilineTRL.html#skrf.calibration.calibration.TUGMultilineTRL" title="skrf.calibration.calibration.TUGMultilineTRL"><span class="n">TUGMultilineTRL</span></a><span class="p">(</span>
+</span><span data-line="16">    <span class="n">line_meas</span> <span class="o">=</span> <span class="p">[</span><span class="n">measured</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">+</span> <span class="n">measured</span><span class="p">[</span><span class="mi">2</span><span class="p">:],</span> <span class="c1"># Measured lines, thru first</span>
+</span><span data-line="17">    <span class="n">line_lengths</span> <span class="o">=</span> <span class="n">l</span><span class="p">,</span>      <span class="c1"># Lengths of the lines</span>
+</span><span data-line="18">    <span class="n">reflect_meas</span> <span class="o">=</span> <span class="p">[</span><span class="n">measured</span><span class="p">[</span><span class="mi">1</span><span class="p">]],</span> <span class="c1"># Measured reflect</span>
+</span><span data-line="19">    <span class="n">reflect_est</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span>    <span class="c1"># Reflection coefficient of the reflect, -1 for short</span>
+</span><span data-line="20">    <span class="n">reflect_offset</span> <span class="o">=</span> <span class="mf">75e-6</span><span class="p">,</span> <span class="c1"># Reflect offset from the reference plane</span>
+</span><span data-line="21">    <span class="n">er_est</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span>            <span class="c1"># Estimate of transmission line effective permittivity</span>
+</span><span data-line="22">    <span class="n">switch_terms</span> <span class="o">=</span> <span class="p">(</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">gamma_f</span></a><span class="p">,</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">gamma_r</span></a><span class="p">)</span> <span class="c1"># Switch terms</span>
+</span><span data-line="23">    <span class="p">)</span>
+</span><span data-line="24">
+</span><span data-line="25"><span class="c1"># Correct the DUT using the above calibrations</span>
+</span><span data-line="26"><span class="n">corrected</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/calibration/generated/skrf.calibration.calibration.NISTMultilineTRL.apply_cal.html#skrf.calibration.calibration.NISTMultilineTRL.apply_cal" title="skrf.calibration.calibration.NISTMultilineTRL.apply_cal"><span class="n">cal</span><span class="o">.</span><span class="n">apply_cal</span></a><span class="p">(</span><span class="n">dut_meas</span><span class="p">)</span>
+</span><span data-line="27"><span class="n">corrected</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">'NIST'</span>
+</span><span data-line="28"><span class="n">corrected</span><span class="o">.</span><span class="n">plot_s_db</span><span class="p">()</span>
+</span><span data-line="29">
+</span><span data-line="30"><span class="n">corrected_tug</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/calibration/generated/skrf.calibration.calibration.TUGMultilineTRL.apply_cal.html#skrf.calibration.calibration.TUGMultilineTRL.apply_cal" title="skrf.calibration.calibration.TUGMultilineTRL.apply_cal"><span class="n">cal_tug</span><span class="o">.</span><span class="n">apply_cal</span></a><span class="p">(</span><span class="n">dut_meas</span><span class="p">)</span>
+</span><span data-line="31"><span class="n">corrected_tug</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">'TUG'</span>
+</span><span data-line="32"><span class="n">corrected_tug</span><span class="o">.</span><span class="n">plot_s_db</span><span class="p">(</span><span class="n">linestyle</span><span class="o">=</span><span class="s1">'--'</span><span class="p">)</span>
+</span><span data-line="33">
+</span><span data-line="34"><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/builtins/functions.html#print"><span class="nb">print</span></a><span class="p">(</span><span class="sa">f</span><span class="s1">'Largest difference between the two: </span><span class="si">{</span><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/builtins/functions.html#abs"><span class="nb">abs</span></a><span class="p">(</span><span class="n">corrected</span><span class="o">.</span><span class="n">s</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">corrected_tug</span><span class="o">.</span><span class="n">s</span><span class="p">)</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="si">:</span><span class="s1">.2e</span><span class="si">}</span><span class="s1">'</span><span class="p">)</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Largest difference between the two: 1.09e-04
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/examples_metrology_Multiline_TRL_15_1.png" src="../../_images/examples_metrology_Multiline_TRL_15_1.png"/>
+</div>
+</div>
+<p>The two methods sit on top of each other.</p>
+</section>
+<section id="Compare-calibrations-with-different-combinations-of-lines">
+<h2>Compare calibrations with different combinations of lines<a class="headerlink" href="#Compare-calibrations-with-different-combinations-of-lines" title="Link to this heading">#</a></h2>
+<p>Here we loop through different line combinations to demonstrate the difference in the calibration accuracy.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[6]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="c1"># Run multiline TRL calibration with different combinations of lines</span>
+</span><span data-line="2">
+</span><span data-line="3"><span class="n">cals</span> <span class="o">=</span> <span class="p">[]</span>
+</span><span data-line="4"><span class="n">cals_tug</span> <span class="o">=</span> <span class="p">[]</span>
+</span><span data-line="5"><span class="n">duts</span> <span class="o">=</span> <span class="p">[]</span>
+</span><span data-line="6">
+</span><span data-line="7"><span class="n">line_combinations</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">4</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">4</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">]]</span>
+</span><span data-line="8">
+</span><span data-line="9"><span class="k">for</span> <span class="n">used_lines</span> <span class="ow">in</span> <span class="n">line_combinations</span><span class="p">:</span>
+</span><span data-line="10">
+</span><span data-line="11">    <span class="c1"># Thru and reflect, plus the lines being used</span>
+</span><span data-line="12">    <span class="n">m</span> <span class="o">=</span> <span class="n">measured</span><span class="p">[:</span><span class="mi">2</span><span class="p">]</span> <span class="o">+</span> <span class="p">[</span><span class="n">measured</span><span class="p">[</span><span class="mi">2</span><span class="p">:][</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">used_lines</span><span class="p">]</span>
+</span><span data-line="13">
+</span><span data-line="14">    <span class="c1"># Add thru length to list of line lengths</span>
+</span><span data-line="15">    <span class="n">lc</span> <span class="o">=</span> <span class="p">[</span><span class="n">l</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">+</span> <span class="p">[</span><span class="n">l</span><span class="p">[</span><span class="mi">1</span><span class="p">:][</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">used_lines</span><span class="p">]</span>
+</span><span data-line="16">
+</span><span data-line="17">    <span class="c1"># Do the calibration</span>
+</span><span data-line="18">    <a class="sphinx-codeautolink-a" href="../../api/calibration/generated/skrf.calibration.calibration.NISTMultilineTRL.html#skrf.calibration.calibration.NISTMultilineTRL" title="skrf.calibration.calibration.NISTMultilineTRL"><span class="n">cal</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/calibration/generated/skrf.calibration.calibration.NISTMultilineTRL.html#skrf.calibration.calibration.NISTMultilineTRL" title="skrf.calibration.calibration.NISTMultilineTRL"><span class="n">NISTMultilineTRL</span></a><span class="p">(</span>
+</span><span data-line="19">        <span class="n">measured</span> <span class="o">=</span> <span class="n">m</span><span class="p">,</span>  <span class="c1"># Measured standards</span>
+</span><span data-line="20">        <span class="n">Grefls</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="c1"># Reflection coefficient of the reflect, -1 for short</span>
+</span><span data-line="21">        <span class="n">l</span> <span class="o">=</span> <span class="n">lc</span><span class="p">,</span>        <span class="c1"># Lengths of the lines</span>
+</span><span data-line="22">        <span class="n">refl_offset</span> <span class="o">=</span> <span class="mf">75e-6</span><span class="p">,</span> <span class="c1"># Reflect offset from the reference plane</span>
+</span><span data-line="23">        <span class="n">er_est</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span>    <span class="c1"># Estimate of transmission line effective permittivity</span>
+</span><span data-line="24">        <span class="n">switch_terms</span> <span class="o">=</span> <span class="p">(</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">gamma_f</span></a><span class="p">,</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">gamma_r</span></a><span class="p">)</span> <span class="c1"># Switch terms</span>
+</span><span data-line="25">        <span class="p">)</span>
+</span><span data-line="26">
+</span><span data-line="27">    <span class="c1"># The same lines with the TUG method</span>
+</span><span data-line="28">    <a class="sphinx-codeautolink-a" href="../../api/calibration/generated/skrf.calibration.calibration.TUGMultilineTRL.html#skrf.calibration.calibration.TUGMultilineTRL" title="skrf.calibration.calibration.TUGMultilineTRL"><span class="n">cal_t</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/calibration/generated/skrf.calibration.calibration.TUGMultilineTRL.html#skrf.calibration.calibration.TUGMultilineTRL" title="skrf.calibration.calibration.TUGMultilineTRL"><span class="n">TUGMultilineTRL</span></a><span class="p">(</span>
+</span><span data-line="29">        <span class="n">line_meas</span> <span class="o">=</span> <span class="p">[</span><span class="n">m</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">+</span> <span class="n">m</span><span class="p">[</span><span class="mi">2</span><span class="p">:],</span>
+</span><span data-line="30">        <span class="n">line_lengths</span> <span class="o">=</span> <span class="n">lc</span><span class="p">,</span>
+</span><span data-line="31">        <span class="n">reflect_meas</span> <span class="o">=</span> <span class="p">[</span><span class="n">m</span><span class="p">[</span><span class="mi">1</span><span class="p">]],</span>
+</span><span data-line="32">        <span class="n">reflect_est</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span>
+</span><span data-line="33">        <span class="n">reflect_offset</span> <span class="o">=</span> <span class="mf">75e-6</span><span class="p">,</span>
+</span><span data-line="34">        <span class="n">er_est</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span>
+</span><span data-line="35">        <span class="n">switch_terms</span> <span class="o">=</span> <span class="p">(</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">gamma_f</span></a><span class="p">,</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">gamma_r</span></a><span class="p">)</span>
+</span><span data-line="36">        <span class="p">)</span>
+</span><span data-line="37">
+</span><span data-line="38">    <span class="c1"># Correct the DUT using the above calibration</span>
+</span><span data-line="39">    <span class="n">corrected</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/calibration/generated/skrf.calibration.calibration.NISTMultilineTRL.apply_cal.html#skrf.calibration.calibration.NISTMultilineTRL.apply_cal" title="skrf.calibration.calibration.NISTMultilineTRL.apply_cal"><span class="n">cal</span><span class="o">.</span><span class="n">apply_cal</span></a><span class="p">(</span><span class="n">dut_meas</span><span class="p">)</span>
+</span><span data-line="40">    <span class="n">corrected</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">'DUT, lines </span><span class="si">{</span><span class="n">used_lines</span><span class="si">}</span><span class="s1">'</span>
+</span><span data-line="41">
+</span><span data-line="42">    <span class="n">duts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">corrected</span><span class="p">)</span>
+</span><span data-line="43">    <span class="n">cals</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><a class="sphinx-codeautolink-a" href="../../api/calibration/generated/skrf.calibration.calibration.NISTMultilineTRL.html#skrf.calibration.calibration.NISTMultilineTRL" title="skrf.calibration.calibration.NISTMultilineTRL"><span class="n">cal</span></a><span class="p">)</span>
+</span><span data-line="44">    <span class="n">cals_tug</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><a class="sphinx-codeautolink-a" href="../../api/calibration/generated/skrf.calibration.calibration.TUGMultilineTRL.html#skrf.calibration.calibration.TUGMultilineTRL" title="skrf.calibration.calibration.TUGMultilineTRL"><span class="n">cal_t</span></a><span class="p">)</span>
+</span></pre></div>
+</div>
+</div>
+<section id="Transmission-of-the-corrected-DUT">
+<h3>Transmission of the corrected DUT<a class="headerlink" href="#Transmission-of-the-corrected-DUT" title="Link to this heading">#</a></h3>
+<p>Plot the corrected DUT calibrated with different combination of calibration lines.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[7]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+</span><span data-line="2"><span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">'DUT S21'</span><span class="p">)</span>
+</span><span data-line="3"><span class="k">for</span> <span class="n">dut</span> <span class="ow">in</span> <span class="n">duts</span><span class="p">:</span>
+</span><span data-line="4">    <span class="n">dut</span><span class="o">.</span><span class="n">plot_s_db</span><span class="p">(</span><span class="n">m</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/examples_metrology_Multiline_TRL_21_0.png" src="../../_images/examples_metrology_Multiline_TRL_21_0.png"/>
+</div>
+</div>
+</section>
+<section id="S11-of-corrected-DUT-with-different-amount-of-calibration-lines">
+<h3>S11 of corrected DUT with different amount of calibration lines<a class="headerlink" href="#S11-of-corrected-DUT-with-different-amount-of-calibration-lines" title="Link to this heading">#</a></h3>
+<p>S11 shows bigger changes.</p>
+<ul class="simple">
+<li><p>With one short line low frequencies are very noisy</p></li>
+<li><p>With only the long line the calibration is very inaccurate at frequencies where the phase difference of the thru and line is close to a multiple of 180 degrees</p></li>
+<li><p>With both lines calibration accuracy is good everywhere</p></li>
+</ul>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[8]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+</span><span data-line="2"><span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">'DUT S11'</span><span class="p">)</span>
+</span><span data-line="3"><span class="k">for</span> <span class="n">dut</span> <span class="ow">in</span> <span class="n">duts</span><span class="p">:</span>
+</span><span data-line="4">    <span class="n">dut</span><span class="o">.</span><span class="n">plot_s_db</span><span class="p">(</span><span class="n">m</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/examples_metrology_Multiline_TRL_23_0.png" src="../../_images/examples_metrology_Multiline_TRL_23_0.png"/>
+</div>
+</div>
+</section>
+<section id="Normalized-standard-deviation-of-different-calibrations">
+<h3>Normalized standard deviation of different calibrations<a class="headerlink" href="#Normalized-standard-deviation-of-different-calibrations" title="Link to this heading">#</a></h3>
+<p>Normalized standard deviation can be used to measure the accuracy of the calibration. Lower number means calibration is less sensitive to the measurement noise.</p>
+<ul class="simple">
+<li><p>TRL calibration with one 90 degrees long line has normalized standard deviation of 1.</p></li>
+<li><p>TRL calibration with one 180 degree long lossless line is singular and has infinite normalized standard deviation.</p></li>
+<li><p>With multiple lines normalized standard deviation less than one is possible.</p></li>
+</ul>
+<p>Note that the nstd is normalized such that it doesn’t consider the actual measurement noise. It’s calculated only from the solved propagation constant and line lengths. The threshold of how large it can be depends on the DUT being measured, measurement noise and the required accuracy of the measurement. If there are large spikes, such as are visible in the long line case below, that’s a sign that the calibration is very close to singular at that frequency and the measurement accuracy is going to
+be poor.</p>
+<p>The TUG method reports the same thing through the eigenvalue <span class="math notranslate nohighlight">\(\lambda\)</span> of its weighted eigenvalue problem, where a small eigenvalue means a sensitive calibration. For <span class="math notranslate nohighlight">\(N\)</span> lines (thru included) the two are related by <span class="math notranslate nohighlight">\(\mathrm{nstd} \approx \sqrt{2N/\lambda}\)</span>. The dashed lines below are the TUG eigenvalue converted this way.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[9]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">f_ghz</span> <span class="o">=</span> <span class="n">dut</span><span class="o">.</span><span class="n">frequency</span><span class="o">.</span><span class="n">f_scaled</span>
+</span><span data-line="2">
+</span><span data-line="3"><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+</span><span data-line="4"><span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">'Calibration normalized standard deviation'</span><span class="p">)</span>
+</span><span data-line="5"><span class="k">for</span> <span class="n">e</span><span class="p">,</span> <span class="n">cal</span> <span class="ow">in</span> <a class="sphinx-codeautolink-a" href="https://docs.python.org/3/builtins/functions.html#enumerate"><span class="nb">enumerate</span></a><span class="p">(</span><span class="n">cals</span><span class="p">):</span>
+</span><span data-line="6">    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">f_ghz</span><span class="p">,</span> <span class="n">cal</span><span class="o">.</span><span class="n">nstd</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">'Lines: </span><span class="si">{</span><span class="n">line_combinations</span><span class="p">[</span><span class="n">e</span><span class="p">]</span><span class="si">}</span><span class="s1">'</span><span class="p">)</span>
+</span><span data-line="7">
+</span><span data-line="8"><span class="c1"># The TUG eigenvalue converted to the same scale</span>
+</span><span data-line="9"><span class="k">for</span> <span class="n">e</span><span class="p">,</span> <span class="n">cal_t</span> <span class="ow">in</span> <a class="sphinx-codeautolink-a" href="https://docs.python.org/3/builtins/functions.html#enumerate"><span class="nb">enumerate</span></a><span class="p">(</span><span class="n">cals_tug</span><span class="p">):</span>
+</span><span data-line="10">    <span class="n">N</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="https://docs.python.org/3/builtins/functions.html#len"><span class="nb">len</span></a><span class="p">(</span><span class="n">line_combinations</span><span class="p">[</span><span class="n">e</span><span class="p">])</span> <span class="o">+</span> <span class="mi">1</span>
+</span><span data-line="11">    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">f_ghz</span><span class="p">,</span> <a class="sphinx-codeautolink-a" href="https://numpy.org/doc/stable/reference/generated/numpy.sqrt.html#numpy.sqrt" title="numpy.sqrt"><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span></a><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">N</span><span class="o">/</span><span class="n">cal_t</span><span class="o">.</span><span class="n">lambd</span><span class="p">),</span> <span class="s1">'k--'</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</span><span data-line="12">
+</span><span data-line="13"><span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">20</span><span class="p">])</span>
+</span><span data-line="14"><span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">'upper right'</span><span class="p">)</span>
+</span><span data-line="15"><span class="n">dut</span><span class="o">.</span><span class="n">frequency</span><span class="o">.</span><span class="n">labelXAxis</span><span class="p">()</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/examples_metrology_Multiline_TRL_25_0.png" src="../../_images/examples_metrology_Multiline_TRL_25_0.png"/>
+</div>
+</div>
+</section>
+</section>
+<section id="Calculate-effective-complex-relative-permittivity-of-transmission-lines-used-in-the-calibration">
+<h2>Calculate effective complex relative permittivity of transmission lines used in the calibration<a class="headerlink" href="#Calculate-effective-complex-relative-permittivity-of-transmission-lines-used-in-the-calibration" title="Link to this heading">#</a></h2>
+<p>Effective complex relative permittivity <span class="math notranslate nohighlight">\(\epsilon_{r,eff}\)</span> of a transmission line is related to the propagation constant <span class="math notranslate nohighlight">\(\gamma\)</span> as:</p>
+<p><span class="math notranslate nohighlight">\(\gamma = \frac{2\pi f}{c}\sqrt{\epsilon_{r,eff}}\)</span>, where <span class="math notranslate nohighlight">\(c\)</span> equals the speed of light and <span class="math notranslate nohighlight">\(f\)</span> is frequency.</p>
+<p>In general it’s a complex value with the imaginary part indicating losses.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[10]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="c1"># Get the cal with all the lines</span>
+</span><span data-line="2"><span class="n">cal</span> <span class="o">=</span> <span class="n">cals</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+</span><span data-line="3"><span class="n">cal_tug</span> <span class="o">=</span> <span class="n">cals_tug</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+</span><span data-line="4">
+</span><span data-line="5"><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+</span><span data-line="6"><span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">'CPW effective permittivity (real part)'</span><span class="p">)</span>
+</span><span data-line="7"><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">f_ghz</span><span class="p">,</span> <span class="n">cal</span><span class="o">.</span><span class="n">er_eff</span><span class="o">.</span><span class="n">real</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">'NIST'</span><span class="p">)</span>
+</span><span data-line="8"><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">f_ghz</span><span class="p">,</span> <span class="n">cal_tug</span><span class="o">.</span><span class="n">er_eff</span><span class="o">.</span><span class="n">real</span><span class="p">,</span> <span class="s1">'--'</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">'TUG'</span><span class="p">)</span>
+</span><span data-line="9"><span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">'Frequency (GHz)'</span><span class="p">)</span>
+</span><span data-line="10"><span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">'lower right'</span><span class="p">)</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[10]:
+</span></pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;matplotlib.legend.Legend at 0x7d209beb4740&gt;
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/examples_metrology_Multiline_TRL_27_1.png" src="../../_images/examples_metrology_Multiline_TRL_27_1.png"/>
+</div>
+</div>
+<p>TRL calibration accuracy is the best when line length difference is 90 degrees. Solved propagation constant and effective permittivity however are more accurate the bigger the line length difference is. At low frequencies the estimate is noisier due to the line phase difference being small.</p>
+</section>
+<section id="Plot-the-phase-of-the-solved-reflection-coefficient">
+<h2>Plot the phase of the solved reflection coefficient<a class="headerlink" href="#Plot-the-phase-of-the-solved-reflection-coefficient" title="Link to this heading">#</a></h2>
+<p>Applying the calibration to the measured reflect standard we can get the calibrated S-parameters of the unknown reflect.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[11]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+</span><span data-line="2"><span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">'Solved reflection coefficient of the reflect standard'</span><span class="p">)</span>
+</span><span data-line="3"><span class="n">cal</span><span class="o">.</span><span class="n">apply_cal</span><span class="p">(</span><span class="n">measured</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="o">.</span><span class="n">plot_s_deg</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">m</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">'Solved short'</span><span class="p">)</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/examples_metrology_Multiline_TRL_31_0.png" src="../../_images/examples_metrology_Multiline_TRL_31_0.png"/>
+</div>
+</div>
+</section>
+<section id="Reference-plane-shift">
+<h2>Reference plane shift<a class="headerlink" href="#Reference-plane-shift" title="Link to this heading">#</a></h2>
+<p>Because propagation constant of the media is solved during the calibration it’s possible to shift the reference plane by a specified distance.</p>
+<p>The reference plane shift can be specified with <code class="docutils literal notranslate"><span class="pre">ref_plane</span></code> argument. The shift should be specified in meters, negative lengths is towards the VNA. By default the same shift is applied to both ports. Unequal shift on the two ports is supported by passing a two element list. Both classes take the same argument.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[12]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><a class="sphinx-codeautolink-a" href="../../api/calibration/generated/skrf.calibration.calibration.NISTMultilineTRL.html#skrf.calibration.calibration.NISTMultilineTRL" title="skrf.calibration.calibration.NISTMultilineTRL"><span class="n">cal_shift</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/calibration/generated/skrf.calibration.calibration.NISTMultilineTRL.html#skrf.calibration.calibration.NISTMultilineTRL" title="skrf.calibration.calibration.NISTMultilineTRL"><span class="n">NISTMultilineTRL</span></a><span class="p">(</span>
+</span><span data-line="2">    <span class="n">measured</span> <span class="o">=</span> <span class="n">measured</span><span class="p">,</span>  <span class="c1"># Measured standards</span>
+</span><span data-line="3">    <span class="n">Grefls</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="c1"># Reflection coefficient of the reflect, -1 for short</span>
+</span><span data-line="4">    <span class="n">l</span> <span class="o">=</span> <span class="n">l</span><span class="p">,</span>         <span class="c1"># Lengths of the lines</span>
+</span><span data-line="5">    <span class="n">refl_offset</span> <span class="o">=</span> <span class="mf">75e-6</span><span class="p">,</span> <span class="c1"># Reflect offset from the reference plane</span>
+</span><span data-line="6">    <span class="n">er_est</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span>    <span class="c1"># Estimate of transmission line effective permittivity</span>
+</span><span data-line="7">    <span class="n">switch_terms</span> <span class="o">=</span> <span class="p">(</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">gamma_f</span></a><span class="p">,</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">gamma_r</span></a><span class="p">),</span> <span class="c1"># Switch terms</span>
+</span><span data-line="8">    <span class="c1"># Shift reference planes towards VNA by this amount (in m) on both ports</span>
+</span><span data-line="9">    <span class="n">ref_plane</span> <span class="o">=</span> <span class="o">-</span><span class="mf">50e-6</span>
+</span><span data-line="10">    <span class="p">)</span>
+</span><span data-line="11">
+</span><span data-line="12"><span class="c1"># Correct the DUT using the above calibration</span>
+</span><span data-line="13"><span class="n">corrected_thru</span> <span class="o">=</span> <span class="n">cal</span><span class="o">.</span><span class="n">apply_cal</span><span class="p">(</span><span class="n">measured</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</span><span data-line="14"><span class="n">corrected_thru_shifted</span> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/calibration/generated/skrf.calibration.calibration.NISTMultilineTRL.apply_cal.html#skrf.calibration.calibration.NISTMultilineTRL.apply_cal" title="skrf.calibration.calibration.NISTMultilineTRL.apply_cal"><span class="n">cal_shift</span><span class="o">.</span><span class="n">apply_cal</span></a><span class="p">(</span><span class="n">measured</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</span><span data-line="15">
+</span><span data-line="16"><span class="n">corrected_thru</span><span class="o">.</span><span class="n">plot_s_deg</span><span class="p">(</span><span class="n">m</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">'Thru phase'</span><span class="p">)</span>
+</span><span data-line="17"><span class="n">corrected_thru_shifted</span><span class="o">.</span><span class="n">plot_s_deg</span><span class="p">(</span><span class="n">m</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">'Reference plane shifted thru phase'</span><span class="p">)</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/examples_metrology_Multiline_TRL_33_0.png" src="../../_images/examples_metrology_Multiline_TRL_33_0.png"/>
+</div>
+</div>
+</section>
+<section id="Calibration-reference-impedance-renormalization">
+<h2>Calibration reference impedance renormalization<a class="headerlink" href="#Calibration-reference-impedance-renormalization" title="Link to this heading">#</a></h2>
+<p>The reference impedance of the calibration is by default the transmission line characteristic impedance. If we know the actual characteristic impedance of the lines we can give it to the calibration routine with the <code class="docutils literal notranslate"><span class="pre">z0_line</span></code> argument to renormalize the measured S-parameters to a fixed reference <code class="docutils literal notranslate"><span class="pre">z0_ref</span></code>.</p>
+<p>If the conductance per unit length (G) is much lower than the capacitive reactance per unit length (<span class="math notranslate nohighlight">\(j\omega C_0\)</span>), the characteristic impedance of the transmission line can be written in terms of the propagation constant <span class="math notranslate nohighlight">\(\gamma\)</span> and capacitance per unit length <span class="math notranslate nohighlight">\(C_0\)</span>:</p>
+<p><span class="math notranslate nohighlight">\(Z_0 = \gamma/(j 2 \pi f C_0)\)</span></p>
+<p>If <span class="math notranslate nohighlight">\(C_0\)</span> is known it can be given to the calibration routine with <code class="docutils literal notranslate"><span class="pre">c0</span></code> parameter to renormalize the calibration reference impedance to <code class="docutils literal notranslate"><span class="pre">z0_ref</span></code> (defaults to 50 ohms) assuming G = 0. If the line is lossy the characteristic impedance is complex valued and giving a single <code class="docutils literal notranslate"><span class="pre">c0</span></code> instead of a fixed <code class="docutils literal notranslate"><span class="pre">z0_line</span></code> is usually more accurate.</p>
+<p>In this case we know that the line characteristic impedance is actually 45.7 ohms. To renormalize the calibration from 45.7 ohms to 50 ohms we need to give <code class="docutils literal notranslate"><span class="pre">z0_line=45.7</span></code> argument to the calibration routine. With <code class="docutils literal notranslate"><span class="pre">TUGMultilineTRL</span></code> the same is done afterwards with <code class="docutils literal notranslate"><span class="pre">cal.renormalize(45.7,</span> <span class="pre">50)</span></code>.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[13]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><a class="sphinx-codeautolink-a" href="../../api/calibration/generated/skrf.calibration.calibration.NISTMultilineTRL.html#skrf.calibration.calibration.NISTMultilineTRL" title="skrf.calibration.calibration.NISTMultilineTRL"><span class="n">cal_ref</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/calibration/generated/skrf.calibration.calibration.NISTMultilineTRL.html#skrf.calibration.calibration.NISTMultilineTRL" title="skrf.calibration.calibration.NISTMultilineTRL"><span class="n">NISTMultilineTRL</span></a><span class="p">(</span>
+</span><span data-line="2">    <span class="n">measured</span> <span class="o">=</span> <span class="n">measured</span><span class="p">,</span>  <span class="c1"># Measured standards</span>
+</span><span data-line="3">    <span class="n">Grefls</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="c1"># Reflection coefficient of the reflect, -1 for short</span>
+</span><span data-line="4">    <span class="n">l</span> <span class="o">=</span> <span class="n">l</span><span class="p">,</span>         <span class="c1"># Lengths of the lines</span>
+</span><span data-line="5">    <span class="n">refl_offset</span> <span class="o">=</span> <span class="mf">75e-6</span><span class="p">,</span> <span class="c1"># Reflect offset from the reference plane</span>
+</span><span data-line="6">    <span class="n">er_est</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span>    <span class="c1"># Estimate of transmission line effective permittivity</span>
+</span><span data-line="7">    <span class="n">switch_terms</span> <span class="o">=</span> <span class="p">(</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">gamma_f</span></a><span class="p">,</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">gamma_r</span></a><span class="p">),</span> <span class="c1"># Switch terms</span>
+</span><span data-line="8">    <span class="n">z0_line</span> <span class="o">=</span> <span class="mf">45.7</span><span class="p">,</span> <span class="c1"># Line actual characteristic impedance</span>
+</span><span data-line="9">    <span class="n">z0_ref</span> <span class="o">=</span> <span class="mi">50</span> <span class="c1"># Calibration reference impedance</span>
+</span><span data-line="10">    <span class="p">)</span>
+</span><span data-line="11">
+</span><span data-line="12"><span class="n">cal</span><span class="o">.</span><span class="n">apply_cal</span><span class="p">(</span><span class="n">res_50ohm_meas</span><span class="p">)</span><span class="o">.</span><span class="n">s11</span><span class="o">.</span><span class="n">plot_s_db</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">'50 $\Omega$ termination |$S_</span><span class="si">{11}</span><span class="s1">$|, Z_ref = line'</span><span class="p">)</span>
+</span><span data-line="13"><a class="sphinx-codeautolink-a" href="../../api/calibration/generated/skrf.calibration.calibration.NISTMultilineTRL.apply_cal.html#skrf.calibration.calibration.NISTMultilineTRL.apply_cal" title="skrf.calibration.calibration.NISTMultilineTRL.apply_cal"><span class="n">cal_ref</span><span class="o">.</span><span class="n">apply_cal</span></a><span class="p">(</span><span class="n">res_50ohm_meas</span><span class="p">)</span><span class="o">.</span><span class="n">s11</span><span class="o">.</span><span class="n">plot_s_db</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">'50 $\Omega$ termination |$S_</span><span class="si">{11}</span><span class="s1">$|, Z_ref = 50 $\Omega$'</span><span class="p">)</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/examples_metrology_Multiline_TRL_35_0.png" src="../../_images/examples_metrology_Multiline_TRL_35_0.png"/>
+</div>
+</div>
+<p>After renormalization the 50 ohm termination measurement shows good matching. It’s not perfectly matched due to the noise in the measurements.</p>
+<section id="Calibration-without-reflect-measurement">
+<h3>Calibration without reflect measurement<a class="headerlink" href="#Calibration-without-reflect-measurement" title="Link to this heading">#</a></h3>
+<p>One nice feature of <code class="docutils literal notranslate"><span class="pre">TUGMultilineTRL</span></code> is that you can use only line standards if you only care about the propagation constant and S21 and S12 of the calibrated DUT. However, to obtain correct S11 and S22 values of the calibrated DUT, you also need to provide measurement of the reflect standard. This can be seen in the example below, where the phase of S11 does not overlap when using and not using the reflect standard. Note, if you do include the reflect standard, <code class="docutils literal notranslate"><span class="pre">TUGMultilineTRL</span></code> method
+also offers you the capability to provide multiple reflect measurements.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[14]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="c1"># TUG multiline without reflect measurement</span>
+</span><span data-line="2"><a class="sphinx-codeautolink-a" href="../../api/calibration/generated/skrf.calibration.calibration.TUGMultilineTRL.html#skrf.calibration.calibration.TUGMultilineTRL" title="skrf.calibration.calibration.TUGMultilineTRL"><span class="n">cal_no_reflect</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/calibration/generated/skrf.calibration.calibration.TUGMultilineTRL.html#skrf.calibration.calibration.TUGMultilineTRL" title="skrf.calibration.calibration.TUGMultilineTRL"><span class="n">TUGMultilineTRL</span></a><span class="p">(</span>
+</span><span data-line="3">        <span class="n">line_meas</span> <span class="o">=</span> <span class="p">[</span><span class="n">measured</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">+</span> <span class="n">measured</span><span class="p">[</span><span class="mi">2</span><span class="p">:],</span>
+</span><span data-line="4">        <span class="n">line_lengths</span> <span class="o">=</span> <span class="n">l</span><span class="p">,</span>
+</span><span data-line="5">        <span class="n">er_est</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span>
+</span><span data-line="6">        <span class="n">switch_terms</span> <span class="o">=</span> <span class="p">(</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">gamma_f</span></a><span class="p">,</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">gamma_r</span></a><span class="p">)</span>
+</span><span data-line="7">        <span class="p">)</span>
+</span><span data-line="8">
+</span><span data-line="9"><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+</span><span data-line="10"><span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">'DUT S11 phase'</span><span class="p">)</span>
+</span><span data-line="11"><span class="n">cal_tug</span><span class="o">.</span><span class="n">apply_cal</span><span class="p">(</span><span class="n">dut_meas</span><span class="p">)</span><span class="o">.</span><span class="n">plot_s_deg</span><span class="p">(</span><span class="n">m</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">'TUG w/ reflect'</span><span class="p">)</span>
+</span><span data-line="12"><a class="sphinx-codeautolink-a" href="../../api/calibration/generated/skrf.calibration.calibration.TUGMultilineTRL.apply_cal.html#skrf.calibration.calibration.TUGMultilineTRL.apply_cal" title="skrf.calibration.calibration.TUGMultilineTRL.apply_cal"><span class="n">cal_no_reflect</span><span class="o">.</span><span class="n">apply_cal</span></a><span class="p">(</span><span class="n">dut_meas</span><span class="p">)</span><span class="o">.</span><span class="n">plot_s_deg</span><span class="p">(</span><span class="n">m</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">'--'</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">'TUG w/o reflect'</span><span class="p">)</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/examples_metrology_Multiline_TRL_38_0.png" src="../../_images/examples_metrology_Multiline_TRL_38_0.png"/>
+</div>
+</div>
+</section>
+</section>
+<section id="Monte-Carlo-analysis---NIST-vs-TUG">
+<h2>Monte Carlo analysis - NIST vs TUG<a class="headerlink" href="#Monte-Carlo-analysis---NIST-vs-TUG" title="Link to this heading">#</a></h2>
+<p>Using MC analysis, we generate synthetic data of the standards with random noise and repeat the process multiple times, each time with a new noise sample. At each trial, we also compute the calibrated DUT, which we use to calculate the mean absolute error (MAE) of the calibration method. The general definition of MAE is as follows:</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[\text{MAE} = \frac{1}{M}\sum_{i=1}^{M} |x_i - x_\mathrm{true}|\]</div>
+</div>
+<p>where <span class="math notranslate nohighlight">\(x_i\)</span> is the <span class="math notranslate nohighlight">\(i\)</span>-th MC trial and <span class="math notranslate nohighlight">\(x_\mathrm{true}\)</span> is the true value. As the reference true value we use the DUT corrected with the measurements generated above, before the Monte Carlo noise is added. This runs both calibrations 100 times over the full frequency grid, so expect it to take about a minute.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[15]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="c1"># Monte Carlo Analysis</span>
+</span><span data-line="2"><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/builtins/functions.html#print"><span class="nb">print</span></a><span class="p">(</span><span class="s1">'MC starts: '</span><span class="p">)</span>
+</span><span data-line="3"><span class="n">M</span> <span class="o">=</span> <span class="mi">100</span> <span class="c1"># number of trials</span>
+</span><span data-line="4"><span class="n">mag_std</span> <span class="o">=</span> <span class="mf">0.05</span> <span class="c1"># std of magnitude (linear)</span>
+</span><span data-line="5"><span class="n">phase_std</span> <span class="o">=</span> <span class="mi">20</span> <span class="c1"># std of phase (degrees)</span>
+</span><span data-line="6">
+</span><span data-line="7"><span class="c1"># Reference value, both methods agree on the unmodified measurements</span>
+</span><span data-line="8"><span class="n">dut_ideal</span> <span class="o">=</span> <span class="n">cal_tug</span><span class="o">.</span><span class="n">apply_cal</span><span class="p">(</span><span class="n">dut_meas</span><span class="p">)</span>
+</span><span data-line="9">
+</span><span data-line="10"><span class="n">mae_nist</span> <span class="o">=</span> <span class="mi">0</span>
+</span><span data-line="11"><span class="n">mae_tug</span>  <span class="o">=</span> <span class="mi">0</span>
+</span><span data-line="12">
+</span><span data-line="13"><span class="k">for</span> <span class="n">inx</span> <span class="ow">in</span> <a class="sphinx-codeautolink-a" href="https://docs.python.org/3/builtins/stdtypes.html#range"><span class="nb">range</span></a><span class="p">(</span><span class="n">M</span><span class="p">):</span>
+</span><span data-line="14">    <span class="c1"># add noise (make sure to copy and not override the original data)</span>
+</span><span data-line="15">    <span class="n">measured_n</span> <span class="o">=</span> <span class="p">[</span><span class="n">NW</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span> <span class="k">for</span> <span class="n">NW</span> <span class="ow">in</span> <span class="n">measured</span><span class="p">]</span>
+</span><span data-line="16">    <span class="k">for</span> <span class="n">NW</span> <span class="ow">in</span> <span class="n">measured_n</span><span class="p">:</span>
+</span><span data-line="17">        <span class="n">NW</span><span class="o">.</span><span class="n">add_noise_polar</span><span class="p">(</span><span class="n">mag_std</span><span class="p">,</span> <span class="n">phase_std</span><span class="p">)</span>
+</span><span data-line="18">
+</span><span data-line="19">    <span class="c1"># NIST multiline TRL</span>
+</span><span data-line="20">    <a class="sphinx-codeautolink-a" href="../../api/calibration/generated/skrf.calibration.calibration.NISTMultilineTRL.html#skrf.calibration.calibration.NISTMultilineTRL" title="skrf.calibration.calibration.NISTMultilineTRL"><span class="n">cal_n</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/calibration/generated/skrf.calibration.calibration.NISTMultilineTRL.html#skrf.calibration.calibration.NISTMultilineTRL" title="skrf.calibration.calibration.NISTMultilineTRL"><span class="n">NISTMultilineTRL</span></a><span class="p">(</span><span class="n">measured</span><span class="o">=</span><span class="n">measured_n</span><span class="p">,</span> <span class="n">Grefls</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">l</span><span class="o">=</span><span class="n">l</span><span class="p">,</span>
+</span><span data-line="21">                <span class="n">refl_offset</span><span class="o">=</span><span class="mf">75e-6</span><span class="p">,</span> <span class="n">er_est</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">switch_terms</span><span class="o">=</span><span class="p">(</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">gamma_f</span></a><span class="p">,</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">gamma_r</span></a><span class="p">))</span>
+</span><span data-line="22">    <span class="n">mae_nist</span> <span class="o">=</span> <span class="n">mae_nist</span> <span class="o">+</span> <a class="sphinx-codeautolink-a" href="https://docs.python.org/3/builtins/functions.html#abs"><span class="nb">abs</span></a><span class="p">(</span><a class="sphinx-codeautolink-a" href="../../api/calibration/generated/skrf.calibration.calibration.NISTMultilineTRL.apply_cal.html#skrf.calibration.calibration.NISTMultilineTRL.apply_cal" title="skrf.calibration.calibration.NISTMultilineTRL.apply_cal"><span class="n">cal_n</span><span class="o">.</span><span class="n">apply_cal</span></a><span class="p">(</span><span class="n">dut_meas</span><span class="p">)</span><span class="o">.</span><span class="n">s</span> <span class="o">-</span> <span class="n">dut_ideal</span><span class="o">.</span><span class="n">s</span><span class="p">)</span><span class="o">/</span><span class="n">M</span>
+</span><span data-line="23">
+</span><span data-line="24">    <span class="c1"># TUG multiline TRL</span>
+</span><span data-line="25">    <a class="sphinx-codeautolink-a" href="../../api/calibration/generated/skrf.calibration.calibration.TUGMultilineTRL.html#skrf.calibration.calibration.TUGMultilineTRL" title="skrf.calibration.calibration.TUGMultilineTRL"><span class="n">cal_t</span></a> <span class="o">=</span> <a class="sphinx-codeautolink-a" href="../../api/calibration/generated/skrf.calibration.calibration.TUGMultilineTRL.html#skrf.calibration.calibration.TUGMultilineTRL" title="skrf.calibration.calibration.TUGMultilineTRL"><span class="n">TUGMultilineTRL</span></a><span class="p">(</span><span class="n">line_meas</span><span class="o">=</span><span class="p">[</span><span class="n">measured_n</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span><span class="o">+</span><span class="n">measured_n</span><span class="p">[</span><span class="mi">2</span><span class="p">:],</span> <span class="n">line_lengths</span><span class="o">=</span><span class="n">l</span><span class="p">,</span>
+</span><span data-line="26">                <span class="n">reflect_meas</span><span class="o">=</span><span class="p">[</span><span class="n">measured_n</span><span class="p">[</span><span class="mi">1</span><span class="p">]],</span> <span class="n">reflect_est</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">reflect_offset</span><span class="o">=</span><span class="mf">75e-6</span><span class="p">,</span>
+</span><span data-line="27">                <span class="n">er_est</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">switch_terms</span><span class="o">=</span><span class="p">(</span><a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">gamma_f</span></a><span class="p">,</span> <a class="sphinx-codeautolink-a" href="../../api/generated/skrf.network.Network.html#skrf.network.Network" title="skrf.network.Network"><span class="n">gamma_r</span></a><span class="p">))</span>
+</span><span data-line="28">    <span class="n">mae_tug</span> <span class="o">=</span> <span class="n">mae_tug</span> <span class="o">+</span> <a class="sphinx-codeautolink-a" href="https://docs.python.org/3/builtins/functions.html#abs"><span class="nb">abs</span></a><span class="p">(</span><a class="sphinx-codeautolink-a" href="../../api/calibration/generated/skrf.calibration.calibration.TUGMultilineTRL.apply_cal.html#skrf.calibration.calibration.TUGMultilineTRL.apply_cal" title="skrf.calibration.calibration.TUGMultilineTRL.apply_cal"><span class="n">cal_t</span><span class="o">.</span><span class="n">apply_cal</span></a><span class="p">(</span><span class="n">dut_meas</span><span class="p">)</span><span class="o">.</span><span class="n">s</span> <span class="o">-</span> <span class="n">dut_ideal</span><span class="o">.</span><span class="n">s</span><span class="p">)</span><span class="o">/</span><span class="n">M</span>
+</span><span data-line="29">
+</span><span data-line="30">    <a class="sphinx-codeautolink-a" href="https://docs.python.org/3/builtins/functions.html#print"><span class="nb">print</span></a><span class="p">(</span><span class="sa">f</span><span class="s1">'MC Index: </span><span class="si">{</span><span class="n">inx</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s1">/</span><span class="si">{</span><span class="n">M</span><span class="si">}</span><span class="s1"> done.'</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">'</span><span class="se">\r</span><span class="s1">'</span><span class="p">,</span> <span class="n">flush</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+MC starts:
+MC Index: 100/100 done.
+</pre></div></div>
+</div>
+<p>Finally, we compute and plot the MAE. The results show that TUG method on average has a lower error compared to the NIST method.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">[16]:
+</span></pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+</span><span data-line="2"><span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">'Mean Absolute Error'</span><span class="p">)</span>
+</span><span data-line="3"><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">f_ghz</span><span class="p">,</span> <span class="n">mae_nist</span><span class="p">[:,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s1">'NIST, S11'</span><span class="p">)</span>
+</span><span data-line="4"><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">f_ghz</span><span class="p">,</span> <span class="n">mae_nist</span><span class="p">[:,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s1">'NIST, S21'</span><span class="p">)</span>
+</span><span data-line="5"><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">f_ghz</span><span class="p">,</span> <span class="n">mae_tug</span><span class="p">[:,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s1">'TUG, S11'</span><span class="p">)</span>
+</span><span data-line="6"><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">f_ghz</span><span class="p">,</span> <span class="n">mae_tug</span><span class="p">[:,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s1">'TUG, S21'</span><span class="p">)</span>
+</span><span data-line="7"><span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">'upper right'</span><span class="p">)</span>
+</span><span data-line="8"><span class="n">dut_meas</span><span class="o">.</span><span class="n">frequency</span><span class="o">.</span><span class="n">labelXAxis</span><span class="p">()</span>
+</span></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/examples_metrology_Multiline_TRL_42_0.png" src="../../_images/examples_metrology_Multiline_TRL_42_0.png"/>
+</div>
+</div>
+</section>
+</section>
+
+        </article><button class="back-to-top" type="button">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+  </svg>
+  <span>Back to top</span>
+</button><div class="navigation flex print:hidden"><div class="navigation-prev">
+    <a href="Multi-port%20Calibration.html">
+      <i class="i-lucide chevron-left"></i>
+      <div class="page-info">
+        <span>Previous</span><div class="title">Multi-port calibration</div></div>
+    </a>
+  </div><div class="navigation-next">
+    <a href="NanoVNA_V2_4port-splitter.html">
+      <div class="page-info">
+        <span>Next</span>
+        <div class="title">Measuring a 4-Port With The 1.5-Port NanoVNA V2</div>
+      </div>
+      <i class="i-lucide chevron-right"></i>
+    </a>
+  </div></div></div>
+    </div>
+  </main>
+</div>
+<footer class="sy-foot">
+  <div class="sy-foot-inner sy-container mx-auto">
+    <div class="sy-foot-reserved md:flex justify-between items-center">
+      <div class="sy-foot-copyright"><p>2025, scikit-rf team</p>
+  
+  <p>
+    Made with
+    
+    <a href="https://www.sphinx-doc.org/">Sphinx</a> and
+    
+    <a href="https://shibuya.lepture.com">Shibuya theme</a>.
+  </p>
+</div>
+      <div class="sy-foot-socials">
+  <a href="https://github.com/scikit-rf/scikit-rf" aria-label="GitHub">
+    <iconify-icon icon="simple-icons:github"></iconify-icon>
+  </a></div>
+    </div>
+  </div>
+</footer>
+      <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../_static/copybutton.js?v=34bd459d"></script>
+      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+      <script src="../../_static/shibuya.js?v=50760d75"></script>
+      <script src="https://cdn.jsdelivr.net/npm/@jupyter-widgets/html-manager@^1.0.1/dist/embed-amd.js"></script>
+      <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
+      <script src="../../_static/skrf.js?v=bdeb9fb0"></script></body>
+</html>

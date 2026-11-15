@@ -1,0 +1,6 @@
+skrf.vectorFitting.VectorFitting.get\_spurious
+==============================================
+
+.. currentmodule:: skrf.vectorFitting
+
+.. automethod:: VectorFitting.get_spurious

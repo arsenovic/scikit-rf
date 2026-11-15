@@ -1,0 +1,37 @@
+﻿skrf.calibration.deembedding.IEEEP370
+=====================================
+
+.. currentmodule:: skrf.calibration.deembedding
+
+.. autoclass:: IEEEP370
+  :no-members:
+
+
+
+
+
+
+
+.. rubric:: Methods
+
+.. autosummary::
+  :toctree:
+  :nosignatures:
+
+  ~IEEEP370.COM_receiver_noise_filter
+  ~IEEEP370.DC
+  ~IEEEP370.NRP
+  ~IEEEP370.__init__
+  ~IEEEP370.add_dc
+  ~IEEEP370.dc_interp
+  ~IEEEP370.deembed
+  ~IEEEP370.extrapolate_to_dc
+  ~IEEEP370.getz
+  ~IEEEP370.makeStep
+  ~IEEEP370.makeTL
+  ~IEEEP370.peelNPointsLossless
+  ~IEEEP370.shiftNPoints
+  ~IEEEP370.shiftOnePort
+  ~IEEEP370.split2xthru
+  ~IEEEP370.thru
+

@@ -1,0 +1,6 @@
+skrf.vi.vna.rohde\_schwarz.ZVA.timeout
+======================================
+
+.. currentmodule:: skrf.vi.vna.rohde_schwarz
+
+.. autoproperty:: ZVA.timeout

@@ -1,0 +1,6 @@
+skrf.vi.vna.keysight.FieldFox.get\_snp\_network
+===============================================
+
+.. currentmodule:: skrf.vi.vna.keysight
+
+.. automethod:: FieldFox.get_snp_network

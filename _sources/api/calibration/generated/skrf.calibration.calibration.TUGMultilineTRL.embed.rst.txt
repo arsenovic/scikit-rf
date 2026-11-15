@@ -1,0 +1,6 @@
+skrf.calibration.calibration.TUGMultilineTRL.embed
+==================================================
+
+.. currentmodule:: skrf.calibration.calibration
+
+.. automethod:: TUGMultilineTRL.embed

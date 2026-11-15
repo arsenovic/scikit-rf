@@ -1,0 +1,6 @@
+skrf.calibration.deembedding.IEEEP370.split2xthru
+=================================================
+
+.. currentmodule:: skrf.calibration.deembedding
+
+.. automethod:: IEEEP370.split2xthru

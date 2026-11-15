@@ -1,0 +1,6 @@
+﻿skrf.calibration.calibration.terminate\_nport
+=============================================
+
+.. currentmodule:: skrf.calibration.calibration
+
+.. autofunction:: terminate_nport
